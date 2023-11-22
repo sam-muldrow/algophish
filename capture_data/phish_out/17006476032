@@ -1,0 +1,550 @@
+<!doctype html>
+<html lang="nl-NL">
+<head><meta charset="UTF-8"><script>if(navigator.userAgent.match(/MSIE|Internet Explorer/i)||navigator.userAgent.match(/Trident\/7\..*?rv:11/i)){var href=document.location.href;if(!href.match(/[?&]nowprocket/)){if(href.indexOf("?")==-1){if(href.indexOf("#")==-1){document.location.href=href+"?nowprocket=1"}else{document.location.href=href.replace("#","?nowprocket=1#")}}else{if(href.indexOf("#")==-1){document.location.href=href+"&nowprocket=1"}else{document.location.href=href.replace("#","&nowprocket=1#")}}}}</script><script>class RocketLazyLoadScripts{constructor(){this.v="1.2.4",this.triggerEvents=["keydown","mousedown","mousemove","touchmove","touchstart","touchend","wheel"],this.userEventHandler=this._triggerListener.bind(this),this.touchStartHandler=this._onTouchStart.bind(this),this.touchMoveHandler=this._onTouchMove.bind(this),this.touchEndHandler=this._onTouchEnd.bind(this),this.clickHandler=this._onClick.bind(this),this.interceptedClicks=[],window.addEventListener("pageshow",t=>{this.persisted=t.persisted}),window.addEventListener("DOMContentLoaded",()=>{this._preconnect3rdParties()}),this.delayedScripts={normal:[],async:[],defer:[]},this.trash=[],this.allJQueries=[]}_addUserInteractionListener(t){if(document.hidden){t._triggerListener();return}this.triggerEvents.forEach(e=>window.addEventListener(e,t.userEventHandler,{passive:!0})),window.addEventListener("touchstart",t.touchStartHandler,{passive:!0}),window.addEventListener("mousedown",t.touchStartHandler),document.addEventListener("visibilitychange",t.userEventHandler)}_removeUserInteractionListener(){this.triggerEvents.forEach(t=>window.removeEventListener(t,this.userEventHandler,{passive:!0})),document.removeEventListener("visibilitychange",this.userEventHandler)}_onTouchStart(t){"HTML"!==t.target.tagName&&(window.addEventListener("touchend",this.touchEndHandler),window.addEventListener("mouseup",this.touchEndHandler),window.addEventListener("touchmove",this.touchMoveHandler,{passive:!0}),window.addEventListener("mousemove",this.touchMoveHandler),t.target.addEventListener("click",this.clickHandler),this._renameDOMAttribute(t.target,"onclick","rocket-onclick"),this._pendingClickStarted())}_onTouchMove(t){window.removeEventListener("touchend",this.touchEndHandler),window.removeEventListener("mouseup",this.touchEndHandler),window.removeEventListener("touchmove",this.touchMoveHandler,{passive:!0}),window.removeEventListener("mousemove",this.touchMoveHandler),t.target.removeEventListener("click",this.clickHandler),this._renameDOMAttribute(t.target,"rocket-onclick","onclick"),this._pendingClickFinished()}_onTouchEnd(){window.removeEventListener("touchend",this.touchEndHandler),window.removeEventListener("mouseup",this.touchEndHandler),window.removeEventListener("touchmove",this.touchMoveHandler,{passive:!0}),window.removeEventListener("mousemove",this.touchMoveHandler)}_onClick(t){t.target.removeEventListener("click",this.clickHandler),this._renameDOMAttribute(t.target,"rocket-onclick","onclick"),this.interceptedClicks.push(t),t.preventDefault(),t.stopPropagation(),t.stopImmediatePropagation(),this._pendingClickFinished()}_replayClicks(){window.removeEventListener("touchstart",this.touchStartHandler,{passive:!0}),window.removeEventListener("mousedown",this.touchStartHandler),this.interceptedClicks.forEach(t=>{t.target.dispatchEvent(new MouseEvent("click",{view:t.view,bubbles:!0,cancelable:!0}))})}_waitForPendingClicks(){return new Promise(t=>{this._isClickPending?this._pendingClickFinished=t:t()})}_pendingClickStarted(){this._isClickPending=!0}_pendingClickFinished(){this._isClickPending=!1}_renameDOMAttribute(t,e,r){t.hasAttribute&&t.hasAttribute(e)&&(event.target.setAttribute(r,event.target.getAttribute(e)),event.target.removeAttribute(e))}_triggerListener(){this._removeUserInteractionListener(this),"loading"===document.readyState?document.addEventListener("DOMContentLoaded",this._loadEverythingNow.bind(this)):this._loadEverythingNow()}_preconnect3rdParties(){let t=[];document.querySelectorAll("script[type=rocketlazyloadscript][data-rocket-src]").forEach(e=>{let r=e.getAttribute("data-rocket-src");if(r&&0!==r.indexOf("data:")){0===r.indexOf("//")&&(r=location.protocol+r);try{let i=new URL(r).origin;i!==location.origin&&t.push({src:i,crossOrigin:e.crossOrigin||"module"===e.getAttribute("data-rocket-type")})}catch(n){}}}),t=[...new Map(t.map(t=>[JSON.stringify(t),t])).values()],this._batchInjectResourceHints(t,"preconnect")}async _loadEverythingNow(){this.lastBreath=Date.now(),this._delayEventListeners(),this._delayJQueryReady(this),this._handleDocumentWrite(),this._registerAllDelayedScripts(),this._preloadAllScripts(),await this._loadScriptsFromList(this.delayedScripts.normal),await this._loadScriptsFromList(this.delayedScripts.defer),await this._loadScriptsFromList(this.delayedScripts.async);try{await this._triggerDOMContentLoaded(),await this._pendingWebpackRequests(this),await this._triggerWindowLoad()}catch(t){console.error(t)}window.dispatchEvent(new Event("rocket-allScriptsLoaded")),this._waitForPendingClicks().then(()=>{this._replayClicks()}),this._emptyTrash()}_registerAllDelayedScripts(){document.querySelectorAll("script[type=rocketlazyloadscript]").forEach(t=>{t.hasAttribute("data-rocket-src")?t.hasAttribute("async")&&!1!==t.async?this.delayedScripts.async.push(t):t.hasAttribute("defer")&&!1!==t.defer||"module"===t.getAttribute("data-rocket-type")?this.delayedScripts.defer.push(t):this.delayedScripts.normal.push(t):this.delayedScripts.normal.push(t)})}async _transformScript(t){if(await this._littleBreath(),!0===t.noModule&&"noModule"in HTMLScriptElement.prototype){t.setAttribute("data-rocket-status","skipped");return}return new Promise(navigator.userAgent.indexOf("Firefox/")>0||""===navigator.vendor?e=>{let r=document.createElement("script");[...t.attributes].forEach(t=>{let e=t.nodeName;"type"!==e&&("data-rocket-type"===e&&(e="type"),"data-rocket-src"===e&&(e="src"),r.setAttribute(e,t.nodeValue))}),t.text&&(r.text=t.text),r.hasAttribute("src")?(r.addEventListener("load",e),r.addEventListener("error",e)):(r.text=t.text,e());try{t.parentNode.replaceChild(r,t)}catch(i){e()}}:e=>{function r(){t.setAttribute("data-rocket-status","failed"),e()}try{let i=t.getAttribute("data-rocket-type"),n=t.getAttribute("data-rocket-src");i?(t.type=i,t.removeAttribute("data-rocket-type")):t.removeAttribute("type"),t.addEventListener("load",function r(){t.setAttribute("data-rocket-status","executed"),e()}),t.addEventListener("error",r),n?(t.removeAttribute("data-rocket-src"),t.src=n):t.src="data:text/javascript;base64,"+window.btoa(unescape(encodeURIComponent(t.text)))}catch(s){r()}})}async _loadScriptsFromList(t){let e=t.shift();return e&&e.isConnected?(await this._transformScript(e),this._loadScriptsFromList(t)):Promise.resolve()}_preloadAllScripts(){this._batchInjectResourceHints([...this.delayedScripts.normal,...this.delayedScripts.defer,...this.delayedScripts.async],"preload")}_batchInjectResourceHints(t,e){var r=document.createDocumentFragment();t.forEach(t=>{let i=t.getAttribute&&t.getAttribute("data-rocket-src")||t.src;if(i){let n=document.createElement("link");n.href=i,n.rel=e,"preconnect"!==e&&(n.as="script"),t.getAttribute&&"module"===t.getAttribute("data-rocket-type")&&(n.crossOrigin=!0),t.crossOrigin&&(n.crossOrigin=t.crossOrigin),t.integrity&&(n.integrity=t.integrity),r.appendChild(n),this.trash.push(n)}}),document.head.appendChild(r)}_delayEventListeners(){let t={};function e(e,r){!function e(r){!t[r]&&(t[r]={originalFunctions:{add:r.addEventListener,remove:r.removeEventListener},eventsToRewrite:[]},r.addEventListener=function(){arguments[0]=i(arguments[0]),t[r].originalFunctions.add.apply(r,arguments)},r.removeEventListener=function(){arguments[0]=i(arguments[0]),t[r].originalFunctions.remove.apply(r,arguments)});function i(e){return t[r].eventsToRewrite.indexOf(e)>=0?"rocket-"+e:e}}(e),t[e].eventsToRewrite.push(r)}function r(t,e){let r=t[e];Object.defineProperty(t,e,{get:()=>r||function(){},set(i){t["rocket"+e]=r=i}})}e(document,"DOMContentLoaded"),e(window,"DOMContentLoaded"),e(window,"load"),e(window,"pageshow"),e(document,"readystatechange"),r(document,"onreadystatechange"),r(window,"onload"),r(window,"onpageshow")}_delayJQueryReady(t){let e;function r(t){return t.split(" ").map(t=>"load"===t||0===t.indexOf("load.")?"rocket-jquery-load":t).join(" ")}function i(i){if(i&&i.fn&&!t.allJQueries.includes(i)){i.fn.ready=i.fn.init.prototype.ready=function(e){return t.domReadyFired?e.bind(document)(i):document.addEventListener("rocket-DOMContentLoaded",()=>e.bind(document)(i)),i([])};let n=i.fn.on;i.fn.on=i.fn.init.prototype.on=function(){return this[0]===window&&("string"==typeof arguments[0]||arguments[0]instanceof String?arguments[0]=r(arguments[0]):"object"==typeof arguments[0]&&Object.keys(arguments[0]).forEach(t=>{let e=arguments[0][t];delete arguments[0][t],arguments[0][r(t)]=e})),n.apply(this,arguments),this},t.allJQueries.push(i)}e=i}i(window.jQuery),Object.defineProperty(window,"jQuery",{get:()=>e,set(t){i(t)}})}async _pendingWebpackRequests(t){let e=document.querySelector("script[data-webpack]");async function r(){return new Promise(t=>{e.addEventListener("load",t),e.addEventListener("error",t)})}e&&(await r(),await t._requestAnimFrame(),await t._pendingWebpackRequests(t))}async _triggerDOMContentLoaded(){this.domReadyFired=!0,await this._littleBreath(),document.dispatchEvent(new Event("rocket-DOMContentLoaded")),await this._littleBreath(),window.dispatchEvent(new Event("rocket-DOMContentLoaded")),await this._littleBreath(),document.dispatchEvent(new Event("rocket-readystatechange")),await this._littleBreath(),document.rocketonreadystatechange&&document.rocketonreadystatechange()}async _triggerWindowLoad(){await this._littleBreath(),window.dispatchEvent(new Event("rocket-load")),await this._littleBreath(),window.rocketonload&&window.rocketonload(),await this._littleBreath(),this.allJQueries.forEach(t=>t(window).trigger("rocket-jquery-load")),await this._littleBreath();let t=new Event("rocket-pageshow");t.persisted=this.persisted,window.dispatchEvent(t),await this._littleBreath(),window.rocketonpageshow&&window.rocketonpageshow({persisted:this.persisted})}_handleDocumentWrite(){let t=new Map;document.write=document.writeln=function(e){let r=document.currentScript;r||console.error("WPRocket unable to document.write this: "+e);let i=document.createRange(),n=r.parentElement,s=t.get(r);void 0===s&&(s=r.nextSibling,t.set(r,s));let a=document.createDocumentFragment();i.setStart(a,0),a.appendChild(i.createContextualFragment(e)),n.insertBefore(a,s)}}async _littleBreath(){Date.now()-this.lastBreath>45&&(await this._requestAnimFrame(),this.lastBreath=Date.now())}async _requestAnimFrame(){return document.hidden?new Promise(t=>setTimeout(t)):new Promise(t=>requestAnimationFrame(t))}_emptyTrash(){this.trash.forEach(t=>t.remove())}static run(){let t=new RocketLazyLoadScripts;t._addUserInteractionListener(t)}}RocketLazyLoadScripts.run();</script>
+    
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="profile" href="https://gmpg.org/xfn/11">
+
+    <meta name='robots' content='index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1' />
+
+	<!-- This site is optimized with the Yoast SEO plugin v21.5 - https://yoast.com/wordpress/plugins/seo/ -->
+	<title>Start - Endovelicus</title><link rel="preload" as="style" href="https://fonts.googleapis.com/css?family=Laila%3A400%2C700&#038;display=swap" /><link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Laila%3A400%2C700&#038;display=swap" media="print" onload="this.media='all'" /><noscript><link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Laila%3A400%2C700&#038;display=swap" /></noscript>
+	<link rel="canonical" href="https://endovelicus.nl/" />
+	<meta property="og:locale" content="nl_NL" />
+	<meta property="og:type" content="website" />
+	<meta property="og:title" content="Start - Endovelicus" />
+	<meta property="og:url" content="https://endovelicus.nl/" />
+	<meta property="og:site_name" content="Endovelicus" />
+	<meta property="article:modified_time" content="2019-11-26T11:22:43+00:00" />
+	<meta name="twitter:card" content="summary_large_image" />
+	<script type="application/ld+json" class="yoast-schema-graph">{"@context":"https://schema.org","@graph":[{"@type":"WebPage","@id":"https://endovelicus.nl/","url":"https://endovelicus.nl/","name":"Start - Endovelicus","isPartOf":{"@id":"https://endovelicus.nl/#website"},"datePublished":"2019-10-14T10:13:24+00:00","dateModified":"2019-11-26T11:22:43+00:00","breadcrumb":{"@id":"https://endovelicus.nl/#breadcrumb"},"inLanguage":"nl-NL","potentialAction":[{"@type":"ReadAction","target":["https://endovelicus.nl/"]}]},{"@type":"BreadcrumbList","@id":"https://endovelicus.nl/#breadcrumb","itemListElement":[{"@type":"ListItem","position":1,"name":"Home"}]},{"@type":"WebSite","@id":"https://endovelicus.nl/#website","url":"https://endovelicus.nl/","name":"Endovelicus","description":"","potentialAction":[{"@type":"SearchAction","target":{"@type":"EntryPoint","urlTemplate":"https://endovelicus.nl/?s={search_term_string}"},"query-input":"required name=search_term_string"}],"inLanguage":"nl-NL"}]}</script>
+	<!-- / Yoast SEO plugin. -->
+
+
+<link rel='dns-prefetch' href='//cdn.materialdesignicons.com' />
+<link href='https://fonts.gstatic.com' crossorigin rel='preconnect' />
+<link rel='stylesheet' id='wp-block-library-css' href='https://endovelicus.nl/wp-includes/css/dist/block-library/style.min.css?ver=6.4.1' type='text/css' media='all' />
+<style id='classic-theme-styles-inline-css' type='text/css'>
+/*! This file is auto-generated */
+.wp-block-button__link{color:#fff;background-color:#32373c;border-radius:9999px;box-shadow:none;text-decoration:none;padding:calc(.667em + 2px) calc(1.333em + 2px);font-size:1.125em}.wp-block-file__button{background:#32373c;color:#fff;text-decoration:none}
+</style>
+<link data-minify="1" rel='stylesheet' id='contact-form-7-css' href='https://endovelicus.nl/wp-content/cache/min/1/wp-content/plugins/contact-form-7/includes/css/styles.css?ver=1639402398' type='text/css' media='all' />
+<link data-minify="1" rel='stylesheet' id='endovelicus-style-css' href='https://endovelicus.nl/wp-content/cache/min/1/wp-content/themes/endovelicus/style.css?ver=1639402398' type='text/css' media='all' />
+<link data-minify="1" rel='stylesheet' id='messages-css-css' href='https://endovelicus.nl/wp-content/cache/min/1/wp-content/themes/endovelicus/css/messages.css?ver=1639402398' type='text/css' media='all' />
+<link data-minify="1" rel='stylesheet' id='materialicons-css' href='https://endovelicus.nl/wp-content/cache/min/1/4.4.95/css/materialdesignicons.min.css?ver=1639402398' type='text/css' media='all' />
+<link rel='stylesheet' id='fancybox-css' href='https://endovelicus.nl/wp-content/themes/endovelicus/vendor/jquery.fancybox.min.css?ver=6.4.1' type='text/css' media='all' />
+<link data-minify="1" rel='stylesheet' id='default-css-css' href='https://endovelicus.nl/wp-content/cache/min/1/wp-content/themes/endovelicus/css/default.css?ver=1639402399' type='text/css' media='all' />
+<link data-minify="1" rel='stylesheet' id='bmi-css-css' href='https://endovelicus.nl/wp-content/cache/min/1/wp-content/themes/endovelicus/css/bmi.css?ver=1639402399' type='text/css' media='all' />
+<link data-minify="1" rel='stylesheet' id='resizes-css-css' href='https://endovelicus.nl/wp-content/cache/min/1/wp-content/themes/endovelicus/css/resizes.css?ver=1639402399' type='text/css' media='all' />
+<script type="rocketlazyloadscript" data-minify="1" data-rocket-type="text/javascript" data-rocket-src="https://endovelicus.nl/wp-content/cache/min/1/wp-content/themes/endovelicus/js/cookies.js?ver=1639402399" id="cookies-js-js" defer></script>
+<script type="rocketlazyloadscript" data-rocket-type="text/javascript" data-rocket-src="https://endovelicus.nl/wp-content/themes/endovelicus/vendor/masonry.min.js?ver=6.4.1" id="masonry-script-js" defer></script>
+<script type="rocketlazyloadscript" data-rocket-type="text/javascript" data-rocket-src="https://endovelicus.nl/wp-content/themes/endovelicus/vendor/lozad.min.js?ver=6.4.1" id="lozad-script-js" defer></script>
+<link rel="https://api.w.org/" href="https://endovelicus.nl/wp-json/" /><link rel="alternate" type="application/json" href="https://endovelicus.nl/wp-json/wp/v2/pages/11" /><link rel="alternate" type="application/json+oembed" href="https://endovelicus.nl/wp-json/oembed/1.0/embed?url=https%3A%2F%2Fendovelicus.nl%2F" />
+<link rel="alternate" type="text/xml+oembed" href="https://endovelicus.nl/wp-json/oembed/1.0/embed?url=https%3A%2F%2Fendovelicus.nl%2F&#038;format=xml" />
+
+    
+
+    <link rel='shortcut icon' type='image/x-icon' href='/icon/favicon.ico'/>
+    <link rel="icon" sizes="192x192" href="/icon/favicon.png">
+
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+    <script type="rocketlazyloadscript" async data-rocket-src="https://www.googletagmanager.com/gtag/js?id=UA-21762526-1"></script>
+    <script type="rocketlazyloadscript">
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+
+        gtag('config', 'UA-21762526-1');
+    </script>
+
+
+</head>
+
+<body class="home page-template-default page page-id-11">
+
+<div id="page" class="site">
+
+    <header id="masthead" class="site-header noselect">
+
+        <div class="container">
+            <a href="https://endovelicus.nl/">
+                <div class="icon">
+                    <img src="https://endovelicus.nl/wp-content/uploads/assets/endovelicus_icoon.png">
+                </div>
+            </a>
+        </div>
+
+        <div class="slogan">
+            <div class="container">
+                <div class="offset">
+                    Endovelicus, een blijvend slank en een gezond leven!
+                </div>
+            </div>
+        </div>
+
+        <div class="logo">
+            <div class="container">
+                <div class="offset">
+                    <a href="https://endovelicus.nl/">
+                        <span class="part1">Endovelicus</span> <span class="part2">Clinic</span>
+                    </a>
+                </div>
+            </div>
+        </div>
+
+        <div class="menubar">
+            <div class="container">
+                <div class="offset">
+                    <nav class="menu">
+                        <ul class="noselect">
+                            
+                            
+                                
+                                <li class="active ">
+                                    <a class="link active " href="https://endovelicus.nl/">
+                                        <span class="text">Start</span>
+                                                                            </a>
+
+                                    
+                                </li>
+
+                            
+                                
+                                <li class="">
+                                    <a class="link " href="https://endovelicus.nl/doelgroep/">
+                                        <span class="text">Doelgroep</span>
+                                                                            </a>
+
+                                    
+                                </li>
+
+                            
+                                
+                                <li class="hasSubmenu ">
+                                    <a class="link hasSubmenu " href="https://endovelicus.nl/het-programma/">
+                                        <span class="text">Het programma</span>
+                                                                                    <svg style="width:24px;height:24px" viewBox="0 0 24 24">
+                                                <path d="M7,10L12,15L17,10H7Z"/>
+                                            </svg>
+                                                                            </a>
+
+                                                                            <div class="menu-hover">
+                                            <ul class="dropdown">
+                                                
+                                                    
+                                                    <li class=" ">
+                                                        <div>
+                                                            <a class="link " href="https://endovelicus.nl/tevreden-klanten/">
+                                                                <span>Tevreden klanten</span>
+                                                            </a>
+
+                                                                                                                    </div>
+
+                                                        
+                                                    </li>
+                                                
+                                                    
+                                                    <li class=" ">
+                                                        <div>
+                                                            <a class="link " href="https://endovelicus.nl/meer-informatie/">
+                                                                <span>Meer informatie</span>
+                                                            </a>
+
+                                                                                                                    </div>
+
+                                                        
+                                                    </li>
+                                                
+                                            </ul>
+                                        </div>
+                                    
+                                </li>
+
+                            
+                                
+                                <li class="hasSubmenu ">
+                                    <a class="link hasSubmenu " href="https://endovelicus.nl/vestigingen/">
+                                        <span class="text">Vestigingen</span>
+                                                                                    <svg style="width:24px;height:24px" viewBox="0 0 24 24">
+                                                <path d="M7,10L12,15L17,10H7Z"/>
+                                            </svg>
+                                                                            </a>
+
+                                                                            <div class="menu-hover">
+                                            <ul class="dropdown">
+                                                
+                                                    
+                                                    <li class=" ">
+                                                        <div>
+                                                            <a class="link " href="https://endovelicus.nl/vestigingen/rotterdam/">
+                                                                <span>Rotterdam</span>
+                                                            </a>
+
+                                                                                                                    </div>
+
+                                                        
+                                                    </li>
+                                                
+                                                    
+                                                    <li class=" ">
+                                                        <div>
+                                                            <a class="link " href="https://endovelicus.nl/vestigingen/budel-en-eindhoven/">
+                                                                <span>Budel en Eindhoven</span>
+                                                            </a>
+
+                                                                                                                    </div>
+
+                                                        
+                                                    </li>
+                                                
+                                            </ul>
+                                        </div>
+                                    
+                                </li>
+
+                            
+                                
+                                <li class="">
+                                    <a class="link " href="https://endovelicus.nl/contact/">
+                                        <span class="text">Contact</span>
+                                                                            </a>
+
+                                    
+                                </li>
+
+                            
+                            <li class="openMobile" onclick="openMenu();">
+                                <div class="link">
+                                    <i class="mdi mdi-menu"></i>
+                                    <span class="text">Open menu</span>
+                                </div>
+                            </li>
+
+                        </ul>
+                    </nav>
+                </div>
+            </div>
+            <script type="rocketlazyloadscript">window.addEventListener('DOMContentLoaded', function() {
+                jQuery(document).ready(function ($) {
+
+                    openMenu = function () {
+                        $('.mobileMenu').addClass('active');
+                        setTimeout(function () {
+                            $('.mobileMenu').addClass('show');
+                        }, 10);
+
+                        $('.mobileMenuMask').addClass('active');
+                        setTimeout(function () {
+                            $('.mobileMenuMask').addClass('show');
+                        }, 10);
+                    };
+
+                    closeMenu = function () {
+
+                        $('.mobileMenu').removeClass('show');
+                        setTimeout(function () {
+                            $('.mobileMenu').removeClass('active');
+                        }, 310);
+
+                        $('.mobileMenuMask').removeClass('show');
+                        setTimeout(function () {
+                            $('.mobileMenuMask').removeClass('active');
+                        }, 310);
+
+                    };
+
+                    $(".mobileMenu .toggleSubmenu").click(function () {
+
+                        var parent = $(this).parents('.mobileMenu li');
+
+                        if ($(parent).hasClass('showMenu')) {
+                            $(parent).removeClass('showMenu');
+                        } else {
+                            $('.mobileMenu li').removeClass('showMenu');
+                            $(parent).addClass('showMenu');
+                        }
+
+                    });
+
+                });
+
+            });</script>
+        </div>
+
+    </header>
+
+    <div class="mobileMenu">
+
+        <div class="top" onclick="closeMenu();">
+            Sluit menu
+        </div>
+
+        <ul class="noselect">
+            
+                <li>
+                    
+                    <div class="link active">
+                        <a href="https://endovelicus.nl/" class="text">Start</a>
+                                            </div>
+
+                                    </li>
+
+            
+                <li>
+                    
+                    <div class="link ">
+                        <a href="https://endovelicus.nl/doelgroep/" class="text">Doelgroep</a>
+                                            </div>
+
+                                    </li>
+
+            
+                <li>
+                    
+                    <div class="link hasSubmenu">
+                        <a href="https://endovelicus.nl/het-programma/" class="text">Het programma</a>
+                                                    <div class="toggle toggleSubmenu">
+                                <svg style="width:24px;height:24px" viewBox="0 0 24 24">
+                                    <path d="M7,10L12,15L17,10H7Z"/>
+                                </svg>
+                            </div>
+                                            </div>
+
+                                            <div class="submenu">
+                                                            <a class="link level1 " href="https://endovelicus.nl/tevreden-klanten/">
+                                    Tevreden klanten                                </a>
+
+                                
+                                                            <a class="link level1 " href="https://endovelicus.nl/meer-informatie/">
+                                    Meer informatie                                </a>
+
+                                
+                                                    </div>
+                                    </li>
+
+            
+                <li>
+                    
+                    <div class="link hasSubmenu">
+                        <a href="https://endovelicus.nl/vestigingen/" class="text">Vestigingen</a>
+                                                    <div class="toggle toggleSubmenu">
+                                <svg style="width:24px;height:24px" viewBox="0 0 24 24">
+                                    <path d="M7,10L12,15L17,10H7Z"/>
+                                </svg>
+                            </div>
+                                            </div>
+
+                                            <div class="submenu">
+                                                            <a class="link level1 " href="https://endovelicus.nl/vestigingen/rotterdam/">
+                                    Rotterdam                                </a>
+
+                                
+                                                            <a class="link level1 " href="https://endovelicus.nl/vestigingen/budel-en-eindhoven/">
+                                    Budel en Eindhoven                                </a>
+
+                                
+                                                    </div>
+                                    </li>
+
+            
+                <li>
+                    
+                    <div class="link ">
+                        <a href="https://endovelicus.nl/contact/" class="text">Contact</a>
+                                            </div>
+
+                                    </li>
+
+                    </ul>
+        
+    </div>
+
+    <div class="mobileMenuMask" onclick="closeMenu();"></div>
+
+    <div id="content" class="site-content">
+
+	<div id="primary" class="content-area">
+		<main id="main" class="site-main">
+            <div class="container">
+                
+
+    
+        
+                        
+            <div class="tekst hasImage odd">
+
+                
+                    <div class="split">
+                        <div class="image">
+                                <picture>
+
+		            <source srcset="https://endovelicus.nl/wp-content/uploads/2019/10/dokter.jpg" sizes="65vw"/>
+		
+		<img width="185" height="242" src="https://endovelicus.nl/wp-content/uploads/2019/10/dokter.jpg" class="attachment-large size-large" alt="" sizes="65vw" decoding="async" />
+    </picture>
+
+                        </div>
+                        <div class="text">
+                            <h1>Overgewicht of zwaarlijvigheid</h1>
+<p><strong>Overgewicht of zwaarlijvigheid is een stofwisselingsprobleem veroorzaakt door een disbalans van hormonen.</strong></p>
+<p>De disbalans tussen insuline, serotonine en het groeihormoon veroorzaakt een stofwisselingsprobleem waardoor er een constante behoefte aan voedsel is. Voedsel wordt omgezet in vet i.p.v. energie en vocht wordt vastgehouden.</p>
+<p><b>Conclusie: zwaarlijvigheid is een ziekte.</b></p>
+                        </div>
+                    </div>
+
+                
+            </div>
+
+        
+        
+    
+        
+                        
+            <div class="tekst hasImage odd">
+
+                <h2>Vrijblijvend gesprek</h2>
+<p>Bent u benieuwd naar het Endovelicus programma en wilt u er meer over weten? Vul ons contactformulier in en wij nemen contact met u op voor een vrijblijvend gratis consult.</p>
+<p><a class="button" href="/contact">Consult aanvragen</a></p>
+
+            </div>
+
+        
+        
+    
+        
+                        
+            <div class="tekst hasImage even">
+
+                
+                    <div class="split">
+                        <div class="image">
+                                <picture>
+
+		            <source srcset="https://endovelicus.nl/wp-content/uploads/2019/10/7-199x300.jpg 199w, https://endovelicus.nl/wp-content/uploads/2019/10/7.jpg 400w" sizes="65vw"/>
+		
+		<img width="400" height="602" src="https://endovelicus.nl/wp-content/uploads/2019/10/7.jpg" class="attachment-large size-large" alt="" sizes="65vw" loading="1" decoding="async" fetchpriority="high" srcset="https://endovelicus.nl/wp-content/uploads/2019/10/7.jpg 400w, https://endovelicus.nl/wp-content/uploads/2019/10/7-199x300.jpg 199w" />
+    </picture>
+
+                        </div>
+                        <div class="text">
+                            <h2>De oplossing</h2>
+<p><strong>Endovelicus Clinic biedt de oplossing tot een blijvend slank en een gezond leven.</strong></p>
+<p><strong>Overgewicht en zwaarlijvigheid is een stofwisselingsprobleem dat voortkomt uit een verstoord evenwicht in de hormoonhuishouding. Dit betekend niet dat mensen die geen overgewicht hebben allemaal gezond zijn. Stress, narcose medicatie, overgang, zwangerschap, ongezond eten veroorzaken o.a. een disbalans in de hormoonhuishouding.</strong></p>
+<p>In de wetenschappelijke zoektocht naar de oorzaken van overgewicht en ongezond zijn, staan de hormonen centraal. Het is duidelijk gebleken dat hormonen zoals insuline, serotonine, cortisol, testosteron en het groeihormoon bepalen hoe snel en waar we vet opslaan c.q. waar we het verbranden. Maar ook hoe gezond of ongezond we zijn.</p>
+<p>Het is een zorgwekkende constatering dat zoveel mensen en kinderen lijden aan overgewicht of zwaarlijvigheid. Onze filosofie en aanpak in de behandeling van deze hardnekkige problematiek heeft zich inmiddels bewezen.</p>
+<p><b>Onze visie</b></p>
+<p>Liefde, respect, zorg, oprechte betrokkenheid, veiligheid, deskundigheid en begrip heeft geleid tot de Endovelicus Clinic.</p>
+                        </div>
+                    </div>
+
+                
+            </div>
+
+        
+        
+    
+            </div>
+		</main>
+    </div>
+
+</div>
+<footer id="colophon" class="site-footer noselect">
+
+    <div class="container">
+        <span>Endovelicus Clinic, alle rechten voorbehouden</span> -
+        <a href="https://endovelicus.nl/disclaimer/">Disclaimer</a> - <a href="https://endovelicus.nl/contact/">Contactpagina</a>
+    </div>
+
+</footer>
+
+<div class="messages">
+    <div class="container">
+		<div id="popupCookies" class="popupMessage popupClosed">
+    <script type="rocketlazyloadscript">window.addEventListener('DOMContentLoaded', function() {
+        jQuery(document).ready(function ($) {
+
+            if (Cookies.get('cookiesAccepted') === undefined) {
+                $("#popupCookies").removeClass('popupClosed');
+            }
+
+            var date = new Date();
+            date.setTime(date.getTime() + (365 * 24 * 60 * 60 * 1000));
+
+            $("#popupCookies .closePopup").click(function () {
+                Cookies.set('cookiesAccepted', 'Yes', {
+                    expires: date,
+                    path: '/',
+                    secure: true
+                });
+                $("#popupCookies").remove();
+            });
+
+        });
+    });</script>
+    <div class="content">
+        <p>Wij maken gebruik van cookies</p>
+        <small>Als je onze website gebruikt, ga je ermee akkoord dat we cookies plaatsen. Meer informatie vindt je in ons privacy statement.
+        </small>
+    </div>
+    <div class="closePopup">
+        <svg viewBox="0 0 24 24">
+            <path fill="white" d="M19,6.41L17.59,5L12,10.59L6.41,5L5,6.41L10.59,12L5,17.59L6.41,19L12,13.41L17.59,19L19,17.59L13.41,12L19,6.41Z"/>
+        </svg>
+    </div>
+</div>    </div>
+</div>
+
+</div>
+<script type="rocketlazyloadscript" data-minify="1" data-rocket-type="text/javascript" data-rocket-src="https://endovelicus.nl/wp-content/cache/min/1/wp-content/plugins/contact-form-7/includes/swv/js/index.js?ver=1662365411" id="swv-js" defer></script>
+<script type="text/javascript" id="contact-form-7-js-extra">
+/* <![CDATA[ */
+var wpcf7 = {"api":{"root":"https:\/\/endovelicus.nl\/wp-json\/","namespace":"contact-form-7\/v1"},"cached":"1"};
+/* ]]> */
+</script>
+<script type="rocketlazyloadscript" data-minify="1" data-rocket-type="text/javascript" data-rocket-src="https://endovelicus.nl/wp-content/cache/min/1/wp-content/plugins/contact-form-7/includes/js/index.js?ver=1639402399" id="contact-form-7-js" defer></script>
+<script type="rocketlazyloadscript" data-rocket-type="text/javascript" data-rocket-src="https://www.google.com/recaptcha/api.js?render=6LdsOoAUAAAAAK-5N4nookG_8aaFegVoKpvGBBP3&amp;ver=3.0" id="google-recaptcha-js"></script>
+<script type="rocketlazyloadscript" data-rocket-type="text/javascript" data-rocket-src="https://endovelicus.nl/wp-includes/js/dist/vendor/wp-polyfill-inert.min.js?ver=3.1.2" id="wp-polyfill-inert-js" defer></script>
+<script type="rocketlazyloadscript" data-rocket-type="text/javascript" data-rocket-src="https://endovelicus.nl/wp-includes/js/dist/vendor/regenerator-runtime.min.js?ver=0.14.0" id="regenerator-runtime-js" defer></script>
+<script type="rocketlazyloadscript" data-rocket-type="text/javascript" data-rocket-src="https://endovelicus.nl/wp-includes/js/dist/vendor/wp-polyfill.min.js?ver=3.15.0" id="wp-polyfill-js"></script>
+<script type="text/javascript" id="wpcf7-recaptcha-js-extra">
+/* <![CDATA[ */
+var wpcf7_recaptcha = {"sitekey":"6LdsOoAUAAAAAK-5N4nookG_8aaFegVoKpvGBBP3","actions":{"homepage":"homepage","contactform":"contactform"}};
+/* ]]> */
+</script>
+<script type="rocketlazyloadscript" data-minify="1" data-rocket-type="text/javascript" data-rocket-src="https://endovelicus.nl/wp-content/cache/min/1/wp-content/plugins/contact-form-7/modules/recaptcha/index.js?ver=1639402399" id="wpcf7-recaptcha-js" defer></script>
+<script type="rocketlazyloadscript" data-minify="1" data-rocket-type="text/javascript" data-rocket-src="https://endovelicus.nl/wp-content/cache/min/1/wp-content/themes/endovelicus/js/jquery.js?ver=1639402399" id="jquery-ui-script-js" defer></script>
+<script type="rocketlazyloadscript" data-rocket-type="text/javascript" data-rocket-src="https://endovelicus.nl/wp-content/themes/endovelicus/vendor/imagesloaded.pkgd.min.js?ver=6.4.1" id="imagesloaded-script-js" defer></script>
+<script type="rocketlazyloadscript" data-rocket-type="text/javascript" data-rocket-src="https://endovelicus.nl/wp-content/themes/endovelicus/vendor/jquery.fancybox.min.js?ver=6.4.1" id="fancybox-script-js" defer></script>
+<script type="rocketlazyloadscript" data-rocket-type="text/javascript" data-rocket-src="https://endovelicus.nl/wp-content/themes/endovelicus/vendor/objectfit-polyfill.min.js?ver=6.4.1" id="objectfit-script-js" defer></script>
+<script type="rocketlazyloadscript" data-minify="1" data-rocket-type="text/javascript" data-rocket-src="https://endovelicus.nl/wp-content/cache/min/1/wp-content/themes/endovelicus/js/default.js?ver=1639402399" id="default-script-js" defer></script>
+
+<script type="rocketlazyloadscript">window.addEventListener('DOMContentLoaded', function() {
+    const observer = lozad('.lazyload', {
+        rootMargin: '100px',
+        loaded: function (el) {
+            if (jQuery("html").find(".masonryThis").size()) {
+                console.log('Masonry found!');
+                setTimeout(function () {
+                    jQuery(".masonryThis").each(function (index) {
+                        jQuery(this).masonry('layout');
+                    });
+                    console.log('Lazyloaded');
+                }, 50);
+                setTimeout(function () {
+                    jQuery(".masonryThis").each(function (index) {
+                        jQuery(this).masonry('layout');
+                    });
+                    console.log('Masonry again');
+                }, 1000);
+            }
+        }
+    });
+    observer.observe();
+
+    objectFitImages();
+});</script>
+
+</body>
+</html>
+
+<!-- Cached for great performance - Debug: cached@1700645712 -->

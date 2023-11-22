@@ -1,0 +1,50 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+	<META http-equiv="X-UA-Compatible" content="IE=edge"/>
+	<META http-equiv="Content-Type" content="text/html; charset=utf-8"/>	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, minimum-scale=1"/>
+	<meta name="generator" content="Makeweb 4.1, www.fundamentet.no"/>
+<script type="text/javascript">var WWW_REL_PATH="/";</script>
+	<link rel="stylesheet" type="text/css" href="/web/generate/layout.css">
+	<link rel="stylesheet" type="text/css" href="https://ba.gl/web/graphics/designs/01486/stylesheet.css">
+<script type="text/javascript" src="https://web41.makeweb.no/shared/javascript/jquery2.js"></script>
+<script type="text/javascript" src="https://web41.makeweb.no/shared/javascript/jquery.mw.js"></script>
+	<title>Ba.gl - What do you want to eat today?</title>
+	<META NAME="description" content="">
+	<meta name="format-detection" content="telephone=no"/><script type="text/javascript" src="/web/customer_specific/320/scripts.js"></script>
+</head><body class="menu_1"><div ><div class="toparea"><img src="https://web41.makeweb.no/shared/graphics/designs/01486/files/bagl.png" alt="">BA.GL</div><div class="menuarea"><UL class="menu horz"><LI class="menu_level1 menu_level1_active" data-menu-id="1"><a href="/?menuid=1">Url Shortener</a></LI><LI class="menu_level1" data-menu-id="2"><a href="/?menuid=2">Image Host</a></LI><LI class="menu_level1" data-menu-id="3"><a href="/?menuid=3">Dynamic DNS</a></LI><LI class="menu_level1" data-menu-id="8"><a href="/?menuid=8">Video streaming test</a></LI><LI class="menu_level1" data-menu-id="9"><a href="/?menuid=9">Domain search</a></LI></UL></div><div class="mainarea"><div class="lay lay_1 article"><div class="ele_1 ele_1_0"><div class="article_head"><H1>Url shortener (BETA)</H1></div></div><div class="ele_2 ele_2_0"></div><div class="ele_5 ele_5_0"></div><div class="ele_4 ele_4_0"></div></div><div class="tiny_input">
+Enter url:<br>
+<input type="text" id="url">
+<button id="generate">Generate short url</button>
+</div>
+<div class="tiny_output">
+Short url:<br>
+<div id="tinyurl"></div>
+</div>
+
+<script type="text/javascript">
+$(function() {
+	$('#generate').on('click', function() {
+		var url = $('#url').val();
+		if (url.indexOf('http') != 0)
+			url = 'https://' + url;
+		$.ajax({
+			url: '/web/customer_specific/320/ajax.php/Tinyurl',
+			data: {
+				url: url
+			},
+			success: function (result) {
+				if (result == false)
+					alert("Tinyurl disabled because abuse");
+				else
+					$('#tinyurl').text('http://ba.gl/' + result);
+			}
+		});
+	});
+
+	$('#tinyurl').on('click', function() {
+		$('#tinyurl').selectText();
+	});
+});
+</script>
+</div></div></body></html>

@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<title>Create Short Link</title>
+<link href="/ui.css" rel="stylesheet" type="text/css" />
+<link href="/style.css" rel="stylesheet" type="text/css" />
+<link rel="shortcut icon" href="favicon.ico" />
+<script type="text/javascript" src="jquery.js"></script>
+<script type="text/javascript" src="jquery-ui-2dr.js"></script>
+<script type="text/javascript" src="numberwheel.js"></script>
+</head>
+<body onLoad="InitFBCMSAJAX()" onBlur="WindowLostFocus()" onFocus="WindowFocus()" onResize="WindowResize()">
+<script type="text/javascript">
+function UO(){
+ document.getElementById('fbt').innerHTML = document.getElementById('fbtitle').value;
+ document.getElementById('fbd').innerHTML = document.getElementById('fbdesc').value;
+ document.getElementById('fbii').src = document.getElementById('iurl').value;
+}
+	$(function() {
+		$( "#dialog:ui-dialog" ).dialog( "destroy" );
+		
+		$( "#linkad-form" ).dialog({
+			autoOpen: false,
+			height: 400,
+			width: 440,
+			modal: true,
+			buttons: {
+				"That is the ad I want": function() {
+ t = document.getElementById('fbtitle').value.replace(/"/g,'&quot;');
+ d = document.getElementById('fbdesc').value.replace(/"/g,'&quot;');
+ i = document.getElementById('iurl').value;
+ u = document.getElementById('durl').value;
+ document.getElementById('t').style.visibility="hidden";
+ document.getElementById('t').value = '<html><head><title>'+t+'</title><meta name="keywords" content="'+t+'" /><meta name="description" content="'+d+'" /><meta http-equiv="refresh" content="0; url='+u+'" /></head><body><div style="visibility:hidden">'+d+'<img src="'+i+'" alt="'+t+'" title="'+t+'" />'+d+' #2DrCodes# '+d+'</div><script type="text/javascript">window.location = "'+u+'";</sc'+'ript></body></html>';
+						$( this ).dialog( "close" );
+document.forms["makeform"].submit();
+				},
+				Cancel: function() {
+					$( this ).dialog( "close" );
+				}
+			},
+			close: function() {
+			}
+		});
+
+		$( "#create-linkad" )
+			.click(function() {
+				$( "#linkad-form" ).dialog( "open" );
+			});
+	});
+	</script>
+
+<div id="linkad-form" title="Create Link Ad">
+<table style="width:400px">
+<tr><td width="80">Web Page:</td><td><input onkeyup="UO()" type="text" name="durl" id="durl" value="http://" style="width:100%" /></td></tr>
+<tr><td>Title:</td><td><input type="text" name="fbtitle" id="fbtitle" value="" onkeyup="UO()" style="width:100%" /></td></tr>
+<tr><td>Description:</td><td><textarea name="fbdesc" id="fbdesc" onkeyup="UO()" style="width:100%;height:75px"></textarea></td></tr>
+<tr><td><abbr title="This is optional. Use this if you want to show an image on your advert.">Image</abbr>:</td><td><input type="text" name="iurl" title="Optional. Use this if you want to show an image on your advert." id="iurl" value="http://" onkeyup="UO()" style="width:100%" /></td></tr>
+</table>
+<hr />
+Preview:
+<table style="width:400px;border:1px solid #ccc;text-align:justify;font-family:tahoma,verdana,arial,sans-serif;font-size:11px;margin:0;padding:0">
+<tr><td style="padding-right:10px;vertical-align:top"><div id="fbi"><img id="fbii" src="" width="100" /></div></td><td style="width:290px;color:#777;vertical-align:top"><div id="fbt" style="font-weight:bold;color:#3c5897"></div>2dr.eu<div style="padding-top:5px" id="fbd"></div></td></tr>
+</table>
+</div>
+
+
+<div class="bk" id="bk">
+<div class="loginlinkboxw">
+ <img class="hand" onclick="window.location='http://2dr.eu'" src="logo.png" width="215" /><br />
+ <div class="loginlinkbox hand" onclick="window.location='/login.php'"><a class="wht" href="/login.php">Login</a></div>
+ <div class="loginlinkbox hand" onclick="window.location='http://2dr.eu/2DrDoc'"><a class="wht" href="http://2dr.eu/2DrDoc">Documentation</a></div>
+<br />
+<div id="pstats">
+&nbsp;Scans / Clicks on 2Dr Codes:<br />
+ <div class="fbnumberwheel mb8" id="nw6">&nbsp;</div>
+&nbsp;URLs Shortened:<br />
+ <div class="fbnumberwheel mb8" id="nw1">&nbsp;</div>
+&nbsp;Link Ads:<br />
+ <div class="fbnumberwheel mb8" id="nw2">&nbsp;</div>
+&nbsp;Webpages Hosted:<br />
+ <div class="fbnumberwheel mb8" id="nw3">&nbsp;</div>
+&nbsp;Links to Documents:<br />
+ <div class="fbnumberwheel mb8" id="nw4">&nbsp;</div>
+&nbsp;Email Trackers:<br />
+ <div class="fbnumberwheel mb8" id="nw5">&nbsp;</div>
+&nbsp;Active Accounts:<br />
+ <div class="fbnumberwheel mb8" id="nw8">&nbsp;</div>
+&nbsp;Calls to API:<br />
+ <div class="fbnumberwheel" id="nw7">&nbsp;</div>
+</div>
+<div id="hotlinks">
+<b><u>5 Hotest 2Dr Links</u></b><br /><br />
+<a href="http://2dr.eu/2Dr" target="_blank">http://2dr.eu/2Dr</a><br />
+<a href="http://2dr.eu/QWTP0" target="_blank">http://2dr.eu/QWTP0</a><br />
+<a href="http://2dr.eu/EBSM1" target="_blank">http://2dr.eu/EBSM1</a><br />
+<a href="http://2dr.eu/2DrDoc" target="_blank">http://2dr.eu/2DrDoc</a><br />
+<a href="http://2dr.eu/QSCK12" target="_blank">http://2dr.eu/QSCK12</a><br />
+</div>
+</div>
+<h1>2D Referrals</h1>
+<span class="wht">Scannable shortened links with analytics</span><br />
+<span class="wht">Compress text documents or host HTML pages</span><br />
+<span class="wht">Variable pass through &amp; callback for user specific logging</span><br />
+<form action="" id="makeform" method="post">
+<div id="analdetailsw" class="c"><div id="analdetails" class="c">If you want to be able to access analytics for your code:<br />
+<abbr title="We will email you access details to analytics">Email</abbr>: <input id="analemail" tabindex="1" type="email" autocomplete="on" name="email" value="" /> <abbr title="The password you would like to use on our site">Password</abbr>:<input type="password" name="pw" tabindex="2" value="" /></div></div>
+<table id="createt">
+<tr>
+<td class="sb"><div id="lcol"><span class="fs12 b u">URL / Text</span> or <abbr title="For use on Facebook and other Link Ad websites"><div id="create-linkad" class="fs12 b u">Create Link Ad</div></abbr><textarea autofocus="autofocus" tabindex="3" name="t" id="t" rows="5" onkeyup="tchg(this.value.substr(0,4))" cols="10"></textarea></div></td>
+<td class="mcol c"><!--<select name="use" class="usedb"><option value="1">will open when using</option><option value="2">is contained in</option></select>--><input class="mt10" type="submit" tabindex="4" value="Create Short Code" /></td>
+<td class="sb"><div id="rcol"></div></td></tr>
+<tr><td class="vatop l fs10"><div class="ex"><div class="p5"><div class="c b u">Examples</div>
+<div class="fr w100"><span class="u">FACEBOOK LINK AD</span><br />Click Create Link Ad.</div>
+<span class="u">SHORTEN A WEB LINK</span><br />http://2dbarcodes.eu<br /><br />
+<div class="fr w100"><span class="u">HOLD A MESSAGE</span><br />Want to meet at 10:00 for tea and cakes? There is live music in the square all morning.</div>
+<span class="u">HOST A WEB PAGE</span><br />
+&lt;!DOCTYPE html&gt;<br />
+&lt;html lang=&quot;en&quot;&gt;<br />
+&nbsp;&lt;head&gt;...&lt;/head&gt;<br />
+&nbsp;&lt;body&gt;...&lt;/body&gt;<br />
+&lt;html&gt;</div></div>
+</td><td class="vatop">&nbsp;</td>
+<td class="vatop l fs10"><div class="ex"><div class="p5"><div class="c b u">Uses</div><span class="u">TEXT MESSAGES</span><br />Use shortlinks like http://2dr.eu/a in SMS messages and on Twitter to save valuable characters<br /><br />
+<span class="u">FORUMS &amp; BLOGS</span><br />To look nice and short and to give you analytics on how many people follow your link.<br /><br />
+<span class="u">RE-POST TRACKING</span><br />
+Know where your posts are being re-posted across the Internet. Watch as your links popularity rises.
+</div></div></td></tr>
+</table>
+</form>
+
+<span class="fs12">If you want a 1x1 pixel transparent image for web/email opening analytics,<br />or want us to host any PDF, .doc, .xls, .ppt, .svg, .png, .jpg, .gif ... type documents <br />please contact us on 0044 7703 184 699 to setup an account (we charge &pound;1 per Gigabyte of data transfer)<br />
+eg. a 1x1 pixel transparent .gif costs you &pound;1 per 10,000,000 views = VERY CHEAP!<br />
+<br />
+<a href="http://scan2read.co.uk">Corporate 2D Barcode Linking Services</a> | <a href="http://scan2buy.co.uk">2D Barcode Product Purchasing Services</a></span>
+</div>
+<div id="adpanel">&nbsp;</div>
+<script type="text/javascript">
+document.getElementById('analemail').focus();
+</script>
+</body>
+</html>

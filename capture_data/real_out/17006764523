@@ -1,0 +1,727 @@
+<!DOCTYPE html>
+<html lang="en-US">
+<head><meta charset="UTF-8"><script>if(navigator.userAgent.match(/MSIE|Internet Explorer/i)||navigator.userAgent.match(/Trident\/7\..*?rv:11/i)){var href=document.location.href;if(!href.match(/[?&]nowprocket/)){if(href.indexOf("?")==-1){if(href.indexOf("#")==-1){document.location.href=href+"?nowprocket=1"}else{document.location.href=href.replace("#","?nowprocket=1#")}}else{if(href.indexOf("#")==-1){document.location.href=href+"&nowprocket=1"}else{document.location.href=href.replace("#","&nowprocket=1#")}}}}</script><script>class RocketLazyLoadScripts{constructor(){this.v="1.2.4",this.triggerEvents=["keydown","mousedown","mousemove","touchmove","touchstart","touchend","wheel"],this.userEventHandler=this._triggerListener.bind(this),this.touchStartHandler=this._onTouchStart.bind(this),this.touchMoveHandler=this._onTouchMove.bind(this),this.touchEndHandler=this._onTouchEnd.bind(this),this.clickHandler=this._onClick.bind(this),this.interceptedClicks=[],window.addEventListener("pageshow",t=>{this.persisted=t.persisted}),window.addEventListener("DOMContentLoaded",()=>{this._preconnect3rdParties()}),this.delayedScripts={normal:[],async:[],defer:[]},this.trash=[],this.allJQueries=[]}_addUserInteractionListener(t){if(document.hidden){t._triggerListener();return}this.triggerEvents.forEach(e=>window.addEventListener(e,t.userEventHandler,{passive:!0})),window.addEventListener("touchstart",t.touchStartHandler,{passive:!0}),window.addEventListener("mousedown",t.touchStartHandler),document.addEventListener("visibilitychange",t.userEventHandler)}_removeUserInteractionListener(){this.triggerEvents.forEach(t=>window.removeEventListener(t,this.userEventHandler,{passive:!0})),document.removeEventListener("visibilitychange",this.userEventHandler)}_onTouchStart(t){"HTML"!==t.target.tagName&&(window.addEventListener("touchend",this.touchEndHandler),window.addEventListener("mouseup",this.touchEndHandler),window.addEventListener("touchmove",this.touchMoveHandler,{passive:!0}),window.addEventListener("mousemove",this.touchMoveHandler),t.target.addEventListener("click",this.clickHandler),this._renameDOMAttribute(t.target,"onclick","rocket-onclick"),this._pendingClickStarted())}_onTouchMove(t){window.removeEventListener("touchend",this.touchEndHandler),window.removeEventListener("mouseup",this.touchEndHandler),window.removeEventListener("touchmove",this.touchMoveHandler,{passive:!0}),window.removeEventListener("mousemove",this.touchMoveHandler),t.target.removeEventListener("click",this.clickHandler),this._renameDOMAttribute(t.target,"rocket-onclick","onclick"),this._pendingClickFinished()}_onTouchEnd(){window.removeEventListener("touchend",this.touchEndHandler),window.removeEventListener("mouseup",this.touchEndHandler),window.removeEventListener("touchmove",this.touchMoveHandler,{passive:!0}),window.removeEventListener("mousemove",this.touchMoveHandler)}_onClick(t){t.target.removeEventListener("click",this.clickHandler),this._renameDOMAttribute(t.target,"rocket-onclick","onclick"),this.interceptedClicks.push(t),t.preventDefault(),t.stopPropagation(),t.stopImmediatePropagation(),this._pendingClickFinished()}_replayClicks(){window.removeEventListener("touchstart",this.touchStartHandler,{passive:!0}),window.removeEventListener("mousedown",this.touchStartHandler),this.interceptedClicks.forEach(t=>{t.target.dispatchEvent(new MouseEvent("click",{view:t.view,bubbles:!0,cancelable:!0}))})}_waitForPendingClicks(){return new Promise(t=>{this._isClickPending?this._pendingClickFinished=t:t()})}_pendingClickStarted(){this._isClickPending=!0}_pendingClickFinished(){this._isClickPending=!1}_renameDOMAttribute(t,e,r){t.hasAttribute&&t.hasAttribute(e)&&(event.target.setAttribute(r,event.target.getAttribute(e)),event.target.removeAttribute(e))}_triggerListener(){this._removeUserInteractionListener(this),"loading"===document.readyState?document.addEventListener("DOMContentLoaded",this._loadEverythingNow.bind(this)):this._loadEverythingNow()}_preconnect3rdParties(){let t=[];document.querySelectorAll("script[type=rocketlazyloadscript][data-rocket-src]").forEach(e=>{let r=e.getAttribute("data-rocket-src");if(r&&0!==r.indexOf("data:")){0===r.indexOf("//")&&(r=location.protocol+r);try{let i=new URL(r).origin;i!==location.origin&&t.push({src:i,crossOrigin:e.crossOrigin||"module"===e.getAttribute("data-rocket-type")})}catch(n){}}}),t=[...new Map(t.map(t=>[JSON.stringify(t),t])).values()],this._batchInjectResourceHints(t,"preconnect")}async _loadEverythingNow(){this.lastBreath=Date.now(),this._delayEventListeners(),this._delayJQueryReady(this),this._handleDocumentWrite(),this._registerAllDelayedScripts(),this._preloadAllScripts(),await this._loadScriptsFromList(this.delayedScripts.normal),await this._loadScriptsFromList(this.delayedScripts.defer),await this._loadScriptsFromList(this.delayedScripts.async);try{await this._triggerDOMContentLoaded(),await this._pendingWebpackRequests(this),await this._triggerWindowLoad()}catch(t){console.error(t)}window.dispatchEvent(new Event("rocket-allScriptsLoaded")),this._waitForPendingClicks().then(()=>{this._replayClicks()}),this._emptyTrash()}_registerAllDelayedScripts(){document.querySelectorAll("script[type=rocketlazyloadscript]").forEach(t=>{t.hasAttribute("data-rocket-src")?t.hasAttribute("async")&&!1!==t.async?this.delayedScripts.async.push(t):t.hasAttribute("defer")&&!1!==t.defer||"module"===t.getAttribute("data-rocket-type")?this.delayedScripts.defer.push(t):this.delayedScripts.normal.push(t):this.delayedScripts.normal.push(t)})}async _transformScript(t){if(await this._littleBreath(),!0===t.noModule&&"noModule"in HTMLScriptElement.prototype){t.setAttribute("data-rocket-status","skipped");return}return new Promise(navigator.userAgent.indexOf("Firefox/")>0||""===navigator.vendor?e=>{let r=document.createElement("script");[...t.attributes].forEach(t=>{let e=t.nodeName;"type"!==e&&("data-rocket-type"===e&&(e="type"),"data-rocket-src"===e&&(e="src"),r.setAttribute(e,t.nodeValue))}),t.text&&(r.text=t.text),r.hasAttribute("src")?(r.addEventListener("load",e),r.addEventListener("error",e)):(r.text=t.text,e());try{t.parentNode.replaceChild(r,t)}catch(i){e()}}:e=>{function r(){t.setAttribute("data-rocket-status","failed"),e()}try{let i=t.getAttribute("data-rocket-type"),n=t.getAttribute("data-rocket-src");i?(t.type=i,t.removeAttribute("data-rocket-type")):t.removeAttribute("type"),t.addEventListener("load",function r(){t.setAttribute("data-rocket-status","executed"),e()}),t.addEventListener("error",r),n?(t.removeAttribute("data-rocket-src"),t.src=n):t.src="data:text/javascript;base64,"+window.btoa(unescape(encodeURIComponent(t.text)))}catch(s){r()}})}async _loadScriptsFromList(t){let e=t.shift();return e&&e.isConnected?(await this._transformScript(e),this._loadScriptsFromList(t)):Promise.resolve()}_preloadAllScripts(){this._batchInjectResourceHints([...this.delayedScripts.normal,...this.delayedScripts.defer,...this.delayedScripts.async],"preload")}_batchInjectResourceHints(t,e){var r=document.createDocumentFragment();t.forEach(t=>{let i=t.getAttribute&&t.getAttribute("data-rocket-src")||t.src;if(i){let n=document.createElement("link");n.href=i,n.rel=e,"preconnect"!==e&&(n.as="script"),t.getAttribute&&"module"===t.getAttribute("data-rocket-type")&&(n.crossOrigin=!0),t.crossOrigin&&(n.crossOrigin=t.crossOrigin),t.integrity&&(n.integrity=t.integrity),r.appendChild(n),this.trash.push(n)}}),document.head.appendChild(r)}_delayEventListeners(){let t={};function e(e,r){!function e(r){!t[r]&&(t[r]={originalFunctions:{add:r.addEventListener,remove:r.removeEventListener},eventsToRewrite:[]},r.addEventListener=function(){arguments[0]=i(arguments[0]),t[r].originalFunctions.add.apply(r,arguments)},r.removeEventListener=function(){arguments[0]=i(arguments[0]),t[r].originalFunctions.remove.apply(r,arguments)});function i(e){return t[r].eventsToRewrite.indexOf(e)>=0?"rocket-"+e:e}}(e),t[e].eventsToRewrite.push(r)}function r(t,e){let r=t[e];Object.defineProperty(t,e,{get:()=>r||function(){},set(i){t["rocket"+e]=r=i}})}e(document,"DOMContentLoaded"),e(window,"DOMContentLoaded"),e(window,"load"),e(window,"pageshow"),e(document,"readystatechange"),r(document,"onreadystatechange"),r(window,"onload"),r(window,"onpageshow")}_delayJQueryReady(t){let e;function r(t){return t.split(" ").map(t=>"load"===t||0===t.indexOf("load.")?"rocket-jquery-load":t).join(" ")}function i(i){if(i&&i.fn&&!t.allJQueries.includes(i)){i.fn.ready=i.fn.init.prototype.ready=function(e){return t.domReadyFired?e.bind(document)(i):document.addEventListener("rocket-DOMContentLoaded",()=>e.bind(document)(i)),i([])};let n=i.fn.on;i.fn.on=i.fn.init.prototype.on=function(){return this[0]===window&&("string"==typeof arguments[0]||arguments[0]instanceof String?arguments[0]=r(arguments[0]):"object"==typeof arguments[0]&&Object.keys(arguments[0]).forEach(t=>{let e=arguments[0][t];delete arguments[0][t],arguments[0][r(t)]=e})),n.apply(this,arguments),this},t.allJQueries.push(i)}e=i}i(window.jQuery),Object.defineProperty(window,"jQuery",{get:()=>e,set(t){i(t)}})}async _pendingWebpackRequests(t){let e=document.querySelector("script[data-webpack]");async function r(){return new Promise(t=>{e.addEventListener("load",t),e.addEventListener("error",t)})}e&&(await r(),await t._requestAnimFrame(),await t._pendingWebpackRequests(t))}async _triggerDOMContentLoaded(){this.domReadyFired=!0,await this._littleBreath(),document.dispatchEvent(new Event("rocket-DOMContentLoaded")),await this._littleBreath(),window.dispatchEvent(new Event("rocket-DOMContentLoaded")),await this._littleBreath(),document.dispatchEvent(new Event("rocket-readystatechange")),await this._littleBreath(),document.rocketonreadystatechange&&document.rocketonreadystatechange()}async _triggerWindowLoad(){await this._littleBreath(),window.dispatchEvent(new Event("rocket-load")),await this._littleBreath(),window.rocketonload&&window.rocketonload(),await this._littleBreath(),this.allJQueries.forEach(t=>t(window).trigger("rocket-jquery-load")),await this._littleBreath();let t=new Event("rocket-pageshow");t.persisted=this.persisted,window.dispatchEvent(t),await this._littleBreath(),window.rocketonpageshow&&window.rocketonpageshow({persisted:this.persisted})}_handleDocumentWrite(){let t=new Map;document.write=document.writeln=function(e){let r=document.currentScript;r||console.error("WPRocket unable to document.write this: "+e);let i=document.createRange(),n=r.parentElement,s=t.get(r);void 0===s&&(s=r.nextSibling,t.set(r,s));let a=document.createDocumentFragment();i.setStart(a,0),a.appendChild(i.createContextualFragment(e)),n.insertBefore(a,s)}}async _littleBreath(){Date.now()-this.lastBreath>45&&(await this._requestAnimFrame(),this.lastBreath=Date.now())}async _requestAnimFrame(){return document.hidden?new Promise(t=>setTimeout(t)):new Promise(t=>requestAnimationFrame(t))}_emptyTrash(){this.trash.forEach(t=>t.remove())}static run(){let t=new RocketLazyLoadScripts;t._addUserInteractionListener(t)}}RocketLazyLoadScripts.run();</script>
+	
+	<meta name='robots' content='index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1' />
+<meta name="viewport" content="width=device-width, initial-scale=1">
+	<!-- This site is optimized with the Yoast SEO plugin v21.5 - https://yoast.com/wordpress/plugins/seo/ -->
+	<title>Diario Veloz -</title>
+	<link rel="canonical" href="https://www.diarioveloz.com/" />
+	<link rel="next" href="https://www.diarioveloz.com/page/2/" />
+	<meta property="og:locale" content="en_US" />
+	<meta property="og:type" content="website" />
+	<meta property="og:title" content="Diario Veloz" />
+	<meta property="og:url" content="https://www.diarioveloz.com/" />
+	<meta property="og:site_name" content="Diario Veloz" />
+	<meta name="twitter:card" content="summary_large_image" />
+	<script type="application/ld+json" class="yoast-schema-graph">{"@context":"https://schema.org","@graph":[{"@type":"CollectionPage","@id":"https://www.diarioveloz.com/","url":"https://www.diarioveloz.com/","name":"Diario Veloz -","isPartOf":{"@id":"https://www.diarioveloz.com/#website"},"about":{"@id":"https://www.diarioveloz.com/#organization"},"breadcrumb":{"@id":"https://www.diarioveloz.com/#breadcrumb"},"inLanguage":"en-US"},{"@type":"BreadcrumbList","@id":"https://www.diarioveloz.com/#breadcrumb","itemListElement":[{"@type":"ListItem","position":1,"name":"Home"}]},{"@type":"WebSite","@id":"https://www.diarioveloz.com/#website","url":"https://www.diarioveloz.com/","name":"Diario Veloz","description":"","publisher":{"@id":"https://www.diarioveloz.com/#organization"},"potentialAction":[{"@type":"SearchAction","target":{"@type":"EntryPoint","urlTemplate":"https://www.diarioveloz.com/?s={search_term_string}"},"query-input":"required name=search_term_string"}],"inLanguage":"en-US"},{"@type":"Organization","@id":"https://www.diarioveloz.com/#organization","name":"Diario Veloz","url":"https://www.diarioveloz.com/","logo":{"@type":"ImageObject","inLanguage":"en-US","@id":"https://www.diarioveloz.com/#/schema/logo/image/","url":"https://www.diarioveloz.com/wp-content/uploads/2022/10/cropped-DIARIO-VELOZ-logo.png","contentUrl":"https://www.diarioveloz.com/wp-content/uploads/2022/10/cropped-DIARIO-VELOZ-logo.png","width":500,"height":358,"caption":"Diario Veloz"},"image":{"@id":"https://www.diarioveloz.com/#/schema/logo/image/"}}]}</script>
+	<!-- / Yoast SEO plugin. -->
+
+
+<link href='https://fonts.gstatic.com' crossorigin rel='preconnect' />
+<link href='https://fonts.googleapis.com' crossorigin rel='preconnect' />
+<link rel="alternate" type="application/rss+xml" title="Diario Veloz &raquo; Feed" href="https://www.diarioveloz.com/feed/" />
+<style id='wp-emoji-styles-inline-css'>
+
+	img.wp-smiley, img.emoji {
+		display: inline !important;
+		border: none !important;
+		box-shadow: none !important;
+		height: 1em !important;
+		width: 1em !important;
+		margin: 0 0.07em !important;
+		vertical-align: -0.1em !important;
+		background: none !important;
+		padding: 0 !important;
+	}
+</style>
+<link rel='stylesheet' id='wp-block-library-css' href='https://www.diarioveloz.com/wp-includes/css/dist/block-library/style.min.css?ver=6.4.1' media='all' />
+<style id='classic-theme-styles-inline-css'>
+/*! This file is auto-generated */
+.wp-block-button__link{color:#fff;background-color:#32373c;border-radius:9999px;box-shadow:none;text-decoration:none;padding:calc(.667em + 2px) calc(1.333em + 2px);font-size:1.125em}.wp-block-file__button{background:#32373c;color:#fff;text-decoration:none}
+</style>
+<style id='global-styles-inline-css'>
+body{--wp--preset--color--black: #000000;--wp--preset--color--cyan-bluish-gray: #abb8c3;--wp--preset--color--white: #ffffff;--wp--preset--color--pale-pink: #f78da7;--wp--preset--color--vivid-red: #cf2e2e;--wp--preset--color--luminous-vivid-orange: #ff6900;--wp--preset--color--luminous-vivid-amber: #fcb900;--wp--preset--color--light-green-cyan: #7bdcb5;--wp--preset--color--vivid-green-cyan: #00d084;--wp--preset--color--pale-cyan-blue: #8ed1fc;--wp--preset--color--vivid-cyan-blue: #0693e3;--wp--preset--color--vivid-purple: #9b51e0;--wp--preset--color--contrast: var(--contrast);--wp--preset--color--contrast-2: var(--contrast-2);--wp--preset--color--contrast-3: var(--contrast-3);--wp--preset--color--base: var(--base);--wp--preset--color--base-2: var(--base-2);--wp--preset--color--base-3: var(--base-3);--wp--preset--color--accent: var(--accent);--wp--preset--gradient--vivid-cyan-blue-to-vivid-purple: linear-gradient(135deg,rgba(6,147,227,1) 0%,rgb(155,81,224) 100%);--wp--preset--gradient--light-green-cyan-to-vivid-green-cyan: linear-gradient(135deg,rgb(122,220,180) 0%,rgb(0,208,130) 100%);--wp--preset--gradient--luminous-vivid-amber-to-luminous-vivid-orange: linear-gradient(135deg,rgba(252,185,0,1) 0%,rgba(255,105,0,1) 100%);--wp--preset--gradient--luminous-vivid-orange-to-vivid-red: linear-gradient(135deg,rgba(255,105,0,1) 0%,rgb(207,46,46) 100%);--wp--preset--gradient--very-light-gray-to-cyan-bluish-gray: linear-gradient(135deg,rgb(238,238,238) 0%,rgb(169,184,195) 100%);--wp--preset--gradient--cool-to-warm-spectrum: linear-gradient(135deg,rgb(74,234,220) 0%,rgb(151,120,209) 20%,rgb(207,42,186) 40%,rgb(238,44,130) 60%,rgb(251,105,98) 80%,rgb(254,248,76) 100%);--wp--preset--gradient--blush-light-purple: linear-gradient(135deg,rgb(255,206,236) 0%,rgb(152,150,240) 100%);--wp--preset--gradient--blush-bordeaux: linear-gradient(135deg,rgb(254,205,165) 0%,rgb(254,45,45) 50%,rgb(107,0,62) 100%);--wp--preset--gradient--luminous-dusk: linear-gradient(135deg,rgb(255,203,112) 0%,rgb(199,81,192) 50%,rgb(65,88,208) 100%);--wp--preset--gradient--pale-ocean: linear-gradient(135deg,rgb(255,245,203) 0%,rgb(182,227,212) 50%,rgb(51,167,181) 100%);--wp--preset--gradient--electric-grass: linear-gradient(135deg,rgb(202,248,128) 0%,rgb(113,206,126) 100%);--wp--preset--gradient--midnight: linear-gradient(135deg,rgb(2,3,129) 0%,rgb(40,116,252) 100%);--wp--preset--font-size--small: 13px;--wp--preset--font-size--medium: 20px;--wp--preset--font-size--large: 36px;--wp--preset--font-size--x-large: 42px;--wp--preset--spacing--20: 0.44rem;--wp--preset--spacing--30: 0.67rem;--wp--preset--spacing--40: 1rem;--wp--preset--spacing--50: 1.5rem;--wp--preset--spacing--60: 2.25rem;--wp--preset--spacing--70: 3.38rem;--wp--preset--spacing--80: 5.06rem;--wp--preset--shadow--natural: 6px 6px 9px rgba(0, 0, 0, 0.2);--wp--preset--shadow--deep: 12px 12px 50px rgba(0, 0, 0, 0.4);--wp--preset--shadow--sharp: 6px 6px 0px rgba(0, 0, 0, 0.2);--wp--preset--shadow--outlined: 6px 6px 0px -3px rgba(255, 255, 255, 1), 6px 6px rgba(0, 0, 0, 1);--wp--preset--shadow--crisp: 6px 6px 0px rgba(0, 0, 0, 1);}:where(.is-layout-flex){gap: 0.5em;}:where(.is-layout-grid){gap: 0.5em;}body .is-layout-flow > .alignleft{float: left;margin-inline-start: 0;margin-inline-end: 2em;}body .is-layout-flow > .alignright{float: right;margin-inline-start: 2em;margin-inline-end: 0;}body .is-layout-flow > .aligncenter{margin-left: auto !important;margin-right: auto !important;}body .is-layout-constrained > .alignleft{float: left;margin-inline-start: 0;margin-inline-end: 2em;}body .is-layout-constrained > .alignright{float: right;margin-inline-start: 2em;margin-inline-end: 0;}body .is-layout-constrained > .aligncenter{margin-left: auto !important;margin-right: auto !important;}body .is-layout-constrained > :where(:not(.alignleft):not(.alignright):not(.alignfull)){max-width: var(--wp--style--global--content-size);margin-left: auto !important;margin-right: auto !important;}body .is-layout-constrained > .alignwide{max-width: var(--wp--style--global--wide-size);}body .is-layout-flex{display: flex;}body .is-layout-flex{flex-wrap: wrap;align-items: center;}body .is-layout-flex > *{margin: 0;}body .is-layout-grid{display: grid;}body .is-layout-grid > *{margin: 0;}:where(.wp-block-columns.is-layout-flex){gap: 2em;}:where(.wp-block-columns.is-layout-grid){gap: 2em;}:where(.wp-block-post-template.is-layout-flex){gap: 1.25em;}:where(.wp-block-post-template.is-layout-grid){gap: 1.25em;}.has-black-color{color: var(--wp--preset--color--black) !important;}.has-cyan-bluish-gray-color{color: var(--wp--preset--color--cyan-bluish-gray) !important;}.has-white-color{color: var(--wp--preset--color--white) !important;}.has-pale-pink-color{color: var(--wp--preset--color--pale-pink) !important;}.has-vivid-red-color{color: var(--wp--preset--color--vivid-red) !important;}.has-luminous-vivid-orange-color{color: var(--wp--preset--color--luminous-vivid-orange) !important;}.has-luminous-vivid-amber-color{color: var(--wp--preset--color--luminous-vivid-amber) !important;}.has-light-green-cyan-color{color: var(--wp--preset--color--light-green-cyan) !important;}.has-vivid-green-cyan-color{color: var(--wp--preset--color--vivid-green-cyan) !important;}.has-pale-cyan-blue-color{color: var(--wp--preset--color--pale-cyan-blue) !important;}.has-vivid-cyan-blue-color{color: var(--wp--preset--color--vivid-cyan-blue) !important;}.has-vivid-purple-color{color: var(--wp--preset--color--vivid-purple) !important;}.has-black-background-color{background-color: var(--wp--preset--color--black) !important;}.has-cyan-bluish-gray-background-color{background-color: var(--wp--preset--color--cyan-bluish-gray) !important;}.has-white-background-color{background-color: var(--wp--preset--color--white) !important;}.has-pale-pink-background-color{background-color: var(--wp--preset--color--pale-pink) !important;}.has-vivid-red-background-color{background-color: var(--wp--preset--color--vivid-red) !important;}.has-luminous-vivid-orange-background-color{background-color: var(--wp--preset--color--luminous-vivid-orange) !important;}.has-luminous-vivid-amber-background-color{background-color: var(--wp--preset--color--luminous-vivid-amber) !important;}.has-light-green-cyan-background-color{background-color: var(--wp--preset--color--light-green-cyan) !important;}.has-vivid-green-cyan-background-color{background-color: var(--wp--preset--color--vivid-green-cyan) !important;}.has-pale-cyan-blue-background-color{background-color: var(--wp--preset--color--pale-cyan-blue) !important;}.has-vivid-cyan-blue-background-color{background-color: var(--wp--preset--color--vivid-cyan-blue) !important;}.has-vivid-purple-background-color{background-color: var(--wp--preset--color--vivid-purple) !important;}.has-black-border-color{border-color: var(--wp--preset--color--black) !important;}.has-cyan-bluish-gray-border-color{border-color: var(--wp--preset--color--cyan-bluish-gray) !important;}.has-white-border-color{border-color: var(--wp--preset--color--white) !important;}.has-pale-pink-border-color{border-color: var(--wp--preset--color--pale-pink) !important;}.has-vivid-red-border-color{border-color: var(--wp--preset--color--vivid-red) !important;}.has-luminous-vivid-orange-border-color{border-color: var(--wp--preset--color--luminous-vivid-orange) !important;}.has-luminous-vivid-amber-border-color{border-color: var(--wp--preset--color--luminous-vivid-amber) !important;}.has-light-green-cyan-border-color{border-color: var(--wp--preset--color--light-green-cyan) !important;}.has-vivid-green-cyan-border-color{border-color: var(--wp--preset--color--vivid-green-cyan) !important;}.has-pale-cyan-blue-border-color{border-color: var(--wp--preset--color--pale-cyan-blue) !important;}.has-vivid-cyan-blue-border-color{border-color: var(--wp--preset--color--vivid-cyan-blue) !important;}.has-vivid-purple-border-color{border-color: var(--wp--preset--color--vivid-purple) !important;}.has-vivid-cyan-blue-to-vivid-purple-gradient-background{background: var(--wp--preset--gradient--vivid-cyan-blue-to-vivid-purple) !important;}.has-light-green-cyan-to-vivid-green-cyan-gradient-background{background: var(--wp--preset--gradient--light-green-cyan-to-vivid-green-cyan) !important;}.has-luminous-vivid-amber-to-luminous-vivid-orange-gradient-background{background: var(--wp--preset--gradient--luminous-vivid-amber-to-luminous-vivid-orange) !important;}.has-luminous-vivid-orange-to-vivid-red-gradient-background{background: var(--wp--preset--gradient--luminous-vivid-orange-to-vivid-red) !important;}.has-very-light-gray-to-cyan-bluish-gray-gradient-background{background: var(--wp--preset--gradient--very-light-gray-to-cyan-bluish-gray) !important;}.has-cool-to-warm-spectrum-gradient-background{background: var(--wp--preset--gradient--cool-to-warm-spectrum) !important;}.has-blush-light-purple-gradient-background{background: var(--wp--preset--gradient--blush-light-purple) !important;}.has-blush-bordeaux-gradient-background{background: var(--wp--preset--gradient--blush-bordeaux) !important;}.has-luminous-dusk-gradient-background{background: var(--wp--preset--gradient--luminous-dusk) !important;}.has-pale-ocean-gradient-background{background: var(--wp--preset--gradient--pale-ocean) !important;}.has-electric-grass-gradient-background{background: var(--wp--preset--gradient--electric-grass) !important;}.has-midnight-gradient-background{background: var(--wp--preset--gradient--midnight) !important;}.has-small-font-size{font-size: var(--wp--preset--font-size--small) !important;}.has-medium-font-size{font-size: var(--wp--preset--font-size--medium) !important;}.has-large-font-size{font-size: var(--wp--preset--font-size--large) !important;}.has-x-large-font-size{font-size: var(--wp--preset--font-size--x-large) !important;}
+.wp-block-navigation a:where(:not(.wp-element-button)){color: inherit;}
+:where(.wp-block-post-template.is-layout-flex){gap: 1.25em;}:where(.wp-block-post-template.is-layout-grid){gap: 1.25em;}
+:where(.wp-block-columns.is-layout-flex){gap: 2em;}:where(.wp-block-columns.is-layout-grid){gap: 2em;}
+.wp-block-pullquote{font-size: 1.5em;line-height: 1.6;}
+</style>
+<link rel='stylesheet' id='crp-style-text-only-css' href='https://www.diarioveloz.com/wp-content/plugins/contextual-related-posts/css/text-only.min.css?ver=3.4.1' media='all' />
+<link data-minify="1" rel='stylesheet' id='c4wp-public-css' href='https://www.diarioveloz.com/wp-content/cache/min/1/wp-content/plugins/wp-captcha/assets/css/c4wp-public.css?ver=1695208645' media='all' />
+<link rel='stylesheet' id='generate-widget-areas-css' href='https://www.diarioveloz.com/wp-content/themes/generatepress/assets/css/components/widget-areas.min.css?ver=3.3.1' media='all' />
+<link rel='stylesheet' id='generate-style-css' href='https://www.diarioveloz.com/wp-content/themes/generatepress/assets/css/main.min.css?ver=3.3.1' media='all' />
+<style id='generate-style-inline-css'>
+.generate-columns {margin-bottom: 30px;padding-left: 30px;}.generate-columns-container {margin-left: -30px;}.page-header {margin-bottom: 30px;margin-left: 30px}.generate-columns-container > .paging-navigation {margin-left: 30px;}
+body{background-color:#fbfbfb;color:#3a3a3a;}a{color:#ff1956;}a:hover, a:focus, a:active{color:#000000;}.grid-container{max-width:1170px;}.wp-block-group__inner-container{max-width:1170px;margin-left:auto;margin-right:auto;}.site-header .header-image{width:290px;}.navigation-search{position:absolute;left:-99999px;pointer-events:none;visibility:hidden;z-index:20;width:100%;top:0;transition:opacity 100ms ease-in-out;opacity:0;}.navigation-search.nav-search-active{left:0;right:0;pointer-events:auto;visibility:visible;opacity:1;}.navigation-search input[type="search"]{outline:0;border:0;vertical-align:bottom;line-height:1;opacity:0.9;width:100%;z-index:20;border-radius:0;-webkit-appearance:none;height:60px;}.navigation-search input::-ms-clear{display:none;width:0;height:0;}.navigation-search input::-ms-reveal{display:none;width:0;height:0;}.navigation-search input::-webkit-search-decoration, .navigation-search input::-webkit-search-cancel-button, .navigation-search input::-webkit-search-results-button, .navigation-search input::-webkit-search-results-decoration{display:none;}.gen-sidebar-nav .navigation-search{top:auto;bottom:0;}:root{--contrast:#222222;--contrast-2:#575760;--contrast-3:#b2b2be;--base:#f0f0f0;--base-2:#f7f8f9;--base-3:#ffffff;--accent:#1e73be;}:root .has-contrast-color{color:var(--contrast);}:root .has-contrast-background-color{background-color:var(--contrast);}:root .has-contrast-2-color{color:var(--contrast-2);}:root .has-contrast-2-background-color{background-color:var(--contrast-2);}:root .has-contrast-3-color{color:var(--contrast-3);}:root .has-contrast-3-background-color{background-color:var(--contrast-3);}:root .has-base-color{color:var(--base);}:root .has-base-background-color{background-color:var(--base);}:root .has-base-2-color{color:var(--base-2);}:root .has-base-2-background-color{background-color:var(--base-2);}:root .has-base-3-color{color:var(--base-3);}:root .has-base-3-background-color{background-color:var(--base-3);}:root .has-accent-color{color:var(--accent);}:root .has-accent-background-color{background-color:var(--accent);}body, button, input, select, textarea{font-family:Lato, sans-serif;font-weight:300;font-size:17px;}body{line-height:1.6;}.main-title{text-transform:uppercase;font-size:29px;}.main-navigation a, .main-navigation .menu-toggle, .main-navigation .menu-bar-items{font-weight:300;text-transform:uppercase;font-size:16px;}.widget-title{font-family:Lato, sans-serif;font-weight:500;text-transform:uppercase;font-size:20px;}button:not(.menu-toggle),html input[type="button"],input[type="reset"],input[type="submit"],.button,.wp-block-button .wp-block-button__link{font-weight:500;text-transform:uppercase;font-size:14px;}h1{font-family:Playfair Display, serif;font-size:50px;}h2{font-family:Playfair Display, serif;font-size:30px;}h3{font-family:Playfair Display, serif;font-size:24px;}h4{font-weight:700;font-size:18px;}.top-bar{background-color:#000000;color:#ffffff;}.top-bar a{color:#ffffff;}.top-bar a:hover{color:#303030;}.site-header{background-color:rgba(255,255,255,0);color:#3a3a3a;}.site-header a{color:#3a3a3a;}.main-title a,.main-title a:hover{color:#222222;}.site-description{color:#757575;}.mobile-menu-control-wrapper .menu-toggle,.mobile-menu-control-wrapper .menu-toggle:hover,.mobile-menu-control-wrapper .menu-toggle:focus,.has-inline-mobile-toggle #site-navigation.toggled{background-color:rgba(0, 0, 0, 0.02);}.main-navigation,.main-navigation ul ul{background-color:rgba(255,255,255,0);}.main-navigation .main-nav ul li a, .main-navigation .menu-toggle, .main-navigation .menu-bar-items{color:#3a3a3a;}.main-navigation .main-nav ul li:not([class*="current-menu-"]):hover > a, .main-navigation .main-nav ul li:not([class*="current-menu-"]):focus > a, .main-navigation .main-nav ul li.sfHover:not([class*="current-menu-"]) > a, .main-navigation .menu-bar-item:hover > a, .main-navigation .menu-bar-item.sfHover > a{color:#3a3a3a;background-color:rgba(255,84,129,0);}button.menu-toggle:hover,button.menu-toggle:focus{color:#3a3a3a;}.main-navigation .main-nav ul li[class*="current-menu-"] > a{color:#3a3a3a;background-color:rgba(63,63,63,0);}.navigation-search input[type="search"],.navigation-search input[type="search"]:active, .navigation-search input[type="search"]:focus, .main-navigation .main-nav ul li.search-item.active > a, .main-navigation .menu-bar-items .search-item.active > a{color:#3a3a3a;background-color:rgba(255,84,129,0);}.main-navigation ul ul{background-color:#3a3a3a;}.main-navigation .main-nav ul ul li a{color:#515151;}.main-navigation .main-nav ul ul li:not([class*="current-menu-"]):hover > a,.main-navigation .main-nav ul ul li:not([class*="current-menu-"]):focus > a, .main-navigation .main-nav ul ul li.sfHover:not([class*="current-menu-"]) > a{color:#7a8896;background-color:#4f4f4f;}.main-navigation .main-nav ul ul li[class*="current-menu-"] > a{color:#8f919e;background-color:#4f4f4f;}.separate-containers .inside-article, .separate-containers .comments-area, .separate-containers .page-header, .one-container .container, .separate-containers .paging-navigation, .inside-page-header{background-color:#fbfbfb;}.entry-title a{color:#000000;}.entry-title a:hover{color:#000000;}.entry-meta{color:#595959;}.entry-meta a{color:#595959;}.entry-meta a:hover{color:#222222;}h2{color:#222222;}.sidebar .widget{background-color:#f4f6f7;}.sidebar .widget .widget-title{color:#3a3a3a;}.footer-widgets{color:#3a3a3a;background-color:rgba(0,0,0,0);}.footer-widgets a{color:#ff1956;}.footer-widgets a:hover{color:#222222;}.footer-widgets .widget-title{color:#ff1956;}.site-info{color:#ff1956;background-color:rgba(34,34,34,0);}.site-info a{color:#0a0a0a;}.site-info a:hover{color:#606060;}.footer-bar .widget_nav_menu .current-menu-item a{color:#606060;}input[type="text"],input[type="email"],input[type="url"],input[type="password"],input[type="search"],input[type="tel"],input[type="number"],textarea,select{color:#666666;background-color:#fafafa;border-color:#cccccc;}input[type="text"]:focus,input[type="email"]:focus,input[type="url"]:focus,input[type="password"]:focus,input[type="search"]:focus,input[type="tel"]:focus,input[type="number"]:focus,textarea:focus,select:focus{color:#666666;background-color:#ffffff;border-color:#bfbfbf;}button,html input[type="button"],input[type="reset"],input[type="submit"],a.button,a.wp-block-button__link:not(.has-background){color:#ffffff;background-color:#ff1956;}button:hover,html input[type="button"]:hover,input[type="reset"]:hover,input[type="submit"]:hover,a.button:hover,button:focus,html input[type="button"]:focus,input[type="reset"]:focus,input[type="submit"]:focus,a.button:focus,a.wp-block-button__link:not(.has-background):active,a.wp-block-button__link:not(.has-background):focus,a.wp-block-button__link:not(.has-background):hover{color:#b5005a;background-color:#ffffff;}a.generate-back-to-top{background-color:rgba( 0,0,0,0.4 );color:#ffffff;}a.generate-back-to-top:hover,a.generate-back-to-top:focus{background-color:rgba( 0,0,0,0.6 );color:#ffffff;}:root{--gp-search-modal-bg-color:var(--base-3);--gp-search-modal-text-color:var(--contrast);--gp-search-modal-overlay-bg-color:rgba(0,0,0,0.2);}@media (max-width: 768px){.main-navigation .menu-bar-item:hover > a, .main-navigation .menu-bar-item.sfHover > a{background:none;color:#3a3a3a;}}.inside-top-bar{padding:10px;}.inside-top-bar.grid-container{max-width:1190px;}.inside-header{padding:20px 10px 20px 10px;}.inside-header.grid-container{max-width:1190px;}.separate-containers .inside-article, .separate-containers .comments-area, .separate-containers .page-header, .separate-containers .paging-navigation, .one-container .site-content, .inside-page-header{padding:0px 0px 60px 0px;}.site-main .wp-block-group__inner-container{padding:0px 0px 60px 0px;}.separate-containers .paging-navigation{padding-top:20px;padding-bottom:20px;}.entry-content .alignwide, body:not(.no-sidebar) .entry-content .alignfull{margin-left:-0px;width:calc(100% + 0px);max-width:calc(100% + 0px);}.one-container.right-sidebar .site-main,.one-container.both-right .site-main{margin-right:0px;}.one-container.left-sidebar .site-main,.one-container.both-left .site-main{margin-left:0px;}.one-container.both-sidebars .site-main{margin:0px;}.sidebar .widget, .page-header, .widget-area .main-navigation, .site-main > *{margin-bottom:30px;}.separate-containers .site-main{margin:30px;}.both-right .inside-left-sidebar,.both-left .inside-left-sidebar{margin-right:15px;}.both-right .inside-right-sidebar,.both-left .inside-right-sidebar{margin-left:15px;}.one-container.archive .post:not(:last-child):not(.is-loop-template-item), .one-container.blog .post:not(:last-child):not(.is-loop-template-item){padding-bottom:60px;}.separate-containers .featured-image{margin-top:30px;}.separate-containers .inside-right-sidebar, .separate-containers .inside-left-sidebar{margin-top:30px;margin-bottom:30px;}.main-navigation .main-nav ul li a,.menu-toggle,.main-navigation .menu-bar-item > a{line-height:50px;}.navigation-search input[type="search"]{height:50px;}.rtl .menu-item-has-children .dropdown-menu-toggle{padding-left:20px;}.rtl .main-navigation .main-nav ul li.menu-item-has-children > a{padding-right:20px;}.widget-area .widget{padding:15px;}.footer-widgets-container.grid-container{max-width:1250px;}.inside-site-info{padding:20px;}.inside-site-info.grid-container{max-width:1210px;}@media (max-width:768px){.separate-containers .inside-article, .separate-containers .comments-area, .separate-containers .page-header, .separate-containers .paging-navigation, .one-container .site-content, .inside-page-header{padding:20px;}.site-main .wp-block-group__inner-container{padding:20px;}.inside-site-info{padding-right:10px;padding-left:10px;}.entry-content .alignwide, body:not(.no-sidebar) .entry-content .alignfull{margin-left:-20px;width:calc(100% + 40px);max-width:calc(100% + 40px);}.one-container .site-main .paging-navigation{margin-bottom:30px;}}/* End cached CSS */.is-right-sidebar{width:25%;}.is-left-sidebar{width:25%;}.site-content .content-area{width:75%;}@media (max-width: 768px){.main-navigation .menu-toggle,.sidebar-nav-mobile:not(#sticky-placeholder){display:block;}.main-navigation ul,.gen-sidebar-nav,.main-navigation:not(.slideout-navigation):not(.toggled) .main-nav > ul,.has-inline-mobile-toggle #site-navigation .inside-navigation > *:not(.navigation-search):not(.main-nav){display:none;}.nav-align-right .inside-navigation,.nav-align-center .inside-navigation{justify-content:space-between;}}
+.dynamic-author-image-rounded{border-radius:100%;}.dynamic-featured-image, .dynamic-author-image{vertical-align:middle;}.one-container.blog .dynamic-content-template:not(:last-child), .one-container.archive .dynamic-content-template:not(:last-child){padding-bottom:0px;}.dynamic-entry-excerpt > p:last-child{margin-bottom:0px;}
+.main-navigation .main-nav ul li a,.menu-toggle,.main-navigation .menu-bar-item > a{transition: line-height 300ms ease}.main-navigation.toggled .main-nav > ul{background-color: rgba(255,255,255,0)}.sticky-enabled .gen-sidebar-nav.is_stuck .main-navigation {margin-bottom: 0px;}.sticky-enabled .gen-sidebar-nav.is_stuck {z-index: 500;}.sticky-enabled .main-navigation.is_stuck {box-shadow: 0 2px 2px -2px rgba(0, 0, 0, .2);}.navigation-stick:not(.gen-sidebar-nav) {left: 0;right: 0;width: 100% !important;}.nav-float-right .navigation-stick {width: 100% !important;left: 0;}.nav-float-right .navigation-stick .navigation-branding {margin-right: auto;}.main-navigation.has-sticky-branding:not(.grid-container) .inside-navigation:not(.grid-container) .navigation-branding{margin-left: 10px;}
+</style>
+<link rel='stylesheet' id='generate-google-fonts-css' href='https://fonts.googleapis.com/css?family=Lato%3A100%2C100italic%2C300%2C300italic%2Cregular%2Citalic%2C700%2C700italic%2C900%2C900italic%7CPlayfair+Display%3Aregular%2Citalic%2C700%2C700italic%2C900%2C900italic&#038;display=auto&#038;ver=3.3.1' media='all' />
+<link rel='stylesheet' id='generate-blog-css' href='https://www.diarioveloz.com/wp-content/plugins/gp-premium/blog/functions/css/style.min.css?ver=2.3.2' media='all' />
+<link rel='stylesheet' id='generate-offside-css' href='https://www.diarioveloz.com/wp-content/plugins/gp-premium/menu-plus/functions/css/offside.min.css?ver=2.3.2' media='all' />
+<style id='generate-offside-inline-css'>
+:root{--gp-slideout-width:265px;}.slideout-navigation.main-navigation{background-color:#fbfbfb;}.slideout-navigation.main-navigation .main-nav ul li a{color:#3a3a3a;}.slideout-navigation.main-navigation .main-nav ul li:not([class*="current-menu-"]):hover > a, .slideout-navigation.main-navigation .main-nav ul li:not([class*="current-menu-"]):focus > a, .slideout-navigation.main-navigation .main-nav ul li.sfHover:not([class*="current-menu-"]) > a{color:#fbfbfb;background-color:#3a3a3c;}.slideout-navigation.main-navigation .main-nav ul li[class*="current-menu-"] > a{color:#fbfbfb;background-color:#3a3a3c;}.slideout-navigation, .slideout-navigation a{color:#3a3a3a;}.slideout-navigation button.slideout-exit{color:#3a3a3a;padding-left:20px;padding-right:20px;}.slide-opened nav.toggled .menu-toggle:before{display:none;}@media (max-width: 768px){.menu-bar-item.slideout-toggle{display:none;}}
+</style>
+<script type="rocketlazyloadscript" data-rocket-src="https://www.diarioveloz.com/wp-includes/js/jquery/jquery.min.js?ver=3.7.1" id="jquery-core-js"></script>
+<script type="rocketlazyloadscript" data-minify="1" data-rocket-src="https://www.diarioveloz.com/wp-content/cache/min/1/wp-content/plugins/stop-user-enumeration/frontend/js/frontend.js?ver=1695208645" id="stop-user-enumeration-js" defer></script>
+<script type="rocketlazyloadscript" data-rocket-src="https://www.diarioveloz.com/wp-includes/js/jquery/jquery-migrate.min.js?ver=3.4.1" id="jquery-migrate-js" defer></script>
+<script type="rocketlazyloadscript" data-minify="1" data-rocket-src="https://www.diarioveloz.com/wp-content/cache/min/1/wp-content/plugins/wp-captcha/assets/js/c4wp-public.js?ver=1695208645" id="c4wp-public-js" defer></script>
+<link rel="https://api.w.org/" href="https://www.diarioveloz.com/wp-json/" /><link rel="EditURI" type="application/rsd+xml" title="RSD" href="https://www.diarioveloz.com/xmlrpc.php?rsd" />
+<meta name="generator" content="WordPress 6.4.1" />
+<meta name="publicationmedia-verification" content="fe003ced-8005-4377-b8c0-bdbec081dbe8"><!-- Google tag (gtag.js) -->
+<script type="rocketlazyloadscript" async data-rocket-src="https://www.googletagmanager.com/gtag/js?id=G-6TNYZ0G108"></script>
+<script type="rocketlazyloadscript">
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-6TNYZ0G108');
+</script>
+
+<link rel="icon" href="https://www.diarioveloz.com/wp-content/uploads/2022/10/2-20221011144104-150x150.png" sizes="32x32" />
+<link rel="icon" href="https://www.diarioveloz.com/wp-content/uploads/2022/10/2-20221011144104-300x300.png" sizes="192x192" />
+<link rel="apple-touch-icon" href="https://www.diarioveloz.com/wp-content/uploads/2022/10/2-20221011144104-300x300.png" />
+<meta name="msapplication-TileImage" content="https://www.diarioveloz.com/wp-content/uploads/2022/10/2-20221011144104-300x300.png" />
+		<style id="wp-custom-css">
+			/* GeneratePress Site CSS */ /* Colors */
+.main-navigation ul li:after {
+    background-color: #000;
+}
+
+.main-navigation .inside-navigation {
+    border-top: 0.5px solid #d4d7d8;
+}
+
+.wpsp-card, .wpsp-card a, .wpsp-card .wp-show-posts-meta a, .wpsp-card .wp-show-posts-meta a:visited {
+    color: #fff;
+}
+.navigation-search.nav-search-active {
+	background-color: rgba(255,255,255,0.95);
+	top: 100%;
+}
+
+/* Theme Global */
+@media (min-width: 769px) {
+    body {
+        margin: 0 30px;
+    }
+}
+
+body.single-post.no-sidebar .site-content {
+    max-width: 720px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+/* Navigation */
+.second-nav.grid-container {
+    padding: 0;
+}
+
+@media (min-width: 769px) {
+    .main-navigation ul li {
+        position: relative;
+    }
+
+    .main-navigation ul li:after {
+        content: '';
+        position: absolute;
+        height: 0;
+        width: 100%;
+        bottom: 0;
+        left: 0;
+        pointer-events: none;
+        filter: hue-rotation(90deg);
+        -webkit-filter: hue-rotation(90deg);
+        -webkit-transition: height 0.35s ease;
+        transition: height 0.35s ease;
+    }
+
+    .main-navigation ul li:hover:after, .main-navigation ul li.current-menu-item:after {
+        height: 6px;
+    }
+}
+
+/* Widgets */
+.widget-title {
+    margin: 1em 0;
+    font-size: 0.8em !Important;
+}
+
+.widget .wp-show-posts article {
+    margin-bottom: 0.5em !important;
+}
+
+.zero-padding {
+    padding: 0 !important;
+}
+
+.widget.no-background {
+    background-color: transparent;
+}
+
+/* Buttons */
+button, html input[type="button"], input[type="reset"], input[type="submit"], a.button, a.button:visited, a.wp-block-button__link:not(.has-background) {
+    pointer-events: initial !important;
+    border-color: inherit;
+    border: 1px solid;
+}
+
+/* Blog */
+.generate-columns .inside-article {
+    padding: 0 0 15px;
+}
+
+@media (max-width: 768px) {
+    .generate-columns .inside-article>*:not(.post-image) {
+        padding: 0 15px;
+    }
+}
+
+.generate-columns-container article .inside-article .post-image {
+    margin-bottom: 0.5em;
+}
+
+.generate-columns-container article .inside-article .entry-summary {
+    margin-top: 0.5em;
+    font-size: 0.8em;
+}
+
+.generate-columns-container article .entry-header, .wp-show-posts-entry-header {
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-orient: vertical;
+    -webkit-box-direction: reverse;
+    -ms-flex-direction: column-reverse;
+    flex-direction: column-reverse;
+}
+
+@media (min-width: 768px) {
+.generate-columns-container article .entry-header .entry-title, .wp-show-posts article .wp-show-posts-entry-title {
+    line-height: 2.5ex;
+    height: 5ex;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+}
+
+.wp-show-posts .wp-show-posts-inner {
+    overflow: hidden;
+}
+
+@media (min-width: 420px) {
+.wpsp-align .wp-show-posts-image {
+    margin-bottom: 0;
+}
+}
+.wpsp-align .wp-show-posts-image a, .wpsp-align .wp-show-posts-image img {
+    height: 100%;
+}
+
+.generate-columns-container article .inside-article img, .wp-show-posts-image img {
+    -o-object-fit: cover !important;
+    object-fit: cover !important;
+}
+
+/* WPSP Grids */
+/* Single column align side image */
+/* Add wpsp-align class to to WPSP List shortcode wrapper */
+@media (min-width: 420px) {
+    .wpsp-align .wp-show-posts-inner {
+        display: -webkit-box;
+        display: -ms-flexbox;
+        display: flex;
+    }
+
+    .wpsp-align .wp-show-posts-inner>div {
+        -webkit-box-flex: 1;
+        -ms-flex: 1;
+        flex: 1;
+        display: -webkit-box;
+        display: -ms-flexbox;
+        display: flex;
+        -webkit-box-orient: vertical;
+        -webkit-box-direction: normal;
+        -ms-flex-direction: column;
+        flex-direction: column;
+        -webkit-box-pack: center;
+        -ms-flex-pack: center;
+        justify-content: center;
+    }
+}
+
+@media (max-width: 768px) and (min-width: 420px) {
+    .wpsp-align .wp-show-posts-inner .wp-show-posts-image {
+        margin-right: 1.5em;
+    }
+}
+
+/* magazine Grid Golden Ratio 5 block standard */
+/* Add wpsp-grid class to WPSP List shortcode wrapper */
+@media (min-width: 600px) {
+    .wpsp-grid .wp-show-posts {
+        display: grid;
+    }
+}
+
+@media (min-width: 900px) {
+    .wpsp-grid .wp-show-posts {
+        grid-template-columns: repeat(8, 1fr);
+        grid-template-rows: 1fr auto;
+    }
+
+    .wpsp-grid .wp-show-posts article:first-child {
+        grid-column: 1 / 5;
+        grid-row: 1 / 4;
+    }
+
+    .wpsp-grid .wp-show-posts article:nth-child(2) {
+        grid-column: 5 / end;
+        grid-row: 1 / 2;
+    }
+
+    .wpsp-grid .wp-show-posts article:nth-child(3) {
+        grid-column: 5 / 7;
+        grid-row: 2 / 4;
+    }
+
+    .wpsp-grid .wp-show-posts article:nth-child(4) {
+        grid-column: 7 / end;
+        grid-row: 2 / 4;
+    }
+}
+
+@media (max-width: 899px) and (min-width: 600px) {
+    .wpsp-grid .wp-show-posts article {
+        grid-column: span 4;
+    }
+
+    .wpsp-grid .wp-show-posts article:nth-child(3), .wpsp-grid .wp-show-posts article:nth-child(4) {
+        grid-row: 3;
+        grid-column: span 2;
+    }
+}
+
+.wpsp-grid article:not(:first-child) .wp-show-posts-image a img {
+    height: 250px;
+    width: 100%;
+    -o-object-fit: cover;
+    object-fit: cover;
+}
+
+.wpsp-grid article:first-child .wp-show-posts-image a img {
+    height: 500px;
+    width: 100%;
+    -o-object-fit: cover;
+    object-fit: cover;
+}
+
+.wpsp-grid article:not(:first-child) .wp-show-posts-entry-summary, .wpsp-grid article:not(:first-child) .wp-show-posts-entry-meta-below-post, .wpsp-grid article:not(:first-child) .wpsp-read-more {
+    display: none;
+}
+
+/* WPSP Card Styling */
+/* Add wpsp-card class to WPSP List shortcode wrapper */
+.wpsp-card .wp-show-posts-meta a, .wpsp-card .wp-show-posts-meta a:visited {
+    font-size: 1em;
+    font-weight: 500;
+    text-transform: uppercase;
+}
+
+:not(.widget).wpsp-card .wp-show-posts article, .wpsp-card .wp-show-posts-image {
+    margin-bottom: 0 !important;
+}
+
+.wpsp-card .wp-show-posts-inner {
+    position: relative;
+    -webkit-box-sizing: border-box;
+    box-sizing: border-box;
+}
+
+.wpsp-card .wpsp-content-wrap {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    padding: 5% 8%;
+    -webkit-box-sizing: border-box;
+    box-sizing: border-box;
+    background-color: rgba(0, 0, 0, 0.35);
+    background: -webkit-gradient(linear, left bottom, left top, color-stop(30%, rgba(80, 50, 50, 0.5)), to(rgba(0, 0, 0, 0)));
+    background: linear-gradient(0deg, rgba(80, 50, 50, 0.5) 30%, rgba(0, 0, 0, 0) 100%);
+    pointer-events: none;
+}
+
+.wpsp-card article {
+    position: relative;
+    overflow: hidden;
+}
+
+.wpsp-card article, .wpsp-card article .wp-show-posts-image img {
+    -webkit-backface-visibility: hidden;
+    -webkit-transition: 0.3s all ease;
+    transition: 0.3s all ease;
+}
+
+.wpsp-card article:hover .wp-show-posts-image img {
+    -webkit-transform: scale(1.1);
+    transform: scale(1.1);
+    -webkit-transition: 0.3s all ease;
+    transition: 0.3s all ease;
+}
+
+
+.header-widget .lsi-social-icons li {
+	margin-bottom: 0 !important;
+}
+
+body .happyforms-flex {
+	padding: 0;
+} /* End GeneratePress Site CSS */		</style>
+		</head>
+
+<body class="home blog wp-custom-logo wp-embed-responsive post-image-above-header post-image-aligned-center generate-columns-activated slideout-enabled slideout-mobile sticky-menu-fade sticky-enabled both-sticky-menu right-sidebar nav-below-header separate-containers nav-search-enabled header-aligned-center dropdown-hover" itemtype="https://schema.org/Blog" itemscope>
+	<a class="screen-reader-text skip-link" href="#content" title="Skip to content">Skip to content</a>		<header class="site-header grid-container" id="masthead" aria-label="Site"  itemtype="https://schema.org/WPHeader" itemscope>
+			<div class="inside-header grid-container">
+				<div class="site-logo">
+					<a href="https://www.diarioveloz.com/" rel="home">
+						<img  class="header-image is-logo-image" alt="Diario Veloz" src="https://www.diarioveloz.com/wp-content/uploads/2022/10/cropped-DIARIO-VELOZ-logo.png" width="500" height="358" />
+					</a>
+				</div>			</div>
+		</header>
+				<nav class="main-navigation grid-container nav-align-center has-menu-bar-items sub-menu-right" id="site-navigation" aria-label="Primary"  itemtype="https://schema.org/SiteNavigationElement" itemscope>
+			<div class="inside-navigation grid-container">
+				<form method="get" class="search-form navigation-search" action="https://www.diarioveloz.com/">
+					<input type="search" class="search-field" value="" name="s" title="Search" />
+				</form>				<button class="menu-toggle" aria-controls="generate-slideout-menu" aria-expanded="false">
+					<span class="gp-icon icon-menu-bars"><svg viewBox="0 0 512 512" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="1em" height="1em"><path d="M0 96c0-13.255 10.745-24 24-24h464c13.255 0 24 10.745 24 24s-10.745 24-24 24H24c-13.255 0-24-10.745-24-24zm0 160c0-13.255 10.745-24 24-24h464c13.255 0 24 10.745 24 24s-10.745 24-24 24H24c-13.255 0-24-10.745-24-24zm0 160c0-13.255 10.745-24 24-24h464c13.255 0 24 10.745 24 24s-10.745 24-24 24H24c-13.255 0-24-10.745-24-24z" /></svg><svg viewBox="0 0 512 512" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="1em" height="1em"><path d="M71.029 71.029c9.373-9.372 24.569-9.372 33.942 0L256 222.059l151.029-151.03c9.373-9.372 24.569-9.372 33.942 0 9.372 9.373 9.372 24.569 0 33.942L289.941 256l151.03 151.029c9.372 9.373 9.372 24.569 0 33.942-9.373 9.372-24.569 9.372-33.942 0L256 289.941l-151.029 151.03c-9.373 9.372-24.569 9.372-33.942 0-9.372-9.373-9.372-24.569 0-33.942L222.059 256 71.029 104.971c-9.372-9.373-9.372-24.569 0-33.942z" /></svg></span><span class="mobile-menu">Menu</span>				</button>
+				<div id="primary-menu" class="main-nav"><ul id="menu-primary" class=" menu sf-menu"><li id="menu-item-1227" class="menu-item menu-item-type-taxonomy menu-item-object-category menu-item-1227"><a href="https://www.diarioveloz.com/category/home/">Home</a></li>
+<li id="menu-item-1228" class="menu-item menu-item-type-taxonomy menu-item-object-category menu-item-1228"><a href="https://www.diarioveloz.com/category/law/">Law</a></li>
+<li id="menu-item-1229" class="menu-item menu-item-type-taxonomy menu-item-object-category menu-item-1229"><a href="https://www.diarioveloz.com/category/casino/">Casino</a></li>
+<li id="menu-item-1230" class="menu-item menu-item-type-taxonomy menu-item-object-category menu-item-1230"><a href="https://www.diarioveloz.com/category/medicine/">Medicine</a></li>
+<li id="menu-item-1233" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-1233"><a href="https://www.diarioveloz.com/contact-us/">Contact us</a></li>
+</ul></div><div class="menu-bar-items"><span class="menu-bar-item search-item"><a aria-label="Open Search Bar" href="#"><span class="gp-icon icon-search"><svg viewBox="0 0 512 512" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="1em" height="1em"><path fill-rule="evenodd" clip-rule="evenodd" d="M208 48c-88.366 0-160 71.634-160 160s71.634 160 160 160 160-71.634 160-160S296.366 48 208 48zM0 208C0 93.125 93.125 0 208 0s208 93.125 208 208c0 48.741-16.765 93.566-44.843 129.024l133.826 134.018c9.366 9.379 9.355 24.575-.025 33.941-9.379 9.366-24.575 9.355-33.941-.025L337.238 370.987C301.747 399.167 256.839 416 208 416 93.125 416 0 322.875 0 208z" /></svg><svg viewBox="0 0 512 512" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="1em" height="1em"><path d="M71.029 71.029c9.373-9.372 24.569-9.372 33.942 0L256 222.059l151.029-151.03c9.373-9.372 24.569-9.372 33.942 0 9.372 9.373 9.372 24.569 0 33.942L289.941 256l151.03 151.029c9.372 9.373 9.372 24.569 0 33.942-9.373 9.372-24.569 9.372-33.942 0L256 289.941l-151.029 151.03c-9.373 9.372-24.569 9.372-33.942 0-9.372-9.373-9.372-24.569 0-33.942L222.059 256 71.029 104.971c-9.372-9.373-9.372-24.569 0-33.942z" /></svg></span></a></span></div>			</div>
+		</nav>
+		
+	<div class="site grid-container container hfeed" id="page">
+				<div class="site-content" id="content">
+			
+	<div class="content-area" id="primary">
+		<main class="site-main" id="main">
+			<div class="generate-columns-container "><article id="post-1926" class="post-1926 post type-post status-publish format-standard has-post-thumbnail hentry category-gaming tag-game tag-online tag-solitaire tag-winning generate-columns tablet-grid-50 mobile-grid-100 grid-parent grid-66 featured-column" itemtype="https://schema.org/CreativeWork" itemscope>
+	<div class="inside-article">
+		<div class="post-image">
+						
+						<a href="https://www.diarioveloz.com/mastering-online-solitaire/">
+							<img width="904" height="506" src="https://www.diarioveloz.com/wp-content/uploads/2023/11/Online-Solitaire.jpg" class="attachment-full size-full wp-post-image" alt="" itemprop="image" decoding="async" fetchpriority="high" srcset="https://www.diarioveloz.com/wp-content/uploads/2023/11/Online-Solitaire.jpg 904w, https://www.diarioveloz.com/wp-content/uploads/2023/11/Online-Solitaire-300x168.jpg 300w, https://www.diarioveloz.com/wp-content/uploads/2023/11/Online-Solitaire-800x448.jpg 800w, https://www.diarioveloz.com/wp-content/uploads/2023/11/Online-Solitaire-768x430.jpg 768w" sizes="(max-width: 904px) 100vw, 904px" />
+						</a>
+					</div>			<header class="entry-header" aria-label="Content">
+				<h2 class="entry-title" itemprop="headline"><a href="https://www.diarioveloz.com/mastering-online-solitaire/" rel="bookmark">Mastering Online Solitaire: Tips &#038; Tricks for a Winning Game</a></h2>		<div class="entry-meta">
+			<span class="posted-on"><time class="entry-date published" datetime="2023-11-03T09:05:34+00:00" itemprop="datePublished">November 3, 2023</time></span> <span class="byline">by <span class="author vcard" itemprop="author" itemtype="https://schema.org/Person" itemscope><a class="url fn n" href="https://www.diarioveloz.com/author/federica/" title="View all posts by Federica Mogherini" rel="author" itemprop="url"><span class="author-name" itemprop="name">Federica Mogherini</span></a></span></span> 		</div>
+					</header>
+			
+			<div class="entry-summary" itemprop="text">
+				<p>Solitaire is one of the most popular card games worldwide, and for good reason. It’s a game that offers both relaxation and a challenge, with &#8230; <a title="Mastering Online Solitaire: Tips &#038; Tricks for a Winning Game" class="read-more" href="https://www.diarioveloz.com/mastering-online-solitaire/" aria-label="More on Mastering Online Solitaire: Tips &#038; Tricks for a Winning Game">Read more</a></p>
+			</div>
+
+				<footer class="entry-meta" aria-label="Entry meta">
+			<span class="cat-links"><span class="gp-icon icon-categories"><svg viewBox="0 0 512 512" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="1em" height="1em"><path d="M0 112c0-26.51 21.49-48 48-48h110.014a48 48 0 0143.592 27.907l12.349 26.791A16 16 0 00228.486 128H464c26.51 0 48 21.49 48 48v224c0 26.51-21.49 48-48 48H48c-26.51 0-48-21.49-48-48V112z" /></svg></span><span class="screen-reader-text">Categories </span><a href="https://www.diarioveloz.com/category/gaming/" rel="category tag">Gaming</a></span> 		</footer>
+			</div>
+</article>
+<article id="post-1900" class="post-1900 post type-post status-publish format-standard has-post-thumbnail hentry category-blog tag-actress tag-comedian tag-immigrant tag-journey tag-milana-vayntrub generate-columns tablet-grid-50 mobile-grid-100 grid-parent grid-33" itemtype="https://schema.org/CreativeWork" itemscope>
+	<div class="inside-article">
+		<div class="post-image">
+						
+						<a href="https://www.diarioveloz.com/milana-vayntrubs-inspirational-journey/">
+							<img width="1280" height="720" src="https://www.diarioveloz.com/wp-content/uploads/2023/10/Milana-Vayntrubs-Inspirational-Journey.jpg" class="attachment-full size-full wp-post-image" alt="" itemprop="image" decoding="async" srcset="https://www.diarioveloz.com/wp-content/uploads/2023/10/Milana-Vayntrubs-Inspirational-Journey.jpg 1280w, https://www.diarioveloz.com/wp-content/uploads/2023/10/Milana-Vayntrubs-Inspirational-Journey-300x169.jpg 300w, https://www.diarioveloz.com/wp-content/uploads/2023/10/Milana-Vayntrubs-Inspirational-Journey-800x450.jpg 800w, https://www.diarioveloz.com/wp-content/uploads/2023/10/Milana-Vayntrubs-Inspirational-Journey-768x432.jpg 768w" sizes="(max-width: 1280px) 100vw, 1280px" />
+						</a>
+					</div>			<header class="entry-header" aria-label="Content">
+				<h2 class="entry-title" itemprop="headline"><a href="https://www.diarioveloz.com/milana-vayntrubs-inspirational-journey/" rel="bookmark">Milana Vayntrub&#8217;s Inspirational Journey: From Immigrant to Acclaimed Actress and Comedian</a></h2>		<div class="entry-meta">
+			<span class="posted-on"><time class="entry-date published" datetime="2023-10-26T07:30:24+00:00" itemprop="datePublished">October 26, 2023</time></span> <span class="byline">by <span class="author vcard" itemprop="author" itemtype="https://schema.org/Person" itemscope><a class="url fn n" href="https://www.diarioveloz.com/author/husein/" title="View all posts by Husein Hijarnan" rel="author" itemprop="url"><span class="author-name" itemprop="name">Husein Hijarnan</span></a></span></span> 		</div>
+					</header>
+			
+			<div class="entry-summary" itemprop="text">
+				<p>In the world of entertainment, few stories are as inspiring as that of Milana Vayntrub, a talented actress and comedian who has captured the hearts &#8230; <a title="Milana Vayntrub&#8217;s Inspirational Journey: From Immigrant to Acclaimed Actress and Comedian" class="read-more" href="https://www.diarioveloz.com/milana-vayntrubs-inspirational-journey/" aria-label="More on Milana Vayntrub&#8217;s Inspirational Journey: From Immigrant to Acclaimed Actress and Comedian">Read more</a></p>
+			</div>
+
+				<footer class="entry-meta" aria-label="Entry meta">
+			<span class="cat-links"><span class="gp-icon icon-categories"><svg viewBox="0 0 512 512" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="1em" height="1em"><path d="M0 112c0-26.51 21.49-48 48-48h110.014a48 48 0 0143.592 27.907l12.349 26.791A16 16 0 00228.486 128H464c26.51 0 48 21.49 48 48v224c0 26.51-21.49 48-48 48H48c-26.51 0-48-21.49-48-48V112z" /></svg></span><span class="screen-reader-text">Categories </span><a href="https://www.diarioveloz.com/category/blog/" rel="category tag">Blog</a></span> 		</footer>
+			</div>
+</article>
+<article id="post-1916" class="post-1916 post type-post status-publish format-standard has-post-thumbnail hentry category-health tag-addiction tag-drugs tag-opioids tag-system generate-columns tablet-grid-50 mobile-grid-100 grid-parent grid-33" itemtype="https://schema.org/CreativeWork" itemscope>
+	<div class="inside-article">
+		<div class="post-image">
+						
+						<a href="https://www.diarioveloz.com/how-long-do-opioids-stay-in-your-system/">
+							<img width="1200" height="800" src="https://www.diarioveloz.com/wp-content/uploads/2023/10/How-Long-Do-Opioids-Stay-In-Your-System.jpg" class="attachment-full size-full wp-post-image" alt="" itemprop="image" decoding="async" srcset="https://www.diarioveloz.com/wp-content/uploads/2023/10/How-Long-Do-Opioids-Stay-In-Your-System.jpg 1200w, https://www.diarioveloz.com/wp-content/uploads/2023/10/How-Long-Do-Opioids-Stay-In-Your-System-300x200.jpg 300w, https://www.diarioveloz.com/wp-content/uploads/2023/10/How-Long-Do-Opioids-Stay-In-Your-System-800x533.jpg 800w, https://www.diarioveloz.com/wp-content/uploads/2023/10/How-Long-Do-Opioids-Stay-In-Your-System-768x512.jpg 768w" sizes="(max-width: 1200px) 100vw, 1200px" />
+						</a>
+					</div>			<header class="entry-header" aria-label="Content">
+				<h2 class="entry-title" itemprop="headline"><a href="https://www.diarioveloz.com/how-long-do-opioids-stay-in-your-system/" rel="bookmark">How Long Do Opioids Stay In Your System? Find Out Here</a></h2>		<div class="entry-meta">
+			<span class="posted-on"><time class="updated" datetime="2023-11-10T11:05:22+00:00" itemprop="dateModified">November 10, 2023</time><time class="entry-date published" datetime="2023-10-24T12:52:58+00:00" itemprop="datePublished">October 24, 2023</time></span> <span class="byline">by <span class="author vcard" itemprop="author" itemtype="https://schema.org/Person" itemscope><a class="url fn n" href="https://www.diarioveloz.com/author/husein/" title="View all posts by Husein Hijarnan" rel="author" itemprop="url"><span class="author-name" itemprop="name">Husein Hijarnan</span></a></span></span> 		</div>
+					</header>
+			
+			<div class="entry-summary" itemprop="text">
+				<p>Opioid abuse has reached alarming levels in the United States, thus posing challenges to public health and safety. The widespread availability of prescription medications containing &#8230; <a title="How Long Do Opioids Stay In Your System? Find Out Here" class="read-more" href="https://www.diarioveloz.com/how-long-do-opioids-stay-in-your-system/" aria-label="More on How Long Do Opioids Stay In Your System? Find Out Here">Read more</a></p>
+			</div>
+
+				<footer class="entry-meta" aria-label="Entry meta">
+			<span class="cat-links"><span class="gp-icon icon-categories"><svg viewBox="0 0 512 512" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="1em" height="1em"><path d="M0 112c0-26.51 21.49-48 48-48h110.014a48 48 0 0143.592 27.907l12.349 26.791A16 16 0 00228.486 128H464c26.51 0 48 21.49 48 48v224c0 26.51-21.49 48-48 48H48c-26.51 0-48-21.49-48-48V112z" /></svg></span><span class="screen-reader-text">Categories </span><a href="https://www.diarioveloz.com/category/health/" rel="category tag">Health</a></span> 		</footer>
+			</div>
+</article>
+<article id="post-1906" class="post-1906 post type-post status-publish format-standard has-post-thumbnail hentry category-casino tag-casino tag-gambling tag-games tag-gaming tag-patience tag-player generate-columns tablet-grid-50 mobile-grid-100 grid-parent grid-33" itemtype="https://schema.org/CreativeWork" itemscope>
+	<div class="inside-article">
+		<div class="post-image">
+						
+						<a href="https://www.diarioveloz.com/patience-transforms-casino-gameplay/">
+							<img width="1000" height="571" src="https://www.diarioveloz.com/wp-content/uploads/2023/10/Patience-Transforms-Casino-Gameplay.jpg" class="attachment-full size-full wp-post-image" alt="Patience Transforms Casino Gameplay" itemprop="image" decoding="async" loading="lazy" srcset="https://www.diarioveloz.com/wp-content/uploads/2023/10/Patience-Transforms-Casino-Gameplay.jpg 1000w, https://www.diarioveloz.com/wp-content/uploads/2023/10/Patience-Transforms-Casino-Gameplay-300x171.jpg 300w, https://www.diarioveloz.com/wp-content/uploads/2023/10/Patience-Transforms-Casino-Gameplay-800x457.jpg 800w, https://www.diarioveloz.com/wp-content/uploads/2023/10/Patience-Transforms-Casino-Gameplay-768x439.jpg 768w" sizes="(max-width: 1000px) 100vw, 1000px" />
+						</a>
+					</div>			<header class="entry-header" aria-label="Content">
+				<h2 class="entry-title" itemprop="headline"><a href="https://www.diarioveloz.com/patience-transforms-casino-gameplay/" rel="bookmark">From Impatient to Impressive: How Patience Transforms Casino Gameplay</a></h2>		<div class="entry-meta">
+			<span class="posted-on"><time class="entry-date published" datetime="2023-10-24T12:22:13+00:00" itemprop="datePublished">October 24, 2023</time></span> <span class="byline">by <span class="author vcard" itemprop="author" itemtype="https://schema.org/Person" itemscope><a class="url fn n" href="https://www.diarioveloz.com/author/husein/" title="View all posts by Husein Hijarnan" rel="author" itemprop="url"><span class="author-name" itemprop="name">Husein Hijarnan</span></a></span></span> 		</div>
+					</header>
+			
+			<div class="entry-summary" itemprop="text">
+				<p>Patience, a virtue often underestimated, can be a game-changer in casino gameplay. In a world where instant gratification is the norm, taking a step back &#8230; <a title="From Impatient to Impressive: How Patience Transforms Casino Gameplay" class="read-more" href="https://www.diarioveloz.com/patience-transforms-casino-gameplay/" aria-label="More on From Impatient to Impressive: How Patience Transforms Casino Gameplay">Read more</a></p>
+			</div>
+
+				<footer class="entry-meta" aria-label="Entry meta">
+			<span class="cat-links"><span class="gp-icon icon-categories"><svg viewBox="0 0 512 512" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="1em" height="1em"><path d="M0 112c0-26.51 21.49-48 48-48h110.014a48 48 0 0143.592 27.907l12.349 26.791A16 16 0 00228.486 128H464c26.51 0 48 21.49 48 48v224c0 26.51-21.49 48-48 48H48c-26.51 0-48-21.49-48-48V112z" /></svg></span><span class="screen-reader-text">Categories </span><a href="https://www.diarioveloz.com/category/casino/" rel="category tag">Casino</a></span> 		</footer>
+			</div>
+</article>
+<article id="post-1893" class="post-1893 post type-post status-publish format-standard has-post-thumbnail hentry category-cars tag-car tag-cargo tag-manhattan tag-shipping tag-transport generate-columns tablet-grid-50 mobile-grid-100 grid-parent grid-33" itemtype="https://schema.org/CreativeWork" itemscope>
+	<div class="inside-article">
+		<div class="post-image">
+						
+						<a href="https://www.diarioveloz.com/shipping-cargo-with-a-manhattan-car-shipping-company/">
+							<img width="1240" height="845" src="https://www.diarioveloz.com/wp-content/uploads/2023/10/Shipping-Cargo-with-A-Manhattan-Car-Shipping-Company.jpg" class="attachment-full size-full wp-post-image" alt="Shipping Cargo with A Manhattan Car Shipping Company" itemprop="image" decoding="async" loading="lazy" srcset="https://www.diarioveloz.com/wp-content/uploads/2023/10/Shipping-Cargo-with-A-Manhattan-Car-Shipping-Company.jpg 1240w, https://www.diarioveloz.com/wp-content/uploads/2023/10/Shipping-Cargo-with-A-Manhattan-Car-Shipping-Company-300x204.jpg 300w, https://www.diarioveloz.com/wp-content/uploads/2023/10/Shipping-Cargo-with-A-Manhattan-Car-Shipping-Company-800x545.jpg 800w, https://www.diarioveloz.com/wp-content/uploads/2023/10/Shipping-Cargo-with-A-Manhattan-Car-Shipping-Company-768x523.jpg 768w" sizes="(max-width: 1240px) 100vw, 1240px" />
+						</a>
+					</div>			<header class="entry-header" aria-label="Content">
+				<h2 class="entry-title" itemprop="headline"><a href="https://www.diarioveloz.com/shipping-cargo-with-a-manhattan-car-shipping-company/" rel="bookmark">Shipping Cargo with A Manhattan Car Shipping Company</a></h2>		<div class="entry-meta">
+			<span class="posted-on"><time class="updated" datetime="2023-10-19T10:37:24+00:00" itemprop="dateModified">October 19, 2023</time><time class="entry-date published" datetime="2023-10-19T08:52:20+00:00" itemprop="datePublished">October 19, 2023</time></span> <span class="byline">by <span class="author vcard" itemprop="author" itemtype="https://schema.org/Person" itemscope><a class="url fn n" href="https://www.diarioveloz.com/author/dolores/" title="View all posts by Dolores Willett" rel="author" itemprop="url"><span class="author-name" itemprop="name">Dolores Willett</span></a></span></span> 		</div>
+					</header>
+			
+			<div class="entry-summary" itemprop="text">
+				<p>One of the most condensed consumer marketplaces in the world is accessed through the port of New York, in the New York-Newark metropolitan area. It &#8230; <a title="Shipping Cargo with A Manhattan Car Shipping Company" class="read-more" href="https://www.diarioveloz.com/shipping-cargo-with-a-manhattan-car-shipping-company/" aria-label="More on Shipping Cargo with A Manhattan Car Shipping Company">Read more</a></p>
+			</div>
+
+				<footer class="entry-meta" aria-label="Entry meta">
+			<span class="cat-links"><span class="gp-icon icon-categories"><svg viewBox="0 0 512 512" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="1em" height="1em"><path d="M0 112c0-26.51 21.49-48 48-48h110.014a48 48 0 0143.592 27.907l12.349 26.791A16 16 0 00228.486 128H464c26.51 0 48 21.49 48 48v224c0 26.51-21.49 48-48 48H48c-26.51 0-48-21.49-48-48V112z" /></svg></span><span class="screen-reader-text">Categories </span><a href="https://www.diarioveloz.com/category/cars/" rel="category tag">Cars</a></span> 		</footer>
+			</div>
+</article>
+<article id="post-1888" class="post-1888 post type-post status-publish format-standard has-post-thumbnail hentry category-casino tag-casino tag-gambling tag-online-poker-tournaments tag-poker tag-pro-players generate-columns tablet-grid-50 mobile-grid-100 grid-parent grid-33" itemtype="https://schema.org/CreativeWork" itemscope>
+	<div class="inside-article">
+		<div class="post-image">
+						
+						<a href="https://www.diarioveloz.com/pro-players-win-in-online-poker-tournaments/">
+							<img width="1200" height="675" src="https://www.diarioveloz.com/wp-content/uploads/2023/10/Heres-How-Pro-Players-Win-In-Online-Poker-Tournaments.jpeg" class="attachment-full size-full wp-post-image" alt="" itemprop="image" decoding="async" loading="lazy" srcset="https://www.diarioveloz.com/wp-content/uploads/2023/10/Heres-How-Pro-Players-Win-In-Online-Poker-Tournaments.jpeg 1200w, https://www.diarioveloz.com/wp-content/uploads/2023/10/Heres-How-Pro-Players-Win-In-Online-Poker-Tournaments-300x169.jpeg 300w, https://www.diarioveloz.com/wp-content/uploads/2023/10/Heres-How-Pro-Players-Win-In-Online-Poker-Tournaments-800x450.jpeg 800w, https://www.diarioveloz.com/wp-content/uploads/2023/10/Heres-How-Pro-Players-Win-In-Online-Poker-Tournaments-768x432.jpeg 768w" sizes="(max-width: 1200px) 100vw, 1200px" />
+						</a>
+					</div>			<header class="entry-header" aria-label="Content">
+				<h2 class="entry-title" itemprop="headline"><a href="https://www.diarioveloz.com/pro-players-win-in-online-poker-tournaments/" rel="bookmark">Here&#8217;s How Pro Players Win In Online Poker Tournaments</a></h2>		<div class="entry-meta">
+			<span class="posted-on"><time class="entry-date published" datetime="2023-10-16T12:18:56+00:00" itemprop="datePublished">October 16, 2023</time></span> <span class="byline">by <span class="author vcard" itemprop="author" itemtype="https://schema.org/Person" itemscope><a class="url fn n" href="https://www.diarioveloz.com/author/bi/" title="View all posts by Bi Den" rel="author" itemprop="url"><span class="author-name" itemprop="name">Bi Den</span></a></span></span> 		</div>
+					</header>
+			
+			<div class="entry-summary" itemprop="text">
+				<p>The World Poker Tour (WPT) is an exhilarating and fiercely competitive arena for online poker enthusiasts. In this dynamic space, players of all skill levels, &#8230; <a title="Here&#8217;s How Pro Players Win In Online Poker Tournaments" class="read-more" href="https://www.diarioveloz.com/pro-players-win-in-online-poker-tournaments/" aria-label="More on Here&#8217;s How Pro Players Win In Online Poker Tournaments">Read more</a></p>
+			</div>
+
+				<footer class="entry-meta" aria-label="Entry meta">
+			<span class="cat-links"><span class="gp-icon icon-categories"><svg viewBox="0 0 512 512" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="1em" height="1em"><path d="M0 112c0-26.51 21.49-48 48-48h110.014a48 48 0 0143.592 27.907l12.349 26.791A16 16 0 00228.486 128H464c26.51 0 48 21.49 48 48v224c0 26.51-21.49 48-48 48H48c-26.51 0-48-21.49-48-48V112z" /></svg></span><span class="screen-reader-text">Categories </span><a href="https://www.diarioveloz.com/category/casino/" rel="category tag">Casino</a></span> 		</footer>
+			</div>
+</article>
+<article id="post-1879" class="post-1879 post type-post status-publish format-standard has-post-thumbnail hentry category-citizenship tag-citizen tag-citizenship tag-residency tag-test tag-uk tag-visas generate-columns tablet-grid-50 mobile-grid-100 grid-parent grid-33" itemtype="https://schema.org/CreativeWork" itemscope>
+	<div class="inside-article">
+		<div class="post-image">
+						
+						<a href="https://www.diarioveloz.com/citizenship-in-uk/">
+							<img width="1280" height="720" src="https://www.diarioveloz.com/wp-content/uploads/2023/10/From-Residency-to-Citizenship-Your-Journey-in-the-UK.jpg" class="attachment-full size-full wp-post-image" alt="" itemprop="image" decoding="async" loading="lazy" srcset="https://www.diarioveloz.com/wp-content/uploads/2023/10/From-Residency-to-Citizenship-Your-Journey-in-the-UK.jpg 1280w, https://www.diarioveloz.com/wp-content/uploads/2023/10/From-Residency-to-Citizenship-Your-Journey-in-the-UK-300x169.jpg 300w, https://www.diarioveloz.com/wp-content/uploads/2023/10/From-Residency-to-Citizenship-Your-Journey-in-the-UK-800x450.jpg 800w, https://www.diarioveloz.com/wp-content/uploads/2023/10/From-Residency-to-Citizenship-Your-Journey-in-the-UK-768x432.jpg 768w" sizes="(max-width: 1280px) 100vw, 1280px" />
+						</a>
+					</div>			<header class="entry-header" aria-label="Content">
+				<h2 class="entry-title" itemprop="headline"><a href="https://www.diarioveloz.com/citizenship-in-uk/" rel="bookmark">From Residency to Citizenship Your Journey in the UK</a></h2>		<div class="entry-meta">
+			<span class="posted-on"><time class="updated" datetime="2023-10-12T11:23:43+00:00" itemprop="dateModified">October 12, 2023</time><time class="entry-date published" datetime="2023-10-10T11:06:32+00:00" itemprop="datePublished">October 10, 2023</time></span> <span class="byline">by <span class="author vcard" itemprop="author" itemtype="https://schema.org/Person" itemscope><a class="url fn n" href="https://www.diarioveloz.com/author/husein/" title="View all posts by Husein Hijarnan" rel="author" itemprop="url"><span class="author-name" itemprop="name">Husein Hijarnan</span></a></span></span> 		</div>
+					</header>
+			
+			<div class="entry-summary" itemprop="text">
+				<p>Embarking on a journey from residency to citizenship in the United Kingdom is a significant and life-changing endeavor. This transformative process opens doors to a &#8230; <a title="From Residency to Citizenship Your Journey in the UK" class="read-more" href="https://www.diarioveloz.com/citizenship-in-uk/" aria-label="More on From Residency to Citizenship Your Journey in the UK">Read more</a></p>
+			</div>
+
+				<footer class="entry-meta" aria-label="Entry meta">
+			<span class="cat-links"><span class="gp-icon icon-categories"><svg viewBox="0 0 512 512" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="1em" height="1em"><path d="M0 112c0-26.51 21.49-48 48-48h110.014a48 48 0 0143.592 27.907l12.349 26.791A16 16 0 00228.486 128H464c26.51 0 48 21.49 48 48v224c0 26.51-21.49 48-48 48H48c-26.51 0-48-21.49-48-48V112z" /></svg></span><span class="screen-reader-text">Categories </span><a href="https://www.diarioveloz.com/category/citizenship/" rel="category tag">Citizenship</a></span> 		</footer>
+			</div>
+</article>
+<article id="post-1871" class="post-1871 post type-post status-publish format-standard has-post-thumbnail hentry category-gaming tag-crosshair tag-csgo tag-dev1ce tag-game generate-columns tablet-grid-50 mobile-grid-100 grid-parent grid-33" itemtype="https://schema.org/CreativeWork" itemscope>
+	<div class="inside-article">
+		<div class="post-image">
+						
+						<a href="https://www.diarioveloz.com/dev1ces-csgo-settings-and-crosshair-breakdown/">
+							<img width="1600" height="900" src="https://www.diarioveloz.com/wp-content/uploads/2023/10/dev1ces.jpg" class="attachment-full size-full wp-post-image" alt="" itemprop="image" decoding="async" loading="lazy" srcset="https://www.diarioveloz.com/wp-content/uploads/2023/10/dev1ces.jpg 1600w, https://www.diarioveloz.com/wp-content/uploads/2023/10/dev1ces-300x169.jpg 300w, https://www.diarioveloz.com/wp-content/uploads/2023/10/dev1ces-800x450.jpg 800w, https://www.diarioveloz.com/wp-content/uploads/2023/10/dev1ces-768x432.jpg 768w, https://www.diarioveloz.com/wp-content/uploads/2023/10/dev1ces-1536x864.jpg 1536w" sizes="(max-width: 1600px) 100vw, 1600px" />
+						</a>
+					</div>			<header class="entry-header" aria-label="Content">
+				<h2 class="entry-title" itemprop="headline"><a href="https://www.diarioveloz.com/dev1ces-csgo-settings-and-crosshair-breakdown/" rel="bookmark">Precision Proficiency: dev1ce&#8217;s CS:GO Settings and Crosshair Breakdown</a></h2>		<div class="entry-meta">
+			<span class="posted-on"><time class="entry-date published" datetime="2023-10-06T11:29:51+00:00" itemprop="datePublished">October 6, 2023</time></span> <span class="byline">by <span class="author vcard" itemprop="author" itemtype="https://schema.org/Person" itemscope><a class="url fn n" href="https://www.diarioveloz.com/author/federica/" title="View all posts by Federica Mogherini" rel="author" itemprop="url"><span class="author-name" itemprop="name">Federica Mogherini</span></a></span></span> 		</div>
+					</header>
+			
+			<div class="entry-summary" itemprop="text">
+				<p>Counter-Strike: Global Offensive (CS:GO) is a game where precision is paramount, and few players embody that ethos better than Nicolai &#8220;dev1ce&#8221; Reedtz. As one of &#8230; <a title="Precision Proficiency: dev1ce&#8217;s CS:GO Settings and Crosshair Breakdown" class="read-more" href="https://www.diarioveloz.com/dev1ces-csgo-settings-and-crosshair-breakdown/" aria-label="More on Precision Proficiency: dev1ce&#8217;s CS:GO Settings and Crosshair Breakdown">Read more</a></p>
+			</div>
+
+				<footer class="entry-meta" aria-label="Entry meta">
+			<span class="cat-links"><span class="gp-icon icon-categories"><svg viewBox="0 0 512 512" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="1em" height="1em"><path d="M0 112c0-26.51 21.49-48 48-48h110.014a48 48 0 0143.592 27.907l12.349 26.791A16 16 0 00228.486 128H464c26.51 0 48 21.49 48 48v224c0 26.51-21.49 48-48 48H48c-26.51 0-48-21.49-48-48V112z" /></svg></span><span class="screen-reader-text">Categories </span><a href="https://www.diarioveloz.com/category/gaming/" rel="category tag">Gaming</a></span> 		</footer>
+			</div>
+</article>
+<article id="post-1862" class="post-1862 post type-post status-publish format-standard has-post-thumbnail hentry category-casino tag-casino tag-club tag-earning tag-gambling tag-high-roller tag-money tag-wins generate-columns tablet-grid-50 mobile-grid-100 grid-parent grid-33" itemtype="https://schema.org/CreativeWork" itemscope>
+	<div class="inside-article">
+		<div class="post-image">
+						
+						<a href="https://www.diarioveloz.com/casino-secrets-play-like-high-roller/">
+							<img width="1380" height="862" src="https://www.diarioveloz.com/wp-content/uploads/2023/09/Billionaire-Casino-Secrets.png" class="attachment-full size-full wp-post-image" alt="" itemprop="image" decoding="async" loading="lazy" srcset="https://www.diarioveloz.com/wp-content/uploads/2023/09/Billionaire-Casino-Secrets.png 1380w, https://www.diarioveloz.com/wp-content/uploads/2023/09/Billionaire-Casino-Secrets-300x187.png 300w, https://www.diarioveloz.com/wp-content/uploads/2023/09/Billionaire-Casino-Secrets-800x500.png 800w, https://www.diarioveloz.com/wp-content/uploads/2023/09/Billionaire-Casino-Secrets-768x480.png 768w" sizes="(max-width: 1380px) 100vw, 1380px" />
+						</a>
+					</div>			<header class="entry-header" aria-label="Content">
+				<h2 class="entry-title" itemprop="headline"><a href="https://www.diarioveloz.com/casino-secrets-play-like-high-roller/" rel="bookmark">Billionaire Casino Secrets: How to Play Like a High Roller</a></h2>		<div class="entry-meta">
+			<span class="posted-on"><time class="entry-date published" datetime="2023-09-26T17:36:29+00:00" itemprop="datePublished">September 26, 2023</time></span> <span class="byline">by <span class="author vcard" itemprop="author" itemtype="https://schema.org/Person" itemscope><a class="url fn n" href="https://www.diarioveloz.com/author/ray/" title="View all posts by Ray Aguirre" rel="author" itemprop="url"><span class="author-name" itemprop="name">Ray Aguirre</span></a></span></span> 		</div>
+					</header>
+			
+			<div class="entry-summary" itemprop="text">
+				<p>Billionaire Casino is an exhilarating social casino game that gives players a taste of the high-rolling lifestyle. With a diverse selection of casino games, a &#8230; <a title="Billionaire Casino Secrets: How to Play Like a High Roller" class="read-more" href="https://www.diarioveloz.com/casino-secrets-play-like-high-roller/" aria-label="More on Billionaire Casino Secrets: How to Play Like a High Roller">Read more</a></p>
+			</div>
+
+				<footer class="entry-meta" aria-label="Entry meta">
+			<span class="cat-links"><span class="gp-icon icon-categories"><svg viewBox="0 0 512 512" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="1em" height="1em"><path d="M0 112c0-26.51 21.49-48 48-48h110.014a48 48 0 0143.592 27.907l12.349 26.791A16 16 0 00228.486 128H464c26.51 0 48 21.49 48 48v224c0 26.51-21.49 48-48 48H48c-26.51 0-48-21.49-48-48V112z" /></svg></span><span class="screen-reader-text">Categories </span><a href="https://www.diarioveloz.com/category/casino/" rel="category tag">Casino</a></span> 		</footer>
+			</div>
+</article>
+<article id="post-1855" class="post-1855 post type-post status-publish format-standard has-post-thumbnail hentry category-law tag-attorney tag-dui-charges tag-law tag-prosecutor generate-columns tablet-grid-50 mobile-grid-100 grid-parent grid-33" itemtype="https://schema.org/CreativeWork" itemscope>
+	<div class="inside-article">
+		<div class="post-image">
+						
+						<a href="https://www.diarioveloz.com/dui-charges-dropped-or-reduced/">
+							<img width="1024" height="622" src="https://www.diarioveloz.com/wp-content/uploads/2023/09/Can-My-DUI-Charges-Get-Dropped-or-Reduced.webp" class="attachment-full size-full wp-post-image" alt="Can My DUI Charges Get Dropped or Reduced?" itemprop="image" decoding="async" loading="lazy" srcset="https://www.diarioveloz.com/wp-content/uploads/2023/09/Can-My-DUI-Charges-Get-Dropped-or-Reduced.webp 1024w, https://www.diarioveloz.com/wp-content/uploads/2023/09/Can-My-DUI-Charges-Get-Dropped-or-Reduced-300x182.webp 300w, https://www.diarioveloz.com/wp-content/uploads/2023/09/Can-My-DUI-Charges-Get-Dropped-or-Reduced-800x486.webp 800w, https://www.diarioveloz.com/wp-content/uploads/2023/09/Can-My-DUI-Charges-Get-Dropped-or-Reduced-768x467.webp 768w" sizes="(max-width: 1024px) 100vw, 1024px" />
+						</a>
+					</div>			<header class="entry-header" aria-label="Content">
+				<h2 class="entry-title" itemprop="headline"><a href="https://www.diarioveloz.com/dui-charges-dropped-or-reduced/" rel="bookmark">Can My DUI Charges Get Dropped or Reduced? </a></h2>		<div class="entry-meta">
+			<span class="posted-on"><time class="entry-date published" datetime="2023-09-22T09:02:17+00:00" itemprop="datePublished">September 22, 2023</time></span> <span class="byline">by <span class="author vcard" itemprop="author" itemtype="https://schema.org/Person" itemscope><a class="url fn n" href="https://www.diarioveloz.com/author/dolores/" title="View all posts by Dolores Willett" rel="author" itemprop="url"><span class="author-name" itemprop="name">Dolores Willett</span></a></span></span> 		</div>
+					</header>
+			
+			<div class="entry-summary" itemprop="text">
+				<p>If you&#8217;re arrested for DUI, you might be seeking ways to have your DUI charges dismissed. Your charges are getting dropped, so the prosecutor decides &#8230; <a title="Can My DUI Charges Get Dropped or Reduced? " class="read-more" href="https://www.diarioveloz.com/dui-charges-dropped-or-reduced/" aria-label="More on Can My DUI Charges Get Dropped or Reduced? ">Read more</a></p>
+			</div>
+
+				<footer class="entry-meta" aria-label="Entry meta">
+			<span class="cat-links"><span class="gp-icon icon-categories"><svg viewBox="0 0 512 512" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="1em" height="1em"><path d="M0 112c0-26.51 21.49-48 48-48h110.014a48 48 0 0143.592 27.907l12.349 26.791A16 16 0 00228.486 128H464c26.51 0 48 21.49 48 48v224c0 26.51-21.49 48-48 48H48c-26.51 0-48-21.49-48-48V112z" /></svg></span><span class="screen-reader-text">Categories </span><a href="https://www.diarioveloz.com/category/law/" rel="category tag">Law</a></span> 		</footer>
+			</div>
+</article>
+<article id="post-1848" class="post-1848 post type-post status-publish format-standard has-post-thumbnail hentry category-casino tag-casino tag-cryptocurrency tag-litecoin tag-ltc generate-columns tablet-grid-50 mobile-grid-100 grid-parent grid-33" itemtype="https://schema.org/CreativeWork" itemscope>
+	<div class="inside-article">
+		<div class="post-image">
+						
+						<a href="https://www.diarioveloz.com/litecoin-casino-industry/">
+							<img width="1200" height="675" src="https://www.diarioveloz.com/wp-content/uploads/2023/09/The-Litecoin-Revolution-How-LTC-is-Shaping-the-Casino-Industry.webp" class="attachment-full size-full wp-post-image" alt="The Litecoin Revolution: How LTC is Shaping the Casino Industry" itemprop="image" decoding="async" loading="lazy" srcset="https://www.diarioveloz.com/wp-content/uploads/2023/09/The-Litecoin-Revolution-How-LTC-is-Shaping-the-Casino-Industry.webp 1200w, https://www.diarioveloz.com/wp-content/uploads/2023/09/The-Litecoin-Revolution-How-LTC-is-Shaping-the-Casino-Industry-300x169.webp 300w, https://www.diarioveloz.com/wp-content/uploads/2023/09/The-Litecoin-Revolution-How-LTC-is-Shaping-the-Casino-Industry-800x450.webp 800w, https://www.diarioveloz.com/wp-content/uploads/2023/09/The-Litecoin-Revolution-How-LTC-is-Shaping-the-Casino-Industry-768x432.webp 768w" sizes="(max-width: 1200px) 100vw, 1200px" />
+						</a>
+					</div>			<header class="entry-header" aria-label="Content">
+				<h2 class="entry-title" itemprop="headline"><a href="https://www.diarioveloz.com/litecoin-casino-industry/" rel="bookmark">The Litecoin Revolution: How LTC is Shaping the Casino Industry</a></h2>		<div class="entry-meta">
+			<span class="posted-on"><time class="entry-date published" datetime="2023-09-19T11:16:20+00:00" itemprop="datePublished">September 19, 2023</time></span> <span class="byline">by <span class="author vcard" itemprop="author" itemtype="https://schema.org/Person" itemscope><a class="url fn n" href="https://www.diarioveloz.com/author/dolores/" title="View all posts by Dolores Willett" rel="author" itemprop="url"><span class="author-name" itemprop="name">Dolores Willett</span></a></span></span> 		</div>
+					</header>
+			
+			<div class="entry-summary" itemprop="text">
+				<p>The online casino world has forged ahead by introducing cryptocurrencies for transactions. Different casino sites allow players to deposit and withdraw their funds through crypto &#8230; <a title="The Litecoin Revolution: How LTC is Shaping the Casino Industry" class="read-more" href="https://www.diarioveloz.com/litecoin-casino-industry/" aria-label="More on The Litecoin Revolution: How LTC is Shaping the Casino Industry">Read more</a></p>
+			</div>
+
+				<footer class="entry-meta" aria-label="Entry meta">
+			<span class="cat-links"><span class="gp-icon icon-categories"><svg viewBox="0 0 512 512" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="1em" height="1em"><path d="M0 112c0-26.51 21.49-48 48-48h110.014a48 48 0 0143.592 27.907l12.349 26.791A16 16 0 00228.486 128H464c26.51 0 48 21.49 48 48v224c0 26.51-21.49 48-48 48H48c-26.51 0-48-21.49-48-48V112z" /></svg></span><span class="screen-reader-text">Categories </span><a href="https://www.diarioveloz.com/category/casino/" rel="category tag">Casino</a></span> 		</footer>
+			</div>
+</article>
+		<nav id="nav-below" class="paging-navigation" aria-label="Archive Page">
+								<div class="nav-previous">
+						<span class="gp-icon icon-arrow"><svg viewBox="0 0 330 512" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="1em" height="1em"><path d="M305.913 197.085c0 2.266-1.133 4.815-2.833 6.514L171.087 335.593c-1.7 1.7-4.249 2.832-6.515 2.832s-4.815-1.133-6.515-2.832L26.064 203.599c-1.7-1.7-2.832-4.248-2.832-6.514s1.132-4.816 2.832-6.515l14.162-14.163c1.7-1.699 3.966-2.832 6.515-2.832 2.266 0 4.815 1.133 6.515 2.832l111.316 111.317 111.316-111.317c1.7-1.699 4.249-2.832 6.515-2.832s4.815 1.133 6.515 2.832l14.162 14.163c1.7 1.7 2.833 4.249 2.833 6.515z" /></svg></span>						<span class="prev" title="Previous"><a href="https://www.diarioveloz.com/page/2/" >Older posts</a></span>
+					</div>
+					<div class="nav-links"><span aria-current="page" class="page-numbers current"><span class="screen-reader-text">Page</span>1</span>
+<a class="page-numbers" href="https://www.diarioveloz.com/page/2/"><span class="screen-reader-text">Page</span>2</a>
+<span class="page-numbers dots">&hellip;</span>
+<a class="page-numbers" href="https://www.diarioveloz.com/page/25/"><span class="screen-reader-text">Page</span>25</a>
+<a class="next page-numbers" href="https://www.diarioveloz.com/page/2/">Next <span aria-hidden="true">&rarr;</span></a></div>		</nav>
+		</div><!-- .generate-columns-contaier -->		</main>
+	</div>
+
+	<div class="widget-area sidebar is-right-sidebar" id="right-sidebar">
+	<div class="inside-right-sidebar">
+		<aside id="block-2" class="widget inner-padding widget_block widget_search"><form role="search" method="get" action="https://www.diarioveloz.com/" class="wp-block-search__button-outside wp-block-search__text-button wp-block-search"    ><label class="wp-block-search__label" for="wp-block-search__input-1" >Search</label><div class="wp-block-search__inside-wrapper " ><input class="wp-block-search__input" id="wp-block-search__input-1" placeholder="" value="" type="search" name="s" required /><button aria-label="Search" class="wp-block-search__button wp-element-button" type="submit" >Search</button></div></form></aside><aside id="block-3" class="widget inner-padding widget_block"><div class="wp-block-group is-layout-flow wp-block-group-is-layout-flow"><div class="wp-block-group__inner-container"><h2 class="wp-block-heading">Recent Posts</h2><ul class="wp-block-latest-posts__list wp-block-latest-posts"><li><a class="wp-block-latest-posts__post-title" href="https://www.diarioveloz.com/mastering-online-solitaire/">Mastering Online Solitaire: Tips &#038; Tricks for a Winning Game</a></li>
+<li><a class="wp-block-latest-posts__post-title" href="https://www.diarioveloz.com/milana-vayntrubs-inspirational-journey/">Milana Vayntrub&#8217;s Inspirational Journey: From Immigrant to Acclaimed Actress and Comedian</a></li>
+<li><a class="wp-block-latest-posts__post-title" href="https://www.diarioveloz.com/how-long-do-opioids-stay-in-your-system/">How Long Do Opioids Stay In Your System? Find Out Here</a></li>
+<li><a class="wp-block-latest-posts__post-title" href="https://www.diarioveloz.com/patience-transforms-casino-gameplay/">From Impatient to Impressive: How Patience Transforms Casino Gameplay</a></li>
+<li><a class="wp-block-latest-posts__post-title" href="https://www.diarioveloz.com/shipping-cargo-with-a-manhattan-car-shipping-company/">Shipping Cargo with A Manhattan Car Shipping Company</a></li>
+</ul></div></div></aside><aside id="block-4" class="widget inner-padding widget_block"><div class="wp-block-group is-layout-flow wp-block-group-is-layout-flow"><div class="wp-block-group__inner-container"><h2 class="wp-block-heading">Recent Comments</h2><div class="no-comments wp-block-latest-comments">No comments to show.</div></div></div></aside>	</div>
+</div>
+
+	</div>
+</div>
+
+
+<div class="site-footer grid-container">
+				<div id="footer-widgets" class="site footer-widgets">
+				<div class="footer-widgets-container grid-container">
+					<div class="inside-footer-widgets">
+							<div class="footer-widget-1">
+		<aside id="text-3" class="widget inner-padding widget_text"><h2 class="widget-title">Contact us:</h2>			<div class="textwidget"><p>workspace [at] shantelllc.com</p>
+</div>
+		</aside>	</div>
+		<div class="footer-widget-2">
+			</div>
+		<div class="footer-widget-3">
+			</div>
+						</div>
+				</div>
+			</div>
+					<footer class="site-info" aria-label="Site"  itemtype="https://schema.org/WPFooter" itemscope>
+			<div class="inside-site-info grid-container">
+								<div class="copyright-bar">
+					&copy; 2023  - diarioveloz.com				</div>
+			</div>
+		</footer>
+		</div>
+
+		<nav id="generate-slideout-menu" class="main-navigation slideout-navigation" itemtype="https://schema.org/SiteNavigationElement" itemscope>
+			<div class="inside-navigation grid-container grid-parent">
+							</div><!-- .inside-navigation -->
+		</nav><!-- #site-navigation -->
+
+					<div class="slideout-overlay">
+									<button class="slideout-exit has-svg-icon">
+						<span class="gp-icon pro-close">
+				<svg viewBox="0 0 512 512" aria-hidden="true" role="img" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="1em" height="1em">
+					<path d="M71.029 71.029c9.373-9.372 24.569-9.372 33.942 0L256 222.059l151.029-151.03c9.373-9.372 24.569-9.372 33.942 0 9.372 9.373 9.372 24.569 0 33.942L289.941 256l151.03 151.029c9.372 9.373 9.372 24.569 0 33.942-9.373 9.372-24.569 9.372-33.942 0L256 289.941l-151.029 151.03c-9.373 9.372-24.569 9.372-33.942 0-9.372-9.373-9.372-24.569 0-33.942L222.059 256 71.029 104.971c-9.372-9.373-9.372-24.569 0-33.942z" />
+				</svg>
+			</span>						<span class="screen-reader-text">Close</span>
+					</button>
+							</div>
+			<script type="rocketlazyloadscript" id="generate-a11y">!function(){"use strict";if("querySelector"in document&&"addEventListener"in window){var e=document.body;e.addEventListener("mousedown",function(){e.classList.add("using-mouse")}),e.addEventListener("keydown",function(){e.classList.remove("using-mouse")})}}();</script><script type="rocketlazyloadscript" data-rocket-src="https://www.diarioveloz.com/wp-content/plugins/gp-premium/menu-plus/functions/js/sticky.min.js?ver=2.3.2" id="generate-sticky-js" defer></script>
+<script id="generate-offside-js-extra">
+var offSide = {"side":"left"};
+</script>
+<script type="rocketlazyloadscript" data-rocket-src="https://www.diarioveloz.com/wp-content/plugins/gp-premium/menu-plus/functions/js/offside.min.js?ver=2.3.2" id="generate-offside-js" defer></script>
+<script type="rocketlazyloadscript" id="rocket-browser-checker-js-after">
+"use strict";var _createClass=function(){function defineProperties(target,props){for(var i=0;i<props.length;i++){var descriptor=props[i];descriptor.enumerable=descriptor.enumerable||!1,descriptor.configurable=!0,"value"in descriptor&&(descriptor.writable=!0),Object.defineProperty(target,descriptor.key,descriptor)}}return function(Constructor,protoProps,staticProps){return protoProps&&defineProperties(Constructor.prototype,protoProps),staticProps&&defineProperties(Constructor,staticProps),Constructor}}();function _classCallCheck(instance,Constructor){if(!(instance instanceof Constructor))throw new TypeError("Cannot call a class as a function")}var RocketBrowserCompatibilityChecker=function(){function RocketBrowserCompatibilityChecker(options){_classCallCheck(this,RocketBrowserCompatibilityChecker),this.passiveSupported=!1,this._checkPassiveOption(this),this.options=!!this.passiveSupported&&options}return _createClass(RocketBrowserCompatibilityChecker,[{key:"_checkPassiveOption",value:function(self){try{var options={get passive(){return!(self.passiveSupported=!0)}};window.addEventListener("test",null,options),window.removeEventListener("test",null,options)}catch(err){self.passiveSupported=!1}}},{key:"initRequestIdleCallback",value:function(){!1 in window&&(window.requestIdleCallback=function(cb){var start=Date.now();return setTimeout(function(){cb({didTimeout:!1,timeRemaining:function(){return Math.max(0,50-(Date.now()-start))}})},1)}),!1 in window&&(window.cancelIdleCallback=function(id){return clearTimeout(id)})}},{key:"isDataSaverModeOn",value:function(){return"connection"in navigator&&!0===navigator.connection.saveData}},{key:"supportsLinkPrefetch",value:function(){var elem=document.createElement("link");return elem.relList&&elem.relList.supports&&elem.relList.supports("prefetch")&&window.IntersectionObserver&&"isIntersecting"in IntersectionObserverEntry.prototype}},{key:"isSlowConnection",value:function(){return"connection"in navigator&&"effectiveType"in navigator.connection&&("2g"===navigator.connection.effectiveType||"slow-2g"===navigator.connection.effectiveType)}}]),RocketBrowserCompatibilityChecker}();
+</script>
+<script id="rocket-preload-links-js-extra">
+var RocketPreloadLinksConfig = {"excludeUris":"\/(?:.+\/)?feed(?:\/(?:.+\/?)?)?$|\/(?:.+\/)?embed\/|\/(index.php\/)?(.*)wp-json(\/.*|$)|\/refer\/|\/go\/|\/recommend\/|\/recommends\/","usesTrailingSlash":"1","imageExt":"jpg|jpeg|gif|png|tiff|bmp|webp|avif|pdf|doc|docx|xls|xlsx|php","fileExt":"jpg|jpeg|gif|png|tiff|bmp|webp|avif|pdf|doc|docx|xls|xlsx|php|html|htm","siteUrl":"https:\/\/www.diarioveloz.com","onHoverDelay":"100","rateThrottle":"3"};
+</script>
+<script type="rocketlazyloadscript" id="rocket-preload-links-js-after">
+(function() {
+"use strict";var r="function"==typeof Symbol&&"symbol"==typeof Symbol.iterator?function(e){return typeof e}:function(e){return e&&"function"==typeof Symbol&&e.constructor===Symbol&&e!==Symbol.prototype?"symbol":typeof e},e=function(){function i(e,t){for(var n=0;n<t.length;n++){var i=t[n];i.enumerable=i.enumerable||!1,i.configurable=!0,"value"in i&&(i.writable=!0),Object.defineProperty(e,i.key,i)}}return function(e,t,n){return t&&i(e.prototype,t),n&&i(e,n),e}}();function i(e,t){if(!(e instanceof t))throw new TypeError("Cannot call a class as a function")}var t=function(){function n(e,t){i(this,n),this.browser=e,this.config=t,this.options=this.browser.options,this.prefetched=new Set,this.eventTime=null,this.threshold=1111,this.numOnHover=0}return e(n,[{key:"init",value:function(){!this.browser.supportsLinkPrefetch()||this.browser.isDataSaverModeOn()||this.browser.isSlowConnection()||(this.regex={excludeUris:RegExp(this.config.excludeUris,"i"),images:RegExp(".("+this.config.imageExt+")$","i"),fileExt:RegExp(".("+this.config.fileExt+")$","i")},this._initListeners(this))}},{key:"_initListeners",value:function(e){-1<this.config.onHoverDelay&&document.addEventListener("mouseover",e.listener.bind(e),e.listenerOptions),document.addEventListener("mousedown",e.listener.bind(e),e.listenerOptions),document.addEventListener("touchstart",e.listener.bind(e),e.listenerOptions)}},{key:"listener",value:function(e){var t=e.target.closest("a"),n=this._prepareUrl(t);if(null!==n)switch(e.type){case"mousedown":case"touchstart":this._addPrefetchLink(n);break;case"mouseover":this._earlyPrefetch(t,n,"mouseout")}}},{key:"_earlyPrefetch",value:function(t,e,n){var i=this,r=setTimeout(function(){if(r=null,0===i.numOnHover)setTimeout(function(){return i.numOnHover=0},1e3);else if(i.numOnHover>i.config.rateThrottle)return;i.numOnHover++,i._addPrefetchLink(e)},this.config.onHoverDelay);t.addEventListener(n,function e(){t.removeEventListener(n,e,{passive:!0}),null!==r&&(clearTimeout(r),r=null)},{passive:!0})}},{key:"_addPrefetchLink",value:function(i){return this.prefetched.add(i.href),new Promise(function(e,t){var n=document.createElement("link");n.rel="prefetch",n.href=i.href,n.onload=e,n.onerror=t,document.head.appendChild(n)}).catch(function(){})}},{key:"_prepareUrl",value:function(e){if(null===e||"object"!==(void 0===e?"undefined":r(e))||!1 in e||-1===["http:","https:"].indexOf(e.protocol))return null;var t=e.href.substring(0,this.config.siteUrl.length),n=this._getPathname(e.href,t),i={original:e.href,protocol:e.protocol,origin:t,pathname:n,href:t+n};return this._isLinkOk(i)?i:null}},{key:"_getPathname",value:function(e,t){var n=t?e.substring(this.config.siteUrl.length):e;return n.startsWith("/")||(n="/"+n),this._shouldAddTrailingSlash(n)?n+"/":n}},{key:"_shouldAddTrailingSlash",value:function(e){return this.config.usesTrailingSlash&&!e.endsWith("/")&&!this.regex.fileExt.test(e)}},{key:"_isLinkOk",value:function(e){return null!==e&&"object"===(void 0===e?"undefined":r(e))&&(!this.prefetched.has(e.href)&&e.origin===this.config.siteUrl&&-1===e.href.indexOf("?")&&-1===e.href.indexOf("#")&&!this.regex.excludeUris.test(e.href)&&!this.regex.images.test(e.href))}}],[{key:"run",value:function(){"undefined"!=typeof RocketPreloadLinksConfig&&new n(new RocketBrowserCompatibilityChecker({capture:!0,passive:!0}),RocketPreloadLinksConfig).init()}}]),n}();t.run();
+}());
+</script>
+<!--[if lte IE 11]>
+<script src="https://www.diarioveloz.com/wp-content/themes/generatepress/assets/js/classList.min.js?ver=3.3.1" id="generate-classlist-js"></script>
+<![endif]-->
+<script id="generate-menu-js-extra">
+var generatepressMenu = {"toggleOpenedSubMenus":"1","openSubMenuLabel":"Open Sub-Menu","closeSubMenuLabel":"Close Sub-Menu"};
+</script>
+<script type="rocketlazyloadscript" data-rocket-src="https://www.diarioveloz.com/wp-content/themes/generatepress/assets/js/menu.min.js?ver=3.3.1" id="generate-menu-js" defer></script>
+<script id="generate-navigation-search-js-extra">
+var generatepressNavSearch = {"open":"Open Search Bar","close":"Close Search Bar"};
+</script>
+<script type="rocketlazyloadscript" data-rocket-src="https://www.diarioveloz.com/wp-content/themes/generatepress/assets/js/navigation-search.min.js?ver=3.3.1" id="generate-navigation-search-js" defer></script>
+
+</body>
+</html>
+
+<!-- This website is like a Rocket, isn't it? Performance optimized by WP Rocket. Learn more: https://wp-rocket.me - Debug: cached@1700642795 -->

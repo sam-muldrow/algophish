@@ -1,0 +1,1220 @@
+<!DOCTYPE html>
+<html lang="el" prefix="og: http://ogp.me/ns#">
+<head><meta charset="UTF-8"><script>if(navigator.userAgent.match(/MSIE|Internet Explorer/i)||navigator.userAgent.match(/Trident\/7\..*?rv:11/i)){var href=document.location.href;if(!href.match(/[?&]nowprocket/)){if(href.indexOf("?")==-1){if(href.indexOf("#")==-1){document.location.href=href+"?nowprocket=1"}else{document.location.href=href.replace("#","?nowprocket=1#")}}else{if(href.indexOf("#")==-1){document.location.href=href+"&nowprocket=1"}else{document.location.href=href.replace("#","&nowprocket=1#")}}}}</script><script>class RocketLazyLoadScripts{constructor(e){this.triggerEvents=e,this.eventOptions={passive:!0},this.userEventListener=this.triggerListener.bind(this),this.delayedScripts={normal:[],async:[],defer:[]},this.allJQueries=[]}_addUserInteractionListener(e){this.triggerEvents.forEach((t=>window.addEventListener(t,e.userEventListener,e.eventOptions)))}_removeUserInteractionListener(e){this.triggerEvents.forEach((t=>window.removeEventListener(t,e.userEventListener,e.eventOptions)))}triggerListener(){this._removeUserInteractionListener(this),"loading"===document.readyState?document.addEventListener("DOMContentLoaded",this._loadEverythingNow.bind(this)):this._loadEverythingNow()}async _loadEverythingNow(){this._delayEventListeners(),this._delayJQueryReady(this),this._handleDocumentWrite(),this._registerAllDelayedScripts(),this._preloadAllScripts(),await this._loadScriptsFromList(this.delayedScripts.normal),await this._loadScriptsFromList(this.delayedScripts.defer),await this._loadScriptsFromList(this.delayedScripts.async),await this._triggerDOMContentLoaded(),await this._triggerWindowLoad(),window.dispatchEvent(new Event("rocket-allScriptsLoaded"))}_registerAllDelayedScripts(){document.querySelectorAll("script[type=rocketlazyloadscript]").forEach((e=>{e.hasAttribute("src")?e.hasAttribute("async")&&!1!==e.async?this.delayedScripts.async.push(e):e.hasAttribute("defer")&&!1!==e.defer||"module"===e.getAttribute("data-rocket-type")?this.delayedScripts.defer.push(e):this.delayedScripts.normal.push(e):this.delayedScripts.normal.push(e)}))}async _transformScript(e){return await this._requestAnimFrame(),new Promise((t=>{const n=document.createElement("script");let r;[...e.attributes].forEach((e=>{let t=e.nodeName;"type"!==t&&("data-rocket-type"===t&&(t="type",r=e.nodeValue),n.setAttribute(t,e.nodeValue))})),e.hasAttribute("src")?(n.addEventListener("load",t),n.addEventListener("error",t)):(n.text=e.text,t()),e.parentNode.replaceChild(n,e)}))}async _loadScriptsFromList(e){const t=e.shift();return t?(await this._transformScript(t),this._loadScriptsFromList(e)):Promise.resolve()}_preloadAllScripts(){var e=document.createDocumentFragment();[...this.delayedScripts.normal,...this.delayedScripts.defer,...this.delayedScripts.async].forEach((t=>{const n=t.getAttribute("src");if(n){const t=document.createElement("link");t.href=n,t.rel="preload",t.as="script",e.appendChild(t)}})),document.head.appendChild(e)}_delayEventListeners(){let e={};function t(t,n){!function(t){function n(n){return e[t].eventsToRewrite.indexOf(n)>=0?"rocket-"+n:n}e[t]||(e[t]={originalFunctions:{add:t.addEventListener,remove:t.removeEventListener},eventsToRewrite:[]},t.addEventListener=function(){arguments[0]=n(arguments[0]),e[t].originalFunctions.add.apply(t,arguments)},t.removeEventListener=function(){arguments[0]=n(arguments[0]),e[t].originalFunctions.remove.apply(t,arguments)})}(t),e[t].eventsToRewrite.push(n)}function n(e,t){let n=e[t];Object.defineProperty(e,t,{get:()=>n||function(){},set(r){e["rocket"+t]=n=r}})}t(document,"DOMContentLoaded"),t(window,"DOMContentLoaded"),t(window,"load"),t(window,"pageshow"),t(document,"readystatechange"),n(document,"onreadystatechange"),n(window,"onload"),n(window,"onpageshow")}_delayJQueryReady(e){let t=window.jQuery;Object.defineProperty(window,"jQuery",{get:()=>t,set(n){if(n&&n.fn&&!e.allJQueries.includes(n)){n.fn.ready=n.fn.init.prototype.ready=function(t){e.domReadyFired?t.bind(document)(n):document.addEventListener("rocket-DOMContentLoaded",(()=>t.bind(document)(n)))};const t=n.fn.on;n.fn.on=n.fn.init.prototype.on=function(){if(this[0]===window){function e(e){return e.split(" ").map((e=>"load"===e||0===e.indexOf("load.")?"rocket-jquery-load":e)).join(" ")}"string"==typeof arguments[0]||arguments[0]instanceof String?arguments[0]=e(arguments[0]):"object"==typeof arguments[0]&&Object.keys(arguments[0]).forEach((t=>{delete Object.assign(arguments[0],{[e(t)]:arguments[0][t]})[t]}))}return t.apply(this,arguments),this},e.allJQueries.push(n)}t=n}})}async _triggerDOMContentLoaded(){this.domReadyFired=!0,await this._requestAnimFrame(),document.dispatchEvent(new Event("rocket-DOMContentLoaded")),await this._requestAnimFrame(),window.dispatchEvent(new Event("rocket-DOMContentLoaded")),await this._requestAnimFrame(),document.dispatchEvent(new Event("rocket-readystatechange")),await this._requestAnimFrame(),document.rocketonreadystatechange&&document.rocketonreadystatechange()}async _triggerWindowLoad(){await this._requestAnimFrame(),window.dispatchEvent(new Event("rocket-load")),await this._requestAnimFrame(),window.rocketonload&&window.rocketonload(),await this._requestAnimFrame(),this.allJQueries.forEach((e=>e(window).trigger("rocket-jquery-load"))),window.dispatchEvent(new Event("rocket-pageshow")),await this._requestAnimFrame(),window.rocketonpageshow&&window.rocketonpageshow()}_handleDocumentWrite(){const e=new Map;document.write=document.writeln=function(t){const n=document.currentScript,r=document.createRange(),i=n.parentElement;let o=e.get(n);void 0===o&&(o=n.nextSibling,e.set(n,o));const a=document.createDocumentFragment();r.setStart(a,0),a.appendChild(r.createContextualFragment(t)),i.insertBefore(a,o)}}async _requestAnimFrame(){return new Promise((e=>requestAnimationFrame(e)))}static run(){const e=new RocketLazyLoadScripts(["keydown","mousemove","touchmove","touchstart","touchend","wheel"]);e._addUserInteractionListener(e)}}RocketLazyLoadScripts.run();</script>
+	
+	<link rel="profile" href="https://gmpg.org/xfn/11">
+		<title>Tlife.gr: Όλα όσα θέλουν να γνωρίζουν οι γυναίκες! - TLIFE</title><style id="rocket-critical-css">:root{--wp-admin-theme-color:#007cba;--wp-admin-theme-color-darker-10:#006ba1;--wp-admin-theme-color-darker-20:#005a87}html,body,div,span,iframe,h2,p,a,ul,li,form{border:0;margin:0;padding:0}html{font-family:sans-serif;-webkit-text-size-adjust:100%;-ms-text-size-adjust:100%}article,figure,header,nav{display:block}ul{list-style:none}a{background-color:transparent}a img{border:0}body,button,input{font-family:-apple-system,system-ui,BlinkMacSystemFont,"Segoe UI",Helvetica,Arial,sans-serif,"Apple Color Emoji","Segoe UI Emoji","Segoe UI Symbol";font-weight:normal;text-transform:none;font-size:17px;line-height:1.5}p{margin-bottom:1.5em}h2{font-family:inherit;font-size:100%;font-style:inherit;font-weight:inherit}h2{font-size:30px;margin-bottom:20px;line-height:1.2em;font-weight:300;text-transform:none}ul{margin:0 0 1.5em 3em}ul{list-style:disc}figure{margin:0}img{height:auto;max-width:100%}button,input{font-size:100%;margin:0;vertical-align:baseline;*vertical-align:middle}button{border:1px solid transparent;background:#666;-webkit-appearance:button;padding:10px 20px;color:#FFF}input[type="search"]{-webkit-appearance:textfield;box-sizing:content-box}input[type="search"]::-webkit-search-decoration{-webkit-appearance:none}button::-moz-focus-inner,input::-moz-focus-inner{border:0;padding:0}input[type="search"]{background:#FAFAFA;color:#666;border:1px solid #ccc;border-radius:0px;padding:10px 15px;box-sizing:border-box;max-width:100%}a,a:visited{text-decoration:none}.screen-reader-text{position:absolute!important;clip:rect(0,0,0,0);height:1px;width:1px;border:0;overflow:hidden}.site-header:after,.site-content:after,.inside-header:not(.grid-container):after{content:"";display:table;clear:both}.main-navigation{z-index:100;padding:0;clear:both;display:block}.inside-navigation{position:relative}.main-navigation a{display:block;text-decoration:none;font-weight:normal;text-transform:none;font-size:15px}.main-navigation ul li a{display:block}.main-navigation li{float:left;position:relative}.main-navigation ul{list-style:none;margin:0;padding-left:0}.main-navigation .main-nav ul li a{padding-left:20px;padding-right:20px;line-height:60px}.menu-toggle,.mobile-bar-items{display:none}.menu-toggle{padding:0 20px;line-height:60px;margin:0;font-weight:normal;text-transform:none;font-size:15px}.main-navigation .mobile-bar-items a{padding-left:20px;padding-right:20px;line-height:60px}.search-item a:before{content:"\f002";font-family:GeneratePress;width:1.28571429em;text-align:center;display:inline-block}.main-navigation li.search-item{float:right;z-index:21}.navigation-search{position:absolute;left:-99999px;visibility:hidden;z-index:20;width:100%;top:0;opacity:0}.navigation-search input{outline:0;border:0;vertical-align:bottom;line-height:0;opacity:0.9;width:100%;z-index:20;border-radius:0;-webkit-appearance:none}.navigation-search input::-ms-clear{display:none;width:0;height:0}.navigation-search input::-ms-reveal{display:none;width:0;height:0}.navigation-search input::-webkit-search-decoration,.navigation-search input::-webkit-search-cancel-button,.navigation-search input::-webkit-search-results-button,.navigation-search input::-webkit-search-results-decoration{display:none}.navigation-search input{height:60px}.nav-aligned-center .main-navigation .menu>li{float:none;display:inline-block}.nav-aligned-center .main-navigation ul{letter-spacing:-0.31em;font-size:1em}.nav-aligned-center .main-navigation ul li{letter-spacing:normal}.nav-aligned-center .main-navigation{text-align:center}.site-header{position:relative}.inside-header{padding:40px}.site-description{margin:0;line-height:1.5;font-weight:normal;text-transform:none;font-size:15px}.site-logo{display:inline-block;max-width:100%}.header-aligned-center .site-header{text-align:center}.site-header .header-image{vertical-align:middle}.site-content{word-wrap:break-word}iframe{max-width:100%}.footer-widgets .widget *:last-child{margin-bottom:0}.widget ul{margin:0}.widget ul li{list-style-type:none;position:relative;padding-bottom:5px}.full-width-content .container.grid-container{max-width:100%}.menu-toggle:before,.search-item a:before{-moz-osx-font-smoothing:grayscale;-webkit-font-smoothing:antialiased;font-style:normal;font-variant:normal;text-rendering:auto;line-height:1;speak:none}.container.grid-container{width:auto}@font-face{font-family:"Open Sans";font-display:swap;src:url(https://www.tlife.gr/wp-content/themes/generatepress_child/assets/fonts/Light/OpenSans-Light.woff2?v=1.101) format("woff2"),url(https://www.tlife.gr/wp-content/themes/generatepress_child/assets/fonts/Light/OpenSans-Light.woff?v=1.101) format("woff");font-weight:300;font-style:normal}@font-face{font-family:"Open Sans";font-display:swap;src:url(https://www.tlife.gr/wp-content/themes/generatepress_child/assets/fonts/LightItalic/OpenSans-LightItalic.woff2?v=1.101) format("woff2"),url(https://www.tlife.gr/wp-content/themes/generatepress_child/assets/fonts/LightItalic/OpenSans-LightItalic.woff?v=1.101) format("woff");font-weight:300;font-style:italic}@font-face{font-family:"Open Sans";font-display:swap;src:url(https://www.tlife.gr/wp-content/themes/generatepress_child/assets/fonts/Regular/OpenSans-Regular.woff2?v=1.101) format("woff2"),url(https://www.tlife.gr/wp-content/themes/generatepress_child/assets/fonts/Regular/OpenSans-Regular.woff?v=1.101) format("woff");font-weight:400;font-style:normal}@font-face{font-family:"Open Sans";font-display:swap;src:url(https://www.tlife.gr/wp-content/themes/generatepress_child/assets/fonts/Italic/OpenSans-Italic.woff2?v=1.101) format("woff2"),url(https://www.tlife.gr/wp-content/themes/generatepress_child/assets/fonts/Italic/OpenSans-Italic.woff?v=1.101) format("woff");font-weight:400;font-style:italic}@font-face{font-family:"Open Sans";font-display:swap;src:url(https://www.tlife.gr/wp-content/themes/generatepress_child/assets/fonts/SemiBold/OpenSans-SemiBold.woff2?v=1.101) format("woff2"),url(https://www.tlife.gr/wp-content/themes/generatepress_child/assets/fonts/Semibold/OpenSans-SemiBold.woff?v=1.101) format("woff");font-weight:600;font-style:normal}@font-face{font-family:"Open Sans";font-display:swap;src:url(https://www.tlife.gr/wp-content/themes/generatepress_child/assets/fonts/SemiBoldItalic/OpenSans-SemiboldItalic.woff2?v=1.101) format("woff2"),url(https://www.tlife.gr/wp-content/themes/generatepress_child/assets/fonts/SemiboldItalic/OpenSans-SemiboldItalic.woff?v=1.101) format("woff");font-weight:600;font-style:italic}@font-face{font-family:"Open Sans";font-display:swap;src:url(https://www.tlife.gr/wp-content/themes/generatepress_child/assets/fonts/Bold/OpenSans-Bold.woff2?v=1.101) format("woff2"),url(https://www.tlife.gr/wp-content/themes/generatepress_child/assets/fonts/Bold/OpenSans-Bold.woff?v=1.101) format("woff");font-weight:700;font-style:normal}@font-face{font-family:"Open Sans";font-display:swap;src:url(https://www.tlife.gr/wp-content/themes/generatepress_child/assets/fonts/BoldItalic/OpenSans-BoldItalic.woff2?v=1.101) format("woff2"),url(https://www.tlife.gr/wp-content/themes/generatepress_child/assets/fonts/BoldItalic/OpenSans-BoldItalic.woff?v=1.101) format("woff");font-weight:700;font-style:italic}@font-face{font-family:"Open Sans";font-display:swap;src:url(https://www.tlife.gr/wp-content/themes/generatepress_child/assets/fonts/ExtraBold/OpenSans-ExtraBold.woff2?v=1.101) format("woff2"),url(https://www.tlife.gr/wp-content/themes/generatepress_child/assets/fonts/ExtraBold/OpenSans-ExtraBold.woff?v=1.101) format("woff");font-weight:800;font-style:normal}@font-face{font-family:"Open Sans";font-display:swap;src:url(https://www.tlife.gr/wp-content/themes/generatepress_child/assets/fonts/ExtraBoldItalic/OpenSans-ExtraBoldItalic.woff2?v=1.101) format("woff2"),url(https://www.tlife.gr/wp-content/themes/generatepress_child/assets/fonts/ExtraBoldItalic/OpenSans-ExtraBoldItalic.woff?v=1.101) format("woff");font-weight:800;font-style:italic}@font-face{font-family:'Over the Rainbow Regular';font-display:swap;font-style:normal;font-weight:normal;src:url(https://www.tlife.gr/wp-content/themes/generatepress_child/assets/fonts/OvertheRainbow-Regular.woff);src:url(https://www.tlife.gr/wp-content/themes/generatepress_child/assets/fonts/OvertheRainbow-Regular.woff) format('woff'),url(https://www.tlife.gr/wp-content/themes/generatepress_child/assets/fonts/OvertheRainbow-Regular.ttf) format('truetype')}@font-face{font-family:"GeneratePress";font-display:swap;src:url("/wp-content/themes/generatepress/fonts/generatepress.eot");src:url("/wp-content/themes/generatepress/fonts/fonts/generatepress.eot#iefix") format("embedded-opentype"),url("/wp-content/themes/generatepress/fonts/fonts/generatepress.woff2") format("woff2"),url("/wp-content/themes/generatepress/fonts/fonts/generatepress.woff") format("woff"),url("/wp-content/themes/generatepress/fonts/fonts/generatepress.ttf") format("truetype"),url("/wp-content/themes/generatepress/fonts/fonts/generatepress.svg#GeneratePress") format("svg");font-weight:normal;font-style:normal}.grid-100:after,.grid-100:before,.grid-container:after,.grid-container:before,[class*=mobile-grid-]:after,[class*=mobile-grid-]:before,[class*=tablet-grid-]:after,[class*=tablet-grid-]:before{content:".";display:block;overflow:hidden;visibility:hidden;font-size:0;line-height:0;width:0;height:0}.grid-100:after,.grid-container:after,[class*=mobile-grid-]:after,[class*=tablet-grid-]:after{clear:both}.grid-container{margin-left:auto;margin-right:auto;max-width:1200px;padding-left:10px;padding-right:10px}.grid-100,[class*=mobile-grid-],[class*=tablet-grid-]{-moz-box-sizing:border-box;-webkit-box-sizing:border-box;box-sizing:border-box;padding-left:10px;padding-right:10px}.grid-parent{padding-left:0;padding-right:0}@media (max-width:767px){.mobile-grid-100{clear:both;width:100%}}@media (min-width:768px) and (max-width:1024px){.tablet-grid-100{clear:both;width:100%}}@media (min-width:1025px){.grid-100{clear:both;width:100%}}html,body,div,span,iframe,h2,p,a,ul,li,form{border:0;margin:0;padding:0}html{font-family:sans-serif;-webkit-text-size-adjust:100%;-ms-text-size-adjust:100%}article,figure,header,nav{display:block}ul{list-style:none}a{background-color:transparent}a img{border:0}body,button,input{font-family:-apple-system,system-ui,BlinkMacSystemFont,"Segoe UI",Helvetica,Arial,sans-serif,"Apple Color Emoji","Segoe UI Emoji","Segoe UI Symbol";font-weight:400;text-transform:none;font-size:17px;line-height:1.5}p{margin-bottom:1.5em}h2{font-family:inherit;font-size:100%;font-style:inherit;font-weight:inherit}h2{font-size:30px;margin-bottom:20px;line-height:1.2em;font-weight:300;text-transform:none}ul{margin:0 0 1.5em 3em}ul{list-style:disc}figure{margin:0}img{height:auto;max-width:100%}button,input{font-size:100%;margin:0;vertical-align:baseline;*vertical-align:middle}button{border:1px solid transparent;background:#666;-webkit-appearance:button;padding:10px 20px;color:#fff}input[type=search]{-webkit-appearance:textfield;box-sizing:content-box}input[type=search]::-webkit-search-decoration{-webkit-appearance:none}button::-moz-focus-inner,input::-moz-focus-inner{border:0;padding:0}input[type=search]{background:#fafafa;color:#666;border:1px solid #ccc;border-radius:0;padding:10px 15px;box-sizing:border-box;max-width:100%}a,a:visited{text-decoration:none}.screen-reader-text{position:absolute!important;clip:rect(0,0,0,0);height:1px;width:1px;border:0;overflow:hidden}.site-header:after,.site-content:after,.inside-header:not(.grid-container):after{content:"";display:table;clear:both}.main-navigation{z-index:100;padding:0;clear:both;display:block}.inside-navigation{position:relative}.main-navigation a{display:block;text-decoration:none;font-weight:400;text-transform:none;font-size:15px}.main-navigation ul li a{display:block}.main-navigation li{float:left;position:relative}.main-navigation ul{list-style:none;margin:0;padding-left:0}.main-navigation .main-nav ul li a{padding-left:20px;padding-right:20px;line-height:60px}.menu-toggle,.mobile-bar-items{display:none}.menu-toggle{padding:0 20px;line-height:60px;margin:0;font-weight:400;text-transform:none;font-size:15px}.main-navigation .mobile-bar-items a{padding-left:20px;padding-right:20px;line-height:60px}.search-item a:before{content:"\f002";font-family:GeneratePress;width:1.28571429em;text-align:center;display:inline-block}.main-navigation li.search-item{float:right;z-index:21}.navigation-search{position:absolute;left:-99999px;visibility:hidden;z-index:20;width:100%;top:0;opacity:0}.navigation-search input{outline:0;border:0;vertical-align:bottom;line-height:0;opacity:.9;width:100%;z-index:20;border-radius:0;-webkit-appearance:none}.navigation-search input::-ms-clear{display:none;width:0;height:0}.navigation-search input::-ms-reveal{display:none;width:0;height:0}.navigation-search input::-webkit-search-decoration,.navigation-search input::-webkit-search-cancel-button,.navigation-search input::-webkit-search-results-button,.navigation-search input::-webkit-search-results-decoration{display:none}.navigation-search input{height:60px}.nav-aligned-center .main-navigation .menu>li{float:none;display:inline-block}.nav-aligned-center .main-navigation ul{letter-spacing:-.31em;font-size:1em}.nav-aligned-center .main-navigation ul li{letter-spacing:normal}.nav-aligned-center .main-navigation{text-align:center}.site-header{position:relative}.inside-header{padding:40px}.site-description{margin:0;line-height:1.5;font-weight:400;text-transform:none;font-size:15px}.site-logo{display:inline-block;max-width:100%}.header-aligned-center .site-header{text-align:center}.site-header .header-image{vertical-align:middle}.site-content{word-wrap:break-word}iframe{max-width:100%}.footer-widgets .widget :last-child{margin-bottom:0}.widget ul{margin:0}.widget ul li{list-style-type:none;position:relative;padding-bottom:5px}.full-width-content .container.grid-container{max-width:100%}.menu-toggle:before,.search-item a:before{-moz-osx-font-smoothing:grayscale;-webkit-font-smoothing:antialiased;font-style:normal;font-variant:normal;text-rendering:auto;line-height:1;speak:none}.container.grid-container{width:auto}button.menu-toggle{background-color:transparent;width:100%;border:0;text-align:center}.menu-toggle:before{content:"\f0c9";font-family:GeneratePress;width:1.28571429em;text-align:center;display:inline-block}.nav-search-enabled .main-navigation .menu-toggle{text-align:left}.mobile-bar-items{display:none;position:absolute;right:0;top:0;z-index:21;list-style-type:none}.mobile-bar-items a{display:inline-block}@media (max-width:768px){.inside-header>:not(:last-child):not(.main-navigation){margin-bottom:20px}.site-header{text-align:center}.content-area{float:none;width:100%;left:0;right:0}}body,button,input{font-family:'Open Sans',sans-serif;font-weight:400;text-rendering:optimizeLegibility;-webkit-font-smoothing:antialiased;-moz-osx-font-smoothing:grayscale;line-height:115%}@media only screen and (max-width:1100px){body,button,input{font-size:14px}}.grid-container{z-index:1;position:relative}.grid-container:not(.inside-navigation){background-color:#fff}.home .header-article-grid,.main-navigation .inside-navigation{margin-right:auto;margin-left:auto;position:relative}.home .header-article-grid,.main-navigation .inside-navigation{max-width:1992px}@media only screen and (min-width:601px){.home .header-article-grid{padding-right:2em;padding-left:2em}}@media only screen and (min-width:1101px){.hidden-lg{display:none}}@media only screen and (max-width:1100px){.hidden-lg{display:block}}.column{flex-direction:column;box-sizing:border-box;display:flex;place-content:stretch space-between;align-items:stretch;max-width:100%}@media only screen and (min-width:601px){.row{height:100%;flex-direction:row;box-sizing:border-box;place-content:flex-start space-between;align-items:flex-start;display:flex;display:-ms-flexbox;display:-webkit-flex;justify-content:flex-start;-webkit-justify-content:flex-start;-ms-flex-pack:start;justify-content:flex-start}.row.wrap{flex-wrap:wrap;flex-flow:row wrap}.row.stretch{place-content:stretch space-between;align-items:stretch}}@media only screen and (min-width:961px){.col-lg-33{width:33.333%}}@media only screen and (max-width:960px){.col-sm-50{width:50%}.col-sm-100{width:100%}}@media only screen and (max-width:600px){.col-xs-100{width:100%}}h2,.article-title{line-height:125%}p,li{line-height:150%}*,*:before,*:after{-webkit-box-sizing:border-box;-moz-box-sizing:border-box;box-sizing:border-box}img{vertical-align:bottom}.uppercase{text-transform:uppercase}.bb{border-bottom:1px solid #ddd}.center{margin-left:auto;margin-right:auto;text-align:center}.mt-2{margin-top:2em}.pt-2{padding-top:2em}.pb-2{padding-bottom:2em}.tlife-btn{color:#000;font-weight:600}.tlife-btn{height:45px;display:inline-block}.tlife-btn{font-size:13px;background-color:transparent;padding:12px 40px 12px 20px}.tlife-btn{border:1px solid #000;border-radius:24px}.tlife-btn{position:relative}.tlife-btn:after{position:absolute;right:0px;color:#00b451;vertical-align:middle}.widget ul li{padding-bottom:0}.tlife-btn:after{visibility:visible;font-family:GeneratePress;text-decoration:inherit;font-weight:300;text-align:center;-moz-osx-font-smoothing:grayscale;-webkit-font-smoothing:antialiased;font-style:normal;font-variant:normal;text-rendering:auto;speak:none}.tlife-btn:after{font-size:21px;width:24px;height:24px}.tlife-btn:after{font-size:26px;width:40px;height:40px}.tlife-btn:after{content:"\f105"}.site-description{font-family:'Over the Rainbow Regular',cursive;font-size:14px;margin-bottom:12px}@media only screen and (max-width:1100px){.site-branding{display:none}.site-header .inside-header{padding:0;position:relative}.site-header .site-logo{position:fixed;z-index:101;top:22px;left:calc(50% - 75px)}.site-header .header-image{width:150px}.main-navigation{height:76px;line-height:76px}.main-navigation .menu-toggle{line-height:76px;width:auto}}.main-navigation{border-bottom:1px solid #ddd}.main-navigation .main-nav ul li a,.menu-toggle,.main-navigation .mobile-bar-items a{margin:0 9px;padding:0 9px}@media only screen and (min-width:1101px){.nav-aligned-center .main-navigation ul.menu{max-width:1100px;margin:0 auto;height:43px}.main-navigation{border-top:1px solid #ddd}.main-navigation .main-nav ul .tlife-logo>a{text-indent:-10000px;background-image:url(https://www.tlife.gr/wp-content/themes/generatepress_child/assets/tlife-icon-menu.svg);background-size:contain;background-position:center bottom;background-repeat:no-repeat;margin-right:1em;min-width:40px}.main-navigation .main-nav ul .tlife-logo.current-menu-item>a{border-bottom-color:transparent}}@media only screen and (max-width:960px){.inside-header>:not(:last-child):not(.main-navigation){margin-bottom:0}}.main-navigation{position:sticky;top:0}.main-navigation .search-item,.main-navigation .social_nav{position:absolute}.main-navigation .search-item{right:2em}@media only screen and (max-width:1100px){.main-navigation .search-item{right:0}}.main-navigation .social_nav{left:2em}.main-navigation .search-item a{font-size:16px}.main-navigation .social_nav li a{line-height:40px;padding-right:1em}.main-navigation .social_nav li a img{vertical-align:middle}.main-navigation .main-nav ul li.search-item a{padding-right:0}.main-navigation .main-nav ul li:not(.search-item)>a{border-bottom:3px solid transparent}.main-navigation .main-nav ul li[class*="current-menu-"]>a{border-bottom:3px solid #00b451;display:inline-block}.navigation-search{background:rgba(0,0,0,0.25);position:fixed;height:100%;flex-direction:column;box-sizing:border-box;display:flex;place-content:stretch flex-start;align-items:stretch;max-width:100%}.navigation-search .navigation-search-wrapper{background:#fff;padding:75px;box-shadow:0 0 4px rgba(0,0,0,0.25);position:relative}.navigation-search input{max-width:1400px;margin:0;height:auto;font-size:1em;color:#00b451;padding:1em}.navigation-search input{border-bottom:2px solid #00b451}.navigation-search button[type=submit]{background-color:transparent;border:none;padding:0;position:absolute;top:100px}.navigation-search button[type=submit] span:before{-moz-osx-font-smoothing:grayscale;-webkit-font-smoothing:antialiased;font-style:normal;font-variant:normal;text-rendering:auto;line-height:1;speak:none;content:"\f002";font-family:GeneratePress;width:1.28571429em;text-align:center;display:inline-block;color:#00b451;font-size:1.8em}@media only screen and (max-width:1100px){.navigation-search .navigation-search-wrapper{padding:120px 75px 75px 75px}.navigation-search button[type=submit]{top:155px}}.site-footer img{vertical-align:middle}.site-footer ul{display:table;margin-left:auto;margin-right:auto}.site-footer ul li{display:inline-block;margin:0 10px;padding-bottom:0}.site-footer ul li a{font-weight:700;font-size:12px;text-transform:uppercase}article .article-image{height:100%;width:100%;position:relative}article .article-image a{background-image:url(https://www.tlife.gr/wp-content/themes/generatepress_child/assets/tlife_default.jpg)}.article-list article:not(.inline-article):not(.portrait-article) .article-image{padding-top:75%}.article-list .portrait-article .article-image{padding-top:133%}.article-list article:not(.inline-article) .article-image>a,.article-list article:not(.inline-article) .article-overlay{position:absolute;bottom:0;left:0;right:0;top:0}.article-overlay-content{height:100%}.article-list article{position:relative}article>.article-image{overflow:hidden}article>.article-image>a{width:100%;height:100%;display:block;text-align:center;background-position:top center;background-size:cover;background-repeat:no-repeat}.article-category{visibility:hidden}.article-category{margin:0.5em 0}.article-category a{color:#00b451;visibility:visible;margin:0 0.5em 0 0;min-height:28px;display:inline-block;line-height:28px}.article-category a:last-child{margin-right:0}.article-category{font-weight:700}.article-title{max-width:100%}.article-list .article-overlay-content .article-overlay{height:100%;flex-direction:column;box-sizing:border-box;display:flex;place-content:center flex-end;display:flex;display:-ms-flexbox;display:-webkit-flex;flex-flow:nowrap column;justify-content:flex-end;-webkit-justify-content:flex-end;-ms-flex-pack:end;justify-content:flex-end;align-items:center;background:rgba(0,0,0,0.5);background:linear-gradient(0deg,rgba(0,0,0,0.6) 0%,rgba(0,0,0,0) 80%);padding:2em}.article-list.overlay-content.huge-title article .article-overlay{padding:2em}.article-list.overlay-content .article-category{visibility:hidden;z-index:1}.article-list.overlay-content .article-category a{visibility:visible;background-color:#000;color:#fff;padding:0 9px}.article-list.overlay-content:not(.article-transparent) .article-title{color:#fff}.article-list.overlay-content .article-link{position:absolute;top:0;bottom:0;width:100%;height:100%;left:0}.header-article-grid .mid-double article:not(:last-child),.header-article-grid .right-double article:not(:last-child){margin-bottom:1em}@media only screen and (min-width:961px){.home .header-article-grid .left-single,.home .header-article-grid .mid-double{padding-right:1em}}@media only screen and (min-width:601px){.home .header-article-grid .left-single{padding-right:0.5em}.home .header-article-grid .mid-double{padding-left:0.5em}}@media only screen and (max-width:960px) and (min-width:601px){.header-article-grid .right-double{margin-top:1em}.header-article-grid .right-double{height:100%;flex-direction:row;box-sizing:border-box;display:flex;place-content:flex-start space-between;align-items:flex-start}.header-article-grid .right-double article{width:50%;margin-bottom:0!important}.header-article-grid .right-double article:last-child{margin-left:0.5em}.header-article-grid .right-double article:first-child{margin-right:0.5em}}@media only screen and (min-width:601px){.header-article-grid .left-single article .article-image{height:100%}}@media only screen and (max-width:600px){.header-article-grid>div:not(:last-child),.article-list article:not(:last-child){margin-bottom:2em!important}.article-list article:first-child:last-child{margin-bottom:2em}.header-article-grid article{width:100%}article.portrait-article .article-image,.header-article-grid .left-single article .article-image{padding-top:133%}.home .header-article-grid.pt-2{padding-top:0}}.article-category{font-weight:700;font-size:12px}.article-title{font-size:1.2em}.article-list.overlay-content.huge-title .article-title{font-size:1.6em}@media only screen and (max-width:1600px) and (min-width:961px){.home .article-title{font-size:1em}.header-article-grid .article-list.overlay-content.huge-title .article-title{font-size:1.25em}}@media only screen and (max-width:960px) and (min-width:601px){.article-list.overlay-content.huge-title .article-title{font-size:1.4em}.home .header-article-grid .article-title{font-size:1em}}@media only screen and (max-width:600px){.article-list.overlay-content.huge-title .article-title{font-size:1.4em}}.advert .advert-container>p{display:none}.main-navigation .menu-toggle{flex-grow:1;width:auto}.main-navigation .mobile-bar-items{order:2;position:relative}.main-navigation:not(.slideout-navigation) .mobile-bar-items+.menu-toggle{text-align:left}.main-navigation:not(.slideout-navigation) .main-nav{order:4}.mobile-bar-items{position:relative}</style>
+<meta name='robots' content='max-image-preview:large' />
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<!-- This site is optimized with the Yoast SEO Premium plugin v10.1.3 - https://yoast.com/wordpress/plugins/seo/ -->
+<meta name="description" content="Όλες οι ειδήσεις για τη μόδα και την ομορφιά, χρήσιμες συμβουλές για fitness και όλα τα νέα της showbiz από την Ελλάδα και τον κόσμο."/>
+<link rel="canonical" href="https://www.tlife.gr/" />
+<meta property="og:locale" content="el_GR" />
+<meta property="og:type" content="website" />
+<meta property="og:title" content="Tlife.gr: Όλα όσα θέλουν να γνωρίζουν οι γυναίκες! - TLIFE" />
+<meta property="og:description" content="Όλες οι ειδήσεις για τη μόδα και την ομορφιά, χρήσιμες συμβουλές για fitness και όλα τα νέα της showbiz από την Ελλάδα και τον κόσμο." />
+<meta property="og:url" content="https://www.tlife.gr/" />
+<meta property="og:site_name" content="TLIFE" />
+<meta name="twitter:card" content="summary_large_image" />
+<meta name="twitter:description" content="Όλες οι ειδήσεις για τη μόδα και την ομορφιά, χρήσιμες συμβουλές για fitness και όλα τα νέα της showbiz από την Ελλάδα και τον κόσμο." />
+<meta name="twitter:title" content="Tlife.gr: Όλα όσα θέλουν να γνωρίζουν οι γυναίκες! - TLIFE" />
+<meta name="twitter:site" content="@tlifegr" />
+<meta name="twitter:image" content="https://www.tlife.gr/wp-content/uploads/2020/09/tlife-icon.png" />
+<meta name="twitter:creator" content="@tlifegr" />
+<!-- / Yoast SEO Premium plugin. -->
+
+
+<link rel="alternate" type="application/rss+xml" title="Ροή RSS &raquo; TLIFE" href="https://www.tlife.gr/feed/" />
+<link rel="alternate" type="application/rss+xml" title="Ροή Σχολίων &raquo; TLIFE" href="https://www.tlife.gr/comments/feed/" />
+<!-- InMobi Choice. Consent Manager Tag v3.0 (for TCF 2.2) -->
+<script type="text/javascript" async=true>
+(function() {
+  var host = window.location.hostname;
+  var element = document.createElement('script');
+  var firstScript = document.getElementsByTagName('script')[0];
+  var url = 'https://cmp.inmobi.com'
+    .concat('/choice/', '65WJWHJ5HtDNc', '/', host, '/choice.js?tag_version=V3');
+  var uspTries = 0;
+  var uspTriesLimit = 3;
+  element.async = true;
+  element.type = 'text/javascript';
+  element.src = url;
+
+  firstScript.parentNode.insertBefore(element, firstScript);
+
+  function makeStub() {
+    var TCF_LOCATOR_NAME = '__tcfapiLocator';
+    var queue = [];
+    var win = window;
+    var cmpFrame;
+
+    function addFrame() {
+      var doc = win.document;
+      var otherCMP = !!(win.frames[TCF_LOCATOR_NAME]);
+
+      if (!otherCMP) {
+        if (doc.body) {
+          var iframe = doc.createElement('iframe');
+
+          iframe.style.cssText = 'display:none';
+          iframe.name = TCF_LOCATOR_NAME;
+          doc.body.appendChild(iframe);
+        } else {
+          setTimeout(addFrame, 5);
+        }
+      }
+      return !otherCMP;
+    }
+
+    function tcfAPIHandler() {
+      var gdprApplies;
+      var args = arguments;
+
+      if (!args.length) {
+        return queue;
+      } else if (args[0] === 'setGdprApplies') {
+        if (
+          args.length > 3 &&
+          args[2] === 2 &&
+          typeof args[3] === 'boolean'
+        ) {
+          gdprApplies = args[3];
+          if (typeof args[2] === 'function') {
+            args[2]('set', true);
+          }
+        }
+      } else if (args[0] === 'ping') {
+        var retr = {
+          gdprApplies: gdprApplies,
+          cmpLoaded: false,
+          cmpStatus: 'stub'
+        };
+
+        if (typeof args[2] === 'function') {
+          args[2](retr);
+        }
+      } else {
+        if(args[0] === 'init' && typeof args[3] === 'object') {
+          args[3] = Object.assign(args[3], { tag_version: 'V3' });
+        }
+        queue.push(args);
+      }
+    }
+
+    function postMessageEventHandler(event) {
+      var msgIsString = typeof event.data === 'string';
+      var json = {};
+
+      try {
+        if (msgIsString) {
+          json = JSON.parse(event.data);
+        } else {
+          json = event.data;
+        }
+      } catch (ignore) {}
+
+      var payload = json.__tcfapiCall;
+
+      if (payload) {
+        window.__tcfapi(
+          payload.command,
+          payload.version,
+          function(retValue, success) {
+            var returnMsg = {
+              __tcfapiReturn: {
+                returnValue: retValue,
+                success: success,
+                callId: payload.callId
+              }
+            };
+            if (msgIsString) {
+              returnMsg = JSON.stringify(returnMsg);
+            }
+            if (event && event.source && event.source.postMessage) {
+              event.source.postMessage(returnMsg, '*');
+            }
+          },
+          payload.parameter
+        );
+      }
+    }
+
+    while (win) {
+      try {
+        if (win.frames[TCF_LOCATOR_NAME]) {
+          cmpFrame = win;
+          break;
+        }
+      } catch (ignore) {}
+
+      if (win === window.top) {
+        break;
+      }
+      win = win.parent;
+    }
+    if (!cmpFrame) {
+      addFrame();
+      win.__tcfapi = tcfAPIHandler;
+      win.addEventListener('message', postMessageEventHandler, false);
+    }
+  };
+
+  makeStub();
+
+  var uspStubFunction = function() {
+    var arg = arguments;
+    if (typeof window.__uspapi !== uspStubFunction) {
+      setTimeout(function() {
+        if (typeof window.__uspapi !== 'undefined') {
+          window.__uspapi.apply(window.__uspapi, arg);
+        }
+      }, 500);
+    }
+  };
+
+  var checkIfUspIsReady = function() {
+    uspTries++;
+    if (window.__uspapi === uspStubFunction && uspTries < uspTriesLimit) {
+      console.warn('USP is not accessible');
+    } else {
+      clearInterval(uspInterval);
+    }
+  };
+
+  if (typeof window.__uspapi === 'undefined') {
+    window.__uspapi = uspStubFunction;
+    var uspInterval = setInterval(checkIfUspIsReady, 6000);
+  }
+})();
+</script>
+<!-- End InMobi Choice. Consent Manager Tag v3.0 (for TCF 2.2) --><script type="text/javascript">
+//<![CDATA[
+try {
+__tcfapi('getTCData',2,function(tcData, success){
+if (!success || !['tcloaded','useractioncomplete'].includes(tcData.eventStatus)) return; 
+var smoGDPRFlag = tcData.gdprApplies ? 1 : 0;
+var smoGDPRConsentString = tcData.tcString; 
+var smoRand = Math.random()*100000000000000000; smoTrSeq = (typeof(smoTrSeq) != "undefined") ? smoTrSeq + 1 : 0;
+var smoPrtKey='omdgr/1';
+var smoPUrl = escape(window != parent ? document.referrer : document.location.href);
+var smoIframe = window != parent ? '&nIframe=1' : '';
+var smoParams ='&sType=view&nCampaignId=1';
+var smoProto = (document.location.protocol == 'https:') ? "https:" : "http:";
+var smoTrUrl = smoProto + '//uip.semasio.net/' + smoPrtKey + '/info?gdpr=' + smoGDPRFlag + '&gdpr_consent=' + smoGDPRConsentString +'&_referrer=' + smoPUrl + smoParams + '&nJs=1&_ignore=' + smoRand + smoIframe;
+var smoTrImg = new Image(); smoTrImg.src = smoTrUrl;
+}); 
+} catch (err) { }
+//]]>
+</script><style>
+img.wp-smiley,
+img.emoji {
+	display: inline !important;
+	border: none !important;
+	box-shadow: none !important;
+	height: 1em !important;
+	width: 1em !important;
+	margin: 0 .07em !important;
+	vertical-align: -0.1em !important;
+	background: none !important;
+	padding: 0 !important;
+}
+</style>
+	<link rel='preload'   href='https://www.tlife.gr/wp-includes/css/dist/block-library/style.min.css?ver=5.8.2' data-rocket-async="style" as="style" onload="this.onload=null;this.rel='stylesheet'" media='all' />
+<link rel='preload'   href='https://www.tlife.gr/wp-content/plugins/elasticpress/dist/css/related-posts-block-styles.min.css?ver=3.6.5' data-rocket-async="style" as="style" onload="this.onload=null;this.rel='stylesheet'" media='all' />
+<link rel='preload'   href='https://www.tlife.gr/wp-content/plugins/gemsbok-tools/public/css/gemsbok-tools-public.css?ver=1.0.1' data-rocket-async="style" as="style" onload="this.onload=null;this.rel='stylesheet'" media='all' />
+<link rel='preload'   href='https://www.tlife.gr/wp-content/themes/generatepress/style.css?ver=5.8.2' data-rocket-async="style" as="style" onload="this.onload=null;this.rel='stylesheet'" media='all' />
+<link rel='preload'   href='https://www.tlife.gr/wp-content/themes/generatepress_child/assets/fonts/stylesheet.css?ver=0.1' data-rocket-async="style" as="style" onload="this.onload=null;this.rel='stylesheet'" media='all' />
+<link rel='preload'   href='https://www.tlife.gr/wp-content/themes/generatepress/assets/css/unsemantic-grid.min.css?ver=3.1.0' data-rocket-async="style" as="style" onload="this.onload=null;this.rel='stylesheet'" media='all' />
+<link rel='preload'   href='https://www.tlife.gr/wp-content/themes/generatepress/assets/css/style.min.css?ver=3.1.0' data-rocket-async="style" as="style" onload="this.onload=null;this.rel='stylesheet'" media='all' />
+<style id='generate-style-inline-css'>
+body{background-color:#ffffff;color:#000000;}a{color:#000000;}a:visited{color:#000000;}a:hover, a:focus, a:active{color:#000000;}body .grid-container{max-width:1100px;}.wp-block-group__inner-container{max-width:1100px;margin-left:auto;margin-right:auto;}.site-header .header-image{width:240px;}.navigation-search{position:absolute;left:-99999px;pointer-events:none;visibility:hidden;z-index:20;width:100%;top:0;transition:opacity 100ms ease-in-out;opacity:0;}.navigation-search.nav-search-active{left:0;right:0;pointer-events:auto;visibility:visible;opacity:1;}.navigation-search input[type="search"]{outline:0;border:0;vertical-align:bottom;line-height:1;opacity:0.9;width:100%;z-index:20;border-radius:0;-webkit-appearance:none;height:60px;}.navigation-search input::-ms-clear{display:none;width:0;height:0;}.navigation-search input::-ms-reveal{display:none;width:0;height:0;}.navigation-search input::-webkit-search-decoration, .navigation-search input::-webkit-search-cancel-button, .navigation-search input::-webkit-search-results-button, .navigation-search input::-webkit-search-results-decoration{display:none;}.main-navigation li.search-item{z-index:21;}li.search-item.active{transition:opacity 100ms ease-in-out;}.nav-left-sidebar .main-navigation li.search-item.active,.nav-right-sidebar .main-navigation li.search-item.active{width:auto;display:inline-block;float:right;}.gen-sidebar-nav .navigation-search{top:auto;bottom:0;}:root{--contrast:#222222;--contrast-2:#575760;--contrast-3:#b2b2be;--base:#f0f0f0;--base-2:#f7f8f9;--base-3:#ffffff;--accent:#1e73be;}.has-contrast-color{color:#222222;}.has-contrast-background-color{background-color:#222222;}.has-contrast-2-color{color:#575760;}.has-contrast-2-background-color{background-color:#575760;}.has-contrast-3-color{color:#b2b2be;}.has-contrast-3-background-color{background-color:#b2b2be;}.has-base-color{color:#f0f0f0;}.has-base-background-color{background-color:#f0f0f0;}.has-base-2-color{color:#f7f8f9;}.has-base-2-background-color{background-color:#f7f8f9;}.has-base-3-color{color:#ffffff;}.has-base-3-background-color{background-color:#ffffff;}.has-accent-color{color:#1e73be;}.has-accent-background-color{background-color:#1e73be;}body, button, input, select, textarea{font-size:18px;}body{line-height:1.5;}p{margin-bottom:1em;}.entry-content > [class*="wp-block-"]:not(:last-child){margin-bottom:1em;}.main-title{font-size:45px;}.main-navigation a, .menu-toggle{font-weight:700;text-transform:uppercase;font-size:13px;}.main-navigation .main-nav ul ul li a{font-size:12px;}.sidebar .widget, .footer-widgets .widget{font-size:17px;}h1{font-weight:400;}h2{font-weight:300;font-size:30px;}h3{font-size:22px;}h4{font-size:inherit;}h5{font-size:16px;}h6{font-size:14px;}@media (max-width:768px){.main-title{font-size:30px;}h1{font-size:30px;}h2{font-size:25px;}}.top-bar{background-color:#636363;color:#ffffff;}.top-bar a{color:#ffffff;}.top-bar a:hover{color:#303030;}.site-header{background-color:#ffffff;color:#000000;}.site-header a{color:#000000;}.site-header a:hover{color:#000000;}.main-title a,.main-title a:hover{color:#000000;}.site-description{color:#000000;}.mobile-menu-control-wrapper .menu-toggle,.mobile-menu-control-wrapper .menu-toggle:hover,.mobile-menu-control-wrapper .menu-toggle:focus,.has-inline-mobile-toggle #site-navigation.toggled{background-color:rgba(0, 0, 0, 0.02);}.main-navigation,.main-navigation ul ul{background-color:#ffffff;}.main-navigation .main-nav ul li a, .main-navigation .menu-toggle, .main-navigation .menu-bar-items{color:#000000;}.main-navigation .main-nav ul li:not([class*="current-menu-"]):hover > a, .main-navigation .main-nav ul li:not([class*="current-menu-"]):focus > a, .main-navigation .main-nav ul li.sfHover:not([class*="current-menu-"]) > a, .main-navigation .menu-bar-item:hover > a, .main-navigation .menu-bar-item.sfHover > a{color:#000000;background-color:#ffffff;}button.menu-toggle:hover,button.menu-toggle:focus,.main-navigation .mobile-bar-items a,.main-navigation .mobile-bar-items a:hover,.main-navigation .mobile-bar-items a:focus{color:#000000;}.main-navigation .main-nav ul li[class*="current-menu-"] > a{color:#000000;background-color:#ffffff;}.navigation-search input[type="search"],.navigation-search input[type="search"]:active, .navigation-search input[type="search"]:focus, .main-navigation .main-nav ul li.search-item.active > a, .main-navigation .menu-bar-items .search-item.active > a{color:#000000;background-color:#ffffff;opacity:1;}.main-navigation ul ul{background-color:#f6f9fc;}.main-navigation .main-nav ul ul li a{color:#000000;}.main-navigation .main-nav ul ul li:not([class*="current-menu-"]):hover > a,.main-navigation .main-nav ul ul li:not([class*="current-menu-"]):focus > a, .main-navigation .main-nav ul ul li.sfHover:not([class*="current-menu-"]) > a{color:#000000;background-color:#f6f9fc;}.main-navigation .main-nav ul ul li[class*="current-menu-"] > a{color:#000000;background-color:#f6f9fc;}.separate-containers .inside-article, .separate-containers .comments-area, .separate-containers .page-header, .one-container .container, .separate-containers .paging-navigation, .inside-page-header{background-color:#ffffff;}.entry-meta{color:#000000;}.entry-meta a{color:#149740;}.entry-meta a:hover{color:#149740;}.sidebar .widget{background-color:#ffffff;}.sidebar .widget .widget-title{color:#000000;}.footer-widgets{color:#000000;background-color:#ffffff;}.footer-widgets a{color:#000000;}.footer-widgets a:hover{color:#00aa40;}.footer-widgets .widget-title{color:#000000;}.site-info{color:#000000;background-color:#ffffff;}.site-info a{color:#000000;}.site-info a:hover{color:#00aa40;}.footer-bar .widget_nav_menu .current-menu-item a{color:#00aa40;}input[type="text"],input[type="email"],input[type="url"],input[type="password"],input[type="search"],input[type="tel"],input[type="number"],textarea,select{color:#000000;background-color:#fafafa;border-color:#cccccc;}input[type="text"]:focus,input[type="email"]:focus,input[type="url"]:focus,input[type="password"]:focus,input[type="search"]:focus,input[type="tel"]:focus,input[type="number"]:focus,textarea:focus,select:focus{color:#000000;background-color:#ffffff;border-color:#bfbfbf;}button,html input[type="button"],input[type="reset"],input[type="submit"],a.button,a.wp-block-button__link:not(.has-background){color:#ffffff;background-color:#000000;}button:hover,html input[type="button"]:hover,input[type="reset"]:hover,input[type="submit"]:hover,a.button:hover,button:focus,html input[type="button"]:focus,input[type="reset"]:focus,input[type="submit"]:focus,a.button:focus,a.wp-block-button__link:not(.has-background):active,a.wp-block-button__link:not(.has-background):focus,a.wp-block-button__link:not(.has-background):hover{color:#ffffff;background-color:#149740;}a.generate-back-to-top{background-color:#e8e8e8;color:#000000;}a.generate-back-to-top:hover,a.generate-back-to-top:focus{background-color:#00aa40;color:#ffffff;}@media (max-width: 1100px){.main-navigation .menu-bar-item:hover > a, .main-navigation .menu-bar-item.sfHover > a{background:none;color:#000000;}}.inside-top-bar{padding:10px;}.inside-header{padding:18px 36px 36px 36px;}.separate-containers .inside-article, .separate-containers .comments-area, .separate-containers .page-header, .separate-containers .paging-navigation, .one-container .site-content, .inside-page-header{padding:0px;}.site-main .wp-block-group__inner-container{padding:0px;}.entry-content .alignwide, body:not(.no-sidebar) .entry-content .alignfull{margin-left:-0px;width:calc(100% + 0px);max-width:calc(100% + 0px);}.one-container.right-sidebar .site-main,.one-container.both-right .site-main{margin-right:0px;}.one-container.left-sidebar .site-main,.one-container.both-left .site-main{margin-left:0px;}.one-container.both-sidebars .site-main{margin:0px;}.separate-containers .widget, .separate-containers .site-main > *, .separate-containers .page-header, .widget-area .main-navigation{margin-bottom:36px;}.separate-containers .site-main{margin:36px;}.both-right.separate-containers .inside-left-sidebar{margin-right:18px;}.both-right.separate-containers .inside-right-sidebar{margin-left:18px;}.both-left.separate-containers .inside-left-sidebar{margin-right:18px;}.both-left.separate-containers .inside-right-sidebar{margin-left:18px;}.separate-containers .page-header-image, .separate-containers .page-header-contained, .separate-containers .page-header-image-single, .separate-containers .page-header-content-single{margin-top:36px;}.separate-containers .inside-right-sidebar, .separate-containers .inside-left-sidebar{margin-top:36px;margin-bottom:36px;}.main-navigation .main-nav ul li a,.menu-toggle,.main-navigation .mobile-bar-items a{padding-left:18px;padding-right:18px;line-height:40px;}.main-navigation .main-nav ul ul li a{padding:10px 18px 10px 18px;}.navigation-search input[type="search"]{height:40px;}.rtl .menu-item-has-children .dropdown-menu-toggle{padding-left:18px;}.menu-item-has-children .dropdown-menu-toggle{padding-right:18px;}.rtl .main-navigation .main-nav ul li.menu-item-has-children > a{padding-right:18px;}.widget-area .widget{padding:36px;}.footer-widgets{padding:0px;}.site-info{padding:0px;}@media (max-width:768px){.separate-containers .inside-article, .separate-containers .comments-area, .separate-containers .page-header, .separate-containers .paging-navigation, .one-container .site-content, .inside-page-header{padding:0px;}.site-main .wp-block-group__inner-container{padding:0px;}.inside-header{padding-top:0px;padding-right:0px;padding-bottom:0px;padding-left:0px;}.site-info{padding-right:10px;padding-left:10px;}.entry-content .alignwide, body:not(.no-sidebar) .entry-content .alignfull{margin-left:-0px;width:calc(100% + 0px);max-width:calc(100% + 0px);}}/* End cached CSS */@media (max-width: 1100px){.main-navigation .menu-toggle,.main-navigation .mobile-bar-items,.sidebar-nav-mobile:not(#sticky-placeholder){display:block;}.main-navigation ul,.gen-sidebar-nav{display:none;}[class*="nav-float-"] .site-header .inside-header > *{float:none;clear:both;}}
+.dynamic-author-image-rounded{border-radius:100%;}.dynamic-featured-image, .dynamic-author-image{vertical-align:middle;}.one-container.blog .dynamic-content-template:not(:last-child), .one-container.archive .dynamic-content-template:not(:last-child){padding-bottom:0px;}.dynamic-entry-excerpt > p:last-child{margin-bottom:0px;}
+.navigation-branding .main-title{font-weight:bold;text-transform:none;font-size:45px;}@media (max-width: 1100px){.navigation-branding .main-title{font-size:30px;}}
+.page-hero{background-color:#ffffff;color:#ffffff;text-align:center;box-sizing:border-box;}.page-hero h1, .page-hero h2, .page-hero h3, .page-hero h4, .page-hero h5, .page-hero h6{color:#ffffff;}.inside-page-hero > *:last-child{margin-bottom:0px;}.page-hero a, .page-hero a:visited{color:#ffffff;}.page-hero time.updated{display:none;}.page-hero a:hover{color:#ffffff;}@media (max-width:768px){.page-hero{padding-top:0px;padding-right:0px;padding-bottom:0px;padding-left:0px;}}
+@media (max-width: 1100px){.main-navigation .menu-toggle,.main-navigation .mobile-bar-items a,.main-navigation .menu-bar-item > a{padding-left:10px;padding-right:10px;}}
+</style>
+<link rel='preload'   href='https://www.tlife.gr/wp-content/themes/generatepress/assets/css/mobile.min.css?ver=3.1.0' data-rocket-async="style" as="style" onload="this.onload=null;this.rel='stylesheet'" media='all' />
+<link data-minify="1" rel='preload'   href='https://www.tlife.gr/wp-content/cache/min/1/wp-content/themes/generatepress/assets/css/components/font-icons.min.css?ver=1699870499' data-rocket-async="style" as="style" onload="this.onload=null;this.rel='stylesheet'" media='all' />
+<link data-minify="1" rel='preload'   href='https://www.tlife.gr/wp-content/cache/min/1/wp-content/themes/generatepress_child/style.css?ver=1699870499' data-rocket-async="style" as="style" onload="this.onload=null;this.rel='stylesheet'" media='all' />
+<link rel='preload'   href='https://www.tlife.gr/wp-content/plugins/gp-premium/menu-plus/functions/css/navigation-branding.min.css?ver=2.1.1' data-rocket-async="style" as="style" onload="this.onload=null;this.rel='stylesheet'" media='all' />
+<style id='generate-navigation-branding-inline-css'>
+.main-navigation .sticky-navigation-logo, .main-navigation.navigation-stick .site-logo:not(.mobile-header-logo){display:none;}.main-navigation.navigation-stick .sticky-navigation-logo{display:block;}.navigation-branding img, .site-logo.mobile-header-logo img{height:40px;width:auto;}.navigation-branding .main-title{line-height:40px;}@media (max-width: 1110px){#site-navigation .navigation-branding, #sticky-navigation .navigation-branding{margin-left:10px;}}@media (max-width: 1100px){.main-navigation:not(.slideout-navigation) .main-nav{-ms-flex:0 0 100%;flex:0 0 100%;}.main-navigation:not(.slideout-navigation) .inside-navigation{-ms-flex-wrap:wrap;flex-wrap:wrap;display:-webkit-box;display:-ms-flexbox;display:flex;}.nav-aligned-center .navigation-branding, .nav-aligned-left .navigation-branding{margin-right:auto;}.nav-aligned-center  .main-navigation.has-branding:not(.slideout-navigation) .inside-navigation .main-nav,.nav-aligned-center  .main-navigation.has-sticky-branding.navigation-stick .inside-navigation .main-nav,.nav-aligned-left  .main-navigation.has-branding:not(.slideout-navigation) .inside-navigation .main-nav,.nav-aligned-left  .main-navigation.has-sticky-branding.navigation-stick .inside-navigation .main-nav{margin-right:0px;}}
+</style>
+<style id='rocket-lazyload-inline-css'>
+.rll-youtube-player{position:relative;padding-bottom:56.23%;height:0;overflow:hidden;max-width:100%;}.rll-youtube-player:focus-within{outline: 2px solid currentColor;outline-offset: 5px;}.rll-youtube-player iframe{position:absolute;top:0;left:0;width:100%;height:100%;z-index:100;background:0 0}.rll-youtube-player img{bottom:0;display:block;left:0;margin:auto;max-width:100%;width:100%;position:absolute;right:0;top:0;border:none;height:auto;-webkit-transition:.4s all;-moz-transition:.4s all;transition:.4s all}.rll-youtube-player img:hover{-webkit-filter:brightness(75%)}.rll-youtube-player .play{height:100%;width:100%;left:0;top:0;position:absolute;background:url(https://www.tlife.gr/wp-content/plugins/wp-rocket/assets/img/youtube.png) no-repeat center;background-color: transparent !important;cursor:pointer;border:none;}.wp-embed-responsive .wp-has-aspect-ratio .rll-youtube-player{position:absolute;padding-bottom:0;width:100%;height:100%;top:0;bottom:0;left:0;right:0}
+</style>
+<script src='https://www.tlife.gr/wp-includes/js/jquery/jquery.min.js?ver=3.6.0' id='jquery-core-js'></script>
+<script src='https://www.tlife.gr/wp-includes/js/jquery/jquery-migrate.min.js?ver=3.3.2' id='jquery-migrate-js' defer></script>
+<script type="rocketlazyloadscript" src='https://www.tlife.gr/wp-content/plugins/gemsbok-tools/public/js/gemsbok-tools-public.js?ver=1.0.1' id='gemsbok-tools-js' defer></script>
+<script type="rocketlazyloadscript" src='https://www.tlife.gr/wp-content/themes/generatepress_child/assets/gallery.js?ver=5.8.2' id='custom-gallery-js-js' defer></script>
+<script type="rocketlazyloadscript" src='https://www.tlife.gr/wp-content/themes/generatepress_child/assets/ninja-forms.js?ver=5.8.2' id='custom-ninja-forms-js-js' defer></script>
+<link rel="https://api.w.org/" href="https://www.tlife.gr/wp-json/" /><link rel="alternate" type="application/json" href="https://www.tlife.gr/wp-json/wp/v2/pages/1077067" /><link rel="EditURI" type="application/rsd+xml" title="RSD" href="https://www.tlife.gr/xmlrpc.php?rsd" />
+<link rel="wlwmanifest" type="application/wlwmanifest+xml" href="https://www.tlife.gr/wp-includes/wlwmanifest.xml" /> 
+<meta name="generator" content="WordPress 5.8.2" />
+<link rel='shortlink' href='https://www.tlife.gr/' />
+<link rel="alternate" type="application/json+oembed" href="https://www.tlife.gr/wp-json/oembed/1.0/embed?url=https%3A%2F%2Fwww.tlife.gr%2F" />
+<link rel="alternate" type="text/xml+oembed" href="https://www.tlife.gr/wp-json/oembed/1.0/embed?url=https%3A%2F%2Fwww.tlife.gr%2F&#038;format=xml" />
+<!--Code generated by SNIP (Structured Data Plugin) for WordPress. See rich-snippets.io for more information.Post ID is 1223520.--><script data-snippet_id="snip-61498debf2cdf" type="application/ld+json">{"name":"Tlife","url":"https:\/\/www.tlife.gr\/","@context":"http:\/\/schema.org","@type":"WebSite"}</script><!--Code generated by SNIP (Structured Data Plugin) for WordPress. See rich-snippets.io for more information.Post ID is 1223519.--><script data-snippet_id="snip-61498d3f0a226" type="application/ld+json">{"name":"Tlife","description":"\u038c\u03bb\u03b5\u03c2 \u03bf\u03b9 \u03b5\u03b9\u03b4\u03ae\u03c3\u03b5\u03b9\u03c2 \u03b3\u03b9\u03b1 \u03c4\u03b7 \u03bc\u03cc\u03b4\u03b1 \u03ba\u03b1\u03b9 \u03c4\u03b7\u03bd \u03bf\u03bc\u03bf\u03c1\u03c6\u03b9\u03ac, \u03c7\u03c1\u03ae\u03c3\u03b9\u03bc\u03b5\u03c2 \u03c3\u03c5\u03bc\u03b2\u03bf\u03c5\u03bb\u03ad\u03c2 \u03b3\u03b9\u03b1 fitness \u03ba\u03b1\u03b9 \u03cc\u03bb\u03b1 \u03c4\u03b1 \u03bd\u03ad\u03b1 \u03c4\u03b7\u03c2 showbiz \u03b1\u03c0\u03cc \u03c4\u03b7\u03bd \u0395\u03bb\u03bb\u03ac\u03b4\u03b1 \u03ba\u03b1\u03b9 \u03c4\u03bf\u03bd \u03ba\u03cc\u03c3\u03bc\u03bf.","@context":"http:\/\/schema.org","@type":"WebPage"}</script><!--Code generated by SNIP (Structured Data Plugin) for WordPress. See rich-snippets.io for more information.Post ID is 1223514.--><script data-snippet_id="snip-61498a31e8bc8" type="application/ld+json">{"url":"https:\/\/www.tlife.gr\/","name":"Tlife","logo":{"url":"https:\/\/www.tlife.gr\/wp-content\/uploads\/2021\/09\/Tlife_logo_268x60.png","height":"60","width":"268","@context":"http:\/\/schema.org","@type":"ImageObject"},"address":{"postalCode":"12131","streetAddress":"\u0391\u03ba\u03c1\u03bf\u03c0\u03cc\u03bb\u03b5\u03c9\u03c2 47","addressLocality":"\u0391\u03b8\u03ae\u03bd\u03b1","addressCountry":{"name":"Greece","@context":"http:\/\/schema.org","@type":"Country"},"addressRegion":"GR","@context":"http:\/\/schema.org","@type":"PostalAddress"},"sameAs":["https:\/\/www.facebook.com\/tlifegr","https:\/\/www.instagram.com\/tlifegr\/"],"@context":"http:\/\/schema.org","@type":"Organization"}</script><style>.recentcomments a{display:inline !important;padding:0 !important;margin:0 !important;}</style><meta http-equiv="refresh" content="300" ><!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-DTYWJ24C1B"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-DTYWJ24C1B');
+</script>
+<!-- There is no amphtml version available for this URL. --><link rel="icon" href="https://www.tlife.gr/wp-content/uploads/2020/09/cropped-tlife-icon-32x32.png" sizes="32x32" />
+<link rel="icon" href="https://www.tlife.gr/wp-content/uploads/2020/09/cropped-tlife-icon-192x192.png" sizes="192x192" />
+<link rel="apple-touch-icon" href="https://www.tlife.gr/wp-content/uploads/2020/09/cropped-tlife-icon-180x180.png" />
+<meta name="msapplication-TileImage" content="https://www.tlife.gr/wp-content/uploads/2020/09/cropped-tlife-icon-270x270.png" />
+		<style id="wp-custom-css">
+			.main-navigation.has-sticky-branding  {
+    position: fixed;
+    position: sticky;
+    width:100%;
+}
+
+
+.site-header .header-image {
+     height: 50px;
+}
+@media only screen and (max-width: 1100px){
+.site-header .header-image {
+       height:31px;
+	}}
+@media only screen and (min-width: 1101px){
+.main-navigation .main-nav ul .tlife-logo > a 	{text-indent: -10000px;}
+}
+	
+body, button, input, select, textarea {
+	font-family: 'Open Sans', sans-serif;}
+
+.taxonomy-description,
+.tlife-description,
+.site-description {
+	font-family: 'Over the Rainbow Regular', cursive;}
+
+.banner-content .title,
+.article-helper-title,
+.page-title,
+.tlife-title {
+	font-family: 'GFS Didot', serif;}
+	
+	.inside-article .article-content-wrapper {
+		max-width: 575px;}
+	
+	.main-navigation .main-nav ul li a, .menu-toggle, .main-navigation .mobile-bar-items a {
+    margin: 0 9px;
+    padding: 0 9px;
+}
+
+	@media only screen and (min-width: 1101px){
+.nav-aligned-center .main-navigation ul.menu {
+    max-width: 1100px;
+    margin: 0 auto;
+    height: 43px;
+    display: table;
+		}}
+	
+	#gp-social-share {
+    list-style: none;
+}		</style>
+		<noscript><style id="rocket-lazyload-nojs-css">.rll-youtube-player, [data-lazy-src]{display:none !important;}</style></noscript><script type="rocketlazyloadscript">
+/*! loadCSS rel=preload polyfill. [c]2017 Filament Group, Inc. MIT License */
+(function(w){"use strict";if(!w.loadCSS){w.loadCSS=function(){}}
+var rp=loadCSS.relpreload={};rp.support=(function(){var ret;try{ret=w.document.createElement("link").relList.supports("preload")}catch(e){ret=!1}
+return function(){return ret}})();rp.bindMediaToggle=function(link){var finalMedia=link.media||"all";function enableStylesheet(){link.media=finalMedia}
+if(link.addEventListener){link.addEventListener("load",enableStylesheet)}else if(link.attachEvent){link.attachEvent("onload",enableStylesheet)}
+setTimeout(function(){link.rel="stylesheet";link.media="only x"});setTimeout(enableStylesheet,3000)};rp.poly=function(){if(rp.support()){return}
+var links=w.document.getElementsByTagName("link");for(var i=0;i<links.length;i++){var link=links[i];if(link.rel==="preload"&&link.getAttribute("as")==="style"&&!link.getAttribute("data-loadcss")){link.setAttribute("data-loadcss",!0);rp.bindMediaToggle(link)}}};if(!rp.support()){rp.poly();var run=w.setInterval(rp.poly,500);if(w.addEventListener){w.addEventListener("load",function(){rp.poly();w.clearInterval(run)})}else if(w.attachEvent){w.attachEvent("onload",function(){rp.poly();w.clearInterval(run)})}}
+if(typeof exports!=="undefined"){exports.loadCSS=loadCSS}
+else{w.loadCSS=loadCSS}}(typeof global!=="undefined"?global:this))
+</script>		<script async src="https://securepubads.g.doubleclick.net/tag/js/gpt.js"></script>
+<script>
+  window.googletag = window.googletag || {cmd: []};
+  googletag.cmd.push(function() {
+
+  var top_banners = googletag.sizeMapping()
+        .addSize([0, 0], [])
+        .addSize([990, 0], [970, 250])
+        .build(); 
+  var sidebar_banners = googletag.sizeMapping()
+        .addSize([0, 0], [])
+        .addSize([750, 0], [[300, 600],[300, 250]])
+        .build();
+  var skin = googletag.sizeMapping()
+        .addSize([0, 0], [])
+        .addSize([1100, 0], [1, 1])
+        .build();
+  var horizontal_banners = googletag.sizeMapping()
+        .addSize([0, 0], [[300, 250], [320, 100]])
+        .addSize([340,0], [[336,280], [300,250], [320, 100]])
+        .addSize([768, 0], [[728, 90]])
+        .build();		
+      	googletag.defineSlot('/126962324/tlife_Rectangle_Homepage_1', [[300, 250], [300, 600]], 'div-gpt-ad-1592911387542-0').addService(googletag.pubads());
+  	googletag.defineSlot('/126962324/tlife_Rectangle_Homepage_2', [[300, 250], [300, 600]], 'div-gpt-ad-1592987796845-0').addService(googletag.pubads());
+  	googletag.defineSlot('/126962324/tlife_Horizontal_Homepage', [970, 250], 'div-gpt-ad-1592911353519-0').defineSizeMapping(top_banners).addService(googletag.pubads());
+  	googletag.defineSlot('/126962324/tlife_Horizontal_Homepage_2', [970, 250], 'div-gpt-ad-1593073117041-0').defineSizeMapping(top_banners).addService(googletag.pubads());
+      
+              googletag.pubads().setTargeting('Page', "1077067");
+            googletag.pubads().setTargeting('Type', "page");
+    
+    //googletag.pubads().disableInitialLoad(); 
+    googletag.pubads().enableSingleRequest();
+    googletag.pubads().enableLazyLoad({
+                fetchMarginPercent: 100,  
+                renderMarginPercent: 100,  
+                mobileScaling: 1.0  
+              });
+    googletag.enableServices();
+  });
+</script>
+</head>
+
+<body class="home page-template-default page page-id-1077067 wp-custom-logo wp-embed-responsive post-image-aligned-center sticky-menu-slide page-tlife-gr-%ce%8c%ce%bb%ce%b1-%cf%8c%cf%83%ce%b1-%ce%b8%ce%ad%ce%bb%ce%bf%cf%85%ce%bd-%ce%bd%ce%b1-%ce%b3%ce%bd%cf%89%cf%81%ce%af%ce%b6%ce%bf%cf%85%ce%bd-%ce%bf%ce%b9-%ce%b3%cf%85%ce%bd%ce%b1%ce%af no-sidebar nav-below-header separate-containers fluid-header active-footer-widgets-1 nav-search-enabled nav-aligned-center header-aligned-center dropdown-hover full-width-content" itemtype="https://schema.org/WebPage" itemscope>
+	<a class="screen-reader-text skip-link" href="#content" title="Μετάβαση σε περιεχόμενο">Μετάβαση σε περιεχόμενο</a>		<header class="site-header" id="masthead" aria-label="Site"  itemtype="https://schema.org/WPHeader" itemscope>
+			<div class="inside-header">
+				<div class="site-branding">
+                                        <p class="site-description" itemprop="description">
+                                The female side of life
+                        </p>                                     
+                                </div><div class="site-logo">
+					<a href="https://www.tlife.gr/" title="TLIFE" rel="home">
+						<img width="992" height="205"  class="header-image is-logo-image" alt="TLIFE" src="https://www.tlife.gr/wp-content/uploads/2020/09/tlife-logo.png" title="TLIFE" />
+					</a>
+				</div>			</div>
+		</header>
+					<nav class="has-sticky-branding main-navigation sub-menu-right" id="site-navigation" aria-label="Primary"  itemtype="https://schema.org/SiteNavigationElement" itemscope>
+			<div class="inside-navigation grid-container grid-parent">
+				<ul class="social_nav">
+	<li><a href="https://www.facebook.com/tlifegr" title="tlife facebook" target="_blank" rel="noreferrer"><img height="24" width="24" src="/wp-content/themes/generatepress_child/assets/facebook.svg" alt="facebook" /></a></li>
+	<li><a href="https://www.instagram.com/tlifegr/"  title="tlife instagram" target="_blank" rel="noreferrer"><img height="25" width="25" src="/wp-content/themes/generatepress_child/assets/instagram.svg" alt="instagram" /></a></li>
+</ul><form id="tlife-navigation-search" method="get" class="search-form navigation-search" action="https://www.tlife.gr/">
+            <div class="navigation-search-wrapper"><input type="search" placeholder="Αναζήτηση στο TLife" class="search-field" value="" name="s" title="Αναζήτηση" />
+			<button type="submit" form="tlife-navigation-search" value="Submit"><span></span></button></div>
+        </form>		<div class="mobile-bar-items">
+						<span class="search-item">
+				<a aria-label="Άνοιξε την μπάρα αναζήτησης" href="#">
+									</a>
+			</span>
+		</div>
+						<button class="menu-toggle" aria-controls="primary-menu" aria-expanded="false">
+					<span class="screen-reader-text">Μενού</span>				</button>
+				<div id="primary-menu" class="main-nav"><ul id="menu-main-menu" class=" menu sf-menu"><li id="menu-item-1077229" class="tlife-logo menu-item menu-item-type-post_type menu-item-object-page menu-item-home current-menu-item page_item page-item-1077067 current_page_item menu-item-1077229"><a href="https://www.tlife.gr/" aria-current="page">Αρχικη</a></li>
+<li id="menu-item-1077066" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-1077066"><a href="https://www.tlife.gr/news/">News</a></li>
+<li id="menu-item-1077004" class="menu-item menu-item-type-taxonomy menu-item-object-category menu-item-1077004"><a href="https://www.tlife.gr/category/moda/">Fashion</a></li>
+<li id="menu-item-1077005" class="menu-item menu-item-type-taxonomy menu-item-object-category menu-item-1077005"><a href="https://www.tlife.gr/category/omorfia/">Beauty</a></li>
+<li id="menu-item-1077006" class="menu-item menu-item-type-taxonomy menu-item-object-category menu-item-1077006"><a href="https://www.tlife.gr/category/fitness/">Fitness</a></li>
+<li id="menu-item-1077007" class="menu-item menu-item-type-taxonomy menu-item-object-category menu-item-1077007"><a href="https://www.tlife.gr/category/family/">Family</a></li>
+<li id="menu-item-1077008" class="menu-item menu-item-type-taxonomy menu-item-object-category menu-item-1077008"><a href="https://www.tlife.gr/category/diakosmisi/">Deco</a></li>
+<li id="menu-item-1077009" class="menu-item menu-item-type-taxonomy menu-item-object-category menu-item-1077009"><a href="https://www.tlife.gr/category/sxeseis/">Σχεσεις</a></li>
+<li id="menu-item-1077010" class="menu-item menu-item-type-taxonomy menu-item-object-category menu-item-1077010"><a href="https://www.tlife.gr/category/syntages/">Συνταγες</a></li>
+<li id="menu-item-1077011" class="menu-item menu-item-type-taxonomy menu-item-object-category menu-item-1077011"><a href="https://www.tlife.gr/category/zodia/">Ζωδια</a></li>
+<li id="menu-item-1118257" class="menu-item menu-item-type-taxonomy menu-item-object-category menu-item-1118257"><a href="https://www.tlife.gr/category/tatianas-blog/">Tatiana&#8217;s Blog</a></li>
+<li class="search-item menu-item-align-right"><a aria-label="Άνοιξε την μπάρα αναζήτησης" href="#"></a></li></ul></div>			</div>
+		</nav>
+		<div class="page-hero  bb">
+					<div class="inside-page-hero">
+						<div class="header-article-grid pt-2  pb-2  row wrap stretch  center">
+<div class="article-list overlay-content huge-title left-single col-lg-33 col-sm-50 col-xs-100"  >
+ <article class="article-overlay-content portrait-article">
+  		<div class="article-image">
+		  <a data-bg="https://www.tlife.gr/wp-content/uploads/2023/11/ioanna-touni-3.jpg" class="rocket-lazyload" href="https://www.tlife.gr/eidhseis-nea/ioanna-touni-o-gios-tis-ekane-ta-prota-tou-vimata-vinteo/1466268/" title="Ιωάννα Τούνη: Ο γιος της έκανε τα πρώτα του βήματα &#8211; Βίντεο" style=""></a>
+		</div>
+		
+	
+	<div class="article-overlay center">
+		<div class="article-category uppercase"><a href="https://www.tlife.gr/category/eidhseis-nea/" rel="category tag">News</a></div>	 
+
+		 
+		<div class="article-title">Ιωάννα Τούνη: Ο γιος της έκανε τα πρώτα του βήματα &#8211; Βίντεο</div>
+
+ 	</div>
+	<a class="article-link" href="https://www.tlife.gr/eidhseis-nea/ioanna-touni-o-gios-tis-ekane-ta-prota-tou-vimata-vinteo/1466268/" title="Ιωάννα Τούνη: Ο γιος της έκανε τα πρώτα του βήματα &#8211; Βίντεο"></a>
+	
+ </article>
+</div>
+<div class="article-list overlay-content mid-double  column col-lg-33 col-sm-50 col-xs-100">
+ <article class="article-overlay-content">
+  		<div class="article-image">
+		  <a data-bg="https://www.tlife.gr/wp-content/uploads/2023/11/papandreou1-768x576.jpg" class="rocket-lazyload" href="https://www.tlife.gr/eidhseis-nea/faidra-papandreou-i-eggoni-tou-andrea-papandreou-stin-pasarela-tou-Madwalk-2023/1466276/" title="Φαίδρα Παπανδρέου: Η εγγονή του Ανδρέα Παπανδρέου στην πασαρέλα του Madwalk 2023" style=""></a>
+		</div>
+		
+	<div class="article-overlay center">
+		<div class="article-category uppercase"><a href="https://www.tlife.gr/category/eidhseis-nea/" rel="category tag">News</a></div>
+
+		 
+		<div class="article-title">Φαίδρα Παπανδρέου: Η εγγονή του Ανδρέα Παπανδρέου στην πασαρέλα του Madwalk 2023</div>
+
+ 	</div>
+	
+	<a class="article-link" href="https://www.tlife.gr/eidhseis-nea/faidra-papandreou-i-eggoni-tou-andrea-papandreou-stin-pasarela-tou-Madwalk-2023/1466276/" title="Φαίδρα Παπανδρέου: Η εγγονή του Ανδρέα Παπανδρέου στην πασαρέλα του Madwalk 2023"></a>
+	
+ </article>
+ <article class="article-overlay-content">
+  		<div class="article-image">
+		  <a data-bg="https://www.tlife.gr/wp-content/uploads/2023/11/aspa-768x576.jpg" class="rocket-lazyload" href="https://www.tlife.gr/eidhseis-nea/aspa-predari-thyma-diarriksis-i-proin-paiktria-tou-Survivor-kynigise-tous-kleftes-tis-espasan-ti-mpalkonoporta/1466291/" title="Άσπα Πρεδάρη: Θύμα διάρρηξης η πρώην παίκτρια του Survivor &#8211; Κυνήγησε τους κλέφτες, της έσπασαν τη μπαλκονόπορτα" style=""></a>
+		</div>
+		
+	<div class="article-overlay center">
+		<div class="article-category uppercase"><a href="https://www.tlife.gr/category/eidhseis-nea/" rel="category tag">News</a></div>
+
+		 
+		<div class="article-title">Άσπα Πρεδάρη: Θύμα διάρρηξης η πρώην παίκτρια του Survivor &#8211; Κυνήγησε τους κλέφτες, της έσπασαν τη μπαλκονόπορτα</div>
+
+ 	</div>
+	
+	<a class="article-link" href="https://www.tlife.gr/eidhseis-nea/aspa-predari-thyma-diarriksis-i-proin-paiktria-tou-Survivor-kynigise-tous-kleftes-tis-espasan-ti-mpalkonoporta/1466291/" title="Άσπα Πρεδάρη: Θύμα διάρρηξης η πρώην παίκτρια του Survivor &#8211; Κυνήγησε τους κλέφτες, της έσπασαν τη μπαλκονόπορτα"></a>
+	
+ </article>
+</div>
+<div class="article-list overlay-content right-double column col-lg-33 col-sm-100 col-xs-100">
+ <article class="article-overlay-content">
+  		<div class="article-image">
+		  <a data-bg="https://www.tlife.gr/wp-content/uploads/2023/11/fashion-112.gif" class="rocket-lazyload" href="https://www.tlife.gr/moda/styling-tips/palto-ta-kompsa-sxedia-pou-piran-ok-apo-tis-stylers-fetos/1466052/" title="Παλτό: Τα κομψά σχέδια που πήραν ok από τις stylers φέτος!" style=""></a>
+		</div>
+		
+	<div class="article-overlay center">
+		<div class="article-category uppercase"><a href="https://www.tlife.gr/category/moda/styling-tips/" rel="category tag">Styling tips</a></div>
+
+		 
+		<div class="article-title">Παλτό: Τα κομψά σχέδια που πήραν ok από τις stylers φέτος!</div>
+
+ 	</div>
+	
+	<a class="article-link" href="https://www.tlife.gr/moda/styling-tips/palto-ta-kompsa-sxedia-pou-piran-ok-apo-tis-stylers-fetos/1466052/" title="Παλτό: Τα κομψά σχέδια που πήραν ok από τις stylers φέτος!"></a>
+	
+ </article>
+ <article class="article-overlay-content">
+  		<div class="article-image">
+		  <a data-bg="https://www.tlife.gr/wp-content/uploads/2023/11/beauty-1-2023-11-20T182133.129-768x576.jpg" class="rocket-lazyload" href="https://www.tlife.gr/omorfia/mallia/Upper-East-Side-Blonde-einai-i-tasi-pou-erxetai-apeytheias-apo-tin-pio-polyteli-geitonia-tis-neas-yorkis/1466082/" title="Upper East Side Blonde: Είναι η τάση που έρχεται απευθείας από την πιο πολυτελή γειτονιά της Νέας Υόρκης" style=""></a>
+		</div>
+		
+	<div class="article-overlay center">
+		<div class="article-category uppercase"><a href="https://www.tlife.gr/category/omorfia/mallia/" rel="category tag">Μαλλια</a></div>
+
+		 
+		<div class="article-title">Upper East Side Blonde: Είναι η τάση που έρχεται απευθείας από την πιο πολυτελή γειτονιά της Νέας Υόρκης</div>
+
+ 	</div>
+	
+	<a class="article-link" href="https://www.tlife.gr/omorfia/mallia/Upper-East-Side-Blonde-einai-i-tasi-pou-erxetai-apeytheias-apo-tin-pio-polyteli-geitonia-tis-neas-yorkis/1466082/" title="Upper East Side Blonde: Είναι η τάση που έρχεται απευθείας από την πιο πολυτελή γειτονιά της Νέας Υόρκης"></a>
+	
+ </article>
+</div>
+</div>
+					</div>
+				</div>
+	<div id="page" class="hfeed site grid-container container grid-parent">
+				<div id="content" class="site-content">
+		
+			
+	<div class="content-area grid-parent mobile-grid-100 grid-100 tablet-grid-100" id="primary">
+		<main class="site-main" id="main">
+			
+<article id="post-1077067" class="post-1077067 page type-page status-publish" itemtype="https://schema.org/CreativeWork" itemscope>
+	<div class="inside-article">
+		
+		<div class="entry-content" itemprop="text">
+			<div class="content-wrapper clearfix section-with-sidebar mt-5  mb-5  ">
+<div class="section-sidebar left-sidebar sticky-block" style="height: 636px;">
+<div class="sticky">
+<div class="advert center">
+<div class="rel pt-2">
+<p class="uppercase"><small>ΔΙΑΦΗΜΙΣΗ</small></p>
+<div class="advert-container"><!-- /126962324/tlife_Rectangle_Homepage_1 --></p>
+<div id="div-gpt-ad-1592911387542-0" style="height: 250px;"><script>googletag.cmd.push(function () {googletag.display('div-gpt-ad-1592911387542-0');});</script></div>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="section-content">
+<div class="row row-center  mb-2">
+<h1 class="tlife-title left">Latest News<span class="tlife-description">Don’t miss! <img src="data:image/svg+xml,%3Csvg%20xmlns='http://www.w3.org/2000/svg'%20viewBox='0%200%2024%200'%3E%3C/svg%3E" width="24" data-lazy-src="/wp-content/themes/generatepress_child/assets/bomb-solid.svg"><noscript><img src="/wp-content/themes/generatepress_child/assets/bomb-solid.svg" width="24"></noscript></span></h1>
+<div class="hidden-sm"><a class="tlife-btn uppercase" href="/category/eidhseis-nea/">ΔΙΑΒΑΣΤΕ ΟΛΕΣ ΤΙΣ ΤΕΛΕΥΤΑΙΕΣ ΕΙΔΗΣΕΙΣ</a></div>
+</div>
+<div class="article-list row col-3 mb-2"> <article>
+  	<div class="article-image">
+		  <a data-bg="https://www.tlife.gr/wp-content/uploads/2023/11/valavani-vasalos-768x576.jpg" class="rocket-lazyload" href="https://www.tlife.gr/eidhseis-nea/media/konstantinos-vasalos-den-exo-ftasei-sto-simeio-na-milao-me-ton-syntrofo-tis-eyrydikis-valavani/1466289/" title="Κωνσταντίνος Βασάλος: «Δεν έχω φτάσει στο σημείο να μιλάω με τον σύντροφο της Ευρυδίκης Βαλαβάνη»" style=""></a>
+	</div>
+   <div class="article-info">
+   
+		<div class="article-category uppercase"><a href="https://www.tlife.gr/category/eidhseis-nea/media/" rel="category tag">Media</a></div>
+
+		<div class="article-title mb-0"><a href="https://www.tlife.gr/eidhseis-nea/media/konstantinos-vasalos-den-exo-ftasei-sto-simeio-na-milao-me-ton-syntrofo-tis-eyrydikis-valavani/1466289/" title="Κωνσταντίνος Βασάλος: «Δεν έχω φτάσει στο σημείο να μιλάω με τον σύντροφο της Ευρυδίκης Βαλαβάνη»">Κωνσταντίνος Βασάλος: «Δεν έχω φτάσει στο σημείο να μιλάω με τον σύντροφο της Ευρυδίκης Βαλαβάνη»</a></div>
+		
+		  		  				
+					<small class="article-meta uppercase">
+			  				<time class="entry-date published" datetime="2023-11-21T14:26:00+02:00" itemprop="datePublished">
+				  21.11.2023				</time>
+			  			  			</small>
+				  
+		  
+
+</div>
+  
+	
+ </article>
+ 
+ <article>
+  	<div class="article-image">
+		  <a data-bg="https://www.tlife.gr/wp-content/uploads/2023/11/aspa-768x576.jpg" class="rocket-lazyload" href="https://www.tlife.gr/eidhseis-nea/aspa-predari-thyma-diarriksis-i-proin-paiktria-tou-Survivor-kynigise-tous-kleftes-tis-espasan-ti-mpalkonoporta/1466291/" title="Άσπα Πρεδάρη: Θύμα διάρρηξης η πρώην παίκτρια του Survivor &#8211; Κυνήγησε τους κλέφτες, της έσπασαν τη μπαλκονόπορτα" style=""></a>
+	</div>
+   <div class="article-info">
+   
+		<div class="article-category uppercase"><a href="https://www.tlife.gr/category/eidhseis-nea/" rel="category tag">News</a></div>
+
+		<div class="article-title mb-0"><a href="https://www.tlife.gr/eidhseis-nea/aspa-predari-thyma-diarriksis-i-proin-paiktria-tou-Survivor-kynigise-tous-kleftes-tis-espasan-ti-mpalkonoporta/1466291/" title="Άσπα Πρεδάρη: Θύμα διάρρηξης η πρώην παίκτρια του Survivor &#8211; Κυνήγησε τους κλέφτες, της έσπασαν τη μπαλκονόπορτα">Άσπα Πρεδάρη: Θύμα διάρρηξης η πρώην παίκτρια του Survivor &#8211; Κυνήγησε τους κλέφτες, της έσπασαν τη μπαλκονόπορτα</a></div>
+		
+		  		  				
+					<small class="article-meta uppercase">
+			  				<time class="entry-date published" datetime="2023-11-21T14:03:00+02:00" itemprop="datePublished">
+				  21.11.2023				</time>
+			  			  			</small>
+				  
+		  
+
+</div>
+  
+	
+ </article>
+ 
+ <article>
+  	<div class="article-image">
+		  <a data-bg="https://www.tlife.gr/wp-content/uploads/2023/11/perrhs-liagkas-768x576.jpg" class="rocket-lazyload" href="https://www.tlife.gr/eidhseis-nea/media/vaggelis-perris-min-tou-dinete-simasia-tou-giorgou-liagka-eiste-ypeythynoi-gia-to-fainomeno-ayto/1466235/" title="Βαγγέλης Περρής: «Μην του δίνετε σημασία του Γιώργου Λιάγκα &#8211; Είστε υπεύθυνοι για το φαινόμενο αυτό»" style=""></a>
+	</div>
+   <div class="article-info">
+   
+		<div class="article-category uppercase"><a href="https://www.tlife.gr/category/eidhseis-nea/media/" rel="category tag">Media</a></div>
+
+		<div class="article-title mb-0"><a href="https://www.tlife.gr/eidhseis-nea/media/vaggelis-perris-min-tou-dinete-simasia-tou-giorgou-liagka-eiste-ypeythynoi-gia-to-fainomeno-ayto/1466235/" title="Βαγγέλης Περρής: «Μην του δίνετε σημασία του Γιώργου Λιάγκα &#8211; Είστε υπεύθυνοι για το φαινόμενο αυτό»">Βαγγέλης Περρής: «Μην του δίνετε σημασία του Γιώργου Λιάγκα &#8211; Είστε υπεύθυνοι για το φαινόμενο αυτό»</a></div>
+		
+		  		  				
+					<small class="article-meta uppercase">
+			  				<time class="entry-date published" datetime="2023-11-21T13:43:00+02:00" itemprop="datePublished">
+				  21.11.2023				</time>
+			  			  			</small>
+				  
+		  
+
+</div>
+  
+	
+ </article>
+ 
+</div>
+<div class="article-list row col-3"> <article>
+  	<div class="article-image">
+		  <a data-bg="https://www.tlife.gr/wp-content/uploads/2023/11/mikroutsikos-2-768x576.jpg" class="rocket-lazyload" href="https://www.tlife.gr/eidhseis-nea/media/katerina-kainourgiou-pagose-ton-andrea-mikroutsiko-me-tin-ataka-tis-gia-ton-Light/1466272/" title="Κατερίνα Καινούργιου: «Πάγωσε» τον Ανδρέα Μικρούτσικο με την ατάκα της για τον Light" style=""></a>
+	</div>
+   <div class="article-info">
+   
+		<div class="article-category uppercase"><a href="https://www.tlife.gr/category/eidhseis-nea/media/" rel="category tag">Media</a></div>
+
+		<div class="article-title mb-0"><a href="https://www.tlife.gr/eidhseis-nea/media/katerina-kainourgiou-pagose-ton-andrea-mikroutsiko-me-tin-ataka-tis-gia-ton-Light/1466272/" title="Κατερίνα Καινούργιου: «Πάγωσε» τον Ανδρέα Μικρούτσικο με την ατάκα της για τον Light">Κατερίνα Καινούργιου: «Πάγωσε» τον Ανδρέα Μικρούτσικο με την ατάκα της για τον Light</a></div>
+		
+		  		  				
+					<small class="article-meta uppercase">
+			  				<time class="entry-date published" datetime="2023-11-21T13:27:00+02:00" itemprop="datePublished">
+				  21.11.2023				</time>
+			  			  			</small>
+				  
+		  
+
+</div>
+  
+	
+ </article>
+ 
+ <article>
+  	<div class="article-image">
+		  <a data-bg="https://www.tlife.gr/wp-content/uploads/2023/11/papandreou1-768x576.jpg" class="rocket-lazyload" href="https://www.tlife.gr/eidhseis-nea/faidra-papandreou-i-eggoni-tou-andrea-papandreou-stin-pasarela-tou-Madwalk-2023/1466276/" title="Φαίδρα Παπανδρέου: Η εγγονή του Ανδρέα Παπανδρέου στην πασαρέλα του Madwalk 2023" style=""></a>
+	</div>
+   <div class="article-info">
+   
+		<div class="article-category uppercase"><a href="https://www.tlife.gr/category/eidhseis-nea/" rel="category tag">News</a></div>
+
+		<div class="article-title mb-0"><a href="https://www.tlife.gr/eidhseis-nea/faidra-papandreou-i-eggoni-tou-andrea-papandreou-stin-pasarela-tou-Madwalk-2023/1466276/" title="Φαίδρα Παπανδρέου: Η εγγονή του Ανδρέα Παπανδρέου στην πασαρέλα του Madwalk 2023">Φαίδρα Παπανδρέου: Η εγγονή του Ανδρέα Παπανδρέου στην πασαρέλα του Madwalk 2023</a></div>
+		
+		  		  				
+					<small class="article-meta uppercase">
+			  				<time class="entry-date published" datetime="2023-11-21T13:11:00+02:00" itemprop="datePublished">
+				  21.11.2023				</time>
+			  			  			</small>
+				  
+		  
+
+</div>
+  
+	
+ </article>
+ 
+ <article>
+  	<div class="article-image">
+		  <a data-bg="https://www.tlife.gr/wp-content/uploads/2023/11/touni-ioanna-3-768x576.jpg" class="rocket-lazyload" href="https://www.tlife.gr/eidhseis-nea/ioanna-touni-o-gios-tis-ekane-ta-prota-tou-vimata-vinteo/1466268/" title="Ιωάννα Τούνη: Ο γιος της έκανε τα πρώτα του βήματα &#8211; Βίντεο" style=""></a>
+	</div>
+   <div class="article-info">
+   
+		<div class="article-category uppercase"><a href="https://www.tlife.gr/category/eidhseis-nea/" rel="category tag">News</a></div>
+
+		<div class="article-title mb-0"><a href="https://www.tlife.gr/eidhseis-nea/ioanna-touni-o-gios-tis-ekane-ta-prota-tou-vimata-vinteo/1466268/" title="Ιωάννα Τούνη: Ο γιος της έκανε τα πρώτα του βήματα &#8211; Βίντεο">Ιωάννα Τούνη: Ο γιος της έκανε τα πρώτα του βήματα &#8211; Βίντεο</a></div>
+		
+		  		  				
+					<small class="article-meta uppercase">
+			  				<time class="entry-date published" datetime="2023-11-21T12:55:00+02:00" itemprop="datePublished">
+				  21.11.2023				</time>
+			  			  			</small>
+				  
+		  
+
+</div>
+  
+	
+ </article>
+ 
+</div>
+<div class="center mt-2 hidden-lg"><a class="tlife-btn uppercase" href="/category/eidhseis-nea/">ΔΙΑΒΑΣΤΕ ΟΛΕΣ ΤΙΣ ΤΕΛΕΥΤΑΙΕΣ ΕΙΔΗΣΕΙΣ</a></div>
+</div>
+</div>
+
+<div class="full-width  bb  pt-3  pb-5 hidden-wide-ad">
+<div class="advert center">
+<div class="rel  pt-2">
+<p class="uppercase"><small>ΔΙΑΦΗΜΙΣΗ</small></p>
+<div class="advert-container"><!-- /126962324/tlife_Horizontal_Homepage --></p>
+<div id="div-gpt-ad-1592911353519-0" style="height: 250px;"><script>googletag.cmd.push(function () {googletag.display('div-gpt-ad-1592911353519-0');});</script></div>
+</div>
+</div>
+</div>
+</div>
+<div class="content-wrapper clearfix pr-2 pl-2 mt-5">
+<div class="tlife-header category-omorfia center">
+<h1 class="tlife-title">BEAUTY</h1>
+<div class="tlife-description">Give your skin a little love!</div>
+<div class="tlife-category-icon"></div>
+</div>
+</div>
+<div class="content-wrapper clearfix">
+<div class="article-list leading full-width overlay-content col-1 mb-2"> <article class="article-overlay-content">
+  		<div class="article-image">
+		  <a data-bg="https://www.tlife.gr/wp-content/uploads/2023/11/beauty-1-2023-11-19T145805.098-large.jpg" class="rocket-lazyload" href="https://www.tlife.gr/omorfia/must-haves/ta-oraiotera-aromata-me-esans-kanelas/1465704/" title="Τα ωραιότερα αρώματα με εσάνς κανέλας" style=""></a>
+		</div>
+		
+	<div class="article-overlay center">
+		<div class="article-category uppercase"><a href="https://www.tlife.gr/category/omorfia/must-haves/" rel="category tag">Must Haves</a></div>
+
+		 
+		<div class="article-title">Τα ωραιότερα αρώματα με εσάνς κανέλας</div>
+
+ 	</div>
+	
+	<a class="article-link" href="https://www.tlife.gr/omorfia/must-haves/ta-oraiotera-aromata-me-esans-kanelas/1465704/" title="Τα ωραιότερα αρώματα με εσάνς κανέλας"></a>
+	
+ </article></div>
+</div>
+<div class="content-wrapper clearfix mb-5 ">
+<div class="article-list big-title center row col-2"> <article>
+  		<div class="article-image">
+		  <a data-bg="https://www.tlife.gr/wp-content/uploads/2023/11/cate-768x576.jpg" class="rocket-lazyload" href="https://www.tlife.gr/omorfia/celebrities-omorfia/Cate-Blanchett-an-exeis-kopsei-ta-mallia-sou-se-bob-prepei-na-deis-to-xtenisma-tis/1466265/" title="Cate Blanchett: Αν έχεις κόψει τα μαλλιά σου σε bob  πρέπει να δεις το χτένισμα της" style=""></a>
+		</div>
+	   <div class="article-info">
+   
+		<div class="article-category uppercase"><a href="https://www.tlife.gr/category/omorfia/celebrities-omorfia/" rel="category tag">Celebrities</a>, <a href="https://www.tlife.gr/category/omorfia/mallia/" rel="category tag">Μαλλια</a></div>
+
+		 
+		<div class="article-title mb-0"><a href="https://www.tlife.gr/omorfia/celebrities-omorfia/Cate-Blanchett-an-exeis-kopsei-ta-mallia-sou-se-bob-prepei-na-deis-to-xtenisma-tis/1466265/" title="Cate Blanchett: Αν έχεις κόψει τα μαλλιά σου σε bob  πρέπει να δεις το χτένισμα της">Cate Blanchett: Αν έχεις κόψει τα μαλλιά σου σε bob  πρέπει να δεις το χτένισμα της</a></div>
+				
+					<small class="article-meta uppercase">
+			  				<time class="entry-date published" datetime="2023-11-21T14:07:25+02:00" itemprop="datePublished">
+				  21.11.2023				</time>
+			  			  				<span class="entry-author">
+				  by <a href="https://www.tlife.gr/author/dimitra-gkasiami/">Δημητρα Γκασιαμη</a>
+				</span>
+			  			</small>
+				  
+		  
+
+</div>
+  
+	
+ </article>
+ 
+ <article>
+  		<div class="article-image">
+		  <a data-bg="https://www.tlife.gr/wp-content/uploads/2023/11/lawrence-6-768x576.jpg" class="rocket-lazyload" href="https://www.tlife.gr/omorfia/celebrities-omorfia/Jennifer-Lawrence-fora-to-aksesouar-mallion-pou-prepei-na-apoktiseis-asap/1466228/" title="Jennifer Lawrence: Φορά το αξεσουάρ μαλλιών που πρέπει να αποκτήσεις asap" style=""></a>
+		</div>
+	   <div class="article-info">
+   
+		<div class="article-category uppercase"><a href="https://www.tlife.gr/category/omorfia/celebrities-omorfia/" rel="category tag">Celebrities</a>, <a href="https://www.tlife.gr/category/omorfia/mallia/" rel="category tag">Μαλλια</a></div>
+
+		 
+		<div class="article-title mb-0"><a href="https://www.tlife.gr/omorfia/celebrities-omorfia/Jennifer-Lawrence-fora-to-aksesouar-mallion-pou-prepei-na-apoktiseis-asap/1466228/" title="Jennifer Lawrence: Φορά το αξεσουάρ μαλλιών που πρέπει να αποκτήσεις asap">Jennifer Lawrence: Φορά το αξεσουάρ μαλλιών που πρέπει να αποκτήσεις asap</a></div>
+				
+					<small class="article-meta uppercase">
+			  				<time class="entry-date published" datetime="2023-11-21T11:44:49+02:00" itemprop="datePublished">
+				  21.11.2023				</time>
+			  			  				<span class="entry-author">
+				  by <a href="https://www.tlife.gr/author/dimitra-gkasiami/">Δημητρα Γκασιαμη</a>
+				</span>
+			  			</small>
+				  
+		  
+
+</div>
+  
+	
+ </article>
+ 
+</div>
+</div>
+<div class="full-width bb center mt-5  mb-5 "></div>
+<div class="content-wrapper clearfix section-with-sidebar mt-5  mb-5  ">
+<div class="section-content">
+<div class="tlife-header pr-2 pl-2 category-moda center">
+<h1 class="tlife-title">FASHION</h1>
+<div class="tlife-description">Make them stop and stare!</div>
+<div class="tlife-category-icon"></div>
+</div>
+<div class="article-list leading  overlay-content col-1 mb-1"> <article class="article-overlay-content">
+  		<div class="article-image">
+		  <a data-bg="https://www.tlife.gr/wp-content/uploads/2023/11/irina11-large.jpg" class="rocket-lazyload" href="https://www.tlife.gr/moda/styling-tips/Irina-Shayk-ayto-to-city-look-mporeis-na-to-antigrapseis-tora-pou-kryonei-o-kairos/1466239/" title="Irina Shayk: Αυτό το city look μπορείς να το αντιγράψεις τώρα που κρυώνει ο καιρός!" style=""></a>
+		</div>
+		
+	<div class="article-overlay center">
+		<div class="article-category uppercase"><a href="https://www.tlife.gr/category/moda/styling-tips/" rel="category tag">Styling tips</a></div>
+
+		 
+		<div class="article-title">Irina Shayk: Αυτό το city look μπορείς να το αντιγράψεις τώρα που κρυώνει ο καιρός!</div>
+
+ 	</div>
+	
+	<a class="article-link" href="https://www.tlife.gr/moda/styling-tips/Irina-Shayk-ayto-to-city-look-mporeis-na-to-antigrapseis-tora-pou-kryonei-o-kairos/1466239/" title="Irina Shayk: Αυτό το city look μπορείς να το αντιγράψεις τώρα που κρυώνει ο καιρός!"></a>
+	
+ </article></div>
+<div class="article-grid row stretch center ">
+<div class="col-lg-50 col-sm-50 col-xs-100 article-list left-double overlay-content center column"> <article class="article-overlay-content">
+  		<div class="article-image">
+		  <a data-bg="https://www.tlife.gr/wp-content/uploads/2023/11/victor1-768x576.jpg" class="rocket-lazyload" href="https://www.tlife.gr/moda/celebrities/Victoria-Beckham-kykloforei-trol-mplouzaki-me-slogan-o-mpampas-mou-eixe-mia-Rolls-Royce/1466218/" title="Victoria Beckham: Κυκλοφορεί τρολ μπλουζάκι με slogan «Ο μπαμπάς μου είχε μια Rolls Royce»" style=""></a>
+		</div>
+		
+	<div class="article-overlay center">
+		<div class="article-category uppercase"><a href="https://www.tlife.gr/category/moda/celebrities/" rel="category tag">Celebrities</a></div>
+
+		 
+		<div class="article-title">Victoria Beckham: Κυκλοφορεί τρολ μπλουζάκι με slogan «Ο μπαμπάς μου είχε μια Rolls Royce»</div>
+
+ 	</div>
+	
+	<a class="article-link" href="https://www.tlife.gr/moda/celebrities/Victoria-Beckham-kykloforei-trol-mplouzaki-me-slogan-o-mpampas-mou-eixe-mia-Rolls-Royce/1466218/" title="Victoria Beckham: Κυκλοφορεί τρολ μπλουζάκι με slogan «Ο μπαμπάς μου είχε μια Rolls Royce»"></a>
+	
+ </article> <article class="article-overlay-content">
+  		<div class="article-image">
+		  <a data-bg="https://www.tlife.gr/wp-content/uploads/2023/11/rihanna1-768x576.jpg" class="rocket-lazyload" href="https://www.tlife.gr/moda/celebrities/Rihanna-me-teleio-racing-style-stin-Formula1/1465905/" title="Rihanna: Με (τέλειο) racing style στην Formula1" style=""></a>
+		</div>
+		
+	<div class="article-overlay center">
+		<div class="article-category uppercase"><a href="https://www.tlife.gr/category/moda/celebrities/" rel="category tag">Celebrities</a></div>
+
+		 
+		<div class="article-title">Rihanna: Με (τέλειο) racing style στην Formula1</div>
+
+ 	</div>
+	
+	<a class="article-link" href="https://www.tlife.gr/moda/celebrities/Rihanna-me-teleio-racing-style-stin-Formula1/1465905/" title="Rihanna: Με (τέλειο) racing style στην Formula1"></a>
+	
+ </article></div>
+<div class="col-lg-50 col-sm-50 col-xs-100 article-list right-single portrait-article overlay-content center"> <article class="article-overlay-content portrait-article">
+  		<div class="article-image">
+		  <a data-bg="https://www.tlife.gr/wp-content/uploads/2023/11/MAD2.jpg" class="rocket-lazyload" href="https://www.tlife.gr/moda/celebrities/madWalk-2023-oi-celebrity-emfaniseis-pou-ksexorisame-gia-to-stil-tous/1466001/" title="ΜadWalk 2023: Οι celebrity εμφανίσεις που ξεχωρίσαμε για το στιλ τους" style=""></a>
+		</div>
+		
+	
+	<div class="article-overlay center">
+		<div class="article-category uppercase"><a href="https://www.tlife.gr/category/moda/celebrities/" rel="category tag">Celebrities</a></div>	 
+
+		 
+		<div class="article-title">ΜadWalk 2023: Οι celebrity εμφανίσεις που ξεχωρίσαμε για το στιλ τους</div>
+
+ 	</div>
+	<a class="article-link" href="https://www.tlife.gr/moda/celebrities/madWalk-2023-oi-celebrity-emfaniseis-pou-ksexorisame-gia-to-stil-tous/1466001/" title="ΜadWalk 2023: Οι celebrity εμφανίσεις που ξεχωρίσαμε για το στιλ τους"></a>
+	
+ </article></div>
+</div>
+</div>
+<div class="section-sidebar right-sidebar sticky">
+<div class="advert center">
+<div class="rel pt-2">
+<p class="uppercase"><small>ΔΙΑΦΗΜΙΣΗ</small></p>
+<div class="advert-container"><!-- /126962324/tlife_Rectangle_Homepage_2 --></p>
+<div id="div-gpt-ad-1592987796845-0" style="height: 250px;"><script>googletag.cmd.push(function () {googletag.display('div-gpt-ad-1592987796845-0');});</script></div>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="clearfix pt-5  mt-5  mb-5  bt bb ">
+<div class="content-wrapper section-with-sidebar  stretch">
+<div class="section-sidebar left-sidebar mb-5 ">
+<h1 class="tlife-title left">TATIANA’S<br />
+BLOG <img src="data:image/svg+xml,%3Csvg%20xmlns='http://www.w3.org/2000/svg'%20viewBox='0%200%2024%200'%3E%3C/svg%3E" width="24" data-lazy-src="/wp-content/themes/generatepress_child/assets/feather-alt-solid.svg"><noscript><img src="/wp-content/themes/generatepress_child/assets/feather-alt-solid.svg" width="24"></noscript></h1>
+<div class="article-list  mt-1"> <article>  
+     <div class="article-image">
+		  <a data-bg="https://www.tlife.gr/wp-content/uploads/2023/05/t1-768x576.jpg" class="rocket-lazyload" href="https://www.tlife.gr/tatianas-blog/apolaystiko-kai-drosistiko-sormpe-apo-verikoka/1406221/" title="Απολαυστικό και δροσιστικό σορμπέ από βερίκοκα" style=""></a>
+	</div>
+	
+   <div class="article-info">
+   
+		<div class="article-title mb-0"><a href="https://www.tlife.gr/tatianas-blog/apolaystiko-kai-drosistiko-sormpe-apo-verikoka/1406221/" title="Απολαυστικό και δροσιστικό σορμπέ από βερίκοκα">Απολαυστικό και δροσιστικό σορμπέ από βερίκοκα</a></div>
+				
+				  
+		  
+
+</div>
+  
+	
+ </article>
+ 
+</div>
+</div>
+<div class="section-content mb-5 ">
+<div class="banner center"><img width="1200" height="600" class="video" src="data:image/svg+xml,%3Csvg%20xmlns='http://www.w3.org/2000/svg'%20viewBox='0%200%201200%20600'%3E%3C/svg%3E" data-lazy-src="/wp-content/themes/generatepress_child/assets/social_background.jpg"><noscript><img width="1200" height="600" class="video" src="/wp-content/themes/generatepress_child/assets/social_background.jpg"></noscript><a class="banner-content" href="https://www.instagram.com/tlifegr/" target="_blank" rel="noopener noreferrer"><small class="black uppercase mb-05">Instagram</small><span class="title">Follow us!</span><span class="description">Σε έναν κόσμο γεμάτο εικόνες μόδας, ομορφιάς, lifestyle&#8230;</span></a></div>
+</div>
+</div>
+</div>
+<div class="content-wrapper clearfix mt-5  mb-5 ">
+<div class="tlife-header  pr-2 pl-2 category-fitness center">
+<h1 class="tlife-title">LIFE</h1>
+<div class="tlife-description">Live, Love, Laugh and Cook!</div>
+<div class="tlife-category-icon"></div>
+</div>
+<div class="article-grid row wrap stretch  center">
+<div class="article-list medium-title left-double  col-lg-25 col-sm-35 col-xs-100"> <article>
+  		<div class="article-image">
+		  <a data-bg="https://www.tlife.gr/wp-content/uploads/2023/11/iStock-1135489659-768x471.jpg" class="rocket-lazyload" href="https://www.tlife.gr/zodia/provlepseis-hmeras/zodia-provlepseis-gia-simera-triti-21-noemvriou-2023/1466026/" title="Ζώδια: Προβλέψεις για σήμερα, Τρίτη 21 Νοεμβρίου 2023" style=""></a>
+		</div>
+	   <div class="article-info">
+   
+		<div class="article-category uppercase"><a href="https://www.tlife.gr/category/eidhseis-nea/" rel="category tag">News</a>, <a href="https://www.tlife.gr/category/zodia/provlepseis-hmeras/" rel="category tag">Ημερησιες</a></div>
+
+		 
+		<div class="article-title mb-0"><a href="https://www.tlife.gr/zodia/provlepseis-hmeras/zodia-provlepseis-gia-simera-triti-21-noemvriou-2023/1466026/" title="Ζώδια: Προβλέψεις για σήμερα, Τρίτη 21 Νοεμβρίου 2023">Ζώδια: Προβλέψεις για σήμερα, Τρίτη 21 Νοεμβρίου 2023</a></div>
+				
+					<small class="article-meta uppercase">
+			  				<time class="entry-date published" datetime="2023-11-21T00:09:00+02:00" itemprop="datePublished">
+				  21.11.2023				</time>
+			  			  				<span class="entry-author">
+				  by <a href="https://www.tlife.gr/author/tlifetesteditor/">Tlife Team</a>
+				</span>
+			  			</small>
+				  
+		  
+
+</div>
+  
+	
+ </article>
+ 
+ <article>
+  		<div class="article-image">
+		  <a data-bg="https://www.tlife.gr/wp-content/uploads/2023/11/iStock-1253920275-768x512.jpg" class="rocket-lazyload" href="https://www.tlife.gr/family/goneis/nea-mama-pos-na-kseperaseis-tis-dyskolies-tou-thilasmou/1465992/" title="Νέα μαμά; Πώς να ξεπεράσεις τις δυσκολίες του θηλασμού;" style=""></a>
+		</div>
+	   <div class="article-info">
+   
+		<div class="article-category uppercase"><a href="https://www.tlife.gr/category/family/goneis/" rel="category tag">Γονεις</a></div>
+
+		 
+		<div class="article-title mb-0"><a href="https://www.tlife.gr/family/goneis/nea-mama-pos-na-kseperaseis-tis-dyskolies-tou-thilasmou/1465992/" title="Νέα μαμά; Πώς να ξεπεράσεις τις δυσκολίες του θηλασμού;">Νέα μαμά; Πώς να ξεπεράσεις τις δυσκολίες του θηλασμού;</a></div>
+				
+					<small class="article-meta uppercase">
+			  				<time class="entry-date published" datetime="2023-11-21T09:32:00+02:00" itemprop="datePublished">
+				  21.11.2023				</time>
+			  			  				<span class="entry-author">
+				  by <a href="https://www.tlife.gr/author/tlifetesteditor/">Tlife Team</a>
+				</span>
+			  			</small>
+				  
+		  
+
+</div>
+  
+	
+ </article>
+ 
+</div>
+<div class="article-list big-title overlay-content mid-single portrait-article col-lg-50 col-sm-65 col-xs-100"> <article class="article-overlay-content portrait-article">
+  		<div class="article-image">
+		  <a data-bg="https://www.tlife.gr/wp-content/uploads/2023/11/iStock-1034439080.jpg" class="rocket-lazyload" href="https://www.tlife.gr/sxeseis/sex/i-seksoualiki-mas-zoi-ana-dekaeties-pos-einai-to-seks-sta-20-ta-30-ta-40-ta-50/1465870/" title="Η σεξουαλική μας ζωή ανά δεκαετίες: Πώς είναι τo σεξ στα 20, τα 30, τα 40, τα 50!" style=""></a>
+		</div>
+		
+	
+	<div class="article-overlay center">
+		<div class="article-category uppercase"><a href="https://www.tlife.gr/category/sxeseis/sex/" rel="category tag">Σεξ</a></div>	 
+
+		 
+		<div class="article-title">Η σεξουαλική μας ζωή ανά δεκαετίες: Πώς είναι τo σεξ στα 20, τα 30, τα 40, τα 50!</div>
+
+ 	</div>
+	<a class="article-link" href="https://www.tlife.gr/sxeseis/sex/i-seksoualiki-mas-zoi-ana-dekaeties-pos-einai-to-seks-sta-20-ta-30-ta-40-ta-50/1465870/" title="Η σεξουαλική μας ζωή ανά δεκαετίες: Πώς είναι τo σεξ στα 20, τα 30, τα 40, τα 50!"></a>
+	
+ </article></div>
+<div class="article-list medium-title right-double col-lg-25 col-sm-100 col-xs-100"> <article>
+  		<div class="article-image">
+		  <a data-bg="https://www.tlife.gr/wp-content/uploads/2023/11/carrotcake-1-768x576.jpg" class="rocket-lazyload" href="https://www.tlife.gr/syntages/glyka/syntagi-gia-carrot-cake/1466324/" title="Συνταγή για carrot cake" style=""></a>
+		</div>
+	   <div class="article-info">
+   
+		<div class="article-category uppercase"><a href="https://www.tlife.gr/category/syntages/glyka/" rel="category tag">Γλυκα</a></div>
+
+		 
+		<div class="article-title mb-0"><a href="https://www.tlife.gr/syntages/glyka/syntagi-gia-carrot-cake/1466324/" title="Συνταγή για carrot cake">Συνταγή για carrot cake</a></div>
+				
+					<small class="article-meta uppercase">
+			  				<time class="entry-date published" datetime="2023-11-21T14:13:19+02:00" itemprop="datePublished">
+				  21.11.2023				</time>
+			  			  				<span class="entry-author">
+				  by <a href="https://www.tlife.gr/author/dimitra-gkasiami/">Δημητρα Γκασιαμη</a>
+				</span>
+			  			</small>
+				  
+		  
+
+</div>
+  
+	
+ </article>
+ 
+ <article>
+  		<div class="article-image">
+		  <a data-bg="https://www.tlife.gr/wp-content/uploads/2023/11/Snapinsta.app_402299729_593938109505710_8190141503997522283_n_1080-e1700221139620-768x576.jpg" class="rocket-lazyload" href="https://www.tlife.gr/zodia/provlepseis-evdomadas/zodia-oi-astrologikes-provlepseis-tis-evdomadas-20-eos-26-noemvriou-2023/1465236/" title="Ζώδια: Οι αστρολογικές προβλέψεις της εβδομάδας (20 έως 26 Νοεμβρίου 2023)" style=""></a>
+		</div>
+	   <div class="article-info">
+   
+		<div class="article-category uppercase"><a href="https://www.tlife.gr/category/eidhseis-nea/" rel="category tag">News</a>, <a href="https://www.tlife.gr/category/zodia/provlepseis-evdomadas/" rel="category tag">Εβδομαδιαιες</a></div>
+
+		 
+		<div class="article-title mb-0"><a href="https://www.tlife.gr/zodia/provlepseis-evdomadas/zodia-oi-astrologikes-provlepseis-tis-evdomadas-20-eos-26-noemvriou-2023/1465236/" title="Ζώδια: Οι αστρολογικές προβλέψεις της εβδομάδας (20 έως 26 Νοεμβρίου 2023)">Ζώδια: Οι αστρολογικές προβλέψεις της εβδομάδας (20 έως 26 Νοεμβρίου 2023)</a></div>
+				
+					<small class="article-meta uppercase">
+			  				<time class="entry-date published" datetime="2023-11-18T17:21:00+02:00" itemprop="datePublished">
+				  18.11.2023				</time>
+			  			  				<span class="entry-author">
+				  by <a href="https://www.tlife.gr/author/tlifetesteditor/">Tlife Team</a>
+				</span>
+			  			</small>
+				  
+		  
+
+</div>
+  
+	
+ </article>
+ 
+</div>
+</div>
+</div>
+<div class="full-width bt bb center pt-3  pb-5 hidden-wide-ad">
+<div class="advert center ">
+<div class="rel pt-2">
+<p class="uppercase"><small>ΔΙΑΦΗΜΙΣΗ</small></p>
+<div class="advert-container"><!-- /126962324/tlife_Horizontal_Homepage_2 --></p>
+<div id="div-gpt-ad-1593073117041-0" style="height: 250px;"><script>googletag.cmd.push(function () {googletag.display('div-gpt-ad-1593073117041-0');});</script></div>
+</div>
+</div>
+</div>
+</div>
+<div class="full-width black clearfix pt-05"></div>
+<div class="full-width half-gray mt-5  mb-5 ">
+<div class="content-wrapper clearfix">
+<div class="article-list leading overlay-content full-width article-transparent col-1"> <article class="article-overlay-content">
+  		<div class="article-image">
+		  <a data-bg="https://www.tlife.gr/wp-content/uploads/2023/11/TrendAlert-1-large.jpg" class="rocket-lazyload" href="https://www.tlife.gr/moda/tartan-fetos-to-vasiliko-print-apomakrynetai-apo-to-kathosprepei-stil-tou/1460648/" title="Τartan: Φέτος, το βασιλικό print απομακρύνεται από το καθωσπρέπει στιλ του!" style=""></a>
+		</div>
+		
+	<div class="article-overlay center">
+		<div class="article-category uppercase"><a href="https://www.tlife.gr/category/moda/" rel="category tag">Fashion</a></div>
+
+		 
+		<div class="article-title">Τartan: Φέτος, το βασιλικό print απομακρύνεται από το καθωσπρέπει στιλ του!</div>
+
+ 	</div>
+	
+	<a class="article-link" href="https://www.tlife.gr/moda/tartan-fetos-to-vasiliko-print-apomakrynetai-apo-to-kathosprepei-stil-tou/1460648/" title="Τartan: Φέτος, το βασιλικό print απομακρύνεται από το καθωσπρέπει στιλ του!"></a>
+	
+ </article></div>
+</div>
+</div>
+<div class="content-wrapper clearfix mt-5  pb-5 ">
+<h1 class="tlife-title left">Media News<span class="tlife-description">Must read <img src="data:image/svg+xml,%3Csvg%20xmlns='http://www.w3.org/2000/svg'%20viewBox='0%200%2024%200'%3E%3C/svg%3E" width="24" data-lazy-src="/wp-content/themes/generatepress_child/assets/bolt-solid.svg"><noscript><img src="/wp-content/themes/generatepress_child/assets/bolt-solid.svg" width="24"></noscript></span></h1>
+<div class="row wrap small-gap mt-2">
+<div class="article-list row col-2 col-lg-50 col-sm-100 col-xs-100"> <article>
+  	<div class="article-image">
+		  <a data-bg="https://www.tlife.gr/wp-content/uploads/2023/07/MARIA-KORINTHIOU-3-768x576.jpg" class="rocket-lazyload" href="https://www.tlife.gr/eidhseis-nea/media/maria-korinthiou-synexeia-dexomai-body-shaming-alla-den-me-afora-ksero-poly-kala-poia-eimai/1466191/" title="Μαρία Κορινθίου: «Συνέχεια δέχομαι body shaming, αλλά δεν με αφορά &#8211; Ξέρω πολύ καλά ποια είμαι»" style=""></a>
+	</div>
+   <div class="article-info">
+   
+		<div class="article-category uppercase"><a href="https://www.tlife.gr/category/eidhseis-nea/media/" rel="category tag">Media</a></div>
+
+		<div class="article-title mb-0"><a href="https://www.tlife.gr/eidhseis-nea/media/maria-korinthiou-synexeia-dexomai-body-shaming-alla-den-me-afora-ksero-poly-kala-poia-eimai/1466191/" title="Μαρία Κορινθίου: «Συνέχεια δέχομαι body shaming, αλλά δεν με αφορά &#8211; Ξέρω πολύ καλά ποια είμαι»">Μαρία Κορινθίου: «Συνέχεια δέχομαι body shaming, αλλά δεν με αφορά &#8211; Ξέρω πολύ καλά ποια είμαι»</a></div>
+		
+		  		  				
+					<small class="article-meta uppercase">
+			  				<time class="entry-date published" datetime="2023-11-21T09:49:18+02:00" itemprop="datePublished">
+				  21.11.2023				</time>
+			  			  			</small>
+				  
+		  
+
+</div>
+  
+	
+ </article>
+ 
+ <article>
+  	<div class="article-image">
+		  <a data-bg="https://www.tlife.gr/wp-content/uploads/2023/11/bakodimou-768x576.jpg" class="rocket-lazyload" href="https://www.tlife.gr/eidhseis-nea/media/maria-mpakodimou-oi-gioi-mou-mou-apagoreysan-na-milao-gi-aytous-meta-tis-teleytaies-diloseis/1466184/" title="Μαρία Μπακοδήμου: «Οι γιοι μου μού απαγόρευσαν να μιλάω γι&#8217; αυτούς μετά τις τελευταίες δηλώσεις»" style=""></a>
+	</div>
+   <div class="article-info">
+   
+		<div class="article-category uppercase"><a href="https://www.tlife.gr/category/eidhseis-nea/media/" rel="category tag">Media</a></div>
+
+		<div class="article-title mb-0"><a href="https://www.tlife.gr/eidhseis-nea/media/maria-mpakodimou-oi-gioi-mou-mou-apagoreysan-na-milao-gi-aytous-meta-tis-teleytaies-diloseis/1466184/" title="Μαρία Μπακοδήμου: «Οι γιοι μου μού απαγόρευσαν να μιλάω γι&#8217; αυτούς μετά τις τελευταίες δηλώσεις»">Μαρία Μπακοδήμου: «Οι γιοι μου μού απαγόρευσαν να μιλάω γι&#8217; αυτούς μετά τις τελευταίες δηλώσεις»</a></div>
+		
+		  		  				
+					<small class="article-meta uppercase">
+			  				<time class="entry-date published" datetime="2023-11-21T09:21:00+02:00" itemprop="datePublished">
+				  21.11.2023				</time>
+			  			  			</small>
+				  
+		  
+
+</div>
+  
+	
+ </article>
+ 
+</div>
+<div class="article-list row col-2 col-lg-50 col-sm-100 col-xs-100"> <article>
+  	<div class="article-image">
+		  <a data-bg="https://www.tlife.gr/wp-content/uploads/2023/11/panagiotarou-1-768x576.jpg" class="rocket-lazyload" href="https://www.tlife.gr/eidhseis-nea/media/aleksandra-panagiotarou-i-apantisi-sti-dilosi-tou-stathi-sxiza-aisthanthika-amixania-den-ksero-an-itan-zilia/1466179/" title="Αλεξάνδρα Παναγιώταρου: Η απάντηση στη δήλωση του Στάθη Σχίζα &#8211; «Αισθάνθηκα αμηχανία, δεν ξέρω αν ήταν ζήλια»" style=""></a>
+	</div>
+   <div class="article-info">
+   
+		<div class="article-category uppercase"><a href="https://www.tlife.gr/category/eidhseis-nea/media/" rel="category tag">Media</a></div>
+
+		<div class="article-title mb-0"><a href="https://www.tlife.gr/eidhseis-nea/media/aleksandra-panagiotarou-i-apantisi-sti-dilosi-tou-stathi-sxiza-aisthanthika-amixania-den-ksero-an-itan-zilia/1466179/" title="Αλεξάνδρα Παναγιώταρου: Η απάντηση στη δήλωση του Στάθη Σχίζα &#8211; «Αισθάνθηκα αμηχανία, δεν ξέρω αν ήταν ζήλια»">Αλεξάνδρα Παναγιώταρου: Η απάντηση στη δήλωση του Στάθη Σχίζα &#8211; «Αισθάνθηκα αμηχανία, δεν ξέρω αν ήταν ζήλια»</a></div>
+		
+		  		  				
+					<small class="article-meta uppercase">
+			  				<time class="entry-date published" datetime="2023-11-21T08:46:21+02:00" itemprop="datePublished">
+				  21.11.2023				</time>
+			  			  			</small>
+				  
+		  
+
+</div>
+  
+	
+ </article>
+ 
+ <article>
+  	<div class="article-image">
+		  <a data-bg="https://www.tlife.gr/wp-content/uploads/2023/11/andriotou-2-768x570.jpg" class="rocket-lazyload" href="https://www.tlife.gr/eidhseis-nea/media/vrisiida-andriotou-gia-to-eksodiko-stin-eyrydiki-papadopoulou-einai-para-polla-kai-ego-den-ektheto-anthropous/1466177/" title="Βρισηίδα Ανδριώτου για το εξώδικο στην Ευρυδίκη Παπαδοπούλου: «Είναι πάρα πολλά και εγώ δεν εκθέτω ανθρώπους»" style=""></a>
+	</div>
+   <div class="article-info">
+   
+		<div class="article-category uppercase"><a href="https://www.tlife.gr/category/eidhseis-nea/media/" rel="category tag">Media</a></div>
+
+		<div class="article-title mb-0"><a href="https://www.tlife.gr/eidhseis-nea/media/vrisiida-andriotou-gia-to-eksodiko-stin-eyrydiki-papadopoulou-einai-para-polla-kai-ego-den-ektheto-anthropous/1466177/" title="Βρισηίδα Ανδριώτου για το εξώδικο στην Ευρυδίκη Παπαδοπούλου: «Είναι πάρα πολλά και εγώ δεν εκθέτω ανθρώπους»">Βρισηίδα Ανδριώτου για το εξώδικο στην Ευρυδίκη Παπαδοπούλου: «Είναι πάρα πολλά και εγώ δεν εκθέτω ανθρώπους»</a></div>
+		
+		  		  				
+					<small class="article-meta uppercase">
+			  				<time class="entry-date published" datetime="2023-11-21T08:19:00+02:00" itemprop="datePublished">
+				  21.11.2023				</time>
+			  			  			</small>
+				  
+		  
+
+</div>
+  
+	
+ </article>
+ 
+</div>
+</div>
+</div>
+		</div><!-- .entry-content -->
+
+			</div><!-- .inside-article -->
+</article><!-- #post-## -->
+		</main>
+	</div>
+
+	
+	</div><!-- #content -->
+</div><!-- #page -->
+
+
+<div class="site-footer"><div class="footer-wrapper">
+				<div id="footer-widgets" class="site footer-widgets">
+				<div class="footer-widgets-container">
+					<div class="inside-footer-widgets">
+							<div class="footer-widget-1 grid-parent grid-100 tablet-grid-50 mobile-grid-100">
+		<aside id="custom_html-1" class="widget_text widget inner-padding widget_custom_html"><div class="textwidget custom-html-widget"> <a href="/" title="tlife"><img  width="76" src="data:image/svg+xml,%3Csvg%20xmlns='http://www.w3.org/2000/svg'%20viewBox='0%200%2076%200'%3E%3C/svg%3E" alt="tlife" data-lazy-src="/wp-content/themes/generatepress_child/assets/tlife-logo.svg"/><noscript><img  width="76" src="/wp-content/themes/generatepress_child/assets/tlife-logo.svg" alt="tlife"/></noscript></a>
+
+<div class="hidden-lg">
+<ul class="social_nav mt-2">
+	<li><a href="https://www.facebook.com/tlifegr" title="tlife facebook" target="_blank" rel="noreferrer noopener"><img height="24" width="24" src="/wp-content/themes/generatepress_child/assets/facebook.svg" alt="facebook" /></a></li>
+	<li><a href="https://www.instagram.com/tlifegr/" title="tlife instagram" target="_blank" rel="noreferrer noopener"><img height="25" width="25" src="/wp-content/themes/generatepress_child/assets/instagram.svg" alt="instagram" /></a></li>
+</ul></div></div></aside><aside id="nav_menu-1" class="widget inner-padding widget_nav_menu"><div class="menu-footer-menu-container"><ul id="menu-footer-menu" class="menu"><li id="menu-item-1076999" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-privacy-policy menu-item-1076999"><a href="https://www.tlife.gr/oroi-xrisis/">Οροι χρησης</a></li>
+<li id="menu-item-1400266" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-1400266"><a href="https://www.tlife.gr/politiki-aporritou/">Πολιτικη απορρητου</a></li>
+<li id="menu-item-1417127" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-1417127"><a href="https://www.tlife.gr/taytotita/">Ταυτοτητα</a></li>
+<li id="menu-item-1077000" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-1077000"><a href="https://www.tlife.gr/epikoinonia/">Επικοινωνια</a></li>
+<li id="menu-item-1077001" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-1077001"><a href="https://www.tlife.gr/epikoinonia/">Διαφημιση</a></li>
+</ul></div></aside>	</div>
+						</div>
+				</div>
+			</div>
+					<footer class="site-info" aria-label="Site"  itemtype="https://schema.org/WPFooter" itemscope>
+			<div class="inside-site-info">
+								<div class="copyright-bar">
+					<span class="copyright">&copy; 2023 TLIFE</span> &bull; Φτιαγμένο με <a href="https://generatepress.com" itemprop="url">GeneratePress</a>				</div>
+			</div>
+		</footer>
+		<script type="rocketlazyloadscript"> 
+            (function (e, x, i, t, b) {e["ExitBeeObject"] = b;e[b] = e[b] || 
+            function () { (e[b].args = e[b].args || []).push(arguments);};
+            a = x.createElement(i), m = x.getElementsByTagName(i)[0];
+            a.async = 1;a.src = t;m.parentNode.insertBefore(a, m) })
+            (window, document, "script", "https://cdn.exitbee.com/xtb.min.js", "xtb") 
+            xtb("loadSite", "6922");
+        </script></div></div><!-- .site-footer -->
+
+<script type="rocketlazyloadscript" src="https://cdn.onesignal.com/sdks/OneSignalSDK.js" async=""></script>
+<script type="rocketlazyloadscript">
+  window.OneSignal = window.OneSignal || [];
+  OneSignal.push(function() {
+    OneSignal.init({
+      appId: "63ce3e34-44ad-4274-9579-f8f824c83d75",
+    });
+  });
+</script><script type="rocketlazyloadscript" id="generate-a11y">!function(){"use strict";if("querySelector"in document&&"addEventListener"in window){var e=document.body;e.addEventListener("mousedown",function(){e.classList.add("using-mouse")}),e.addEventListener("keydown",function(){e.classList.remove("using-mouse")})}}();</script><!--[if lte IE 11]>
+<script src='https://www.tlife.gr/wp-content/themes/generatepress/assets/js/classList.min.js?ver=3.1.0' id='generate-classlist-js'></script>
+<![endif]-->
+<script id='generate-menu-js-extra'>
+var generatepressMenu = {"toggleOpenedSubMenus":"1","openSubMenuLabel":"\u0391\u03bd\u03bf\u03b9\u03c7\u03c4\u03ac \u03c5\u03c0\u03bf-\u03bc\u03b5\u03bd\u03bf\u03cd","closeSubMenuLabel":"\u039a\u03bb\u03b5\u03af\u03c3\u03b9\u03bc\u03bf \u03c5\u03c0\u03bf-\u03bc\u03b5\u03bd\u03bf\u03cd"};
+</script>
+<script type="rocketlazyloadscript" src='https://www.tlife.gr/wp-content/themes/generatepress/assets/js/menu.min.js?ver=3.1.0' id='generate-menu-js' defer></script>
+<script id='generate-navigation-search-js-extra'>
+var generatepressNavSearch = {"open":"\u0386\u03bd\u03bf\u03b9\u03be\u03b5 \u03c4\u03b7\u03bd \u03bc\u03c0\u03ac\u03c1\u03b1 \u03b1\u03bd\u03b1\u03b6\u03ae\u03c4\u03b7\u03c3\u03b7\u03c2","close":"\u039a\u03bb\u03b5\u03af\u03c3\u03b5 \u03c4\u03b7\u03bd \u03bc\u03c0\u03ac\u03c1\u03b1 \u03b1\u03bd\u03b1\u03b6\u03ae\u03c4\u03b7\u03c3\u03b7\u03c2"};
+</script>
+<script type="rocketlazyloadscript" src='https://www.tlife.gr/wp-content/themes/generatepress/assets/js/navigation-search.min.js?ver=3.1.0' id='generate-navigation-search-js' defer></script>
+<script src='https://www.tlife.gr/wp-includes/js/wp-embed.min.js?ver=5.8.2' id='wp-embed-js' defer></script>
+<script>window.lazyLoadOptions={elements_selector:"img[data-lazy-src],.rocket-lazyload,iframe[data-lazy-src]",data_src:"lazy-src",data_srcset:"lazy-srcset",data_sizes:"lazy-sizes",class_loading:"lazyloading",class_loaded:"lazyloaded",threshold:300,callback_loaded:function(element){if(element.tagName==="IFRAME"&&element.dataset.rocketLazyload=="fitvidscompatible"){if(element.classList.contains("lazyloaded")){if(typeof window.jQuery!="undefined"){if(jQuery.fn.fitVids){jQuery(element).parent().fitVids()}}}}}};window.addEventListener('LazyLoad::Initialized',function(e){var lazyLoadInstance=e.detail.instance;if(window.MutationObserver){var observer=new MutationObserver(function(mutations){var image_count=0;var iframe_count=0;var rocketlazy_count=0;mutations.forEach(function(mutation){for(var i=0;i<mutation.addedNodes.length;i++){if(typeof mutation.addedNodes[i].getElementsByTagName!=='function'){continue}
+if(typeof mutation.addedNodes[i].getElementsByClassName!=='function'){continue}
+images=mutation.addedNodes[i].getElementsByTagName('img');is_image=mutation.addedNodes[i].tagName=="IMG";iframes=mutation.addedNodes[i].getElementsByTagName('iframe');is_iframe=mutation.addedNodes[i].tagName=="IFRAME";rocket_lazy=mutation.addedNodes[i].getElementsByClassName('rocket-lazyload');image_count+=images.length;iframe_count+=iframes.length;rocketlazy_count+=rocket_lazy.length;if(is_image){image_count+=1}
+if(is_iframe){iframe_count+=1}}});if(image_count>0||iframe_count>0||rocketlazy_count>0){lazyLoadInstance.update()}});var b=document.getElementsByTagName("body")[0];var config={childList:!0,subtree:!0};observer.observe(b,config)}},!1)</script><script data-no-minify="1" async src="https://www.tlife.gr/wp-content/plugins/wp-rocket/assets/js/lazyload/17.5/lazyload.min.js"></script><script>function lazyLoadThumb(e){var t='<img data-lazy-src="https://i.ytimg.com/vi/ID/hqdefault.jpg" alt="" width="480" height="360"><noscript><img src="https://i.ytimg.com/vi/ID/hqdefault.jpg" alt="" width="480" height="360"></noscript>',a='<button class="play" aria-label="play Youtube video"></button>';return t.replace("ID",e)+a}function lazyLoadYoutubeIframe(){var e=document.createElement("iframe"),t="ID?autoplay=1";t+=0===this.parentNode.dataset.query.length?'':'&'+this.parentNode.dataset.query;e.setAttribute("src",t.replace("ID",this.parentNode.dataset.src)),e.setAttribute("frameborder","0"),e.setAttribute("allowfullscreen","1"),e.setAttribute("allow", "accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture"),this.parentNode.parentNode.replaceChild(e,this.parentNode)}document.addEventListener("DOMContentLoaded",function(){var e,t,p,a=document.getElementsByClassName("rll-youtube-player");for(t=0;t<a.length;t++)e=document.createElement("div"),e.setAttribute("data-id",a[t].dataset.id),e.setAttribute("data-query", a[t].dataset.query),e.setAttribute("data-src", a[t].dataset.src),e.innerHTML=lazyLoadThumb(a[t].dataset.id),a[t].appendChild(e),p=e.querySelector('.play'),p.onclick=lazyLoadYoutubeIframe});</script>
+<script type="rocketlazyloadscript">"use strict";var wprRemoveCPCSS=function wprRemoveCPCSS(){var elem;document.querySelector('link[data-rocket-async="style"][rel="preload"]')?setTimeout(wprRemoveCPCSS,200):(elem=document.getElementById("rocket-critical-css"))&&"remove"in elem&&elem.remove()};window.addEventListener?window.addEventListener("load",wprRemoveCPCSS):window.attachEvent&&window.attachEvent("onload",wprRemoveCPCSS);</script><noscript><link rel='stylesheet' id='wp-block-library-css'  href='https://www.tlife.gr/wp-includes/css/dist/block-library/style.min.css?ver=5.8.2' media='all' /><link rel='stylesheet' id='elasticpress-related-posts-block-css'  href='https://www.tlife.gr/wp-content/plugins/elasticpress/dist/css/related-posts-block-styles.min.css?ver=3.6.5' media='all' /><link rel='stylesheet' id='gemsbok-tools-css'  href='https://www.tlife.gr/wp-content/plugins/gemsbok-tools/public/css/gemsbok-tools-public.css?ver=1.0.1' media='all' /><link rel='stylesheet' id='parent-style-css'  href='https://www.tlife.gr/wp-content/themes/generatepress/style.css?ver=5.8.2' media='all' /><link rel='stylesheet' id='child-style-css'  href='https://www.tlife.gr/wp-content/themes/generatepress_child/assets/fonts/stylesheet.css?ver=0.1' media='all' /><link rel='stylesheet' id='generate-style-grid-css'  href='https://www.tlife.gr/wp-content/themes/generatepress/assets/css/unsemantic-grid.min.css?ver=3.1.0' media='all' /><link rel='stylesheet' id='generate-style-css'  href='https://www.tlife.gr/wp-content/themes/generatepress/assets/css/style.min.css?ver=3.1.0' media='all' /><link rel='stylesheet' id='generate-mobile-style-css'  href='https://www.tlife.gr/wp-content/themes/generatepress/assets/css/mobile.min.css?ver=3.1.0' media='all' /><link data-minify="1" rel='stylesheet' id='generate-font-icons-css'  href='https://www.tlife.gr/wp-content/cache/min/1/wp-content/themes/generatepress/assets/css/components/font-icons.min.css?ver=1699870499' media='all' /><link data-minify="1" rel='stylesheet' id='generate-child-css'  href='https://www.tlife.gr/wp-content/cache/min/1/wp-content/themes/generatepress_child/style.css?ver=1699870499' media='all' /><link rel='stylesheet' id='generate-navigation-branding-css'  href='https://www.tlife.gr/wp-content/plugins/gp-premium/menu-plus/functions/css/navigation-branding.min.css?ver=2.1.1' media='all' /></noscript></body>
+</html>
+
+<!-- This website is like a Rocket, isn't it? Performance optimized by WP Rocket. Learn more: https://wp-rocket.me -->

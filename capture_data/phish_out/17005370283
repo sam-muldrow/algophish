@@ -1,0 +1,794 @@
+ <!DOCTYPE html>
+<html lang="en">
+    <head><meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+        
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="description" content="some page description here">
+        <meta name="keywords" content="page keywords here">
+
+<title> 
+Home
+
+|Capital Market and Securities Authority </title>
+
+
+
+        <link rel="author" name="eGA Designers" />
+
+        <link href="https://fonts.googleapis.com/css?family=Libre+Franklin" rel="stylesheet">
+        <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.1.0/css/all.css" integrity="sha384-lKuwvrZot6UHsBSfcMvOkWwlCMgc0TaWr+30HWe3a4ltaBwTZhyTEggF5tJv8tbt" crossorigin="anonymous">
+
+
+    <link rel="shortcut icon" href="https://www.cmsa.go.tz/site/images/favicon.ico" type="image/x-icon" />
+
+    <link rel="stylesheet" href="https://www.cmsa.go.tz/site/css/master.min.css">
+     <script src="https://www.cmsa.go.tz/site/js/jquery.min.js"></script>
+    <script type="text/javascript" src="https://www.cmsa.go.tz/site/js/client.min.js"></script>
+    <script type="text/javascript" src="http://dse.co.tz/widget/widget.js"></script>
+     <!-- <script type="text/javascript" src="http://dse.co.tz/widget/widget.js"></script>  -->
+
+
+
+<script>
+ var question_status=false;
+
+$( document ).ready(function() {
+
+    var quiz_button_text="Quiz";
+    var quiz_button_text_char_count = quiz_button_text.length;
+
+    if(quiz_button_text_char_count>0){
+        var quiz_width = $( ".online-quiz" ).width();
+        var quiz_height = $( ".online-quiz" ).height();
+        var right_push = quiz_width/2-quiz_height/2;
+        $(".online-quiz").css({"right":-right_push+"px"});
+    }
+
+    var client = new ClientJS(); // Create A New Client Object
+
+    var fingerprint = client.getFingerprint(); // Calculate Device/Browser Fingerprint
+        //$(".voter").val(fingerprint);
+        //$("#voter").text=fingerprint;
+        var local = "";
+
+
+
+        $.get( "https://www.cmsa.go.tz/get/question"+"/"+fingerprint, function(question) {
+
+                question_status=true;
+                var quiz = "<span>"+ question.question +"</span><input type='hidden' name='question' value='"+question.id+"' /> <input type='hidden' name='client' value='"+fingerprint+"' />";
+
+
+                $('.q-details').html(quiz);
+
+                $.get("https://www.cmsa.go.tz/get/question_options"+"/"+question.id , function(options){
+
+                    var q_options=' ';
+
+                    $.each(options ,function(bi,opt){
+
+                        q_options+='<div class="form-group"><label class="form-control"> <input type="radio" name="answer" value="'+ opt.id +'" id="" > '+ opt.option +' </label> </div>';
+                    });
+
+                    $('.answers-options').html(q_options);
+                });
+
+        });
+        //alert(fingerprint);
+
+
+
+    });
+
+$(document).ready(function(){
+       $("#quiz").submit(function(){
+
+        var newclient = new ClientJS(); // Create A New Client Object
+
+        var newfingerprint = newclient.getFingerprint(); // Calculate Device/Browser Fingerprint
+
+           var $input = $(this).find("input[name=client]");
+           if (!$input.val()) {
+
+             $input.val(newfingerprint);
+           }
+        });
+});
+
+</script>
+    
+
+
+    </head>
+
+    <body>
+            <div class="online-quiz">
+                <a href="#" class="btn btn-quiz" data-toggle="modal" data-target="#onlineQuiz">
+                    <span class="px-4 py-1"><i class="far fa-question-circle"></i> <strong> <span class="pl-3">Quiz</span> </strong></span>
+                </a>
+            </div>
+            <!-- INCLUDE HEADER -->
+            <header>
+    <nav class="topbar">
+        <div class="container">
+            <div class="d-flex align-items-center py-1 topbar-body">
+
+                <ul class="list-inline top-list mb-0 mr-auto">
+                    <form class="form-inline py-0 pr-2" method="GET" action="https://www.cmsa.go.tz/search">
+                        <input type="hidden" name="_token" value="ShdgLdf9HBm7PXNSZPuRvlz9XG29Eh6BgcgQbZWs">                        <input class="form-control mr-sm-2" type="text" name="q" placeholder="Search" aria-label="Search">
+                        <button class="btn-search" type="submit"><i class="fa fa-search"></i> </button>
+                    </form>
+                </ul>
+                <ul class="list-inline top-list mb-0">
+                    <!-- -->
+
+                    <li class="list-inline-item sm-hide"><a href="mail.cmsa-tz.org/owa" target = "_blank">Staff Mail</a></li>
+                    <li class="list-inline-item"><a href="https://www.cmsa.go.tz/vacancies">Careers</a></li>
+                    <li class="list-inline-item"><a href="https://www.cmsa.go.tz/complains">Complaint</a></li>
+                    <li class="list-inline-item"><a href="https://www.cmsa.go.tz/contactus">Contact Us</a></li>
+                            <li class="list-inline-item"><a href="https://www.cmsa.go.tz/faqs">FAQs</a></li>
+                            <!-- <li class="list-inline-item"><a href="https://www.cmsa.go.tz/contactus"> Contact Us</a></li> -->
+
+                    <li class="list-inline-item">
+                        <div class="dropdown">
+                                                                <button class="btn dropdown-toggle" type="button" id="dropdown_lang" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                    <img src="https://www.cmsa.go.tz/site/images/UK.png" alt=""> English
+                                </button>
+
+                                                        
+
+                            <div class="dropdown-menu dropdown-menu-right languages-available" aria-labelledby="dropdown_lang">
+                                <a class="dropdown-item" id="usa" href="https://www.cmsa.go.tz/language/en" onclick="dropdown_langSet(this);">
+                                    <img src="https://www.cmsa.go.tz/site/images/UK.png" alt=""> English</a>
+                                <a class="dropdown-item" id="tanzania" href="https://www.cmsa.go.tz/language/sw" onclick="dropdown_langSet(this);">
+                                    <img src="https://www.cmsa.go.tz/site/images/kiswahili.png" alt=""> Kiswahili</a>
+                            </div>
+                            </div>
+                        </div>
+
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+    <div class="banner">
+        <div class="container">
+            <div class=" d-flex justify-content-between align-items-center">
+                <div class="py-2 emblem">
+                    <img src="https://www.cmsa.go.tz/site/images/emblem.png" alt="emblem" style="width:100px" class="img-fluid">
+                </div>
+                <div class="text-center">
+                    <h6 class="mb-0 sm-hide title">The United Republic of Tanzania</h6>
+                    <h1 class="mb-1 title">Capital Market and Securities Authority </h1>
+                    <h6 class="mb-0 sm-hide title">( CMSA )</h6>
+
+                </div>
+                <div class="py-2 logo">
+                    <a href="https://www.cmsa.go.tz">
+                        <img src="https://www.cmsa.go.tz/site/images/logo.png" alt="Logo" class="logo-image">
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="baki-juu">
+        <nav class="navbar navbar-expand-lg navbar-dark bg-dark top_navbar p-0">
+            <div class="container">
+                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#smallScreenNavbar" aria-controls="smallScreenNavbar" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="collapse navbar-collapse" id="smallScreenNavbar">
+                    <ul class="navbar-nav mr-auto active-links">
+                        <li class="nav-item">
+                            <a class="nav-link" href="https://www.cmsa.go.tz"><i class="fas fa-home"></i> Home</a>
+                        </li>
+                    <!-- ####################################################################################### -->
+
+                    <li class='nav-item dropdown'><a href='#' class='nav-link dropdown-toggle' data-toggle='dropdown' >About Us<b class='caret'></b></a><ul class='dropdown-menu drop'><li><a class='dropdown-item' href= 'https://www.cmsa.go.tz/pages/who-we-are-1'>Who We Are?</a></li><li><a class='dropdown-item' href= 'https://www.cmsa.go.tz/pages/vision-and-mission'>Vision and Mission</a></li><li><a class='dropdown-item' href= 'https://www.cmsa.go.tz/administration/board-members'>Board of Directors</a></li><li><a class='dropdown-item' href= 'https://www.cmsa.go.tz/administration/management-team'>Management Team</a></li><li><a class='dropdown-item' href= 'https://www.cmsa.go.tz/pages/organisation-structure'>Organisation Structure</a></li><li><a class='dropdown-item' href= 'https://www.cmsa.go.tz/pages/composition-of-the-board'>Composition of the Board</a></li><li><a class='dropdown-item' href= 'https://www.cmsa.go.tz/publications/18'>Strategic Plan</a></li><li><a class='dropdown-item' href= 'https://www.cmsa.go.tz/publications/19'>Client Service Charter</a></li><li><a class='dropdown-item' href= 'https://www.cmsa.go.tz/pages/affiliated-organisation'>Affiliated Organisation</a></li><li><a class='dropdown-item' href= 'https://www.cmsa.go.tz/vacancies'>Vacancies</a></li></ul></li><li class='nav-item dropdown'><a href='#' class='nav-link dropdown-toggle' data-toggle='dropdown' >Our Services<b class='caret'></b></a><ul class='dropdown-menu drop'><li><a class='dropdown-item' href= 'https://www.cmsa.go.tz/pages/regulatory-framework'>Regulatory Framework</a></li><li class='nav-item dropdown-submenu'><a class='dropdown-item dropdown-toggle' data-toggle='dropdown' href='#'>Market Development</a><ul class='dropdown-menu'><li><a class='dropdown-item' href= 'https://www.cmsa.go.tz/pages/overview-2'>Overview</a></li><li><a class='dropdown-item' href= 'https://www.cmsa.go.tz/pages/capital-market-incentives'>Policy Incentives</a></li><li><a class='dropdown-item' href= 'https://www.cmsa.go.tz/pages/research'>Research Programs</a></li><li><a class='dropdown-item' href= 'https://www.cmsa.go.tz/pages/under-construction'>Capital Markets Products</a></li><li><a class='dropdown-item' href= 'https://www.cmsa.go.tz/pages/certification-programme'>Certification Programme</a></li><li><a class='dropdown-item' href= 'https://www.cmsa.go.tz/pages/continuous-professional-development-programme-cpd'>Continuous Professional Development Programme</a></li></ul></li><li class='nav-item dropdown-submenu'><a class='dropdown-item dropdown-toggle' data-toggle='dropdown' href='#'>Market Supervision</a><ul class='dropdown-menu'><li><a class='dropdown-item' href= 'https://www.cmsa.go.tz/pages/overview-4'>Overview</a></li><li><a class='dropdown-item' href= 'https://www.cmsa.go.tz/pages/under-construction'>Supervisory Model</a></li><li><a class='dropdown-item' href= 'https://www.cmsa.go.tz/pages/under-construction'>Inspection</a></li><li><a class='dropdown-item' href= 'https://www.cmsa.go.tz/pages/investigation'>Investigation</a></li><li><a class='dropdown-item' href= 'https://www.cmsa.go.tz/pages/supervised-entities'>Supervised Entities</a></li></ul></li><li class='nav-item dropdown-submenu'><a class='dropdown-item dropdown-toggle' data-toggle='dropdown' href='#'>Licensing</a><ul class='dropdown-menu'><li><a class='dropdown-item' href= 'https://www.cmsa.go.tz/pages/overview'>Overview</a></li><li><a class='dropdown-item' href= 'https://www.cmsa.go.tz/pages/application-procedures'>Application Procedure</a></li><li><a class='dropdown-item' href= 'https://www.cmsa.go.tz/publications/8'>Application Checklist</a></li><li><a class='dropdown-item' href= 'https://www.cmsa.go.tz/publications/3'>Application Forms</a></li><li><a class='dropdown-item' href= 'https://www.cmsa.go.tz/publications/9'>Securities Issuance Fees</a></li><li><a class='dropdown-item' href= 'https://www.cmsa.go.tz/publications/10'>List of Licensees</a></li><li><a class='dropdown-item' href= '#'>Revoked Licensees</a></li></ul></li><li class='nav-item dropdown-submenu'><a class='dropdown-item dropdown-toggle' data-toggle='dropdown' href='#'>Approval</a><ul class='dropdown-menu'><li><a class='dropdown-item' href= 'https://www.cmsa.go.tz/pages/overview-1'>Overview</a></li><li><a class='dropdown-item' href= 'https://www.cmsa.go.tz/pages/equity-market'>Equity Securities</a></li><li><a class='dropdown-item' href= 'https://www.cmsa.go.tz/pages/under-construction'>Debt Markets</a></li><li><a class='dropdown-item' href= 'https://www.cmsa.go.tz/pages/collective-investment-scheme'>Collective Investment Scheme</a></li><li><a class='dropdown-item' href= 'https://www.cmsa.go.tz/pages/asset-backed-securities'>Asset Backed Securities</a></li><li><a class='dropdown-item' href= 'https://www.cmsa.go.tz/pages/reits'>REITS</a></li><li><a class='dropdown-item' href= 'https://www.cmsa.go.tz/pages/takeover-and-mergers'>Takeover and Mergers</a></li><li><a class='dropdown-item' href= '#'>Approved Institutions</a></li></ul></li></ul></li><li class='nav-item dropdown'><a href='#' class='nav-link dropdown-toggle' data-toggle='dropdown' >Investor Education<b class='caret'></b></a><ul class='dropdown-menu drop'><li><a class='dropdown-item' href= 'https://www.cmsa.go.tz/pages/overview-3'>Overview</a></li><li><a class='dropdown-item' href= 'https://www.cmsa.go.tz/pages/pep-programs'>PEP Programs</a></li><li><a class='dropdown-item' href= 'https://www.cmsa.go.tz/publications/11'>PEP Materials</a></li><li><a class='dropdown-item' href= 'https://www.cmsa.go.tz/faqs'>Frequent Asked Questions</a></li></ul></li><li class='nav-item dropdown'><a href='#' class='nav-link dropdown-toggle' data-toggle='dropdown' >Publications<b class='caret'></b></a><ul class='dropdown-menu drop'><li class='nav-item dropdown-submenu'><a class='dropdown-item dropdown-toggle' data-toggle='dropdown' href='#'>Reports</a><ul class='dropdown-menu'><li><a class='dropdown-item' href= 'https://www.cmsa.go.tz/publications/2'>Annual report</a></li><li><a class='dropdown-item' href= '#'>Newsletters</a></li></ul></li><li><a class='dropdown-item' href= 'https://www.cmsa.go.tz/publications/18'>Strategic Plans</a></li><li><a class='dropdown-item' href= 'https://www.cmsa.go.tz/publications/1'>Principal Legislation</a></li><li><a class='dropdown-item' href= 'https://www.cmsa.go.tz/publications/12'>Regulations</a></li><li><a class='dropdown-item' href= 'https://www.cmsa.go.tz/publications/4'>Guidelines</a></li><li><a class='dropdown-item' href= 'https://www.cmsa.go.tz/publications/17'>Rules</a></li><li><a class='dropdown-item' href= 'https://www.cmsa.go.tz/publications/15'>EAC Council Directives</a></li><li><a class='dropdown-item' href= 'https://www.cmsa.go.tz/publications/14'>Draft Regulations/Guidelines</a></li><li><a class='dropdown-item' href= 'https://www.cmsa.go.tz/publications/16'>Prospectus Checklist</a></li><li><a class='dropdown-item' href= '#'>Circulars</a></li></ul></li><li class='nav-item dropdown'><a href='#' class='nav-link dropdown-toggle' data-toggle='dropdown' >Media Centre<b class='caret'></b></a><ul class='dropdown-menu drop'><li><a class='dropdown-item' href= 'https://www.cmsa.go.tz/pressreleases'>Press Releases</a></li><li><a class='dropdown-item' href= 'https://www.cmsa.go.tz/publications/7'>Speeches</a></li><li><a class='dropdown-item' href= 'https://www.cmsa.go.tz/galleries/listing/photos/0'>Photo Gallery</a></li><li><a class='dropdown-item' href= 'https://www.cmsa.go.tz/galleries/listing/videos'>Video Gallery</a></li></ul></li><li class='nav-item'><a class='nav-link' href='https://www.cmsa.go.tz/contactus'>Contact Us</a></li></li><li class='nav-item'><a class='nav-link' href='https://challenge.cmsa.go.tz/'>University Challenge 2023</a></li></li>
+
+                    <!-- ####################################################################################### -->
+
+                        </ul>
+                </div>
+            </div>
+        </nav>
+    </div>
+</header>
+
+<div class="content-layout">
+    <div class="container">
+        <!-- CONTENT BLOCK HERE -->
+
+
+
+        
+<div class="home-page">
+    <section class="slider">
+        <div class="row">
+            <div class="col-md-12">
+                <div id="home-carousel" class="carousel slide carousel-fade" data-ride="carousel" data-interval="5000">
+                    <div class="carousel-inner">
+
+                        
+
+                    </div>
+                    <a class="carousel-control-prev" href="#home-carousel" role="button" data-slide="prev">
+                        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                        <span class="sr-only">Previous</span>
+                    </a>
+                    <a class="carousel-control-next" href="#home-carousel" role="button" data-slide="next">
+                        <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                        <span class="sr-only">Next</span>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="dse-portal">
+        <div class="row">
+            <div class="col-md-1">
+                <strong>Share Price</strong>
+            </div>
+            <div class="col-md-11">
+                <!-- <div id="dse-trading-stats"></div> -->
+                 <div class="dse-motion" id="dse-marquee">
+                    
+                </div>
+                  <!-- <div id="#dse-marquee"> </div> -->
+
+            </div>
+        </div>
+    </section>
+
+    <section class="news-wnote">
+        <div class="row">
+            <div class="col-md-4">
+                <div class="w-100 news">
+                    <div class="news-title">
+                        <h2 class="title text-center">Latest News</h2>
+                    </div>
+                    <div class="news-body">
+
+                                                        
+
+
+                            <!-- start of 1st news -->
+                        <a href="https://www.cmsa.go.tz/news/invitation-to-attend-the-award-giving-ceremony-of-the-capital-market-universities-and-higher-learning-institutions-challenge-2022-23">
+                            <div class="row mb-4">
+
+
+                                <div class="col-md-4">
+                                    <img src="https://www.cmsa.go.tz/uploads/news/1696868874-11.JPG" alt="Invitation to Attend the Award Giving Ceremony of the Capital Market Universities and Higher Learning Institutions Challenge 2022/23" class="img-fluid">
+                                </div>
+                                <div class="col-md-8">
+                                    <div class="nw-title">
+                                        <div class="text-primary">
+                                            <h5>Invitation to Attend the Award Giving Ceremony of the Capital Market Universities and Higher Learning Institutions Challenge 2022/23</h5>
+                                        </div>
+                                    </div>
+                                    <div class="nw-description">
+                                        The following students have emerged as the top winners out of 18,738 students who participated in different categories...
+                                    </div>
+                                    <div class="nw-date-posted">
+                                        <i class="far fa-calendar-alt"></i>&nbsp; 09<sup>th</sup> - Oct - 2023
+                                    </div>
+                                </div>
+                            </div>
+                        </a>
+                        <!-- end of 1st news -->
+                            
+
+
+                            <!-- start of 1st news -->
+                        <a href="https://www.cmsa.go.tz/news/launch-of-nmb-mtn">
+                            <div class="row mb-4">
+
+
+                                <div class="col-md-4">
+                                    <img src="https://www.cmsa.go.tz/uploads/news/1696518029-Screenshot_20230925_215535_Instagram.jpg" alt="Launch of NMB MTN" class="img-fluid">
+                                </div>
+                                <div class="col-md-8">
+                                    <div class="nw-title">
+                                        <div class="text-primary">
+                                            <h5>Launch of NMB MTN</h5>
+                                        </div>
+                                    </div>
+                                    <div class="nw-description">
+                                        Capital Markets and Securities Authority (CMSA), in discharging its responsibilities conferred upon it under the Capita...
+                                    </div>
+                                    <div class="nw-date-posted">
+                                        <i class="far fa-calendar-alt"></i>&nbsp; 27<sup>th</sup> - Sep - 2023
+                                    </div>
+                                </div>
+                            </div>
+                        </a>
+                        <!-- end of 1st news -->
+                            
+
+
+                            <!-- start of 1st news -->
+                        <a href="https://www.cmsa.go.tz/news/request-for-comments-on-draft-capital-markets-and-securities-corporate-and-subnational-sustainability-bonds-guidelines-2023">
+                            <div class="row mb-4">
+
+
+                                <div class="col-md-4">
+                                    <img src="https://www.cmsa.go.tz/uploads/news/1694599480-Guidelines 1.jpg" alt="Request for Comments on Draft “Capital Markets and Securities (Corporate and Subnational Sustainability Bonds) Guidelines, 2023"" class="img-fluid">
+                                </div>
+                                <div class="col-md-8">
+                                    <div class="nw-title">
+                                        <div class="text-primary">
+                                            <h5>Request for Comments on Draft “Capital Markets and Securities (Corporate and Subnational Sustainability Bonds) Guidelines, 2023"</h5>
+                                        </div>
+                                    </div>
+                                    <div class="nw-description">
+                                        The Capital Markets and Securities Authority (CMSA) is in the process of developing a regulatory framework for sustaina...
+                                    </div>
+                                    <div class="nw-date-posted">
+                                        <i class="far fa-calendar-alt"></i>&nbsp; 13<sup>th</sup> - Sep - 2023
+                                    </div>
+                                </div>
+                            </div>
+                        </a>
+                        <!-- end of 1st news -->
+                                                        
+
+
+                    </div>
+                    <div class="news-footer">
+                                                <a href="https://www.cmsa.go.tz/news" class="btn btn-sm btn-success rounded">More News</a>
+                                            </div>
+                </div>
+            </div>
+
+            <div class="col-md-3">
+                <div class="w-100 welcome-note">
+                    <div class="wnote-title">
+                        <h2 class="title text-center">Welcome Note</h2>
+                    </div>
+                                        <div class="executive-secretary text-center">
+                        <div class="es-pic">
+                            <img src="https://www.cmsa.go.tz/uploads/bio/bio_1669109765-mkamas.jpg" alt="CPA . Nicodemus D. Mkama">
+                        </div>
+                        <div class="es-title">
+                            Chief Executive Officer
+                        </div>
+                        <div class="es-name">
+                            CPA . Nicodemus D. Mkama
+                        </div>
+                    </div>
+                                        <div class="wnote-body">
+                                                    Welcome to the Capital Markets and Securities Authority (CMSA) Tanzania. The capital market in Tanzania is governed by the Capital Markets and Securities Act, Chapter 79 R.E. 2002 (CMS Act). The CMS Act is supplemented...
+                                            </div>
+                                        <div class="wnote-footer">
+                        <a href="https://www.cmsa.go.tz/welcome/there-are-many-variations-of-passages-of-lorem-ipsum-available-but-the-majority-have-suffered-alteration-in-some-form-by-injected-humour-or-randomised-words-which-don-t-look-even-slightly-bel" class="btn btn-sm btn-success rounded">Read More</a>
+                    </div>
+                                    </div>
+            </div>
+            <div class="col-md-5">
+                <div class="w-100 iportal">
+                    <div class="iportal-title">
+                        <h2 class="title text-center">Market Stats</h2>
+                    </div>
+                    <div class="iportal-body">
+                       
+                         <ul class="investors-links" style="font-size: 1.2rem;">
+                             <div id="dse-trading-stats"></div>
+                              <div id="dse-market-summary"></div>
+                           <!--                                                                      <li>
+                                        <a href="&lt;script type=&quot;text/javascript&quot; src=&quot;http://dse.co.tz/widget/widget.js&quot;&gt;&lt;/script&gt;">
+                                            sumary
+                                        </a>
+                                    </li>
+                                                             -->
+                        </ul> 
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="howdoi-events">
+        <div class="row">
+            <div class="col-md-6">
+                <div class="w-100 howdoi">
+
+                    <div class="hdi-title">
+                        <h2 class="title text-center">How Do I?</h2>
+                    </div>
+                    <div class="hdi-body">
+                        <ul class="list-unstyled list-styled">
+
+
+                                                                                    <li>
+                                <a class="link-black" href="https://www.cmsa.go.tz/howdois/kutoa-hatifungani">
+                                    Kutoa Hatifungani
+                                </a>
+                            </li>
+
+                                                        <li>
+                                <a class="link-black" href="https://www.cmsa.go.tz/howdois/kuorodhesha-hisa-za-kampuni-yangu-dse">
+                                    Kuorodhesha hisa za kampuni yangu DSE?
+                                </a>
+                            </li>
+
+                                                        <li>
+                                <a class="link-black" href="https://www.cmsa.go.tz/howdois/kuwa-mwekezaji-makini">
+                                    Kuwa mwekezaji makini?
+                                </a>
+                            </li>
+
+                                                        <li>
+                                <a class="link-black" href="https://www.cmsa.go.tz/howdois/kupata-gawio-langu">
+                                    Kupata gawio langu?
+                                </a>
+                            </li>
+
+                                                        
+
+                        </ul>
+                    </div>
+                                         <div class="hdi-footer">
+                        <div class="mt-4 text-center">
+                             <a class="btn btn-sm btn-success rounded" href="https://www.cmsa.go.tz/howdois"> Read More</a>
+                        </div>
+                    </div>
+                                    </div>
+            </div>
+
+            <div class="col-md-6">
+                <div class="w-100 events">
+                    <div class="events-title">
+                        <h2 class="title text-center">Events</h2>
+                    </div>
+
+
+                    <div class="events-body">
+                        <ul class="list-unstyled">
+
+                                                                                                                
+
+                                <li class="media">
+                                    <div class="event-date">
+                                        <div class="date">22</div>
+                                        <div class="month">Feb</div>
+                                    </div>
+                                    <div class="media-body">
+                                        <h5><a href="https://www.cmsa.go.tz/events/securities-industry-certification-course-sicc-2021">Securities Industry Certification Course (SICC) 2021</a></h5>
+                                        <a class="link-black" href="event.html">
+                                            
+                                        </a>
+                                        <div class="d-flex justify-content-end"><span class="location"><i class="fas fa-map-marker-alt"></i> CMSA Training Centre,6th Floor, PPF Tower, corner of Ohio Street and Garden Avenue, Dar es Salaam</span></div>
+                                    </div>
+                                </li>
+
+
+                                                                                                                                
+
+                                <li class="media">
+                                    <div class="event-date">
+                                        <div class="date">17</div>
+                                        <div class="month">Feb</div>
+                                    </div>
+                                    <div class="media-body">
+                                        <h5><a href="https://www.cmsa.go.tz/events/securities-industry-certification-course-sicc">Securities Industry Certification Course (SICC)</a></h5>
+                                        <a class="link-black" href="event.html">
+                                            
+                                        </a>
+                                        <div class="d-flex justify-content-end"><span class="location"><i class="fas fa-map-marker-alt"></i> CMSA Training Center, 6th Floor-PSSSF Tower, Ohio Street, Dar es Salaam</span></div>
+                                    </div>
+                                </li>
+
+
+                                                                                                                                
+
+                                <li class="media">
+                                    <div class="event-date">
+                                        <div class="date">28</div>
+                                        <div class="month">Nov</div>
+                                    </div>
+                                    <div class="media-body">
+                                        <h5><a href="https://www.cmsa.go.tz/events/award-giving-ceremony-of-the-capital-markets-universities-and-higher-learning-institution-challenge-2019">Award giving ceremony of the Capital Markets Universities and Higher Learning Institution Challenge 2019</a></h5>
+                                        <a class="link-black" href="event.html">
+                                            
+                                        </a>
+                                        <div class="d-flex justify-content-end"><span class="location"><i class="fas fa-map-marker-alt"></i> Bank of Tanzania Conference Centre Dar es Salaam</span></div>
+                                    </div>
+                                </li>
+
+
+                                                                                                
+                        
+                        </ul>
+                    </div>
+                                              <div class="events-footer">
+                            <div class="mt-auto text-center">
+                                <a class="btn btn-sm btn-success rounded" href="https://www.cmsa.go.tz/events">
+                                 More Events
+                                </a>
+                            </div>
+                        </div>
+                        
+                </div>
+            </div>
+        </div>
+    </section>
+
+</div>
+
+
+
+
+
+
+
+
+
+
+
+    </div>
+
+                <!-- start of onlineQuiz Modal  -->
+                <div class="modal fade" id="onlineQuiz" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+                    <div class="modal-dialog modal-lg" role="document">
+                        <!-- <form action="/" autocomplete="off"> -->
+                        <form method="POST" action="https://www.cmsa.go.tz/quiz/responce" accept-charset="UTF-8" autocomplete="off" id="quiz"><input name="_token" type="hidden" value="ShdgLdf9HBm7PXNSZPuRvlz9XG29Eh6BgcgQbZWs">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h5 class="modal-title text-center"><i class="far fa-question-circle"></i> <strong class="pl-3">Quiz</strong></h5>
+                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                    <span aria-hidden="true">x</span>
+                                </button>
+                            </div>
+                            <div class="modal-body">
+                                <div class="logo text-center mb-5">
+                                    <img src="https://www.cmsa.go.tz/site/images/logo.png" alt="CSMA Logo">
+                                </div>
+
+                                <div class="row">
+                                    <div class="col-md-12">
+                                        <div class="question">
+                                            <div class="q-header">
+                                                <strong>Question</strong>
+                                            </div>
+
+                                            <div class="q-details">
+
+                                            </div>
+
+                                            <div class="answers-options">
+
+                                                <div class="form-group">
+                                                    <label class="form-control">
+                                                        <input type="radio" name="answer" id="" >
+
+                                                    </label>
+                                                </div>
+
+
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                            </div>
+
+                            <div class="modal-footer">
+                                <input type="submit" value="Submit" class="btn btn-success px-4">
+                            </div>
+                        </div>
+                        <!-- </form> -->
+                        </form>
+                        <!-- /.modal-content -->
+                    </div>
+                    <!-- /.modal-dialog -->
+                </div>
+                <!-- /. end of onlineQuiz Modal -->
+
+            </div>
+
+            <!-- INCLUDE FOOTER -->
+            <footer class="mdl-mega-footer">
+
+    <div class="container">
+        <div class="footer-middle">
+
+            <div class="footer-dropdown">
+                <input class="footer-checkbox" type="checkbox" checked>
+
+
+                <h4 class="footer-heading">Contact Info</h4>
+                <ul class="footer-list list-styled ">
+                    
+                                            <li>
+                            Capital Markets and Securities Authority <br>
+                        </li>
+                                                                <li>
+                            6th Floor,PSSSF Tower
+Ohio Street/Garden Avenue
+Postal Address:
+P.O. Box 75713, 
+Dar es Salaam, Tanzania <br>
+                        </li>
+                                                                <li>
+                           Telephone: +255 22 2114959/61<br>
+                       </li>
+                                                                <li>
+                            Fax: +255 22 2113846<br>
+                        </li>
+                    
+                                            <li>
+                            <a href="mailto:info@cmsa.go.tz">
+                               Email Address: info@cmsa.go.tz
+                            </a>
+                        </li>
+                    
+                    
+                </ul>
+            </div>
+
+            <div class="footer-dropdown">
+                <input class="footer-checkbox" type="checkbox" checked>
+                <h4 class="footer-heading">Quick Links</h4>
+                <ul class="footer-list list-styled ">
+                                                                  <li><a href="publications/9">Fees Structure</a></li>
+                                            <li><a href="publications/11">PEP Materials</a></li>
+                                            <li><a href="publications/15">EAC Council Directives</a></li>
+                                            <li><a href="publications/12">Regulations</a></li>
+                                            <li><a href="publications/1">Principal Legislation</a></li>
+                                                    </ul>
+            </div>
+
+            <div class="footer-dropdown">
+                <input class="footer-checkbox" type="checkbox" checked>
+                <h4 class="footer-heading">Related Links</h4>
+
+                <ul class="footer-list list-styled ">
+                                                                <li>
+                            <a href="https://www.cisi.org" target="_blank">
+                                Chartered Institute of Securities (CISI)
+                            </a>
+                        </li>
+                                            <li>
+                            <a href="https://www.iosco.org" target="_blank">
+                                The International Organization of Securities Commissions (IOSCO)
+                            </a>
+                        </li>
+                                            <li>
+                            <a href="http://www.esaamlg.org/" target="_blank">
+                                The Eastern and South African Anti Money Laundering Group (ESAAMLG)
+                            </a>
+                        </li>
+                                            <li class="list-styled-none more-link"><a href="https://www.cmsa.go.tz/relatedlinks">More <i class="fas fa-plus-circle"></i></a></li>
+                
+                </ul>
+
+            </div>
+
+            <div class="footer-dropdown">
+                <input class="footer-checkbox" type="checkbox" checked>
+                <h4 class="footer-heading">Social Media</h4>
+                <ul class="footer-list list-styled ">
+
+                    <li class="list-styled-none">
+                        <ul class="list-unstyled m-0 d-flex flex-wrap">
+
+                                                                                        <li class="list-styled-none social-btn mt-3"><a href="https://www.facebook.com/cmsa.org/" target="_blank" class="bg-facebook d-flex align-items-center justify-content-center"><i class="fab fa-facebook fa-lg" aria-hidden="true"></i></a></li>
+                                                            <li class="list-styled-none social-btn mt-3"><a href="https://www.youtube.com/channel/UCQNCwPA8ZM5fNd6qXGtapUg/featured?disable_polymer=1" target="_blank" class="bg-youtube d-flex align-items-center justify-content-center"><i class="fab fa-youtube fa-lg" aria-hidden="true"></i></a></li>
+                                                            <li class="list-styled-none social-btn mt-3"><a href="https://instagram.com/cmsa.go.tz?igshid=qjtoxck3ntxo" target="_blank" class="bg-instagram d-flex align-items-center justify-content-center"><i class="fab fa-instagram fa-lg" aria-hidden="true"></i></a></li>
+                                                    
+                        </ul>
+                    </li>
+                </ul>
+            </div>
+
+
+        </div>
+
+        <div class="footer-bottom">
+
+
+            <ul class="list-inline text-center">
+
+                <li  class="list-inline-item  py-2"><a href="https://www.cmsa.go.tz/sitemap" class="btn btn-primary btn-sm">Sitemap</a></li>
+                <li  class="list-inline-item  py-2"><a href="https://www.cmsa.go.tz/privacy" class="btn btn-primary btn-sm">Privacy Policy</a></li>
+                <li  class="list-inline-item  py-2"><a href="https://www.cmsa.go.tz/terms-and-conditions" class="btn btn-primary btn-sm">Terms and Conditions</a></li>
+                <li  class="list-inline-item  py-2"><a href="https://www.cmsa.go.tz/copyright" class="btn btn-primary btn-sm"> Copy Right Statements.</a></li>
+                <li  class="list-inline-item  py-2"><a href="https://www.cmsa.go.tz/disclaimer" class="btn btn-primary btn-sm"> Disclaimer</a></li>
+
+            </ul>
+
+            <div class="text-center">All Rights Reserved. ©<span id="copyrightDate"></span>
+
+                <a href="index.html">CMSA </a> All Rights Reserved.
+                <br>
+                                                            <!-- Imesanifiwa, Imetengenezwa, na <a href="http://ega.go.tz" target="_blank">e-Government Agency</a> <br>
+                                na  -->Inaendeshwa na <a href="https://www.cmsa.go.tz"> Capital Market and Securities Authority </a>.
+                            
+            </div>
+
+        </div>
+    </div>
+</footer>
+
+<!-- Copyright Date -->
+<script>
+    let currentYear = new Date().getFullYear(); let startYear = 2018;
+    if (currentYear != startYear) {
+        document.getElementById('copyrightDate').innerHTML = (startYear+"-"+new Date().getFullYear());
+    } else {
+        document.getElementById('copyrightDate').innerHTML = (new Date().getFullYear());
+    }
+</script>
+
+
+
+<script src="https://www.cmsa.go.tz/site/js/nprogress.min.js"></script>
+<script src="https://www.cmsa.go.tz/site/js/matchHeight.min.js"></script>
+
+<script src="https://www.cmsa.go.tz/site/js/bootstrap.bundle.min.js"></script>
+
+<script src="https://www.cmsa.go.tz/site/js/jquery.dd.min.js"></script>
+<script src="https://www.cmsa.go.tz/site/js/fontawesome.min.js"></script>
+<script src="https://www.cmsa.go.tz/site/js/customScrollbar.min.js"></script>
+<script src="https://www.cmsa.go.tz/site/js/slick.min.js"></script>
+<script src="https://www.cmsa.go.tz/site/js/marquee.min.js"></script>
+
+<script src="https://www.cmsa.go.tz/site/js/custom.min.js"></script>
+
+ <script type="text/javascript" src="https://www.cmsa.go.tz/site/js/sweetalert2.min.js"></script>
+
+
+        <script>
+
+            var default_lang = $('.languages-available a.dropdown-item:first-child');
+            function dropdown_langSet(val) {
+                if(val.innerHTML!=""){
+                    $('#dropdown_lang').val(val.innerHTML);
+                    $('#dropdown_lang').html(val.innerHTML);
+                }
+                else{
+                    $('#dropdown_lang').val('');
+                    $('#dropdown_lang').html(default_lang);
+                }
+            }
+
+            $(window).on('load', function(){
+                if(sessionStorage.getItem("quizModalStatus") === "closed"){
+                    $('.online-quiz').css({
+                        display : 'block'
+                    })
+                }
+                setTimeout(() => {
+
+                    //if(sessionStorage.getItem("quizStatus") === null){
+                    if(question_status===true){
+                        $('#onlineQuiz').modal('show');
+                        sessionStorage.setItem("quizStatus", "shown");
+                    }
+                   // }
+
+                }, 30000);
+
+                $('#onlineQuiz').on('hidden.bs.modal', function () {
+                    sessionStorage.setItem("quizModalStatus", "closed");
+                    $('.online-quiz').css({
+                        display : 'block'
+                    })
+                });
+
+                $('.modal form').on('submit', function(){
+                    sessionStorage.setItem("quizModalStatus", "submited");
+                });
+
+            });
+
+        </script>
+
+
+        <script type="text/javascript" src="http://dse.co.tz/widget/widget.js"></script>
+
+
+    </body>
+
+</html>

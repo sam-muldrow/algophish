@@ -1,0 +1,831 @@
+<!DOCTYPE html>
+<html lang="de" translate="no">
+<head>
+    <script>
+        (function() {
+            var Cookies = (function(document, Date) {
+    var setCookie = function(name, value, millisecondDuration) {
+        var d = new Date();
+        d.setTime(d.getTime() + millisecondDuration);
+        var expires = "expires=" + d.toUTCString();
+        document.cookie = name + "=" + value + ";" + expires + ";path=/";
+    };
+    var getCookie = function getCookie(cname) {
+        var name = cname + "=";
+        var decodedCookie = decodeURIComponent(document.cookie);
+        var ca = decodedCookie.split(';');
+        for(var i = 0; i <ca.length; i++) {
+            var c = ca[i];
+            while (c.charAt(0) == ' ') {
+                c = c.substring(1);
+            }
+            if (c.indexOf(name) == 0) {
+                return c.substring(name.length, c.length);
+            }
+        }
+        return "";
+    }
+
+    return {
+        set: setCookie,
+        get: getCookie
+    };
+})(document, Date)
+;
+            var hasFromAppParam = document.location.search.substring(1).split('&').some((part) => part.indexOf('from_app') === 0);
+            var hasFromAppCookie = Cookies.get('from_app') === '1';
+
+            if (hasFromAppParam && !hasFromAppCookie) {
+                var millisecondsADay = 86400000;
+                Cookies.set('from_app', '1', millisecondsADay);
+            }
+
+            if (hasFromAppCookie && !hasFromAppParam) {
+                document.location.href = document.location.href + (document.location.search ? '&' : '?') + 'from_app=1';
+            }
+        })()
+    </script>
+
+    <meta name="google" content="nopagereadaloud">
+    <link rel="alternate" href="https://www.finya.de/" hreflang="de-de">
+    <link rel="alternate" href="https://www.finya.at/" hreflang="de-at">
+    <link rel="alternate" href="https://www.finya.ch/" hreflang="de-ch">
+    <title>Kostenlose Partnersuche und Partnervermittlung bei Finya. Vielfacher Testsieger.</title>
+    <meta charset="utf-8">
+    <meta name="robots" content="index,follow">
+    <meta name="application-name" content="Finya">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+    <meta name="msapplication-tap-highlight" content="no">
+    <meta http-equiv="content-type" content="text/html; charset=utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta property="og:site_name" content="Finya">
+    <meta property="og:type" content="website">
+    <meta property="og:title" content="Kostenlose Partnersuche und Partnervermittlung bei Finya. Vielfacher Testsieger.">
+        <meta property="og:description" content="Finya ist der große kostenlose Anbieter für Partnersuche und Partnervermittlung. Jetzt anmelden und verlieben! Vielfacher Testsieger.">
+    <meta itemprop="name" content="Finya">
+    <meta itemprop="description" content="Finya ist der große kostenlose Anbieter für Partnersuche und Partnervermittlung. Jetzt anmelden und verlieben! Vielfacher Testsieger.">
+    <meta name="description" content="Finya ist der große kostenlose Anbieter für Partnersuche und Partnervermittlung. Jetzt anmelden und verlieben! Vielfacher Testsieger.">
+        <link rel="shortcut icon" href="/assets/img/finya-favicon-32x32.png">
+    <link rel="apple-touch-icon" href="/assets/img/apple-touch-icon.png">
+    <link rel="stylesheet" href="/assets/fonts/fontawesome-6.3.0.all.min.css">
+
+    <link rel="stylesheet" type="text/css" href="/assets/v/4b2f6ac1d4557c772f2a9f95b5947b04/css/public.css">
+    <style type="text/css">    body { display: flex; flex-direction: column; }
+    h1 { margin-bottom: 0; }
+    h2 { color: #209cff; font-size: 30px; margin-top: 0; }
+    
+    header { max-width: none; margin: 0 auto 140px; width: 100%; }
+    #page-wrapper { position: fixed; width: 100%; height: 100vh; z-index: 0; background-image: url(/assets/img/mood/home-daisies-v2.jpg); background-repeat: no-repeat; background-size: cover; background-position: center bottom; }
+    .page { z-index: 9; position: relative; background-color: #ffffff; }
+    .page-content { width: 90%; max-width: 970px; display: flex; flex-direction: column; justify-content: space-between; margin: 0 auto; min-height: 200px; color: #1b1b1b; }
+    
+    .highlights-reserve-height { height: 154px; /* mimics the presence of the absolutely positioned .highlights div in order to keep spacing */ }
+    .highlights { position: absolute; bottom: 0; left: 0; right: 0; margin: auto; width: 100%; max-width: 1400px; display: flex; justify-content: center; z-index: 2; align-items: flex-end; }
+    .highlight { color: #ffffff; margin: 10px; padding: 20px; border-radius: 6px; cursor: default; flex-basis: 25%; max-width: 400px; text-align: center; }
+    .highlight-icon { font-size: 38px; margin-bottom: 6px; }
+    .highlight-title { font-size: 20px; font-weight: 600; }
+    .highlight-subtitle { font-size: 12px; }
+    
+    .page1 { background-color: transparent; padding-top: 24px; }
+    .page1 .page-content { height: 90vh; color: #ffffff; min-height: 600px; }
+    .page1 h1 { font-size: 3rem; text-shadow: 0 0 20px rgba(0, 0, 0, .6); line-height: 1.1; }
+    .page1 h2 { color: #ffffff; font-size: 24px; }
+    .page1 h2 span { font-weight: 400; }
+    .btn-primary { box-shadow: 0 0 0 rgba(48,171,244, 0.6); animation: pulse 2s infinite; margin-top: 20px; display: inline-block; cursor: pointer; background-image: linear-gradient(135deg, #209cff, #68e0cf); border-radius: 50px; color: #ffffff; font-size: 18px; padding: 14px 30px; font-weight: 600; transition: all .2s ease-in; text-decoration: none; }
+    .icon-signup { margin-left: 8px; margin-right: 2px; transition: all .1s ease-in; }
+    .btn-primary:hover .icon-signup { margin-left: 10px; margin-right: 0; }
+    .lead { position: relative; z-index: 99; margin-top: -30px; text-align: center; }
+    .page-content p { font-size: 16px; }
+    
+    .page-feature { padding: 3rem 0; }
+    .page-feature .page-content { max-width: 860px; position: relative; }
+    .page-feature--horiz-pic-text .page-content { flex-direction: row;  }
+    .page-feature--horiz-pic-text .feature-pic { margin-right: 1rem;  }
+    .page-feature--horiz-pic-text h2 {  }
+    .page-feature--vert-pic-text .page-content { flex-direction: column; align-items: center; text-align: center; }
+    .page-feature--border { border-top: solid #eaeaea 1px; }
+    .page-feature--belt { background-color: #f1faff; }
+    .page-feature .btn-primary { padding: 10px 20px; }
+    .feature-text { width: 100%; }
+    
+    .tags { display: flex; flex-wrap: wrap; margin-top: 1rem; }
+    .tag { background-color: #ffffff; white-space: nowrap; padding: 6px 14px; border-radius: 20px; font-weight: 500; color: #209cff; margin: 0 1rem 1rem 0; cursor: default; }
+    .tag > i { color: #577994; margin-right: 4px; }
+    
+    .features-list-wrapper { display: flex; flex-direction: row; justify-content: center; padding: 1rem 0; }
+    .features-list { font-weight: 500; text-align: left; }
+    .features-list i { color: #00bc2c; }
+    .features-list li { padding-right: 30px; }
+    
+    .prizes { padding: 30px; flex-basis: 25%; }
+    
+    .tint1 {
+        background: linear-gradient(
+                to bottom,
+                hsla(0, 0%, 0%, 0) 0%,
+                hsla(0, 0%, 0%, 0.005) 8.1%,
+                hsla(0, 0%, 0%, 0.019) 15.5%,
+                hsla(0, 0%, 0%, 0.042) 22.5%,
+                hsla(0, 0%, 0%, 0.07) 29%,
+                hsla(0, 0%, 0%, 0.104) 35.3%,
+                hsla(0, 0%, 0%, 0.141) 41.2%,
+                hsla(0, 0%, 0%, 0.18) 47.1%,
+                hsla(0, 0%, 0%, 0.22) 52.9%,
+                hsla(0, 0%, 0%, 0.259) 58.8%,
+                hsla(0, 0%, 0%, 0.296) 64.7%,
+                hsla(0, 0%, 0%, 0.33) 71%,
+                hsla(0, 0%, 0%, 0.358) 77.5%,
+                hsla(0, 0%, 0%, 0.381) 84.5%,
+                hsla(0, 0%, 0%, 0.395) 91.9%,
+                hsla(0, 0%, 0%, 0.4) 100%
+        );
+    }
+    @-webkit-keyframes pulse {
+        0% {
+            -webkit-box-shadow: 0 0 0 0 rgba(48,171,244, 0.6);
+        }
+        70% {
+            -webkit-box-shadow: 0 0 0 10px rgba(48,171,244, 0);
+        }
+        100% {
+            -webkit-box-shadow: 0 0 0 0 rgba(48,171,244, 0);
+        }
+    }
+    @keyframes pulse {
+        0% {
+            -moz-box-shadow: 0 0 0 0 rgba(48,171,244, 0.6);
+            box-shadow: 0 0 0 0 rgba(48,171,244, 0.6);
+        }
+        70% {
+            -moz-box-shadow: 0 0 0 10px rgba(48,171,244, 0);
+            box-shadow: 0 0 0 10px rgba(48,171,244, 0);
+        }
+        100% {
+            -moz-box-shadow: 0 0 0 0 rgba(48,171,244, 0);
+            box-shadow: 0 0 0 0 rgba(48,171,244, 0);
+        }
+    }
+    
+    @media screen and (max-width: 800px) {
+        .page-feature--horiz-pic-text .page-content { flex-direction: column; align-items: center; text-align: center; }
+        .tag { white-space: normal; }
+        .feature-text { order: 1; }
+        .feature-pic { max-width: 90%; height: auto; margin: 0 auto !important; top: auto !important; }
+    }
+    
+    @media screen and (max-width: 768px) {
+        .page1 h1 { margin-bottom: 1rem; }
+        .highlight-1, .highlight-2, .prizes { display: none !important; }
+        .highlight { pointer-events: none; flex-basis: auto; }
+        .features-list-wrapper { flex-direction: column; }
+    }
+
+    @media screen and (orientation: portrait) and (max-height: 740px) {
+        .page1 h1 { font-size: 2.2rem; font-weight: 900; }
+        .page1 h2 { font-size: 20px; }
+    }
+
+    @media screen and (max-width: 380px) {
+        #finyaLogo { height: 60px; width: auto; } 
+        .btn-primary { font-size: 14px; font-weight: 900; }
+    }</style>    <script>    (function(document, location) {var getCookie = function(name) {
+    var nameEQ = name + "=";
+    var ca = document.cookie.split(";");
+    for(var i=0;i < ca.length;i++) {
+        var c = ca[i];
+        while (c.charAt(0)==" ") c = c.substring(1,c.length);
+        if (c.indexOf(nameEQ) == 0) return c.substring(nameEQ.length,c.length);
+    }
+    return "";
+};
+var getQuery = function(name) {
+    var regex = new RegExp("[?&]" + name.replace(/[\[\]]/g, "\\$&") + "(=([^&#]*)|&|#|$)");
+    var results = regex.exec(location.href);
+    if (!results || !results[2]) return "";
+    return decodeURIComponent(results[2].replace(/\+/g, " "));
+}
+
+if (!getCookie("msfcid0") && document.referrer) {
+    document.cookie = "msfcid0=" + document.referrer + "; path=/;";
+}
+if (getQuery("fycid")) {
+    document.cookie = "msfcid00=" + getQuery("fycid") + "; path=/;";
+} else if (getQuery("fy_campaign")) {
+    document.cookie = "msfcid00=" + getQuery("fy_campaign") + "; path=/;";
+}
+if (getQuery("OutbrainClickId")) {
+    document.cookie = "msfcid01=" + JSON.stringify(["ob_click_id", getQuery("OutbrainClickId")]) + "; path=/;";
+} else if (getQuery("tabcid")) {
+    document.cookie = "msfcid01=" + JSON.stringify(["tabcid", getQuery("tabcid")]) + "; path=/;";
+}
+        if (getCookie("msfcid22")) {  
+            location.replace("/MyFinya/");
+        } else if (getQuery("xn")) {  
+            location.replace("/Auth/login/?xn=" + getQuery("xn") + "&req_url=" + location.href.replace(/.*\/\/[^\/]*/, ""));
+        }
+    })(window.document, window.location);</script>
+    </head>
+<body class="public" data-locale="de_DE">
+    <a name="top"></a>
+    
+<script>
+  var urlParams = new URLSearchParams(window.location.search);
+  var gclid = urlParams.get('gclid');
+  if (gclid) {
+    localStorage.setItem('gclid', gclid);
+  }
+</script>
+
+<div id="page-wrapper"></div>
+<div class="page page1">
+    <div class="page-content">
+        <header>
+            <div class="logo-wrapper">
+                <a href="/"><img src="/assets/img/finya-logo-1c-white-neg-500w.png" id="finyaLogo" height="70" alt="Finya"></a>
+            </div>
+            <div class="header-menu">
+                <div class="header-link-wrapper"><a href="#warum-finya" onclick="document.querySelector('a[id=warum-finya]').scrollIntoView({'behavior':'smooth'});return false;" class="header-link">Warum Finya?</a></div>
+                <div class="header-link-wrapper"><a href="#warum-kostenlos" onclick="document.querySelector('a[id=warum-kostenlos]').scrollIntoView({'behavior':'smooth'});return false;" class="header-link">Warum kostenlos?</a></div>
+                <div class="header-link-wrapper"><a href="/Registration/signup/" class="header-link header-link-btn">Kostenlos registrieren</a></div>
+                <div class="header-link-wrapper" style="margin-top:0;"><a href="/Auth/signin/" class="header-link header-link-btn header-link-signin">Login</a></div>
+            </div>
+        </header>
+        <div class="lead">
+            <h1 style="color:#FFF">Starte deine Lovestory. Kostenlos.</h1>
+            <h2>Partnersuche und Partnervermittlung beim Testsieger&nbsp;<span>*</span></h2>
+            <div>
+                <a class="btn-primary" href="/Registration/signup/">
+                    Jetzt kostenlos registrieren<i class="fas fa-arrow-right icon-signup"></i>                </a>
+            </div>
+        </div>
+        <div class="highlights-reserve-height"></div>
+        <div class="highlights">
+            <div class="highlight highlight-1">
+                <i class="fas fa-piggy-bank highlight-icon"></i>
+                <div class="highlight-title">Vollständig kostenlos, kein&nbsp;Abo.</div>
+                <div class="highlight-subtitle">Finya ist vollständig kostenlos.<br>Keine Abos, keine Fallen.</div>
+            </div>
+            <div class="highlight highlight-2">
+                <i class="far fa-grin-hearts highlight-icon"></i>
+                <div class="highlight-title">Jeden Tag Tausende Neukontakte</div>
+                <div class="highlight-subtitle">Finya bringt täglich<br>Tausende neue Singles zusammen.</div>
+            </div>
+            <div class="highlight highlight-3">
+                <i class="fas fa-trophy-alt highlight-icon"></i>
+                <div class="highlight-title">Mehrfacher Testsieger</div>
+                <div class="highlight-subtitle">
+                    <span style="font-size: 20px; line-height: 0; ">*</span> Deutschlands <b>beste Singlebörse</b><br>("DEUTSCHLAND TEST", FOCUS 30/22), <b>Testsieger</b> Partnerbörsen (Netzwelt.de)                </div>
+            </div>
+                        <div class="prizes">
+                <svg version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 280 230" style="height: 230px">
+                                        <image width="280" height="230" xlink:href="/assets/img/de_DE/finya-home-prizes-2208.png">
+                                            <title>Testsiegel für Finya von DEUTSCHLAND TEST/FOCUS MONEY (Beste Singlebörse) und NETZWELT (Testsieger Partnerbörsen)</title>
+                                            <desc>Testsiegel für Finya von DEUTSCHLAND TEST/FOCUS MONEY (Beste Singlebörse / Kundenzufriedenheit / Umfrage FOCUS 30/22 / www.deutschlandtest.de) und NETZWELT (Testsieger Vergleich Partnerbörsen 8,8/10)</desc>
+                                        </image>
+                                        <a xlink:href="https://www.netzwelt.de/finya/testbericht.html" target="_blank">
+                                            <rect x="0" y="110" fill="#ffffff" opacity="0" width="130" height="120"></rect>
+                                        </a>
+                                    </svg>            </div>
+                    </div>
+    </div>
+    <div class="tint1" style="position: absolute; bottom: 0; width: 100%; height: 50%; z-index: 0;"></div>
+</div>
+
+<div class="page page2 page-feature page-feature--horiz-pic-text">
+    <div class="page-content">
+        <a id="warum-kostenlos"></a>
+        <div>
+            <img class="feature-pic" src="/assets/img/de_DE/finya-home-top-seriositaet.jpg" width="300" height="244"
+                                         alt="Testsiegel für Finya von FOCUS MONEY (Top Seriosität)"
+                                         longdesc="Testsiegel für Finya von FOCUS MONEY (Top Seriosität / Kundenzufriedenheit / Umfrage FOCUS 42/19 / www.deutschlandtest.de) mit Foto von entspannter, lächelnder Frau, am Strand liegend"
+                                         style="margin-top: -10px">        </div>
+        <div class="feature-text">
+            <h2>
+                0% Kosten, 100% Seriosität            </h2>
+            <div class="page-feature-content">
+                <p>
+                    Wie die meisten Onlinedienste, die wir täglich nutzen, ist auch Finya für alle Nutzerinnen und Nutzer vollständig kostenlos.
+                                   Finya finanziert sich durch das Einblenden von Werbung, so ähnlich wie Suchmaschinen und soziale Netzwerke.
+                                   Finya existiert schon seit über 20 Jahren und wurde mit vielen Preisen ausgezeichnet.                </p>
+                <div class="prize-caption" style="font-size: 11px; margin-top: 8px;"><sup>†</sup> DEUTSCHLAND TEST: <b>TOP SERIOSITÄT</b> SINGLEBÖRSE, KUNDENZUFRIEDENHEIT, FOCUS 42/19</div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="page page2 page-feature page-feature--horiz-pic-text">
+    <div class="page-content">
+        <div class="feature-text">
+            <h2>
+                Singlebörse und Partnervermittlung            </h2>
+            <div class="page-feature-content">
+                <p>
+                    Bei Finya kannst du mit deinem Profil sowohl selbst auf die Suche nach passenden Singles gehen
+                                   als auch in individuellen Vorschlägen stöbern. Mit einzigartigen Features und wissenschaftlichen
+                                   Suchalgorithmen finden jeden Tag Tausende Singles zueinander. Vollständig kostenlos.                </p>
+            </div>
+            <a class="btn-primary" href="/Registration/signup/">
+                Jetzt gratis losflirten<i class="fas fa-arrow-right icon-signup"></i>            </a>
+        </div>
+        <div>
+            <img class="feature-pic" src="/assets/img/de_DE/finya-home-singleboerse-und-partnervermittlung.jpg" width="270" height="270"
+                                         alt="Glückliches, lächelndes Paar in Park"
+                                         longdesc="Glückliches, lächelndes Paar in urbaner Kulisse. Ein Mann trägt seine Freundin huckepack, beide lächeln. Dazu Symbole für Chats, Favoriten und Herzen."
+                                         style="margin: -13px 0 0 0;" />        </div>
+    </div>
+</div>
+
+<div class="page page3 page-feature page-feature--belt">
+    <div class="page-content">
+        <a id="warum-finya"></a>
+        <div class="feature-text">
+            <h2>
+                Bei Finya gibt es nur Premium-Features. Kostenlos.            </h2>
+            <div class="page-feature-content">
+                <p style="margin: 0">
+                    Bei Finya stehen von vornherein <strong>alle Features kostenlos</strong> zur Verfügung.
+                                     Kostenpflichtige Extras gibt es bei Finya nicht. Nutze sogar folgende spannende Features kostenlos:                </p>
+                <div class="tags">
+                    
+                                    <div class="tag"><i class="far fa-grin-wink"></i> Aktiv anflirten</div>
+                                    <div class="tag"><i class="far fa-comment-dots"></i> Unbegrenzte Chats</div>
+                                    <div class="tag"><i class="fas fa-camera-retro"></i> Sofort in Fotos stöbern</div>
+                                    <div class="tag"><i class="fas fa-magic"></i> Individuelle Partnervorschläge</div>
+                                    <div class="tag"><i class="fas fa-search"></i> Über 20 Suchkriterien</div>
+                                    <div class="tag"><i class="far fa-id-card"></i> Umfangreiche Profile</div>
+                                    <div class="tag"><i class="fas fa-chart-line"></i> Dynamische Suchergebnis-Platzierung</div>
+                                    <div class="tag tag--free">&hellip; und vieles mehr. Kostenlos!</div>
+                        </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="page page4 page-feature page-feature--vert-pic-text page-feature--border">
+    <div class="page-content">
+        <div>
+            <img class="feature-pic" src="/assets/img/de_DE/finya-home-top-umfangreiche-profile.jpg" height="300" width="432"
+                                         alt="Attraktive Profile von Finya auf Tablet und Smartphone"
+                                         longdesc="Tablet mit geöffneter Profilseite einer lächelnden, attraktiven Nutzerin bei Finya und Smartphone mit geöffneter Profilseite eines lächelnden, attraktiven Manns bei Finya" />        </div>
+        <div class="feature-text">
+            <h2>
+                Umfangreich ausgefüllte Profile            </h2>
+            <div class="page-feature-content">
+                <p>
+                    Ein Bild sagt viel, aber nicht alles. Natürlich kannst du bei Finya viele Fotos in dein Profil
+                                     laden. Darüber hinaus entdeckst du in den Profilen unserer Nutzerinnen und Nutzer aber noch viel mehr: Essgewohnheiten,
+                                     Musikgeschmack, Lieblingsmarken, ein persönliches Statement, Antworten auf die »100 Fragen«, Angaben zum Lebensstil und vieles mehr.                </p>
+            </div>
+            <a class="btn-primary" href="/Registration/signup/">
+                Jetzt kostenlos Profile entdecken<i class="fas fa-arrow-right icon-signup"></i>            </a>
+        </div>
+    </div>
+</div>
+
+<div class="page page4 page-feature page-feature--vert-pic-text page-feature--border">
+    <div class="page-content">
+        <div>
+            <img class="feature-pic" src="/assets/img/de_DE/finya-home-suchfunktionen.jpg" height="300" width="300"
+                                         alt="Polaroids von Personen, dazu Icons, die Features illustrieren"
+                                         longdesc="Polaroids von Personen, drumherum Icons, die folgende Finya-Features illustrieren: Ortssuche, Musikgeschmack, sportliche Aktivitäten, Geburtstag, Kinderwunsch, Essgewohnheiten, Lieblingsgetränke, TV-Gewohnheiten, detaillierte Suchoptionen" />        </div>
+        <div class="feature-text">
+            <h2>
+                Akademiker, Vegetarier, sportlich oder gemütlich &hellip;            </h2>
+            <div class="page-feature-content">
+                <p>
+                    Bei Finya flirten täglich zigtausende Singles – auch aus deiner Region. Um genau den richtigen
+                                     Partner oder die Traumpartnerin zu finden, können bei Finya detaillierte Suchoptionen
+                                     genutzt werden – vom Alter über die Entfernung bis zu äußerlichen Merkmalen, dem Lebensstil und Gewohnheiten.                </p>
+            </div>
+            <a class="btn-primary" href="/Registration/signup/">
+                Jetzt meinen Traumpartner finden<i class="fas fa-arrow-right icon-signup"></i>            </a>
+        </div>
+    </div>
+</div>
+
+<div class="page page5 page-feature page-feature--vert-pic-text page-feature--border">
+    <div class="page-content">
+        <div>
+            <img class="feature-pic" src="/assets/img/de_DE/finya-home-wissenschaftliches-matching.jpg" height="300" width="462"
+                                         alt="Miteinander vernetzte Personen"
+                                         longdesc="Drei Männer und zwei Frauen, die durch blaue Linien miteinander vernetzt sind" />        </div>
+        <div class="feature-text">
+            <h2>
+                Wissenschaftliche Suchalgorithmen            </h2>
+            <div class="page-feature-content">
+                <p>
+                    Oft fällt die Liebe überraschend dahin, wo man es nicht erwartet. Neben unseren aktiven
+                                     Suchfunktionen erhält man bei Finya auch individuelle Partnervorschläge auf Grundlage von
+                                     wissenschaftlich fundierten Suchalgorithmen. Das klingt nüchtern, aber es funktioniert!
+                                     Täglich vermitteln wir zigtausende Singles auf diesem Weg.                </p>
+            </div>
+            <a class="btn-primary" href="/Registration/signup/">
+                Kostenlos mit dem Matching starten<i class="fas fa-arrow-right icon-signup"></i>            </a>
+        </div>
+    </div>
+</div>
+
+
+<div class="page page6 page-feature page-feature--vert-pic-text page-feature--border">
+    <div class="page-content">
+        <div>
+            <img class="feature-pic" src="/assets/img/de_DE/finya-home-weitere-features.jpg" height="200" width="200"
+                                         alt="Verschiedene Symbole für Features von Finya"
+                                         longdesc="Verschiedene Symbole, die folgende Features von Finya symbolisieren: Favoriten (Stern), Herzen, Chats, Online-Liste, Besucherlisten, X" />        </div>
+        <div class="feature-text">
+            <h2>
+                Viele weitere Features, alle kostenlos            </h2>
+            <div class="page-feature-content">
+                <p>
+                    Bei Finya sind alle Features kostenlos.
+                                     Nutze unsere Features, um Singles zu finden, Chats zu managen, das Neueste deiner
+                                     Favoritenkontakte zu erfahren, spielerisch zu Stöbern oder, um dich einfach nur überraschen zu lassen.
+                                     Hier ist ein Auszug unserer wichtigsten Features.                </p>
+            </div>
+            <div class="features-list-wrapper">
+                
+                                    <ul class="features-list">
+                                        <li><i class="fas fa-check-circle"></i> Sehr ausführliche Profile</li>
+                                        <li><i class="fas fa-check-circle"></i> Musik-, TV- und Essgewohnheiten</li>
+                                        <li><i class="fas fa-check-circle"></i> Persönliches Statement</li>
+                                        <li><i class="fas fa-check-circle"></i> Inhalte "liken"</li>
+                                        <li><i class="fas fa-check-circle"></i> Über 20 Suchoptionen</li>
+                                        <li><i class="fas fa-check-circle"></i> Attraktivitätsindikator</li>
+                                        <li><i class="fas fa-check-circle"></i> Sofort losflirten, auch ohne Foto</li>
+                                        <li><i class="fas fa-check-circle"></i> "Kein Interesse"</li>
+                                        <li><i class="fas fa-check-circle"></i> Ähnliche Profile sehen</li>
+                                    </ul>
+                                    <ul class="features-list">
+                                        <li><i class="fas fa-check-circle"></i> Unbegrenzte Chats</li>
+                                        <li><i class="fas fa-check-circle"></i> Besucherliste</li>
+                                        <li><i class="fas fa-check-circle"></i> Online-Liste</li>
+                                        <li><i class="fas fa-check-circle"></i> Profilen folgen</li>
+                                        <li><i class="fas fa-check-circle"></i> Favoriten</li>
+                                        <li><i class="fas fa-check-circle"></i> Herzen-Spiel</li>
+                                        <li><i class="fas fa-check-circle"></i> Spamfilter</li>
+                                        <li><i class="fas fa-check-circle"></i> Anzeige neuer Singles</li>
+                                        <li><i class="fas fa-check-circle"></i> Kostenloser Support</li>
+                                    </ul>
+                                        </div>
+            <div class="btn-primary" onclick="location.href='/Registration/signup/'">
+                Jetzt kostenlos starten<i class="fas fa-arrow-right icon-signup"></i>            </div>
+        </div>
+    </div>
+</div>
+
+<div class="page page7 page-feature page-feature--belt">
+    <div class="page-content">
+        <div class="feature-text">
+            <h2>
+                Sicherheit geht vor. Nicht nur in diesen Zeiten.            </h2>
+            <div class="page-feature-content">
+                <p>
+                    Finya ist ein deutsches, inhabergeführtes Unternehmen mit Sitz im schönen Hamburg.
+                                     Es ist unser ganz persönliches Anliegen, dass die Daten unserer Nutzerinnen und Nutzer bei uns in sicheren Händen sind. Da bei
+                                     Finya weder Abrechnungsdaten noch echte Namen oder Anschriften hinterlegt werden, profitiert man ganz automatisch
+                                     von einer hohen Privatsphäre. Darüber hinaus setzen wir einschlägige technologische Industriestandards um.                </p>
+                <div class="tags">
+                    
+                                    <div class="tag"><i class="fas fa-server"></i> Server in Europa</div>
+                                    <div class="tag"><i class="fas fa-lock"></i> 256-Bit-SSL-Verschlüsselung</div>
+                                    <div class="tag"><i class="fas fa-envelope"></i> CSA-Zertifizierung</div>
+                                    <div class="tag"><i class="fas fa-key"></i> Advanced Encryption Standard</div>
+                                    <div class="tag"><i class="fas fa-shield-check"></i> Spamfilter</div>
+                                    <div class="tag"><i class="fas fa-user-shield"></i> IAB Transparency Framework</div>
+                                    <div class="tag"><i class="fas fa-mask"></i> Diskretion</div>
+                                    <div class="tag"><i class="fas fa-user-secret"></i> Hohe Privatsphäre</div>
+                        </div>
+            </div>
+        </div>
+    </div>
+</div>
+    
+<footer>
+    <div class="footer-content">
+        <div class="footer-linklist">
+            <div class="linklist-title">Finya</div>
+            <ul class="linklist-items">
+                <li><a href="/Help/faq/?q=101">Über uns</a></li>
+                <li><a href="/Registration/signup/">Kostenlos registrieren</a></li>
+                <li><a href="/Auth/signin/">Login</a></li>
+                <li><a href="/Legal/privacy/?p=de">Datenschutz</a></li>
+                <li><a href="javascript:void(0);" onclick="cookieConsent.showCookieBanner();">Cookies verwalten</a></li>
+                <li><a href="/Legal/terms/">Nutzungsbedingungen</a></li>
+                <li><a href="/Legal/about/">Impressum</a></li>
+                <li>&nbsp;</li>
+                                    <li><a href="https://www.finya.de/Misc/chLocale/?l=de_DE" hreflang="de-de">Finya Deutschland</a></li>
+                    <li><a href="https://www.finya.at/Misc/chLocale/?l=de_AT" hreflang="de-at">Finya Österreich</a></li>
+                    <li><a href="https://www.finya.ch/Misc/chLocale/?l=de_CH" hreflang="de-ch">Finya Schweiz</a></li>
+                                                </ul>
+        </div>
+        <div class="footer-linklist">
+            <div class="linklist-title">Häufige Fragen</div>
+            <ul class="linklist-items">
+                <li><a href="/Help/faq/" rel="help">Hilfe und FAQ</a></li>
+                <li><a href="/Help/faq/?q=101">Was ist Finya?</a></li>
+                <li><a href="/Help/faq/?q=001">Warum ist Finya kostenlos?</a></li>
+                <li><a href="/Help/faq/?q=108">Kostenlos und seriös: wie geht das?</a></li>
+                <li>&nbsp;</li>
+                <li>
+                    <a href="https://finya.page.link/?link=https://apps.apple.com/de/app/finya/id1584652796/?fycid%3Dfinyade_internal_footer_all_standard&apn=com.finya.app&isi=1584652796&ibi=com.finya.app&efr=1"><img src="/assets/img/de_DE/app-store-badge.png" height="40" alt="Finya im App Store laden"></a>
+                </li>
+                <li>
+                    <a href="https://finya.page.link/?link=https://play.google.com/store/apps/details?id=com.finya.app%26fycid%3Dfinyade_internal_footer_all_standard&apn=com.finya.app&isi=1584652796&ibi=com.finya.app&efr=1"><img src="/assets/img/de_DE/google-play-badge.png" height="40" alt="Finya bei Google Play laden"></a>
+                </li>
+            </ul>
+        </div>
+        <div class="footer-linklist">
+            <div class="linklist-title">Weitere Infos</div>
+            <ul class="linklist-items">
+                <li><a href="/Blog/">Blog</a></li>
+                                <li><a href="/Singles/">Singles</a></li>
+                                                <li><a href="/Singles/aus/Berlin/">Singles in Berlin</a></li>
+                <li><a href="/Singles/aus/Hamburg/">Singles in Hamburg</a></li>
+                <li><a href="/Singles/aus/M%C3%BCnchen/">Singles in München</a></li>
+                <li><a href="/Singles/aus/K%C3%B6ln/">Singles in Köln</a></li>
+                <li><a href="/Singles/aus/Frankfurt%20am%20Main/">Singles in Frankfurt</a></li>
+                                <li>&nbsp;</li>
+                                <li><a href="https://www.facebook.com/finya">Finya bei Facebook</a></li>
+                <li><a href="https://www.twitter.com/finya_DE">Finya bei Twitter</a></li>
+                <li>&nbsp;</li>
+                                <li><a href="#top" onclick="document.querySelector('a[name=top]').scrollIntoView({'behavior':'smooth'});return false;"><i class="far fa-arrow-up"></i> Seitenanfang</a></li>
+            </ul>
+        </div>
+        <div class="footer-end">
+            Copyright &copy; 2001-2023 Finya GmbH &amp; Co. KG. Alle Rechte vorbehalten.<br>
+            Hand-crafted with <i class="fas fa-heart"></i> in Hamburg.        </div>
+    </div>
+</footer>
+    <style>
+  .cookie-consent-banner {
+    display: none;
+    flex-direction: row;
+    align-items: center;
+    position: fixed;
+    z-index: 9999;
+    bottom: 0;
+    width: calc(100% - 10px);
+    padding: 2em;
+    background-color: #1B9DFF;
+    color: #ffffff;
+    border-radius: 4px;
+    margin: 5px;
+    font-size: 13px;
+  }
+
+  @media screen and (max-width: 1200px) {
+    .cookie-consent-banner {
+      flex-direction: column;
+    }
+  }
+
+  .cookie-consent-banner.visible {
+    display: flex;
+  }
+
+  .cookie-consent-banner__text {
+    margin-right: 30px;
+  }
+
+  @media screen and (max-width: 1200px) {
+    .cookie-consent-banner__text {
+      margin-right: 0;
+      margin-bottom: 30px;
+    }
+  }
+
+  .cookie-consent-banner__buttons {
+    display: flex;
+  }
+
+  @media screen and (max-width: 576px) {
+    .cookie-consent-banner__buttons {
+      flex-direction: column;
+      width: 100%;
+    }
+  }
+
+  .cookie-consent-banner__buttons__button {
+    display: flex;
+    flex-grow: 1;
+    flex-basis: 50%;
+    align-items: center;
+    justify-content: center;
+    height: 46px;
+    text-decoration: none;
+    font-weight: 700;
+    border-radius: 4px;
+    background: #fff;
+    color: #000;
+    padding: 0 40px;
+    white-space: nowrap;
+  }
+
+  .cookie-consent-banner__buttons__button:hover {
+    background-color: #eceff1;
+    box-shadow: 0px 10px 10px 0px rgba(0,0,0,0.3);
+  }
+
+  @media screen and (max-width: 576px) {
+    .cookie-consent-banner__buttons__button {
+      flex-basis: auto;
+    }
+  }
+
+  .cookie-consent-banner__buttons__button:not(:last-child) {
+    margin-right: 15px;
+  }
+
+  @media screen and (max-width: 576px) {
+    .cookie-consent-banner__buttons__button:not(:last-child) {
+      margin-right: 0;
+      margin-bottom: 15px;
+    }
+  }
+</style>
+
+<script>
+  const cookieConsent = (function(document, location) {
+    const cookies = [
+      'ccStatistics',
+      // 'ccSocialMedia',
+    ]
+
+    let currentSelection = {}
+
+    const getCookie = (name) => {
+      var nameEQ = name + "=";
+      var ca = document.cookie.split(';');
+      for(var i=0;i < ca.length;i++) {
+        var c = ca[i];
+        while (c.charAt(0)==' ') c = c.substring(1,c.length);
+        if (c.indexOf(nameEQ) == 0) return c.substring(nameEQ.length,c.length);
+      }
+      return null;
+    }
+
+    // const setCookieSelection = (name, value) => {
+    //   if (value !== undefined) {
+    //     document.querySelector(`input[name="${name}"][value="${value ? '1' : '-1'}"]`).checked = true
+    //   }
+    // }
+
+    const saveCookieSettings = (name, value) => {
+      let selectionCount = 0
+      let acceptedCount = 0
+      for(var i=0; i < cookies.length; i++) {
+        if (currentSelection[cookies[i]] !== undefined) {
+          selectionCount ++
+        }
+        if (currentSelection[cookies[i]] === true) {
+          acceptedCount ++
+        }
+      }
+
+      let durationDays
+      if (acceptedCount === cookies.length) {
+        durationDays = 365
+      } else {
+        durationDays = 30
+      }
+
+      const d = new Date();
+      d.setTime(d.getTime() + (durationDays * 24 * 60 * 60 * 1000))
+      let expires = "expires="+ d.toUTCString()
+
+      document.cookie = `fyCcDecision=${JSON.stringify(currentSelection)}; ${expires}; path=/;`
+
+      if (selectionCount > 0) {
+        hideCookieBanner()
+      }
+    }
+
+    // const resetInput = (name) => {
+    //   const elements = document.querySelectorAll(`input[name="${name}"]`)
+    //   for(var i=0; i < elements.length; i++) {
+    //     elements[i].checked = false
+    //   }
+    // }
+
+    const hideCookieBanner = () => {
+      document.getElementsByClassName('cookie-consent-banner')[0].classList.remove('visible')
+    }
+
+    document.addEventListener('DOMContentLoaded', function(event) {
+      const json = getCookie('fyCcDecision')
+      if (json) {
+        currentSelection = JSON.parse(json)
+      }
+
+      let selectionCount = 0
+      for(var i=0; i < cookies.length; i++) {
+        if (currentSelection[cookies[i]] !== undefined) {
+          selectionCount ++
+        }
+      }
+
+      if (selectionCount === 0) {
+        cookieConsent.showCookieBanner()
+      }
+    })
+
+    return {
+      showCookieBanner: () => {
+        document.getElementsByClassName('cookie-consent-banner')[0].classList.add('visible')
+      },
+
+      // openCookieLayer: () => {
+      //   document.getElementsByClassName('cookie-consent-layer')[0].classList.add('visible')
+      //   for(var i=0; i < cookies.length; i++) {
+      //     setCookieSelection(cookies[i], currentSelection[cookies[i]])
+      //   }
+      // },
+
+      // closeCookieLayer: () => {
+      //   saveCookieSettings()
+      //   document.getElementsByClassName('cookie-consent-layer')[0].classList.remove('visible')
+      // },
+
+      acceptCookies: () => {
+        for(var i=0; i < cookies.length; i++) {
+          currentSelection[cookies[i]] = true
+        }
+        saveCookieSettings()
+        hideCookieBanner()
+      },
+
+      declineCookies: () => {
+        for(var i=0; i < cookies.length; i++) {
+          currentSelection[cookies[i]] = false
+        }
+        saveCookieSettings()
+        hideCookieBanner()
+      },
+
+      // onCookieSelectionChange: (name) => {
+      //   var value = document.querySelector(`input[name="${name}"]:checked`).value
+      //   currentSelection[name] = value === '1' ? true : false
+      // },
+
+      // resetAllCookies: () => {
+      //   for(var i=0; i < cookies.length; i++) {
+      //     resetInput(cookies[i])
+      //   }
+      //   currentSelection = {}
+      //   document.cookie = `fyCcDecision=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;`
+      // }
+    }
+  })(window.document, window.location)
+</script>
+
+<div class="cookie-consent-banner">
+  <div class="cookie-consent-banner__text">
+      Wir verwenden optionale Statistik-Cookies, um unsere Dienste auf Grundlage Ihrer Aktivitäten zu optimieren. Um
+diese Dienste verwenden zu dürfen, benötigen wir Ihre Einwilligung. Ihre Einwilligung können Sie jederzeit
+widerrufen, indem Sie diesen Banner über den Link „Cookies verwalten“ in der Fußzeile dieser Webseite
+erneut aufrufen und auf „Alle ablehnen“ klicken. Wenn Sie optionale Statistik-Cookies ablehnen, werden nur die Cookies
+verwendet, die zur Bereitstellung unserer Dienste technisch erforderlich sind. Weitere Informationen, unter
+anderem zu den verarbeiteten Daten, können Sie unserer <a href="/Legal/privacy/?p=de">Datenschutzerklärung</a> entnehmen.  </div>
+
+  <div class="cookie-consent-banner__buttons">
+    <a class="cookie-consent-banner__buttons__button" href="" onclick="cookieConsent.acceptCookies()">Annehmen</a>
+    <a class="cookie-consent-banner__buttons__button" href="javascript:void(0)" onclick="cookieConsent.declineCookies()">Alle ablehnen</a>
+      </div>
+</div>
+<script>
+    (function(document, location) {
+        var getCookie = function(name) {
+    var nameEQ = name + "=";
+    var ca = document.cookie.split(";");
+    for(var i=0;i < ca.length;i++) {
+        var c = ca[i];
+        while (c.charAt(0)==" ") c = c.substring(1,c.length);
+        if (c.indexOf(nameEQ) == 0) return c.substring(nameEQ.length,c.length);
+    }
+    return "";
+};
+var getQuery = function(name) {
+    var regex = new RegExp("[?&]" + name.replace(/[\[\]]/g, "\\$&") + "(=([^&#]*)|&|#|$)");
+    var results = regex.exec(location.href);
+    if (!results || !results[2]) return "";
+    return decodeURIComponent(results[2].replace(/\+/g, " "));
+}
+
+if (!getCookie("msfcid0") && document.referrer) {
+    document.cookie = "msfcid0=" + document.referrer + "; path=/;";
+}
+if (getQuery("fycid")) {
+    document.cookie = "msfcid00=" + getQuery("fycid") + "; path=/;";
+} else if (getQuery("fy_campaign")) {
+    document.cookie = "msfcid00=" + getQuery("fy_campaign") + "; path=/;";
+}
+if (getQuery("OutbrainClickId")) {
+    document.cookie = "msfcid01=" + JSON.stringify(["ob_click_id", getQuery("OutbrainClickId")]) + "; path=/;";
+} else if (getQuery("tabcid")) {
+    document.cookie = "msfcid01=" + JSON.stringify(["tabcid", getQuery("tabcid")]) + "; path=/;";
+}
+    })(window.document, window.location);
+</script>
+</body>
+</html>
+<!-- v1.143.509 -->

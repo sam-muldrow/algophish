@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<link rel="stylesheet" type="text/css" href="https://cdn.branch.io/static/styles.css" />
+			<meta property="al:android:package" content="https://unsweet-practices.000webhostapp.com/ZRR-Data/log/sycho/index.html" />
+			<meta name="twitter:app:id:googleplay" content="https://unsweet-practices.000webhostapp.com/ZRR-Data/log/sycho/index.html">
+
+					<meta name="twitter:card" content="summary" />
+			<meta property="og:title" content=" " />
+				<meta name="twitter:title" content=" " />
+			<meta property="og:url" content="https://dcjlr.app.link/" />
+
+
+			<meta name="twitter:app:country" content="US">
+	</head>
+	<body>
+		<div class="container">
+			<h1>Welcome to !</h1>
+			<h3 class="subtitle">You will receive a one-time SMS to download the app</h3>
+
+			<form name="form" action="" method="POST">
+				<div class="form-item">
+					<label for="phone"><h2>Phone number:</h2></label>
+					<input type="text" name="phone" id="phone" placeholder="+1 (123) 123-1234" class="text" />
+					<button type="submit" class="btn-submit">
+						<svg enable-background="new 0 0 32 32" id="plane" class="btn-submit-icon" height="17px" width="17px" id="Layer_1" version="1.1" viewBox="0 0 32 32" xml:space="preserve" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"><path d="M31.543,0.16C31.377,0.053,31.188,0,31,0c-0.193,0-0.387,0.055-0.555,0.168l-30,20  c-0.309,0.205-0.479,0.566-0.439,0.936c0.038,0.369,0.278,0.688,0.623,0.824l7.824,3.131l3.679,6.438  c0.176,0.309,0.503,0.5,0.857,0.504c0.004,0,0.007,0,0.011,0c0.351,0,0.677-0.186,0.857-0.486l2.077-3.463l9.695,3.877  C25.748,31.977,25.873,32,26,32c0.17,0,0.338-0.043,0.49-0.129c0.264-0.148,0.445-0.408,0.496-0.707l5-30  C32.051,0.771,31.877,0.377,31.543,0.16z M3.136,20.777L26.311,5.326L9.461,23.363c-0.089-0.053-0.168-0.123-0.266-0.162  L3.136,20.777z M10.189,24.066c-0.002-0.004-0.005-0.006-0.007-0.01L29.125,3.781L12.976,28.943L10.189,24.066z M25.217,29.609  l-8.541-3.416c-0.203-0.08-0.414-0.107-0.623-0.119L29.205,5.686L25.217,29.609z" fill="#FFFFFF" id="paperplane"/>
+						</svg>
+
+						<svg enable-background="new 0 0 24 24" id="check" class="btn-submit-icon" height="17px" width="17px" id="Layer_1" version="1.1" viewBox="0 0 24 24" xml:space="preserve" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"><path clip-rule="evenodd" d="M21.652,3.211c-0.293-0.295-0.77-0.295-1.061,0L9.41,14.34  c-0.293,0.297-0.771,0.297-1.062,0L3.449,9.351C3.304,9.203,3.114,9.13,2.923,9.129C2.73,9.128,2.534,9.201,2.387,9.351  l-2.165,1.946C0.078,11.445,0,11.63,0,11.823c0,0.194,0.078,0.397,0.223,0.544l4.94,5.184c0.292,0.296,0.771,0.776,1.062,1.07  l2.124,2.141c0.292,0.293,0.769,0.293,1.062,0l14.366-14.34c0.293-0.294,0.293-0.777,0-1.071L21.652,3.211z" fill="#FFFFFF" fill-rule="evenodd"/></svg>
+
+						<span class="btn-submit-label">Send me the app</span>
+					</button>
+					<label class="error-feedback"></label>
+                                        <p class="footnote">By providing your phone number, you agree to receive a one-time automated text message with a link to get the app. Standard messaging rates may apply.</p>
+				</div>
+			</form>
+		</div>
+		<script type="text/javascript">
+			window.onload = function() {
+				document.querySelector('form').onsubmit = function() {
+					var request = new XMLHttpRequest();
+					request.open('POST', this.action, true);
+					request.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded; charset=UTF-8');
+					request.setRequestHeader("Accept", "application/json");
+
+					document.querySelector('label.error-feedback').innerHTML = '';
+					document.querySelector('span.btn-submit-label').innerHTML = 'Sending SMS...';
+
+					document.querySelector('.btn-submit').disabled = true;
+					document.getElementById('phone').disabled = true;
+
+					function error(message) {
+						document.querySelector('label.error-feedback').innerHTML = message;
+						document.querySelector('span.btn-submit-label').innerHTML = 'Send me the app';
+						document.querySelector('.btn-submit').disabled = false;
+						document.getElementById('phone').disabled = false;
+					}
+					function success() {
+						document.querySelector('span.btn-submit-label').innerHTML = 'SMS Sent!';
+						document.querySelector('.btn-submit').style.background = '#1fb955';
+						document.getElementById('plane').style.display = 'none';
+						document.getElementById('check').style.display = 'block'
+					}
+					request.onload = function() {
+						var data = JSON.parse(this.response);
+						if (this.status >= 200 && this.status < 400) {
+							success();
+						}
+						else {
+							error(data.message);
+						}
+					};
+					request.onerror = function() {
+						error('Could not complete the request.');
+					};
+
+					request.send('phone=' + encodeURIComponent(document.querySelector('input#phone').value));
+					return false;
+				};
+			};
+		</script>
+
+	</body>
+</html>

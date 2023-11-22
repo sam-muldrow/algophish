@@ -1,0 +1,3110 @@
+<!doctype html>
+<html xmlns:wb="http://open.weibo.com/wb">
+<head>
+<meta name="keywords" content="新车评网、选车、用车、互动" />
+<meta name="description" content="新车评网采用先进、严谨的测试流程和评判标准，同时以详尽易懂的形式展现出来，给予消费者最清晰、易明的购车意见" />
+<meta name="author" content="新车评" />
+<meta property="qc:admins" content="6660202237601630501676375" />
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta http-equiv="X-UA-Compatible" content="IE=9" />
+<meta http-equiv="X-UA-Compatible" content="IE-edge,chrome=1" />
+<title>新车评网_新车评网、选车、用车、互动</title>
+<script type="text/javascript" src="https://res.xincheping.com/old/www/js/jquery-1.9.js"></script>
+<script type="text/javascript" src="https://res.xincheping.com/old/www/js/jquery.cookie.js"></script>
+<script type="text/javascript" src="https://res.xincheping.com/old/www/js/xcp-common-v3.js" merge="true"></script>
+<link rel="stylesheet" type="text/css" href="https://res.xincheping.com/old/www/css/public_comd.css" />
+<link rel="stylesheet" type="text/css" href="https://res.xincheping.com/old/www/css/xcp-common.css" />
+<style>
+body .layer-ext-xcp .layui-layer-ico13 {
+background: url("/js/layer/skin/xcp/cool.png") no-repeat;
+}
+</style>
+<!--2. 引入crypto相关js-->
+<script src="https://res.xincheping.com/js/modules/crypto/crypto.api.min.v2.js"></script>
+<script src="//tjs.sjs.sinajs.cn/open/api/js/wb.js" type="text/javascript" charset="utf-8"></script>
+<script type="text/javascript" src="https://res.xincheping.com/old/www/js/idx_showcase.js"></script>
+<!-- 新增短视频样式 -->
+<link rel="stylesheet" type="text/css" href="https://res.xincheping.com/css/2020/pc/shortVideo.css" />
+<!-- 右侧部落css -->
+<link href="https://res.xincheping.com/css/2020/pc/new_right.css" rel="stylesheet" />
+<script type="text/javascript">
+$(function() {
+$("#showcase").awShowcase({
+content_width : 720,
+content_height : 345,
+fit_to_parent : false,
+auto : true,
+interval : 5000,
+continuous : true,
+loading : true,
+tooltip_width : 200,
+tooltip_icon_width : 32,
+tooltip_icon_height : 32,
+tooltip_offsetx : 18,
+tooltip_offsety : 0,
+arrows : false,
+buttons : false,
+btn_numbers : false,
+keybord_keys : true,
+mousetrace : false, /* Trace x and y coordinates for the mouse */
+pauseonover : true,
+stoponclick : true,
+transition : 'fade', /* hslide/vslide/fade */
+transition_delay : 300,
+transition_speed : 500,
+show_caption : 'show', /* onload/onhover/show */
+thumbnails : true,
+thumbnails_position : 'outside-last', /* outside-last/outside-first/inside-last/inside-first */
+thumbnails_direction : 'vertical', /* vertical/horizontal */
+thumbnails_slidex : 0, /* 0 = auto / 1 = slide one thumbnail / 2 = slide two thumbnails / etc. */
+dynamic_height : false, /* For dynamic height to work in webkit you need to set the width and height of images in the source. Usually works to only set the dimension of the first slide in the showcase. */
+speed_change : false, /* Set to true to prevent users from swithing more then one slide at once. */
+viewline : false
+/* If set to true content_width, thumbnails, transition and dynamic_height will be disabled. As for dynamic height you need to set the width and height of images in the source. */
+});
+});
+</script>
+<script type="text/javascript" src="https://res.xincheping.com/old/www/js/common.js"></script>
+<script type="text/javascript" src="https://res.xincheping.com/old/www/js/searchbox.js"></script>
+<script type="text/javascript" src="https://res.xincheping.com/old/www/js/MSClass.js"></script>
+<script type="text/javascript" src="https://res.xincheping.com/old/www/js/jquery.easing.1.3.js"></script>
+<script type="text/javascript" src="https://res.xincheping.com/old/www/js/jquery.skitter.min.js"></script>
+<script type="text/javascript" src="https://res.xincheping.com/old/www/js/Sliderv.1.3-min.js"></script>
+<link href="https://res.xincheping.com/old/www/css/idxstyle.css" rel="stylesheet" type="text/css">
+<style>
+/*暂时关闭佛山工厂专题的评论*/
+#cmt_span_311_9{display:none;}
+#cmt_span_312_9{display:none;}
+</style>
+<script type="text/javascript">
+var page = 1;
+$(function() {
+/* $("#listemUl").load("/index/left.do",function(){
+loadCmt(1);
+}); */
+loadCmt(page);
+showScroll();
+function showScroll() {
+$(window).scroll(
+function() {
+var scrollValue = $(window).scrollTop();
+scrollValue > 0 ? $('div[class=goto_top]').fadeIn()
+: $('div[class=goto_top]').fadeOut();
+});
+$('#goto_top').click(function() {
+$("html,body").animate({
+scrollTop : 0
+}, 500);
+});
+}
+$("#loadmore").click(
+function() {
+$("#dataLoad").load(
+"/index/left/p" + page + ".do?t="
++ new Date().getTime(), function() {
+var ht = $("#dataLoad").html();
+$("#dataLoad").html("");
+if (ht == "" || ht == "undefined") {
+$("#loadmore").remove();
+return;
+} else {
+$("#listemUl").append(ht);
+loadCmt(page);
+//page++;
+}
+});
+});
+// $("#loadmore1")
+// 		.click(
+// 				function() {
+// 					var URL = "/index/p" + page + ".do";
+// 					$
+// 							.ajax({
+// 								url : URL,
+// 								data : {},
+// 								dataType : "json",
+// 								type : "post",
+// 								success : function(res) {
+// 									if (res.code < 1
+// 											|| res.result.list.length < 0) {
+// 										$("#loadmore").remove();
+// 									} else {
+// 										var str = "";
+// 										$
+// 												.each(
+// 														res.result.list,
+// 														function(i, obj) {
+// 															if(obj.typeNum == 22){
+// 																str += obj.htContent;
+// 															}else{
+// 																str += "<li class='"+obj.className+"'>";
+// 																if (obj.typeNum == 6) {
+// 																	var cls = i % 3 == 1 ? "style='background-color:#f1f1f1;'"
+// 																			: i % 3 == 2 ? "style='background-color:#d2e7ff;'"
+// 																					: "style='background-color:#fff5e4;'";
+// 																	str += "<h4 class='bg bg_site'></h4>";
+// 																	str += "<div class='dg_bg' "+cls+" >";
+// 																	str += "<a href='#' target='_blank'>"
+// 																			+ obj.summary
+// 																			+ "</a>";
+// 																	str += "</div>";
+// 																	str += "<p>热心网友已回答</p>";
+// 																	str += "<h5><a href='/cmt/"+obj.typeNum+"/"+obj.typeId+"/r0.html' target='_blank'>查看全部"
+// 																			+ obj.cmtCount
+// 																			+ "条回答</a></h5>";
+// 																	if (obj.keyWords != ""
+// 																			&& typeof (obj.keyWords) != "undefined"
+// 																			&& obj.keyWords.length > 0) {
+// 																		str += "<div class='tag'>关键词：";
+// 																		$
+// 																				.each(
+// 																						obj.keyWords,
+// 																						function(
+// 																								j,
+// 																								ky) {
+// 																							str += "<a href='#' target='_blank'>"
+// 																									+ ky
+// 																									+ "</a>";
+// 																						});
+// 																		str += "</div>";
+// 																	}
+// 																	str += "<div class='timer'><span id='cmt_span_"+obj.typeNum+"-"+obj.typeId+"'><a href='/cmt/"+obj.typeNum+"/"+obj.typeId+"/r0.html' target='_blank' class='comd'>"
+// 																			+ obj.cmtCount
+// 																			+ "</a></span>"
+// 																			+ obj.time
+// 																			+ "</div>";
+// 																} else {
+// 																	str += "<h4 class='bg bg_site'></h4>"
+// 																			+ "<div class='h_img'>"
+// 																			+ "<a href='"+obj.pubLink+"' target='_blank'>"
+// 																			+ "<img src='"+obj.picUrl+"' width='270' height='180'></a></div>";
+// 																	if (obj.typeNum == 2) {
+// 																		str += "<div class='player bg'></div>";
+// 																	}
+// 																	str += "<h3><a href='"+obj.pubLink+"' target='_blank'>"
+// 																			+ obj.title
+// 																			+ "</a></h3>";
+// 																	if (obj.keyWords != ""
+// 																			&& typeof (obj.keyWords) != "undefined"
+// 																			&& obj.keyWords.length > 0) {
+// 																		str += "<div class='tag'>关键词：";
+// 																		$
+// 																				.each(
+// 																						obj.keyWords,
+// 																						function(
+// 																								j,
+// 																								ky) {
+// 																							str += "<a href='#' target='_blank'>"
+// 																									+ ky
+// 																									+ "</a>";
+// 																						});
+// 																		str += "</div>";
+// 																	}
+// 																	str += "<div class='timer'>"
+// 																			+ "<span id='cmt_span_"+obj.typeNum+"-"+obj.typeId+"'><a href='/cmt/"+obj.typeNum+"/"+obj.typeId+"/r0.html' target='_blank' class='comd'>"
+// 																			+ obj.cmtCount
+// 																			+ "</a>"
+// 																			+ "</span>"
+// 																			+ obj.time
+// 																			+ "</div>";
+// 																}
+// 																str += "</li>";
+// 															}
+// 														});
+// 										$("#listemUl").append(str);
+// 										page++;
+// 									}
+// 								}
+// 							});
+// 				});
+/*深圳弹窗 start*/
+/* $("#xcp_min").click(function(){
+$(".xcp_alllist").css("display","none");
+$("#xcp_szbox").css("height","20px");
+});
+$("#xcp_max").click(function(){
+$("#xcp_szbox").css("height","336px");
+$(".xcp_alllist").css("display","block");
+});
+$("#xcp_cls").click(function(){
+$("#xcp_szbox").hide();
+}); */
+/*深圳弹窗 end*/
+/*首页顶部巨幅广告，5秒后删除*/
+setTimeout(function() {
+$('#button2big').slideUp(2000);
+$('#button2small').fadeIn(1500);
+}, 5000);
+/*首页顶部巨幅广告 end*/
+//手机上显示
+if (navigator.userAgent.match(/(iPhone|Android)/i)) {
+$("#mobile").show();
+}
+});
+function loadCmt(pager) {
+//console.log("pager="+pager);
+var $elements = $("#listemUl .left_cmd_" + pager + " .cmt_cnt_a");
+var param = "";
+$elements.each(function() {
+var $this = $(this);
+var tmp = $this.attr('dataType');
+if (tmp == "" || tmp == "undefined") {
+return true;
+}
+param += "," + tmp;
+});
+if (param != "") {
+param = param.substring(1);
+} else {
+return;
+}
+$.ajax({
+url : "/index/load/cmt.do",
+data : {
+'param' : param
+},
+dataType : "json",
+type : "post",
+success : function(res) {
+if (res.code == 1) {
+$.each(res.result, function(k, v) {
+if(parseInt(v) >= 0){
+$("#ct_" + k).html(v);
+$("#qa_" + k).html(v);
+$("#qact_" + k).html(v);
+$("#cus_qa_no_" + k).hide();
+$("#cus_qa_" + k).show();
+$("#cmt_span_" + k).removeClass("hide");
+}else{
+$("#ct_" + k).remove();
+}
+});
+page++;
+}
+}
+});
+}
+</script>
+<script type="text/javascript">
+$(document).ready(
+function() {
+//头条切换
+var $tab_li2 = $('#tab0 ul li');
+$tab_li2.mouseover(function() {
+$(this).addClass('selected').siblings().removeClass(
+'selected');
+var index = $tab_li2.index(this);
+$('#tab0 .video_lb .video_box_box').eq(index).show()
+.siblings().hide();
+});
+//下拉单
+$(".hmain").hover(function(){
+$(this).children(".xld").stop().slideDown();
+$(this).children(".xld").css("height","auto");
+changeIcon($(this).children("a"));
+},function(){
+$(this).children(".xld").stop().slideUp();
+$(this).children(".xld").css("height","auto");
+changeIcon($(this).children("a"));
+});
+});
+</script>
+<link href="https://res.xincheping.com/css/2016/pc/v1/new.css" rel="stylesheet">
+</head>
+<body>
+<div class="goto_tel" id="mobile">
+<h2>
+<a href="https://m.xincheping.com/" rel="nofollow">返回手机版</a>
+</h2>
+</div>
+<!--androad end-->
+<div class="narmaladvbox" id="button2big">
+<div class="narmaladv_inner" id="xcp_adv_p_91"></div>
+</div>
+<div class="narmaladvbox" id="button2small" style="display:none;">
+<div class="narmaladv_inner" id="xcp_adv_p_92"></div>
+</div>
+<div class="narmaladvbox">
+<div class="narmaladv_inner" id="xcp_adv_p_93"></div>
+</div>
+<div class="narmaladvbox">
+<div class="narmaladv_inner" id="xcp_adv_p_94"></div>
+</div>
+<!--head start-->
+<link href="https://res.xincheping.com/css/2020/pc/newHead.css" rel="stylesheet" type="text/css">
+<!-- ==新版导航==-->
+<div class="new_header">
+<div class="topbox fs12">
+<div class="topbox_inner">
+<a href="https://m.xincheping.com/" id="mobile"
+style="display:none;color:red;font-weight:bold;font-size:28px;padding-bottom:20px;"
+target="_blank">返回手机版</a>&nbsp;
+<div class="top_left"></div>
+<!-- 登录前 -->
+<div class="top_login_box_0 top_right" id="top_login_box_0">
+<span>您好！欢迎来到新车评网</span>&nbsp;&nbsp;&nbsp;&nbsp; <a href="javascript:void(0);" id="loginbnt" rel="nofollow" onclick="XCP_UC.popupLoginWin('onHeaderLogin',window.location.href);">登录</a>｜
+<a href="/uc/reg.html" target="_blank">注册</a>｜
+<a href="javascript:void(0);" onclick="XCP_Util.setHome(window.location)" rel="nofollow">设为首页</a>
+<!-- 上方手机新车评下拉单 Start-->
+<span class="xcp">
+<div class="sjxcp"><em class="sjxcp1">手机新车评</em><em class="sjxcp2"></em></div>
+<div class="sjk" style="display: none;">
+<div class="sjk1"><a href="https://www.xincheping.com/special/201606/appdownload/index.html" target="_blank"><span class="sjk1_tit">新车评APP</span></a></div>
+<div class="sjk2"></div>
+</div>
+</span>
+<!-- 上方手机新车评下拉单 End-->
+</div>
+<!-- 登录前 -->
+<!-- 登录后 -->
+<div style="display: none;" id="top_login_box_1" class="top_right" >
+<span class="loginedtip"><a target="_blank" id="headerUsername" class="d_color d_name" href="">新车评网友</a></span>
+<a target="_blank" href="/uc/i/msg/notice.html"  class="mess">消息<em class="new_message" id="headerNoticeCount">0</em></a>
+<a target="_blank" href="/uc/i/setting/info.html">设置</a>
+<a onclick="XCP_UC.submitLogout(null,true)" href="javascript:void(0);">退出</a>
+<!-- 上方手机新车评下拉单 Start-->
+<span class="xcp">
+<div class="sjxcp"><em class="sjxcp1">手机新车评</em><em class="sjxcp2"></em></div>
+<div class="sjk" style="display: none;">
+<div class="sjk1"><a href="https://res.xincheping.com/special/201606/appdownload/index.html" target="_blank"><span class="sjk1_tit">新车评APP</span></a></div>
+<div class="sjk2"></div>
+</div>
+</span>
+<!-- 上方手机新车评下拉单 End-->
+</div>
+<!--登录后-->
+</div>
+</div>
+<div class="xcp_nav">
+<div class="new_subnav">
+<div class="new_logo">
+<a target="_blank" href="https://www.xincheping.com/">新车评</a>
+</div>
+<!-- 导航分类-->
+<!-- 导航分类-->
+<div class="new_nav">
+<div class="new_box new_box_1">
+<!-- <div class="top_tit"><a target="_blank" href="/xuanche/">选车</a></div> -->
+<div class="li_text ">
+<div class="hmain">
+<a class="jian-tou" target="_blank" href="/video/">视频 <img src="https://res.xincheping.com/images/2020/pc/v1/t_down.png" />  </a>
+<ul class="xld xld_1">
+<li><a target="_blank" href="/video/type/998.html">新车抢鲜评</a></li>
+<li><a target="_blank" href="/video/type/1024.html">最强对比</a></li>
+<li><a target="_blank" href="/video/type/1011.html">新车评Let's购</a></li>
+<li><a target="_blank" href="/video/type/1027.html">新车大真探</a></li>
+<li><a target="_blank" href="/video/type/1034.html">电动新车评</a></li>
+<li><a target="_blank" href="/video/type/1033.html">社论</a></li>
+<li><a target="_blank" href="/video/type/1015.html">原来是这样</a></li>
+<li><a target="_blank" href="/video/type/1032.html">趣拍 TIME</a></li>
+<li><a target="_blank" href="/video/type/1025.html">自驾游记</a></li>
+<li><a target="_blank" href="/video/type/1013.html">往期视频</a></li>
+</ul>
+</div>
+<div class="hmain">
+<a class="jian-tou" target="_blank" href="/pingce/">车评   <img src="https://res.xincheping.com/images/2020/pc/v1/t_down.png" /></a>
+<ul class="xld xld_2">
+<li><a target="_blank" href="/pingce/firsttry/">新车首试</a></li>
+<li><a target="_blank" href="/pingce/cheping/">深度车评</a></li>
+<li><a target="_blank" href="/pingce/duibi/">对比测试</a></li>
+<li><a target="_blank" href="/pingce/youhao/">性能测试</a></li>
+<li><a target="_blank" href="/pingce/shouji/">试驾手记</a></li>
+<li><a target="_blank" href="/pingce/shuaitui/">衰退测试</a></li>
+</ul>
+</div>
+<div class="hmain">
+<a class="jian-tou" target="_blank" href="/article">文章  <img src="https://res.xincheping.com/images/2020/pc/v1/t_down.png" /></a>
+<ul class="xld xld_3">
+<li><a target="_blank" href="/views">观点</a></li>
+<li><a target="_blank" href="/cehua">百科</a></li>
+<li><a target="_blank" href="/news">资讯</a></li>
+<li><a target="_blank" href="/hangyefx">车市</a></li>
+<li><a target="_blank" href="/changce/">长测</a></li>
+</ul>
+</div>
+<div class="hmain">
+<a class="jian-tou" target="_blank" href="/tribe/index.html">互动   <img src="https://res.xincheping.com/images/2020/pc/v1/t_down.png" /></a>
+<ul class="xld xld_4">
+<li><a target="_blank" href="/daogou">问答</a></li>
+<li><a target="_blank" href="/drivecar/index.html">约驾</a></li>
+<li><a target="_blank" href="/tribe/index.html">部落</a></li>
+<li><a target="_blank" href="/gift/">欢乐送</a></li>
+</ul>
+</div>
+<div class="hmain">
+<a class="jian-tou" target="_blank" href="/aotu/">用车   <img src="https://res.xincheping.com/images/2020/pc/v1/t_down.png" /></a>
+<ul class="xld xld_5">
+<li><a target="_blank" href="/aotu/rookie/t0/r0.html">学堂</a></li>
+<li><a target="_blank" href="/aotu/culture/t0/r0.html">游记</a></li>
+</ul>
+</div>
+<div class="hmain">
+<a href="/jijie/index.html" class="jian-tou" target="_blank">集结号</a>
+</div>
+</div>
+</div>
+<!-- 电动新车评logo -->
+<div class="new_box new-db">
+<a target="_blank" href="/ev/"></a>
+</div>
+</div>
+<style>
+/* .new_box_1{width:248px;}
+.new_box_1 .li_text{width:176px}
+.new_box_2{width:111px;}
+.new_box_2 .li_text{width:38px} */
+</style>
+<!-- 导航分类-->
+<!-- 搜索栏-->
+<a class="ksxc" href="/car/" target="_blank">快速选车</a>
+<div class="xc_input">
+<form class="search_form2" action="/search/zonghe.do" target="_blank">
+<input name="q" placeholder="可查找一部车的文章、图片、视频……" type="text" class="xc_text"><input name="" type="submit" class="xc_ssbt" value="">
+</form>
+<script type="text/javascript">
+//<[!CDATA[
+$(function() {
+$(".search_form2").submit(function() {
+var keyword = $(".search_form2 input[type='text']").val();
+keyword = keyword.replace(/^\s+|\s+$/, "");
+if (keyword.length != 0) {
+return true;
+} else {
+return false;
+}
+window.location.href = '/search/zonghe.do?q='+keyword;
+return false;
+});
+//上方手机新车评下拉单
+$(".xcp").hover(function(){
+$(this).children(".sjk").stop().slideDown();
+},function(){
+$(this).children(".sjk").stop().slideUp();
+});
+});
+//]]>
+</script>
+</div>
+<!-- 搜索栏-->
+</div>
+</div>
+</div>
+<script type="text/javascript">
+//登录成功的回调
+function onHeaderLogin(j){
+$("#mycars").attr('href', "/uc/"+j.result.id+"/car.html");
+}
+function onNoticeLogin(j){
+onNoticeGetLoginedUser(j);
+}
+//登出成功回调
+function onNoticeLogout(j){
+if(j.code == 1){
+$("#top_login_box_1").hide();
+$("#top_login_box_0").show();
+}
+}
+function onNoticeGetLoginedUser(j){
+if(j.code == 1){
+$("#mycars").attr('href', "/uc/"+j.result.id+"/car.html");
+$("#top_login_box_0").hide();
+$("#headerUsername").html(j.result.nickName);
+$("#headerUsername").attr('href', '/uc/' + j.result.id + '.html');
+var count = 0;
+if(j.result.newCmtNotice > 0){
+count = count + j.result.newCmtNotice;
+}
+if(j.result.newPraiseNotice > 0){
+count = count + j.result.newPraiseNotice;
+}
+if(j.result.notice > 0){
+count = count + j.result.notice;
+}
+if(j.result.msg > 0){
+count = count + j.result.msg;
+}
+/* if(j.result.msg > 0){
+$("#headerMsgCount").html("("+j.result.msg+")");
+}else{
+$("#headerMsgCount").hide();
+} */
+if(count > 0){
+$("#headerNoticeCount").html(count+"");
+}else{
+$("#headerNoticeCount").hide();
+}
+$("#top_login_box_1").show();
+}
+}
+//检测登录用户
+XCP_UC.addLoginListener(onNoticeLogin);
+XCP_UC.addLogoutListener(onNoticeLogout);
+XCP_UC.addGetLoginedUserListener(onNoticeGetLoginedUser);
+XCP_UC.loadLoginedUser();
+</script>
+<!--head end-->
+<!--banner start-->
+<!-- 新年背景 Start-->
+<div class="index_bg">
+<div class="main">
+<div class="narmaladvbox">
+<div class="narmaladv_inner" id="xcp_adv_p_95"></div>
+</div>
+<div class="narmaladvbox">
+<div class="narmaladv_inner" id="xcp_adv_p_96"></div>
+</div>
+<div class="narmaladvbox">
+<div class="narmaladv_inner" id="xcp_adv_p_97"></div>
+</div>
+<div class=" banner1">
+<div id="banner_tabs" class="flexslider main_video">
+<!-- 上方图片区域 -->
+<div class="slides">
+<div class="video_box_box">
+<div class="video_box_pic">
+<a href="https://www.xincheping.com/video/28884.html" target="_blank">
+<img src="https://p.xincheping.com/202311/83/dim1500x620_20c50597c44ed98f16b7a8bcfa82fa.jpg" alt="最好开的比亚迪，凭什么才卖20万？！" title="最好开的比亚迪，凭什么才卖20万？！">
+</a>
+</div>
+<div class="video_box_text">
+<h2><a href="https://www.xincheping.com/video/28884.html" target="_blank">最好开的比亚迪，凭什么才卖20万？！</a></h2>
+<!-- <p>小字体描述小字体描述小字体描述</p> -->
+</div>
+</div>
+<div class="video_box_box">
+<div class="video_box_pic">
+<a href="https://www.xincheping.com/video/28886.html" target="_blank">
+<img src="https://p.xincheping.com/202311/08/dim1500x620_413c24ca834e3f8f085821ee6f8874.jpg" alt="充电实测！充电1分钟续航5公里 竟然排名垫底了？" title="充电实测！充电1分钟续航5公里 竟然排名垫底了？">
+</a>
+</div>
+<div class="video_box_text">
+<h2><a href="https://www.xincheping.com/video/28886.html" target="_blank">充电实测！充电1分钟续航5公里 竟然排名垫底了？</a></h2>
+<!-- <p>小字体描述小字体描述小字体描述</p> -->
+</div>
+</div>
+<div class="video_box_box">
+<div class="video_box_pic">
+<a href="https://www.xincheping.com/video/28885.html" target="_blank">
+<img src="https://p.xincheping.com/202311/3f/dim1500x620_417172c396403fa0baafbf9aa64350.jpg" alt="大众优惠8w 丰田优惠4w 车展买车优惠这么大吗？" title="大众优惠8w 丰田优惠4w 车展买车优惠这么大吗？">
+</a>
+</div>
+<div class="video_box_text">
+<h2><a href="https://www.xincheping.com/video/28885.html" target="_blank">大众优惠8w 丰田优惠4w 车展买车优惠这么大吗？</a></h2>
+<!-- <p>小字体描述小字体描述小字体描述</p> -->
+</div>
+</div>
+<div class="video_box_box">
+<div class="video_box_pic">
+<a href="https://www.xincheping.com/video/28868.html" target="_blank">
+<img src="https://p.xincheping.com/202311/2b/dim1498x618_85c3999d17437e8435f3b41bedd57f.png" alt="上汽大众纯电概念轿车ID.NEXT亮相" title="上汽大众纯电概念轿车ID.NEXT亮相">
+</a>
+</div>
+<div class="video_box_text">
+<h2><a href="https://www.xincheping.com/video/28868.html" target="_blank">上汽大众纯电概念轿车ID.NEXT亮相</a></h2>
+<!-- <p>小字体描述小字体描述小字体描述</p> -->
+</div>
+</div>
+<div class="video_box_box">
+<div class="video_box_pic">
+<a href="https://www.xincheping.com/cehua/142070.html" target="_blank">
+<img src="https://p.xincheping.com/202311/6a/dim1500x620_dc1688a54c4a1baa7bfc8e3415ef6e.jpg" alt="车展看它们就够了！2023广州车展新车视频合集" title="车展看它们就够了！2023广州车展新车视频合集">
+</a>
+</div>
+<div class="video_box_text">
+<h2><a href="https://www.xincheping.com/cehua/142070.html" target="_blank">车展看它们就够了！2023广州车展新车视频合集</a></h2>
+<!-- <p>小字体描述小字体描述小字体描述</p> -->
+</div>
+</div>
+<div class="video_box_box">
+<div class="video_box_pic">
+<a href="https://www.xincheping.com/video/28862.html" target="_blank">
+<img src="https://p.xincheping.com/202311/26/dim1500x620_079742d10b4cbe9f1222cb70d8304b.jpg" alt="焕新首秀，全新第九代凯美瑞亮相" title="焕新首秀，全新第九代凯美瑞亮相">
+</a>
+</div>
+<div class="video_box_text">
+<h2><a href="https://www.xincheping.com/video/28862.html" target="_blank">焕新首秀，全新第九代凯美瑞亮相</a></h2>
+<!-- <p>小字体描述小字体描述小字体描述</p> -->
+</div>
+</div>
+<div class="video_box_box">
+<div class="video_box_pic">
+<a href="https://www.xincheping.com/video/28880.html" target="_blank">
+<img src="https://p.xincheping.com/202311/2e/dim1500x620_94084646614e9b9b5652372fe10b80.jpg" alt="海洋家族猛将海狮07EV来袭！" title="海洋家族猛将海狮07EV来袭！">
+</a>
+</div>
+<div class="video_box_text">
+<h2><a href="https://www.xincheping.com/video/28880.html" target="_blank">海洋家族猛将海狮07EV来袭！</a></h2>
+<!-- <p>小字体描述小字体描述小字体描述</p> -->
+</div>
+</div>
+<div class="video_box_box">
+<div class="video_box_pic">
+<a href="https://www.xincheping.com/video/28876.html" target="_blank">
+<img src="https://p.xincheping.com/202311/c5/dim1200x800_b6f15a8a054dd1bffd4565c0153915.jpg" alt="怪不得这么多人！原来最好的比亚迪都来广州车展了" title="怪不得这么多人！原来最好的比亚迪都来广州车展了">
+</a>
+</div>
+<div class="video_box_text">
+<h2><a href="https://www.xincheping.com/video/28876.html" target="_blank">怪不得这么多人！原来最好的比亚迪都来广州车展了</a></h2>
+<!-- <p>小字体描述小字体描述小字体描述</p> -->
+</div>
+</div>
+</div>
+<ul id="bannerCtrl" class="flex-control-nav flex-control-paging video_box_tab">
+<li class="active">
+<span class="video_box_btnbox"><a href="https://www.xincheping.com/video/28884.html" target="_blank"><img src="https://p.xincheping.com/202311/83/dim1500x620_20c50597c44ed98f16b7a8bcfa82fa_100.jpg"></a></span>
+<span class="video_box_btn"></span>
+</li>
+<li >
+<span class="video_box_btnbox"><a href="https://www.xincheping.com/video/28886.html" target="_blank"><img src="https://p.xincheping.com/202311/08/dim1500x620_413c24ca834e3f8f085821ee6f8874_100.jpg"></a></span>
+<span class="video_box_btn"></span>
+</li>
+<li >
+<span class="video_box_btnbox"><a href="https://www.xincheping.com/video/28885.html" target="_blank"><img src="https://p.xincheping.com/202311/3f/dim1500x620_417172c396403fa0baafbf9aa64350_100.jpg"></a></span>
+<span class="video_box_btn"></span>
+</li>
+<li >
+<span class="video_box_btnbox"><a href="https://www.xincheping.com/video/28868.html" target="_blank"><img src="https://p.xincheping.com/202311/2b/dim1498x618_85c3999d17437e8435f3b41bedd57f_100.png"></a></span>
+<span class="video_box_btn"></span>
+</li>
+<li >
+<span class="video_box_btnbox"><a href="https://www.xincheping.com/cehua/142070.html" target="_blank"><img src="https://p.xincheping.com/202311/6a/dim1500x620_dc1688a54c4a1baa7bfc8e3415ef6e_100.jpg"></a></span>
+<span class="video_box_btn"></span>
+</li>
+<li >
+<span class="video_box_btnbox"><a href="https://www.xincheping.com/video/28862.html" target="_blank"><img src="https://p.xincheping.com/202311/26/dim1500x620_079742d10b4cbe9f1222cb70d8304b_100.jpg"></a></span>
+<span class="video_box_btn"></span>
+</li>
+<li >
+<span class="video_box_btnbox"><a href="https://www.xincheping.com/video/28880.html" target="_blank"><img src="https://p.xincheping.com/202311/2e/dim1500x620_94084646614e9b9b5652372fe10b80_100.jpg"></a></span>
+<span class="video_box_btn"></span>
+</li>
+<li >
+<span class="video_box_btnbox"><a href="https://www.xincheping.com/video/28876.html" target="_blank"><img src="https://p.xincheping.com/202311/c5/dim1200x800_b6f15a8a054dd1bffd4565c0153915_100.jpg"></a></span>
+<span class="video_box_btn"></span>
+</li>
+</ul>
+</div>
+<script type="text/javascript" src="https://res.xincheping.com/js/2016/pc/v1/focus_slider.js"></script>
+<script type="text/javascript">
+$(function() {
+var bannerSlider = new Slider($('#banner_tabs'), {
+time: 4000,
+delay: 400,
+event: 'hover',
+auto: true,
+mode: 'fade',
+controller: $('#bannerCtrl'),
+activeControllerCls: 'active'
+});
+})
+</script>
+<div class="ban_shu">
+<ul class="ban_shu_ul">
+<li class="top"><a class="ul0" target="_blank" href="/car/"></a></li>
+<li><a class="ul1" target="_blank" href="/car/search-u1.html">上下班代步</a></li>
+<li><a class="ul2" target="_blank" href="/car/search-u2.html">周末出游</a></li>
+<li><a class="ul3" target="_blank" href="/car/search-u3.html">接送孩子</a></li>
+<li><a class="ul4" target="_blank" href="/car/search-u4.html">户外自驾</a></li>
+<li><a class="ul5" target="_blank" href="/car/search-u5.html">城际往来</a></li>
+<li><a class="ul6" target="_blank" href="/car/search-u6.html">商务形象</a></li>
+</ul>
+</div>
+<!-- 右边文本 -->
+<div class="right_text">
+<div class="home_title">
+<a href="https://www.xincheping.com/video/28809.html" target="_blank"
+class=" fs16 fc0 bold"> 百度的辅助驾驶，超过特斯拉？
+</a>
+</div>
+<h4 class="home_h4">
+<a href="https://www.xincheping.com/video/28703.html" target="_blank"
+class="fc0 h_underline fs12">
+终于，中国人也能造出媲美MX-5的跑车了
+</a>
+</h4>
+<ul class="home_ul fs12">
+<li><a href="https://www.xincheping.com/cehua/141439.html"
+target="_blank" class="fc0 h_underline"> 实地调查是这样！
+</a></li>
+<li><a href="https://www.xincheping.com/cehua/141437.html"
+target="_blank" class="fc0 h_underline"> 特斯拉会再降价？
+</a></li>
+<li><a href="https://www.xincheping.com/youxuan/v2/43.html"
+target="_blank" class="fc0 h_underline">
+<font style="color:red;">9月好车评选</font>
+</a></li>
+<li><a href="https://www.xincheping.com/views/140563.html"
+target="_blank" class="fc0 h_underline"> 汽车大佬在两会说了啥
+</a></li>
+</ul>
+<div class="home_title" style="clear:both;margin-top:12px;">
+<a href="https://www.xincheping.com/news/141469.html" target="_blank"
+class=" fs16 fc0 bold"> 配车载游戏，全新MINI车机曝光
+</a>
+</div>
+<h4 class="home_h4">
+<a href="https://www.xincheping.com/video/28623.html" target="_blank"
+class="fc0 h_underline fs12">
+玛莎GT终于换代！燃油和纯电怎么选？
+</a>
+</h4>
+<ul id="homehul" class="home_ul fs12">
+<li><a href="https://www.xincheping.com/cehua/141317.html"
+target="_blank" class="fc0 h_underline"> 进城就要交拥堵费？
+</a></li>
+<li><a href="https://www.xincheping.com/cehua/141398.html"
+target="_blank" class="fc0 h_underline"> 合资紧凑家轿降价盘点
+</a></li>
+<li><a href="https://www.xincheping.com/video/28625.html"
+target="_blank" class="fc0 h_underline"> 最强A0级电动代步车
+</a></li>
+<li><a href="https://www.xincheping.com/views/141345.html"
+target="_blank" class="fc0 h_underline"> 世界车将会是中国造
+</a></li>
+</ul>
+<!--右上角广告位-->
+<div class="tp" id="xcp_adv_p_277"></div>
+</div>
+<!-- 右边文本 -->
+</div>
+</div>
+<!--banner end-->
+<div class="narmaladvbox">
+<div class="narmaladv_inner" id="xcp_adv_p_101"></div>
+</div>
+<div class="narmaladvbox">
+<div class="narmaladv_inner" id="xcp_adv_p_102"></div>
+</div>
+<div class="narmaladvbox">
+<div class="narmaladv_inner" id="xcp_adv_p_263"></div>
+</div>
+<!--content start-->
+<div class="content">
+<div class="left">
+<div class="listem">
+<ul id="listemUl">
+<!-- load -->
+<li class="newsDb left_cmd_1">
+<h4 class="sbg bg_db"></h4>
+<div class="h_img">
+<a href="https://www.xincheping.com/ev/142092.html" target="_blank">
+<img src="https://p.xincheping.com/202311/40/dim1116x818_76caccb49f4c15a95abf72485f2f20_r3x2-309.png" width="270" height="180" alt="悍马借电复活！千匹马力+800V，要干它还得靠比亚迪？" title="悍马借电复活！千匹马力+800V，要干它还得靠比亚迪？">
+</a>
+</div>
+<h3><a href="https://www.xincheping.com/ev/142092.html" target="_blank">悍马借电复活！千匹马力+800V，要干它还得靠比亚迪？</a></h3>
+<div class="tag">
+关键词：
+<a href="/search/zonghe.do?q=悍马" target="_blank">悍马</a>
+<a href="/search/zonghe.do?q=纯电皮卡" target="_blank">纯电皮卡</a>
+<a href="/search/zonghe.do?q=越野车" target="_blank">越野车</a>
+</div>
+<div class="timer">
+<span id="cmt_span_142092_1" class="hide">
+<a href="https://www.xincheping.com/ev/142092.html#toCmt=1" dataType="1-142092" target="_blank" class="comd cmt_cnt_a" id="ct_142092_1">0</a>
+</span>2023-11-22</div>
+</li>
+<li class="cheshi left_cmd_1">
+<h4 class="bg bg_site"></h4>
+<div class="h_img">
+<a href="https://www.xincheping.com/cehua/142079.html" target="_blank">
+<img src="https://p.xincheping.com/202311/58/dim6000x4000_47fae1dce54ec891cd6c061b8032de_r3x2-309.jpg" width="270" height="180"     alt="MPV疯卷的时代，终于卷出了40万级的七座之王"  title="MPV疯卷的时代，终于卷出了40万级的七座之王"/>
+</a>
+</div>
+<h3><a href="https://www.xincheping.com/cehua/142079.html" target="_blank">MPV疯卷的时代，终于卷出了40万级的七座之王</a></h3>
+<div class="tag">
+关键词：
+<a href="/search/zonghe.do?q=小鹏" target="_blank">小鹏</a>
+<a href="/search/zonghe.do?q=X9" target="_blank">X9</a>
+<a href="/search/zonghe.do?q=MPV" target="_blank">MPV</a>
+</div>
+<div class="timer"><span id="cmt_span_142079_1" class="hide"><a href="https://www.xincheping.com/cehua/142079.html#toCmt=1" dataType="1-142079" target="_blank" class="comd cmt_cnt_a" id="ct_142079_1">0</a></span>2023-11-20</div>
+</li>
+<li class="zhuanti left_cmd_1">
+<h4 class="bg bg_site"></h4>
+<div class="h_img">
+<a href="https://www.xincheping.com/special/v2/2023/12-yeargoodcar/" target="_blank">
+<img src="https://p.xincheping.com/202311/12/dim600x400_a8e712e5a44515bff2ad214cc3b3e6_r3x2-309.jpg" width="270" height="180"     alt="中国好车榜·2023年度评选揭晓"  title="中国好车榜·2023年度评选揭晓"/>
+</a>
+</div>
+<h3><a href="https://www.xincheping.com/special/v2/2023/12-yeargoodcar/" target="_blank">中国好车榜·2023年度评选揭晓</a></h3>
+<div class="tag">
+</div>
+<div class="timer"><span id="cmt_span_687_9" class="hide"><a href="https://www.xincheping.com/special/v2/2023/12-yeargoodcar/#toCmt=1" dataType="9-687" target="_blank" class="comd cmt_cnt_a" id="ct_687_9">0</a></span>2023-11-20</div>
+</li>
+<li class="newsDb left_cmd_1">
+<h4 class="sbg bg_db"></h4>
+<div class="h_img">
+<a href="https://www.xincheping.com/ev/142094.html" target="_blank">
+<img src="https://p.xincheping.com/202311/8c/dim700x525_4b2063ae81402e9705e67bf70b3d80_r3x2-309.jpeg" width="270" height="180" alt="极氪新车规划曝光！将推极氪007旅行版+全新SUV+改款001" title="极氪新车规划曝光！将推极氪007旅行版+全新SUV+改款001">
+</a>
+</div>
+<h3><a href="https://www.xincheping.com/ev/142094.html" target="_blank">极氪新车规划曝光！将推极氪007旅行版+全新SUV+改款001</a></h3>
+<div class="tag">
+关键词：
+<a href="/search/zonghe.do?q=极氪" target="_blank">极氪</a>
+<a href="/search/zonghe.do?q=概念" target="_blank">概念</a>
+<a href="/search/zonghe.do?q=规划" target="_blank">规划</a>
+</div>
+<div class="timer">
+<span id="cmt_span_142094_1" class="hide">
+<a href="https://www.xincheping.com/ev/142094.html#toCmt=1" dataType="1-142094" target="_blank" class="comd cmt_cnt_a" id="ct_142094_1">0</a>
+</span>2023-11-22</div>
+</li>
+<li class="newsDb left_cmd_1">
+<h4 class="sbg bg_db"></h4>
+<div class="h_img">
+<a href="https://www.xincheping.com/ev/142090.html" target="_blank">
+<img src="https://p.xincheping.com/202311/ce/dim700x525_63e2edc23c4c17ba3500c90b75358a_r3x2-309.jpeg" width="270" height="180" alt="L3/L4能上路了！华为、小鹏果真遥遥领先？" title="L3/L4能上路了！华为、小鹏果真遥遥领先？">
+</a>
+</div>
+<h3><a href="https://www.xincheping.com/ev/142090.html" target="_blank">L3/L4能上路了！华为、小鹏果真遥遥领先？</a></h3>
+<div class="tag">
+关键词：
+<a href="/search/zonghe.do?q=自动驾驶" target="_blank">自动驾驶</a>
+<a href="/search/zonghe.do?q=规定" target="_blank">规定</a>
+<a href="/search/zonghe.do?q=发布" target="_blank">发布</a>
+</div>
+<div class="timer">
+<span id="cmt_span_142090_1" class="hide">
+<a href="https://www.xincheping.com/ev/142090.html#toCmt=1" dataType="1-142090" target="_blank" class="comd cmt_cnt_a" id="ct_142090_1">0</a>
+</span>2023-11-21</div>
+</li>
+<li class="cheshi left_cmd_1">
+<h4 class="bg bg_site"></h4>
+<div class="h_img">
+<a href="https://www.xincheping.com/cehua/142034.html" target="_blank">
+<img src="https://p.xincheping.com/202311/9d/dim1267x713_fd721f78a0489ca85030b9187e4b24_r3x2-309.png" width="270" height="180"     alt="广州车展新车琳琅满目，为何奥迪Q6 e-tron能出圈？"  title="广州车展新车琳琅满目，为何奥迪Q6 e-tron能出圈？"/>
+</a>
+</div>
+<h3><a href="https://www.xincheping.com/cehua/142034.html" target="_blank">广州车展新车琳琅满目，为何奥迪Q6 e-tron能出圈？</a></h3>
+<div class="tag">
+关键词：
+<a href="/search/zonghe.do?q=奥迪" target="_blank">奥迪</a>
+<a href="/search/zonghe.do?q=Q6" target="_blank">Q6</a>
+<a href="/search/zonghe.do?q=e-tron" target="_blank">e-tron</a>
+<a href="/search/zonghe.do?q=纯电动" target="_blank">纯电动</a>
+</div>
+<div class="timer"><span id="cmt_span_142034_1" class="hide"><a href="https://www.xincheping.com/cehua/142034.html#toCmt=1" dataType="1-142034" target="_blank" class="comd cmt_cnt_a" id="ct_142034_1">0</a></span>2023-11-17</div>
+</li>
+<li class="newsDb left_cmd_1">
+<h4 class="sbg bg_db"></h4>
+<div class="h_img">
+<a href="https://www.xincheping.com/ev/142089.html" target="_blank">
+<img src="https://p.xincheping.com/202311/46/dim1920x1280_6f1862e0bb4af38d9c581f49bea847_r3x2-309.jpg" width="270" height="180" alt="蔚来换电首家合作车企确认！还得是国企有魄力" title="蔚来换电首家合作车企确认！还得是国企有魄力">
+</a>
+</div>
+<h3><a href="https://www.xincheping.com/ev/142089.html" target="_blank">蔚来换电首家合作车企确认！还得是国企有魄力</a></h3>
+<div class="tag">
+关键词：
+<a href="/search/zonghe.do?q=蔚来" target="_blank">蔚来</a>
+<a href="/search/zonghe.do?q=长安" target="_blank">长安</a>
+<a href="/search/zonghe.do?q=换电" target="_blank">换电</a>
+</div>
+<div class="timer">
+<span id="cmt_span_142089_1" class="hide">
+<a href="https://www.xincheping.com/ev/142089.html#toCmt=1" dataType="1-142089" target="_blank" class="comd cmt_cnt_a" id="ct_142089_1">0</a>
+</span>2023-11-21</div>
+</li>
+<li class="newsDb left_cmd_1">
+<h4 class="sbg bg_db"></h4>
+<div class="h_img">
+<a href="https://www.xincheping.com/ev/142086.html" target="_blank">
+<img src="https://p.xincheping.com/202311/45/dim405x312_042003615f4b0a968748c80420940c_r3x2-309.png" width="270" height="180" alt="逆市行为！别人降价它涨价！Model Y长续航再涨2千元" title="逆市行为！别人降价它涨价！Model Y长续航再涨2千元">
+</a>
+</div>
+<h3><a href="https://www.xincheping.com/ev/142086.html" target="_blank">逆市行为！别人降价它涨价！Model Y长续航再涨2千元</a></h3>
+<div class="tag">
+关键词：
+<a href="/search/zonghe.do?q=特斯拉" target="_blank">特斯拉</a>
+<a href="/search/zonghe.do?q=Model" target="_blank">Model</a>
+<a href="/search/zonghe.do?q=Y" target="_blank">Y</a>
+<a href="/search/zonghe.do?q=车市行情" target="_blank">车市行情</a>
+</div>
+<div class="timer">
+<span id="cmt_span_142086_1" class="hide">
+<a href="https://www.xincheping.com/ev/142086.html#toCmt=1" dataType="1-142086" target="_blank" class="comd cmt_cnt_a" id="ct_142086_1">0</a>
+</span>2023-11-21</div>
+</li>
+<li class="guandian left_cmd_1">
+<h4 class="bg bg_site"></h4>
+<div class="h_img">
+<a href="https://www.xincheping.com/views/142085.html" target="_blank">
+<img src="https://p.xincheping.com/202311/88/dim6000x4002_f494bac90a45d5b65d910667aef462_r3x2-309.jpeg" width="270" height="180"     alt="上汽大众俞经民：落实九字方针，打造“好用不贵”的产品"  title="上汽大众俞经民：落实九字方针，打造“好用不贵”的产品"/>
+</a>
+</div>
+<h3><a href="https://www.xincheping.com/views/142085.html" target="_blank">上汽大众俞经民：落实九字方针，打造“好用不贵”的产品</a></h3>
+<div class="tag">
+关键词：
+<a href="/search/zonghe.do?q=上汽大众" target="_blank">上汽大众</a>
+<a href="/search/zonghe.do?q=车展" target="_blank">车展</a>
+<a href="/search/zonghe.do?q=专访" target="_blank">专访</a>
+</div>
+<div class="timer"><span id="cmt_span_142085_1" class="hide"><a href="https://www.xincheping.com/views/142085.html#toCmt=1" dataType="1-142085" target="_blank" class="comd cmt_cnt_a" id="ct_142085_1">0</a></span>2023-11-21</div>
+</li>
+<li class="newsDb left_cmd_1">
+<h4 class="sbg bg_db"></h4>
+<div class="h_img">
+<a href="https://www.xincheping.com/ev/142048.html" target="_blank">
+<img src="https://p.xincheping.com/202311/52/dim3000x2000_31bfc8e5414e31b666768673ad2750_r3x2-309.jpg" width="270" height="180" alt="5大热门MPV实测对比！它才是空间之王！" title="5大热门MPV实测对比！它才是空间之王！">
+</a>
+</div>
+<h3><a href="https://www.xincheping.com/ev/142048.html" target="_blank">5大热门MPV实测对比！它才是空间之王！</a></h3>
+<div class="tag">
+关键词：
+<a href="/search/zonghe.do?q=2023广州车展" target="_blank">2023广州车展</a>
+<a href="/search/zonghe.do?q=MPV空间横评" target="_blank">MPV空间横评</a>
+<a href="/search/zonghe.do?q=小鹏" target="_blank">小鹏</a>
+<a href="/search/zonghe.do?q=腾势" target="_blank">腾势</a>
+</div>
+<div class="timer">
+<span id="cmt_span_142048_1" class="hide">
+<a href="https://www.xincheping.com/ev/142048.html#toCmt=1" dataType="1-142048" target="_blank" class="comd cmt_cnt_a" id="ct_142048_1">0</a>
+</span>2023-11-20</div>
+</li>
+<li class="newsDb left_cmd_1">
+<h4 class="sbg bg_db"></h4>
+<div class="h_img">
+<a href="https://www.xincheping.com/ev/142078.html" target="_blank">
+<img src="https://p.xincheping.com/202311/80/dim605x384_46ee08cf384340a1320fbe20fbff95_r3x2-309.png" width="270" height="180" alt="续航1000公里+零百2秒级，这台纯电轿车20万有交易？" title="续航1000公里+零百2秒级，这台纯电轿车20万有交易？">
+</a>
+</div>
+<h3><a href="https://www.xincheping.com/ev/142078.html" target="_blank">续航1000公里+零百2秒级，这台纯电轿车20万有交易？</a></h3>
+<div class="tag">
+关键词：
+<a href="/search/zonghe.do?q=智己" target="_blank">智己</a>
+<a href="/search/zonghe.do?q=L6" target="_blank">L6</a>
+<a href="/search/zonghe.do?q=电动车" target="_blank">电动车</a>
+</div>
+<div class="timer">
+<span id="cmt_span_142078_1" class="hide">
+<a href="https://www.xincheping.com/ev/142078.html#toCmt=1" dataType="1-142078" target="_blank" class="comd cmt_cnt_a" id="ct_142078_1">0</a>
+</span>2023-11-20</div>
+</li>
+<li class="pingce left_cmd_1">
+<h4 class="bg bg_site"></h4>
+<div class="h_img">
+<a href="https://www.xincheping.com/pingce/142076.html" target="_blank">
+<img src="https://p.xincheping.com/202311/d6/dim800x533_5821207abd4baf9aa95317625d4a20_r3x2-309.png" width="270" height="180"     alt="安全只是基本 XC90更想给你高品质与信任感"  title="安全只是基本 XC90更想给你高品质与信任感"/>
+</a>
+</div>
+<h3><a href="https://www.xincheping.com/pingce/142076.html" target="_blank">安全只是基本 XC90更想给你高品质与信任感</a></h3>
+<div class="tag">
+关键词：
+<a href="/search/zonghe.do?q=沃尔沃" target="_blank">沃尔沃</a>
+<a href="/search/zonghe.do?q=沃尔沃XC90" target="_blank">沃尔沃XC90</a>
+<a href="/search/zonghe.do?q=XC90" target="_blank">XC90</a>
+</div>
+<div class="timer"><span id="cmt_span_142076_1" class="hide"><a href="https://www.xincheping.com/pingce/142076.html#toCmt=1" dataType="1-142076" target="_blank" class="comd cmt_cnt_a" id="ct_142076_1">0</a></span>2023-11-20</div>
+</li>
+<li class="newsDb left_cmd_1">
+<h4 class="sbg bg_db"></h4>
+<div class="h_img">
+<a href="https://www.xincheping.com/ev/142075.html" target="_blank">
+<img src="https://p.xincheping.com/202311/cb/dim2000x1219_9a45f0c7d248628920dacbc51a2080_r3x2-309.jpeg" width="270" height="180" alt="不止海狮07！比亚迪明年推多款轿车+SUV，预定爆款？" title="不止海狮07！比亚迪明年推多款轿车+SUV，预定爆款？">
+</a>
+</div>
+<h3><a href="https://www.xincheping.com/ev/142075.html" target="_blank">不止海狮07！比亚迪明年推多款轿车+SUV，预定爆款？</a></h3>
+<div class="tag">
+关键词：
+<a href="/search/zonghe.do?q=比亚迪" target="_blank">比亚迪</a>
+<a href="/search/zonghe.do?q=海狮" target="_blank">海狮</a>
+<a href="/search/zonghe.do?q=海豹" target="_blank">海豹</a>
+</div>
+<div class="timer">
+<span id="cmt_span_142075_1" class="hide">
+<a href="https://www.xincheping.com/ev/142075.html#toCmt=1" dataType="1-142075" target="_blank" class="comd cmt_cnt_a" id="ct_142075_1">0</a>
+</span>2023-11-20</div>
+</li>
+<li class="newsDb left_cmd_1">
+<h4 class="sbg bg_db"></h4>
+<div class="h_img">
+<a href="https://www.xincheping.com/ev/142073.html" target="_blank">
+<img src="https://p.xincheping.com/202311/c1/dim1334x797_3adbce242e47e19c54c6ad9d5e4e08_r3x2-309.jpg" width="270" height="180" alt="冰箱彩电大沙发+后轮转向！比汉还大，卖22万能交个朋友?" title="冰箱彩电大沙发+后轮转向！比汉还大，卖22万能交个朋友?">
+</a>
+</div>
+<h3><a href="https://www.xincheping.com/ev/142073.html" target="_blank">冰箱彩电大沙发+后轮转向！比汉还大，卖22万能交个朋友?</a></h3>
+<div class="tag">
+关键词：
+<a href="/search/zonghe.do?q=创维" target="_blank">创维</a>
+<a href="/search/zonghe.do?q=创维SKYHOME" target="_blank">创维SKYHOME</a>
+<a href="/search/zonghe.do?q=纯电轿车" target="_blank">纯电轿车</a>
+</div>
+<div class="timer">
+<span id="cmt_span_142073_1" class="hide">
+<a href="https://www.xincheping.com/ev/142073.html#toCmt=1" dataType="1-142073" target="_blank" class="comd cmt_cnt_a" id="ct_142073_1">0</a>
+</span>2023-11-20</div>
+</li>
+<li class="videor left_cmd_1">
+<h4 class="bg bg_site"></h4>
+<div class="h_img">
+<a href="https://www.xincheping.com/video/28852.html" target="_blank">
+<img src="https://p.xincheping.com/202311/43/dim1200x800_57f63f5f4441338b3af6e239a13193_r3x2-309.jpg" width="270" height="180"     alt="怎么让你们知道，银河L7在11月有2亿优惠？"  title="怎么让你们知道，银河L7在11月有2亿优惠？"/>
+<div class="player bg"></div>
+</a>
+</div>
+<h3><a href="https://www.xincheping.com/video/28852.html" target="_blank">怎么让你们知道，银河L7在11月有2亿优惠？</a></h3>
+<div class="tag">
+关键词：
+<a href="/search/zonghe.do?q=银河L7" target="_blank">银河L7</a>
+</div>
+<div class="timer"><span id="cmt_span_28852_2" class="hide"><a href="https://www.xincheping.com/video/28852.html#toCmt=1" dataType="2-28852" target="_blank" class="comd cmt_cnt_a" id="ct_28852_2">0</a></span>2023-11-20</div>
+</li>
+<li class="videor left_cmd_1">
+<h4 class="bg bg_site"></h4>
+<div class="h_img">
+<a href="https://www.xincheping.com/video/28879.html" target="_blank">
+<img src="https://p.xincheping.com/202311/72/dim1200x800_279e86f3454b6a9c1feb2308499b92_r3x2-309.jpg" width="270" height="180"     alt="看完启源A06&Q05，才知道什么叫真正的性价比"  title="看完启源A06&Q05，才知道什么叫真正的性价比"/>
+<div class="player bg"></div>
+</a>
+</div>
+<h3><a href="https://www.xincheping.com/video/28879.html" target="_blank">看完启源A06&amp;Q05，才知道什么叫真正的性价比</a></h3>
+<div class="tag">
+关键词：
+<a href="/search/zonghe.do?q=启源A06" target="_blank">启源A06</a>
+<a href="/search/zonghe.do?q=启源Q05" target="_blank">启源Q05</a>
+</div>
+<div class="timer"><span id="cmt_span_28879_2" class="hide"><a href="https://www.xincheping.com/video/28879.html#toCmt=1" dataType="2-28879" target="_blank" class="comd cmt_cnt_a" id="ct_28879_2">0</a></span>2023-11-19</div>
+</li>
+<li class="videor left_cmd_1">
+<h4 class="bg bg_site"></h4>
+<div class="h_img">
+<a href="https://www.xincheping.com/video/28868.html" target="_blank">
+<img src="https://p.xincheping.com/202311/fb/dim1200x800_ce3c932db442fab25de38ef8cc5c90_r3x2-309.jpg" width="270" height="180"     alt="上汽版ID.7，ID.NEXT跟ID.7有啥区别？"  title="上汽版ID.7，ID.NEXT跟ID.7有啥区别？"/>
+<div class="player bg"></div>
+</a>
+</div>
+<h3><a href="https://www.xincheping.com/video/28868.html" target="_blank">上汽版ID.7，ID.NEXT跟ID.7有啥区别？</a></h3>
+<div class="tag">
+关键词：
+<a href="/search/zonghe.do?q=ID.NEXT" target="_blank">ID.NEXT</a>
+</div>
+<div class="timer"><span id="cmt_span_28868_2" class="hide"><a href="https://www.xincheping.com/video/28868.html#toCmt=1" dataType="2-28868" target="_blank" class="comd cmt_cnt_a" id="ct_28868_2">0</a></span>2023-11-19</div>
+</li>
+<li class="videor left_cmd_1">
+<h4 class="bg bg_site"></h4>
+<div class="h_img">
+<a href="https://www.xincheping.com/video/28867.html" target="_blank">
+<img src="https://p.xincheping.com/202311/4c/dim1200x800_78afd4cc514abda08569a768b284f3_r3x2-309.jpg" width="270" height="180"     alt="只要22.99万起的B级纯电极氪007，极氪这是要放大招了！"  title="只要22.99万起的B级纯电极氪007，极氪这是要放大招了！"/>
+<div class="player bg"></div>
+</a>
+</div>
+<h3><a href="https://www.xincheping.com/video/28867.html" target="_blank">只要22.99万起的B级纯电极氪007，极氪这是要放大招了！</a></h3>
+<div class="tag">
+关键词：
+<a href="/search/zonghe.do?q=极氪007" target="_blank">极氪007</a>
+</div>
+<div class="timer"><span id="cmt_span_28867_2" class="hide"><a href="https://www.xincheping.com/video/28867.html#toCmt=1" dataType="2-28867" target="_blank" class="comd cmt_cnt_a" id="ct_28867_2">0</a></span>2023-11-19</div>
+</li>
+<li class="videor left_cmd_1">
+<h4 class="bg bg_site"></h4>
+<div class="h_img">
+<a href="https://www.xincheping.com/video/28873.html" target="_blank">
+<img src="https://p.xincheping.com/202311/96/dim1200x800_ce7e922dc94dc49fd830d08ff5ad22_r3x2-309.jpg" width="270" height="180"     alt="Model Y的最大对手，凯迪拉克OPTIQ卖多少？"  title="Model Y的最大对手，凯迪拉克OPTIQ卖多少？"/>
+<div class="player bg"></div>
+</a>
+</div>
+<h3><a href="https://www.xincheping.com/video/28873.html" target="_blank">Model Y的最大对手，凯迪拉克OPTIQ卖多少？</a></h3>
+<div class="tag">
+关键词：
+<a href="/search/zonghe.do?q=凯迪拉克OPTIQ" target="_blank">凯迪拉克OPTIQ</a>
+</div>
+<div class="timer"><span id="cmt_span_28873_2" class="hide"><a href="https://www.xincheping.com/video/28873.html#toCmt=1" dataType="2-28873" target="_blank" class="comd cmt_cnt_a" id="ct_28873_2">0</a></span>2023-11-19</div>
+</li>
+<li class="videor left_cmd_1">
+<h4 class="bg bg_site"></h4>
+<div class="h_img">
+<a href="https://www.xincheping.com/video/28871.html" target="_blank">
+<img src="https://p.xincheping.com/202311/17/dim1200x800_64c89650c14fab93267b59793b9104_r3x2-309.jpg" width="270" height="180"     alt="因为这套沙发，我买了小鹏X9！"  title="因为这套沙发，我买了小鹏X9！"/>
+<div class="player bg"></div>
+</a>
+</div>
+<h3><a href="https://www.xincheping.com/video/28871.html" target="_blank">因为这套沙发，我买了小鹏X9！</a></h3>
+<div class="tag">
+关键词：
+<a href="/search/zonghe.do?q=小鹏X9" target="_blank">小鹏X9</a>
+</div>
+<div class="timer"><span id="cmt_span_28871_2" class="hide"><a href="https://www.xincheping.com/video/28871.html#toCmt=1" dataType="2-28871" target="_blank" class="comd cmt_cnt_a" id="ct_28871_2">0</a></span>2023-11-19</div>
+</li>
+<li class="videor left_cmd_1">
+<h4 class="bg bg_site"></h4>
+<div class="h_img">
+<a href="https://www.xincheping.com/video/28872.html" target="_blank">
+<img src="https://p.xincheping.com/202311/85/dim1200x800_f18e18bb244412bd6485cce20f401c_r3x2-309.jpg" width="270" height="180"     alt="沃尔沃的MPV，能有多安全？"  title="沃尔沃的MPV，能有多安全？"/>
+<div class="player bg"></div>
+</a>
+</div>
+<h3><a href="https://www.xincheping.com/video/28872.html" target="_blank">沃尔沃的MPV，能有多安全？</a></h3>
+<div class="tag">
+关键词：
+<a href="/search/zonghe.do?q=沃尔沃EM90" target="_blank">沃尔沃EM90</a>
+</div>
+<div class="timer"><span id="cmt_span_28872_2" class="hide"><a href="https://www.xincheping.com/video/28872.html#toCmt=1" dataType="2-28872" target="_blank" class="comd cmt_cnt_a" id="ct_28872_2">0</a></span>2023-11-19</div>
+</li>
+<li class="videor left_cmd_1">
+<h4 class="bg bg_site"></h4>
+<div class="h_img">
+<a href="https://www.xincheping.com/video/28870.html" target="_blank">
+<img src="https://p.xincheping.com/202311/f9/dim1200x800_18e1d1d74a4329a3bb2c9cef080c44_r3x2-309.jpg" width="270" height="180"     alt="钇为3冠军版 9.99万505km 性价比爆棚"  title="钇为3冠军版 9.99万505km 性价比爆棚"/>
+<div class="player bg"></div>
+</a>
+</div>
+<h3><a href="https://www.xincheping.com/video/28870.html" target="_blank">钇为3冠军版 9.99万505km 性价比爆棚</a></h3>
+<div class="tag">
+关键词：
+<a href="/search/zonghe.do?q=钇为3冠军版" target="_blank">钇为3冠军版</a>
+</div>
+<div class="timer"><span id="cmt_span_28870_2" class="hide"><a href="https://www.xincheping.com/video/28870.html#toCmt=1" dataType="2-28870" target="_blank" class="comd cmt_cnt_a" id="ct_28870_2">0</a></span>2023-11-19</div>
+</li>
+<li class="videor left_cmd_1">
+<h4 class="bg bg_site"></h4>
+<div class="h_img">
+<a href="https://www.xincheping.com/video/28860.html" target="_blank">
+<img src="https://p.xincheping.com/202311/e8/dim1200x800_ecdcc8e6074236b5e29b21c80c21b3_r3x2-309.jpg" width="270" height="180"     alt="本田纯电新车，e:NP2"  title="本田纯电新车，e:NP2"/>
+<div class="player bg"></div>
+</a>
+</div>
+<h3><a href="https://www.xincheping.com/video/28860.html" target="_blank">本田纯电新车，e:NP2</a></h3>
+<div class="tag">
+关键词：
+<a href="/search/zonghe.do?q=本田e：NP2" target="_blank">本田e：NP2</a>
+</div>
+<div class="timer"><span id="cmt_span_28860_2" class="hide"><a href="https://www.xincheping.com/video/28860.html#toCmt=1" dataType="2-28860" target="_blank" class="comd cmt_cnt_a" id="ct_28860_2">0</a></span>2023-11-19</div>
+</li>
+<li class="videor left_cmd_1">
+<h4 class="bg bg_site"></h4>
+<div class="h_img">
+<a href="https://www.xincheping.com/video/28861.html" target="_blank">
+<img src="https://p.xincheping.com/202311/aa/dim1200x800_b69739352c4cd4b6953881961d2dc5_r3x2-309.jpg" width="270" height="180"     alt="PPE纯电平台的奥迪会更强？"  title="PPE纯电平台的奥迪会更强？"/>
+<div class="player bg"></div>
+</a>
+</div>
+<h3><a href="https://www.xincheping.com/video/28861.html" target="_blank">PPE纯电平台的奥迪会更强？</a></h3>
+<div class="tag">
+关键词：
+<a href="/search/zonghe.do?q=奥迪Q6e-tron" target="_blank">奥迪Q6e-tron</a>
+</div>
+<div class="timer"><span id="cmt_span_28861_2" class="hide"><a href="https://www.xincheping.com/video/28861.html#toCmt=1" dataType="2-28861" target="_blank" class="comd cmt_cnt_a" id="ct_28861_2">0</a></span>2023-11-19</div>
+</li>
+<li class="videor left_cmd_1">
+<h4 class="bg bg_site"></h4>
+<div class="h_img">
+<a href="https://www.xincheping.com/video/28845.html" target="_blank">
+<img src="https://p.xincheping.com/202311/fb/dim1200x800_9c58a54b3c4297ae89355a51a9aa16_r3x2-309.jpg" width="270" height="180"     alt="看了新宝马5系，我知道留给奥迪的时间不多了"  title="看了新宝马5系，我知道留给奥迪的时间不多了"/>
+<div class="player bg"></div>
+</a>
+</div>
+<h3><a href="https://www.xincheping.com/video/28845.html" target="_blank">看了新宝马5系，我知道留给奥迪的时间不多了</a></h3>
+<div class="tag">
+关键词：
+<a href="/search/zonghe.do?q=全新5系" target="_blank">全新5系</a>
+</div>
+<div class="timer"><span id="cmt_span_28845_2" class="hide"><a href="https://www.xincheping.com/video/28845.html#toCmt=1" dataType="2-28845" target="_blank" class="comd cmt_cnt_a" id="ct_28845_2">0</a></span>2023-11-19</div>
+</li>
+<li class="videor left_cmd_1">
+<h4 class="bg bg_site"></h4>
+<div class="h_img">
+<a href="https://www.xincheping.com/video/28853.html" target="_blank">
+<img src="https://p.xincheping.com/202311/75/dim1200x800_dac0d7520c4edd86f2267af76dabbc_r3x2-309.jpg" width="270" height="180"     alt="尺寸远超迈腾！ID.7能卷的过比亚迪吗？"  title="尺寸远超迈腾！ID.7能卷的过比亚迪吗？"/>
+<div class="player bg"></div>
+</a>
+</div>
+<h3><a href="https://www.xincheping.com/video/28853.html" target="_blank">尺寸远超迈腾！ID.7能卷的过比亚迪吗？</a></h3>
+<div class="tag">
+关键词：
+<a href="/search/zonghe.do?q=大众ID.7" target="_blank">大众ID.7</a>
+</div>
+<div class="timer"><span id="cmt_span_28853_2" class="hide"><a href="https://www.xincheping.com/video/28853.html#toCmt=1" dataType="2-28853" target="_blank" class="comd cmt_cnt_a" id="ct_28853_2">0</a></span>2023-11-19</div>
+</li>
+<li class="videor left_cmd_1">
+<h4 class="bg bg_site"></h4>
+<div class="h_img">
+<a href="https://www.xincheping.com/video/28874.html" target="_blank">
+<img src="https://p.xincheping.com/202311/d2/dim1200x800_d949041a8f4f30a52dc077769636be_r3x2-309.jpg" width="270" height="180"     alt="预售25.8万起，智界S7值吗？"  title="预售25.8万起，智界S7值吗？"/>
+<div class="player bg"></div>
+</a>
+</div>
+<h3><a href="https://www.xincheping.com/video/28874.html" target="_blank">预售25.8万起，智界S7值吗？</a></h3>
+<div class="tag">
+关键词：
+<a href="/search/zonghe.do?q=智界S7" target="_blank">智界S7</a>
+</div>
+<div class="timer"><span id="cmt_span_28874_2" class="hide"><a href="https://www.xincheping.com/video/28874.html#toCmt=1" dataType="2-28874" target="_blank" class="comd cmt_cnt_a" id="ct_28874_2">0</a></span>2023-11-19</div>
+</li>
+<li class="videor left_cmd_1">
+<h4 class="bg bg_site"></h4>
+<div class="h_img">
+<a href="https://www.xincheping.com/video/28865.html" target="_blank">
+<img src="https://p.xincheping.com/202311/ca/dim1200x800_1fde5b050743fa95f72f13ebf22d01_r3x2-309.jpg" width="270" height="180"     alt="东风本田e:NS2，电动掀背跨界爱了吗？"  title="东风本田e:NS2，电动掀背跨界爱了吗？"/>
+<div class="player bg"></div>
+</a>
+</div>
+<h3><a href="https://www.xincheping.com/video/28865.html" target="_blank">东风本田e:NS2，电动掀背跨界爱了吗？</a></h3>
+<div class="tag">
+关键词：
+<a href="/search/zonghe.do?q=东风本田e:NS2" target="_blank">东风本田e:NS2</a>
+</div>
+<div class="timer"><span id="cmt_span_28865_2" class="hide"><a href="https://www.xincheping.com/video/28865.html#toCmt=1" dataType="2-28865" target="_blank" class="comd cmt_cnt_a" id="ct_28865_2">0</a></span>2023-11-19</div>
+</li>
+<li class="videor left_cmd_1">
+<h4 class="bg bg_site"></h4>
+<div class="h_img">
+<a href="https://www.xincheping.com/video/28849.html" target="_blank">
+<img src="https://p.xincheping.com/202311/2a/dim1200x800_434a8905ff4ca887f01cafb2f6bb2b_r3x2-309.jpg" width="270" height="180"     alt="买车还送床！这台车比理想更适合家用？"  title="买车还送床！这台车比理想更适合家用？"/>
+<div class="player bg"></div>
+</a>
+</div>
+<h3><a href="https://www.xincheping.com/video/28849.html" target="_blank">买车还送床！这台车比理想更适合家用？</a></h3>
+<div class="tag">
+关键词：
+<a href="/search/zonghe.do?q=零跑C10" target="_blank">零跑C10</a>
+</div>
+<div class="timer"><span id="cmt_span_28849_2" class="hide"><a href="https://www.xincheping.com/video/28849.html#toCmt=1" dataType="2-28849" target="_blank" class="comd cmt_cnt_a" id="ct_28849_2">0</a></span>2023-11-19</div>
+</li>
+<li class="videor left_cmd_1">
+<h4 class="bg bg_site"></h4>
+<div class="h_img">
+<a href="https://www.xincheping.com/video/28848.html" target="_blank">
+<img src="https://p.xincheping.com/202311/21/dim1200x800_f49211900c4a6e9073adbbb095af3c_r3x2-309.jpg" width="270" height="180"     alt="最早做MPV的中国品牌，做的插混MPV好不好？"  title="最早做MPV的中国品牌，做的插混MPV好不好？"/>
+<div class="player bg"></div>
+</a>
+</div>
+<h3><a href="https://www.xincheping.com/video/28848.html" target="_blank">最早做MPV的中国品牌，做的插混MPV好不好？</a></h3>
+<div class="tag">
+关键词：
+<a href="/search/zonghe.do?q=瑞风RF8" target="_blank">瑞风RF8</a>
+</div>
+<div class="timer"><span id="cmt_span_28848_2" class="hide"><a href="https://www.xincheping.com/video/28848.html#toCmt=1" dataType="2-28848" target="_blank" class="comd cmt_cnt_a" id="ct_28848_2">0</a></span>2023-11-19</div>
+</li>
+<li class="videor left_cmd_1">
+<h4 class="bg bg_site"></h4>
+<div class="h_img">
+<a href="https://www.xincheping.com/video/28877.html" target="_blank">
+<img src="https://p.xincheping.com/202311/b3/dim1200x800_41a1ca409d4d7ca6c5328338e01610_r3x2-309.jpg" width="270" height="180"     alt="最贵的丰田来中国了？"  title="最贵的丰田来中国了？"/>
+<div class="player bg"></div>
+</a>
+</div>
+<h3><a href="https://www.xincheping.com/video/28877.html" target="_blank">最贵的丰田来中国了？</a></h3>
+<div class="tag">
+关键词：
+<a href="/search/zonghe.do?q=世纪SUV" target="_blank">世纪SUV</a>
+</div>
+<div class="timer"><span id="cmt_span_28877_2" class="hide"><a href="https://www.xincheping.com/video/28877.html#toCmt=1" dataType="2-28877" target="_blank" class="comd cmt_cnt_a" id="ct_28877_2">0</a></span>2023-11-19</div>
+</li>
+<li class="videor left_cmd_1">
+<h4 class="bg bg_site"></h4>
+<div class="h_img">
+<a href="https://www.xincheping.com/video/28847.html" target="_blank">
+<img src="https://p.xincheping.com/202311/71/dim1200x800_f0500ceb5e4e63b9d9207bdf0f052c_r3x2-309.jpg" width="270" height="180"     alt="7个新特点，2024改款岚图梦想家来啦！"  title="7个新特点，2024改款岚图梦想家来啦！"/>
+<div class="player bg"></div>
+</a>
+</div>
+<h3><a href="https://www.xincheping.com/video/28847.html" target="_blank">7个新特点，2024改款岚图梦想家来啦！</a></h3>
+<div class="tag">
+关键词：
+<a href="/search/zonghe.do?q=岚图梦想家" target="_blank">岚图梦想家</a>
+</div>
+<div class="timer"><span id="cmt_span_28847_2" class="hide"><a href="https://www.xincheping.com/video/28847.html#toCmt=1" dataType="2-28847" target="_blank" class="comd cmt_cnt_a" id="ct_28847_2">0</a></span>2023-11-19</div>
+</li>
+<li class="videor left_cmd_1">
+<h4 class="bg bg_site"></h4>
+<div class="h_img">
+<a href="https://www.xincheping.com/video/28869.html" target="_blank">
+<img src="https://p.xincheping.com/202311/9f/dim1200x800_eb08a80061480da113e6c00119cec2_r3x2-309.jpg" width="270" height="180"     alt="奇瑞风云A8：赋电新生，鲲鹏超能混动加持！"  title="奇瑞风云A8：赋电新生，鲲鹏超能混动加持！"/>
+<div class="player bg"></div>
+</a>
+</div>
+<h3><a href="https://www.xincheping.com/video/28869.html" target="_blank">奇瑞风云A8：赋电新生，鲲鹏超能混动加持！</a></h3>
+<div class="tag">
+关键词：
+<a href="/search/zonghe.do?q=奇瑞风云A8" target="_blank">奇瑞风云A8</a>
+</div>
+<div class="timer"><span id="cmt_span_28869_2" class="hide"><a href="https://www.xincheping.com/video/28869.html#toCmt=1" dataType="2-28869" target="_blank" class="comd cmt_cnt_a" id="ct_28869_2">0</a></span>2023-11-19</div>
+</li>
+<li class="cheshi left_cmd_1">
+<h4 class="bg bg_site"></h4>
+<div class="h_img">
+<a href="https://www.xincheping.com/cehua/142042.html" target="_blank">
+<img src="https://p.xincheping.com/202311/e8/dim1440x1080_d258569edc43b5b47dd675075ca1f0_r3x2-309.jpg" width="270" height="180"     alt="荣威D7亮相广州车展，能否挑战比亚迪汉？"  title="荣威D7亮相广州车展，能否挑战比亚迪汉？"/>
+</a>
+</div>
+<h3><a href="https://www.xincheping.com/cehua/142042.html" target="_blank">荣威D7亮相广州车展，能否挑战比亚迪汉？</a></h3>
+<div class="tag">
+关键词：
+<a href="/search/zonghe.do?q=荣威" target="_blank">荣威</a>
+<a href="/search/zonghe.do?q=D7" target="_blank">D7</a>
+<a href="/search/zonghe.do?q=新能源" target="_blank">新能源</a>
+</div>
+<div class="timer"><span id="cmt_span_142042_1" class="hide"><a href="https://www.xincheping.com/cehua/142042.html#toCmt=1" dataType="1-142042" target="_blank" class="comd cmt_cnt_a" id="ct_142042_1">0</a></span>2023-11-19</div>
+</li>
+<li class="videor left_cmd_1">
+<h4 class="bg bg_site"></h4>
+<div class="h_img">
+<a href="https://www.xincheping.com/video/28846.html" target="_blank">
+<img src="https://p.xincheping.com/202311/45/dim1200x800_b81bea24e144e0800568b6c42c7cdf_r3x2-309.jpg" width="270" height="180"     alt="路特斯EMEYA，这或许是最全能的百万级纯电轿车！"  title="路特斯EMEYA，这或许是最全能的百万级纯电轿车！"/>
+<div class="player bg"></div>
+</a>
+</div>
+<h3><a href="https://www.xincheping.com/video/28846.html" target="_blank">路特斯EMEYA，这或许是最全能的百万级纯电轿车！</a></h3>
+<div class="tag">
+关键词：
+<a href="/search/zonghe.do?q=路特斯EMEYA" target="_blank">路特斯EMEYA</a>
+</div>
+<div class="timer"><span id="cmt_span_28846_2" class="hide"><a href="https://www.xincheping.com/video/28846.html#toCmt=1" dataType="2-28846" target="_blank" class="comd cmt_cnt_a" id="ct_28846_2">0</a></span>2023-11-19</div>
+</li>
+<li class="videor left_cmd_1">
+<h4 class="bg bg_site"></h4>
+<div class="h_img">
+<a href="https://www.xincheping.com/video/28859.html" target="_blank">
+<img src="https://p.xincheping.com/202311/84/dim1200x800_ead50040174a68a5b3d67a37ddfb3b_r3x2-309.jpg" width="270" height="180"     alt="福特国产硬派越野，方程豹或成最大对手！"  title="福特国产硬派越野，方程豹或成最大对手！"/>
+<div class="player bg"></div>
+</a>
+</div>
+<h3><a href="https://www.xincheping.com/video/28859.html" target="_blank">福特国产硬派越野，方程豹或成最大对手！</a></h3>
+<div class="tag">
+关键词：
+<a href="/search/zonghe.do?q=国产福特Bronco" target="_blank">国产福特Bronco</a>
+</div>
+<div class="timer"><span id="cmt_span_28859_2" class="hide"><a href="https://www.xincheping.com/video/28859.html#toCmt=1" dataType="2-28859" target="_blank" class="comd cmt_cnt_a" id="ct_28859_2">0</a></span>2023-11-19</div>
+</li>
+</ul>
+</div>
+<div class="loadmore" id="loadmore">继续点击，加载更多</div>
+</div>
+<div id="dataLoad" style="display: none"></div>
+<div class="right">
+<div class="right_list">
+<div class="homeadvbtn" id="xcp_adv_p_253"></div>
+<div class="homeadvbtn" id="xcp_adv_p_126"></div>
+<!-- 车展专区 -->
+<div class="r_box">
+<h2 style="margin: 10px 10px 10px 10px;"><span><a href="/carshow/" target="_blank">更多&gt;&gt;</a></span>2023广州车展资讯速递</h2>
+
+<div id="cphome_banner">
+<ul class="bjqs">
+<li><a href="https://www.xincheping.com/cehua/142015.html" target="_blank">
+    <img border=0 src="https://p.xincheping.com/202311/2c/dim4096x3072_9f928770a242d69fa25243b40cd361_300nomk.jpg" width="285" height="190" title="2023广州车展:空悬+四座按摩,岚图追光PHEV预售26.69万起" />
+    <p class="bjqs-caption">2023广州车展:空悬+四座按摩,岚图追光PHEV预售26.69万起</p>
+    </a>
+    </li>
+<li><a href="https://www.xincheping.com/cehua/142011.html" target="_blank">
+    <img border=0 src="https://p.xincheping.com/202311/2c/dim1440x1080_473eb8df334a6dbb39e0ed6bcdb626_300nomk.jpg" width="285" height="190" title="2023广州车展：日系库里南，丰田世极亮相" />
+    <p class="bjqs-caption">2023广州车展：日系库里南，丰田世极亮相</p>
+    </a>
+    </li>
+<li><a href="https://www.xincheping.com/ev/142009.html" target="_blank">
+    <img border=0 src="https://p.xincheping.com/202311/65/dim4032x3024_7f77b6a9454f298d05307fe37fbd21_300nomk.jpg" width="285" height="190" title="2023广州车展：售81.8万元，沃尔沃EM90亮相！" />
+    <p class="bjqs-caption">2023广州车展：售81.8万元，沃尔沃EM90亮相！</p>
+    </a>
+    </li>
+<li><a href="https://www.xincheping.com/ev/141994.html" target="_blank">
+    <img border=0 src="https://p.xincheping.com/202311/1e/dim690x459_32c0ecf6774b86bc73a74733519905_300nomk.jpg" width="285" height="190" title="比亚迪/华为/理想/小鹏都在卷！2023广州车展新车预告" />
+    <p class="bjqs-caption">比亚迪/华为/理想/小鹏都在卷！2023广州车展新车预告</p>
+    </a>
+    </li>
+    
+</ul>
+<script class="secret-source">
+$(function() {
+    var czPicSize = 4;
+    if(czPicSize > 1){
+        $('#cphome_banner').bjqs({
+            animtype      : 'slide',
+            showcontrols : false,
+            height        : 190,
+            width         : 285,
+            responsive    : true,
+            randomstart   : false,
+            showmarkers : true,
+            usecaptions : false
+        });
+    }else{//只有一张时
+        $(".bjqs").show();
+    }
+
+});
+</script>
+   </div>
+   
+</div>
+<!--长测竞拍入口-->
+<div id="jingpai_wrapper"></div>
+<script type="text/javascript">
+$(function() {
+	$('#jingpai_wrapper').load('/auction/index_entry.do',{},
+		function() {
+			if ($('#cc_jj').length > 0
+					&& $('#cc_jj').children().length > 5) {
+				new Marquee("cc_jj", 0, 1, 243,
+						150, 80, 0, 3000, 22);
+			}
+//auctionId=18,雷凌
+            var currTime = new Date().getTime();
+            //注意月份从0开始,0即1月
+            var startTime = new Date(2019,9,23,10,0,0).getTime();
+if($("#jingpai_div").length <= 0 && currTime < startTime){
+			    $("#jingpai_wrapper").html('<div class="trail"><a id="jingpai_link1" href="https://www.xincheping.com/auction/18.html" target="_blank"><img src="https://res.xincheping.com/images/2019/pc/trail.jpg"></a></div>');
+            }
+}
+	);
+});
+</script>
+<!--车友群-->
+<div class="r_icon">
+<ul>
+<li><a href="/car/" target="_blank"><img
+src="https://res.xincheping.com/old/www/images/idx_icon1.png" width="25" height="25">车型大全</a></li>
+<li><a href="/views/" target="_blank"><img
+src="https://res.xincheping.com/images/2017/bj/idx_icon2.png" width="25" height="25">编辑室</a></li>
+<li><a href="/gift/" target="_blank"><img
+src="https://res.xincheping.com/old/www/images/idx_icon3.png" width="25" height="25">欢乐送</a></li>
+<li class="cl_last"><a href="/photo/"
+target="_blank"><img src="https://res.xincheping.com/old/www/images/idx_icon4.png" width="25"
+height="25">图库</a></li>
+</ul>
+</div>
+<div class="homeadvbtn" style="margin-bottom: 16px;" id="xcp_adv_p_127"></div>
+<div class="homeadvbtn" style="margin-bottom: 16px;" id="xcp_adv_p_351"></div>
+<div id="new_year_video">
+<!--===== 五大主题区START =====-->
+<!-- 演技派 -->
+<div class="ztq yjp hide">
+<div class="ztq_top "><img src="https://res.xincheping.com/images/2018/pc/banner_yjp.jpg" /></div>
+<ul class="bl_list">
+<li><a href="https://www.xincheping.com/video/24476.html" target="_blank"><img src="https://p.xincheping.com/201801/cc/dim120x60_e67bd5ebec42239e585c1e0391e7e8_700nomk.jpg" width="120" height="80"><span class="video_play"></span></a>
+            <p> <a href="https://www.xincheping.com/video/24476.html" target="_blank">山哥评R8，看车评可以胡说到什么程度</a> </p>
+          </li>
+<li><a href="https://www.xincheping.com/video/24945.html" target="_blank"><img src="https://p.xincheping.com/201801/71/dim120x60_349e05c9a04680999d4d0903e2b447_700nomk.jpg" width="120" height="80"><span class="video_play"></span></a>
+            <p> <a href="https://www.xincheping.com/video/24945.html" target="_blank">飞度VS宝骏310节油大作战</a> </p>
+          </li>
+<li><a href="https://www.xincheping.com/video/24822.html" target="_blank"><img src="https://p.xincheping.com/201801/b6/dim120x60_4568cd1ff74c5ea7cc7f8e84219297_700nomk.jpg" width="120" height="80"><span class="video_play"></span></a>
+            <p> <a href="https://www.xincheping.com/video/24822.html" target="_blank">试驾趣哪儿：如何花小钱 How to办大事？</a> </p>
+          </li>
+<li><a href="https://www.xincheping.com/video/24788.html" target="_blank"><img src="https://p.xincheping.com/201801/38/dim120x60_0d0cfc9f7d4434b2afeeb82ee5a6ae_700nomk.jpg" width="120" height="80"><span class="video_play"></span></a>
+            <p> <a href="https://www.xincheping.com/video/24788.html" target="_blank">试驾趣哪儿：湖州微旅行 一步一世界</a> </p>
+          </li>
+</ul>
+</div>
+<!-- 演技派 -->
+<!-- 车主说 -->
+<div class="ztq czs hide">
+<div class="ztq_top "><img src="https://res.xincheping.com/images/2018/pc/banner_czs.jpg" /></div>
+<ul class="bl_list">
+<li><a href="https://www.xincheping.com/video/24786.html" target="_blank"><img src="https://p.xincheping.com/201801/2a/dim120x60_4acd4c01c44f9c83345b3f62acfb8f_700.jpg" width="120" height="80"><span class="video_play"></span></a>
+            <p> <a href="https://www.xincheping.com/video/24786.html" target="_blank">庆哥和他的马自达3：那些闪亮的日子</a> </p>
+          </li>
+<li><a href="https://www.xincheping.com/video/24771.html" target="_blank"><img src="https://p.xincheping.com/201801/88/dim120x60_81f136a3434d6f875c76b7d9e529b3_700.jpg" width="120" height="80"><span class="video_play"></span></a>
+            <p> <a href="https://www.xincheping.com/video/24771.html" target="_blank">V8哥和他的IS200车主说：V8心脏地移植</a> </p>
+          </li>
+<li><a href="https://www.xincheping.com/video/24827.html" target="_blank"><img src="https://p.xincheping.com/201801/fd/dim120x60_c377c40d1641d5a25a4d05edeb44fd_700.jpg" width="120" height="80"><span class="video_play"></span></a>
+            <p> <a href="https://www.xincheping.com/video/24827.html" target="_blank">仲维和他的标致307：往南漂向北的海</a> </p>
+          </li>
+<li><a href="https://www.xincheping.com/video/24975.html" target="_blank"><img src="https://p.xincheping.com/201801/47/dim120x60_d4cab9ec8f45e4a773946b204ab879_700.jpg" width="120" height="80"><span class="video_play"></span></a>
+            <p> <a href="https://www.xincheping.com/video/24975.html" target="_blank">车主故事：程序猿和他的310w</a> </p>
+          </li>
+</ul>
+</div>
+<!-- 车主说 -->
+<!-- 视觉系 -->
+<div class="ztq sjx hide">
+<div class="ztq_top "><img src="https://res.xincheping.com/images/2018/pc/banner_sjx.jpg" /></div>
+<ul class="bl_list">
+<li><a href="https://www.xincheping.com/video/24804.html" target="_blank"><img src="https://p.xincheping.com/201801/b1/dim120x60_d9147a16f043b5a31801f53e2ccb1d_700nomk.jpg" width="120" height="80"><span class="video_play"></span></a>
+            <p> <a href="https://www.xincheping.com/video/24804.html" target="_blank">玛莎拉蒂总裁试驾视频：为了一流的驾控</a> </p>
+          </li>
+<li><a href="https://www.xincheping.com/video/24865.html" target="_blank"><img src="https://p.xincheping.com/201801/9f/dim120x60_931a67c1d24980ab075b2a2e5b8fe6_700nomk.jpg" width="120" height="80"><span class="video_play"></span></a>
+            <p> <a href="https://www.xincheping.com/video/24865.html" target="_blank">三款停售fun car对比：最触手可及的真爱</a> </p>
+          </li>
+<li><a href="https://www.xincheping.com/video/24953.html" target="_blank"><img src="https://p.xincheping.com/201801/b3/dim120x60_726fefad944116996078f16ec4e27b_700nomk.jpg" width="120" height="80"><span class="video_play"></span></a>
+            <p> <a href="https://www.xincheping.com/video/24953.html" target="_blank">宝骏310W：你距离诗和远方只差台旅行车</a> </p>
+          </li>
+<li><a href="https://www.xincheping.com/video/24628.html" target="_blank"><img src="https://p.xincheping.com/201801/a3/dim120x60_ef63ed4032418dae2a91f4ed18fd49_700nomk.jpg" width="120" height="80"><span class="video_play"></span></a>
+            <p> <a href="https://www.xincheping.com/video/24628.html" target="_blank">阿Miu赚到了，乐享姑苏，乐享CX-4</a> </p>
+          </li>
+<li><a href="https://www.xincheping.com/video/24861.html" target="_blank"><img src="https://p.xincheping.com/201801/15/dim120x60_cbddc8d1f34321a1fed05b7dcf9aff_700nomk.jpg" width="120" height="80"><span class="video_play"></span></a>
+            <p> <a href="https://www.xincheping.com/video/24861.html" target="_blank">试驾帕拉梅拉：假如生活给我两百万</a> </p>
+          </li>
+<li><a href="https://www.xincheping.com/video/24884.html" target="_blank"><img src="https://p.xincheping.com/201801/d9/dim120x60_6a30b78742413dae3e36fe930ddbb6_700nomk.jpg" width="120" height="80"><span class="video_play"></span></a>
+            <p> <a href="https://www.xincheping.com/video/24884.html" target="_blank">试驾新名爵6：满血复活，MG运动精神</a> </p>
+          </li>
+</ul>
+</div>
+<!-- 视觉系 -->
+<!-- 超级大横评 -->
+<div class="ztq cjdhp hide">
+<div class="ztq_top "><img src="https://res.xincheping.com/images/2018/pc/banner_cjdhp.jpg" /></div>
+<ul class="bl_list">
+<li><a href="https://www.xincheping.com/video/24797.html" target="_blank"><img src="https://p.xincheping.com/201801/16/dim120x60_8617ec2e2d4a7fb2c961811490d6bf_700nomk.jpg" width="120" height="80"><span class="video_play"></span></a>
+            <p> <a href="https://www.xincheping.com/video/24797.html" target="_blank">豪门恩怨：E级、A6L、5系大横评</a> </p>
+          </li>
+<li><a href="https://www.xincheping.com/video/24968.html" target="_blank"><img src="https://p.xincheping.com/201801/cd/dim120x60_a061663dba4e2ba3580f38b56bb380_700nomk.jpg" width="120" height="80"><span class="video_play"></span></a>
+            <p> <a href="https://www.xincheping.com/video/24968.html" target="_blank">自主品牌SUV双离合变速箱大横评</a> </p>
+          </li>
+<li><a href="https://www.xincheping.com/video/24802.html" target="_blank"><img src="https://p.xincheping.com/201801/8f/dim120x60_03a2d31e6c4f0dbd49628d667b9fc5_700nomk.jpg" width="120" height="80"><span class="video_play"></span></a>
+            <p> <a href="https://www.xincheping.com/video/24802.html" target="_blank">二线豪华：CT6、S90L、XFL大横评</a> </p>
+          </li>
+<li><a href="https://www.xincheping.com/video/24895.html" target="_blank"><img src="https://p.xincheping.com/201801/21/dim120x60_6439b9f12f4fc79a736f2e808ec520_700nomk.jpg" width="120" height="80"><span class="video_play"></span></a>
+            <p> <a href="https://www.xincheping.com/video/24895.html" target="_blank">小型SUV六车大对比，直观评分，结果不含糊</a> </p>
+          </li>
+<li><a href="https://www.xincheping.com/video/24850.html" target="_blank"><img src="https://p.xincheping.com/201801/a4/dim120x60_5967dffd044f29a3545d52c47a8628_700nomk.jpg" width="120" height="80"><span class="video_play"></span></a>
+            <p> <a href="https://www.xincheping.com/video/24850.html" target="_blank">10万元级别轿车大对比：谁是武林盟主？</a> </p>
+          </li>
+<li><a href="https://www.xincheping.com/video/24882.html" target="_blank"><img src="https://p.xincheping.com/201801/72/dim120x60_44bfae307b4c46b220023d92fd0d43_700nomk.jpg" width="120" height="80"><span class="video_play"></span></a>
+            <p> <a href="https://www.xincheping.com/video/24882.html" target="_blank">对比本田CR-V、大众途观L、别克昂科威</a> </p>
+          </li>
+<li><a href="https://www.xincheping.com/video/24502.html" target="_blank"><img src="https://p.xincheping.com/201801/3f/dim120x60_2c2e94b872428098a79c9d2dab5b9a_700nomk.jpg" width="120" height="80"><span class="video_play"></span></a>
+            <p> <a href="https://www.xincheping.com/video/24502.html" target="_blank">过节租车回家，哪个便宜又靠谱？</a> </p>
+          </li>
+<li><a href="https://www.xincheping.com/video/24837.html" target="_blank"><img src="https://p.xincheping.com/201801/f3/dim120x60_b176b845b64452921dd3152356f512_700nomk.jpg" width="120" height="80"><span class="video_play"></span></a>
+            <p> <a href="https://www.xincheping.com/video/24837.html" target="_blank">日产劲客、本田缤智、现代ix25三车对比</a> </p>
+          </li>
+</ul>
+</div>
+<!-- 超级大横评 -->
+<!-- 三代纵评 -->
+<div class="ztq sdzp hide">
+<div class="ztq_top "><img src="https://res.xincheping.com/images/2018/pc/banner_sdzp.jpg" /></div>
+<ul class="bl_list">
+<li><a href="https://www.xincheping.com/video/24981.html" target="_blank"><img src="https://p.xincheping.com/201801/8a/dim120x60_8cd827634048f2b4a926425ca1dc47_700.jpg" width="120" height="80"><span class="video_play"></span></a>
+            <p> <a href="https://www.xincheping.com/video/24981.html" target="_blank">经典源自传承，国产三代皇冠的故事</a> </p>
+          </li>
+<li><a href="https://www.xincheping.com/video/24977.html" target="_blank"><img src="https://p.xincheping.com/201801/33/dim120x60_d12a993ffd411fa6a7df66cbd4c804_700.jpg" width="120" height="80"><span class="video_play"></span></a>
+            <p> <a href="https://www.xincheping.com/video/24977.html" target="_blank">十年如一坚持自我，大众迈腾在中国的故事</a> </p>
+          </li>
+<li><a href="https://www.xincheping.com/video/24995.html" target="_blank"><img src="https://p.xincheping.com/201801/33/dim120x60_b15d42ac834a97b59b5b2d317f64b6_700.jpg" width="120" height="80"><span class="video_play"></span></a>
+            <p> <a href="https://www.xincheping.com/video/24995.html" target="_blank">来中国，宝马5系能不能做纯粹的自己？</a> </p>
+          </li>
+<li><a href="https://www.xincheping.com/video/25004.html" target="_blank"><img src="https://p.xincheping.com/201801/42/dim120x60_a1c6b4611e470e98af26dde6154f22_700.jpg" width="120" height="80"><span class="video_play"></span></a>
+            <p> <a href="https://www.xincheping.com/video/25004.html" target="_blank">飞度“潮（超）跑”是如何养成的？</a> </p>
+          </li>
+<li><a href="https://www.xincheping.com/video/24627.html" target="_blank"><img src="https://p.xincheping.com/201801/69/dim120x60_e81d856668481782c436d188c4b910_700.jpg" width="120" height="80"><span class="video_play"></span></a>
+            <p> <a href="https://www.xincheping.com/video/24627.html" target="_blank">三代思域聚首，寻找思域的真相</a> </p>
+          </li>
+<li><a href="https://www.xincheping.com/video/24842.html" target="_blank"><img src="https://p.xincheping.com/201801/16/dim120x60_14a2fcc7e04b27826551f94fbb3868_700.jpg" width="120" height="80"><span class="video_play"></span></a>
+            <p> <a href="https://www.xincheping.com/video/24842.html" target="_blank">三代别克GL8纵向对比</a> </p>
+          </li>
+<li><a href="https://www.xincheping.com/video/24773.html" target="_blank"><img src="https://p.xincheping.com/201801/d6/dim120x60_ff267a83e141b69a8051afd5962352_700.jpg" width="120" height="80"><span class="video_play"></span></a>
+            <p> <a href="https://www.xincheping.com/video/24773.html" target="_blank">新老汉兰达对比，看经典有多少能延续？</a> </p>
+          </li>
+<li><a href="https://www.xincheping.com/video/24713.html" target="_blank"><img src="https://p.xincheping.com/201801/43/dim120x60_a7230d12124327b56a666c8cd55327_700.jpg" width="120" height="80"><span class="video_play"></span></a>
+            <p> <a href="https://www.xincheping.com/video/24713.html" target="_blank">专业黑同事，高尔夫三代纵向大对比</a> </p>
+          </li>
+</ul>
+</div>
+<!-- 三代纵评 -->
+<!--==== 五大主题区END ====-->
+<script type="text/javascript">
+	var now2018 = new Date();
+	var new_year = now2018.getFullYear();
+	var new_month = now2018.getMonth()+1;
+	var new_day = now2018.getDate();
+//console.log(new_year+":"+new_month+":"+new_day)
+	if(new_year==2018 && new_month == 2){
+		//演技派2月2日-2月5日
+if(new_day>=2 && new_day<=5){
+			$(".yjp").removeClass("hide");
+		}
+		//车主说2月6日-2月7日
+if(new_day>=6 && new_day<=7){
+	    	$(".czs").removeClass("hide");
+	    }
+	    //视觉系2月8日-2月11日
+if(new_day>=8 && new_day<=11){
+	    	$(".sjx").removeClass("hide");
+	    }
+	    //超级大横评2月12日-2月16日
+if(new_day>=12 && new_day<=16){
+	    	$(".cjdhp").removeClass("hide");
+	    }
+	    //三代纵评2月17日-2月21日
+if(new_day>=17 && new_day<=21){
+	    	$(".sdzp").removeClass("hide");
+	    }
+	}
+</script>
+</div>
+<div class="r_box">
+<h2>
+<span><a href="/pingce/" target="_blank">更多&gt;&gt;</a></span>车评
+</h2>
+<div class="com_box">
+<div class="com_img">
+<a href="https://www.xincheping.com/pingce/141951.html"
+target="_blank"><img alt="一文读懂，仰望U8为何卖这么贵？"  title="一文读懂，仰望U8为何卖这么贵？" src="https://p.xincheping.com/202311/71/dim3744x2496_8399e856c14c26b4e63dac8a42cd1e_120.jpg"
+width="120" height="80" />
+</a>
+</div>
+<div class="com_p">
+<h4>
+<a href="https://www.xincheping.com/pingce/141951.html"
+target="_blank">一文读懂，仰望U8为何卖这么贵？</a>
+</h4>
+<p>作者：XCP屠晓濛</p>
+</div>
+</div>
+<ul class="cp_ul">
+<li><label>10万元以下</label> &nbsp;
+<a href="https://www.xincheping.com/pingce/140408.html" target="_blank"
+title="缤越">
+缤越</a>&nbsp;
+<a href="https://www.xincheping.com/pingce/136090.html" target="_blank"
+title="捷途X70 PLUS">
+捷途X70 PLUS</a>&nbsp;
+</li>
+<li><label>10-20万元</label>&nbsp;
+<a href="https://www.xincheping.com/pingce/141586.html" target="_blank"
+title="标致508">
+标致508</a>&nbsp;
+<a href="https://www.xincheping.com/pingce/140408.html" target="_blank"
+title="缤越">
+缤越</a>&nbsp;
+</li>
+<li><label>20-30万元</label> &nbsp;
+<a href="https://www.xincheping.com/pingce/141763.html" target="_blank"
+title="蔚来ET5T">
+蔚来ET5T</a>&nbsp;
+<a href="https://www.xincheping.com/pingce/141586.html" target="_blank"
+title="标致508">
+标致508</a>&nbsp;
+</li>
+<li><label>30-100万</label>&nbsp;
+<a href="https://www.xincheping.com/pingce/141763.html" target="_blank"
+title="蔚来ET5T">
+蔚来ET5T</a>&nbsp;
+<a href="https://www.xincheping.com/pingce/141725.html" target="_blank"
+title="Cayenne">
+Cayenne</a>&nbsp;
+</li>
+<li><label>100万以上</label>&nbsp;
+<a href="https://www.xincheping.com/pingce/141951.html" target="_blank"
+title="仰望U8">
+仰望U8</a>&nbsp;
+<a href="https://www.xincheping.com/pingce/141725.html" target="_blank"
+title="Cayenne">
+Cayenne</a>&nbsp;
+</li>
+<li><label>值得推荐+</label>&nbsp;
+<a href="https://www.xincheping.com/pingce/138663.html" target="_blank"
+title="坦克500">
+坦克500</a>&nbsp;
+<a href="https://www.xincheping.com/pingce/138137.html" target="_blank"
+title="长安CS75 PLUS">
+长安CS75 PLUS</a>&nbsp;
+</li>
+<li><label>强烈推荐</label>&nbsp;
+<a href="https://www.xincheping.com/pingce/137688.html" target="_blank"
+title="奔驰S级">
+奔驰S级</a>&nbsp;
+<a href="https://www.xincheping.com/pingce/133607.html" target="_blank"
+title="Giulia">
+Giulia</a>&nbsp;
+</li>
+<li><label>对比测试</label>&nbsp; <a
+href="https://www.xincheping.com/pingce/140528.html" target="_blank"
+title="15万选合资燃油还是自主插混？">
+15万选合资燃油还是自主插混？</a>&nbsp;
+</li>
+</ul>
+</div>
+<div class="r_box" id="xcp_adv_p_353" style="display: none;overflow: hidden;"></div>
+<div class="newbl">
+<a class="bl_toppic"href="/tribe/index.html" target="_blank"><div class="tribe-logo"></div></a>
+<!-- 上方图片轮播区域 start-->
+<!--上方图片轮播区域  end-->
+<!-- 部落4张图-->
+<ul class="bl_list">
+<li><a href="https://www.xincheping.com/tribe/art/252624.html" target="_blank"><img alt="不公平对比 保时捷Macan和Q5L、X3、GLC" title="不公平对比 保时捷Macan和Q5L、X3、GLC" src="https://p.xincheping.com/202201/b7/dim4032x2016_cbe0a3b5b546d09bb5187b4d310bbe_120nomk.jpg" width="120" height="80"> </a>
+<p> <a href="https://www.xincheping.com/tribe/art/252624.html" target="_blank">不公平对比 保时捷Macan和Q5L、X3、GLC</a> </p>
+</li>
+<li><a href="https://www.xincheping.com/tribe/art/252543.html" target="_blank"><img alt="从零开始   零跑汽车T03轻享版北京--长春路测纪实" title="从零开始   零跑汽车T03轻享版北京--长春路测纪实" src="https://p.xincheping.com/202110/de/dim540x270_7ade3f06f946119fae11054014552f_120nomk.jpg" width="120" height="80"> </a>
+<p> <a href="https://www.xincheping.com/tribe/art/252543.html" target="_blank">从零开始   零跑汽车T03轻享版北京--长春路测纪实</a> </p>
+</li>
+<li><a href="https://www.xincheping.com/tribe/art/252536.html" target="_blank"><img alt="能越野的旅行车 | 纳瓦拉SUC测评" title="能越野的旅行车 | 纳瓦拉SUC测评" src="https://p.xincheping.com/202110/8f/dim686x343_ae0727d9a74a5aaa1e036ee6b726ad_120nomk.jpg" width="120" height="80"> </a>
+<p> <a href="https://www.xincheping.com/tribe/art/252536.html" target="_blank">能越野的旅行车 | 纳瓦拉SUC测评</a> </p>
+</li>
+<li><a href="https://www.xincheping.com/tribe/art/252298.html" target="_blank"><img alt="自驾4100英里穿越美国中西部圆梦宝马E28 535i" title="自驾4100英里穿越美国中西部圆梦宝马E28 535i" src="https://p.xincheping.com/202104/18/dim4679x2339_08ef40637049d69ab62e90ae710078_120nomk.jpg" width="120" height="80"> </a>
+<p> <a href="https://www.xincheping.com/tribe/art/252298.html" target="_blank">自驾4100英里穿越美国中西部圆梦宝马E28 535i</a> </p>
+</li>
+</ul>
+<!--部落4张图-->
+</div>
+<div class="r_box">
+<h2>
+<span><a href="/daogou/newanswer/exp/" target="_blank">更多&gt;&gt;</a></span>专家解答
+</h2>
+<div class="ullist">
+<ul style="overflow: hidden; width: 265px; height:220px;"
+id="ulQuestion">
+<li><a href="https://www.xincheping.com/daogou/157492.html"
+target="_blank" title="[导购]不是家里的唯一的车，C-HR双擎和EV选择谁？"> [导购]不是家里的唯一的车，C-HR双擎和EV选择谁？</a></li>
+<li><a href="https://www.xincheping.com/daogou/157844.html"
+target="_blank" title="[导购]10万元购车求推荐：SUV、轿车、油车、混动、纯电都可以"> [导购]10万元购车求推荐：SUV、轿车、油车、混动、纯电都可以</a></li>
+<li><a href="https://www.xincheping.com/daogou/157818.html"
+target="_blank" title="[导购]家里的第二台车，领克01，闪电猫，CX30选谁好？"> [导购]家里的第二台车，领克01，闪电猫，CX30选谁好？</a></li>
+<li><a href="https://www.xincheping.com/daogou/157624.html"
+target="_blank" title="[导购]家用代步电动车导购"> [导购]家用代步电动车导购</a></li>
+<li><a href="https://www.xincheping.com/daogou/157715.html"
+target="_blank" title="[导购]20多到30左右，小巧SUV，合资豪华品牌，大家有什么建议"> [导购]20多到30左右，小巧SUV，合资豪华品牌，大家有什么建议</a></li>
+<li><a href="https://www.xincheping.com/daogou/157729.html"
+target="_blank" title="[导购]十几万的车，什么车空调比较强"> [导购]十几万的车，什么车空调比较强</a></li>
+<li><a href="https://www.xincheping.com/daogou/157723.html"
+target="_blank" title="[导购]30到40W的豪华品牌"> [导购]30到40W的豪华品牌</a></li>
+<li><a href="https://www.xincheping.com/daogou/157721.html"
+target="_blank" title="[导购]速腾1.2T手动挡可以刷一阶程序吗"> [导购]速腾1.2T手动挡可以刷一阶程序吗</a></li>
+<li><a href="https://www.xincheping.com/daogou/157707.html"
+target="_blank" title="[导购]40-45万上下的预算，混动中大型轿车如何选？"> [导购]40-45万上下的预算，混动中大型轿车如何选？</a></li>
+<li><a href="https://www.xincheping.com/daogou/157661.html"
+target="_blank" title="[导购]落地8到10万，性价比高，省心的车有啥推荐吗"> [导购]落地8到10万，性价比高，省心的车有啥推荐吗</a></li>
+</ul>
+<script type="text/javascript">
+new Marquee("ulQuestion", 0, 1, 265, 200, 100,
+0, 1000, 22);
+</script>
+</div>
+</div>
+<div class="homeadvbtn" id="xcp_adv_p_128"></div>
+<div class="r_box" style="border: 0px;">
+<div>
+<img src="https://res.xincheping.com/images/2022/diandongwanjia/banner_1196x500.png" style="width: 287px;height: auto;">
+</div>
+</div>
+<div class="r_box">
+<h2>
+<span><a href="/video/" target="_blank">更多&gt;&gt;</a></span>推荐视频
+</h2>
+<div class="v_list">
+<ul>
+<li><a href="https://www.xincheping.com/video/28566.html" target="_blank">
+<img alt="设计大变+续航增加,抢先体验比亚迪宋PLUS冠军版!" title="设计大变+续航增加,抢先体验比亚迪宋PLUS冠军版!" src="https://p.xincheping.com/202306/a5/dim1200x800_3791cfb86542bf944ee9f6f654543b_120.jpg" width="120" height="80" />
+<span class="r_play bg"></span>
+</a>
+<p>
+<a href="https://www.xincheping.com/video/28566.html" target="_blank">设计大变+续航增加,抢先体验比亚迪宋PLUS冠军版!</a>
+</p></li>
+<li><a href="https://www.xincheping.com/video/28562.html" target="_blank">
+<img alt="这一点，证明蔚来ET5 Touring是真正的旅行车！" title="这一点，证明蔚来ET5 Touring是真正的旅行车！" src="https://p.xincheping.com/202306/d6/dim1200x800_c6425b42724a429cd34e19761038e9_120.jpg" width="120" height="80" />
+<span class="r_play bg"></span>
+</a>
+<p>
+<a href="https://www.xincheping.com/video/28562.html" target="_blank">这一点，证明蔚来ET5 Touring是真正的旅行车！</a>
+</p></li>
+<li><a href="https://www.xincheping.com/video/28560.html" target="_blank">
+<img alt="社论56：合资品牌自救范例：马自达让梁家辉负责到底？" title="社论56：合资品牌自救范例：马自达让梁家辉负责到底？" src="https://p.xincheping.com/202306/1a/dim1200x800_8efb52da5f43829e2faa7dfaec9c65_120.jpg" width="120" height="80" />
+<span class="r_play bg"></span>
+</a>
+<p>
+<a href="https://www.xincheping.com/video/28560.html" target="_blank">社论56：合资品牌自救范例：马自达让梁家辉负责到底？</a>
+</p></li>
+<li><a href="https://www.xincheping.com/video/28558.html" target="_blank">
+<img alt="在小鹏充电站充蔚来ET7充出了特斯拉的效果？" title="在小鹏充电站充蔚来ET7充出了特斯拉的效果？" src="https://p.xincheping.com/202306/af/dim1200x800_fc935541f145ec815e188ce74cc43a_120.jpg" width="120" height="80" />
+<span class="r_play bg"></span>
+</a>
+<p>
+<a href="https://www.xincheping.com/video/28558.html" target="_blank">在小鹏充电站充蔚来ET7充出了特斯拉的效果？</a>
+</p></li>
+<li><a href="https://www.xincheping.com/video/28556.html" target="_blank">
+<img alt="传祺影酷燃油 Vs 混动，这套混动居然不是丰田的？" title="传祺影酷燃油 Vs 混动，这套混动居然不是丰田的？" src="https://p.xincheping.com/202306/64/dim1200x800_0ad342317a4b43b24029043d7f4de4_120.jpg" width="120" height="80" />
+<span class="r_play bg"></span>
+</a>
+<p>
+<a href="https://www.xincheping.com/video/28556.html" target="_blank">传祺影酷燃油 Vs 混动，这套混动居然不是丰田的？</a>
+</p></li>
+<li><a href="https://www.xincheping.com/video/28557.html" target="_blank">
+<img alt="2023年了，我们还有必要买丰田雷凌吗？" title="2023年了，我们还有必要买丰田雷凌吗？" src="https://p.xincheping.com/202306/6d/dim1200x800_35b099818c409baf0d26673d0c9e06_120.jpg" width="120" height="80" />
+<span class="r_play bg"></span>
+</a>
+<p>
+<a href="https://www.xincheping.com/video/28557.html" target="_blank">2023年了，我们还有必要买丰田雷凌吗？</a>
+</p></li>
+<li><a href="https://www.xincheping.com/video/28544.html" target="_blank">
+<img alt="试驾吉利银河L7:要啥有啥，这次硬刚比亚迪？" title="试驾吉利银河L7:要啥有啥，这次硬刚比亚迪？" src="https://p.xincheping.com/202306/e0/dim1200x800_3eac3ce0024cc18cbc6fc5de11bfb4_120.jpg" width="120" height="80" />
+<span class="r_play bg"></span>
+</a>
+<p>
+<a href="https://www.xincheping.com/video/28544.html" target="_blank">试驾吉利银河L7:要啥有啥，这次硬刚比亚迪？</a>
+</p></li>
+<li><a href="https://www.xincheping.com/video/28545.html" target="_blank">
+<img alt="主打一个超高性价比，12万级电混SUV它最均衡？" title="主打一个超高性价比，12万级电混SUV它最均衡？" src="https://p.xincheping.com/202306/23/dim1200x800_6f42f1a20f46e2aea738a37e2857e6_120.jpg" width="120" height="80" />
+<span class="r_play bg"></span>
+</a>
+<p>
+<a href="https://www.xincheping.com/video/28545.html" target="_blank">主打一个超高性价比，12万级电混SUV它最均衡？</a>
+</p></li>
+</ul>
+</div>
+</div>
+<div class="homeadvbtn" id="xcp_adv_p_129"></div>
+<div class="r_box">
+<h2>
+<span><a href="/changce/" target="_blank">更多&gt;&gt;</a></span>长期测试
+</h2>
+<div class="com_box">
+<div class="com_img">
+<a href="https://www.xincheping.com/changce/135645.html" target="_blank">
+<img alt="狮跑长测（3）：十五年前开发的韩系车，开起来怎么样？" title="狮跑长测（3）：十五年前开发的韩系车，开起来怎么样？" src="https://p.xincheping.com/202103/93/dim700x467_8e15b491124e3792513b9a9fc7148d_120.jpg" width="120" height="80" />
+</a>
+</div>
+<div class="com_p">
+<h4>
+<a href="https://www.xincheping.com/changce/135645.html" target="_blank">狮跑长测（3）：十五年前开发的韩系车，开起来怎么样？</a>
+</h4>
+<p>作者：曾昭庆</p>
+</div>
+</div>
+<div class="com_box">
+<div class="com_img">
+<a href="https://www.xincheping.com/changce/135511.html" target="_blank">
+<img alt="狮跑长测（2）：细心整备，让这个新伙伴达到最佳状态" title="狮跑长测（2）：细心整备，让这个新伙伴达到最佳状态" src="https://p.xincheping.com/202103/c5/dim700x467_82d20bbae049b087875cfe1252fb74_120.jpg" width="120" height="80" />
+</a>
+</div>
+<div class="com_p">
+<h4>
+<a href="https://www.xincheping.com/changce/135511.html" target="_blank">狮跑长测（2）：细心整备，让这个新伙伴达到最佳状态</a>
+</h4>
+<p>作者：曾昭庆</p>
+</div>
+</div>
+<div class="com_box">
+<div class="com_img">
+<a href="https://www.xincheping.com/changce/135510.html" target="_blank">
+<img alt="狮跑长测（1）：无心插柳，竟然捡到超越期待的精品车" title="狮跑长测（1）：无心插柳，竟然捡到超越期待的精品车" src="https://p.xincheping.com/202103/7e/dim700x467_9928dd074f4c7ea1a63d695cbe628f_120.jpg" width="120" height="80" />
+</a>
+</div>
+<div class="com_p">
+<h4>
+<a href="https://www.xincheping.com/changce/135510.html" target="_blank">狮跑长测（1）：无心插柳，竟然捡到超越期待的精品车</a>
+</h4>
+<p>作者：曾昭庆</p>
+</div>
+</div>
+<div class="com_box">
+<div class="com_img">
+<a href="https://www.xincheping.com/changce/135406.html" target="_blank">
+<img alt="领克01长测番外篇：改款胜换代，它完全有挑战豪华的实力" title="领克01长测番外篇：改款胜换代，它完全有挑战豪华的实力" src="https://p.xincheping.com/202103/ff/dim700x466_5665ceee35445b844afbdadc4ecbc2_120.png" width="120" height="80" />
+</a>
+</div>
+<div class="com_p">
+<h4>
+<a href="https://www.xincheping.com/changce/135406.html" target="_blank">领克01长测番外篇：改款胜换代，它完全有挑战豪华的实力</a>
+</h4>
+<p>作者：汤逸凡</p>
+</div>
+</div>
+<div class="com_box">
+<div class="com_img">
+<a href="https://www.xincheping.com/changce/135477.html" target="_blank">
+<img alt="福克斯长测（12）：三年老友，祝你一路顺风！" title="福克斯长测（12）：三年老友，祝你一路顺风！" src="https://p.xincheping.com/202103/3a/dim700x467_67c914d93148d8a082d685b5bd37f2_120.jpg" width="120" height="80" />
+</a>
+</div>
+<div class="com_p">
+<h4>
+<a href="https://www.xincheping.com/changce/135477.html" target="_blank">福克斯长测（12）：三年老友，祝你一路顺风！</a>
+</h4>
+<p>作者：曾昭庆</p>
+</div>
+</div>
+<div class="com_box">
+<div class="com_img">
+<a href="https://www.xincheping.com/changce/135008.html" target="_blank">
+<img alt="领克01长测总结篇：路遥知马力，它的表现配得上高端二字" title="领克01长测总结篇：路遥知马力，它的表现配得上高端二字" src="https://p.xincheping.com/202101/8d/dim700x466_a6d0f4599647ff94799259d9d9f456_120.jpg" width="120" height="80" />
+</a>
+</div>
+<div class="com_p">
+<h4>
+<a href="https://www.xincheping.com/changce/135008.html" target="_blank">领克01长测总结篇：路遥知马力，它的表现配得上高端二字</a>
+</h4>
+<p>作者：欧阳飞</p>
+</div>
+</div>
+<div class="cc_ul">
+<ul>
+<li><span>(2)</span>
+<a href="https://www.xincheping.com/changce/lt154.html" target="_blank">比亚迪海豹</a>
+</li>
+<li><span>(3)</span>
+<a href="https://www.xincheping.com/changce/lt153.html" target="_blank">二手起亚狮跑</a>
+</li>
+<li><span>(3)</span>
+<a href="https://www.xincheping.com/changce/lt152.html" target="_blank">现代菲斯塔纯电动</a>
+</li>
+<li><span>(4)</span>
+<a href="https://www.xincheping.com/changce/lt151.html" target="_blank">丰田卡罗拉</a>
+</li>
+<li><span>(5)</span>
+<a href="https://www.xincheping.com/changce/lt150.html" target="_blank">蔚来ES6</a>
+</li>
+<li><span>(16)</span>
+<a href="https://www.xincheping.com/changce/lt149.html" target="_blank">广汽丰田iA5</a>
+</li>
+<li><span>(15)</span>
+<a href="https://www.xincheping.com/changce/lt148.html" target="_blank">领克01</a>
+</li>
+<li><span>(12)</span>
+<a href="https://www.xincheping.com/changce/lt147.html" target="_blank">丰田雷凌双擎</a>
+</li>
+<li><span>(12)</span>
+<a href="https://www.xincheping.com/changce/lt146.html" target="_blank">丰田C-HR</a>
+</li>
+<li><span>(12)</span>
+<a href="https://www.xincheping.com/changce/lt145.html" target="_blank">二手福特福克斯</a>
+</li>
+<li><span>(15)</span>
+<a href="https://www.xincheping.com/changce/lt143.html" target="_blank">别克2018款昂科威</a>
+</li>
+<li><span>(15)</span>
+<a href="https://www.xincheping.com/changce/lt142.html" target="_blank">别克阅朗</a>
+</li>
+<li><span>(16)</span>
+<a href="https://www.xincheping.com/changce/lt141.html" target="_blank">长安睿骋CC</a>
+</li>
+<li><span>(10)</span>
+<a href="https://www.xincheping.com/changce/lt140.html" target="_blank">长安CS95</a>
+</li>
+</ul>
+</div>
+</div>
+<div class="r_box">
+<h2>
+<span></span>经典文章
+</h2>
+<div class="ullist">
+<ul>
+<li><a href="https://www.xincheping.com/news/140467.html" target="_blank">马牌UC7，更静、更快、更高级！</a></li>
+<li><a href="https://www.xincheping.com/views/140109.html" target="_blank">不能做电动车，这些自主品牌危！</a></li>
+<li><a href="https://www.xincheping.com/views/140010.html" target="_blank">付月费才能用的功能，会成汽车常态，这能忍？</a></li>
+<li><a href="https://www.xincheping.com/views/140289.html" target="_blank">年入7千亿级世界500强救场，威马还能“咸鱼翻身”吗？</a></li>
+<li><a href="https://www.xincheping.com/views/140155.html" target="_blank">车企为何要自造电池，不给宁德时代打工？</a></li>
+<li><a href="https://www.xincheping.com/views/140356.html" target="_blank">2022年最赚钱车企：特斯拉含泪血赚850亿，但还不如它</a></li>
+<li><a href="https://www.xincheping.com/views/140345.html" target="_blank">丰田/本田/日产齐发力 日系电动化晚了吗？</a></li>
+<li><a href="https://www.xincheping.com/views/140314.html" target="_blank">2023年，这些品牌会不会消失？</a></li>
+<li><a href="https://www.xincheping.com/views/140294.html" target="_blank">盘点年销百万自主品牌，大众都被超车了？</a></li>
+</ul>
+</div>
+</div>
+<div class="homeadvbtn" id="xcp_adv_p_130"></div>
+<div class="r_box">
+<h2>
+<span></span>热门文章
+</h2>
+<div class="com_box">
+<div class="com_img">
+<a href="https://www.xincheping.com/views/140915.html" target="_blank">
+<img alt="大20万，何苦买MINI还被冰淇淋？买这些国产车就很好" title="大20万，何苦买MINI还被冰淇淋？买这些国产车就很好" src="https://p.xincheping.com/202304/54/dim1000x750_749ef39f724416ba5a3f67111fd7bf_120.jpeg" width="120" height="80" />
+</a>
+</div>
+<div class="com_p">
+<h4>
+<a href="https://www.xincheping.com/views/140915.html" target="_blank">大20万，何苦买MINI还被冰淇淋？买这些国产车就很好</a>
+</h4>
+</div>
+</div>
+<div class="com_box">
+<div class="com_img">
+<a href="https://www.xincheping.com/views/140740.html" target="_blank">
+<img alt="面对内卷 五菱星辰凭何在10万级SUV市场上出圈" title="面对内卷 五菱星辰凭何在10万级SUV市场上出圈" src="https://p.xincheping.com/202304/c0/dim1000x702_f36ab44a744886996ab865415bfd7f_120.jpg" width="120" height="80" />
+</a>
+</div>
+<div class="com_p">
+<h4>
+<a href="https://www.xincheping.com/views/140740.html" target="_blank">面对内卷 五菱星辰凭何在10万级SUV市场上出圈</a>
+</h4>
+</div>
+</div>
+<div class="com_box">
+<div class="com_img">
+<a href="https://www.xincheping.com/views/141126.html" target="_blank">
+<img alt="马斯克访华,上海工厂扩产,特斯拉Model Q会卖到20万内？" title="马斯克访华,上海工厂扩产,特斯拉Model Q会卖到20万内？" src="https://p.xincheping.com/202305/97/dim600x400_328968211546d7b5395aee38372306_120.jpg" width="120" height="80" />
+</a>
+</div>
+<div class="com_p">
+<h4>
+<a href="https://www.xincheping.com/views/141126.html" target="_blank">马斯克访华,上海工厂扩产,特斯拉Model Q会卖到20万内？</a>
+</h4>
+</div>
+</div>
+<div class="com_box">
+<div class="com_img">
+<a href="https://www.xincheping.com/views/141107.html" target="_blank">
+<img alt="打入25万蓝海市场，小鹏G6不容有失，该怎么定价？" title="打入25万蓝海市场，小鹏G6不容有失，该怎么定价？" src="https://p.xincheping.com/202305/ca/dim4096x3072_a87e4f17084851a49a814ae0d499a0_120.jpeg" width="120" height="80" />
+</a>
+</div>
+<div class="com_p">
+<h4>
+<a href="https://www.xincheping.com/views/141107.html" target="_blank">打入25万蓝海市场，小鹏G6不容有失，该怎么定价？</a>
+</h4>
+</div>
+</div>
+<div class="com_box">
+<div class="com_img">
+<a href="https://www.xincheping.com/views/141100.html" target="_blank">
+<img alt="油箱风波后续：高压油箱真的是必需品吗？" title="油箱风波后续：高压油箱真的是必需品吗？" src="https://p.xincheping.com/202305/a7/dim600x400_728ebb3e8845df9d722e002878af76_120.jpg" width="120" height="80" />
+</a>
+</div>
+<div class="com_p">
+<h4>
+<a href="https://www.xincheping.com/views/141100.html" target="_blank">油箱风波后续：高压油箱真的是必需品吗？</a>
+</h4>
+</div>
+</div>
+<div class="com_box">
+<div class="com_img">
+<a href="https://www.xincheping.com/views/141080.html" target="_blank">
+<img alt="普通人买车，讲一个可靠，还得是大厂" title="普通人买车，讲一个可靠，还得是大厂" src="https://p.xincheping.com/202305/45/dim700x375_720089a1584fe596890e0daa397c2c_120.jpeg" width="120" height="80" />
+</a>
+</div>
+<div class="com_p">
+<h4>
+<a href="https://www.xincheping.com/views/141080.html" target="_blank">普通人买车，讲一个可靠，还得是大厂</a>
+</h4>
+</div>
+</div>
+<div class="com_box">
+<div class="com_img">
+<a href="https://www.xincheping.com/views/141009.html" target="_blank">
+<img alt="喜提新势力“上岸”第一股，理想做对了什么？" title="喜提新势力“上岸”第一股，理想做对了什么？" src="https://p.xincheping.com/202305/95/dim750x500_0dfff141e24cd692c7e79169899bc8_120.jpeg" width="120" height="80" />
+</a>
+</div>
+<div class="com_p">
+<h4>
+<a href="https://www.xincheping.com/views/141009.html" target="_blank">喜提新势力“上岸”第一股，理想做对了什么？</a>
+</h4>
+</div>
+</div>
+</div>
+<div class="homeadvbtn" id="xcp_adv_p_131"
+style="margin-bottom:15px;"></div>
+<div class="r_box">
+<h2>
+<span><a href="/news/" target="_blank">更多&gt;&gt;</a></span>车市资讯
+</h2>
+<div class="ullist">
+<ul>
+<li><a href="https://www.xincheping.com/cehua/142028.html" target="_blank">有望刷新激光雷达车型最低售价？零跑C10亮相</a></li>
+<li><a href="https://www.xincheping.com/cehua/142033.html" target="_blank">现代梭哈了！索纳塔、胜达同时换代，还有2款N品牌新车</a></li>
+<li><a href="https://www.xincheping.com/ev/142010.html" target="_blank">2023广州车展：9.38万元起，五菱星光开启预售</a></li>
+<li><a href="https://www.xincheping.com/cehua/142013.html" target="_blank">2023广州车展：售70万元，坦克700 Hi4-T开启预售</a></li>
+<li><a href="https://www.xincheping.com/cehua/142014.html" target="_blank">2023广州车展：双腔空悬+后轮转向，小鹏X9预售38.8万起</a></li>
+<li><a href="https://www.xincheping.com/cehua/142008.html" target="_blank">2023广州车展：搭2.4T动力，一汽丰田普拉多正式亮相</a></li>
+<li><a href="https://www.xincheping.com/cehua/142012.html" target="_blank">售价60万以内！明年2月开启交付，理想MEGA亮相广州车展</a></li>
+<li><a href="https://www.xincheping.com/news/142002.html" target="_blank">广州车展“含华量”最高的MPV，江淮瑞风RF8即将启动预售</a></li>
+<li><a href="https://www.xincheping.com/news/141915.html" target="_blank">商务接待or全家出行? 华为系首款MPV你想要的它都有</a></li>
+<li><a href="https://www.xincheping.com/news/141894.html" target="_blank">江淮瑞风发力智能电混MPV市场，瑞风RF8渠道招商全面启动</a></li>
+</ul>
+</div>
+</div>
+<!--end-->
+</div>
+</div>
+</div>
+<!--content end-->
+<!--只有深圳地区才能看到-->
+<!--sz end-->
+<div class="narmaladvbox">
+<div class="narmaladv_inner" id="xcp_adv_p_121"></div>
+</div>
+<div class="narmaladvbox">
+<div class="narmaladv_inner" id="xcp_adv_p_122"></div>
+</div>
+<div class="narmaladvbox">
+<div class="narmaladv_inner" id="xcp_adv_p_123"></div>
+</div>
+<!-- <script type="text/javascript">
+$(function(){
+loadJs("http://int.dpool.sina.com.cn/iplookup/iplookup.php?format=js",function(){
+city = remote_ip_info.city;
+if (remote_ip_info.city == "广州") {
+}
+if (remote_ip_info.city == "深圳") {
+$("#xcp_szbox").show();
+$("#xcp_adv_p_127").show();
+$("#homeadvbtn247").show();
+$("#szjss").show();
+} else {
+$("#xcp_szbox").hide();
+}
+}, null);
+});
+</script> -->
+<script type="text/javascript">
+/*判断浏览器分辨率*/
+function xcp_side() {
+var xcp_width = document.body.offsetWidth;
+var xcpside = document.getElementById('xcp_nav');
+if (xcp_width < 1165) {
+xcpside.style.right = '20px';
+xcpside.style.marginRight = 'auto';
+} else {
+xcpside.style.right = '50%';
+xcpside.style.marginRight = '-642px';
+}
+}
+window.onresize = xcp_side;
+window.onload = xcp_side;
+</script>
+<div class="link">
+<div class="friendbox_tit_inner">
+<div class="">友情链接</div>
+<div>网址导航</div>
+<div class="friendbox_tit_sel">品牌大全</div>
+</div>
+<div class="friendbox_con">
+<div style="display: none;">
+<a href="http://auto.163.com/"  target="_blank">网易汽车</a>
+<a href="http://www.pcauto.com.cn"  target="_blank">太平洋汽车网</a> 
+<a href="http://www.ctime.com/"   target="_blank">ctime表态网</a> 
+<a href="http://www.ddc.net.cn/"  target="_blank">电动汽车</a> 
+<a href="http://auto.hexun.com/"  target="_blank">和讯汽车</a> 
+<a href="http://www.taoche.com/"  target="_blank">易车二手车</a> 
+<a href="http://baa.bitauto.com/"  target="_blank">易车网-汽车论坛</a> 
+<a href="http://www.315che.com/"  target="_blank">中国汽车消费网</a> 
+<a href="http://www.cheyun.com/"  target="_blank">车云网</a> 
+<a href="http://www.chooseauto.com.cn/"  target="_blank">选车网</a> 
+<a href="http://www.mycar168.com/"  target="_blank">汽车大世界</a> 
+<a href="http://auto.cnfol.com/"  target="_blank">中金在线汽车</a> 
+<a href="http://www.12365auto.com/"  target="_blank">车质网</a> 
+<a href="http://www.chexun.com"  target="_blank">车讯网</a> 
+<a href="http://www.jiazhao.com/"  target="_blank">驾照网</a>
+<a href="http://auto.news18a.com/"  target="_blank">网通社汽车</a>
+<br> (权重&gt;=5 友链交换，请联系QQ：3302048342,验证信息务必填写贵公司网址)
+</div>
+<div style="display:none;">
+<a href="http://www.hao123.com" target="_blank">hao123上网导航</a> <a
+href="http://www.duba.com/" target="_blank">金山网址导航</a> <a
+href="http://site.baidu.com/" target="_blank">百度网址大全</a> <a
+href="http://www.uu7c.com/" target="_blank">汽车网站大全</a> <a
+href="http://www.1234wu.com/" target="_blank">123网址之家</a>
+</div>
+<div style="">
+<a href="https://www.xincheping.com/car/brand/1198.html" target="_blank">埃安</a>
+<a href="https://www.xincheping.com/car/brand/1209.html" target="_blank">爱驰</a>
+<a href="https://www.xincheping.com/car/brand/1.html" target="_blank">奥迪</a>
+<a href="https://www.xincheping.com/car/brand/60.html" target="_blank">阿尔法·罗密欧</a>
+<a href="https://www.xincheping.com/car/brand/1589.html" target="_blank">阿尔特</a>
+<a href="https://www.xincheping.com/car/brand/1591.html" target="_blank">AFEELA</a>
+<a href="https://www.xincheping.com/car/brand/1557.html" target="_blank">AITO</a>
+<a href="https://www.xincheping.com/car/brand/1572.html" target="_blank">安凯客车</a>
+<a href="https://www.xincheping.com/car/brand/1493.html" target="_blank">艾康尼克</a>
+<a href="https://www.xincheping.com/car/brand/1581.html" target="_blank">ALPINE</a>
+<a href="https://www.xincheping.com/car/brand/1536.html" target="_blank">APEX</a>
+<a href="https://www.xincheping.com/car/brand/1499.html" target="_blank">Arash</a>
+<a href="https://www.xincheping.com/car/brand/1462.html" target="_blank">ARCFOX极狐</a>
+<a href="https://www.xincheping.com/car/brand/62.html" target="_blank">阿斯顿·马丁</a>
+<a href="https://www.xincheping.com/car/brand/1524.html" target="_blank">ASPARK</a>
+<a href="https://www.xincheping.com/car/brand/1553.html" target="_blank">阿维塔</a>
+<a href="https://www.xincheping.com/car/brand/1529.html" target="_blank">BAC</a>
+<a href="https://www.xincheping.com/car/brand/1562.html" target="_blank">BAO</a>
+<a href="https://www.xincheping.com/car/brand/4.html" target="_blank">奔驰</a>
+<a href="https://www.xincheping.com/car/brand/1585.html" target="_blank">BeyonCa</a>
+<a href="https://www.xincheping.com/car/brand/582.html" target="_blank">宝骏</a>
+<a href="https://www.xincheping.com/car/brand/593.html" target="_blank">北京</a>
+<a href="https://www.xincheping.com/car/brand/814.html" target="_blank">北京汽车</a>
+<a href="https://www.xincheping.com/car/brand/1517.html" target="_blank">博郡汽车</a>
+<a href="https://www.xincheping.com/car/brand/1509.html" target="_blank">北京清行</a>
+<a href="https://www.xincheping.com/car/brand/7.html" target="_blank">别克</a>
+<a href="https://www.xincheping.com/car/brand/45.html" target="_blank">宾利</a>
+<a href="https://www.xincheping.com/car/brand/20.html" target="_blank">宝马</a>
+<a href="https://www.xincheping.com/car/brand/1515.html" target="_blank">宾尼法利纳</a>
+<a href="https://www.xincheping.com/car/brand/1525.html" target="_blank">BOLLINGER MOTORS</a>
+<a href="https://www.xincheping.com/car/brand/75.html" target="_blank">北汽昌河</a>
+<a href="https://www.xincheping.com/car/brand/898.html" target="_blank">北汽幻速</a>
+<a href="https://www.xincheping.com/car/brand/1608.html" target="_blank">北汽雷驰</a>
+<a href="https://www.xincheping.com/car/brand/1543.html" target="_blank">北汽瑞翔</a>
+<a href="https://www.xincheping.com/car/brand/643.html" target="_blank">北汽威旺</a>
+<a href="https://www.xincheping.com/car/brand/950.html" target="_blank">北汽新能源</a>
+<a href="https://www.xincheping.com/car/brand/122.html" target="_blank">北汽制造</a>
+<a href="https://www.xincheping.com/car/brand/44.html" target="_blank">保时捷</a>
+<a href="https://www.xincheping.com/car/brand/3.html" target="_blank">本田</a>
+<a href="https://www.xincheping.com/car/brand/306.html" target="_blank">奔腾</a>
+<a href="https://www.xincheping.com/car/brand/1523.html" target="_blank">宝腾</a>
+<a href="https://www.xincheping.com/car/brand/1148.html" target="_blank">宝沃</a>
+<a href="https://www.xincheping.com/car/brand/107.html" target="_blank">比亚迪</a>
+<a href="https://www.xincheping.com/car/brand/1501.html" target="_blank">BYTON拜腾</a>
+<a href="https://www.xincheping.com/car/brand/41.html" target="_blank">标致</a>
+<a href="https://www.xincheping.com/car/brand/1548.html" target="_blank">百智新能源</a>
+<a href="https://www.xincheping.com/car/brand/1172.html" target="_blank">长安凯程</a>
+<a href="https://www.xincheping.com/car/brand/1231.html" target="_blank">长安跨越</a>
+<a href="https://www.xincheping.com/car/brand/1597.html" target="_blank">长安启源</a>
+<a href="https://www.xincheping.com/car/brand/613.html" target="_blank">长安欧尚</a>
+<a href="https://www.xincheping.com/car/brand/110.html" target="_blank">长城</a>
+<a href="https://www.xincheping.com/car/brand/1596.html" target="_blank">曹操汽车</a>
+<a href="https://www.xincheping.com/car/brand/990.html" target="_blank">成功</a>
+<a href="https://www.xincheping.com/car/brand/1574.html" target="_blank">Conquest</a>
+<a href="https://www.xincheping.com/car/brand/1552.html" target="_blank">橙仕</a>
+<a href="https://www.xincheping.com/car/brand/1503.html" target="_blank">CUPRA</a>
+<a href="https://www.xincheping.com/car/brand/1508.html" target="_blank">昶洧</a>
+<a href="https://www.xincheping.com/car/brand/1455.html" target="_blank">创维汽车</a>
+<a href="https://www.xincheping.com/car/brand/1510.html" target="_blank">刺猬汽车</a>
+<a href="https://www.xincheping.com/car/brand/1531.html" target="_blank">Czinger</a>
+<a href="https://www.xincheping.com/car/brand/1526.html" target="_blank">Datsun</a>
+<a href="https://www.xincheping.com/car/brand/1546.html" target="_blank">电动屋</a>
+<a href="https://www.xincheping.com/car/brand/1567.html" target="_blank">DEUS Automobiles</a>
+<a href="https://www.xincheping.com/car/brand/1497.html" target="_blank">大发</a>
+<a href="https://www.xincheping.com/car/brand/1609.html" target="_blank">东风eπ</a>
+<a href="https://www.xincheping.com/car/brand/877.html" target="_blank">东风风度</a>
+<a href="https://www.xincheping.com/car/brand/1141.html" target="_blank">东风风光</a>
+<a href="https://www.xincheping.com/car/brand/1234.html" target="_blank">东风富康</a>
+<a href="https://www.xincheping.com/car/brand/1492.html" target="_blank">东风风诺</a>
+<a href="https://www.xincheping.com/car/brand/581.html" target="_blank">东风风神</a>
+<a href="https://www.xincheping.com/car/brand/949.html" target="_blank">东风风行</a>
+<a href="https://www.xincheping.com/car/brand/1471.html" target="_blank">东风纳米</a>
+<a href="https://www.xincheping.com/car/brand/1540.html" target="_blank">东风氢舟</a>
+<a href="https://www.xincheping.com/car/brand/856.html" target="_blank">东风小康</a>
+<a href="https://www.xincheping.com/car/brand/1215.html" target="_blank">东风·瑞泰特</a>
+<a href="https://www.xincheping.com/car/brand/1588.html" target="_blank">大力牛魔王</a>
+<a href="https://www.xincheping.com/car/brand/16.html" target="_blank">东南</a>
+<a href="https://www.xincheping.com/car/brand/1547.html" target="_blank">Donkervoort</a>
+<a href="https://www.xincheping.com/car/brand/72.html" target="_blank">道奇</a>
+<a href="https://www.xincheping.com/car/brand/1495.html" target="_blank">达契亚</a>
+<a href="https://www.xincheping.com/car/brand/754.html" target="_blank">DS</a>
+<a href="https://www.xincheping.com/car/brand/1457.html" target="_blank">大运</a>
+<a href="https://www.xincheping.com/car/brand/2.html" target="_blank">大众</a>
+<a href="https://www.xincheping.com/car/brand/1491.html" target="_blank">Faraday Future</a>
+<a href="https://www.xincheping.com/car/brand/1601.html" target="_blank">方程豹</a>
+<a href="https://www.xincheping.com/car/brand/116.html" target="_blank">福迪</a>
+<a href="https://www.xincheping.com/car/brand/1461.html" target="_blank">飞碟汽车</a>
+<a href="https://www.xincheping.com/car/brand/1463.html" target="_blank">飞凡汽车</a>
+<a href="https://www.xincheping.com/car/brand/1478.html" target="_blank">Fisker</a>
+<a href="https://www.xincheping.com/car/brand/61.html" target="_blank">法拉利</a>
+<a href="https://www.xincheping.com/car/brand/1479.html" target="_blank">FM Auto</a>
+<a href="https://www.xincheping.com/car/brand/1551.html" target="_blank">FOXTRON</a>
+<a href="https://www.xincheping.com/car/brand/10.html" target="_blank">丰田</a>
+<a href="https://www.xincheping.com/car/brand/21.html" target="_blank">福特</a>
+<a href="https://www.xincheping.com/car/brand/103.html" target="_blank">福田</a>
+<a href="https://www.xincheping.com/car/brand/18.html" target="_blank">菲亚特</a>
+<a href="https://www.xincheping.com/car/brand/1255.html" target="_blank">广汽蔚来</a>
+<a href="https://www.xincheping.com/car/brand/1514.html" target="_blank">GFG Style</a>
+<a href="https://www.xincheping.com/car/brand/567.html" target="_blank">光冈</a>
+<a href="https://www.xincheping.com/car/brand/1460.html" target="_blank">高合汽车</a>
+<a href="https://www.xincheping.com/car/brand/1182.html" target="_blank">国金汽车</a>
+<a href="https://www.xincheping.com/car/brand/1587.html" target="_blank">国吉商用车</a>
+<a href="https://www.xincheping.com/car/brand/1252.html" target="_blank">国机智骏</a>
+<a href="https://www.xincheping.com/car/brand/1519.html" target="_blank">格罗夫</a>
+<a href="https://www.xincheping.com/car/brand/1564.html" target="_blank">GMA</a>
+<a href="https://www.xincheping.com/car/brand/265.html" target="_blank">GMC</a>
+<a href="https://www.xincheping.com/car/brand/571.html" target="_blank">广汽传祺</a>
+<a href="https://www.xincheping.com/car/brand/195.html" target="_blank">广汽吉奥</a>
+<a href="https://www.xincheping.com/car/brand/1229.html" target="_blank">广汽集团</a>
+<a href="https://www.xincheping.com/car/brand/1522.html" target="_blank">GYON</a>
+<a href="https://www.xincheping.com/car/brand/824.html" target="_blank">观致</a>
+<a href="https://www.xincheping.com/car/brand/1605.html" target="_blank">昊铂</a>
+<a href="https://www.xincheping.com/car/brand/1539.html" target="_blank">恒驰</a>
+<a href="https://www.xincheping.com/car/brand/1437.html" target="_blank">合创汽车</a>
+<a href="https://www.xincheping.com/car/brand/1560.html" target="_blank">华晨新日</a>
+<a href="https://www.xincheping.com/car/brand/1498.html" target="_blank">Hennessey</a>
+<a href="https://www.xincheping.com/car/brand/845.html" target="_blank">哈弗</a>
+<a href="https://www.xincheping.com/car/brand/876.html" target="_blank">海格</a>
+<a href="https://www.xincheping.com/car/brand/133.html" target="_blank">黄海</a>
+<a href="https://www.xincheping.com/car/brand/1534.html" target="_blank">Hispano Suiza</a>
+<a href="https://www.xincheping.com/car/brand/8.html" target="_blank">海马</a>
+<a href="https://www.xincheping.com/car/brand/1167.html" target="_blank">海马新能源</a>
+<a href="https://www.xincheping.com/car/brand/583.html" target="_blank">海马郑州</a>
+<a href="https://www.xincheping.com/car/brand/396.html" target="_blank">红旗</a>
+<a href="https://www.xincheping.com/car/brand/1472.html" target="_blank">恒润汽车</a>
+<a href="https://www.xincheping.com/car/brand/1001.html" target="_blank">华颂</a>
+<a href="https://www.xincheping.com/car/brand/115.html" target="_blank">华泰</a>
+<a href="https://www.xincheping.com/car/brand/1152.html" target="_blank">汉腾</a>
+<a href="https://www.xincheping.com/car/brand/1222.html" target="_blank">红星</a>
+<a href="https://www.xincheping.com/car/brand/1582.html" target="_blank">华梓汽车</a>
+<a href="https://www.xincheping.com/car/brand/1600.html" target="_blank">iCAR</a>
+<a href="https://www.xincheping.com/car/brand/1521.html" target="_blank">ICONA</a>
+<a href="https://www.xincheping.com/car/brand/1449.html" target="_blank">IMSA英飒</a>
+<a href="https://www.xincheping.com/car/brand/1584.html" target="_blank">INEOS</a>
+<a href="https://www.xincheping.com/car/brand/1506.html" target="_blank">Isdera</a>
+<a href="https://www.xincheping.com/car/brand/1502.html" target="_blank">Italdesign</a>
+<a href="https://www.xincheping.com/car/brand/26.html" target="_blank">捷豹</a>
+<a href="https://www.xincheping.com/car/brand/83.html" target="_blank">金杯</a>
+<a href="https://www.xincheping.com/car/brand/1570.html" target="_blank">金杯新能源</a>
+<a href="https://www.xincheping.com/car/brand/1241.html" target="_blank">捷达</a>
+<a href="https://www.xincheping.com/car/brand/38.html" target="_blank">Jeep</a>
+<a href="https://www.xincheping.com/car/brand/78.html" target="_blank">江淮</a>
+<a href="https://www.xincheping.com/car/brand/1566.html" target="_blank">江淮瑞风</a>
+<a href="https://www.xincheping.com/car/brand/1599.html" target="_blank">江淮钇为</a>
+<a href="https://www.xincheping.com/car/brand/1469.html" target="_blank">极氪</a>
+<a href="https://www.xincheping.com/car/brand/568.html" target="_blank">九龙</a>
+<a href="https://www.xincheping.com/car/brand/101.html" target="_blank">江铃</a>
+<a href="https://www.xincheping.com/car/brand/1248.html" target="_blank">吉利几何</a>
+<a href="https://www.xincheping.com/car/brand/13.html" target="_blank">吉利汽车</a>
+<a href="https://www.xincheping.com/car/brand/1593.html" target="_blank">吉利银河</a>
+<a href="https://www.xincheping.com/car/brand/1178.html" target="_blank">君马汽车</a>
+<a href="https://www.xincheping.com/car/brand/1592.html" target="_blank">江南汽车</a>
+<a href="https://www.xincheping.com/car/brand/1261.html" target="_blank">捷尼赛思</a>
+<a href="https://www.xincheping.com/car/brand/1602.html" target="_blank">极石</a>
+<a href="https://www.xincheping.com/car/brand/1603.html" target="_blank">极石汽车</a>
+<a href="https://www.xincheping.com/car/brand/1202.html" target="_blank">捷途</a>
+<a href="https://www.xincheping.com/car/brand/1240.html" target="_blank">钧天汽车</a>
+<a href="https://www.xincheping.com/car/brand/1561.html" target="_blank">极越</a>
+<a href="https://www.xincheping.com/car/brand/1598.html" target="_blank">Karlmann</a>
+<a href="https://www.xincheping.com/car/brand/1518.html" target="_blank">KARMA</a>
+<a href="https://www.xincheping.com/car/brand/70.html" target="_blank">凯迪拉克</a>
+<a href="https://www.xincheping.com/car/brand/1565.html" target="_blank">克蒂汽车</a>
+<a href="https://www.xincheping.com/car/brand/39.html" target="_blank">克莱斯勒</a>
+<a href="https://www.xincheping.com/car/brand/1448.html" target="_blank">卡漠兹</a>
+<a href="https://www.xincheping.com/car/brand/578.html" target="_blank">开瑞</a>
+<a href="https://www.xincheping.com/car/brand/1481.html" target="_blank">科瑞斯的</a>
+<a href="https://www.xincheping.com/car/brand/1053.html" target="_blank">开沃汽车</a>
+<a href="https://www.xincheping.com/car/brand/1012.html" target="_blank">卡威汽车</a>
+<a href="https://www.xincheping.com/car/brand/970.html" target="_blank">凯翼</a>
+<a href="https://www.xincheping.com/car/brand/64.html" target="_blank">兰博基尼</a>
+<a href="https://www.xincheping.com/car/brand/58.html" target="_blank">猎豹汽车</a>
+<a href="https://www.xincheping.com/car/brand/1450.html" target="_blank">凌宝汽车</a>
+<a href="https://www.xincheping.com/car/brand/1595.html" target="_blank">蓝电</a>
+<a href="https://www.xincheping.com/car/brand/1507.html" target="_blank">拉达</a>
+<a href="https://www.xincheping.com/car/brand/1022.html" target="_blank">雷丁</a>
+<a href="https://www.xincheping.com/car/brand/939.html" target="_blank">陆地方舟</a>
+<a href="https://www.xincheping.com/car/brand/1573.html" target="_blank">雷达汽车</a>
+<a href="https://www.xincheping.com/car/brand/1490.html" target="_blank">LeSEE</a>
+<a href="https://www.xincheping.com/car/brand/1537.html" target="_blank">LEVC</a>
+<a href="https://www.xincheping.com/car/brand/305.html" target="_blank">力帆</a>
+<a href="https://www.xincheping.com/car/brand/569.html" target="_blank">陆风</a>
+<a href="https://www.xincheping.com/car/brand/1504.html" target="_blank">拉共达</a>
+<a href="https://www.xincheping.com/car/brand/29.html" target="_blank">路虎</a>
+<a href="https://www.xincheping.com/car/brand/66.html" target="_blank">林肯</a>
+<a href="https://www.xincheping.com/car/brand/1166.html" target="_blank">领克</a>
+<a href="https://www.xincheping.com/car/brand/30.html" target="_blank">雷克萨斯</a>
+<a href="https://www.xincheping.com/car/brand/73.html" target="_blank">铃木</a>
+<a href="https://www.xincheping.com/car/brand/40.html" target="_blank">雷诺</a>
+<a href="https://www.xincheping.com/car/brand/604.html" target="_blank">理念</a>
+<a href="https://www.xincheping.com/car/brand/1085.html" target="_blank">LOCAL MOTORS</a>
+<a href="https://www.xincheping.com/car/brand/1190.html" target="_blank">零跑汽车</a>
+<a href="https://www.xincheping.com/car/brand/1535.html" target="_blank">蓝旗亚</a>
+<a href="https://www.xincheping.com/car/brand/1480.html" target="_blank">朗世</a>
+<a href="https://www.xincheping.com/car/brand/47.html" target="_blank">劳斯莱斯</a>
+<a href="https://www.xincheping.com/car/brand/1604.html" target="_blank">菱势汽车</a>
+<a href="https://www.xincheping.com/car/brand/1228.html" target="_blank">领途</a>
+<a href="https://www.xincheping.com/car/brand/1467.html" target="_blank">岚图汽车</a>
+<a href="https://www.xincheping.com/car/brand/653.html" target="_blank">路特斯</a>
+<a href="https://www.xincheping.com/car/brand/1500.html" target="_blank">Lucid</a>
+<a href="https://www.xincheping.com/car/brand/1607.html" target="_blank">灵悉</a>
+<a href="https://www.xincheping.com/car/brand/1230.html" target="_blank">理想汽车</a>
+<a href="https://www.xincheping.com/car/brand/1482.html" target="_blank">领志</a>
+<a href="https://www.xincheping.com/car/brand/1576.html" target="_blank">敏安汽车</a>
+<a href="https://www.xincheping.com/car/brand/1542.html" target="_blank">摩登汽车</a>
+<a href="https://www.xincheping.com/car/brand/345.html" target="_blank">MG名爵</a>
+<a href="https://www.xincheping.com/car/brand/1533.html" target="_blank">Micro</a>
+<a href="https://www.xincheping.com/car/brand/205.html" target="_blank">MINI</a>
+<a href="https://www.xincheping.com/car/brand/715.html" target="_blank">迈凯伦</a>
+<a href="https://www.xincheping.com/car/brand/1580.html" target="_blank">Mobilize</a>
+<a href="https://www.xincheping.com/car/brand/1578.html" target="_blank">猛士</a>
+<a href="https://www.xincheping.com/car/brand/316.html" target="_blank">玛莎拉蒂</a>
+<a href="https://www.xincheping.com/car/brand/17.html" target="_blank">马自达</a>
+<a href="https://www.xincheping.com/car/brand/1484.html" target="_blank">nanoFLOWCELL</a>
+<a href="https://www.xincheping.com/car/brand/1511.html" target="_blank">NEVS国能汽车</a>
+<a href="https://www.xincheping.com/car/brand/1483.html" target="_blank">Noble</a>
+<a href="https://www.xincheping.com/car/brand/623.html" target="_blank">纳智捷</a>
+<a href="https://www.xincheping.com/car/brand/1225.html" target="_blank">哪吒汽车</a>
+<a href="https://www.xincheping.com/car/brand/140.html" target="_blank">讴歌</a>
+<a href="https://www.xincheping.com/car/brand/1212.html" target="_blank">欧拉</a>
+<a href="https://www.xincheping.com/car/brand/573.html" target="_blank">帕加尼</a>
+<a href="https://www.xincheping.com/car/brand/1466.html" target="_blank">朋克汽车</a>
+<a href="https://www.xincheping.com/car/brand/1186.html" target="_blank">Polestar极星</a>
+<a href="https://www.xincheping.com/car/brand/1513.html" target="_blank">佩奇奥</a>
+<a href="https://www.xincheping.com/car/brand/633.html" target="_blank">启辰</a>
+<a href="https://www.xincheping.com/car/brand/1496.html" target="_blank">奇点汽车</a>
+<a href="https://www.xincheping.com/car/brand/1136.html" target="_blank">骐铃汽车</a>
+<a href="https://www.xincheping.com/car/brand/1197.html" target="_blank">庆铃汽车</a>
+<a href="https://www.xincheping.com/car/brand/1095.html" target="_blank">全球鹰</a>
+<a href="https://www.xincheping.com/car/brand/57.html" target="_blank">奇瑞</a>
+<a href="https://www.xincheping.com/car/brand/1549.html" target="_blank">奇瑞新能源</a>
+<a href="https://www.xincheping.com/car/brand/12.html" target="_blank">起亚</a>
+<a href="https://www.xincheping.com/car/brand/1520.html" target="_blank">清源汽车</a>
+<a href="https://www.xincheping.com/car/brand/15.html" target="_blank">日产</a>
+<a href="https://www.xincheping.com/car/brand/1452.html" target="_blank">瑞驰新能源</a>
+<a href="https://www.xincheping.com/car/brand/1223.html" target="_blank">容大智造</a>
+<a href="https://www.xincheping.com/car/brand/1512.html" target="_blank">RIVIAN</a>
+<a href="https://www.xincheping.com/car/brand/1451.html" target="_blank">睿蓝汽车</a>
+<a href="https://www.xincheping.com/car/brand/1527.html" target="_blank">锐马克</a>
+<a href="https://www.xincheping.com/car/brand/1475.html" target="_blank">Rossion</a>
+<a href="https://www.xincheping.com/car/brand/365.html" target="_blank">荣威</a>
+<a href="https://www.xincheping.com/car/brand/49.html" target="_blank">斯巴鲁</a>
+<a href="https://www.xincheping.com/car/brand/1456.html" target="_blank">速达</a>
+<a href="https://www.xincheping.com/car/brand/1453.html" target="_blank">SERES赛力斯</a>
+<a href="https://www.xincheping.com/car/brand/1211.html" target="_blank">思皓</a>
+<a href="https://www.xincheping.com/car/brand/69.html" target="_blank">斯柯达</a>
+<a href="https://www.xincheping.com/car/brand/32.html" target="_blank">三菱</a>
+<a href="https://www.xincheping.com/car/brand/53.html" target="_blank">双龙</a>
+<a href="https://www.xincheping.com/car/brand/1555.html" target="_blank">沙龙汽车</a>
+<a href="https://www.xincheping.com/car/brand/1569.html" target="_blank">深蓝汽车</a>
+<a href="https://www.xincheping.com/car/brand/733.html" target="_blank">思铭</a>
+<a href="https://www.xincheping.com/car/brand/603.html" target="_blank">smart</a>
+<a href="https://www.xincheping.com/car/brand/1464.html" target="_blank">SONGSAN MOTORS</a>
+<a href="https://www.xincheping.com/car/brand/1528.html" target="_blank">SONY</a>
+<a href="https://www.xincheping.com/car/brand/673.html" target="_blank">上汽大通MAXUS</a>
+<a href="https://www.xincheping.com/car/brand/1488.html" target="_blank">陕汽通家</a>
+<a href="https://www.xincheping.com/car/brand/1473.html" target="_blank">SRM鑫源</a>
+<a href="https://www.xincheping.com/car/brand/1530.html" target="_blank">SSC</a>
+<a href="https://www.xincheping.com/car/brand/1563.html" target="_blank">STI</a>
+<a href="https://www.xincheping.com/car/brand/1153.html" target="_blank">SWM斯威汽车</a>
+<a href="https://www.xincheping.com/car/brand/1465.html" target="_blank">神州</a>
+<a href="https://www.xincheping.com/car/brand/1259.html" target="_blank">上喆汽车</a>
+<a href="https://www.xincheping.com/car/brand/1233.html" target="_blank">天际</a>
+<a href="https://www.xincheping.com/car/brand/1470.html" target="_blank">坦克</a>
+<a href="https://www.xincheping.com/car/brand/1489.html" target="_blank">泰克鲁斯·腾风</a>
+<a href="https://www.xincheping.com/car/brand/1454.html" target="_blank">天美</a>
+<a href="https://www.xincheping.com/car/brand/743.html" target="_blank">腾势</a>
+<a href="https://www.xincheping.com/car/brand/774.html" target="_blank">特斯拉</a>
+<a href="https://www.xincheping.com/car/brand/1505.html" target="_blank">塔塔</a>
+<a href="https://www.xincheping.com/car/brand/1532.html" target="_blank">Vega Innovations</a>
+<a href="https://www.xincheping.com/car/brand/1554.html" target="_blank">Vinfast</a>
+<a href="https://www.xincheping.com/car/brand/1571.html" target="_blank">VIRITECH </a>
+<a href="https://www.xincheping.com/car/brand/1486.html" target="_blank">W Motors</a>
+<a href="https://www.xincheping.com/car/brand/1594.html" target="_blank">未奥汽车</a>
+<a href="https://www.xincheping.com/car/brand/24.html" target="_blank">沃尔沃</a>
+<a href="https://www.xincheping.com/car/brand/1477.html" target="_blank">沃克斯豪尔</a>
+<a href="https://www.xincheping.com/car/brand/579.html" target="_blank">威麟</a>
+<a href="https://www.xincheping.com/car/brand/118.html" target="_blank">五菱</a>
+<a href="https://www.xincheping.com/car/brand/1161.html" target="_blank">蔚来</a>
+<a href="https://www.xincheping.com/car/brand/1192.html" target="_blank">威马汽车</a>
+<a href="https://www.xincheping.com/car/brand/1165.html" target="_blank">魏牌</a>
+<a href="https://www.xincheping.com/car/brand/918.html" target="_blank">五十铃</a>
+<a href="https://www.xincheping.com/car/brand/1575.html" target="_blank">万象汽车</a>
+<a href="https://www.xincheping.com/car/brand/1538.html" target="_blank">瓦滋</a>
+<a href="https://www.xincheping.com/car/brand/753.html" target="_blank">威兹曼</a>
+<a href="https://www.xincheping.com/car/brand/34.html" target="_blank">现代</a>
+<a href="https://www.xincheping.com/car/brand/225.html" target="_blank">雪佛兰</a>
+<a href="https://www.xincheping.com/car/brand/1468.html" target="_blank">小虎</a>
+<a href="https://www.xincheping.com/car/brand/1568.html" target="_blank">新吉奥</a>
+<a href="https://www.xincheping.com/car/brand/1196.html" target="_blank">新凯</a>
+<a href="https://www.xincheping.com/car/brand/878.html" target="_blank">新龙马汽车</a>
+<a href="https://www.xincheping.com/car/brand/1590.html" target="_blank">小米汽车</a>
+<a href="https://www.xincheping.com/car/brand/1158.html" target="_blank">小鹏</a>
+<a href="https://www.xincheping.com/car/brand/1579.html" target="_blank">小跑车</a>
+<a href="https://www.xincheping.com/car/brand/1236.html" target="_blank">星途</a>
+<a href="https://www.xincheping.com/car/brand/6.html" target="_blank">雪铁龙</a>
+<a href="https://www.xincheping.com/car/brand/154.html" target="_blank">西雅特</a>
+<a href="https://www.xincheping.com/car/brand/1583.html" target="_blank">悠宝利</a>
+<a href="https://www.xincheping.com/car/brand/1458.html" target="_blank">远程汽车</a>
+<a href="https://www.xincheping.com/car/brand/1170.html" target="_blank">云度新能源</a>
+<a href="https://www.xincheping.com/car/brand/28.html" target="_blank">英菲尼迪</a>
+<a href="https://www.xincheping.com/car/brand/1577.html" target="_blank">远航汽车</a>
+<a href="https://www.xincheping.com/car/brand/1063.html" target="_blank">御捷</a>
+<a href="https://www.xincheping.com/car/brand/1224.html" target="_blank">延龙汽车</a>
+<a href="https://www.xincheping.com/car/brand/516.html" target="_blank">野马汽车</a>
+<a href="https://www.xincheping.com/car/brand/1476.html" target="_blank">野马新能源</a>
+<a href="https://www.xincheping.com/car/brand/9.html" target="_blank">一汽</a>
+<a href="https://www.xincheping.com/car/brand/1203.html" target="_blank">驭胜</a>
+<a href="https://www.xincheping.com/car/brand/1586.html" target="_blank">仰望</a>
+<a href="https://www.xincheping.com/car/brand/132.html" target="_blank">依维柯</a>
+<a href="https://www.xincheping.com/car/brand/1487.html" target="_blank">游侠</a>
+<a href="https://www.xincheping.com/car/brand/275.html" target="_blank">永源</a>
+<a href="https://www.xincheping.com/car/brand/919.html" target="_blank">英致</a>
+<a href="https://www.xincheping.com/car/brand/124.html" target="_blank">长安</a>
+<a href="https://www.xincheping.com/car/brand/929.html" target="_blank">知豆</a>
+<a href="https://www.xincheping.com/car/brand/1550.html" target="_blank">智点汽车</a>
+<a href="https://www.xincheping.com/car/brand/1494.html" target="_blank">正道汽车</a>
+<a href="https://www.xincheping.com/car/brand/1485.html" target="_blank">Zenvo</a>
+<a href="https://www.xincheping.com/car/brand/104.html" target="_blank">中华</a>
+<a href="https://www.xincheping.com/car/brand/1606.html" target="_blank">智界</a>
+<a href="https://www.xincheping.com/car/brand/1541.html" target="_blank">智己汽车</a>
+<a href="https://www.xincheping.com/car/brand/1474.html" target="_blank">中顺</a>
+<a href="https://www.xincheping.com/car/brand/307.html" target="_blank">众泰</a>
+<a href="https://www.xincheping.com/car/brand/125.html" target="_blank">中兴</a>
+<a href="https://www.xincheping.com/car/brand/1558.html" target="_blank">智行盒子</a>
+<a href="https://www.xincheping.com/car/brand/1559.html" target="_blank">自游家</a>
+</div>
+</div>
+</div>
+<script>
+XCP_Ad.loadAd({
+mark : "xcphome"
+});
+var layerIndex = null;
+function openSecurityPage(_url){
+if(typeof(_url) == "undefined" || _url.length < 0){
+return ;
+}
+layerIndex = layer.open({
+title: '友情链接',
+type: 2, //iframe
+area: ['772px', '444px'],
+content: XCP_UC.urlPrefix+ "/index/popup-friendshipLink.html?openUrl="+_url,
+scrollbar: false,//屏蔽浏览器滚动条
+shade:0.6 //遮罩背景透明度
+});
+}
+function closeSecurityPage(){
+layer.close(layerIndex);
+}
+</script>
+<link href="https://res.xincheping.com/css/2016/pc/v1/ewm.css" rel="stylesheet" >
+<script>
+$(document).ready(function(){
+//二维码
+$(".zx_new").hover(function(){
+$(this).children(".ewm_box").stop().slideDown();
+},function(){
+$(this).children(".ewm_box").stop().slideUp();
+});
+});
+</script>
+<div style="right: 50%; margin-right: -642px;"  class="right_nav">
+<div class="xcp_wx zx_new">
+<a class="e">APP关注</a>
+<div id="box-1" class="ewm_box ewm_app" style="display: none"></div>
+</div>
+<div class="xcp_auwchat zx_new">
+<a class="e">关注车评与凹凸</a>
+<div id="box-2" class="ewm_box ewm_sm" style="display: none"></div>
+</div>
+<!-- 新增 -->
+<div class="xcp_auxcx zx_new">
+<a class="e">新车评小程序</a>
+<div id="box-3" class="ewm_box ewm_xcx" style="display: none"></div>
+</div>
+<!-- 新增 -->
+<div id="goto_top" class="goto_top" style="display: block;">
+<a id="goto_top" class="bg topd" rel="nofollow" href="#top"></a>
+</div>
+</div>
+<div class="copy">
+<div class="copyright">
+<div class="copyright_link">
+<a href="/html/about/index.html" target="_blank">关于我们</a>
+|
+<a href="/html/about/p1.html" target="_blank">版权声明</a>
+|
+<a href="/html/about/p2.html" target="_blank"> 隐私保护</a>
+|
+<a href="/html/about/p3.html" target="_blank">常见问题</a>
+|
+<a href="/html/about/p4.html" target="_blank">广告投放</a>
+|
+<a href="/html/about/p5.html" target="_blank">联系我们</a>
+|
+<a href="/html/about/p6.html" target="_blank">人才招聘</a>
+|
+<a href="/html/about/p7.html" target="_blank">友情链接</a>
+|
+<a href="/html/about/sitemap.html" target="_blank">网站地图</a>
+|
+<a href="/html/about/ErrorReport.html" target="_blank">网页纠错</a>
+|
+<a href="/html/about/tag.html" target="_blank">汽车标签</a>
+</div>
+<div class="copyright_font">
+<div class="copyright_font_inner">
+版权所有：深圳市新车评信息咨询有限公司 xincheping@126.com 未经本站书面许可 一切内容禁止转载<br>增值电信业务经营许可证粤B2-20070367&nbsp;<a href="http://beian.miit.gov.cn/" target="_blank" >粤ICP备06090518号-6</a>
+<a target="_blank" href="http://www.beian.gov.cn/portal/registerSystemInfo?recordcode=44010502000813" style="display:inline-block;height:20px;line-height:20px;"><img src="https://res.xincheping.com/images/2018/pc/gwab.png" style="float:left;margin-left:5px;">粤公网安备 44010502000813号</a>
+&nbsp;&nbsp;
+&nbsp;&nbsp;微信公众号：小新说车
+</div>
+</div>
+<div class="copyright_img">
+<a target="_blank" href="http://www.sznet110.gov.cn/"><img width="33" height="41" border="0" src="https://res.xincheping.com/images/2016/aotu//a1.gif" alt="网警"></a>
+<a target="_blank" href="http://www.sznet110.gov.cn/webrecord/innernet/Welcome.jsp?bano=4403101900757"><img width="31" height="41" border="0" src="https://res.xincheping.com/images/2016/aotu//a2.gif" alt="备案"></a>
+</div>
+</div>
+<!-- 全站统计代码 start -->
+<div style="display:none">
+<!-- XCP对象统计 -->
+<script type="text/javascript">
+function _cnt_cb() {}
+var _cnt_target_type = "";
+var _cnt_target_id = "";
+var _cnt_page = encodeURIComponent(location.href);
+var _cnt_referer = encodeURIComponent(document.referrer);
+var _cnt_ck = navigator.cookieEnabled;
+//if(_cnt_target_type != "" && _cnt_target_id != ""){
+var _cnt_url = "/count.do?jsonpcallback1=_cnt_cb&targetId="+_cnt_target_id+"&targetType="+_cnt_target_type
++"&t="+new Date().getTime()+"&url="+_cnt_page+"&referer="+_cnt_referer+"&ck="+_cnt_ck;
+function sendCount() {
+$.get(_cnt_url,function (res) {
+if (res.code == 1){
+taskAlert();
+}
+},"json");
+}
+function taskAlert() {
+if (_cnt_target_type != 1 && _cnt_target_type != 2){
+return;
+}
+$.post("/task/noticeAlert.do",{"targetType":_cnt_target_type},function (res) {
+if (res.code == 1){
+if (typeof res.result.msg != "undefined"){
+layer.msg(res.result.msg , {skin: 'layer-ext-xcp-jinbi',icon:30,time:3000});
+}
+}
+},"json");
+}
+if(typeof $$ != 'undefined'){
+$$.delayRun(function () {
+sendCount();
+})
+}else{
+sendCount();
+}
+//}
+</script>
+<script type="text/javascript">
+setTimeout(function () {
+var cnzz_total = "https://s4.cnzz.com/z_stat.php?id=1259040952&web_id=1259040952";
+var cnzz1_pc = "https://s11.cnzz.com/z_stat.php?id=1261023132&web_id=1261023132";
+//var baidu = "//hm.baidu.com/h.js%3F0d48a847f624dbda908c2e1e4ad0f0dd";
+var youmeng = '!function(a,b){if(!b.__SV){var c,d,e,f;window.dplus=b,b._i=[],b.init=function(a,c,d){function g(a,b){var c=b.split(".");2==c.length&&(a=a[c[0]],b=c[1]),a[b]=function(){a.push([b].concat(Array.prototype.slice.call(arguments,0)))}}var h=b;for("undefined"!=typeof d?h=b[d]=[]:d="dplus",h.people=h.people||[],h.toString=function(a){var b="dplus";return"dplus"!==d&&(b+="."+d),a||(b+=" (stub)"),b},h.people.toString=function(){return h.toString(1)+".people (stub)"},e="disable track track_links track_forms register unregister get_property identify clear set_config get_config get_distinct_id track_pageview register_once track_with_tag time_event people.set people.unset people.delete_user".split(" "),f=0;f<e.length;f++)g(h,e[f]);b._i.push([a,c,d])},b.__SV=1.1,c=a.createElement("script"),c.type="text/javascript",c.charset="utf-8",c.async=!0,c.src="//w.cnzz.com/dplus.php?id=1259899981",d=a.getElementsByTagName("script")[0],d.parentNode.insertBefore(c,d)}}(document,window.dplus||[]),dplus.init("1259899981");';
+$("body").append(unescape("%3Cscript src='" + cnzz_total + "' type='text/javascript'%3E%3C/script%3E"));
+$("body").append(unescape("%3Cscript src='" + cnzz1_pc + "' type='text/javascript'%3E%3C/script%3E"));
+//$("body").append(unescape("%3Cscript src='" + baidu + "' type='text/javascript'%3E%3C/script%3E"));
+$("body").append(unescape("%3Cscript type='text/javascript'%3E"+youmeng+"%3C/script%3E"));
+},2000);
+//var _bdhmProtocol = (("https:" == document.location.protocol) ? " https://" : " https://");
+//document.write(unescape("%3Cscript src='" + _bdhmProtocol + "hm.baidu.com/h.js%3F0d48a847f624dbda908c2e1e4ad0f0dd' type='text/javascript'%3E%3C/script%3E"));
+</script>
+<!-- 友盟Dplus -->
+<script>
+var _hmt = _hmt || [];
+(function() {
+var hm = document.createElement("script");
+hm.src = "https://hm.baidu.com/hm.js?0d48a847f624dbda908c2e1e4ad0f0dd";
+var s = document.getElementsByTagName("script")[0];
+s.parentNode.insertBefore(hm, s);
+})();
+</script>
+</div>
+<!-- 全站统计代码 end -->
+</div>
+</div>
+<!-- 新年背景 End-->
+<!-- 短视频弹窗 start -->
+<div class="masks"></div>
+<!-- 新增 video-bigbox -->
+<div class="video-bigbox" >
+<!-- 新增箭头 -->
+<div class="videobtn-left" id="pre" onclick="playVideo(0);"></div>
+<div class="videobtn-right" id="next" onclick="playVideo(1);"></div>
+<div class="shortVideo">
+<div class="close-btn">
+<img src="https://res.xincheping.com/images/2020/pc/v1/delete@2x.png" />
+</div>
+<div class="title-pic"></div>
+<div class="video-text">
+<div class="video-left">
+<!-- 视频盒子 -->
+<div class="video-wrap">
+<div id="playbox"></div>
+<div class="play-icon"></div>
+<div class="bom">
+<div class="text-wrap"></div>
+<div class="zan">
+<img class="pics" praise="0" src="https://res.xincheping.com/images/2017/xcx/video_praise.png"/>
+<span class="num">0</span>
+</div>
+</div>
+</div>
+</div>
+<div class="rmd-right">
+<!-- 新增大div rmd-videobox包裹短视频 -->
+<div class="rmd-videobox">
+<div class="title">推荐短视频</div>
+</div>
+<div class="jump">
+<p>App或小程序观看体验更佳哦</p>
+<div class="ewm">
+<div class="ewm-box">
+<img src="https://res.xincheping.com/images/2020/pc/v1/rwm_app.png" />
+</div>
+<div class="ewm-box">
+<img src="https://res.xincheping.com/images/2020/pc/v1/ewm_xcx.png" />
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+<!-- 短视频弹窗 end -->
+<!-- 短视频弹窗 js -->
+<script type="text/javascript">
+var player;
+var list = new Array();
+var pos = 0;
+$(function () {
+// 点击关闭按钮关闭短视频弹窗
+$(".close-btn").click(function(){
+destroyPlayer();
+resetPos(0);
+$(".shortVideo").hide();
+$(".masks").hide();
+document.getElementsByTagName('body')[0].style.overflow="auto";
+$("#playbox").html("");
+// 新增
+$(".videobtn-left").hide();
+$(".videobtn-right").hide();
+});
+//点击遮罩层关闭短视频弹窗
+$(".masks").click(function(){
+destroyPlayer();
+resetPos(0);
+$(".shortVideo").hide();
+$(".masks").hide();
+document.getElementsByTagName('body')[0].style.overflow="auto";
+// 新增
+$(".videobtn-left").hide();
+$(".videobtn-right").hide();
+});
+//点赞
+$('.pics').click(function(){
+if ($(this).attr("praise") == 0){
+var url = XCP_UC.urlPrefix + "/data/post.do";
+var data = {};
+var num = Number($(".video-wrap .num").text());
+data.submitType = "praise";
+data.targetId =  $(".video-wrap .zan").attr("data-id");
+data.targetType =  $(".video-wrap .zan").attr("data-type");
+$.post(url, data, function (res) {
+if(res.code == 1){
+layer.msg("点赞成功", {icon: 1, time: 1500});
+$(".video-wrap .num").text(Number(num + 1));
+$('.pics').attr("src","https://res.xincheping.com/images/2020/pc/v1/video_praise_red.png");
+$('.pics').attr("praise","1");
+}else if (res.code == -99){
+layer.msg(res.msg, {icon:2,time: 1500});
+$('.pics').attr("src","https://res.xincheping.com/images/2020/pc/v1/video_praise_red.png");
+$('.pics').attr("praise","1");
+}else if (res.code == -4){
+XCP_UC.popupLoginWin('onHeaderLogin', window.location.href);
+}else {
+layer.msg(res.msg, {icon:2,time: 1500});
+}
+}, "json");
+}
+});
+//切换短视频
+$("body").on("click", ".rmd-tt", function() {
+var qid = $(this).attr("qid");
+var title = $(this).find(".min-text").text();
+var targetId = $(this).attr("data-id");
+var targetType = $(this).attr("data-type");
+pos = parseInt($(this).attr("data-index"));
+resetPos(pos);
+openPlayBox(qid, title, targetId, targetType, 0);
+});
+//播放
+$(".play-icon").click(function () {
+player.play();
+$(".play-icon").hide();
+});
+//暂停
+$("#playbox").click(function () {
+if (!player.playing()){
+$(".play-icon").show();
+}else {
+$(".play-icon").hide();
+}
+})
+});
+function playVideo(state) {
+if(state == 0){
+//播放上一个视频
+pos = pos - 1 > 0 ? pos - 1 : 0;
+}else {
+//播放下一个视频
+pos = pos + 1 < list.length - 1 ? pos + 1 : list.length - 1;
+}
+resetPos(pos);
+var obj = getVideoObj(pos);
+if(obj != ""){
+openPlayBox(obj.qCloudId, obj.title, obj.id, obj.targetType, 0);
+}
+}
+function resetPos(index) {
+pos = index;
+if (pos > 0){
+$(".videobtn-left").show();
+}else {
+$(".videobtn-left").hide();
+}
+if (pos == list.length - 1){
+$(".videobtn-right").hide();
+}else {
+$(".videobtn-right").show();
+}
+}
+//获取短视频对象
+function getVideoObj(pos) {
+for (var i = 0; i < list.length; i++){
+var obj = list[i];
+if(pos == i){
+return obj;
+}
+}
+return "";
+}
+//加载短视频推荐列表
+function loadShortVideoCommend(targetId) {
+$(".rmd-tt").remove();
+var url = XCP_UC.urlPrefix+ "/shortVideo/commendList.do";
+var data = {};
+data.targetId = targetId;
+data.pageSize = 9;
+$.get(url, data, function (res) {
+if (res.code == 1){
+list = res.result;
+$.each(res.result, function (i, v) {
+$(".rmd-videobox").append('<a><div class="rmd-tt" data-index='+i+' data-id='+v.id+' data-type='+v.targetType+' praiseCount='+v.praiseCount+' qid='+v.qCloudId+' >' +
+'<div class="pic-box"><img class="pic" src="'+v.picUrl+'"/></div><div class="min-text">'+v.title+'</div></div></a>');
+});
+}
+},"json");
+}
+//加载短视频
+var isClickQCloud = 0;
+function openPlayBox(qid, title, targetId, targetType, load) {
+destroyPlayer();
+if (load == 1){
+//加载短视频推荐列表
+loadShortVideoCommend(targetId);
+$(".videobtn-right").show();
+}
+if ( $(".shortVideo").css("display") != 'block'){
+// 显示弹窗
+$(".shortVideo").show();
+$(".masks").show();
+document.getElementsByTagName('body')[0].style.overflow = "hidden";
+}
+$("#playbox").html("");
+$(".play-icon").hide();
+//检查是否点赞
+checkPraise(title, targetId, targetType);
+var width = $(".video-wrap").width();
+var height = $(".video-wrap").height();
+var url = XCP_UC.urlPrefix + "/third/qcloud/get_playurl.do";
+var data = {};
+data.qid = qid;
+if(isClickQCloud != 1){
+isClickQCloud = 1;
+$.getScript("https://imgcache.qq.com/open/qcloud/video/vcplayer/TcPlayer-2.3.2.js", function () {
+$.get(url, data, function (res) {
+if (res.code == 1) {
+var src_sd = '';
+var src_hd = '';
+var src_shd = '';
+if(typeof(res.result.sd) != 'undefined'){
+src_sd = res.result.sd.playerUrl;
+}
+if(typeof(res.result.hd) != 'undefined'){
+src_hd = res.result.hd.playerUrl;
+}
+if(typeof(res.result.shd) != 'undefined'){
+src_shd = res.result.shd.playerUrl;
+}
+player = new TcPlayer("playbox", {
+// sd 标清  hd高清   无后缀 超清
+//                                "m3u8_hd": src_hd,
+//                                "m3u8_sd": src_sd,
+"m3u8": src_shd, //默认为超清
+"autoplay": true,
+"width": width,//视频的显示宽度，请尽量使用视频分辨率宽度
+"height": height,//视频的显示高度，请尽量使用视频分辨率高度
+"controls": "none",
+"flash": false,
+"listener": function (msg) {
+if(msg.type == "ended"){
+if($(".play-icon").css("display") == "none"){
+$(".play-icon").show();
+}
+}
+}
+});
+}else {
+$("#playbox").html('<div style="text-align: center; line-height: '+height+'px" >该视频暂时不能播放</div>')
+}
+isClickQCloud = 0;
+}, "json");
+});
+}
+}
+//先销毁player，避免出现之前的player进行加载视频流操作
+function destroyPlayer() {
+if (player != null){
+player.destroy();
+player = null;
+}
+}
+//检查是否点赞
+function checkPraise(title, targetId, targetType){
+$(".text-wrap").text(title);
+$(".video-wrap .zan").attr("data-id", targetId);
+$(".video-wrap .zan").attr("data-type", targetType);
+var url =  XCP_UC.urlPrefix + "/shortVideo/checkPraise.do";
+var data = {};
+data.targetId = targetId;
+data.targetType = targetType;
+$.get(url, data, function (res) {
+if(res.code == 1){
+if(res.result.isPraised == 1){
+$('.pics').attr("src","https://res.xincheping.com/images/2020/pc/v1/video_praise_red.png");
+$('.pics').attr("praise", "1");
+}else {
+$('.pics').attr("src","https://res.xincheping.com/images/2017/xcx/video_praise.png");
+$('.pics').attr("praise", "0");
+}
+$(".video-wrap .num").text(res.result.praiseCount);
+}else {
+$('.pics').attr("src","https://res.xincheping.com/images/2017/xcx/video_praise.png");
+$('.pics').attr("praise", "0");
+$(".video-wrap .num").text(0);
+}
+}, "json");
+}
+</script>
+<!-- 短视频 end -->
+<!--<!DOCTYPE html>-->
+<!--<html>-->
+<!--<head>-->
+<!--    <meta charset="UTF-8">-->
+<!--    <script type="text/javascript" src="https://res.xincheping.com/js/2016/v1/jquery-2.1.1.min.js"></script>-->
+<!--    <style>-->
+<!--        html,body{margin: 0;padding: 0;height: 100%;background: #ebfcff-->
+<!--        }-->
+<!--    </style>-->
+<!--</head>-->
+<!--<body>-->
+<style>
+    .popup-notice{
+        box-sizing: border-box;
+        z-index: 99999;
+    }
+.popup-notice *{
+        box-sizing: border-box;
+    }
+.popup-notice .main{
+        width: 400px;
+        height: 380px;
+        color: #4c4c4c;
+        background: #fff;
+        border: 1px solid #c3c3c3;
+        border-radius: 5px;
+        box-sizing: border-box;
+        margin: 0;
+        padding: 0;
+        /*box-shadow: -2px -2px 8px #c2c2c2;*/
+        /*z-index: 9999;*/
+    }
+.popup-notice .main .header{
+        width: 100%;
+        background: #f0f0f0;
+        height: 40px;
+        line-height: 40px;
+        font-size: 18px;
+        border-bottom: 1px solid #c3c3c3;
+        padding: 0 10px;
+        box-sizing: border-box;
+    }
+.popup-notice .main .header .close{
+        display: inline-block;
+        height: 100%;
+        float: right;
+        width: 15px;
+        text-align: center;
+        cursor: pointer;
+    }
+.popup-notice .main .body{
+        width: 100%;
+        padding: 10px 15px;
+        word-wrap:break-word;
+        box-sizing: border-box;
+    }
+.popup-notice .main .body p{
+        margin: 5px 0;
+        line-height: 1.6;
+        font-size: 16px;
+    }
+.popup-notice .main .body .text{
+        text-indent: 2em;
+    }
+.popup-notice .main .body .text a{
+        color: #B10336;
+    }
+    .popup-notice .main .body .img{
+        text-align: center;
+    }
+    .popup-notice .main .body .img-text{
+        text-align: center;
+    }
+    .popup-notice .main .body .img img{
+        width: 80px;
+        height: 80px;
+        object-fit: cover;
+        margin: 0 20px;
+        border: 1px solid #4c4c4c;
+        display: inline-block;
+    }
+/*全屏居中*/
+    .popup-notice-fullscreen{
+        width: 100%;
+        height: 100%;
+        position: fixed;
+        top: 0;
+        left: 0;
+        opacity: 0;
+        transition: all 0.25s ease-in-out;
+    }
+.popup-notice-fullscreen .bg{
+        width: 100%;
+        height: 100%;
+        background: #000;
+        opacity: 0.7;
+    }
+.popup-notice-fullscreen .main{
+        position: absolute;
+        top: calc((100% - 380px) / 2);
+        left: calc((100% - 400px) / 2);
+    }
+    .popup-notice-fullscreen.popup-notice-show{
+        opacity: 1;
+    }
+/*右下角浮出*/
+    .popup-notice-float{
+        position: fixed;
+        right: 0;
+        bottom: -390px;
+        transition: bottom 0.3s;
+    }
+.popup-notice-float .main{
+        box-shadow: 0px 0px 8px 2px #c2c2c2;
+    }
+.popup-notice-float.popup-notice-show{
+        bottom: 0;
+    }
+</style>
+<div class="popup-notice popup-notice-float"><!--可选浮动或全屏 popup-notice-float or popup-notice-fullscreen-->
+    <div class="bg"></div>
+    <div class="main">
+        <div class="header">网站公告<span class="close"> x </span></div>
+        <div class="body">
+            <p class="title">亲爱的新车评网用户：</p>
+            <p class="text">因业务调整需要，本网站PC端域名将于2022年8月15日0时切换回www.xincheping.com。
+                现行临时域名（www.xincheping.net）将继续提供过渡服务，并于2022年11月15日0时正式关闭。
+                由此给您带来不便，我们深表歉意，感谢您一直以来对新车评网的支持。
+            </p>
+            <p class="img">
+                <img src="https://res.xincheping.com/images/2022/index/app_ewm.jpg"> <img src="https://res.xincheping.com/images/2022/index/xcx_ewm.jpg">
+            </p>
+            <p class="img-text">手机端和APP及小程序同样精彩哦</p>
+</div>
+    </div>
+</div>
+<script>
+    if(location.hash != "" && location.hash.indexOf("fullscreen") != -1){
+        $(".popup-notice").removeClass("popup-notice-float");
+        $(".popup-notice").addClass("popup-notice-fullscreen");
+    }
+$(".close").click(function (){
+        if($(".popup-notice.popup-notice-fullscreen").length > 0){
+            $("body").css("overflow","auto");
+        }
+        $(".popup-notice").removeClass("popup-notice-show");
+    });
+var notice_now = new Date();
+    var notice_end = new Date('2022/08/14 23:50:00');
+    if(notice_now.getTime() < notice_end.getTime()){
+        setTimeout(function () {
+            if($(".popup-notice.popup-notice-fullscreen").length > 0){
+                $("body").css("overflow","hidden");
+            }
+            $(".popup-notice").addClass("popup-notice-show");
+        },1000);
+    }
+</script>
+<!--</body>-->
+<!--</html>-->
+</body>
+</html>

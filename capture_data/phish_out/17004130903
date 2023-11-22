@@ -1,0 +1,561 @@
+<!DOCTYPE html>
+<html lang="en-US">
+<head><meta charset="UTF-8"><script>if(navigator.userAgent.match(/MSIE|Internet Explorer/i)||navigator.userAgent.match(/Trident\/7\..*?rv:11/i)){var href=document.location.href;if(!href.match(/[?&]nowprocket/)){if(href.indexOf("?")==-1){if(href.indexOf("#")==-1){document.location.href=href+"?nowprocket=1"}else{document.location.href=href.replace("#","?nowprocket=1#")}}else{if(href.indexOf("#")==-1){document.location.href=href+"&nowprocket=1"}else{document.location.href=href.replace("#","&nowprocket=1#")}}}}</script><script>class RocketLazyLoadScripts{constructor(){this.v="1.2.4",this.triggerEvents=["keydown","mousedown","mousemove","touchmove","touchstart","touchend","wheel"],this.userEventHandler=this._triggerListener.bind(this),this.touchStartHandler=this._onTouchStart.bind(this),this.touchMoveHandler=this._onTouchMove.bind(this),this.touchEndHandler=this._onTouchEnd.bind(this),this.clickHandler=this._onClick.bind(this),this.interceptedClicks=[],window.addEventListener("pageshow",t=>{this.persisted=t.persisted}),window.addEventListener("DOMContentLoaded",()=>{this._preconnect3rdParties()}),this.delayedScripts={normal:[],async:[],defer:[]},this.trash=[],this.allJQueries=[]}_addUserInteractionListener(t){if(document.hidden){t._triggerListener();return}this.triggerEvents.forEach(e=>window.addEventListener(e,t.userEventHandler,{passive:!0})),window.addEventListener("touchstart",t.touchStartHandler,{passive:!0}),window.addEventListener("mousedown",t.touchStartHandler),document.addEventListener("visibilitychange",t.userEventHandler)}_removeUserInteractionListener(){this.triggerEvents.forEach(t=>window.removeEventListener(t,this.userEventHandler,{passive:!0})),document.removeEventListener("visibilitychange",this.userEventHandler)}_onTouchStart(t){"HTML"!==t.target.tagName&&(window.addEventListener("touchend",this.touchEndHandler),window.addEventListener("mouseup",this.touchEndHandler),window.addEventListener("touchmove",this.touchMoveHandler,{passive:!0}),window.addEventListener("mousemove",this.touchMoveHandler),t.target.addEventListener("click",this.clickHandler),this._renameDOMAttribute(t.target,"onclick","rocket-onclick"),this._pendingClickStarted())}_onTouchMove(t){window.removeEventListener("touchend",this.touchEndHandler),window.removeEventListener("mouseup",this.touchEndHandler),window.removeEventListener("touchmove",this.touchMoveHandler,{passive:!0}),window.removeEventListener("mousemove",this.touchMoveHandler),t.target.removeEventListener("click",this.clickHandler),this._renameDOMAttribute(t.target,"rocket-onclick","onclick"),this._pendingClickFinished()}_onTouchEnd(){window.removeEventListener("touchend",this.touchEndHandler),window.removeEventListener("mouseup",this.touchEndHandler),window.removeEventListener("touchmove",this.touchMoveHandler,{passive:!0}),window.removeEventListener("mousemove",this.touchMoveHandler)}_onClick(t){t.target.removeEventListener("click",this.clickHandler),this._renameDOMAttribute(t.target,"rocket-onclick","onclick"),this.interceptedClicks.push(t),t.preventDefault(),t.stopPropagation(),t.stopImmediatePropagation(),this._pendingClickFinished()}_replayClicks(){window.removeEventListener("touchstart",this.touchStartHandler,{passive:!0}),window.removeEventListener("mousedown",this.touchStartHandler),this.interceptedClicks.forEach(t=>{t.target.dispatchEvent(new MouseEvent("click",{view:t.view,bubbles:!0,cancelable:!0}))})}_waitForPendingClicks(){return new Promise(t=>{this._isClickPending?this._pendingClickFinished=t:t()})}_pendingClickStarted(){this._isClickPending=!0}_pendingClickFinished(){this._isClickPending=!1}_renameDOMAttribute(t,e,r){t.hasAttribute&&t.hasAttribute(e)&&(event.target.setAttribute(r,event.target.getAttribute(e)),event.target.removeAttribute(e))}_triggerListener(){this._removeUserInteractionListener(this),"loading"===document.readyState?document.addEventListener("DOMContentLoaded",this._loadEverythingNow.bind(this)):this._loadEverythingNow()}_preconnect3rdParties(){let t=[];document.querySelectorAll("script[type=rocketlazyloadscript][data-rocket-src]").forEach(e=>{let r=e.getAttribute("data-rocket-src");if(r&&0!==r.indexOf("data:")){0===r.indexOf("//")&&(r=location.protocol+r);try{let i=new URL(r).origin;i!==location.origin&&t.push({src:i,crossOrigin:e.crossOrigin||"module"===e.getAttribute("data-rocket-type")})}catch(n){}}}),t=[...new Map(t.map(t=>[JSON.stringify(t),t])).values()],this._batchInjectResourceHints(t,"preconnect")}async _loadEverythingNow(){this.lastBreath=Date.now(),this._delayEventListeners(),this._delayJQueryReady(this),this._handleDocumentWrite(),this._registerAllDelayedScripts(),this._preloadAllScripts(),await this._loadScriptsFromList(this.delayedScripts.normal),await this._loadScriptsFromList(this.delayedScripts.defer),await this._loadScriptsFromList(this.delayedScripts.async);try{await this._triggerDOMContentLoaded(),await this._pendingWebpackRequests(this),await this._triggerWindowLoad()}catch(t){console.error(t)}window.dispatchEvent(new Event("rocket-allScriptsLoaded")),this._waitForPendingClicks().then(()=>{this._replayClicks()}),this._emptyTrash()}_registerAllDelayedScripts(){document.querySelectorAll("script[type=rocketlazyloadscript]").forEach(t=>{t.hasAttribute("data-rocket-src")?t.hasAttribute("async")&&!1!==t.async?this.delayedScripts.async.push(t):t.hasAttribute("defer")&&!1!==t.defer||"module"===t.getAttribute("data-rocket-type")?this.delayedScripts.defer.push(t):this.delayedScripts.normal.push(t):this.delayedScripts.normal.push(t)})}async _transformScript(t){if(await this._littleBreath(),!0===t.noModule&&"noModule"in HTMLScriptElement.prototype){t.setAttribute("data-rocket-status","skipped");return}return new Promise(navigator.userAgent.indexOf("Firefox/")>0||""===navigator.vendor?e=>{let r=document.createElement("script");[...t.attributes].forEach(t=>{let e=t.nodeName;"type"!==e&&("data-rocket-type"===e&&(e="type"),"data-rocket-src"===e&&(e="src"),r.setAttribute(e,t.nodeValue))}),t.text&&(r.text=t.text),r.hasAttribute("src")?(r.addEventListener("load",e),r.addEventListener("error",e)):(r.text=t.text,e());try{t.parentNode.replaceChild(r,t)}catch(i){e()}}:e=>{function r(){t.setAttribute("data-rocket-status","failed"),e()}try{let i=t.getAttribute("data-rocket-type"),n=t.getAttribute("data-rocket-src");i?(t.type=i,t.removeAttribute("data-rocket-type")):t.removeAttribute("type"),t.addEventListener("load",function r(){t.setAttribute("data-rocket-status","executed"),e()}),t.addEventListener("error",r),n?(t.removeAttribute("data-rocket-src"),t.src=n):t.src="data:text/javascript;base64,"+window.btoa(unescape(encodeURIComponent(t.text)))}catch(s){r()}})}async _loadScriptsFromList(t){let e=t.shift();return e&&e.isConnected?(await this._transformScript(e),this._loadScriptsFromList(t)):Promise.resolve()}_preloadAllScripts(){this._batchInjectResourceHints([...this.delayedScripts.normal,...this.delayedScripts.defer,...this.delayedScripts.async],"preload")}_batchInjectResourceHints(t,e){var r=document.createDocumentFragment();t.forEach(t=>{let i=t.getAttribute&&t.getAttribute("data-rocket-src")||t.src;if(i){let n=document.createElement("link");n.href=i,n.rel=e,"preconnect"!==e&&(n.as="script"),t.getAttribute&&"module"===t.getAttribute("data-rocket-type")&&(n.crossOrigin=!0),t.crossOrigin&&(n.crossOrigin=t.crossOrigin),t.integrity&&(n.integrity=t.integrity),r.appendChild(n),this.trash.push(n)}}),document.head.appendChild(r)}_delayEventListeners(){let t={};function e(e,r){!function e(r){!t[r]&&(t[r]={originalFunctions:{add:r.addEventListener,remove:r.removeEventListener},eventsToRewrite:[]},r.addEventListener=function(){arguments[0]=i(arguments[0]),t[r].originalFunctions.add.apply(r,arguments)},r.removeEventListener=function(){arguments[0]=i(arguments[0]),t[r].originalFunctions.remove.apply(r,arguments)});function i(e){return t[r].eventsToRewrite.indexOf(e)>=0?"rocket-"+e:e}}(e),t[e].eventsToRewrite.push(r)}function r(t,e){let r=t[e];Object.defineProperty(t,e,{get:()=>r||function(){},set(i){t["rocket"+e]=r=i}})}e(document,"DOMContentLoaded"),e(window,"DOMContentLoaded"),e(window,"load"),e(window,"pageshow"),e(document,"readystatechange"),r(document,"onreadystatechange"),r(window,"onload"),r(window,"onpageshow")}_delayJQueryReady(t){let e;function r(t){return t.split(" ").map(t=>"load"===t||0===t.indexOf("load.")?"rocket-jquery-load":t).join(" ")}function i(i){if(i&&i.fn&&!t.allJQueries.includes(i)){i.fn.ready=i.fn.init.prototype.ready=function(e){return t.domReadyFired?e.bind(document)(i):document.addEventListener("rocket-DOMContentLoaded",()=>e.bind(document)(i)),i([])};let n=i.fn.on;i.fn.on=i.fn.init.prototype.on=function(){return this[0]===window&&("string"==typeof arguments[0]||arguments[0]instanceof String?arguments[0]=r(arguments[0]):"object"==typeof arguments[0]&&Object.keys(arguments[0]).forEach(t=>{let e=arguments[0][t];delete arguments[0][t],arguments[0][r(t)]=e})),n.apply(this,arguments),this},t.allJQueries.push(i)}e=i}i(window.jQuery),Object.defineProperty(window,"jQuery",{get:()=>e,set(t){i(t)}})}async _pendingWebpackRequests(t){let e=document.querySelector("script[data-webpack]");async function r(){return new Promise(t=>{e.addEventListener("load",t),e.addEventListener("error",t)})}e&&(await r(),await t._requestAnimFrame(),await t._pendingWebpackRequests(t))}async _triggerDOMContentLoaded(){this.domReadyFired=!0,await this._littleBreath(),document.dispatchEvent(new Event("rocket-DOMContentLoaded")),await this._littleBreath(),window.dispatchEvent(new Event("rocket-DOMContentLoaded")),await this._littleBreath(),document.dispatchEvent(new Event("rocket-readystatechange")),await this._littleBreath(),document.rocketonreadystatechange&&document.rocketonreadystatechange()}async _triggerWindowLoad(){await this._littleBreath(),window.dispatchEvent(new Event("rocket-load")),await this._littleBreath(),window.rocketonload&&window.rocketonload(),await this._littleBreath(),this.allJQueries.forEach(t=>t(window).trigger("rocket-jquery-load")),await this._littleBreath();let t=new Event("rocket-pageshow");t.persisted=this.persisted,window.dispatchEvent(t),await this._littleBreath(),window.rocketonpageshow&&window.rocketonpageshow({persisted:this.persisted})}_handleDocumentWrite(){let t=new Map;document.write=document.writeln=function(e){let r=document.currentScript;r||console.error("WPRocket unable to document.write this: "+e);let i=document.createRange(),n=r.parentElement,s=t.get(r);void 0===s&&(s=r.nextSibling,t.set(r,s));let a=document.createDocumentFragment();i.setStart(a,0),a.appendChild(i.createContextualFragment(e)),n.insertBefore(a,s)}}async _littleBreath(){Date.now()-this.lastBreath>45&&(await this._requestAnimFrame(),this.lastBreath=Date.now())}async _requestAnimFrame(){return document.hidden?new Promise(t=>setTimeout(t)):new Promise(t=>requestAnimationFrame(t))}_emptyTrash(){this.trash.forEach(t=>t.remove())}static run(){let t=new RocketLazyLoadScripts;t._addUserInteractionListener(t)}}RocketLazyLoadScripts.run();</script>
+	
+	
+<!-- Xagio – Meta Description -->
+<meta name="description" content="Searching for tree surgeon near me? 07480 539425 If you live in Lincoln or the East Midlands area then we have 24 hr residential and commercial tree surgeons waiting for your call">
+<!-- Xagio – Meta Description -->
+<title>Tree Surgeons Lincoln 24 Hour Emergency Tree Services Removal Felling And Dismantling</title><link rel="preload" as="style" href="https://fonts.googleapis.com/css?family=Roboto%3A100%2C100italic%2C200%2C200italic%2C300%2C300italic%2C400%2C400italic%2C500%2C500italic%2C600%2C600italic%2C700%2C700italic%2C800%2C800italic%2C900%2C900italic%7CRoboto%20Slab%3A100%2C100italic%2C200%2C200italic%2C300%2C300italic%2C400%2C400italic%2C500%2C500italic%2C600%2C600italic%2C700%2C700italic%2C800%2C800italic%2C900%2C900italic&#038;display=swap" /><link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto%3A100%2C100italic%2C200%2C200italic%2C300%2C300italic%2C400%2C400italic%2C500%2C500italic%2C600%2C600italic%2C700%2C700italic%2C800%2C800italic%2C900%2C900italic%7CRoboto%20Slab%3A100%2C100italic%2C200%2C200italic%2C300%2C300italic%2C400%2C400italic%2C500%2C500italic%2C600%2C600italic%2C700%2C700italic%2C800%2C800italic%2C900%2C900italic&#038;display=swap" media="print" onload="this.media='all'" /><noscript><link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto%3A100%2C100italic%2C200%2C200italic%2C300%2C300italic%2C400%2C400italic%2C500%2C500italic%2C600%2C600italic%2C700%2C700italic%2C800%2C800italic%2C900%2C900italic%7CRoboto%20Slab%3A100%2C100italic%2C200%2C200italic%2C300%2C300italic%2C400%2C400italic%2C500%2C500italic%2C600%2C600italic%2C700%2C700italic%2C800%2C800italic%2C900%2C900italic&#038;display=swap" /></noscript>
+<meta name='robots' content='max-image-preview:large' />
+
+<!-- Google Tag Manager for WordPress by gtm4wp.com -->
+<script data-cfasync="false" data-pagespeed-no-defer>
+	var gtm4wp_datalayer_name = "dataLayer";
+	var dataLayer = dataLayer || [];
+</script>
+<!-- End Google Tag Manager for WordPress by gtm4wp.com --><meta name="viewport" content="width=device-width, initial-scale=1"><link href='https://fonts.gstatic.com' crossorigin rel='preconnect' />
+<link rel="alternate" type="application/rss+xml" title="Complete Tree  Services Lincoln &raquo; Feed" href="https://www.alear.org/feed/" />
+<link rel="alternate" type="application/rss+xml" title="Complete Tree  Services Lincoln &raquo; Comments Feed" href="https://www.alear.org/comments/feed/" />
+<style>
+img.wp-smiley,
+img.emoji {
+	display: inline !important;
+	border: none !important;
+	box-shadow: none !important;
+	height: 1em !important;
+	width: 1em !important;
+	margin: 0 0.07em !important;
+	vertical-align: -0.1em !important;
+	background: none !important;
+	padding: 0 !important;
+}
+</style>
+	<link data-minify="1" rel='stylesheet' id='formidable-css' href='https://www.alear.org/wp-content/cache/min/1/wp-content/plugins/formidable/css/formidableforms.css?ver=1698845201' media='all' />
+<link rel='stylesheet' id='wp-block-library-css' href='https://www.alear.org/wp-includes/css/dist/block-library/style.min.css?ver=6.3.2' media='all' />
+<style id='classic-theme-styles-inline-css'>
+/*! This file is auto-generated */
+.wp-block-button__link{color:#fff;background-color:#32373c;border-radius:9999px;box-shadow:none;text-decoration:none;padding:calc(.667em + 2px) calc(1.333em + 2px);font-size:1.125em}.wp-block-file__button{background:#32373c;color:#fff;text-decoration:none}
+</style>
+<style id='global-styles-inline-css'>
+body{--wp--preset--color--black: #000000;--wp--preset--color--cyan-bluish-gray: #abb8c3;--wp--preset--color--white: #ffffff;--wp--preset--color--pale-pink: #f78da7;--wp--preset--color--vivid-red: #cf2e2e;--wp--preset--color--luminous-vivid-orange: #ff6900;--wp--preset--color--luminous-vivid-amber: #fcb900;--wp--preset--color--light-green-cyan: #7bdcb5;--wp--preset--color--vivid-green-cyan: #00d084;--wp--preset--color--pale-cyan-blue: #8ed1fc;--wp--preset--color--vivid-cyan-blue: #0693e3;--wp--preset--color--vivid-purple: #9b51e0;--wp--preset--color--contrast: var(--contrast);--wp--preset--color--contrast-2: var(--contrast-2);--wp--preset--color--contrast-3: var(--contrast-3);--wp--preset--color--base: var(--base);--wp--preset--color--base-2: var(--base-2);--wp--preset--color--base-3: var(--base-3);--wp--preset--color--accent: var(--accent);--wp--preset--gradient--vivid-cyan-blue-to-vivid-purple: linear-gradient(135deg,rgba(6,147,227,1) 0%,rgb(155,81,224) 100%);--wp--preset--gradient--light-green-cyan-to-vivid-green-cyan: linear-gradient(135deg,rgb(122,220,180) 0%,rgb(0,208,130) 100%);--wp--preset--gradient--luminous-vivid-amber-to-luminous-vivid-orange: linear-gradient(135deg,rgba(252,185,0,1) 0%,rgba(255,105,0,1) 100%);--wp--preset--gradient--luminous-vivid-orange-to-vivid-red: linear-gradient(135deg,rgba(255,105,0,1) 0%,rgb(207,46,46) 100%);--wp--preset--gradient--very-light-gray-to-cyan-bluish-gray: linear-gradient(135deg,rgb(238,238,238) 0%,rgb(169,184,195) 100%);--wp--preset--gradient--cool-to-warm-spectrum: linear-gradient(135deg,rgb(74,234,220) 0%,rgb(151,120,209) 20%,rgb(207,42,186) 40%,rgb(238,44,130) 60%,rgb(251,105,98) 80%,rgb(254,248,76) 100%);--wp--preset--gradient--blush-light-purple: linear-gradient(135deg,rgb(255,206,236) 0%,rgb(152,150,240) 100%);--wp--preset--gradient--blush-bordeaux: linear-gradient(135deg,rgb(254,205,165) 0%,rgb(254,45,45) 50%,rgb(107,0,62) 100%);--wp--preset--gradient--luminous-dusk: linear-gradient(135deg,rgb(255,203,112) 0%,rgb(199,81,192) 50%,rgb(65,88,208) 100%);--wp--preset--gradient--pale-ocean: linear-gradient(135deg,rgb(255,245,203) 0%,rgb(182,227,212) 50%,rgb(51,167,181) 100%);--wp--preset--gradient--electric-grass: linear-gradient(135deg,rgb(202,248,128) 0%,rgb(113,206,126) 100%);--wp--preset--gradient--midnight: linear-gradient(135deg,rgb(2,3,129) 0%,rgb(40,116,252) 100%);--wp--preset--font-size--small: 13px;--wp--preset--font-size--medium: 20px;--wp--preset--font-size--large: 36px;--wp--preset--font-size--x-large: 42px;--wp--preset--spacing--20: 0.44rem;--wp--preset--spacing--30: 0.67rem;--wp--preset--spacing--40: 1rem;--wp--preset--spacing--50: 1.5rem;--wp--preset--spacing--60: 2.25rem;--wp--preset--spacing--70: 3.38rem;--wp--preset--spacing--80: 5.06rem;--wp--preset--shadow--natural: 6px 6px 9px rgba(0, 0, 0, 0.2);--wp--preset--shadow--deep: 12px 12px 50px rgba(0, 0, 0, 0.4);--wp--preset--shadow--sharp: 6px 6px 0px rgba(0, 0, 0, 0.2);--wp--preset--shadow--outlined: 6px 6px 0px -3px rgba(255, 255, 255, 1), 6px 6px rgba(0, 0, 0, 1);--wp--preset--shadow--crisp: 6px 6px 0px rgba(0, 0, 0, 1);}:where(.is-layout-flex){gap: 0.5em;}:where(.is-layout-grid){gap: 0.5em;}body .is-layout-flow > .alignleft{float: left;margin-inline-start: 0;margin-inline-end: 2em;}body .is-layout-flow > .alignright{float: right;margin-inline-start: 2em;margin-inline-end: 0;}body .is-layout-flow > .aligncenter{margin-left: auto !important;margin-right: auto !important;}body .is-layout-constrained > .alignleft{float: left;margin-inline-start: 0;margin-inline-end: 2em;}body .is-layout-constrained > .alignright{float: right;margin-inline-start: 2em;margin-inline-end: 0;}body .is-layout-constrained > .aligncenter{margin-left: auto !important;margin-right: auto !important;}body .is-layout-constrained > :where(:not(.alignleft):not(.alignright):not(.alignfull)){max-width: var(--wp--style--global--content-size);margin-left: auto !important;margin-right: auto !important;}body .is-layout-constrained > .alignwide{max-width: var(--wp--style--global--wide-size);}body .is-layout-flex{display: flex;}body .is-layout-flex{flex-wrap: wrap;align-items: center;}body .is-layout-flex > *{margin: 0;}body .is-layout-grid{display: grid;}body .is-layout-grid > *{margin: 0;}:where(.wp-block-columns.is-layout-flex){gap: 2em;}:where(.wp-block-columns.is-layout-grid){gap: 2em;}:where(.wp-block-post-template.is-layout-flex){gap: 1.25em;}:where(.wp-block-post-template.is-layout-grid){gap: 1.25em;}.has-black-color{color: var(--wp--preset--color--black) !important;}.has-cyan-bluish-gray-color{color: var(--wp--preset--color--cyan-bluish-gray) !important;}.has-white-color{color: var(--wp--preset--color--white) !important;}.has-pale-pink-color{color: var(--wp--preset--color--pale-pink) !important;}.has-vivid-red-color{color: var(--wp--preset--color--vivid-red) !important;}.has-luminous-vivid-orange-color{color: var(--wp--preset--color--luminous-vivid-orange) !important;}.has-luminous-vivid-amber-color{color: var(--wp--preset--color--luminous-vivid-amber) !important;}.has-light-green-cyan-color{color: var(--wp--preset--color--light-green-cyan) !important;}.has-vivid-green-cyan-color{color: var(--wp--preset--color--vivid-green-cyan) !important;}.has-pale-cyan-blue-color{color: var(--wp--preset--color--pale-cyan-blue) !important;}.has-vivid-cyan-blue-color{color: var(--wp--preset--color--vivid-cyan-blue) !important;}.has-vivid-purple-color{color: var(--wp--preset--color--vivid-purple) !important;}.has-black-background-color{background-color: var(--wp--preset--color--black) !important;}.has-cyan-bluish-gray-background-color{background-color: var(--wp--preset--color--cyan-bluish-gray) !important;}.has-white-background-color{background-color: var(--wp--preset--color--white) !important;}.has-pale-pink-background-color{background-color: var(--wp--preset--color--pale-pink) !important;}.has-vivid-red-background-color{background-color: var(--wp--preset--color--vivid-red) !important;}.has-luminous-vivid-orange-background-color{background-color: var(--wp--preset--color--luminous-vivid-orange) !important;}.has-luminous-vivid-amber-background-color{background-color: var(--wp--preset--color--luminous-vivid-amber) !important;}.has-light-green-cyan-background-color{background-color: var(--wp--preset--color--light-green-cyan) !important;}.has-vivid-green-cyan-background-color{background-color: var(--wp--preset--color--vivid-green-cyan) !important;}.has-pale-cyan-blue-background-color{background-color: var(--wp--preset--color--pale-cyan-blue) !important;}.has-vivid-cyan-blue-background-color{background-color: var(--wp--preset--color--vivid-cyan-blue) !important;}.has-vivid-purple-background-color{background-color: var(--wp--preset--color--vivid-purple) !important;}.has-black-border-color{border-color: var(--wp--preset--color--black) !important;}.has-cyan-bluish-gray-border-color{border-color: var(--wp--preset--color--cyan-bluish-gray) !important;}.has-white-border-color{border-color: var(--wp--preset--color--white) !important;}.has-pale-pink-border-color{border-color: var(--wp--preset--color--pale-pink) !important;}.has-vivid-red-border-color{border-color: var(--wp--preset--color--vivid-red) !important;}.has-luminous-vivid-orange-border-color{border-color: var(--wp--preset--color--luminous-vivid-orange) !important;}.has-luminous-vivid-amber-border-color{border-color: var(--wp--preset--color--luminous-vivid-amber) !important;}.has-light-green-cyan-border-color{border-color: var(--wp--preset--color--light-green-cyan) !important;}.has-vivid-green-cyan-border-color{border-color: var(--wp--preset--color--vivid-green-cyan) !important;}.has-pale-cyan-blue-border-color{border-color: var(--wp--preset--color--pale-cyan-blue) !important;}.has-vivid-cyan-blue-border-color{border-color: var(--wp--preset--color--vivid-cyan-blue) !important;}.has-vivid-purple-border-color{border-color: var(--wp--preset--color--vivid-purple) !important;}.has-vivid-cyan-blue-to-vivid-purple-gradient-background{background: var(--wp--preset--gradient--vivid-cyan-blue-to-vivid-purple) !important;}.has-light-green-cyan-to-vivid-green-cyan-gradient-background{background: var(--wp--preset--gradient--light-green-cyan-to-vivid-green-cyan) !important;}.has-luminous-vivid-amber-to-luminous-vivid-orange-gradient-background{background: var(--wp--preset--gradient--luminous-vivid-amber-to-luminous-vivid-orange) !important;}.has-luminous-vivid-orange-to-vivid-red-gradient-background{background: var(--wp--preset--gradient--luminous-vivid-orange-to-vivid-red) !important;}.has-very-light-gray-to-cyan-bluish-gray-gradient-background{background: var(--wp--preset--gradient--very-light-gray-to-cyan-bluish-gray) !important;}.has-cool-to-warm-spectrum-gradient-background{background: var(--wp--preset--gradient--cool-to-warm-spectrum) !important;}.has-blush-light-purple-gradient-background{background: var(--wp--preset--gradient--blush-light-purple) !important;}.has-blush-bordeaux-gradient-background{background: var(--wp--preset--gradient--blush-bordeaux) !important;}.has-luminous-dusk-gradient-background{background: var(--wp--preset--gradient--luminous-dusk) !important;}.has-pale-ocean-gradient-background{background: var(--wp--preset--gradient--pale-ocean) !important;}.has-electric-grass-gradient-background{background: var(--wp--preset--gradient--electric-grass) !important;}.has-midnight-gradient-background{background: var(--wp--preset--gradient--midnight) !important;}.has-small-font-size{font-size: var(--wp--preset--font-size--small) !important;}.has-medium-font-size{font-size: var(--wp--preset--font-size--medium) !important;}.has-large-font-size{font-size: var(--wp--preset--font-size--large) !important;}.has-x-large-font-size{font-size: var(--wp--preset--font-size--x-large) !important;}
+.wp-block-navigation a:where(:not(.wp-element-button)){color: inherit;}
+:where(.wp-block-post-template.is-layout-flex){gap: 1.25em;}:where(.wp-block-post-template.is-layout-grid){gap: 1.25em;}
+:where(.wp-block-columns.is-layout-flex){gap: 2em;}:where(.wp-block-columns.is-layout-grid){gap: 2em;}
+.wp-block-pullquote{font-size: 1.5em;line-height: 1.6;}
+</style>
+<link data-minify="1" rel='stylesheet' id='xag_font-awesome-css' href='https://www.alear.org/wp-content/cache/min/1/wp-content/plugins/xagio/assets/css/fontawesome/css/all.min.css?ver=1698845201' media='all' />
+<link data-minify="1" rel='stylesheet' id='xag_review_widget-css' href='https://www.alear.org/wp-content/cache/min/1/wp-content/plugins/xagio/assets/css/review-widget.css?ver=1698845201' media='all' />
+<link data-minify="1" rel='stylesheet' id='xag_review_display-css' href='https://www.alear.org/wp-content/cache/min/1/wp-content/plugins/xagio/assets/css/review-display.css?ver=1698845201' media='all' />
+<link rel='stylesheet' id='generate-style-css' href='https://www.alear.org/wp-content/themes/generatepress/assets/css/all.min.css?ver=3.3.1' media='all' />
+<style id='generate-style-inline-css'>
+body{background-color:#efefef;color:#3a3a3a;}a{color:#0aa80c;}a:visited{color:#0aa80c;}a:hover, a:focus, a:active{color:#0aa80c;}body .grid-container{max-width:1200px;}.wp-block-group__inner-container{max-width:1200px;margin-left:auto;margin-right:auto;}:root{--contrast:#222222;--contrast-2:#575760;--contrast-3:#b2b2be;--base:#f0f0f0;--base-2:#f7f8f9;--base-3:#ffffff;--accent:#1e73be;}:root .has-contrast-color{color:var(--contrast);}:root .has-contrast-background-color{background-color:var(--contrast);}:root .has-contrast-2-color{color:var(--contrast-2);}:root .has-contrast-2-background-color{background-color:var(--contrast-2);}:root .has-contrast-3-color{color:var(--contrast-3);}:root .has-contrast-3-background-color{background-color:var(--contrast-3);}:root .has-base-color{color:var(--base);}:root .has-base-background-color{background-color:var(--base);}:root .has-base-2-color{color:var(--base-2);}:root .has-base-2-background-color{background-color:var(--base-2);}:root .has-base-3-color{color:var(--base-3);}:root .has-base-3-background-color{background-color:var(--base-3);}:root .has-accent-color{color:var(--accent);}:root .has-accent-background-color{background-color:var(--accent);}body, button, input, select, textarea{font-family:-apple-system, system-ui, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";}body{line-height:1.5;}.entry-content > [class*="wp-block-"]:not(:last-child):not(.wp-block-heading){margin-bottom:1.5em;}.main-navigation .main-nav ul ul li a{font-size:14px;}.sidebar .widget, .footer-widgets .widget{font-size:17px;}h1{font-weight:300;font-size:40px;}h2{font-weight:300;font-size:30px;}h3{font-size:20px;}h4{font-size:inherit;}h5{font-size:inherit;}@media (max-width:768px){.main-title{font-size:20px;}h1{font-size:30px;}h2{font-size:25px;}}.top-bar{background-color:#636363;color:#ffffff;}.top-bar a{color:#ffffff;}.top-bar a:hover{color:#303030;}.site-header{background-color:#0f7043;color:#efefef;}.site-header a{color:#1abc9c;}.site-header a:hover{color:#1abc9c;}.main-title a,.main-title a:hover{color:#ffffff;}.site-description{color:#efefef;}.mobile-menu-control-wrapper .menu-toggle,.mobile-menu-control-wrapper .menu-toggle:hover,.mobile-menu-control-wrapper .menu-toggle:focus,.has-inline-mobile-toggle #site-navigation.toggled{background-color:rgba(0, 0, 0, 0.02);}.main-navigation,.main-navigation ul ul{background-color:#0f7043;}.main-navigation .main-nav ul li a, .main-navigation .menu-toggle, .main-navigation .menu-bar-items{color:#ffffff;}.main-navigation .main-nav ul li:not([class*="current-menu-"]):hover > a, .main-navigation .main-nav ul li:not([class*="current-menu-"]):focus > a, .main-navigation .main-nav ul li.sfHover:not([class*="current-menu-"]) > a, .main-navigation .menu-bar-item:hover > a, .main-navigation .menu-bar-item.sfHover > a{color:#f1c40f;background-color:#0f7043;}button.menu-toggle:hover,button.menu-toggle:focus,.main-navigation .mobile-bar-items a,.main-navigation .mobile-bar-items a:hover,.main-navigation .mobile-bar-items a:focus{color:#ffffff;}.main-navigation .main-nav ul li[class*="current-menu-"] > a{color:#f1c40f;background-color:#0f7043;}.navigation-search input[type="search"],.navigation-search input[type="search"]:active, .navigation-search input[type="search"]:focus, .main-navigation .main-nav ul li.search-item.active > a, .main-navigation .menu-bar-items .search-item.active > a{color:#f1c40f;background-color:#0f7043;}.main-navigation ul ul{background-color:#3f3f3f;}.main-navigation .main-nav ul ul li a{color:#ffffff;}.main-navigation .main-nav ul ul li:not([class*="current-menu-"]):hover > a,.main-navigation .main-nav ul ul li:not([class*="current-menu-"]):focus > a, .main-navigation .main-nav ul ul li.sfHover:not([class*="current-menu-"]) > a{color:#ffffff;background-color:#4f4f4f;}.main-navigation .main-nav ul ul li[class*="current-menu-"] > a{color:#ffffff;background-color:#4f4f4f;}.separate-containers .inside-article, .separate-containers .comments-area, .separate-containers .page-header, .one-container .container, .separate-containers .paging-navigation, .inside-page-header{color:#222222;background-color:#ffffff;}.inside-article a,.paging-navigation a,.comments-area a,.page-header a{color:#0aa80c;}.inside-article a:hover,.paging-navigation a:hover,.comments-area a:hover,.page-header a:hover{color:#0aa80c;}.entry-header h1,.page-header h1{color:#222222;}.entry-title a{color:#222222;}.entry-title a:hover{color:#222222;}.entry-meta{color:#595959;}.entry-meta a{color:#0aa80c;}.entry-meta a:hover{color:#0aa80c;}h1{color:#222222;}h2{color:#222222;}h3{color:#222222;}h4{color:#222222;}h5{color:#222222;}.sidebar .widget{background-color:#ffffff;}.sidebar .widget .widget-title{color:#000000;}.footer-widgets{background-color:#ffffff;}.footer-widgets .widget-title{color:#000000;}.site-info{color:#ffffff;background-color:#222222;}.site-info a{color:#0aa80c;}.site-info a:hover{color:#0aa80c;}.footer-bar .widget_nav_menu .current-menu-item a{color:#0aa80c;}input[type="text"],input[type="email"],input[type="url"],input[type="password"],input[type="search"],input[type="tel"],input[type="number"],textarea,select{color:#666666;background-color:#fafafa;border-color:#cccccc;}input[type="text"]:focus,input[type="email"]:focus,input[type="url"]:focus,input[type="password"]:focus,input[type="search"]:focus,input[type="tel"]:focus,input[type="number"]:focus,textarea:focus,select:focus{color:#666666;background-color:#ffffff;border-color:#bfbfbf;}button,html input[type="button"],input[type="reset"],input[type="submit"],a.button,a.wp-block-button__link:not(.has-background){color:#ffffff;background-color:#0aa80c;}button:hover,html input[type="button"]:hover,input[type="reset"]:hover,input[type="submit"]:hover,a.button:hover,button:focus,html input[type="button"]:focus,input[type="reset"]:focus,input[type="submit"]:focus,a.button:focus,a.wp-block-button__link:not(.has-background):active,a.wp-block-button__link:not(.has-background):focus,a.wp-block-button__link:not(.has-background):hover{color:#ffffff;background-color:#0aa80c;}a.generate-back-to-top{background-color:rgba(10,168,12,0.59);color:#ffffff;}a.generate-back-to-top:hover,a.generate-back-to-top:focus{background-color:rgba(10,168,12,0.59);color:#ffffff;}:root{--gp-search-modal-bg-color:var(--base-3);--gp-search-modal-text-color:var(--contrast);--gp-search-modal-overlay-bg-color:rgba(0,0,0,0.2);}@media (max-width: 768px){.main-navigation .menu-bar-item:hover > a, .main-navigation .menu-bar-item.sfHover > a{background:none;color:#ffffff;}}.inside-top-bar{padding:10px;}.inside-header{padding:20px 0px 20px 0px;}.separate-containers .inside-article, .separate-containers .comments-area, .separate-containers .page-header, .separate-containers .paging-navigation, .one-container .site-content, .inside-page-header{padding:50px 0px 50px 0px;}.site-main .wp-block-group__inner-container{padding:50px 0px 50px 0px;}.entry-content .alignwide, body:not(.no-sidebar) .entry-content .alignfull{margin-left:-0px;width:calc(100% + 0px);max-width:calc(100% + 0px);}.container.grid-container{max-width:1200px;}.one-container.right-sidebar .site-main,.one-container.both-right .site-main{margin-right:0px;}.one-container.left-sidebar .site-main,.one-container.both-left .site-main{margin-left:0px;}.one-container.both-sidebars .site-main{margin:0px;}.rtl .menu-item-has-children .dropdown-menu-toggle{padding-left:20px;}.rtl .main-navigation .main-nav ul li.menu-item-has-children > a{padding-right:20px;}.site-info{padding:20px;}@media (max-width:768px){.separate-containers .inside-article, .separate-containers .comments-area, .separate-containers .page-header, .separate-containers .paging-navigation, .one-container .site-content, .inside-page-header{padding:30px 0px 30px 0px;}.site-main .wp-block-group__inner-container{padding:30px 0px 30px 0px;}.site-info{padding-right:10px;padding-left:10px;}.entry-content .alignwide, body:not(.no-sidebar) .entry-content .alignfull{margin-left:-0px;width:calc(100% + 0px);max-width:calc(100% + 0px);}}.one-container .sidebar .widget{padding:0px;}/* End cached CSS */@media (max-width: 768px){.main-navigation .menu-toggle,.main-navigation .mobile-bar-items,.sidebar-nav-mobile:not(#sticky-placeholder){display:block;}.main-navigation ul,.gen-sidebar-nav{display:none;}[class*="nav-float-"] .site-header .inside-header > *{float:none;clear:both;}}
+.dynamic-author-image-rounded{border-radius:100%;}.dynamic-featured-image, .dynamic-author-image{vertical-align:middle;}.one-container.blog .dynamic-content-template:not(:last-child), .one-container.archive .dynamic-content-template:not(:last-child){padding-bottom:0px;}.dynamic-entry-excerpt > p:last-child{margin-bottom:0px;}
+.navigation-branding .main-title{font-weight:bold;text-transform:none;font-size:25px;}@media (max-width: 768px){.navigation-branding .main-title{font-size:20px;}}
+</style>
+<link data-minify="1" rel='stylesheet' id='generate-font-icons-css' href='https://www.alear.org/wp-content/cache/min/1/wp-content/themes/generatepress/assets/css/components/font-icons.min.css?ver=1698845201' media='all' />
+<link data-minify="1" rel='stylesheet' id='elementor-icons-css' href='https://www.alear.org/wp-content/cache/min/1/wp-content/plugins/elementor/assets/lib/eicons/css/elementor-icons.min.css?ver=1698845201' media='all' />
+<link rel='stylesheet' id='elementor-frontend-css' href='https://www.alear.org/wp-content/plugins/elementor/assets/css/frontend.min.css?ver=3.17.2' media='all' />
+<link rel='stylesheet' id='swiper-css' href='https://www.alear.org/wp-content/plugins/elementor/assets/lib/swiper/css/swiper.min.css?ver=5.3.6' media='all' />
+<link rel='stylesheet' id='elementor-post-1248-css' href='https://www.alear.org/wp-content/uploads/elementor/css/post-1248.css?ver=1698845103' media='all' />
+<link data-minify="1" rel='stylesheet' id='font-awesome-css' href='https://www.alear.org/wp-content/cache/min/1/wp-content/plugins/elementor/assets/lib/font-awesome/css/font-awesome.min.css?ver=1698845201' media='all' />
+<link rel='stylesheet' id='elementor-global-css' href='https://www.alear.org/wp-content/uploads/elementor/css/global.css?ver=1698845103' media='all' />
+<link rel='stylesheet' id='elementor-post-74-css' href='https://www.alear.org/wp-content/uploads/elementor/css/post-74.css?ver=1698845957' media='all' />
+<link rel='stylesheet' id='generate-navigation-branding-css' href='https://www.alear.org/wp-content/plugins/gp-premium/menu-plus/functions/css/navigation-branding.min.css?ver=2.3.2' media='all' />
+<style id='generate-navigation-branding-inline-css'>
+@media (max-width: 768px){.site-header, #site-navigation, #sticky-navigation{display:none !important;opacity:0.0;}#mobile-header{display:block !important;width:100% !important;}#mobile-header .main-nav > ul{display:none;}#mobile-header.toggled .main-nav > ul, #mobile-header .menu-toggle, #mobile-header .mobile-bar-items{display:block;}#mobile-header .main-nav{-ms-flex:0 0 100%;flex:0 0 100%;-webkit-box-ordinal-group:5;-ms-flex-order:4;order:4;}}.navigation-branding img, .site-logo.mobile-header-logo img{height:60px;width:auto;}.navigation-branding .main-title{line-height:60px;}@media (max-width: 1210px){#site-navigation .navigation-branding, #sticky-navigation .navigation-branding{margin-left:10px;}}@media (max-width: 768px){.main-navigation:not(.slideout-navigation) .main-nav{-ms-flex:0 0 100%;flex:0 0 100%;}.main-navigation:not(.slideout-navigation) .inside-navigation{-ms-flex-wrap:wrap;flex-wrap:wrap;display:-webkit-box;display:-ms-flexbox;display:flex;}.nav-aligned-center .navigation-branding, .nav-aligned-left .navigation-branding{margin-right:auto;}.nav-aligned-center  .main-navigation.has-branding:not(.slideout-navigation) .inside-navigation .main-nav,.nav-aligned-center  .main-navigation.has-sticky-branding.navigation-stick .inside-navigation .main-nav,.nav-aligned-left  .main-navigation.has-branding:not(.slideout-navigation) .inside-navigation .main-nav,.nav-aligned-left  .main-navigation.has-sticky-branding.navigation-stick .inside-navigation .main-nav{margin-right:0px;}}
+</style>
+
+<link rel="preconnect" href="https://fonts.gstatic.com/" crossorigin><script type="rocketlazyloadscript" data-rocket-src='https://www.alear.org/wp-includes/js/jquery/jquery.min.js?ver=3.7.0' id='jquery-core-js'></script>
+<script type="rocketlazyloadscript" data-rocket-src='https://www.alear.org/wp-includes/js/jquery/jquery-migrate.min.js?ver=3.4.1' id='jquery-migrate-js' defer></script>
+<script id='xag_user-js-extra'>
+var xag_data = {"wp_get":"https:\/\/www.alear.org\/wp-admin\/admin-ajax.php","wp_post":"https:\/\/www.alear.org\/wp-admin\/admin-post.php","plugins_url":"https:\/\/www.alear.org\/wp-content\/plugins","sitename":"Complete Tree  Services Lincoln","ps_user_membership":"Xagio AI Agency"};
+</script>
+<script type="rocketlazyloadscript" data-minify="1" data-rocket-src='https://www.alear.org/wp-content/cache/min/1/wp-content/plugins/xagio/assets/js/xag_user.js?ver=1698845201' id='xag_user-js' defer></script>
+<script type="rocketlazyloadscript" data-minify="1" data-rocket-src='https://www.alear.org/wp-content/cache/min/1/wp-content/plugins/xagio/assets/js/review-widget.js?ver=1698845201' id='xag_review_widget-js' defer></script>
+<script type="rocketlazyloadscript" data-minify="1" data-rocket-src='https://www.alear.org/wp-content/cache/min/1/wp-content/plugins/xagio/assets/js/footer_links.js?ver=1698845201' id='xag_footer_links-js' defer></script>
+<link rel="https://api.w.org/" href="https://www.alear.org/wp-json/" /><link rel="alternate" type="application/json" href="https://www.alear.org/wp-json/wp/v2/pages/74" /><link rel="EditURI" type="application/rsd+xml" title="RSD" href="https://www.alear.org/xmlrpc.php?rsd" />
+<meta name="generator" content="WordPress 6.3.2" />
+<link rel="alternate" type="application/json+oembed" href="https://www.alear.org/wp-json/oembed/1.0/embed?url=https%3A%2F%2Fwww.alear.org%2F" />
+<link rel="alternate" type="text/xml+oembed" href="https://www.alear.org/wp-json/oembed/1.0/embed?url=https%3A%2F%2Fwww.alear.org%2F&#038;format=xml" />
+<meta name="geo.placename" content="Lincoln" /><meta name="geo.position" content="53.23484; -0.53844" /><meta name="geo.county" content="Lincolnshire" /><meta name="geo.postcode" content="LN1 3" /><meta name="geo.region" content="East Midlands" /><meta name="geo.country" content="United Kingdom" /><meta property="business:contact_data:locality" content="Lincolnshire" /><meta property="business:contact_data:zip" content="LN1 3" /><meta property="place:location:latitude" content="53.23484" /><meta property="place:location:longitude" content="-0.53844" /><meta property="business:contact_data:country_name" content="United Kingdom" /><meta property="og:title" content="Tree Surgeon Lincoln" /><meta property="og:type" content="business.business" /><meta name="twitter:card" content="summary_large_image" /><meta name="twitter:title" content="Tree Surgeon Lincoln" />
+
+<!-- Xagio – Schema.org -->
+<script type="application/ld+json">
+{"@context":"http:\/\/schema.org","@type":"Locksmith","address":"","alternateName":"Home Locks","areaServed":"Leeds West Yorkshire","description":"Commercial and residential 24 Hour Emergency Locksmith Service Leeds. Fast and affordable, open 7 days a week. Services include fitting high security locks, anti-snap locks, smart locks, wireless home alarms and much more","email":"info@helplocks.pro","geo":{"@type":"GeoCoordinates","address":"Somer Street Leeds LS1 2RG","addressCountry":"UK","latitude":"53.799195","longitude":"-1.553316","postalCode":"LS1 2RG"},"image":"http:\/\/www.homelocks.pro\/wp-content\/uploads\/2017\/04\/image-15-300x274.png","legalName":"Home Locks ","logo":"http:\/\/www.homelocks.pro\/wp-content\/uploads\/2017\/04\/image-15-300x274.png","mainEntityOfPage":"http:\/\/www.homelocks.pro\/leeds","name":"Home Locks Pro","openingHours":"Monday through Sunday, all day","priceRange":"\u00a325 - \u00a3275","telephone":"0113 3204282","url":"http:\/\/www.homelocks.pro\/leeds"}
+</script>
+<!-- Xagio – Schema.org -->
+
+
+<!-- Xagio – Open Graph -->
+<meta property="og:locale" content="en_US"/>
+<meta property="og:type" content="article"/>
+<meta property="fb:app_id" content="812957842048209"/>
+<meta property="og:title" content="Tree Surgeons Lincoln 24 Hour Emergency Tree Services Removal Felling And Dismantling"/>
+<meta property="og:description" content="Searching for tree surgeon near me? 07480 539425 If you live in Lincoln or the East Midlands area then we have 24 hr residential and commercial tree surgeons waiting for your call"/>
+<meta property="og:url" content="https://www.alear.org/"/>
+<meta property="og:site_name" content="Complete Tree  Services Lincoln"/>
+<meta property="og:image" content="https://www.alear.org/wp-content/uploads/2019/04/alear-tree-surgeon-fb-og-image-1200x675.jpg" /><meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="Tree Surgeons Lincoln 24 Hour Emergency Tree Services Removal Felling And Dismantling"/>
+<meta name="twitter:description" content="Searching for tree surgeon near me? 07480 539425 If you live in Lincoln or the East Midlands area then we have 24 hr residential and commercial tree surgeons waiting for your call"/>
+<meta name="twitter:image" content="https://www.alear.org/wp-content/uploads/2019/04/alear-tree-surgeon-fb-og-image-1200x675.jpg"/>
+<!-- Xagio – Open Graph -->
+<meta name="google-site-verification" content="MolZqwUgDHSXX4q1v2NVQn875kx0cYkVLNw50-3dfaE" />
+<script type="application/ld+json"> [{"additionalType":["https://en.wikipedia.org/wiki/Arborist","https://en.wikipedia.org/wiki/Lincoln","https://www.wikidata.org/wiki/Q776268","https://www.wikidata.org/wiki/Q28260"],"@context":"http://schema.org","@id":"https://g.page/alear.org","@type":"LocalBusiness","address":{"@type":"PostalAddress","addressLocality":"Lincoln ","addressRegion":"Lincolnshire","postalCode":"LN5 9TB","streetAddress":"The Old Garth/Chapel La"},"alternateName":"Complete Tree Services  Lincoln","areaServed":[["Lincoln","Gainsborough ","Sleaford ","North Hykeham ","Washingborough ","Bracebridge Heath ","Ruskington ","",""]],"currenciesAccepted":"GBP","description":"At Complete Tree Services Lincoln  we provide professional tree felling, tree pruning, stump removal services throughout the Lincolnshire area, including Lincoln, Grantham, Boston, Scunthorpe and Sleaford. As fully qualified Arborists we focus on safety and outstanding customer service. We always aim to get the job done quickly and safely and leave your property clean and tidy when we are finished. For a free no obligation estimate contact us today ","email":"hello@alear.org","geo":{"@type":"GeoCoordinates","latitude":"53.23484","longitude":"-0.53844"},"hasMap":"https://www.google.com/maps/place/Lincoln/@53.23484,-0.53844","image":"https://www.alear.org/wp-content/uploads/2019/04/alear-tree-surgeon-fb-og-image-1200x675.jpg","legalName":"Complete Tree Services  in Lincoln","logo":{"@type":"ImageObject","height":{"@type":"QuantitativeValue","value":"133"},"url":"https://www.alear.org/wp-content/uploads/2019/03/complete-tree-services-banner-484x100.png","width":{"@type":"QuantitativeValue","value":"300"}},"makesOffer":{"@type":"Offer","itemOffered":["Tree surgeon","Emergency Tree Surgeon","Tree Surgery","Tree Removal","Developmental Pruning","Root Removal","Stump Removal","Crown Thinning","Crown Lifting","Tree Preservation Orders","Tree Felling","Tree Disassembling","Tree Maintenance","Crown Reshaping","Tree Trimming","Crown Reduction","Dead Wooding"]},"name":"Complete Tree Services ","openingHours":"Mon-Sun 24 hour ","priceRange":"£££","sameAs":["","","","","","","",""],"telephone":"07480 539425","url":"https://www.alear.org/tree-surgeon/lincoln/"}]</script> 
+
+<!-- Google Tag Manager for WordPress by gtm4wp.com -->
+<!-- GTM Container placement set to automatic -->
+<script data-cfasync="false" data-pagespeed-no-defer type="text/javascript">
+	var dataLayer_content = {"pagePostType":"frontpage","pagePostType2":"single-page","pagePostAuthor":"Cameron Jennings"};
+	dataLayer.push( dataLayer_content );
+</script>
+<script type="rocketlazyloadscript" data-cfasync="false">
+(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+'//www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+})(window,document,'script','dataLayer','GTM-5VSMD3L');
+</script>
+<!-- End Google Tag Manager -->
+<!-- End Google Tag Manager for WordPress by gtm4wp.com --><meta name="generator" content="Elementor 3.17.2; features: e_dom_optimization, e_optimized_assets_loading, additional_custom_breakpoints; settings: css_print_method-external, google_font-enabled, font_display-auto">
+<link rel="icon" href="https://www.alear.org/wp-content/uploads/2018/07/cropped-alear-tree-services-logo-512x512-32x32.png" sizes="32x32" />
+<link rel="icon" href="https://www.alear.org/wp-content/uploads/2018/07/cropped-alear-tree-services-logo-512x512-192x192.png" sizes="192x192" />
+<link rel="apple-touch-icon" href="https://www.alear.org/wp-content/uploads/2018/07/cropped-alear-tree-services-logo-512x512-180x180.png" />
+<meta name="msapplication-TileImage" content="https://www.alear.org/wp-content/uploads/2018/07/cropped-alear-tree-services-logo-512x512-270x270.png" />
+		<style id="wp-custom-css">
+			/* My Buttons */
+.call-now-button { 
+    background-color: #1d3aed; /* Blue */
+    border: none;
+    border-radius: 25px;
+    color: white; 
+    padding: 20px; 
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    margin: 4px 2px;
+    cursor: pointer;
+}
+
+		</style>
+		<noscript><style id="rocket-lazyload-nojs-css">.rll-youtube-player, [data-lazy-src]{display:none !important;}</style></noscript></head>
+
+<body class="home page-template page-template-elementor_header_footer page page-id-74 wp-custom-logo wp-embed-responsive post-image-aligned-center sticky-menu-fade mobile-header mobile-header-logo no-sidebar nav-below-header separate-containers fluid-header active-footer-widgets-0 nav-aligned-center header-aligned-center dropdown-hover full-width-content elementor-default elementor-template-full-width elementor-kit-1248 elementor-page elementor-page-74" itemtype="https://schema.org/WebPage" itemscope>
+	
+
+
+<!-- GTM Container placement set to automatic -->
+<!-- Google Tag Manager (noscript) -->
+				<noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-5VSMD3L" height="0" width="0" style="display:none;visibility:hidden" aria-hidden="true"></iframe></noscript>
+<!-- End Google Tag Manager (noscript) -->
+<!-- GTM Container placement set to automatic -->
+<!-- Google Tag Manager (noscript) --><a class="screen-reader-text skip-link" href="#content" title="Skip to content">Skip to content</a>		<header class="site-header" id="masthead" aria-label="Site"  itemtype="https://schema.org/WPHeader" itemscope>
+			<div class="inside-header">
+				<div class="site-logo">
+					<a href="https://www.alear.org/" rel="home">
+						<img  class="header-image is-logo-image" alt="Complete Tree  Services Lincoln" src="data:image/svg+xml,%3Csvg%20xmlns='http://www.w3.org/2000/svg'%20viewBox='0%200%20350%2070'%3E%3C/svg%3E" data-lazy-srcset="https://www.alear.org/wp-content/uploads/2020/04/complete-tree-services-banner-white-350x70-1.png 1x, https://www.alear.org/wp-content/uploads/2020/04/complete-tree-services-banner-white-700x140-1.png 2x" width="350" height="70" data-lazy-src="https://www.alear.org/wp-content/uploads/2020/04/complete-tree-services-banner-white-350x70-1.png" /><noscript><img  class="header-image is-logo-image" alt="Complete Tree  Services Lincoln" src="https://www.alear.org/wp-content/uploads/2020/04/complete-tree-services-banner-white-350x70-1.png" srcset="https://www.alear.org/wp-content/uploads/2020/04/complete-tree-services-banner-white-350x70-1.png 1x, https://www.alear.org/wp-content/uploads/2020/04/complete-tree-services-banner-white-700x140-1.png 2x" width="350" height="70" /></noscript>
+					</a>
+				</div>			</div>
+		</header>
+				<nav id="mobile-header" itemtype="https://schema.org/SiteNavigationElement" itemscope class="main-navigation mobile-header-navigation has-branding">
+			<div class="inside-navigation grid-container grid-parent">
+				<div class="site-logo mobile-header-logo">
+						<a href="https://www.alear.org/" title="Complete Tree  Services Lincoln" rel="home">
+							<img src="data:image/svg+xml,%3Csvg%20xmlns='http://www.w3.org/2000/svg'%20viewBox='0%200%20350%2070'%3E%3C/svg%3E" alt="Complete Tree  Services Lincoln" class="is-logo-image" width="350" height="70" data-lazy-src="https://www.alear.org/wp-content/uploads/2020/04/complete-tree-services-banner-white-350x70-1.png" /><noscript><img src="https://www.alear.org/wp-content/uploads/2020/04/complete-tree-services-banner-white-350x70-1.png" alt="Complete Tree  Services Lincoln" class="is-logo-image" width="350" height="70" /></noscript>
+						</a>
+					</div>					<button class="menu-toggle" aria-controls="mobile-menu" aria-expanded="false">
+						<span class="mobile-menu">Menu</span>					</button>
+					<div id="mobile-menu" class="main-nav"><ul id="menu-main-menu" class=" menu sf-menu"><li id="menu-item-1258" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-home current-menu-item page_item page-item-74 current_page_item menu-item-1258"><a href="https://www.alear.org/" aria-current="page">Home</a></li>
+<li id="menu-item-1200" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-1200"><a href="https://www.alear.org/24-hour-emergency-tree-surgeon/">Emergency Tree Surgeon</a></li>
+<li id="menu-item-1206" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-1206"><a href="https://www.alear.org/commercial-tree-contractors/">Commercial Tree Contractors</a></li>
+<li id="menu-item-1199" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-1199"><a href="https://www.alear.org/root-and-stump-removal-services/">Root And Stump Removal</a></li>
+<li id="menu-item-1201" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-1201"><a href="https://www.alear.org/contact-us/">Contact Us</a></li>
+<li id="menu-item-1257" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-1257"><a href="https://www.alear.org/join-our-team/">Join Our Team</a></li>
+</ul></div>			</div><!-- .inside-navigation -->
+		</nav><!-- #site-navigation -->
+				<nav class="main-navigation sub-menu-right" id="site-navigation" aria-label="Primary"  itemtype="https://schema.org/SiteNavigationElement" itemscope>
+			<div class="inside-navigation">
+								<button class="menu-toggle" aria-controls="primary-menu" aria-expanded="false">
+					<span class="mobile-menu">Menu</span>				</button>
+				<div id="primary-menu" class="main-nav"><ul id="menu-main-menu-1" class=" menu sf-menu"><li class="menu-item menu-item-type-post_type menu-item-object-page menu-item-home current-menu-item page_item page-item-74 current_page_item menu-item-1258"><a href="https://www.alear.org/" aria-current="page">Home</a></li>
+<li class="menu-item menu-item-type-post_type menu-item-object-page menu-item-1200"><a href="https://www.alear.org/24-hour-emergency-tree-surgeon/">Emergency Tree Surgeon</a></li>
+<li class="menu-item menu-item-type-post_type menu-item-object-page menu-item-1206"><a href="https://www.alear.org/commercial-tree-contractors/">Commercial Tree Contractors</a></li>
+<li class="menu-item menu-item-type-post_type menu-item-object-page menu-item-1199"><a href="https://www.alear.org/root-and-stump-removal-services/">Root And Stump Removal</a></li>
+<li class="menu-item menu-item-type-post_type menu-item-object-page menu-item-1201"><a href="https://www.alear.org/contact-us/">Contact Us</a></li>
+<li class="menu-item menu-item-type-post_type menu-item-object-page menu-item-1257"><a href="https://www.alear.org/join-our-team/">Join Our Team</a></li>
+</ul></div>			</div>
+		</nav>
+		
+	<div class="site grid-container container hfeed grid-parent" id="page">
+				<div class="site-content" id="content">
+					<div data-elementor-type="wp-post" data-elementor-id="74" class="elementor elementor-74">
+									<section class="elementor-section elementor-top-section elementor-element elementor-element-1912e263 elementor-section-full_width elementor-section-height-default elementor-section-height-default" data-id="1912e263" data-element_type="section" data-settings="{&quot;background_background&quot;:&quot;classic&quot;}">
+							<div class="elementor-background-overlay"></div>
+							<div class="elementor-container elementor-column-gap-default">
+					<div class="elementor-column elementor-col-100 elementor-top-column elementor-element elementor-element-333904f0" data-id="333904f0" data-element_type="column">
+			<div class="elementor-widget-wrap elementor-element-populated">
+								<div class="elementor-element elementor-element-16df36fc elementor-widget elementor-widget-spacer" data-id="16df36fc" data-element_type="widget" data-widget_type="spacer.default">
+				<div class="elementor-widget-container">
+					<div class="elementor-spacer">
+			<div class="elementor-spacer-inner"></div>
+		</div>
+				</div>
+				</div>
+				<div class="elementor-element elementor-element-7c9f1462 elementor-widget elementor-widget-heading" data-id="7c9f1462" data-element_type="widget" data-widget_type="heading.default">
+				<div class="elementor-widget-container">
+			<h1 class="elementor-heading-title elementor-size-default">Tree Surgeons Lincoln<br/>Tree Removal Services For Residential & Commercial Customers
+</h1>		</div>
+				</div>
+				<div class="elementor-element elementor-element-4b86a491 elementor-widget elementor-widget-spacer" data-id="4b86a491" data-element_type="widget" data-widget_type="spacer.default">
+				<div class="elementor-widget-container">
+					<div class="elementor-spacer">
+			<div class="elementor-spacer-inner"></div>
+		</div>
+				</div>
+				</div>
+				<section class="elementor-section elementor-inner-section elementor-element elementor-element-749b8604 elementor-section-boxed elementor-section-height-default elementor-section-height-default" data-id="749b8604" data-element_type="section">
+						<div class="elementor-container elementor-column-gap-default">
+					<div class="elementor-column elementor-col-100 elementor-inner-column elementor-element elementor-element-5f142d4a" data-id="5f142d4a" data-element_type="column">
+			<div class="elementor-widget-wrap elementor-element-populated">
+								<div class="elementor-element elementor-element-785b4b5 elementor-widget elementor-widget-text-editor" data-id="785b4b5" data-element_type="widget" data-widget_type="text-editor.default">
+				<div class="elementor-widget-container">
+							<div align="center"><iframe loading="lazy" style="border: 0px; width: 100%; height: 300px;" src="about:blank" data-rocket-lazyload="fitvidscompatible" data-lazy-src="https://leadsimplify.net/bbdleads/form/128"></iframe><noscript><iframe style="border: 0px; width: 100%; height: 300px;" src="https://leadsimplify.net/bbdleads/form/128"></iframe></noscript></div>						</div>
+				</div>
+				<div class="elementor-element elementor-element-3491894a elementor-align-center elementor-widget elementor-widget-button" data-id="3491894a" data-element_type="widget" data-widget_type="button.default">
+				<div class="elementor-widget-container">
+					<div class="elementor-button-wrapper">
+			<a class="elementor-button elementor-button-link elementor-size-xl" href="tel:07480 539425">
+						<span class="elementor-button-content-wrapper">
+						<span class="elementor-button-text">Call Us Now 07480 539425</span>
+		</span>
+					</a>
+		</div>
+				</div>
+				</div>
+					</div>
+		</div>
+							</div>
+		</section>
+				<div class="elementor-element elementor-element-34441583 elementor-widget elementor-widget-spacer" data-id="34441583" data-element_type="widget" data-widget_type="spacer.default">
+				<div class="elementor-widget-container">
+					<div class="elementor-spacer">
+			<div class="elementor-spacer-inner"></div>
+		</div>
+				</div>
+				</div>
+				<section class="elementor-section elementor-inner-section elementor-element elementor-element-3541dbe4 elementor-section-boxed elementor-section-height-default elementor-section-height-default" data-id="3541dbe4" data-element_type="section">
+						<div class="elementor-container elementor-column-gap-default">
+					<div class="elementor-column elementor-col-100 elementor-inner-column elementor-element elementor-element-438d47a3" data-id="438d47a3" data-element_type="column">
+			<div class="elementor-widget-wrap elementor-element-populated">
+								<div class="elementor-element elementor-element-105ce044 elementor-widget elementor-widget-text-editor" data-id="105ce044" data-element_type="widget" data-widget_type="text-editor.default">
+				<div class="elementor-widget-container">
+							<p><span style="font-weight: 400;">Fully Qualified Tree Removal &amp; Trimming Services throughout Lincolnshire</span></p>						</div>
+				</div>
+					</div>
+		</div>
+							</div>
+		</section>
+					</div>
+		</div>
+							</div>
+		</section>
+				<section class="elementor-section elementor-top-section elementor-element elementor-element-54a297a1 elementor-section-boxed elementor-section-height-default elementor-section-height-default" data-id="54a297a1" data-element_type="section">
+						<div class="elementor-container elementor-column-gap-default">
+					<div class="elementor-column elementor-col-100 elementor-top-column elementor-element elementor-element-16f7f985" data-id="16f7f985" data-element_type="column">
+			<div class="elementor-widget-wrap elementor-element-populated">
+								<div class="elementor-element elementor-element-1006239 elementor-widget elementor-widget-heading" data-id="1006239" data-element_type="widget" data-widget_type="heading.default">
+				<div class="elementor-widget-container">
+			<h2 class="elementor-heading-title elementor-size-default">Emergency Tree Removal Services Lincoln</h2>		</div>
+				</div>
+				<div class="elementor-element elementor-element-16591957 elementor-widget elementor-widget-text-editor" data-id="16591957" data-element_type="widget" data-widget_type="text-editor.default">
+				<div class="elementor-widget-container">
+							<p>Being a Lincoln tree surgeon contractor our staff can deliver not only tree removal but also a range of tree maintenance professional services like Tree Felling &amp; Tree Disassembling, Developmental Trimming, Crown Reshaping &amp; Reduction and Stump Removal &amp; Stump Grinding which will help you with caring for and enhancing the charm of your garden.</p><p>Our tree surgeon professionals do everything from hedge trimming, tree dismantling, tree felling and stump removal to supplying you with tips on some of the most effective procedures for looking after the general appearance and health of your trees.</p><p>Our company also have a 24 Hr emergency tree surgeon solution throughout the Lincoln area, for if your tree has fallen over or you are not exactly sure of its health condition following a windstorm. If our tree surgeons are able to help make the tree secure by removing any broken or fractured limbs and repairing the tree&#8217;s trunk then we&#8217;ll do so. If they&#8217;re not able to make it safe at that time our tree surgeon will organise a risk-free tree dismantling and removal as soon as is convenient.</p><p>So whether you are looking at tree removal and tree felling, getting crown reshaping and reduction done, need your tree inspected for diseases or storm damage, a stump grinding or removed then ring any of our Lincoln tree surgery team right away.</p>						</div>
+				</div>
+					</div>
+		</div>
+							</div>
+		</section>
+				<section class="elementor-section elementor-top-section elementor-element elementor-element-5893aff elementor-section-boxed elementor-section-height-default elementor-section-height-default" data-id="5893aff" data-element_type="section">
+						<div class="elementor-container elementor-column-gap-default">
+					<div class="elementor-column elementor-col-100 elementor-top-column elementor-element elementor-element-ff49aca" data-id="ff49aca" data-element_type="column">
+			<div class="elementor-widget-wrap elementor-element-populated">
+								<section class="elementor-section elementor-inner-section elementor-element elementor-element-f74fe56 elementor-section-boxed elementor-section-height-default elementor-section-height-default" data-id="f74fe56" data-element_type="section">
+						<div class="elementor-container elementor-column-gap-default">
+					<div class="elementor-column elementor-col-33 elementor-inner-column elementor-element elementor-element-23f00cd" data-id="23f00cd" data-element_type="column">
+			<div class="elementor-widget-wrap">
+									</div>
+		</div>
+				<div class="elementor-column elementor-col-33 elementor-inner-column elementor-element elementor-element-eeccbb9" data-id="eeccbb9" data-element_type="column">
+			<div class="elementor-widget-wrap elementor-element-populated">
+								<div class="elementor-element elementor-element-7de08536 elementor-widget elementor-widget-text-editor" data-id="7de08536" data-element_type="widget" data-widget_type="text-editor.default">
+				<div class="elementor-widget-container">
+							<div id="Vid-Container" style="padding-bottom: 56.25%; position: relative; display: block; width: 100%;"><script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "VideoObject",
+  "name": "Tree Surgeon Lincolnshire 24 Hour Tree Surgery Stump Removal Root Removal And Other Tree Services",
+  "description": "Tree Surgeon Lincolnshire Promotional Video ",
+  "thumbnailUrl": "http://i3.ytimg.com/vi/Ca4id0RoIgc/hqdefault.jpg",
+  "uploadDate": "2018-08-16T08:00:00+02:00",
+  "duration": "PT1M13S",
+  "contentUrl": "https://www.youtube.com/watch?v=Ca4id0RoIgc",
+  "embedUrl": "https://www.youtube.com/embed/Ca4id0RoIgc",
+  "transcript": ""
+}
+</script>
+<iframe loading="lazy" style="position: absolute; top: 0; left: 0;" src="about:blank" width="100%" height="100%" frameborder="0" allowfullscreen="allowfullscreen" title="Tree Surgeon Lincolnshire 24 Hour Tree Surgery Stump Removal Root Removal And Other Tree Services" data-rocket-lazyload="fitvidscompatible" data-lazy-src="https://www.youtube.com/embed/Ca4id0RoIgc"></iframe><noscript><iframe style="position: absolute; top: 0; left: 0;" src="https://www.youtube.com/embed/Ca4id0RoIgc" width="100%" height="100%" frameborder="0" allowfullscreen="allowfullscreen" title="Tree Surgeon Lincolnshire 24 Hour Tree Surgery Stump Removal Root Removal And Other Tree Services"></iframe></noscript></div>						</div>
+				</div>
+					</div>
+		</div>
+				<div class="elementor-column elementor-col-33 elementor-inner-column elementor-element elementor-element-f30d3d8" data-id="f30d3d8" data-element_type="column">
+			<div class="elementor-widget-wrap">
+									</div>
+		</div>
+							</div>
+		</section>
+					</div>
+		</div>
+							</div>
+		</section>
+				<section class="elementor-section elementor-top-section elementor-element elementor-element-4928aa83 elementor-section-boxed elementor-section-height-default elementor-section-height-default" data-id="4928aa83" data-element_type="section" data-settings="{&quot;background_background&quot;:&quot;classic&quot;}">
+							<div class="elementor-background-overlay"></div>
+							<div class="elementor-container elementor-column-gap-default">
+					<div class="elementor-column elementor-col-100 elementor-top-column elementor-element elementor-element-3f3d6928" data-id="3f3d6928" data-element_type="column">
+			<div class="elementor-widget-wrap elementor-element-populated">
+								<div class="elementor-element elementor-element-2acc31c9 elementor-widget elementor-widget-heading" data-id="2acc31c9" data-element_type="widget" data-widget_type="heading.default">
+				<div class="elementor-widget-container">
+			<h2 class="elementor-heading-title elementor-size-default"><strong>Call Us Today For A Free No Obligation Quotation</strong></h2>		</div>
+				</div>
+				<section class="elementor-section elementor-inner-section elementor-element elementor-element-62147388 elementor-section-boxed elementor-section-height-default elementor-section-height-default" data-id="62147388" data-element_type="section">
+						<div class="elementor-container elementor-column-gap-default">
+					<div class="elementor-column elementor-col-100 elementor-inner-column elementor-element elementor-element-4aa3a9da" data-id="4aa3a9da" data-element_type="column">
+			<div class="elementor-widget-wrap elementor-element-populated">
+								<div class="elementor-element elementor-element-44099b0a elementor-align-center elementor-widget elementor-widget-button" data-id="44099b0a" data-element_type="widget" data-widget_type="button.default">
+				<div class="elementor-widget-container">
+					<div class="elementor-button-wrapper">
+			<a class="elementor-button elementor-button-link elementor-size-xl" href="tel:07480 539425">
+						<span class="elementor-button-content-wrapper">
+						<span class="elementor-button-text">Call Us Now 07480 539425</span>
+		</span>
+					</a>
+		</div>
+				</div>
+				</div>
+					</div>
+		</div>
+							</div>
+		</section>
+					</div>
+		</div>
+							</div>
+		</section>
+				<section class="elementor-section elementor-top-section elementor-element elementor-element-7c860f08 elementor-section-boxed elementor-section-height-default elementor-section-height-default" data-id="7c860f08" data-element_type="section">
+						<div class="elementor-container elementor-column-gap-default">
+					<div class="elementor-column elementor-col-100 elementor-top-column elementor-element elementor-element-65cec0a6" data-id="65cec0a6" data-element_type="column">
+			<div class="elementor-widget-wrap elementor-element-populated">
+								<div class="elementor-element elementor-element-783e4028 elementor-widget elementor-widget-heading" data-id="783e4028" data-element_type="widget" data-widget_type="heading.default">
+				<div class="elementor-widget-container">
+			<h2 class="elementor-heading-title elementor-size-default">Some of the tree services we provide include:</h2>		</div>
+				</div>
+					</div>
+		</div>
+							</div>
+		</section>
+				<section class="elementor-section elementor-top-section elementor-element elementor-element-3f0b55e elementor-section-boxed elementor-section-height-default elementor-section-height-default" data-id="3f0b55e" data-element_type="section">
+						<div class="elementor-container elementor-column-gap-default">
+					<div class="elementor-column elementor-col-100 elementor-top-column elementor-element elementor-element-65ce4eee" data-id="65ce4eee" data-element_type="column">
+			<div class="elementor-widget-wrap elementor-element-populated">
+								<div class="elementor-element elementor-element-997ee69 elementor-widget elementor-widget-text-editor" data-id="997ee69" data-element_type="widget" data-widget_type="text-editor.default">
+				<div class="elementor-widget-container">
+							<h3 align="center">Tree Experts Lincoln &#8211; Qualified Arborist For All Of Your Trees Requirements</h3><p><img decoding="async" fetchpriority="high" class="alignright size-full wp-image-1123" src="data:image/svg+xml,%3Csvg%20xmlns='http://www.w3.org/2000/svg'%20viewBox='0%200%20636%20475'%3E%3C/svg%3E" alt="Tree Surgeon Lincoln" width="636" height="475" data-lazy-srcset="https://www.alear.org/wp-content/uploads/2019/03/Tree-Surgeon-Lincoln-1.jpg 636w, https://www.alear.org/wp-content/uploads/2019/03/Tree-Surgeon-Lincoln-1-300x224.jpg 300w" data-lazy-sizes="(max-width: 636px) 100vw, 636px" data-lazy-src="https://www.alear.org/wp-content/uploads/2019/03/Tree-Surgeon-Lincoln-1.jpg" /><noscript><img decoding="async" fetchpriority="high" class="alignright size-full wp-image-1123" src="https://www.alear.org/wp-content/uploads/2019/03/Tree-Surgeon-Lincoln-1.jpg" alt="Tree Surgeon Lincoln" width="636" height="475" srcset="https://www.alear.org/wp-content/uploads/2019/03/Tree-Surgeon-Lincoln-1.jpg 636w, https://www.alear.org/wp-content/uploads/2019/03/Tree-Surgeon-Lincoln-1-300x224.jpg 300w" sizes="(max-width: 636px) 100vw, 636px" /></noscript>If you take after a lot of people in Lincoln then you may have probably 1 or a many trees in your garden. Trees much like the plants in your garden need taking care of or they may not only end up being unattractive but they could also end up being hazardous.</p><p>While you can do various jobs with your saw and pruners, many of the tasks are best entrusted to certified and experienced tree surgeons.</p><p>Proper trimming and pruning relates to what pieces to cut, what amount, and when should you do it.</p><p>Our Lincoln tree surgeons team can absolutely play a significant role in each area of your garden. They will not simply inform you on the most reliable methods to keep the beauty and health of your trees but they will also detect and handle any disorder your tree may sustain as well as inform you on the most reliable pest control procedures for your situation.</p>						</div>
+				</div>
+				<div class="elementor-element elementor-element-292d638f elementor-widget elementor-widget-spacer" data-id="292d638f" data-element_type="widget" data-widget_type="spacer.default">
+				<div class="elementor-widget-container">
+					<div class="elementor-spacer">
+			<div class="elementor-spacer-inner"></div>
+		</div>
+				</div>
+				</div>
+				<div class="elementor-element elementor-element-13a01bef elementor-widget elementor-widget-text-editor" data-id="13a01bef" data-element_type="widget" data-widget_type="text-editor.default">
+				<div class="elementor-widget-container">
+							<h3 align="center">Tree Felling &amp; Tree Disassembling</h3><p><img decoding="async" class="alignleft size-full wp-image-1174" src="data:image/svg+xml,%3Csvg%20xmlns='http://www.w3.org/2000/svg'%20viewBox='0%200%20400%20297'%3E%3C/svg%3E" alt="Tree Felling In Little Moor" width="400" height="297" data-lazy-srcset="https://www.alear.org/wp-content/uploads/2019/03/Tree-Felling-Little-Moor.jpg 400w, https://www.alear.org/wp-content/uploads/2019/03/Tree-Felling-Little-Moor-300x223.jpg 300w" data-lazy-sizes="(max-width: 400px) 100vw, 400px" data-lazy-src="https://www.alear.org/wp-content/uploads/2019/03/Tree-Felling-Little-Moor.jpg" /><noscript><img decoding="async" class="alignleft size-full wp-image-1174" src="https://www.alear.org/wp-content/uploads/2019/03/Tree-Felling-Little-Moor.jpg" alt="Tree Felling In Little Moor" width="400" height="297" srcset="https://www.alear.org/wp-content/uploads/2019/03/Tree-Felling-Little-Moor.jpg 400w, https://www.alear.org/wp-content/uploads/2019/03/Tree-Felling-Little-Moor-300x223.jpg 300w" sizes="(max-width: 400px) 100vw, 400px" /></noscript>Our staff are pros in the correct taking down of cumbersome, unsafe and large trees within cramped places. A range of tree removal procedures can be employed including specialist winch operations, sectional dismantling, the use of cranes or directional felling</p>						</div>
+				</div>
+				<div class="elementor-element elementor-element-758f952 elementor-widget elementor-widget-spacer" data-id="758f952" data-element_type="widget" data-widget_type="spacer.default">
+				<div class="elementor-widget-container">
+					<div class="elementor-spacer">
+			<div class="elementor-spacer-inner"></div>
+		</div>
+				</div>
+				</div>
+				<div class="elementor-element elementor-element-17e25eec elementor-widget elementor-widget-text-editor" data-id="17e25eec" data-element_type="widget" data-widget_type="text-editor.default">
+				<div class="elementor-widget-container">
+							<h3 align="center"><a href="https://treesurgeon-northampton.co.uk/emergency-tree-surgeon/">24-Hr Emergency Tree Services Lincoln Stump &amp; Tree Removal</a></h3><p><img decoding="async" class="alignright size-full wp-image-1111" src="data:image/svg+xml,%3Csvg%20xmlns='http://www.w3.org/2000/svg'%20viewBox='0%200%20500%20409'%3E%3C/svg%3E" alt="Emergency tree surgey Market Deeping" width="500" height="409" data-lazy-srcset="https://www.alear.org/wp-content/uploads/2019/03/Tree-Pruning-Market-Deeping-1.jpg 500w, https://www.alear.org/wp-content/uploads/2019/03/Tree-Pruning-Market-Deeping-1-300x245.jpg 300w" data-lazy-sizes="(max-width: 500px) 100vw, 500px" data-lazy-src="https://www.alear.org/wp-content/uploads/2019/03/Tree-Pruning-Market-Deeping-1.jpg" /><noscript><img decoding="async" class="alignright size-full wp-image-1111" src="https://www.alear.org/wp-content/uploads/2019/03/Tree-Pruning-Market-Deeping-1.jpg" alt="Emergency tree surgey Market Deeping" width="500" height="409" srcset="https://www.alear.org/wp-content/uploads/2019/03/Tree-Pruning-Market-Deeping-1.jpg 500w, https://www.alear.org/wp-content/uploads/2019/03/Tree-Pruning-Market-Deeping-1-300x245.jpg 300w" sizes="(max-width: 500px) 100vw, 500px" /></noscript>Our experts even provide a 24 Hr emergency tree removal service for in the event that you find that your tree has been extremely weakened in a gale.Before going down the tree felling and tree removal course one of our tree surgeons will first check the tree for any splits, fractured limbs and any other gale damage. If it is feasible our staff will repair the tree and take off any cracked or broken limbs making the tree secure again.</p><p>In the event that the tree has fallen or is beyond repair then our staff will safely remove the tree for you.</p><p>So regardless if you are considering trimming a few limbs from your tree, want your tree checked for ailments or gale damage, a whole tree removed, a tree stump grinding down or removed or just some suggestions on how you can best look after your trees then talk to any of our Lincoln tree surgery team today on <a href="tel:07480 539425">07480 539425</a></p>						</div>
+				</div>
+					</div>
+		</div>
+							</div>
+		</section>
+				<section class="elementor-section elementor-top-section elementor-element elementor-element-4f8dc58d elementor-section-boxed elementor-section-height-default elementor-section-height-default" data-id="4f8dc58d" data-element_type="section" data-settings="{&quot;background_background&quot;:&quot;classic&quot;}">
+							<div class="elementor-background-overlay"></div>
+							<div class="elementor-container elementor-column-gap-default">
+					<div class="elementor-column elementor-col-100 elementor-top-column elementor-element elementor-element-68eeea20" data-id="68eeea20" data-element_type="column">
+			<div class="elementor-widget-wrap elementor-element-populated">
+								<div class="elementor-element elementor-element-6086eb98 elementor-widget elementor-widget-heading" data-id="6086eb98" data-element_type="widget" data-widget_type="heading.default">
+				<div class="elementor-widget-container">
+			<h2 class="elementor-heading-title elementor-size-default"><strong>Call Us Today For A Free No Obligation Quotation</strong></h2>		</div>
+				</div>
+				<section class="elementor-section elementor-inner-section elementor-element elementor-element-4b2dc672 elementor-section-boxed elementor-section-height-default elementor-section-height-default" data-id="4b2dc672" data-element_type="section">
+						<div class="elementor-container elementor-column-gap-default">
+					<div class="elementor-column elementor-col-100 elementor-inner-column elementor-element elementor-element-1610af0" data-id="1610af0" data-element_type="column">
+			<div class="elementor-widget-wrap elementor-element-populated">
+								<div class="elementor-element elementor-element-7ab256f2 elementor-align-center elementor-widget elementor-widget-button" data-id="7ab256f2" data-element_type="widget" data-widget_type="button.default">
+				<div class="elementor-widget-container">
+					<div class="elementor-button-wrapper">
+			<a class="elementor-button elementor-button-link elementor-size-xl" href="tel:07480 539425">
+						<span class="elementor-button-content-wrapper">
+						<span class="elementor-button-text">Call Us Now 07480 539425</span>
+		</span>
+					</a>
+		</div>
+				</div>
+				</div>
+					</div>
+		</div>
+							</div>
+		</section>
+					</div>
+		</div>
+							</div>
+		</section>
+				<section class="elementor-section elementor-top-section elementor-element elementor-element-24a3bd46 elementor-section-boxed elementor-section-height-default elementor-section-height-default" data-id="24a3bd46" data-element_type="section">
+						<div class="elementor-container elementor-column-gap-default">
+					<div class="elementor-column elementor-col-100 elementor-top-column elementor-element elementor-element-1d12c3e6" data-id="1d12c3e6" data-element_type="column">
+			<div class="elementor-widget-wrap elementor-element-populated">
+								<div class="elementor-element elementor-element-3a0189b5 elementor-widget elementor-widget-spacer" data-id="3a0189b5" data-element_type="widget" data-widget_type="spacer.default">
+				<div class="elementor-widget-container">
+					<div class="elementor-spacer">
+			<div class="elementor-spacer-inner"></div>
+		</div>
+				</div>
+				</div>
+				<div class="elementor-element elementor-element-70de241a elementor-widget elementor-widget-text-editor" data-id="70de241a" data-element_type="widget" data-widget_type="text-editor.default">
+				<div class="elementor-widget-container">
+							<h3 align="center">Tree Conservation Orders And Tree Protection Orders</h3><p><img decoding="async" class="alignleft size-full wp-image-1126" src="data:image/svg+xml,%3Csvg%20xmlns='http://www.w3.org/2000/svg'%20viewBox='0%200%20500%20333'%3E%3C/svg%3E" alt="Tree Surgeons Cleethorpes" width="500" height="333" data-lazy-srcset="https://www.alear.org/wp-content/uploads/2019/03/Tree-Surgeons-Cleethorpes-1.jpg 500w, https://www.alear.org/wp-content/uploads/2019/03/Tree-Surgeons-Cleethorpes-1-300x200.jpg 300w" data-lazy-sizes="(max-width: 500px) 100vw, 500px" data-lazy-src="https://www.alear.org/wp-content/uploads/2019/03/Tree-Surgeons-Cleethorpes-1.jpg" /><noscript><img decoding="async" class="alignleft size-full wp-image-1126" src="https://www.alear.org/wp-content/uploads/2019/03/Tree-Surgeons-Cleethorpes-1.jpg" alt="Tree Surgeons Cleethorpes" width="500" height="333" srcset="https://www.alear.org/wp-content/uploads/2019/03/Tree-Surgeons-Cleethorpes-1.jpg 500w, https://www.alear.org/wp-content/uploads/2019/03/Tree-Surgeons-Cleethorpes-1-300x200.jpg 300w" sizes="(max-width: 500px) 100vw, 500px" /></noscript>Our experts even provide a 24 Hr emergency tree removal service for in the event that you find that your tree has been extremely weakened in a gale.Before going down the tree felling and tree removal course one of our tree surgeons will first check the tree for any splits, fractured limbs and any other gale damage. If it is feasible our staff will repair the tree and take off any cracked or broken limbs making the tree secure again.</p><p>In the event that the tree has fallen or is beyond repair then our staff will safely remove the tree for you.</p><p>So regardless if you are considering trimming a few limbs from your tree, want your tree checked for ailments or gale damage, a whole tree removed, a tree stump grinding down or removed or just some suggestions on how you can best look after your trees then talk to any of our Lincoln tree surgery team today on <a href="tel:07480 539425">07480 539425</a></p>						</div>
+				</div>
+				<div class="elementor-element elementor-element-db0aa60 elementor-widget elementor-widget-text-editor" data-id="db0aa60" data-element_type="widget" data-widget_type="text-editor.default">
+				<div class="elementor-widget-container">
+							<h3 align="center">Stump Removal &amp; Stump Grinding</h3><p><img decoding="async" class="alignright size-full wp-image-1104" src="data:image/svg+xml,%3Csvg%20xmlns='http://www.w3.org/2000/svg'%20viewBox='0%200%20500%20281'%3E%3C/svg%3E" alt="Tree Crown Reduction Market Deeping" width="500" height="281" data-lazy-srcset="https://www.alear.org/wp-content/uploads/2019/03/Tree-Crown-Reduction-Market-Deeping-1.jpg 500w, https://www.alear.org/wp-content/uploads/2019/03/Tree-Crown-Reduction-Market-Deeping-1-300x169.jpg 300w" data-lazy-sizes="(max-width: 500px) 100vw, 500px" data-lazy-src="https://www.alear.org/wp-content/uploads/2019/03/Tree-Crown-Reduction-Market-Deeping-1.jpg" /><noscript><img decoding="async" class="alignright size-full wp-image-1104" src="https://www.alear.org/wp-content/uploads/2019/03/Tree-Crown-Reduction-Market-Deeping-1.jpg" alt="Tree Crown Reduction Market Deeping" width="500" height="281" srcset="https://www.alear.org/wp-content/uploads/2019/03/Tree-Crown-Reduction-Market-Deeping-1.jpg 500w, https://www.alear.org/wp-content/uploads/2019/03/Tree-Crown-Reduction-Market-Deeping-1-300x169.jpg 300w" sizes="(max-width: 500px) 100vw, 500px" /></noscript>Whether you have had your tree felled as a part of a landscaping venture, because of storm damage or as a result of disease, if the tree company that felled your tree didn&#8217;t take care of the tree stump removal then getting rid of the leftover tree stump is absolutely not a very easy job.</p><p>If you are considering getting rid of any old tree stumps in your property then we&#8217;ve the best tools for making this job both an uncluttered &amp; easy task.</p>						</div>
+				</div>
+				<div class="elementor-element elementor-element-5e873a50 elementor-widget elementor-widget-spacer" data-id="5e873a50" data-element_type="widget" data-widget_type="spacer.default">
+				<div class="elementor-widget-container">
+					<div class="elementor-spacer">
+			<div class="elementor-spacer-inner"></div>
+		</div>
+				</div>
+				</div>
+				<div class="elementor-element elementor-element-19f1fc9e elementor-widget elementor-widget-text-editor" data-id="19f1fc9e" data-element_type="widget" data-widget_type="text-editor.default">
+				<div class="elementor-widget-container">
+							<h3 align="center">Crown Reshaping &amp; Reduction</h3><p>Is simply a procedure which results in an overall decrease in the spread and/or height of the crown of the tree by means of an overall trimming of twigs and/or branches, while at the same time keeping the fundamental arrangement of your tree&#8217;s crown.</p>						</div>
+				</div>
+					</div>
+		</div>
+							</div>
+		</section>
+				<section class="elementor-section elementor-top-section elementor-element elementor-element-6043c728 elementor-section-boxed elementor-section-height-default elementor-section-height-default" data-id="6043c728" data-element_type="section" data-settings="{&quot;background_background&quot;:&quot;classic&quot;}">
+							<div class="elementor-background-overlay"></div>
+							<div class="elementor-container elementor-column-gap-default">
+					<div class="elementor-column elementor-col-100 elementor-top-column elementor-element elementor-element-3982769f" data-id="3982769f" data-element_type="column">
+			<div class="elementor-widget-wrap elementor-element-populated">
+								<div class="elementor-element elementor-element-46e2b4c7 elementor-widget elementor-widget-heading" data-id="46e2b4c7" data-element_type="widget" data-widget_type="heading.default">
+				<div class="elementor-widget-container">
+			<h2 class="elementor-heading-title elementor-size-default"><strong>Call Us Today For A Free No Obligation Quotation</strong></h2>		</div>
+				</div>
+				<section class="elementor-section elementor-inner-section elementor-element elementor-element-2ce019f6 elementor-section-boxed elementor-section-height-default elementor-section-height-default" data-id="2ce019f6" data-element_type="section">
+						<div class="elementor-container elementor-column-gap-default">
+					<div class="elementor-column elementor-col-100 elementor-inner-column elementor-element elementor-element-60780bfa" data-id="60780bfa" data-element_type="column">
+			<div class="elementor-widget-wrap elementor-element-populated">
+								<div class="elementor-element elementor-element-6ecf2503 elementor-align-center elementor-widget elementor-widget-button" data-id="6ecf2503" data-element_type="widget" data-widget_type="button.default">
+				<div class="elementor-widget-container">
+					<div class="elementor-button-wrapper">
+			<a class="elementor-button elementor-button-link elementor-size-xl" href="tel:07480 539425">
+						<span class="elementor-button-content-wrapper">
+						<span class="elementor-button-text">Call Us Now 07480 539425</span>
+		</span>
+					</a>
+		</div>
+				</div>
+				</div>
+					</div>
+		</div>
+							</div>
+		</section>
+					</div>
+		</div>
+							</div>
+		</section>
+				<section class="elementor-section elementor-top-section elementor-element elementor-element-7b20134b elementor-section-boxed elementor-section-height-default elementor-section-height-default" data-id="7b20134b" data-element_type="section">
+						<div class="elementor-container elementor-column-gap-default">
+					<div class="elementor-column elementor-col-50 elementor-top-column elementor-element elementor-element-2ee4c2a" data-id="2ee4c2a" data-element_type="column">
+			<div class="elementor-widget-wrap elementor-element-populated">
+								<div class="elementor-element elementor-element-584d97d3 elementor-widget elementor-widget-text-editor" data-id="584d97d3" data-element_type="widget" data-widget_type="text-editor.default">
+				<div class="elementor-widget-container">
+							<div align="center">
+<div class="gmap_canvas"><iframe loading="lazy" id="gmap_canvas" src="about:blank" width="100%" height="400" frameborder="0" marginwidth="0" marginheight="0" scrolling="no" data-rocket-lazyload="fitvidscompatible" data-lazy-src="https://maps.google.com/maps?q=Lincoln,Lincolnshire,East%20Midlands&#038;t=&#038;z=13&#038;ie=UTF8&#038;iwloc=&#038;output=embed"> </iframe><noscript><iframe id="gmap_canvas" src="https://maps.google.com/maps?q=Lincoln,Lincolnshire,East Midlands&amp;t=&amp;z=13&amp;ie=UTF8&amp;iwloc=&amp;output=embed" width="100%" height="400" frameborder="0" marginwidth="0" marginheight="0" scrolling="no"> </iframe></noscript>
+</div>						</div>
+				</div>
+					</div>
+		</div>
+				<div class="elementor-column elementor-col-50 elementor-top-column elementor-element elementor-element-1992aa0" data-id="1992aa0" data-element_type="column">
+			<div class="elementor-widget-wrap elementor-element-populated">
+								<div class="elementor-element elementor-element-3207eda elementor-widget elementor-widget-text-editor" data-id="3207eda" data-element_type="widget" data-widget_type="text-editor.default">
+				<div class="elementor-widget-container">
+							<h3>Other areas near Lincoln we cover include:</h3>
+
+<ul><li><a href="https://www.alear.org/tree-surgeon/st-giles/">St Giles</a></li><li><a href="https://www.alear.org/tree-surgeon/new-boultham/">New Boultham</a></li><li><a href="https://www.alear.org/tree-surgeon/ermine/">Ermine</a></li><li><a href="https://www.alear.org/tree-surgeon/st-catherines/">St Catherines</a></li><li><a href="https://www.alear.org/tree-surgeon/canwick/">Canwick</a></li><li><a href="https://www.alear.org/tree-surgeon/boultham/">Boultham</a></li><li><a href="https://www.alear.org/tree-surgeon/burton-by-lincoln/">Burton-by-Lincoln</a></li><li><a href="https://www.alear.org/tree-surgeon/riseholme/">Riseholme</a></li><li><a href="https://www.alear.org/tree-surgeon/swanpool/">Swanpool</a></li><li><a href="https://www.alear.org/tree-surgeon/boultham-moor/">Boultham Moor</a></li></ul>						</div>
+				</div>
+					</div>
+		</div>
+							</div>
+		</section>
+							</div>
+		
+	</div>
+</div>
+
+
+<div class="site-footer grid-container grid-parent">
+			<footer class="site-info" aria-label="Site"  itemtype="https://schema.org/WPFooter" itemscope>
+			<div class="inside-site-info grid-container grid-parent">
+								<div class="copyright-bar">
+					&copy; 2011 - 2023 Complete Tree Services Lincoln, LN1 3 | <a href="https://alear.org/privacy-policy">Privacy Policy</a> | <a href="https://alear.org">Home</a><br />Other locations we cover include: <a href="https://www.alear.org/tree-surgeon/north-hykeham/">North Hykeham</a>, <a href="https://www.alear.org/tree-surgeon/market-rasen/">Market Rasen</a>, <a href="https://www.alear.org/tree-surgeon/ruskington/">Ruskington</a>, <a href="https://www.alear.org/tree-surgeon/gainsborough/">Gainsborough</a>, <a href="https://www.alear.org/tree-surgeon/sleaford/">Sleaford</a>, <a href="https://www.alear.org/tree-surgeon/ancaster/">Ancaster</a>, <a href="https://www.alear.org/tree-surgeon/horncastle/">Horncastle</a>, <a href="https://www.alear.org/tree-surgeon/coningsby/">Coningsby</a>				</div>
+			</div>
+		</footer>
+		</div>
+
+
+
+<script type="rocketlazyloadscript" id="generate-a11y">!function(){"use strict";if("querySelector"in document&&"addEventListener"in window){var e=document.body;e.addEventListener("mousedown",function(){e.classList.add("using-mouse")}),e.addEventListener("keydown",function(){e.classList.remove("using-mouse")})}}();</script><script type="rocketlazyloadscript" data-minify="1" data-rocket-src='https://www.alear.org/wp-content/cache/min/1/wp-content/plugins/duracelltomi-google-tag-manager/js/gtm4wp-form-move-tracker.js?ver=1698845201' id='gtm4wp-form-move-tracker-js' defer></script>
+<!--[if lte IE 11]>
+<script src='https://www.alear.org/wp-content/themes/generatepress/assets/js/classList.min.js?ver=3.3.1' id='generate-classlist-js'></script>
+<![endif]-->
+<script id='generate-menu-js-extra'>
+var generatepressMenu = {"toggleOpenedSubMenus":"1","openSubMenuLabel":"Open Sub-Menu","closeSubMenuLabel":"Close Sub-Menu"};
+</script>
+<script type="rocketlazyloadscript" data-rocket-src='https://www.alear.org/wp-content/themes/generatepress/assets/js/menu.min.js?ver=3.3.1' id='generate-menu-js' defer></script>
+<script type="rocketlazyloadscript" data-rocket-src='https://www.alear.org/wp-content/plugins/elementor/assets/js/webpack.runtime.min.js?ver=3.17.2' id='elementor-webpack-runtime-js' defer></script>
+<script type="rocketlazyloadscript" data-rocket-src='https://www.alear.org/wp-content/plugins/elementor/assets/js/frontend-modules.min.js?ver=3.17.2' id='elementor-frontend-modules-js' defer></script>
+<script type="rocketlazyloadscript" data-rocket-src='https://www.alear.org/wp-content/plugins/elementor/assets/lib/waypoints/waypoints.min.js?ver=4.0.2' id='elementor-waypoints-js' defer></script>
+<script type="rocketlazyloadscript" data-rocket-src='https://www.alear.org/wp-includes/js/jquery/ui/core.min.js?ver=1.13.2' id='jquery-ui-core-js' defer></script>
+<script type="rocketlazyloadscript" id="elementor-frontend-js-before">
+var elementorFrontendConfig = {"environmentMode":{"edit":false,"wpPreview":false,"isScriptDebug":false},"i18n":{"shareOnFacebook":"Share on Facebook","shareOnTwitter":"Share on Twitter","pinIt":"Pin it","download":"Download","downloadImage":"Download image","fullscreen":"Fullscreen","zoom":"Zoom","share":"Share","playVideo":"Play Video","previous":"Previous","next":"Next","close":"Close","a11yCarouselWrapperAriaLabel":"Carousel | Horizontal scrolling: Arrow Left & Right","a11yCarouselPrevSlideMessage":"Previous slide","a11yCarouselNextSlideMessage":"Next slide","a11yCarouselFirstSlideMessage":"This is the first slide","a11yCarouselLastSlideMessage":"This is the last slide","a11yCarouselPaginationBulletMessage":"Go to slide"},"is_rtl":false,"breakpoints":{"xs":0,"sm":480,"md":768,"lg":1025,"xl":1440,"xxl":1600},"responsive":{"breakpoints":{"mobile":{"label":"Mobile Portrait","value":767,"default_value":767,"direction":"max","is_enabled":true},"mobile_extra":{"label":"Mobile Landscape","value":880,"default_value":880,"direction":"max","is_enabled":false},"tablet":{"label":"Tablet Portrait","value":1024,"default_value":1024,"direction":"max","is_enabled":true},"tablet_extra":{"label":"Tablet Landscape","value":1200,"default_value":1200,"direction":"max","is_enabled":false},"laptop":{"label":"Laptop","value":1366,"default_value":1366,"direction":"max","is_enabled":false},"widescreen":{"label":"Widescreen","value":2400,"default_value":2400,"direction":"min","is_enabled":false}}},"version":"3.17.2","is_static":false,"experimentalFeatures":{"e_dom_optimization":true,"e_optimized_assets_loading":true,"additional_custom_breakpoints":true,"landing-pages":true},"urls":{"assets":"https:\/\/www.alear.org\/wp-content\/plugins\/elementor\/assets\/"},"swiperClass":"swiper-container","settings":{"page":[],"editorPreferences":[]},"kit":{"global_image_lightbox":"yes","active_breakpoints":["viewport_mobile","viewport_tablet"],"lightbox_enable_counter":"yes","lightbox_enable_fullscreen":"yes","lightbox_enable_zoom":"yes","lightbox_enable_share":"yes","lightbox_title_src":"title","lightbox_description_src":"description"},"post":{"id":74,"title":"Tree%20Surgeons%20Lincoln%2024%20Hour%20Emergency%20Tree%20Services%20Removal%20Felling%20And%20Dismantling","excerpt":"","featuredImage":false}};
+</script>
+<script type="rocketlazyloadscript" data-rocket-src='https://www.alear.org/wp-content/plugins/elementor/assets/js/frontend.min.js?ver=3.17.2' id='elementor-frontend-js' defer></script>
+<script>window.lazyLoadOptions=[{elements_selector:"img[data-lazy-src],.rocket-lazyload,iframe[data-lazy-src]",data_src:"lazy-src",data_srcset:"lazy-srcset",data_sizes:"lazy-sizes",class_loading:"lazyloading",class_loaded:"lazyloaded",threshold:300,callback_loaded:function(element){if(element.tagName==="IFRAME"&&element.dataset.rocketLazyload=="fitvidscompatible"){if(element.classList.contains("lazyloaded")){if(typeof window.jQuery!="undefined"){if(jQuery.fn.fitVids){jQuery(element).parent().fitVids()}}}}}},{elements_selector:".rocket-lazyload",data_src:"lazy-src",data_srcset:"lazy-srcset",data_sizes:"lazy-sizes",class_loading:"lazyloading",class_loaded:"lazyloaded",threshold:300,}];window.addEventListener('LazyLoad::Initialized',function(e){var lazyLoadInstance=e.detail.instance;if(window.MutationObserver){var observer=new MutationObserver(function(mutations){var image_count=0;var iframe_count=0;var rocketlazy_count=0;mutations.forEach(function(mutation){for(var i=0;i<mutation.addedNodes.length;i++){if(typeof mutation.addedNodes[i].getElementsByTagName!=='function'){continue}
+if(typeof mutation.addedNodes[i].getElementsByClassName!=='function'){continue}
+images=mutation.addedNodes[i].getElementsByTagName('img');is_image=mutation.addedNodes[i].tagName=="IMG";iframes=mutation.addedNodes[i].getElementsByTagName('iframe');is_iframe=mutation.addedNodes[i].tagName=="IFRAME";rocket_lazy=mutation.addedNodes[i].getElementsByClassName('rocket-lazyload');image_count+=images.length;iframe_count+=iframes.length;rocketlazy_count+=rocket_lazy.length;if(is_image){image_count+=1}
+if(is_iframe){iframe_count+=1}}});if(image_count>0||iframe_count>0||rocketlazy_count>0){lazyLoadInstance.update()}});var b=document.getElementsByTagName("body")[0];var config={childList:!0,subtree:!0};observer.observe(b,config)}},!1)</script><script data-no-minify="1" async src="https://www.alear.org/wp-content/plugins/wp-rocket/assets/js/lazyload/17.8.3/lazyload.min.js"></script>
+<script>class RocketElementorAnimation{constructor(){this.deviceMode=document.createElement("span"),this.deviceMode.id="elementor-device-mode-wpr",this.deviceMode.setAttribute("class","elementor-screen-only"),document.body.appendChild(this.deviceMode)}_detectAnimations(){let t=getComputedStyle(this.deviceMode,":after").content.replace(/"/g,"");this.animationSettingKeys=this._listAnimationSettingsKeys(t),document.querySelectorAll(".elementor-invisible[data-settings]").forEach(t=>{const e=t.getBoundingClientRect();if(e.bottom>=0&&e.top<=window.innerHeight)try{this._animateElement(t)}catch(t){}})}_animateElement(t){const e=JSON.parse(t.dataset.settings),i=e._animation_delay||e.animation_delay||0,n=e[this.animationSettingKeys.find(t=>e[t])];if("none"===n)return void t.classList.remove("elementor-invisible");t.classList.remove(n),this.currentAnimation&&t.classList.remove(this.currentAnimation),this.currentAnimation=n;let s=setTimeout(()=>{t.classList.remove("elementor-invisible"),t.classList.add("animated",n),this._removeAnimationSettings(t,e)},i);window.addEventListener("rocket-startLoading",function(){clearTimeout(s)})}_listAnimationSettingsKeys(t="mobile"){const e=[""];switch(t){case"mobile":e.unshift("_mobile");case"tablet":e.unshift("_tablet");case"desktop":e.unshift("_desktop")}const i=[];return["animation","_animation"].forEach(t=>{e.forEach(e=>{i.push(t+e)})}),i}_removeAnimationSettings(t,e){this._listAnimationSettingsKeys().forEach(t=>delete e[t]),t.dataset.settings=JSON.stringify(e)}static run(){const t=new RocketElementorAnimation;requestAnimationFrame(t._detectAnimations.bind(t))}}document.addEventListener("DOMContentLoaded",RocketElementorAnimation.run);</script></body>
+</html>
+
+<!-- This website is like a Rocket, isn't it? Performance optimized by WP Rocket. Learn more: https://wp-rocket.me - Debug: cached@1700385347 -->

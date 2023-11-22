@@ -1,0 +1,1183 @@
+ 
+
+
+
+
+
+
+
+<script src="./../../sites/all/themes/mytheme/js/jquery-1.9.1.js"></script>
+<script src="./../../sites/all/themes/mytheme/js/jquery-ui.1.10.2.js"></script>
+
+
+<script>
+    function highlightText(text, $node) {
+    
+        var searchText = $.trim(text).toLowerCase(), currentNode = $node.get(0).firstChild, matchIndex, newTextNode, newSpanNode;
+        while ((matchIndex = currentNode.data.toLowerCase().indexOf(searchText)) >= 0) {
+          newTextNode = currentNode.splitText(matchIndex);
+          currentNode = newTextNode.splitText(searchText.length);
+          newSpanNode = document.createElement("span");
+          newSpanNode.className = "highlight";
+          currentNode.parentNode.insertBefore(newSpanNode, currentNode);
+          newSpanNode.appendChild(newTextNode);
+        }
+      }
+
+    $(function() {
+$('#edit-search-block-form--3').keyup(function(){
+    
+     var data=$('#edit-search-block-form--3').val();
+     
+   $.ajax({
+     type:'POST',
+     url:'./../../sites/all/themes/mytheme/ajax.php',
+     data:"data="+data,
+     dataType: "json",
+     success: function(msg){
+               
+          var availableTags = msg;
+              
+                
+      $("#edit-search-block-form--3").autocomplete({
+         source: availableTags,
+                           select: function (event, ui) { 
+                               var origEvent = event;
+                              while (origEvent.originalEvent !== undefined){
+                                  origEvent = origEvent.originalEvent;
+                              }
+                              
+                              if (origEvent.type == 'click'){
+                                  document.getElementById('edit-search-block-form--3').value = ui.item.value;
+                                  document.getElementById('search-block-form').submit();
+                              } else {
+                                  document.getElementById('search-block-form').submit();     
+                              }
+                               //$("#search-block-form").submit(); 
+                             }
+      }).data("ui-autocomplete")._renderItem = function(ul, item) {
+        var $a = $("<a></a>").text(item.label);
+        highlightText(this.term, $a);
+        return $("<li></li>").append($a).appendTo(ul);
+      };
+     }
+  });
+
+});
+});
+    </script>
+    
+
+
+<script>
+
+$(function() {
+  
+$('#edit-search-block-form--2').keyup(function(){
+    
+       var data=$('#edit-search-block-form--2').val();
+     
+           
+   $.ajax({
+     type:'POST',
+     url:'./../../sites/all/themes/mytheme/ajax.php',
+     data:"data="+data,
+     dataType: "json",
+     success: function(msg){
+               
+          var availableTags = msg;
+
+                
+      $("#edit-search-block-form--2").autocomplete({
+         source: availableTags,
+
+                           select: function (event, ui) { 
+                             var origEvent = event;
+                              while (origEvent.originalEvent !== undefined){
+                                  origEvent = origEvent.originalEvent;
+                              }
+                              
+                              if (origEvent.type == 'click'){
+                                  document.getElementById('edit-search-block-form--2').value = ui.item.value;
+                                  document.getElementById('search-block-form').submit();
+                              } else {
+                                  document.getElementById('search-block-form').submit();     
+                              }
+                               //$("#search-block-form").submit(); 
+                             }
+      }).data("ui-autocomplete")._renderItem = function(ul, item) {
+        var $a = $("<a></a>").text(item.label);
+        highlightText(this.term, $a);
+        return $("<li></li>").append($a).appendTo(ul);
+      };
+     }
+  });
+
+});
+
+
+});
+
+
+</script>
+<!DOCTYPE html>
+<!--[if IEMobile 7]><html class="iem7"  lang="en" dir="ltr"><![endif]-->
+<!--[if lte IE 6]><html class="lt-ie9 lt-ie8 lt-ie7"  lang="en" dir="ltr"><![endif]-->
+<!--[if (IE 7)&(!IEMobile)]><html class="lt-ie9 lt-ie8"  lang="en" dir="ltr"><![endif]-->
+<!--[if IE 8]><html class="lt-ie9"  lang="en" dir="ltr"><![endif]-->
+<!--[if (gte IE 9)|(gt IEMobile 7)]><!--><html  lang="en" dir="ltr" prefix="fb: http://ogp.me/ns/fb# og: http://ogp.me/ns# article: http://ogp.me/ns/article# book: http://ogp.me/ns/book# profile: http://ogp.me/ns/profile# video: http://ogp.me/ns/video#"><!--<![endif]-->
+
+<head>
+  <meta charset="utf-8" />
+<link rel="alternate" type="application/rss+xml" title="Designinindia RSS" href="https://www.designindia.net/rss.xml" />
+<link rel="shortcut icon" href="https://www.designindia.net/sites/default/files/favicon.ico" type="image/vnd.microsoft.icon" />
+<meta name="generator" content="Drupal 7 (http://drupal.org)" />
+<link rel="canonical" href="https://www.designindia.net/" />
+<link rel="shortlink" href="https://www.designindia.net/" />
+<meta property="og:site_name" content="Designinindia" />
+<meta property="og:type" content="website" />
+<meta property="og:url" content="https://www.designindia.net/" />
+<meta property="og:title" content="Designinindia" />
+<meta name="twitter:card" content="summary" />
+<meta name="twitter:url" content="https://www.designindia.net/" />
+<meta name="twitter:title" content="Designinindia" />
+<meta name="dcterms.title" content="Designinindia" />
+<meta name="dcterms.type" content="Text" />
+<meta name="dcterms.format" content="text/html" />
+<meta name="dcterms.identifier" content="https://www.designindia.net/" />
+  <title>The World of Design in India: Indian Designs, Schools, Firms, News, Masters, Thoughts, Issues, Works, Events, Crafts and more</title>
+
+      <meta name="MobileOptimized" content="width">
+    <meta name="HandheldFriendly" content="true">
+    <meta name="viewport" content="width=device-width">
+    <meta http-equiv="cleartype" content="on">
+   
+   <!-- Google Analytics -->
+   <script>
+    (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+    (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+    m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+    })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+
+    ga('create', 'UA-22370778-1', 'auto');
+    ga('send', 'pageview');
+   </script>
+   <!-- End Google Analytics -->
+  <style>@import url("https://www.designindia.net/modules/system/system.base.css?pm1teo");</style>
+<style>@import url("https://www.designindia.net/modules/comment/comment.css?pm1teo");
+@import url("https://www.designindia.net/sites/all/modules/date/date_api/date.css?pm1teo");
+@import url("https://www.designindia.net/sites/all/modules/date/date_popup/themes/datepicker.1.7.css?pm1teo");
+@import url("https://www.designindia.net/sites/all/modules/date/date_repeat_field/date_repeat_field.css?pm1teo");
+@import url("https://www.designindia.net/modules/field/theme/field.css?pm1teo");</style>
+<style>@import url("https://www.designindia.net/modules/node/node.css?pm1teo");
+@import url("https://www.designindia.net/sites/all/modules/picture/picture_wysiwyg.css?pm1teo");
+@import url("https://www.designindia.net/modules/search/search.css?pm1teo");
+@import url("https://www.designindia.net/modules/user/user.css?pm1teo");
+@import url("https://www.designindia.net/sites/all/modules/views/css/views.css?pm1teo");
+@import url("https://www.designindia.net/sites/all/modules/ckeditor/css/ckeditor.css?pm1teo");</style>
+<style>@import url("https://www.designindia.net/sites/all/modules/ctools/css/ctools.css?pm1teo");
+@import url("https://www.designindia.net/sites/all/modules/node_embed/plugins/node_embed/node_embed.css?pm1teo");
+@import url("https://www.designindia.net/sites/all/modules/video/css/video.css?pm1teo");
+@import url("https://www.designindia.net/sites/all/modules/flexslider/assets/css/flexslider_img.css?pm1teo");
+@import url("https://www.designindia.net/sites/all/libraries/flexslider/flexslider.css?pm1teo");</style>
+<style>@import url("https://www.designindia.net/sites/all/themes/mytheme/css/styles.css?pm1teo");
+@import url("https://www.designindia.net/sites/all/themes/mytheme/css/style1.css?pm1teo");
+@import url("https://www.designindia.net/sites/all/themes/mytheme/css/bootstrap.min.css?pm1teo");</style>
+  <script src="https://www.designindia.net/sites/all/modules/jquery_update/replace/jquery/1.8/jquery.min.js?v=1.8.3"></script>
+<script src="https://www.designindia.net/misc/jquery.once.js?v=1.2"></script>
+<script src="https://www.designindia.net/misc/drupal.js?pm1teo"></script>
+<script>document.createElement( "picture" );</script>
+<script src="https://www.designindia.net/sites/all/modules/admin_menu/admin_devel/admin_devel.js?pm1teo"></script>
+<script src="https://www.designindia.net/sites/all/modules/video/js/video.js?pm1teo"></script>
+<script src="https://www.designindia.net/sites/all/modules/custom_search/js/custom_search.js?pm1teo"></script>
+<script src="https://www.designindia.net/sites/all/libraries/flexslider/jquery.flexslider-min.js?pm1teo"></script>
+<script src="https://www.designindia.net/sites/all/themes/mytheme/js/bootstrap.min.js?pm1teo"></script>
+<script>jQuery.extend(Drupal.settings, {"basePath":"\/","pathPrefix":"","ajaxPageState":{"theme":"mytheme","theme_token":"BgVUH8fouIyxE36oqgsI1B6ztIS1re7PrevaO-jqfUk","js":{"sites\/all\/modules\/picture\/picturefill2\/picturefill.min.js":1,"sites\/all\/modules\/picture\/picture.min.js":1,"sites\/all\/modules\/flexslider\/assets\/js\/flexslider.load.js":1,"sites\/all\/modules\/jquery_update\/replace\/jquery\/1.8\/jquery.min.js":1,"misc\/jquery.once.js":1,"misc\/drupal.js":1,"0":1,"sites\/all\/modules\/admin_menu\/admin_devel\/admin_devel.js":1,"sites\/all\/modules\/video\/js\/video.js":1,"sites\/all\/modules\/custom_search\/js\/custom_search.js":1,"sites\/all\/libraries\/flexslider\/jquery.flexslider-min.js":1,"sites\/all\/themes\/mytheme\/js\/bootstrap.min.js":1},"css":{"modules\/system\/system.base.css":1,"modules\/system\/system.menus.css":1,"modules\/system\/system.messages.css":1,"modules\/system\/system.theme.css":1,"modules\/comment\/comment.css":1,"sites\/all\/modules\/date\/date_api\/date.css":1,"sites\/all\/modules\/date\/date_popup\/themes\/datepicker.1.7.css":1,"sites\/all\/modules\/date\/date_repeat_field\/date_repeat_field.css":1,"modules\/field\/theme\/field.css":1,"sites\/all\/modules\/find_content\/find_content.css":1,"modules\/node\/node.css":1,"sites\/all\/modules\/picture\/picture_wysiwyg.css":1,"modules\/search\/search.css":1,"modules\/user\/user.css":1,"sites\/all\/modules\/views\/css\/views.css":1,"sites\/all\/modules\/ckeditor\/css\/ckeditor.css":1,"sites\/all\/modules\/ctools\/css\/ctools.css":1,"sites\/all\/modules\/node_embed\/plugins\/node_embed\/node_embed.css":1,"sites\/all\/modules\/video\/css\/video.css":1,"sites\/all\/modules\/flexslider\/assets\/css\/flexslider_img.css":1,"sites\/all\/libraries\/flexslider\/flexslider.css":1,"sites\/all\/themes\/mytheme\/system.menus.css":1,"sites\/all\/themes\/zen\/bootstrap.min.css":1,"sites\/all\/themes\/mytheme\/system.messages.css":1,"sites\/all\/themes\/mytheme\/system.theme.css":1,"sites\/all\/themes\/mytheme\/css\/styles.css":1,"sites\/all\/themes\/mytheme\/css\/style1.css":1,"sites\/all\/themes\/mytheme\/css\/bootstrap.min.css":1}},"custom_search":{"form_target":"_self","solr":0},"flexslider":{"optionsets":{"default":{"namespace":"flex-","selector":".slides \u003E li","easing":"swing","direction":"horizontal","reverse":false,"smoothHeight":false,"startAt":0,"animationSpeed":600,"initDelay":0,"useCSS":true,"touch":true,"video":false,"keyboard":true,"multipleKeyboard":false,"mousewheel":0,"controlsContainer":".flex-control-nav-container","sync":"","asNavFor":"","itemWidth":0,"itemMargin":0,"minItems":0,"maxItems":0,"move":0,"animation":"fade","slideshow":true,"slideshowSpeed":"7000","directionNav":false,"controlNav":false,"prevText":"Previous","nextText":"Next","pausePlay":false,"pauseText":"Pause","playText":"Play","randomize":false,"thumbCaptions":false,"thumbCaptionsBoth":false,"animationLoop":true,"pauseOnAction":true,"pauseOnHover":false,"manualControls":""}},"instances":{"flexslider-1":"default"}},"better_exposed_filters":{"views":{"Slideshow":{"displays":{"block_2":{"filters":[]}}},"events":{"displays":{"block_2":{"filters":[]}}},"projects":{"displays":{"block_2":{"filters":[]},"block_3":{"filters":[]}}},"showcase":{"displays":{"block_1":{"filters":[]}}},"people":{"displays":{"block":{"filters":[]}}},"organisation":{"displays":{"block":{"filters":[]}}}}}});</script>
+      <!--[if lt IE 9]>
+    <script src="/sites/all/themes/zen/js/html5-respond.js"></script>
+    <![endif]-->
+  </head>
+<body class="html front not-logged-in no-sidebars page-node" >
+      <p id="skip-link">
+      <a href="#main-menu" class="element-invisible element-focusable">Jump to navigation</a>
+    </p>
+      <!-- <link href="https://fonts.googleapis.com/css?family=Ek+Mukta" rel="stylesheet">  -->
+<body>
+<div id="page">
+        
+<header>
+  <div class="navbar navbar-default navbar-static-top">
+    <div class="container">
+      <div class="row">
+        <div class="col-sm-12">
+      <div class="navbar-header">
+        <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+        </button>
+        <div class="row">
+          <div class="col-sm-9 col-xs-9">
+            <a href="/">
+              <img src="../../../sites/all/themes/zen/images/design_logo.png">
+            </a>
+          </div>
+        </div>
+      </div>
+      <div class="navbar-collapse collapse">
+      <ul class="nav navbar-nav">
+        <li class="dropdown menu-large">
+          <a href="#" class="dropdown-toggle" data-toggle="dropdown">Disciplines <b class="caret"></b></a>       
+          <ul class="dropdown-menu megamenu row">
+            <li class="col-sm-3">
+              <ul>
+                <li> <a href="/desciplines/animation-design">Animation Design</a></li>
+                <li> <a href="/desciplines/architecture">Architecture </a></li>
+                <li> <a href="/desciplines/automobile-design"> Automobile Design</a></li>
+                <li> <a href="/desciplines/children">Children</a></li>
+                <li> <a href="/desciplines/craft-design">Craft Design</a></li>
+              </ul>
+            </li>
+            <li class="col-sm-3">
+              <ul>
+                <li> <a href="/desciplines/design-research">Design Research</a></li>
+                <li> <a href="/desciplines/disabled">Disabled</a></li>
+                <li> <a href="/desciplines/elderly">Elderly</a></li>
+                <li> <a href="/desciplines/fashion---textile-design"> Fashion-Textile Design</a></li> 
+                <li> <a href="/desciplines/graphic---communication-design">Graphic-Communication Design</a></li>
+              </ul>
+            </li>
+            <li class="col-sm-3">
+              <ul>
+                <li> <a href="/desciplines/green-design">Green Design</a></li>   
+                <li> <a href="/desciplines/interaction-design"> Interaction Design</a></li>
+                <li> <a href="/desciplines/interior-design"> Interior Design,</a></li>
+                <li> <a href="/desciplines/packaging">Packaging</a></li>
+                <li> <a href="/desciplines/product-design"> Product-Industrial Design</a></li>
+              </ul>
+            </li>
+            <li class="col-sm-3">
+              <ul>
+                <li> <a href="/desciplines/rural-folks">Rural folks</a></li>   
+                <li> <a href="/desciplines/signage-design">Signage Design</a></li>
+                <li> <a href="/desciplines/social-design">Social Design</a></li>
+                <li> <a href="/desciplines/type-design">Type Design</a></li>
+                <li> <a href="/desciplines/video-film"> Video-Film</a></li>
+              </ul>
+            </li>
+          </ul>
+        </li>
+        <li><a href="/events">Events</a></li>
+        <li class="dropdown menu-large">
+          <a href="#" class="dropdown-toggle" data-toggle="dropdown">Industry <b class="caret"></b></a>       
+          <ul class="dropdown-menu megamenu row">
+            <li class="col-sm-3">
+              <ul>
+                <li><a href="/firms">Design Firms</a></li>    
+              </ul>
+            </li>
+            <li class="col-sm-3">
+              <ul>
+                <li><a href="/job_listings">Job Listings</a></li>
+              </ul>
+            </li>
+          </ul>
+
+        </li>
+        <li class="dropdown menu-large">
+        <a href="#" class="dropdown-toggle" data-toggle="dropdown">Institutions <b class="caret"></b></a>       
+        <ul class="dropdown-menu megamenu row">
+          <li class="col-sm-4">
+            <ul>
+              <li class="dropdown-header">Design Institutions:</li>
+              <li class="divider"></li>
+              <li><a href="/institutions/design-institutions/major-design-institution">Major Design Institution</a></li>
+              <li><a href="/firms">Design Firms</a></li>
+            </ul>
+          </li>
+          <li class="col-sm-3">
+            <ul>
+              <li class="dropdown-header">Design Organisation:</li>
+              <li class="divider"></li>
+              <li class="disabled"><a href="/institutions/design-organisation/design-associations">Design Associations</a></li>
+              <li><a href="/institutions/design-organisation/design-e-groups">Design e-groups</a></li>
+              <li><a href="/institutions/design-organisation/design-standards-organisations">Design Standards Organisations</a></li>
+              <li><a href="/institutions/design-organisation/design-related-museums">Design Related Museums</a></li>
+            </ul>
+          </li>
+          <li class="col-sm-3">
+            <ul>
+              <li class="dropdown-header">Design Information:</li>
+              <li class="divider"></li>
+              <li><a href="/institutions/design-information/design-entrance-examinations">Design Entrance Examinations</a></li>
+              <li><a href="/institutions/design-information/design-questions">Design Questions</a></li>
+              <li><a href="/institutions/design-information/design-policy">Design Policy</a></li>
+            </ul>
+          </li>
+          <li class="col-sm-2">
+          </li>
+          
+        </ul>
+
+      </li>
+        <li class="dropdown menu-large">
+          <a href="#" class="dropdown-toggle" data-toggle="dropdown">Projects <b class="caret"></b></a>       
+          <ul class="dropdown-menu megamenu row">
+            <li class="col-sm-3">
+              <ul>
+                <li><a href="/professional-projects">Professional Projects</a></li>    
+              </ul>
+            </li>
+            <li class="col-sm-3">
+              <ul>
+                <li><a href="/student-projects">Student Projects</a></li>
+              </ul>
+            </li>
+            <li class="col-sm-3">
+              <ul>
+                <li><a href="/showcase">Showcase</a></li>
+              </ul>
+            </li>
+          </ul>
+
+        </li>
+      <li class="dropdown menu-large">
+        <a href="#" class="dropdown-toggle" data-toggle="dropdown">Thoughts <b class="caret"></b></a>       
+        <ul class="dropdown-menu megamenu row">
+          <li class="col-sm-3">
+            <ul>
+              <li class="dropdown-header">Publications:</li>
+              <li class="divider"></li>
+              <li><a href="/thoughts/publications/books">Books</a></li>
+              <li class="disabled"><a href="/thoughts/publications/reports">Reports</a></li>
+              <li><a href="/thoughts/publications/webzines">Webzines</a></li>
+              <li><a href="/thoughts/publications/writings">Writings</a></li>
+              <li><a href="/thoughts/publications/blogs">Blogs</a></li>
+            </ul>
+          </li>
+          <li class="col-sm-3">
+            <ul>
+              <li class="dropdown-header">People:</li>
+              <li class="divider"></li>
+              <li><a href="/thoughts/people/masters">Masters</a></li>
+              <li><a href="/thoughts/people/teachers">Teachers</a></li>
+            </br>
+              <li class="dropdown-header">Culture:</li>
+              <li class="divider"></li>
+              <li><a href="/thoughts/culture/unique-professionals">Unique Professionals</a></li>
+              
+            </ul>
+          </li>
+          <li class="col-sm-3">
+            <ul>
+              <li class="dropdown-header">Visuals:</li>
+              <li class="divider"></li>
+              <li><a href="/thoughts/visuals/indian-patterns">Indian Patterns</a></li>
+              <li><a href="/thoughts/visuals/indian-festive-patterns">Indian Festive Patterns</a></li>
+            </ul>
+          </li>
+          <li class="col-sm-3">
+            <ul>
+              <li class="dropdown-header">History:</li>
+              <li class="divider"></li>
+              <li><a href="/thoughts/history/design-education">Design Education</a></li>
+              <li><a href="/thoughts/history/indian-letter-type-design">Indian Letter - Type Design</a></li>
+            </ul>
+          </li>
+          
+        </ul>
+
+      </li>
+    </ul>
+    </div>
+</div>
+</div>
+</div>
+</div>
+
+</header>
+    <section class="main" style="margin-bottom:13px;">
+    <div class="container" >
+      <div class="row search-bar">
+          <div class="col-sm-12">
+            <form action="http://www.google.com/search" method="get">
+              <div class="input-group">
+                <input type="text" class="custom-search-box form-control custom-search-box form-control wide input form-text" onBlur="if (this.value == '') {this.value = 'Search';}" onFocus="if (this.value == 'Search') {this.value = '';}" name="q" value="Search">
+                <span class="input-group-btn"><button type="submit" class="btn btn-default form-submit"><i class="glyphicon glyphicon-search"></i><span class="element-invisible">Search</span></button></span>
+                <input value="LW:84;L:http://www.idc.iitb.ac.in/images/idc-logo.gif;LH:124;AH:right;" name="cof" type="hidden">
+                <input value="www.designindia.net" name="sitesearch" type="hidden">
+              </div>                
+            </form>
+
+                            <!-- <span class="input-group-btn dropdown" style="font-size:14px;">
+                    <button class="btn btn-default form-submit dropbtn"  type="submit"><i class="glyphicon glyphicon-menu-hamburger"></i></button>
+                    <div class="dropdown-content">
+                    <a href="http://www.dsource.in/animation-design">Animation Design</a>
+                    <a href="http://www.dsource.in/communication-design">Communication Design</a>
+                    <a href="http://www.dsource.in/design-fundamentals">Design Fundamentals</a>
+                    <a href="http://www.dsource.in/interaction-design">Interaction Design</a>
+                    <a href="http://www.dsource.in/product-design">Product Design</a>
+                    <a href="http://www.dsource.in/tools">Tools for Design</a>
+                   </div>  
+              </span> -->
+          
+           
+          </div>
+        </div>
+         <!-- <div class="row">
+          <div class="col-sm-12" style="text-align:right;">  
+          <div id="google_translate_element"></div><script type="text/javascript">
+function googleTranslateElementInit() {
+  new google.translate.TranslateElement({pageLanguage: 'en'}, 'google_translate_element');
+}
+</script><script type="text/javascript" src="//translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
+          </div>
+        </div> --> 
+      </div>
+
+    </section>    <br>   
+
+  <div id="main">
+    <div class="container" >
+        <div class="row">
+            <div id="content" class="column" role="main">
+      
+    </div>
+                                        <div class="col-sm-12">
+                                                            <a id="main-content"></a>
+                                                                                <div class="messages--error messages error">
+<h2 class="element-invisible">Error message</h2>
+ <ul class="messages__list">
+  <li class=\"messages__item\"><em class="placeholder">Deprecated function</em>: Array and string offset access syntax with curly braces is deprecated in <em class="placeholder">require_once()</em> (line <em class="placeholder">330</em> of <em class="placeholder">/var/www/vhosts/designindia.net/httpdocs/includes/module.inc</em>).</li>
+  <li class=\"messages__item\"><em class="placeholder">Deprecated function</em>: Array and string offset access syntax with curly braces is deprecated in <em class="placeholder">require_once()</em> (line <em class="placeholder">330</em> of <em class="placeholder">/var/www/vhosts/designindia.net/httpdocs/includes/module.inc</em>).</li>
+  <li class=\"messages__item\"><em class="placeholder">Deprecated function</em>: Array and string offset access syntax with curly braces is deprecated in <em class="placeholder">require_once()</em> (line <em class="placeholder">330</em> of <em class="placeholder">/var/www/vhosts/designindia.net/httpdocs/includes/module.inc</em>).</li>
+  <li class=\"messages__item\"><em class="placeholder">Deprecated function</em>: Array and string offset access syntax with curly braces is deprecated in <em class="placeholder">require_once()</em> (line <em class="placeholder">330</em> of <em class="placeholder">/var/www/vhosts/designindia.net/httpdocs/includes/module.inc</em>).</li>
+  <li class=\"messages__item\"><em class="placeholder">Deprecated function</em>: Array and string offset access syntax with curly braces is deprecated in <em class="placeholder">require_once()</em> (line <em class="placeholder">330</em> of <em class="placeholder">/var/www/vhosts/designindia.net/httpdocs/includes/module.inc</em>).</li>
+  <li class=\"messages__item\"><em class="placeholder">Deprecated function</em>: Array and string offset access syntax with curly braces is deprecated in <em class="placeholder">require_once()</em> (line <em class="placeholder">330</em> of <em class="placeholder">/var/www/vhosts/designindia.net/httpdocs/includes/module.inc</em>).</li>
+  <li class=\"messages__item\"><em class="placeholder">Deprecated function</em>: Array and string offset access syntax with curly braces is deprecated in <em class="placeholder">require_once()</em> (line <em class="placeholder">330</em> of <em class="placeholder">/var/www/vhosts/designindia.net/httpdocs/includes/module.inc</em>).</li>
+  <li class=\"messages__item\"><em class="placeholder">Deprecated function</em>: Array and string offset access syntax with curly braces is deprecated in <em class="placeholder">require_once()</em> (line <em class="placeholder">330</em> of <em class="placeholder">/var/www/vhosts/designindia.net/httpdocs/includes/module.inc</em>).</li>
+  <li class=\"messages__item\"><em class="placeholder">Deprecated function</em>: Array and string offset access syntax with curly braces is deprecated in <em class="placeholder">require_once()</em> (line <em class="placeholder">330</em> of <em class="placeholder">/var/www/vhosts/designindia.net/httpdocs/includes/module.inc</em>).</li>
+  <li class=\"messages__item\"><em class="placeholder">Deprecated function</em>: Methods with the same name as their class will not be constructors in a future version of PHP; views_display has a deprecated constructor in <em class="placeholder">require_once()</em> (line <em class="placeholder">3146</em> of <em class="placeholder">/var/www/vhosts/designindia.net/httpdocs/includes/bootstrap.inc</em>).</li>
+  <li class=\"messages__item\"><em class="placeholder">Deprecated function</em>: Methods with the same name as their class will not be constructors in a future version of PHP; views_many_to_one_helper has a deprecated constructor in <em class="placeholder">require_once()</em> (line <em class="placeholder">113</em> of <em class="placeholder">/var/www/vhosts/designindia.net/httpdocs/sites/all/modules/ctools/ctools.module</em>).</li>
+  <li class=\"messages__item\"><em class="placeholder">Deprecated function</em>: implode(): Passing glue string after array is deprecated. Swap the parameters in <em class="placeholder">drupal_get_feeds()</em> (line <em class="placeholder">394</em> of <em class="placeholder">/var/www/vhosts/designindia.net/httpdocs/includes/common.inc</em>).</li>
+ </ul>
+</div>
+                                                                                
+
+
+<article class="hide_bottom node-16835 node node-organisation node-promoted node-teaser clearfix">
+   
+      <header>
+        
+                    <h2 class="node__title node-title"><a href="/node/16835">India Design Council</a></h2>
+            
+              <p class="submitted">
+            <span class="user-picture">
+    <img src="https://www.designindia.net/sites/default/files/styles/thumbnail/public/pictures/picture-8-1445416900.jpg?itok=hu3oLU54" alt="vaibhav&#039;s picture" title="vaibhav&#039;s picture" />  </span>
+          Submitted by <span class="username">vaibhav</span> on <time pubdate datetime="2018-01-08T20:01:00+05:30">Mon, 2018-01-08 20:01</time>        </p>
+      
+          </header>
+  
+  
+  <ul class="links inline"><li class="node-readmore first"><a href="/node/16835" rel="tag" title="India Design Council">Read more<span class="element-invisible"> about India Design Council</span></a></li>
+<li class="0"><a href="/node/16835#comments" title="Jump to the first comment of this posting.">7492 comments</a></li>
+<li class="1 last"><a href="/comment/reply/16835#comment-form" title="Add a new comment to this page.">Add new comment</a></li>
+</ul>
+  
+</article>
+<article class="hide_bottom node-16834 node node-organisation node-promoted node-teaser clearfix">
+   
+      <header>
+        
+                    <h2 class="node__title node-title"><a href="/node/16834">InDeAs - India Design Association</a></h2>
+            
+              <p class="submitted">
+            <span class="user-picture">
+    <img src="https://www.designindia.net/sites/default/files/styles/thumbnail/public/pictures/picture-8-1445416900.jpg?itok=hu3oLU54" alt="vaibhav&#039;s picture" title="vaibhav&#039;s picture" />  </span>
+          Submitted by <span class="username">vaibhav</span> on <time pubdate datetime="2018-01-08T19:55:22+05:30">Mon, 2018-01-08 19:55</time>        </p>
+      
+          </header>
+  
+  
+  <ul class="links inline"><li class="node-readmore first"><a href="/node/16834" rel="tag" title="InDeAs - India Design Association">Read more<span class="element-invisible"> about InDeAs - India Design Association</span></a></li>
+<li class="0"><a href="/node/16834#comments" title="Jump to the first comment of this posting.">65 comments</a></li>
+<li class="1 last"><a href="/comment/reply/16834#comment-form" title="Add a new comment to this page.">Add new comment</a></li>
+</ul>
+  
+</article>
+<article class="hide_bottom node-16833 node node-organisation node-promoted node-teaser clearfix">
+   
+      <header>
+        
+                    <h2 class="node__title node-title"><a href="/node/16833">ADI Association of Designers of India</a></h2>
+            
+              <p class="submitted">
+            <span class="user-picture">
+    <img src="https://www.designindia.net/sites/default/files/styles/thumbnail/public/pictures/picture-8-1445416900.jpg?itok=hu3oLU54" alt="vaibhav&#039;s picture" title="vaibhav&#039;s picture" />  </span>
+          Submitted by <span class="username">vaibhav</span> on <time pubdate datetime="2018-01-08T19:51:10+05:30">Mon, 2018-01-08 19:51</time>        </p>
+      
+          </header>
+  
+  
+  <ul class="links inline"><li class="node-readmore first"><a href="/node/16833" rel="tag" title="ADI Association of Designers of India">Read more<span class="element-invisible"> about ADI Association of Designers of India</span></a></li>
+<li class="0"><a href="/node/16833#comments" title="Jump to the first comment of this posting.">19 comments</a></li>
+<li class="1 last"><a href="/comment/reply/16833#comment-form" title="Add a new comment to this page.">Add new comment</a></li>
+</ul>
+  
+</article>
+<article class="hide_bottom node-16832 node node-organisation node-promoted node-teaser clearfix">
+   
+      <header>
+        
+                    <h2 class="node__title node-title"><a href="/node/16832">TASI - The Animation Society of India</a></h2>
+            
+              <p class="submitted">
+            <span class="user-picture">
+    <img src="https://www.designindia.net/sites/default/files/styles/thumbnail/public/pictures/picture-8-1445416900.jpg?itok=hu3oLU54" alt="vaibhav&#039;s picture" title="vaibhav&#039;s picture" />  </span>
+          Submitted by <span class="username">vaibhav</span> on <time pubdate datetime="2018-01-08T19:43:06+05:30">Mon, 2018-01-08 19:43</time>        </p>
+      
+          </header>
+  
+  
+  <ul class="links inline"><li class="node-readmore first"><a href="/node/16832" rel="tag" title="TASI - The Animation Society of India">Read more<span class="element-invisible"> about TASI - The Animation Society of India</span></a></li>
+<li class="0"><a href="/node/16832#comments" title="Jump to the first comment of this posting.">15 comments</a></li>
+<li class="1 last"><a href="/comment/reply/16832#comment-form" title="Add a new comment to this page.">Add new comment</a></li>
+</ul>
+  
+</article>
+<article class="hide_bottom node-16831 node node-organisation node-promoted node-teaser clearfix">
+   
+      <header>
+        
+                    <h2 class="node__title node-title"><a href="/node/16831">ISE - Indian Society of Ergonomics</a></h2>
+            
+              <p class="submitted">
+            <span class="user-picture">
+    <img src="https://www.designindia.net/sites/default/files/styles/thumbnail/public/pictures/picture-8-1445416900.jpg?itok=hu3oLU54" alt="vaibhav&#039;s picture" title="vaibhav&#039;s picture" />  </span>
+          Submitted by <span class="username">vaibhav</span> on <time pubdate datetime="2018-01-08T19:38:26+05:30">Mon, 2018-01-08 19:38</time>        </p>
+      
+          </header>
+  
+  
+  <ul class="links inline"><li class="node-readmore first"><a href="/node/16831" rel="tag" title="ISE - Indian Society of Ergonomics">Read more<span class="element-invisible"> about ISE - Indian Society of Ergonomics</span></a></li>
+<li class="0"><a href="/node/16831#comments" title="Jump to the first comment of this posting.">16 comments</a></li>
+<li class="1 last"><a href="/comment/reply/16831#comment-form" title="Add a new comment to this page.">Add new comment</a></li>
+</ul>
+  
+</article>
+<article class="hide_bottom node-16830 node node-organisation node-promoted node-teaser clearfix">
+   
+      <header>
+        
+                    <h2 class="node__title node-title"><a href="/node/16830">NIF - National Innovation Foundation</a></h2>
+            
+              <p class="submitted">
+            <span class="user-picture">
+    <img src="https://www.designindia.net/sites/default/files/styles/thumbnail/public/pictures/picture-8-1445416900.jpg?itok=hu3oLU54" alt="vaibhav&#039;s picture" title="vaibhav&#039;s picture" />  </span>
+          Submitted by <span class="username">vaibhav</span> on <time pubdate datetime="2018-01-08T18:58:40+05:30">Mon, 2018-01-08 18:58</time>        </p>
+      
+          </header>
+  
+  
+  <ul class="links inline"><li class="node-readmore first"><a href="/node/16830" rel="tag" title="NIF - National Innovation Foundation">Read more<span class="element-invisible"> about NIF - National Innovation Foundation</span></a></li>
+<li class="0"><a href="/node/16830#comments" title="Jump to the first comment of this posting.">22 comments</a></li>
+<li class="1 last"><a href="/comment/reply/16830#comment-form" title="Add a new comment to this page.">Add new comment</a></li>
+</ul>
+  
+</article>
+<article class="hide_bottom node-16829 node node-design-though-ts node-promoted node-teaser clearfix">
+   
+      <header>
+        
+                    <h2 class="node__title node-title"><a href="/node/16829">Prof Sudhakar Nadkarni</a></h2>
+            
+              <p class="submitted">
+            <span class="user-picture">
+    <img src="https://www.designindia.net/sites/default/files/styles/thumbnail/public/pictures/picture-8-1445416900.jpg?itok=hu3oLU54" alt="vaibhav&#039;s picture" title="vaibhav&#039;s picture" />  </span>
+          Submitted by <span class="username">vaibhav</span> on <time pubdate datetime="2018-01-08T15:56:43+05:30">Mon, 2018-01-08 15:56</time>        </p>
+      
+          </header>
+  
+  
+  <ul class="links inline"><li class="node-readmore first"><a href="/node/16829" rel="tag" title="Prof Sudhakar Nadkarni">Read more<span class="element-invisible"> about Prof Sudhakar Nadkarni</span></a></li>
+<li class="0"><a href="/node/16829#comments" title="Jump to the first comment of this posting.">15 comments</a></li>
+<li class="1 last"><a href="/comment/reply/16829#comment-form" title="Add a new comment to this page.">Add new comment</a></li>
+</ul>
+  
+</article>
+<article class="hide_bottom node-16828 node node-design-though-ts node-promoted node-teaser clearfix">
+   
+      <header>
+        
+                    <h2 class="node__title node-title"><a href="/node/16828">Prof Mahendra Patel</a></h2>
+            
+              <p class="submitted">
+            <span class="user-picture">
+    <img src="https://www.designindia.net/sites/default/files/styles/thumbnail/public/pictures/picture-8-1445416900.jpg?itok=hu3oLU54" alt="vaibhav&#039;s picture" title="vaibhav&#039;s picture" />  </span>
+          Submitted by <span class="username">vaibhav</span> on <time pubdate datetime="2018-01-08T15:55:01+05:30">Mon, 2018-01-08 15:55</time>        </p>
+      
+          </header>
+  
+  
+  <ul class="links inline"><li class="node-readmore first"><a href="/node/16828" rel="tag" title="Prof Mahendra Patel">Read more<span class="element-invisible"> about Prof Mahendra Patel</span></a></li>
+<li class="0"><a href="/node/16828#comments" title="Jump to the first comment of this posting.">39 comments</a></li>
+<li class="1 last"><a href="/comment/reply/16828#comment-form" title="Add a new comment to this page.">Add new comment</a></li>
+</ul>
+  
+</article>
+<article class="hide_bottom node-16827 node node-design-though-ts node-promoted node-teaser clearfix">
+   
+      <header>
+        
+                    <h2 class="node__title node-title"><a href="/node/16827">Prof Dashrath Patel</a></h2>
+            
+              <p class="submitted">
+            <span class="user-picture">
+    <img src="https://www.designindia.net/sites/default/files/styles/thumbnail/public/pictures/picture-8-1445416900.jpg?itok=hu3oLU54" alt="vaibhav&#039;s picture" title="vaibhav&#039;s picture" />  </span>
+          Submitted by <span class="username">vaibhav</span> on <time pubdate datetime="2018-01-08T15:33:14+05:30">Mon, 2018-01-08 15:33</time>        </p>
+      
+          </header>
+  
+  
+  <ul class="links inline"><li class="node-readmore first"><a href="/node/16827" rel="tag" title="Prof Dashrath Patel">Read more<span class="element-invisible"> about Prof Dashrath Patel</span></a></li>
+<li class="0"><a href="/node/16827#comments" title="Jump to the first comment of this posting.">11 comments</a></li>
+<li class="1 last"><a href="/comment/reply/16827#comment-form" title="Add a new comment to this page.">Add new comment</a></li>
+</ul>
+  
+</article>
+<article class="hide_bottom node-16826 node node-design-though-ts node-promoted node-teaser clearfix">
+   
+      <header>
+        
+                    <h2 class="node__title node-title"><a href="/node/16826">Yeshwant Chaudary</a></h2>
+            
+              <p class="submitted">
+            <span class="user-picture">
+    <img src="https://www.designindia.net/sites/default/files/styles/thumbnail/public/pictures/picture-8-1445416900.jpg?itok=hu3oLU54" alt="vaibhav&#039;s picture" title="vaibhav&#039;s picture" />  </span>
+          Submitted by <span class="username">vaibhav</span> on <time pubdate datetime="2018-01-08T15:31:52+05:30">Mon, 2018-01-08 15:31</time>        </p>
+      
+          </header>
+  
+  
+  <ul class="links inline"><li class="node-readmore first"><a href="/node/16826" rel="tag" title="Yeshwant Chaudary">Read more<span class="element-invisible"> about Yeshwant Chaudary</span></a></li>
+<li class="0"><a href="/node/16826#comments" title="Jump to the first comment of this posting.">17 comments</a></li>
+<li class="1 last"><a href="/comment/reply/16826#comment-form" title="Add a new comment to this page.">Add new comment</a></li>
+</ul>
+  
+</article>
+<div id="block-views-slideshow-block-2" class="block block-views even">
+
+      
+  <div class="view view-Slideshow view-id-Slideshow view-display-id-block_2 view-dom-id-c59deaf3ebe7f4449a9f6282a9300c10">
+        
+  
+  
+      <div class="view-content">
+      <div  id="flexslider-1" class="flexslider">
+  <ul class="slides"><li>  
+  <div>        <div><a href="https://dsourcechallenge.org">
+<img src="https://www.designindia.net/sites/default/files/slideshow/dsource-corona-design-challenge-2020/banner-dcdc2020-1000x350.jpg" width="1000" height="350" alt="" />
+</a></div>  </div>  
+  <div>        <h4><a href="https://dsourcechallenge.org">D'source Corona Design Challenge 2020</a></h4>  </div></li>
+<li>  
+  <div>        <div><a href="http://www.designingforchildren.net/">
+<img src="https://www.designindia.net/sites/default/files/slideshow/designing-children-focus-play-and-learn/Banner-Children2020-1000x350.jpg" width="1000" height="350" alt="" />
+</a></div>  </div>  
+  <div>        <h4><a href="http://www.designingforchildren.net/">Designing for Children with focus on 'Play and Learn'</a></h4>  </div></li>
+<li>  
+  <div>        <div><a href="http://typoday.in/">
+<img src="https://www.designindia.net/sites/default/files/slideshow/typograpgy-day-2020/banner-Typoday20-1000x350.jpg" width="1000" height="350" alt="" />
+</a></div>  </div>  
+  <div>        <h4><a href="http://typoday.in/">Typograpgy Day 2020</a></h4>  </div></li>
+<li>  
+  <div>        <div><a href="http://www.dsource.idc.iitb.ac.in/events/idc-events/expo-infodes-2019.html">
+<img src="https://www.designindia.net/sites/default/files/slideshow/expo-infodesign-2019/expo-info-banner-1000x350.png" width="1000" height="350" alt="" />
+</a></div>  </div>  
+  <div>        <h4><a href="http://www.dsource.idc.iitb.ac.in/events/idc-events/expo-infodes-2019.html">Expo infoDesign 2019, 21st - 23rd November 2019 IDC, IIT Bombay</a></h4>  </div></li>
+</ul></div>
+    </div>
+  
+  
+  
+  
+  
+  
+</div>  
+
+</div>
+<div id="block-views-projects-block-2" class="block block-views odd">
+
+        <h2 class="block__title block-title">Professional Projects Home</h2>
+    
+  <div class="view view-projects view-id-projects view-display-id-block_2 view-dom-id-50f58fe7b7128b3a131fee588f933f02">
+            <div class="view-header">
+      <h3>Projects</h3>
+    </div>
+  
+  
+  
+      <div class="view-content">
+        <div class="views-row views-row-1 views-row-odd views-row-first views-row-last">
+    <div class="col-sm-6" style="padding-left:0px;padding-right:0px;margin-bottom:10px;">
+	<div class="col-sm-12" style="padding-left:0px;padding-right:0px;"><h3 ><a href="./professional-projects" style="color:#777 !important;">Professional Projects</a></h3></div>
+	<div class="col-sm-6 pull-left img-brd" style="padding-left:0px;padding-right:0px;">
+    	<div class="field-content"><a href="http://AchyutPalav.com" target="_blank"><img src="https://www.designindia.net/sites/default/files/achyut-palav-2-11-2009_1.jpg" width="400" height="400" alt="" /></a></div>  	</div>
+  	<div class="media-body col-sm-6">
+	  	<div>
+	      <h4 class="media-heading"><span class="field-content"><a href="/node/16249"><a href="http://AchyutPalav.com" target="_blank">Calligraphic Strokes</a></a></span></h4>
+	  	</div>
+	  	<div>
+	  		<div class="field-content">-by <a href="http://AchyutPalav.com">Achyut Palav</a></div>	  	</div>
+   </div> 
+</div>
+  </div>
+    </div>
+  
+  
+  
+  
+  
+  
+</div>  
+
+</div>
+<div id="block-views-projects-block-3" class="block block-views even">
+
+      
+  <div class="view view-projects view-id-projects view-display-id-block_3 view-dom-id-47004bccf07e8004ca8b7fcadb855838">
+        
+  
+  
+      <div class="view-content">
+        <div class="views-row views-row-1 views-row-odd views-row-first views-row-last">
+    <div class="col-sm-6" style="padding-left:0px;padding-right:0px;margin-bottom:10px;">
+	<div class="col-sm-12" style="padding-left:0px;padding-right:0px;"><h3><a href="./student-projects" style="color:#777 !important;">Student Projects</a></h3></div>
+	<div class="col-sm-6 pull-left img-brd" style="padding-left:0px;padding-right:0px;">
+    	<div class="field-content"><a href="mailto:nerkardarshan@gmail.com" target="_blank"><img src="https://www.designindia.net/sites/default/files/darshan-kitchen-appliances-8-2009_0.jpg" width="400" height="353" alt="" /></a></div>  	</div>
+  	<div class="media-body col-sm-6">
+	  	<div>
+	      <h4 class="media-heading"><span class="field-content"><a href="/node/16262"><a href="mailto:nerkardarshan@gmail.com" target="_blank">Kitchen Appliances</a></a></span></h4>
+	  	</div>
+	  	<div>
+	  		<div class="field-content">-by <a href="mailto:nerkardarshan@gmail.com">Darshan Nerkar</a></div>	  	</div>
+   </div> 
+</div>
+  </div>
+    </div>
+  
+  
+  
+  
+  
+  
+</div>  
+
+</div>
+<div id="block-views-showcase-block-1" class="block block-views odd">
+
+        <h2 class="block__title block-title">Showcase</h2>
+    
+  <div class="view view-showcase view-id-showcase view-display-id-block_1 view-dom-id-90b137297f7231ebcdb8ad19239fd088">
+            <div class="view-header">
+      <div class="row"><div class="col-sm-12"><hr style="margin-top:0px;" /></div></div>
+<h3><a href="/showcase">Showcase</a></h3>    </div>
+  
+  
+  
+      <div class="view-content">
+      
+
+<div class="row">
+	<div class="col-sm-12">
+					<div class="col-sm-2" style="padding-left:2px;padding-right:2px;">
+				<div class="views-row views-row-1 views-row-odd views-row-first">
+					  
+  <div class="views-field views-field-field-showcase-image">        <div class="field-content"><a href="http://alexdavisstudio.com/" target="_blank"> <img src="https://www.designindia.net/sites/default/files/alex-davis.jpg" width="100" height="100" alt="" /></a></div>  </div>				</div>
+			</div>
+					<div class="col-sm-2" style="padding-left:2px;padding-right:2px;">
+				<div class="views-row views-row-2 views-row-even">
+					  
+  <div class="views-field views-field-field-showcase-image">        <div class="field-content"><a href="http://www.vibhorsogani.com/home.html" target="_blank"> <img src="https://www.designindia.net/sites/default/files/vibhor-sogani-studio.jpg" width="100" height="100" alt="" /></a></div>  </div>				</div>
+			</div>
+					<div class="col-sm-2" style="padding-left:2px;padding-right:2px;">
+				<div class="views-row views-row-3 views-row-odd">
+					  
+  <div class="views-field views-field-field-showcase-image">        <div class="field-content"><a href="http://www.fabindia.com/" target="_blank"> <img src="https://www.designindia.net/sites/default/files/fab-india_1.jpg" width="100" height="100" alt="" /></a></div>  </div>				</div>
+			</div>
+					<div class="col-sm-2" style="padding-left:2px;padding-right:2px;">
+				<div class="views-row views-row-4 views-row-even">
+					  
+  <div class="views-field views-field-field-showcase-image">        <div class="field-content"><a href="http://www.tatamotors.com/" target="_blank"> <img src="https://www.designindia.net/sites/default/files/tatamotors-nano_1.jpg" width="100" height="100" alt="" /></a></div>  </div>				</div>
+			</div>
+					<div class="col-sm-2" style="padding-left:2px;padding-right:2px;">
+				<div class="views-row views-row-5 views-row-odd">
+					  
+  <div class="views-field views-field-field-showcase-image">        <div class="field-content"><a href="http://www.neilfoleydesigns.com/" target="_blank"> <img src="https://www.designindia.net/sites/default/files/orb-neilfoley_1.jpg" width="100" height="100" alt="" /></a></div>  </div>				</div>
+			</div>
+					<div class="col-sm-2" style="padding-left:2px;padding-right:2px;">
+				<div class="views-row views-row-6 views-row-even views-row-last">
+					  
+  <div class="views-field views-field-field-showcase-image">        <div class="field-content"><a href="http://www.designdirections.net/" target="_blank"> <img src="https://www.designindia.net/sites/default/files/design-directions1_1.jpg" width="100" height="100" alt="" /></a></div>  </div>				</div>
+			</div>
+			</div>
+</div>    </div>
+  
+  
+  
+  
+      <div class="view-footer">
+      <a href="/showcase">
+        Show all
+</a>
+<hr style="margin-top:0px;" />    </div>
+  
+  
+</div>  
+
+</div>
+<div id="block-views-people-block" class="block block-views even">
+
+      
+  <div class="view view-people view-id-people view-display-id-block view-dom-id-cfcbb6d720373de30ee428b1f3bacfcb">
+            <div class="view-header">
+      <h3><a href="http://designindia.net/thoughts/people">People</a></h3>    </div>
+  
+  
+  
+      <div class="view-content">
+      
+
+<div class="row">
+	<div class="col-sm-12">
+					<div class="col-sm-2" style="padding-left:2px;padding-right:2px;">
+				<div class="views-row views-row-1 views-row-odd views-row-first">
+					  
+  <div class="views-field views-field-field-person-image">        <div class="field-content"><img src="https://www.designindia.net/sites/default/files/sudhakar-nadkarni-100_1.jpg" width="100" height="100" alt="" /></div>  </div>  
+  <div class="views-field views-field-title">        <span class="field-content"><a href="/node/16829"><a href="http://www.designindia.net/thoughts/people/teachers/prof_sudhakar_nadkarni" target="_blank"> Prof Sudhakar Nadkarni</a></a></span>  </div>				</div>
+			</div>
+					<div class="col-sm-2" style="padding-left:2px;padding-right:2px;">
+				<div class="views-row views-row-2 views-row-even">
+					  
+  <div class="views-field views-field-field-person-image">        <div class="field-content"><img src="https://www.designindia.net/sites/default/files/mahendra-patel-100_1.jpg" width="100" height="100" alt="" /></div>  </div>  
+  <div class="views-field views-field-title">        <span class="field-content"><a href="/node/16828"><a href="http://www.designindia.net/thoughts/people/teachers/prof_mahendra_patel" target="_blank"> Prof Mahendra Patel</a></a></span>  </div>				</div>
+			</div>
+					<div class="col-sm-2" style="padding-left:2px;padding-right:2px;">
+				<div class="views-row views-row-3 views-row-odd">
+					  
+  <div class="views-field views-field-field-person-image">        <div class="field-content"><img src="https://www.designindia.net/sites/default/files/dashrath-patel-100_1.jpg" width="100" height="100" alt="" /></div>  </div>  
+  <div class="views-field views-field-title">        <span class="field-content"><a href="/node/16827"><a href="http://www.designindia.net/thoughts/people/teachers/prof_dashrath_patel" target="_blank"> Prof Dashrath Patel</a></a></span>  </div>				</div>
+			</div>
+					<div class="col-sm-2" style="padding-left:2px;padding-right:2px;">
+				<div class="views-row views-row-4 views-row-even">
+					  
+  <div class="views-field views-field-field-person-image">        <div class="field-content"><img src="https://www.designindia.net/sites/default/files/yeshwant-chaudhary-100_1.jpg" width="100" height="100" alt="" /></div>  </div>  
+  <div class="views-field views-field-title">        <span class="field-content"><a href="/node/16826"><a href="http://www.designindia.net/thoughts/people/masters/yeshwant-chaudhary" target="_blank"> Yeshwant Chaudary</a></a></span>  </div>				</div>
+			</div>
+					<div class="col-sm-2" style="padding-left:2px;padding-right:2px;">
+				<div class="views-row views-row-5 views-row-odd">
+					  
+  <div class="views-field views-field-field-person-image">        <div class="field-content"><img src="https://www.designindia.net/sites/default/files/benoy-sarkar-100_1.jpg" width="100" height="100" alt="" /></div>  </div>  
+  <div class="views-field views-field-title">        <span class="field-content"><a href="/node/16825"><a href="http://www.designindia.net/thoughts/people/masters/benoy-sarkar" target="_blank"> Benoy Sarkar</a></a></span>  </div>				</div>
+			</div>
+					<div class="col-sm-2" style="padding-left:2px;padding-right:2px;">
+				<div class="views-row views-row-6 views-row-even views-row-last">
+					  
+  <div class="views-field views-field-field-person-image">        <div class="field-content"><img src="https://www.designindia.net/sites/default/files/avinash-godbole-100_1.jpg" width="100" height="100" alt="" /></div>  </div>  
+  <div class="views-field views-field-title">        <span class="field-content"><a href="/node/16824"><a href="http://www.designindia.net/thoughts/people/masters/avinash-godbole" target="_blank"> Avinash Godbole</a></a></span>  </div>				</div>
+			</div>
+			</div>
+</div>    </div>
+  
+  
+  
+  
+      <div class="view-footer">
+      <br /><a href="./thoughts/people">
+        Show all
+</a>
+<hr style="margin-top:0px;" />    </div>
+  
+  
+</div>  
+
+</div>
+<div id="block-views-organisation-block" class="block block-views last odd">
+
+      
+  <div class="view view-organisation view-id-organisation view-display-id-block view-dom-id-5621a6a846fdbbbea3c6dae51e12213e">
+            <div class="view-header">
+      <h3><a href="http://designindia.net/institutions/design-organisation">Organisations</a></h3>    </div>
+  
+  
+  
+      <div class="view-content">
+      
+
+<div class="row">
+	<div class="col-sm-12">
+					<div class="col-sm-2" style="padding-left:2px;padding-right:2px;">
+				<div class="views-row views-row-1 views-row-odd views-row-first">
+					  
+  <div class="views-field views-field-field-organisation-image">        <div class="field-content"><img src="https://www.designindia.net/sites/default/files/nif-logo.png" width="100" height="100" alt="" /></div>  </div>  
+  <div class="views-field views-field-title">        <span class="field-content"><a href="http://nif.org.in/" target="_blank"> NIF - National Innovation Foundation</a></span>  </div>				</div>
+			</div>
+					<div class="col-sm-2" style="padding-left:2px;padding-right:2px;">
+				<div class="views-row views-row-2 views-row-even">
+					  
+  <div class="views-field views-field-field-organisation-image">        <div class="field-content"><img src="https://www.designindia.net/sites/default/files/logo-redone-circle.jpg" width="100" height="100" alt="" /></div>  </div>  
+  <div class="views-field views-field-title">        <span class="field-content"><a href="http://www.ise.org.in/" target="_blank"> ISE - Indian Society of Ergonomics</a></span>  </div>				</div>
+			</div>
+					<div class="col-sm-2" style="padding-left:2px;padding-right:2px;">
+				<div class="views-row views-row-3 views-row-odd">
+					  
+  <div class="views-field views-field-field-organisation-image">        <div class="field-content"><img src="https://www.designindia.net/sites/default/files/tasi.jpg" width="100" height="100" alt="" /></div>  </div>  
+  <div class="views-field views-field-title">        <span class="field-content"><a href="http://tasionline.org/" target="_blank"> TASI - The Animation Society of India</a></span>  </div>				</div>
+			</div>
+					<div class="col-sm-2" style="padding-left:2px;padding-right:2px;">
+				<div class="views-row views-row-4 views-row-even">
+					  
+  <div class="views-field views-field-field-organisation-image">        <div class="field-content"><img src="https://www.designindia.net/sites/default/files/adi.jpg" width="100" height="100" alt="" /></div>  </div>  
+  <div class="views-field views-field-title">        <span class="field-content"><a href="http://www.adi.org.in/" target="_blank"> ADI Association of Designers of India</a></span>  </div>				</div>
+			</div>
+					<div class="col-sm-2" style="padding-left:2px;padding-right:2px;">
+				<div class="views-row views-row-5 views-row-odd">
+					  
+  <div class="views-field views-field-field-organisation-image">        <div class="field-content"><img src="https://www.designindia.net/sites/default/files/indeas.jpg" width="100" height="100" alt="" /></div>  </div>  
+  <div class="views-field views-field-title">        <span class="field-content"><a href="http://www.in-de-as.org/" target="_blank"> InDeAs - India Design Association</a></span>  </div>				</div>
+			</div>
+					<div class="col-sm-2" style="padding-left:2px;padding-right:2px;">
+				<div class="views-row views-row-6 views-row-even views-row-last">
+					  
+  <div class="views-field views-field-field-organisation-image">        <div class="field-content"><img src="https://www.designindia.net/sites/default/files/design-council.jpg" width="100" height="100" alt="" /></div>  </div>  
+  <div class="views-field views-field-title">        <span class="field-content"><a href="http://indiadesigncouncil.org/" target="_blank"> India Design Council</a></span>  </div>				</div>
+			</div>
+			</div>
+</div>    </div>
+  
+  
+  
+  
+      <div class="view-footer">
+      <br /><a href="./institutions/design-organisation">
+        Show all
+</a>
+<hr style="margin-top:0px;" />    </div>
+  
+  
+</div>  
+
+</div>
+    
+                        
+                </div>
+                
+                                                                    
+        </div>
+    </div>
+</div>
+    
+
+    
+<div class="scroll-to-top"> </div>
+
+<!-- Footer content -->
+ <footer id="footer" class="page">
+    
+      <hr>
+
+      <div class="container">
+        <div class="row"><!-- Page Content Starts Here. -->
+      <div class="col-sm-3 ">
+        <h4>Design Disciplines</h4>
+        <ul class="list-unstyled">   
+          <li> <a href="/desciplines/animation-design">Animation Design</a></li>
+          <li> <a href="/desciplines/architecture">Architecture </a></li>
+          <li> <a href="/desciplines/automobile-design"> Automobile Design</a></li>
+          <li> <a href="/desciplines/children">Children</a></li>
+          <li> <a href="/desciplines/craft-design">Craft Design</a></li>
+          <li> <a href="/desciplines/design-research">Design Research</a></li>
+          <li> <a href="/desciplines/disabled">Disabled</a></li>
+          <li> <a href="/desciplines/elderly">Elderly</a></li>
+          <li> <a href="/desciplines/fashion---textile-design"> Fashion-Textile Design</a></li> 
+          <li> <a href="/desciplines/graphic---communication-design">Graphic-Communication Design</a></li>
+          <li> <a href="/desciplines/green-design">Green Design</a></li>   
+          <li> <a href="/desciplines/interaction-design"> Interaction Design</a></li>
+          <li> <a href="/desciplines/interior-design"> Interior Design,</a></li>
+          <li> <a href="/desciplines/packaging">Packaging</a></li>
+          <li> <a href="/desciplines/product-design"> Product-Industrial Design</a></li>
+          <li> <a href="/desciplines/rural-folks">Rural folks</a></li>   
+          <li> <a href="/desciplines/signage-design">Signage Design</a></li>
+          <li> <a href="/desciplines/social-design">Social Design</a></li>
+          <li> <a href="/desciplines/type-design">Type Design</a></li>
+          <li> <a href="/desciplines/video-film"> Video-Film</a></li>
+        </ul><br>
+      </div>
+      <div class="col-sm-3">
+        <h4>Design Institutions</h4>
+        <ul class="list-unstyled">
+          <li><a href="/institutions/design-institutions/major-design-institution">Major Design Institution</a></li>
+          <li><a href="/firms">Design Firms</a></li>
+          <br/>
+          <li class="footer_sub">Organisation</li>
+          <li><a href="/institutions/design-organisation/design-associations">Design Associations</a></li>
+          <li><a href="/institutions/design-organisation/design-e-groups">Design e-groups</a></li>
+          <li><a href="/institutions/design-organisation/design-standards-organisations">Design Standards Organisations</a></li>
+          <li><a href="/institutions/design-organisation/design-related-museums">Design Related Museums</a></li>
+          <br/>
+          <li class="footer_sub">Information</li>
+          <li><a href="/institutions/design-information/design-entrance-examinations">Design Entrance Examinations</a></li>
+              <li><a href="/institutions/design-information/design-questions">Design Questions</a></li>
+              <li><a href="/institutions/design-information/design-policy">Design Policy</a></li>
+        </ul>
+        
+      </div>
+      
+      
+      
+      <div class="col-sm-3">
+        <h4>Design Thoughts</h4>          
+        <ul class="list-unstyled">
+          <li class="footer_sub">Publications</li>
+          <li><a href="/thoughts/publications/books">Books</a></li>
+          <li><a href="/thoughts/publications/reports">Reports</a></li>
+          <li><a href="/thoughts/publications/webzines">Webzines</a></li>
+          <li><a href="/thoughts/publications/writings">Writings</a></li>
+          <li><a href="/thoughts/publications/blogs">Blogs</a></li>
+          <br/>
+          <li class="footer_sub">People</li>
+          <li><a href="/thoughts/people/masters">Masters</a></li>
+          <li><a href="/thoughts/people/teachers">Teachers</a></li>
+          <br/>
+          <li class="footer_sub">Visuals</li>
+          <li><a href="/thoughts/visuals/indian-patterns">Indian Patterns</a></li>
+          <li><a href="/thoughts/visuals/indian-festive-patterns">Indian Festive Patterns</a></li>
+          <br/>
+          <li class="footer_sub">History</li>
+          <li><a href="/thoughts/history/design-education">Design Education</a></li>
+          <li><a href="/thoughts/history/indian-letter-type-design">Indian Letter - Type Design</a></li>
+          <br/>
+          <li class="footer_sub">Culture</li>
+          <li><a href="/thoughts/culture/unique-professionals">Unique Professionals</a></li>
+              
+        </ul>
+      
+      
+      </div>
+      
+      
+      <div class="col-sm-3">
+        <h4>Projects</h4>
+        <ul class="list-unstyled">
+          <li><a href="/professional-projects">Professional Projects</a></li>    
+          <li><a href="/student-projects">Student Projects</a></li>
+          <li><a href="/showcase">Showcase</a></li>
+        </ul>
+        <h4>Industry</h4>
+        <ul class="list-unstyled">
+          <li> <a href="/firms">Design Firms</a></li>
+          <li> <a href="/job_listings">Job Listings</a></li>
+        </ul>
+        <h4>About</h4>
+        <ul class="list-unstyled">
+          <li> <a href="/contact">Contact us</a></li> 
+        </ul>
+        <h4>Design Links</h4>
+        <a href="http://www.facebook.com/designinindia" target="_blank"><img src="https://cdn0.iconfinder.com/data/icons/social-flat-rounded-rects/512/facebook-256.png" style="width:35px;height:auto;" border="0"></a>
+        <a href="http://twitter.com/designinindia" target="_blank"><img src="http://www.freeiconspng.com/uploads/twitter-icon-12.png" style="width:35px;height:auto;" border="0"></a>
+        <br><br>
+        
+      </div>
+
+      
+      
+      <!-- <div class="col-sm-3">
+        
+        <h4>Design Books</h4>
+                  
+                  <ul class="list-unstyled">
+                    <li> <a href="#">Communication Design</a></li>
+                     <li> <a href="#">Identity</a></li>
+                    <li> <a href="#">Illustration</a></li>
+                     <li> <a href="#">Information Design</a></li>
+                     <li> <a href="#">Publication Design</a></li>
+                     <li> <a href="#">Signage Design</a></li>
+                     <li> <a href="#">Type Design </a></li><br>
+
+                    <li> <a href="#">Product Design</a></li>
+                     <li> <a href="#"> Drawing - Presentation </a></li>
+                    <li> <a href="#">Automobile Design</a></li>
+                    <li> <a href="#">Human Factors - Ergonomics</a></li><br>
+                    
+                    <li> <a href="#">Theory</a></li>
+                     <li> <a href="#"> Aesthetics, Form</a></li>
+                    <li> <a href="#">Colour</a></li>
+                    <li> <a href="#">Creativity</a></li>
+                     <li> <a href="#">Design Process</a></li>
+                    <li> <a href="#">History</a></li>
+                    <li> <a href="#">Perception</a></li>
+                    <li> <a href="#">Research Methods</a></li><br>
+                    
+                    <li> <a href="#">Green Design:</a></li>
+                    <li> <a href="#">Sustainability</a></li>
+                    
+                  
+                  </ul>
+      
+      
+      </div> -->
+      
+      
+    </div><!--row end-->
+      </div>
+
+      <br>
+    
+  </footer>
+    <!-- Modal -->
+<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+        <a class="img_lang img_inadian_lang" href=""  data-dismiss="modal">Indian Language</a>
+
+      </div>
+      <div class="modal-body">
+        <div class="row">
+          <div class="col-sm-4">
+            <a id="google_en" class="img_lang img_eng" href="#googtrans/en"  data-dismiss="modal">English</a>
+            <a id="google_bn" class="img_lang img_bang" href="#googtrans/bn" data-dismiss="modal">Bangali</a>
+            <a id="google_gu" class="img_lang img_gujarati" href="#googtrans/gu" data-dismiss="modal">Gujarati</a>
+            <a id="google_hi" class="img_lang img_hindi" href="#googtrans/hi" data-dismiss="modal">Hindi</a>
+          </div>
+          
+          <div class="col-sm-4"> 
+            <a id="google_kn" class="img_lang img_kannada" href="#googtrans/kn" data-dismiss="modal">Kannada</a>
+            <a id="google_ml" class="img_lang img_malayalam" href="#googtrans/ml" data-dismiss="modal">Malayalam</a>
+            <a id="google_mr" class="img_lang img_marathi" href="#googtrans/mr" data-dismiss="modal">Marathi</a>
+            <a id="google_pa" class="img_lang img_punjabi" href="#googtrans/pa" data-dismiss="modal">Punjabi</a>
+          </div>
+          
+          <div class="col-sm-4"> 
+              <a id="google_sd" class="img_lang img_sindhi" href="#googtrans/sd" data-dismiss="modal">Sindhi</a>
+              <a id="google_ta" class="img_lang img_tamil" href="#googtrans/ta" data-dismiss="modal">Tamil</a>
+              <a id="google_te" class="img_lang img_telugu" href="#googtrans/te" data-dismiss="modal">Telugu</a>
+              <a id="google_ur" class="img_lang img_urdu" href="#googtrans/ur" data-dismiss="modal">Urdu</a>
+          </div>    
+        </div>  
+      </div>
+    </div>
+  </div>
+</div>
+
+
+  
+  
+</div>
+
+</body>
+  <script src="https://www.designindia.net/sites/all/modules/picture/picturefill2/picturefill.min.js?v=2.0"></script>
+<script src="https://www.designindia.net/sites/all/modules/picture/picture.min.js?v=7.32"></script>
+<script src="https://www.designindia.net/sites/all/modules/flexslider/assets/js/flexslider.load.js?pm1teo"></script>
+</body>
+</html>

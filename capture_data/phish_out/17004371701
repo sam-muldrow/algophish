@@ -1,0 +1,225 @@
+
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN" "http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head id="Head1"><meta http-equiv="X-UA-Compatible" content="IE=9; IE=EDGE" /><title>
+	Dialog Insight
+</title><link rel="shortcut icon" href="favicon.ico" type="image/ico" />
+	<script type="text/javascript" src="https://code.jquery.com/jquery-3.6.0.min.js"></script>   
+	<script type="text/javascript" src="https://code.jquery.com/ui/1.13.2/jquery-ui.min.js"></script>
+	<link href="https://fonts.googleapis.com/css?family=Open+Sans:400italic,600italic,700italic,400,700,600&amp;subset=latin,cyrillic-ext,greek-ext,greek,vietnamese,latin-ext,cyrillic" rel="stylesheet" type="text/css" /><link rel="stylesheet" type="text/css" href="/TS638354708240000000/css/PasswordValidator.css" /><link href="/Themes/CSS/DITheme/TS638354708240000000/ofc42.css" rel="stylesheet" type="text/css" /><link href="/Themes/CSS/DITheme/TS638354708240000000/ofsys.UserSessionManagement.css" rel="stylesheet" type="text/css" /></head>
+<body>
+	<script type="text/javascript">
+		function CheckIdentityProviders(companyCodeInput)
+        {
+			var divIdentityProvider = $('#divIdentityProvider');
+			var pnlIdentityProviders = $('#pnlIdentityProviders');
+			var maxDisplayedProviders = 25;
+
+			if (companyCodeInput.readOnly)
+				return;
+
+			jQuery.ajax({
+				url: window.location.pathname + '/CheckIdentityProviders',
+				data: JSON.stringify({
+					'companyCode': companyCodeInput.value
+				}),
+				type: "POST",
+				contentType: "application/json; charset=utf-8",
+				dataType: "json",
+				success: function (data, status, jqXHR)
+				{	
+					var parsedResponse = JSON.parse(data.d);
+
+					if (parsedResponse.identityProviders.length > 0)
+					{
+						divIdentityProvider.css('visibility', 'visible');
+						pnlIdentityProviders.empty();
+						for (var idx = 0; idx < parsedResponse.identityProviders.length && idx < maxDisplayedProviders; idx++)
+						{
+							AddIdentityProviderButton(parsedResponse.identityProviders[idx]);
+						}
+					}
+					else
+					{						
+						divIdentityProvider.css('visibility', 'hidden');
+					}
+				},
+				error: function (data)
+				{
+					divIdentityProvider.css('visibility', 'hidden');
+
+				}
+			});
+		}
+		function AddIdentityProviderButton(identityProvider)
+		{
+			var returnUrl = getURLParametersDictionary().ReturnURL;
+			var returnUrlSuffix = '';
+			if(returnUrl != null && returnUrl != '')
+				returnUrlSuffix = '?ReturnUrl=' + encodeURIComponent(returnUrl);
+			var url = 'https://app.dialoginsight.com/T/SAMLSP/' + identityProvider.idCompany + '/' + identityProvider.idIdentityProvider + '/authn.ofsys' +  returnUrlSuffix;
+
+			$('#pnlIdentityProviders').append(
+				$('<a />', {
+					'text' :  'Connecter via ' + identityProvider.Name,
+					'href' : url,
+					'class' : 'OFSYSButton OFSYSButtonStrong'
+				}));
+        }
+
+        $(document).ready(function () {
+            $('#divPlatformFlag').bind('click', function () { ShowPlatformPopup(); });
+        });
+
+        function ShowPlatformPopup() {
+            var balloonPopup = new OFSYSBalloonPopup($('body'), 'Top', 'Left', { floating: true, CssClasses: ['PlatformSitePopup'] });
+
+            var parsedPlatformSitesDropdownItems = JSON.parse(platformSitesDropdownItems);
+
+
+            for (var i = 0; i < parsedPlatformSitesDropdownItems.length; i++)
+            {
+                var platformSite = $('<a/>', { 'href': parsedPlatformSitesDropdownItems[i].PlatformUrl }).append(
+                    $('<div/>', { class: 'PlatformSiteDropdownOption' }).append(
+                        $('<img/>', { 'src': '/images/' + parsedPlatformSitesDropdownItems[i].CountryFlag })
+                    ).append(
+                        $('<span/>').text(parsedPlatformSitesDropdownItems[i].PlatformName)
+                    )
+                );
+
+                balloonPopup.getContent().append(platformSite);
+            }
+            
+            balloonPopup.getContent().css('min-width', '100px');
+            balloonPopup.getContent().css('padding', '5px 0px');
+            balloonPopup.ShowOnElementAutoUpOrDown($('#divPlatformFlag > img'), 'center', 'left', true /* useAbsoluteCoords */, false);
+            balloonPopup.ShowClickBlocker();
+        }
+	</script>
+
+	<!-- Traité entièrement en css, ne pas deleter le contenu !-->
+	<ul class="Login-Background-Image-Slider">
+        <li><span>Quebec</span></li>
+        <li><span>Montreal</span></li>
+        <li><span>Toronto</span></li>
+        <li><span>Marseilles</span></li>
+    </ul>
+
+	<form name="LoginForm" method="post" action="./login.aspx?ReturnURL=%2fResetSession.aspx%3ffromLogin%3d1%26ReturnURL%3d%252f" id="LoginForm">
+<input type="hidden" name="__VIEWSTATE" id="__VIEWSTATE" value="z4N/emiAzDfjIgDbdMJxfHd2YVO55RScdJBaOHdapoTne48SAT5auNWELQ+CBAuRCs9cXYb+o7A5dT7U23cpFIJPVYCdPcxK8ZMnyzvwfV3vN2Utqo7APOZ8Da+D/gl3VjVmXh6R8lVKawMATtovfQYDLUWTGu1fka5uBavbz4vq2xddri2fZyrzZJPB9UzAVVzrSZhF17pPjNU1QSyjiW+4Pi7BhtomL1lr6pzQ4JJSVzgiFcr+fiWly3RdNkozxr55Gs0C6MdgUuGpF7YPr4MSEUsqSINwc0MfF7oJTPWuFv+ZWfh06isBZZ6gwVV/GdLKe9PIfBkRLshulbBm3BbNTIiEScMUEsrzfDfcKCQIvmdrfx4Eq8HZ7L4eSgaFa3kJyOy5L5R7SxQ0j7bEieSBADBgaEF39XlvHrfOYDae2j19BEJPZKnTdJVg1j+utTLeCbkRTqq1RaNI05VKSfvEhhIyuDwpgGzTPANJLXxv8idhSSWdLTt9MTXJc74f9T1uLtG7XokFQGbwNplIiYssCiU=" />
+
+
+<script src="/TS638354708250000000/scripts/ofsys.jsUtils.js" type="text/javascript"></script>
+<script src="/TS638354708240000000/scripts/PasswordValidator.js" type="text/javascript"></script>
+<script src="/TS638354708240000000/scripts/Form.js" type="text/javascript"></script>
+<script src="/ScriptResource.axd?d=P4uAx_MYN1VQPAFJjmEwmeI0LhQSj_pGQwMkGV1Vrv1FtxVr6ZUC9L44y1v9Y_Qx1E4N599fEUlbasHO5IMXvWRyhd7hqR8OeW1np8Z4KT5XOziaEpMMUDr_HIo_Og_JWFvidGq0IqYC3wDRiHabYmSgNm01&amp;t=fffffffff27ac6e9" type="text/javascript"></script>
+<input type="hidden" name="__VIEWSTATEGENERATOR" id="__VIEWSTATEGENERATOR" value="2E84EE8E" />
+<input type="hidden" name="__VIEWSTATEENCRYPTED" id="__VIEWSTATEENCRYPTED" value="" />
+		
+
+		<div align="center" class="LoginFrame">
+			<div>
+				
+				<div class="LoginHeader">
+					<div class="LoginTitle">
+						<span id="LoginTitle">Connexion</span>
+						<img src="/images/DialogInsight_Logo_RGB.png" alt="Dialog Insight" class="LoginHeader--DI-Logo" />
+					</div>
+
+					
+				</div>
+				<div id="divLoginFormContainer" class="LoginFormContainer">
+					
+					<table border="0" width="100%" cellpadding="0" cellspacing="0" class="FormTable">
+						<tr id="trCompanyCode" class="inputRow" style="display:table-row;">
+	<td>
+								<span id="lblCompanyCode" class="LoginForm__span">Code de compte</span>
+							</td>
+	<td>
+								<div class="loginTextboxWithImage">
+									<input name="LoginForm_Code" type="text" id="LoginForm_Code" onBlur="CheckIdentityProviders(this);" />
+								</div>
+							</td>
+</tr>
+
+						<tr id="trUserName" class="inputRow" style="display:table-row;">
+	<td>
+								<span id="lblUserName" class="LoginForm__span">Nom d'utilisateur</span></td>
+	<td>
+								<div class="loginTextboxWithImage">
+									<input name="LoginForm_UserName" type="text" id="LoginForm_UserName" />
+								</div>
+							</td>
+</tr>
+
+						<tr id="trPassword" class="inputRow" style="display:table-row;">
+	<td>
+								<span id="lblPassword" class="LoginForm__span">Mot de passe</span></td>
+	<td>
+								<div class="loginTextboxWithImage">
+									<input name="LoginForm_Password" type="password" id="LoginForm_Password" />
+								</div>
+							</td>
+</tr>
+
+						<tr id="trMultiFactorAuthToken" class="inputRow" style="display:none;">
+	<td>
+								<span id="lblMultiFactorAuthToken">Code de vérification</span></td>
+	<td style="width: 100%; padding-left: 10px">
+								<input name="LoginForm_Token" type="text" id="LoginForm_Token" class="borderTextbox" autocomplete="off" />
+							</td>
+</tr>
+
+												
+						<tr>
+							<td></td>
+							<td style="text-align: right;">
+								<input type="submit" name="button_Login" value="Connecter" id="button_Login" class="OFSYSButton OFSYSButtonStrong" />
+							</td>
+						</tr>
+					</table>
+				</div>
+				<div id="LoginFooter" class="LoginFooter">
+					<div id="divRecoveryLinks">
+						<div>
+							<a id="HyperLink1" href="/OFSYS/Users/Recovery/PasswordRecoveryForm.aspx">Mot de passe oublié ?</a>
+						</div>
+						<div>
+							<a id="HyperLink2" href="/OFSYS/Users/Recovery/LoginRecoveryForm.aspx">Nom d'utilisateur oublié ?</a>
+							<div id="divPlatformFlag">
+								<img src="/images/flag-round-canada.svg" id="platformFlagIcon" alt="platform-flag" />
+								<span id="platformName">Canada</span>
+								<img id="imgDropdownDrrow" src="/Themes/Icons/DITheme/Icon/Grey/dropdown-arrow-down12.png" border="0" style="vertical-align: middle;" />
+							</div>
+						</div>
+					</div>
+				</div>	
+				
+				<div id="divIdentityProvider" style="visibility:hidden;">
+					<div class="LoginHeader" style="margin-top:25px;">
+						<div class="LoginTitle">
+							<span id="lblIdentityProviderTitle">Authentification unique (SSO)</span>
+						</div>
+					</div>
+					<div id="pnlIdentityProviders" class="LoginFormContainer divIdentityProviders">
+								
+					
+</div>
+				</div>		
+			</div>
+		</div>
+	
+
+<script type="text/javascript">
+//<![CDATA[
+var platformSitesDropdownItems = '[{"CountryFlag":"flag-round-france.svg","PlatformUrl":"https://app.mydialoginsight.com","PlatformName":"France","PlatformSiteCode":1}]';//]]>
+</script>
+</form>
+	<div class="PolicyContainer">
+		©2001–2023  Tous droits réservés. Dialog Insight® est une marque de commerce de REP Solution Interactive Inc. <a href="https://www.dialoginsight.com/politique-de-confidentialite/">Politiques de confidentialité</a>, et <a href="https://www.dialoginsight.com/conditions-d-utilisation-du-service/">conditions d'utilisation</a>.
+	</div>
+</body>
+</html>
+

@@ -1,0 +1,699 @@
+<!DOCTYPE html>
+<html dir="ltr" lang="pt-BR" prefix="og: https://ogp.me/ns#">
+<head>
+<meta charset="UTF-8" />
+<title>Eighty | Marketing Digital, Criação de Aplicativos, Sites</title>
+
+	<style>
+		.wpcf7-submit{
+			display:none;
+		}
+		.recaptcha-btn{
+			display:block;
+		}
+		.grecaptcha-badge {display: none;} 
+	</style>
+	<script type="text/javascript">
+		var contactform = [];
+		var checkIfCalled = true;
+		var renderGoogleInvisibleRecaptchaFront = function() {
+			// prevent form submit from enter key
+			jQuery("input[name=_wpcf7]").attr("class","formid");
+				jQuery('.wpcf7-form').on('keyup keypress', "input", function(e) {
+				  var keyCode = e.keyCode || e.which;
+				  if (keyCode === 13) {
+					e.preventDefault();
+					return false;
+				  }
+				});
+
+			jQuery('.wpcf7-submit').each(function(index){
+
+				var checkexclude = 0;
+				var form = jQuery(this).closest('.wpcf7-form');
+				var value = jQuery(form).find(".formid").val();
+				// check form exclude from invisible recaptcha
+								if(checkexclude == 0){
+					// Hide the form orig submit button
+					form.find('.wpcf7-submit').hide();
+
+					// Fetch class and value of orig submit button
+					btnClasses = form.find('.wpcf7-submit').attr('class');
+					btnValue = form.find('.wpcf7-submit').attr('value');
+
+					// Add custom button and recaptcha holder
+
+					form.find('.wpcf7-submit').after('<input type="button" id="wpcf-custom-btn-'+index+'" class="'+btnClasses+'  recaptcha-btn recaptcha-btn-type-css" value="'+btnValue+'" title="'+btnValue+'" >');
+					form.append('<div class="recaptcha-holder" id="recaptcha-holder-'+index+'"></div>');
+					// Recaptcha rendenr from here
+					var holderId = grecaptcha.render('recaptcha-holder-'+index,{
+								'sitekey':'6Le4kaMUAAAAAFE_n9fYVi3rYbp1WuMSrusLmG-n',
+								'size': 'invisible',
+								'badge' : 'inline', // possible values: bottomright, bottomleft, inline
+								'callback' : function (recaptchaToken) {
+									//console.log(recaptchaToken);
+									var response=jQuery('#recaptcha-holder-'+index).find('.g-recaptcha-response').val();
+									//console.log(response);
+									//Remove old response and store new respone
+									jQuery('#recaptcha-holder-'+index).parent().find(".respose_post").remove();
+									jQuery('#recaptcha-holder-'+index).after('<input type="hidden" name="g-recaptcha-response"  value="'+response+'" class="respose_post">')
+									grecaptcha.reset(holderId);
+
+									if(typeof customCF7Validator !== 'undefined'){
+										if(!customCF7Validator(form)){
+											return;
+										}
+									}
+									// Call default Validator function
+									else if(contactFormDefaultValidator(form)){
+										return;
+									}
+									else{
+										// hide the custom button and show orig submit button again and submit the form
+										jQuery('#wpcf-custom-btn-'+index).hide();
+										form.find('input[type=submit]').show();
+										form.find("input[type=submit]").click();
+										form.find('input[type=submit]').hide();
+										jQuery('#wpcf-custom-btn-'+index).attr('style','');
+									}
+								}
+						},false);
+
+					// action call when click on custom button
+					jQuery('#wpcf-custom-btn-'+index).click(function(event){
+						event.preventDefault();
+						// Call custom validator function
+						if(typeof customCF7Validator == 'function'){
+							if(!customCF7Validator(form)){
+								return false;
+							}
+						}
+						// Call default Validator function
+						else if(contactFormDefaultValidator(form)){
+							return false;
+						}
+						else if(grecaptcha.getResponse(holderId) != ''){
+							grecaptcha.reset(holderId);
+						}
+						else{
+							// execute the recaptcha challenge
+							grecaptcha.execute(holderId);
+						}
+					});
+				}
+			});
+		}
+	</script><script  src="https://www.google.com/recaptcha/api.js?onload=renderGoogleInvisibleRecaptchaFront&render=explicit" async defer></script>
+		<!-- All in One SEO 4.5.0 - aioseo.com -->
+		<meta name="description" content="Eighty é uma empresa dedicada a Criação de Sites, Lojas Virtuais, Redes Sociais, SEO, Design Gráfico, Live Streaming, Desenvolvimento de Aplicativos Mobile." />
+		<meta name="robots" content="max-snippet:-1, max-image-preview:large, max-video-preview:-1" />
+		<link rel="canonical" href="https://www.eighty.com.br/" />
+		<meta name="generator" content="All in One SEO (AIOSEO) 4.5.0" />
+		<meta property="og:locale" content="pt_BR" />
+		<meta property="og:site_name" content="EIGHTY" />
+		<meta property="og:type" content="website" />
+		<meta property="og:title" content="Eighty | Marketing Digital, Criação de Aplicativos, Sites" />
+		<meta property="og:description" content="Eighty é uma empresa dedicada a Criação de Sites, Lojas Virtuais, Redes Sociais, SEO, Design Gráfico, Live Streaming, Desenvolvimento de Aplicativos Mobile." />
+		<meta property="og:url" content="https://www.eighty.com.br/" />
+		<meta property="og:image" content="https://www.eighty.com.br/wp-content/uploads/2016/09/webdesign_sites_agencia_cafetecnologia_curitiba.jpg" />
+		<meta property="og:image:secure_url" content="https://www.eighty.com.br/wp-content/uploads/2016/09/webdesign_sites_agencia_cafetecnologia_curitiba.jpg" />
+		<meta property="og:image:width" content="640" />
+		<meta property="og:image:height" content="480" />
+		<meta name="twitter:card" content="summary" />
+		<meta name="twitter:title" content="Eighty | Marketing Digital, Criação de Aplicativos, Sites" />
+		<meta name="twitter:description" content="Eighty é uma empresa dedicada a Criação de Sites, Lojas Virtuais, Redes Sociais, SEO, Design Gráfico, Live Streaming, Desenvolvimento de Aplicativos Mobile." />
+		<meta name="twitter:image" content="https://www.eighty.com.br/wp-content/uploads/2016/09/webdesign_sites_agencia_cafetecnologia_curitiba.jpg" />
+		<meta name="google" content="nositelinkssearchbox" />
+		<script type="application/ld+json" class="aioseo-schema">
+			{"@context":"https:\/\/schema.org","@graph":[{"@type":"BreadcrumbList","@id":"https:\/\/www.eighty.com.br\/#breadcrumblist","itemListElement":[{"@type":"ListItem","@id":"https:\/\/www.eighty.com.br\/#listItem","position":1,"name":"Dom\u00e9stica"}]},{"@type":"Organization","@id":"https:\/\/www.eighty.com.br\/#organization","name":"Eighty","url":"https:\/\/www.eighty.com.br\/"},{"@type":"WebPage","@id":"https:\/\/www.eighty.com.br\/#webpage","url":"https:\/\/www.eighty.com.br\/","name":"Eighty | Marketing Digital, Cria\u00e7\u00e3o de Aplicativos, Sites","description":"Eighty \u00e9 uma empresa dedicada a Cria\u00e7\u00e3o de Sites, Lojas Virtuais, Redes Sociais, SEO, Design Gr\u00e1fico, Live Streaming, Desenvolvimento de Aplicativos Mobile.","inLanguage":"pt-BR","isPartOf":{"@id":"https:\/\/www.eighty.com.br\/#website"},"breadcrumb":{"@id":"https:\/\/www.eighty.com.br\/#breadcrumblist"},"datePublished":"2015-05-25T09:53:27-03:00","dateModified":"2018-10-09T21:36:49-03:00"},{"@type":"WebSite","@id":"https:\/\/www.eighty.com.br\/#website","url":"https:\/\/www.eighty.com.br\/","name":"Eighty","inLanguage":"pt-BR","publisher":{"@id":"https:\/\/www.eighty.com.br\/#organization"}}]}
+		</script>
+		<!-- All in One SEO -->
+
+<link rel="manifest" href="https://www.eighty.com.br/wp-json/push-notification/v2/pn-manifest-json"><meta name="viewport" content="width=device-width, initial-scale=1" />
+<link rel='dns-prefetch' href='//maxcdn.bootstrapcdn.com' />
+<link rel='dns-prefetch' href='//fonts.googleapis.com' />
+<link rel="alternate" type="application/rss+xml" title="Feed para Eighty &raquo;" href="https://www.eighty.com.br/feed/" />
+<link rel="alternate" type="application/rss+xml" title="Feed de comentários para Eighty &raquo;" href="https://www.eighty.com.br/comments/feed/" />
+<link rel="profile" href="https://gmpg.org/xfn/11" />
+<link rel="alternate" type="application/rss+xml" title="Feed de comentários para Eighty &raquo; Home" href="https://www.eighty.com.br/home/feed/" />
+<link rel="pingback" href="https://www.eighty.com.br/xmlrpc.php" />
+<script type="text/javascript">
+/* <![CDATA[ */
+window._wpemojiSettings = {"baseUrl":"https:\/\/s.w.org\/images\/core\/emoji\/14.0.0\/72x72\/","ext":".png","svgUrl":"https:\/\/s.w.org\/images\/core\/emoji\/14.0.0\/svg\/","svgExt":".svg","source":{"concatemoji":"https:\/\/www.eighty.com.br\/wp-includes\/js\/wp-emoji-release.min.js?ver=bb270fba1988038f5680f75b7475565e"}};
+/*! This file is auto-generated */
+!function(i,n){var o,s,e;function c(e){try{var t={supportTests:e,timestamp:(new Date).valueOf()};sessionStorage.setItem(o,JSON.stringify(t))}catch(e){}}function p(e,t,n){e.clearRect(0,0,e.canvas.width,e.canvas.height),e.fillText(t,0,0);var t=new Uint32Array(e.getImageData(0,0,e.canvas.width,e.canvas.height).data),r=(e.clearRect(0,0,e.canvas.width,e.canvas.height),e.fillText(n,0,0),new Uint32Array(e.getImageData(0,0,e.canvas.width,e.canvas.height).data));return t.every(function(e,t){return e===r[t]})}function u(e,t,n){switch(t){case"flag":return n(e,"\ud83c\udff3\ufe0f\u200d\u26a7\ufe0f","\ud83c\udff3\ufe0f\u200b\u26a7\ufe0f")?!1:!n(e,"\ud83c\uddfa\ud83c\uddf3","\ud83c\uddfa\u200b\ud83c\uddf3")&&!n(e,"\ud83c\udff4\udb40\udc67\udb40\udc62\udb40\udc65\udb40\udc6e\udb40\udc67\udb40\udc7f","\ud83c\udff4\u200b\udb40\udc67\u200b\udb40\udc62\u200b\udb40\udc65\u200b\udb40\udc6e\u200b\udb40\udc67\u200b\udb40\udc7f");case"emoji":return!n(e,"\ud83e\udef1\ud83c\udffb\u200d\ud83e\udef2\ud83c\udfff","\ud83e\udef1\ud83c\udffb\u200b\ud83e\udef2\ud83c\udfff")}return!1}function f(e,t,n){var r="undefined"!=typeof WorkerGlobalScope&&self instanceof WorkerGlobalScope?new OffscreenCanvas(300,150):i.createElement("canvas"),a=r.getContext("2d",{willReadFrequently:!0}),o=(a.textBaseline="top",a.font="600 32px Arial",{});return e.forEach(function(e){o[e]=t(a,e,n)}),o}function t(e){var t=i.createElement("script");t.src=e,t.defer=!0,i.head.appendChild(t)}"undefined"!=typeof Promise&&(o="wpEmojiSettingsSupports",s=["flag","emoji"],n.supports={everything:!0,everythingExceptFlag:!0},e=new Promise(function(e){i.addEventListener("DOMContentLoaded",e,{once:!0})}),new Promise(function(t){var n=function(){try{var e=JSON.parse(sessionStorage.getItem(o));if("object"==typeof e&&"number"==typeof e.timestamp&&(new Date).valueOf()<e.timestamp+604800&&"object"==typeof e.supportTests)return e.supportTests}catch(e){}return null}();if(!n){if("undefined"!=typeof Worker&&"undefined"!=typeof OffscreenCanvas&&"undefined"!=typeof URL&&URL.createObjectURL&&"undefined"!=typeof Blob)try{var e="postMessage("+f.toString()+"("+[JSON.stringify(s),u.toString(),p.toString()].join(",")+"));",r=new Blob([e],{type:"text/javascript"}),a=new Worker(URL.createObjectURL(r),{name:"wpTestEmojiSupports"});return void(a.onmessage=function(e){c(n=e.data),a.terminate(),t(n)})}catch(e){}c(n=f(s,u,p))}t(n)}).then(function(e){for(var t in e)n.supports[t]=e[t],n.supports.everything=n.supports.everything&&n.supports[t],"flag"!==t&&(n.supports.everythingExceptFlag=n.supports.everythingExceptFlag&&n.supports[t]);n.supports.everythingExceptFlag=n.supports.everythingExceptFlag&&!n.supports.flag,n.DOMReady=!1,n.readyCallback=function(){n.DOMReady=!0}}).then(function(){return e}).then(function(){var e;n.supports.everything||(n.readyCallback(),(e=n.source||{}).concatemoji?t(e.concatemoji):e.wpemoji&&e.twemoji&&(t(e.twemoji),t(e.wpemoji)))}))}((window,document),window._wpemojiSettings);
+/* ]]> */
+</script>
+<link rel='stylesheet' id='ht_ctc_main_css-css' href='https://www.eighty.com.br/wp-content/plugins/click-to-chat-for-whatsapp/new/inc/assets/css/main.css?ver=3.30.1' type='text/css' media='all' />
+<style id='wp-emoji-styles-inline-css' type='text/css'>
+
+	img.wp-smiley, img.emoji {
+		display: inline !important;
+		border: none !important;
+		box-shadow: none !important;
+		height: 1em !important;
+		width: 1em !important;
+		margin: 0 0.07em !important;
+		vertical-align: -0.1em !important;
+		background: none !important;
+		padding: 0 !important;
+	}
+</style>
+<link rel='stylesheet' id='wp-block-library-css' href='https://www.eighty.com.br/wp-includes/css/dist/block-library/style.min.css?ver=bb270fba1988038f5680f75b7475565e' type='text/css' media='all' />
+<style id='classic-theme-styles-inline-css' type='text/css'>
+/*! This file is auto-generated */
+.wp-block-button__link{color:#fff;background-color:#32373c;border-radius:9999px;box-shadow:none;text-decoration:none;padding:calc(.667em + 2px) calc(1.333em + 2px);font-size:1.125em}.wp-block-file__button{background:#32373c;color:#fff;text-decoration:none}
+</style>
+<style id='global-styles-inline-css' type='text/css'>
+body{--wp--preset--color--black: #000000;--wp--preset--color--cyan-bluish-gray: #abb8c3;--wp--preset--color--white: #ffffff;--wp--preset--color--pale-pink: #f78da7;--wp--preset--color--vivid-red: #cf2e2e;--wp--preset--color--luminous-vivid-orange: #ff6900;--wp--preset--color--luminous-vivid-amber: #fcb900;--wp--preset--color--light-green-cyan: #7bdcb5;--wp--preset--color--vivid-green-cyan: #00d084;--wp--preset--color--pale-cyan-blue: #8ed1fc;--wp--preset--color--vivid-cyan-blue: #0693e3;--wp--preset--color--vivid-purple: #9b51e0;--wp--preset--gradient--vivid-cyan-blue-to-vivid-purple: linear-gradient(135deg,rgba(6,147,227,1) 0%,rgb(155,81,224) 100%);--wp--preset--gradient--light-green-cyan-to-vivid-green-cyan: linear-gradient(135deg,rgb(122,220,180) 0%,rgb(0,208,130) 100%);--wp--preset--gradient--luminous-vivid-amber-to-luminous-vivid-orange: linear-gradient(135deg,rgba(252,185,0,1) 0%,rgba(255,105,0,1) 100%);--wp--preset--gradient--luminous-vivid-orange-to-vivid-red: linear-gradient(135deg,rgba(255,105,0,1) 0%,rgb(207,46,46) 100%);--wp--preset--gradient--very-light-gray-to-cyan-bluish-gray: linear-gradient(135deg,rgb(238,238,238) 0%,rgb(169,184,195) 100%);--wp--preset--gradient--cool-to-warm-spectrum: linear-gradient(135deg,rgb(74,234,220) 0%,rgb(151,120,209) 20%,rgb(207,42,186) 40%,rgb(238,44,130) 60%,rgb(251,105,98) 80%,rgb(254,248,76) 100%);--wp--preset--gradient--blush-light-purple: linear-gradient(135deg,rgb(255,206,236) 0%,rgb(152,150,240) 100%);--wp--preset--gradient--blush-bordeaux: linear-gradient(135deg,rgb(254,205,165) 0%,rgb(254,45,45) 50%,rgb(107,0,62) 100%);--wp--preset--gradient--luminous-dusk: linear-gradient(135deg,rgb(255,203,112) 0%,rgb(199,81,192) 50%,rgb(65,88,208) 100%);--wp--preset--gradient--pale-ocean: linear-gradient(135deg,rgb(255,245,203) 0%,rgb(182,227,212) 50%,rgb(51,167,181) 100%);--wp--preset--gradient--electric-grass: linear-gradient(135deg,rgb(202,248,128) 0%,rgb(113,206,126) 100%);--wp--preset--gradient--midnight: linear-gradient(135deg,rgb(2,3,129) 0%,rgb(40,116,252) 100%);--wp--preset--font-size--small: 13px;--wp--preset--font-size--medium: 20px;--wp--preset--font-size--large: 36px;--wp--preset--font-size--x-large: 42px;--wp--preset--spacing--20: 0.44rem;--wp--preset--spacing--30: 0.67rem;--wp--preset--spacing--40: 1rem;--wp--preset--spacing--50: 1.5rem;--wp--preset--spacing--60: 2.25rem;--wp--preset--spacing--70: 3.38rem;--wp--preset--spacing--80: 5.06rem;--wp--preset--shadow--natural: 6px 6px 9px rgba(0, 0, 0, 0.2);--wp--preset--shadow--deep: 12px 12px 50px rgba(0, 0, 0, 0.4);--wp--preset--shadow--sharp: 6px 6px 0px rgba(0, 0, 0, 0.2);--wp--preset--shadow--outlined: 6px 6px 0px -3px rgba(255, 255, 255, 1), 6px 6px rgba(0, 0, 0, 1);--wp--preset--shadow--crisp: 6px 6px 0px rgba(0, 0, 0, 1);}:where(.is-layout-flex){gap: 0.5em;}:where(.is-layout-grid){gap: 0.5em;}body .is-layout-flow > .alignleft{float: left;margin-inline-start: 0;margin-inline-end: 2em;}body .is-layout-flow > .alignright{float: right;margin-inline-start: 2em;margin-inline-end: 0;}body .is-layout-flow > .aligncenter{margin-left: auto !important;margin-right: auto !important;}body .is-layout-constrained > .alignleft{float: left;margin-inline-start: 0;margin-inline-end: 2em;}body .is-layout-constrained > .alignright{float: right;margin-inline-start: 2em;margin-inline-end: 0;}body .is-layout-constrained > .aligncenter{margin-left: auto !important;margin-right: auto !important;}body .is-layout-constrained > :where(:not(.alignleft):not(.alignright):not(.alignfull)){max-width: var(--wp--style--global--content-size);margin-left: auto !important;margin-right: auto !important;}body .is-layout-constrained > .alignwide{max-width: var(--wp--style--global--wide-size);}body .is-layout-flex{display: flex;}body .is-layout-flex{flex-wrap: wrap;align-items: center;}body .is-layout-flex > *{margin: 0;}body .is-layout-grid{display: grid;}body .is-layout-grid > *{margin: 0;}:where(.wp-block-columns.is-layout-flex){gap: 2em;}:where(.wp-block-columns.is-layout-grid){gap: 2em;}:where(.wp-block-post-template.is-layout-flex){gap: 1.25em;}:where(.wp-block-post-template.is-layout-grid){gap: 1.25em;}.has-black-color{color: var(--wp--preset--color--black) !important;}.has-cyan-bluish-gray-color{color: var(--wp--preset--color--cyan-bluish-gray) !important;}.has-white-color{color: var(--wp--preset--color--white) !important;}.has-pale-pink-color{color: var(--wp--preset--color--pale-pink) !important;}.has-vivid-red-color{color: var(--wp--preset--color--vivid-red) !important;}.has-luminous-vivid-orange-color{color: var(--wp--preset--color--luminous-vivid-orange) !important;}.has-luminous-vivid-amber-color{color: var(--wp--preset--color--luminous-vivid-amber) !important;}.has-light-green-cyan-color{color: var(--wp--preset--color--light-green-cyan) !important;}.has-vivid-green-cyan-color{color: var(--wp--preset--color--vivid-green-cyan) !important;}.has-pale-cyan-blue-color{color: var(--wp--preset--color--pale-cyan-blue) !important;}.has-vivid-cyan-blue-color{color: var(--wp--preset--color--vivid-cyan-blue) !important;}.has-vivid-purple-color{color: var(--wp--preset--color--vivid-purple) !important;}.has-black-background-color{background-color: var(--wp--preset--color--black) !important;}.has-cyan-bluish-gray-background-color{background-color: var(--wp--preset--color--cyan-bluish-gray) !important;}.has-white-background-color{background-color: var(--wp--preset--color--white) !important;}.has-pale-pink-background-color{background-color: var(--wp--preset--color--pale-pink) !important;}.has-vivid-red-background-color{background-color: var(--wp--preset--color--vivid-red) !important;}.has-luminous-vivid-orange-background-color{background-color: var(--wp--preset--color--luminous-vivid-orange) !important;}.has-luminous-vivid-amber-background-color{background-color: var(--wp--preset--color--luminous-vivid-amber) !important;}.has-light-green-cyan-background-color{background-color: var(--wp--preset--color--light-green-cyan) !important;}.has-vivid-green-cyan-background-color{background-color: var(--wp--preset--color--vivid-green-cyan) !important;}.has-pale-cyan-blue-background-color{background-color: var(--wp--preset--color--pale-cyan-blue) !important;}.has-vivid-cyan-blue-background-color{background-color: var(--wp--preset--color--vivid-cyan-blue) !important;}.has-vivid-purple-background-color{background-color: var(--wp--preset--color--vivid-purple) !important;}.has-black-border-color{border-color: var(--wp--preset--color--black) !important;}.has-cyan-bluish-gray-border-color{border-color: var(--wp--preset--color--cyan-bluish-gray) !important;}.has-white-border-color{border-color: var(--wp--preset--color--white) !important;}.has-pale-pink-border-color{border-color: var(--wp--preset--color--pale-pink) !important;}.has-vivid-red-border-color{border-color: var(--wp--preset--color--vivid-red) !important;}.has-luminous-vivid-orange-border-color{border-color: var(--wp--preset--color--luminous-vivid-orange) !important;}.has-luminous-vivid-amber-border-color{border-color: var(--wp--preset--color--luminous-vivid-amber) !important;}.has-light-green-cyan-border-color{border-color: var(--wp--preset--color--light-green-cyan) !important;}.has-vivid-green-cyan-border-color{border-color: var(--wp--preset--color--vivid-green-cyan) !important;}.has-pale-cyan-blue-border-color{border-color: var(--wp--preset--color--pale-cyan-blue) !important;}.has-vivid-cyan-blue-border-color{border-color: var(--wp--preset--color--vivid-cyan-blue) !important;}.has-vivid-purple-border-color{border-color: var(--wp--preset--color--vivid-purple) !important;}.has-vivid-cyan-blue-to-vivid-purple-gradient-background{background: var(--wp--preset--gradient--vivid-cyan-blue-to-vivid-purple) !important;}.has-light-green-cyan-to-vivid-green-cyan-gradient-background{background: var(--wp--preset--gradient--light-green-cyan-to-vivid-green-cyan) !important;}.has-luminous-vivid-amber-to-luminous-vivid-orange-gradient-background{background: var(--wp--preset--gradient--luminous-vivid-amber-to-luminous-vivid-orange) !important;}.has-luminous-vivid-orange-to-vivid-red-gradient-background{background: var(--wp--preset--gradient--luminous-vivid-orange-to-vivid-red) !important;}.has-very-light-gray-to-cyan-bluish-gray-gradient-background{background: var(--wp--preset--gradient--very-light-gray-to-cyan-bluish-gray) !important;}.has-cool-to-warm-spectrum-gradient-background{background: var(--wp--preset--gradient--cool-to-warm-spectrum) !important;}.has-blush-light-purple-gradient-background{background: var(--wp--preset--gradient--blush-light-purple) !important;}.has-blush-bordeaux-gradient-background{background: var(--wp--preset--gradient--blush-bordeaux) !important;}.has-luminous-dusk-gradient-background{background: var(--wp--preset--gradient--luminous-dusk) !important;}.has-pale-ocean-gradient-background{background: var(--wp--preset--gradient--pale-ocean) !important;}.has-electric-grass-gradient-background{background: var(--wp--preset--gradient--electric-grass) !important;}.has-midnight-gradient-background{background: var(--wp--preset--gradient--midnight) !important;}.has-small-font-size{font-size: var(--wp--preset--font-size--small) !important;}.has-medium-font-size{font-size: var(--wp--preset--font-size--medium) !important;}.has-large-font-size{font-size: var(--wp--preset--font-size--large) !important;}.has-x-large-font-size{font-size: var(--wp--preset--font-size--x-large) !important;}
+.wp-block-navigation a:where(:not(.wp-element-button)){color: inherit;}
+:where(.wp-block-post-template.is-layout-flex){gap: 1.25em;}:where(.wp-block-post-template.is-layout-grid){gap: 1.25em;}
+:where(.wp-block-columns.is-layout-flex){gap: 2em;}:where(.wp-block-columns.is-layout-grid){gap: 2em;}
+.wp-block-pullquote{font-size: 1.5em;line-height: 1.6;}
+</style>
+<link rel='stylesheet' id='cherry-social-flaticon-css' href='https://www.eighty.com.br/wp-content/plugins/cherry-social/public/assets/fonts/flaticon.min.css?ver=1.0.4' type='text/css' media='all' />
+<link rel='stylesheet' id='contact-form-7-css' href='https://www.eighty.com.br/wp-content/plugins/contact-form-7/includes/css/styles.css?ver=5.8.3' type='text/css' media='all' />
+<link rel='stylesheet' id='pdfprnt_frontend-css' href='https://www.eighty.com.br/wp-content/plugins/pdf-print/css/frontend.css?ver=2.3.2' type='text/css' media='all' />
+<link rel='stylesheet' id='font-awesome-css' href='//maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css?ver=4.4.0' type='text/css' media='all' />
+<link rel='stylesheet' id='swiper-css' href='https://www.eighty.com.br/wp-content/plugins/cherry-shortcodes/assets/css/swiper.css?ver=1.0.7.6' type='text/css' media='all' />
+<link rel='stylesheet' id='magnific-popup-css' href='https://www.eighty.com.br/wp-content/themes/cherryframework4/lib/assets/css/magnific-popup.css?ver=1.0.0' type='text/css' media='all' />
+<link rel='stylesheet' id='slick-css' href='https://www.eighty.com.br/wp-content/themes/cherryframework4/lib/assets/css/slick.css?ver=1.5.0' type='text/css' media='all' />
+<link rel='stylesheet' id='theme55252-style-css' href='https://www.eighty.com.br/wp-content/themes/theme55252/style.css?ver=1.0.0' type='text/css' media='all' />
+<link rel='stylesheet' id='cherry-google-fonts-css' href='//fonts.googleapis.com/css?family=Open+Sans%3Aregular%2C800%7CAbril+Fatface%3Aregular%7CLobster%3Aregular&#038;subset=latin-ext%2Clatin&#038;ver=6.4.1' type='text/css' media='all' />
+<link rel='stylesheet' id='cherry-dynamic-style-css' href='https://www.eighty.com.br/wp-content/uploads/cherry-css/style.css?ver=1685531589' type='text/css' media='all' />
+<style id='cherry-dynamic-style-inline-css' type='text/css'>
+body {color:#3a3a3a;font:15px/30px "Open Sans", sans-serif;}body{background-color:#ffffff;background-repeat:repeat;background-position:left;background-attachment:fixed;background-clip:padding-box;background-size:auto;background-origin:padding-box;background-image:none;}input[type="text"],input[type="search"],input[type="password"],input[type="email"],input[type="tel"],input[type="email"],input[type="url"] {letter-spacing:5px;color:#555555;font:800 14px/20px "Open Sans", sans-serif;}h1, .h1 {letter-spacing:4px;color:#ffffff;font:800 34px/38px "Open Sans", sans-serif;}h2, .h2 {letter-spacing:10px;text-align:center;color:#555555;font:800 34px/38px "Open Sans", sans-serif;}h3, .h3 {letter-spacing:5px;color:#555555;font:800 16px/22px "Open Sans", sans-serif;}h4, .h4 {letter-spacing:0;color:#555555;font:18px/20px "Open Sans", sans-serif;}h5, .h5 {letter-spacing:0;color:#555555;font:14px/16px "Open Sans", sans-serif;}h6, .h6 {letter-spacing:0;color:#555555;font:12px/14px "Open Sans", sans-serif;}code {color: #555555;background-color: rgb(255,255,255);}pre {color: #555555;background-color: rgb(246,246,246);border-color: rgb(200,200,200);}kbd {background-color: rgb(47,47,47);}.site-link {letter-spacing:0;color:#555555;font:800 26px/30px "Open Sans", sans-serif;}.footer-logo-link {color:#555555;font:30px/36px Lobster, sans-serif;}.site-header{background-color:#ffffff;background-repeat:repeat;background-position:left;background-attachment:fixed;background-clip:padding-box;background-size:auto;background-origin:padding-box;background-image:none;}.site-footer {letter-spacing:5px;color:#ffffff;font:800 16px/24px "Open Sans", sans-serif;}.site-footer{background-color:#555555;background-repeat:repeat;background-position:left;background-attachment:fixed;background-clip:padding-box;background-size:auto;background-origin:padding-box;background-image:none;}a {color: #555555;}a:hover {color: #dd3333;}.menu-primary a {color:#555555;font:15px/20px "Open Sans", sans-serif;}.menu-secondary a {color:#474747;font:14px/14px "Abril Fatface", sans-serif;}.cherry-mega-menu-sub-item > a {color: #3a3a3a;}.cherry-mega-menu-sub-item > a:hover {color: #555555;}.cherry-mega-menu-sub .sub-column-title > a {color: #333333;}.cherry-breadcrumbs {background-color: rgb(240,240,240);}.cherry-breadcrumbs_item_link,.cherry-breadcrumbs_item_target,.cherry-breadcrumbs_browse,.cherry-breadcrumbs_item_sep {letter-spacing:5px;color:#ffffff;font:800 16px/22px "Open Sans", sans-serif;}.post-gallery_prev,.post-gallery_next {background-color: #555555;color: #ffffff;}.post-gallery_prev:hover,.post-gallery_next:hover {background-color: #333333;color: #ffffff;}.post-gallery_item_caption {background-color: #333333;color: #ffffff;}.post-gallery_paging_item {background-color: #333333;}.slick-active > .post-gallery_paging_item,.post-gallery_paging_item:hover {background-color: #555555;}.cherry-list-numbered-circle > li, .cherry-list-numbered-slash > li, .cherry-list-icons > li {color: rgb(51,51,51);}.cherry-list-numbered-circle > li::before {background-color: #555555;}.cherry-list-numbered-circle > li:hover::before {background-color: rgb(51,51,51);}.cherry-list-numbered-circle > li:hover {color: #555555;}.cherry-list-simple > li {color: #555555;}.cherry-list-simple > li::before {color: rgb(221,221,221);}.cherry-list-simple > li:hover {color: rgb(51,51,51);}.cherry-list-simple > li:hover::before {color: #555555;}.cherry-list-numbered-slash > li::before {color: #555555;}.cherry-list-numbered-slash > li:hover {color: #555555;}.cherry-list-numbered-slash > li:hover::before {color: rgb(51,51,51);}.cherry-list-icons > li {color: rgb(51,51,51);}.cherry-list-icons > li:hover {color: #555555;}.cherry-list-icons > li i {color: rgb(221,221,221);}.cherry-list-icons > li:hover i {color: rgb(51,51,51);}.cherry-hr-primary{background-color: #555555;}.cherry-hr-gray-lighter{background-color: rgb(221,221,221);}.cherry-hr-gray-dark{background-color: rgb(51,51,51);}.cherry-drop-cap:first-letter {color: #555555;}.cherry-drop-cap-bg:first-letter {background-color: #555555}.cherry-drop-cap-bg-grey:first-letter {background-color: rgb(119,119,119);}.cherry-blockquote, .cherry-blockquote:before{color: #555555;}.cherry-highlight {background-color: #555555;}.cherry-highlight-grey {background-color: rgb(221,221,221);}.cherry-btn-transparent:hover{color: #555555;}.cherry-tabs-nav span {color: #333333;}.cherry-tabs-nav span.cherry-tabs-current {color: #555555;border-bottom: 2px solid rgb(223,223,223);}.cherry-post-meta .cherry-post-date {color: #555555;}.portfolio-wrap .portfolio-container .portfolio-pagination ul.page-link li a {color: rgb(51,51,51);}.portfolio-wrap .portfolio-container .portfolio-pagination .page-nav a {color: rgb(51,51,51);}.text-muted {color: rgb(119,119,119);}.help-block {color: rgb(109,109,109);}legend {color: rgb(34,34,34);font-size: 23px;border-bottom: 1px solid rgb(223,223,223);}.cherry-highlight-grey {color: rgb(51,51,51);}abbr[title],abbr[data-original-title] {border-bottom: 1px dotted rgb(51,51,51);}output {color: #555555;font-size: 15px;line-height: 30px;}small, .small {color: rgb(51,51,51);}small, .small {font-size: 13px;}.form-control[disabled], .form-control[readonly], .form-control fieldset[disabled] {background-color: rgb(221,221,221);}.form-control {color: #555555;font-size: 15px;line-height: 30px;}.blockquote-reverse, blockquote.pull-right {border-right: 5px solid rgb(221,221,221);}.page-header {border-bottom: 1px solid rgb(221,221,221);}blockquote {border-left: 5px solid rgb(221,221,221);font-size: 18px;}hr {border-top: 1px solid rgb(221,221,221);}.close,.close:hover,.close:focus {color: #fcf8e3;font-size: 23px;}.lead {font-size: 17px;}.entry-content table {border: 1px solid rgb(186,186,186);}.entry-content table > thead > tr > th,.entry-content table > thead > tr > td,.entry-content table > tbody > tr > th,.entry-content table > tbody > tr > td,.entry-content table > tfoot > tr > th,.entry-content table > tfoot > tr > td {border: 1px solid rgb(186,186,186);line-height: 30px;}.table .table {background-color: #3a3a3a;}.table > thead > tr > th,.table > thead > tr > td,.table > tbody > tr > th,.table > tbody > tr > td,.table > tfoot > tr > th,.table > tfoot > tr > td {line-height: 30px;}dt,dd {line-height: 30px;}blockquote footer,blockquote small,blockquote .small {line-height: 30px;}address {line-height: 30px;}.cherry-nav-divider {background-color: rgb(221,221,221);}.cherry-box .box-primary {background-color: #555555;color: #ffffff;}.cherry-box .box-secondary {background-color: #333333;color: #ffffff;}.cherry-box .box-gray {background-color: #555555;}.cherry-box .box-primary-border {border-color: #555555;}.cherry-box .box-secondary-border {border-color: #333333;}.cherry-box .box-gray-border {border-color: #555555;}.text-primary {color:#555555;}.text-primary:hover {color:rgb(60,60,60);}.text-success {color:#dff0d8;}.text-success:hover {color:rgb(198,215,191);}.text-info {color:#d9edf7;}.text-info:hover {color:rgb(192,212,222);}.text-warning {color:#fcf8e3;}.text-warning:hover {color:rgb(227,223,202);}.text-danger {color:#f2dede;}.text-danger:hover {color:rgb(217,197,197);}.bg-primary {background-color:#555555;}.bg-primary:hover {background-color:rgb(60,60,60);}.bg-success {background-color:#dff0d8;}.bg-success:hover {background-color:rgb(198,215,191);}.bg-info {background-color:#d9edf7;}.bg-info:hover {background-color:rgb(192,212,222);}.bg-warning {background-color:#fcf8e3;}.bg-warning:hover {background-color:rgb(227,223,202);}.bg-danger {background-color:#f2dede;}.bg-danger:hover {background-color:rgb(217,197,197);}@media ( min-width:992px ) {.site-header.boxed { max-width: 1170px }.site-content.boxed { max-width: 1200px }.site-footer.boxed { max-width: 1170px }.site-header.boxed .container {width: auto;max-width: 1170px}.site-content.boxed .container{width: auto;max-width: 1200px}.site-footer.boxed .container {width: auto;max-width: 1170px}.site-header.wide .container,.site-content.wide .container,.site-footer.wide .container {width: auto;max-width: 1200px}}@media ( max-width:768px ) {.menu-primary_trigger {display: block;}.simple-menu.menu-items {display: none !important;}.simple-menu.menu-items[aria-expanded="true"] {display: block !important;}.simple-menu.menu-items {padding: 10px;background: #fafafa;}.simple-menu .sub-menu {position: static;float: none;visibility: visible;opacity: 1;padding: 0 0 0 20px;background: none;}.simple-menu .sub-menu li {float: none;}.simple-menu .sub-menu a {width: 100%;color: #555555;}.simple-menu > ul > li {float: none;display: block;margin: 0;padding: 0 0 3px 0;}}@media ( min-width:768px ) {.simple-menu li:hover > ul,.simple-menu li.focus > ul,.simple-menu li.menu-hover > ul {opacity: 1;visibility: visible;overflow: visible;}}/* general */h2:after{background: #555555;}/* primary butons */.cherry-btn.cherry-btn-primary, .mc4wp-form form input[type="submit"], .comments-area .comments .comment-body .reply a{border: 2px solid white;color: white;background-color: transparent;}.cherry-btn.cherry-btn-primary:hover, .mc4wp-form form input[type="submit"]:hover , .comments-area .comments .comment-body .reply a:hover{background-color: white;color: #555555;border: 2px solid white;}.cherry-btn.cherry-btn-primary.extrabutton_1, .portfolio-wrap .portfolio-ajax-button .load-more-button a,.entry-permalink .btn.btn-default, input[type="submit"],input[type="reset"] {border: 2px solid #555555;color: #555555;background-color: transparent;}.cherry-btn.cherry-btn-primary.extrabutton_1:hover,.portfolio-wrap .portfolio-ajax-button .load-more-button a:hover, .entry-permalink .btn.btn-default:hover, input[type="submit"]:hover, input[type="reset"]:hover{background-color: #555555;color: white;border: 2px solid #555555;}input[type="submit"],input[type="reset"], .search-form input[type="submit"], .widget .search-form input[type="submit"], .widget #mc4wp-form-1 input[type="submit"], .cherry-sidebar-secondary .mc4wp-form input[type="submit"],.cherry-sidebar-main .mc4wp-form input[type="submit"], .wpcf7 form .submit-wrap input[type="submit"], .wpcf7 form .submit-wrap input[type="reset"] {border: 2px solid #555555;color: #555555;background-color: transparent;}input[type="submit"]:hover, input[type="reset"]:hover, .search-form input[type="submit"]:hover, .widget .search-form input[type="submit"]:hover, .widget #mc4wp-form-1 input[type="submit"]:hover, .cherry-sidebar-secondary .mc4wp-form input[type="submit"]:hover, .cherry-sidebar-main .mc4wp-form input[type="submit"]:hover, .wpcf7 form .submit-wrap input[type="submit"]:hover, .wpcf7 form .submit-wrap input[type="reset"]:hover{background-color: #555555;color: white;border: 2px solid #555555;}/**** placeholders ****/::-webkit-input-placeholder { /* WebKit browsers */color: #555555;}:-moz-placeholder { /* Mozilla Firefox 4 to 18 */color: #555555;opacity:1;}::-moz-placeholder { /* Mozilla Firefox 19+ */color: #555555;opacity:1;}:-ms-input-placeholder { /* Internet Explorer 10+ */color: #555555;}/* mailchimp */.mc4wp-form form label{color: white;}/******** header ********/.site-link:hover{color: #555555;}.cherry-breadcrumbs{background-color: #ba252f;}.cherry-breadcrumbs_item a{color: white;}.cherry-breadcrumbs_item a:hover{opacity: 0.7;color: white;}.cherry-breadcrumbs_item_target{opacity: 0.7;color: white;}#static-area-header-top{position: relative;z-index: 2;-webkit-box-shadow: 0 5px 0 1px rgba(0,0,0,.09);box-shadow: 0 5px 0 1px rgba(0,0,0,.09);}/* menu header */#menu-primary #menu-primary-items > li > a:before{background: #f4f4f4;}/* sub-menu */#menu-primary .sub-menu, #menu-primary .simple-sub{background: #555555;}#menu-primary .sub-menu li a, #menu-primary .simple-sub li a{color: white;}#menu-primary .sub-menu li a:hover, #menu-primary .simple-sub li a:hover{color: #a0a0a0;}/* megamenu */.cherry-mega-menu-sub .mega-block-title{color: #c57962;}#menu-primary .cherry-mega-menu-sub.mega-sub{background: #555555;}#menu-primary .cherry-mega-menu-sub.mega-sub a{color: white;}#menu-primary .cherry-mega-menu-sub.mega-sub a:hover{color: #a0a0a0;}/* .menu-primary_trigger */.menu-primary_trigger{background: #555555;color: white;}.menu-primary_trigger:hover{color: white;background: #a0a0a0;}/* header follow */#header .cherry-follow_wrap .cherry-follow_item a:hover{color: #a0a0a0;}/* moto-slider */.slider_title_1{color: white;}.slider_title_2{color: white;}.moto-slider .ms_pagination .ms_bullet_wrapper a{background: white;} .moto-slider .ms_pagination .ms_bullet_wrapper a:hover, .moto-slider .ms_pagination .ms_bullet_wrapper a.ms_active{background: white;}.moto-slider a.slider_button{border: 2px solid white !important;color: white;}.moto-slider a.slider_button:hover{background-color:white;color: #555555;border: 2px solid white !important;}/* content *//* .cherry-services.extraservices */.cherry-services.extraservices .cherry-services_thumb a{color: white;}.cherry-services.extraservices .cherry-services_thumb a:hover{color: white;}/* tream page */.team-wrap .team-listing_item .team-listing_photo a:hover{color: #c57962;}.team-wrap.extrateam_1 .team-item .team-listing_photo a{color: white;}.cherry-list.font-icon ul li a{color: white;}.cherry-list.font-icon ul li a:hover{color: white;}.cherry-list.font-icon ul li a:before{background: white;}/* charts */.cherry-chart.chart-progress_bar .cherry-progress-bar strong{color: #555555;}/* team */.team-wrap.extrateam_1 .team-item .team-listing_name a{color: white;}.team-wrap.extrateam_1 .team-item .cherry-team_excerpt{color: white;}.team-wrap.extrateam_1 .team-item .team-listing_name a:hover{color: #555555;}.extrabox_5 h2, .extrabox_7 h2, .extrabox_7, .extrabox_7 h3, .extrabox_9, .extrabox_9 h3, .extrabox_9 h3 a, .extrabox_9 h2 {color: white;}.extrabox_5 h2:after, .extrabox_7 h2:after, .extrabox_9 h2:after{background: white;}.extrabox_2 strong, .extrabox_21 strong{color: white;}/*carousel 2 */.cherry-swiper-carousel.extracarousel_2 .cherry-services_feauters{color: #555555;padding: 43px 0 25px;letter-spacing: 10px;}/* carousel */.extrabox_3 .cherry-swiper-carousel-slide h3 a{color: white;}.extrabox_3 .cherry-swiper-carousel-slide .post-content{color: white;}.swiper-pagination-bullet{background: white;}.extrabox_3 .cherry-swiper-carousel-slide h3 a:hover{color: #555555;}.extrabox_3 .cherry-swiper-carousel-container .cherry-swiper-carousel-slide:before{background-color: white;}/* faqs *//* spoiler */.cherry-spoiler.cherry-spoiler-style-default .cherry-spoiler-title:hover{color: #ba252f;}/* posts */.page-numbers{background: #ba252f;color: white;}.page-numbers:hover{color: #555555;background: #f0f1f2;}.page-numbers.current{color: #555555;background: #f0f1f2;text-decoration: underline;}.entry-meta-top, .entry-meta-bottom{background: #f0f1f2;}.post.type-post .entry-meta-top, .post.type-post .entry-meta-bottom{background: #f0f1f2;}.post.type-post .entry-meta span{color: #555555;}.author-bio{background: #c57962;color: white;}.author-bio h3{color: white;}.author-bio h3 a{color: white;}.author-bio h3 a:hover{color: #555555;}.related-posts_title:after, .comments-title:after{background: #555555;}.comments-area .comments .comment-body{background: #c57962;color: white;}.comments-area .comments .comment-body .comment-metadata a{color: white;}.comments-area .comments .comment-body .comment-metadata a:hover{color: #555555;}.comments-area .comments #respond h3:after{background: #555555;}.comments-area .comments #respond #commentform input[type="text"], .comments-area .comments #respond #commentform input[type="email"], .comments-area .comments #respond #commentform input[type="url"], .comments-area .comments #respond #commentform textarea, .wpcf7 form input[type="text"], .wpcf7 form input[type="email"], .wpcf7 form textarea, .comments-area .comments #respond #commentform textarea{border: none;font-family: 'Open Sans', sans-serif;background:#d2d4d7;}.comments-area .comments #respond #commentform input[type="text"]:focus ,.comments-area .comments #respond #commentform textarea:focus, .comments-area .comments #respond #commentform input[type="email"]:focus, .comments-area .comments #respond #commentform input[type="url"]:focus, .wpcf7 form textarea:focus, .comments-area .comments #respond #commentform textarea:focus, .comments-area .comments #respond #commentform input[type="text"]:focus, .comments-area .comments #respond #commentform input[type="email"]:focus, .comments-area .comments #respond #commentform input[type="url"]:focus, .comments-area .comments #respond #commentform textarea:focus, .wpcf7 form input[type="text"]:focus, .wpcf7 form input[type="email"]:focus, .wpcf7 form textarea:focus, .comments-area .comments #respond #commentform textarea:focus{border: none;outline: none !important;background:#efefef;}/* sidebar *//* widgets *//* search form */.search-form input[type="search"], .widget-area #mc4wp-form-1 input[type="email"], .widget #mc4wp-form-1 input[type="email"], .cherry-sidebar-secondary .mc4wp-form input[type="email"], .cherry-sidebar-main .mc4wp-form input[type="email"]{outline: none;background: #d2d4d7;}.search-form input[type="search"]:focus, .widget-area #mc4wp-form-1 input[type="email"]:focus, .widget #mc4wp-form-1 input[type="email"]:focus, .cherry-sidebar-secondary .mc4wp-form input[type="email"]:focus, .cherry-sidebar-main .mc4wp-form input[type="email"]:focus{border: none;outline: none;background: #efefef !important;}/* pages widget */.widget.widget_pages li.page_item.current_page_item > a{color: #555555;}/* menu widgets */.widget-area .menu li.current_page_item > a, .widget .menu li.current_page_item > a{color: #dd3333;}/* pages widgets */.widget.widget_pages li.page_item.current_page_item > a{color: #dd3333;}/* follow *//* widget folow */.widget-area .cherry-social-follow-class .cherry-follow_label, .widget .cherry-social-follow-class .cherry-follow_label{color:#555555 !important;}.widget-area .cherry-social-follow-class .cherry-follow_label:hover, .widget .cherry-social-follow-class .cherry-follow_label:hover{color:#dd3333 !important;}/* calendar */#wp-calendar caption{color: #c57962;}#wp-calendar thead{background: #c57962;color: white;}#wp-calendar #today{background: #c57962;color: white;}/* portfolio *//* loader */.cherry-portfolio-ajax-loader .cherry-spinner .cherry-double-bounce1 {background: #ba252f;}.cherry-portfolio-ajax-loader .cherry-spinner .cherry-double-bounce2 {background: #ba252f;}/* filter/filter tag */.portfolio-wrap .portfolio-filter .filter.filter-category li a, .portfolio-wrap .portfolio-filter .filter.filter-tag li a{color: #555555;}.portfolio-wrap .portfolio-filter .filter.filter-category li a:hover, .portfolio-wrap .portfolio-filter .filter.filter-category li.active a, .portfolio-wrap .portfolio-filter .filter.filter-tag li a:hover, .portfolio-wrap .portfolio-filter .filter.filter-tag li.active a{color: #dd3333;}/* order filter */ul.order-filter > li span.marker {border-color: #555555 transparent transparent transparent;}.portfolio-wrap .portfolio-filter .order-filter > li ul{background-color: #555555;}.order-filter > li:hover{color: #dd3333;}.order-filter > li ul > li{color: white;text-decoration: none;}.order-filter > li ul > li:hover{color: #dd3333;}/* portfolio content */div.portfolio-wrap .list-layout .portfolio-item .inner-wrap .item-content{padding: 0;background-color: transparent;}/* portfolio pagin */.portfolio-wrap .portfolio-container .portfolio-pagination ul.page-link li a, .portfolio-wrap .portfolio-container .portfolio-pagination .page-nav a{background: #ba252f;color: white;}.portfolio-wrap .portfolio-container .portfolio-pagination ul.page-link li.active a,.portfolio-wrap .portfolio-container .portfolio-pagination ul.page-link li a:hover,.portfolio-wrap .portfolio-container .portfolio-pagination .page-nav a:hover{color: #555555;background: #f0f1f2;}/* portf ajax button */.portfolio-ajax-button .load-more-button a{background: #555555;}.portfolio-ajax-button .load-more-button a:hover{background: #555555;}/* portfolio content */div.portfolio-wrap div.portfolio-item .inner-wrap .item-content p{color: #3a3a3a;}/* portfolio single post */.single-portfolio article.type-portfolio .cherry-portfolio-single-post a:hover{color: #594a43;}.portfolio-wrap .grid-layout div.portfolio-item .inner-wrap .table-cell h3{color: white;}.portfolio-wrap .justified-layout div.portfolio-item .inner-wrap .table-cell h3, .portfolio-wrap .justified-layout div.portfolio-item .inner-wrap .table-cell .item-meta-container h5,.portfolio-wrap .justified-layout div.portfolio-item .inner-wrap .table-cell .item-meta-container h5 a{color: white;}.justified-layout div.portfolio-item .inner-wrap .table-cell .item-meta-container h5 a:hover{color: #555555;}/* link on image */div.portfolio-wrap div.portfolio-item .inner-wrap .rollover-content{background: rgba(90,205,212, 0.6);}div.portfolio-wrap .grid-layout div.portfolio-item .inner-wrap .rollover-content, div.portfolio-wrap .justified-layout div.portfolio-item .inner-wrap .rollover-content{background: rgba(90,205,212, 0.6);}div.portfolio-wrap div.portfolio-item .inner-wrap .links-container .item-link{border-color: white;background: white;color: #dd3333;}div.portfolio-wrap div.portfolio-item .inner-wrap .links-container .item-link:hover{border-color: white;color: white;background: #dd3333;}/* end portfolio *//* footer */#footer h3{color: #dd3333;}#footer a {color: white;}#footer a:hover {color: #dd3333;}.menu-secondary li > a {color: white;}.menu-secondary li.current_page_item > a, .menu-secondary li.current-menu-item > a, .menu-secondary li.current_page_ancestor > a{color: #dd3333;}#footer .static-footer-menu nav ul li a:hover{color: #dd3333;}#footer .cherry-follow_wrap.footer_social i{color: #777777;}#footer .cherry-follow_wrap.footer_social ul li a:hover{opacity: 1;}#footer .cherry-follow_wrap.footer_social ul li a:hover i{color: white;opacity: 1;}#footer .site-info{color: white;margin: 10px 0 20px;}#footer .site-info a{color: white;}#footer .site-info a:hover{color: #dd3333;}
+</style>
+<link rel='stylesheet' id='mpce-theme-css' href='https://www.eighty.com.br/wp-content/plugins/motopress-content-editor/includes/css/theme.min.css?ver=2.1.1' type='text/css' media='all' />
+<style id='mpce-theme-inline-css' type='text/css'>
+.mp-row-fixed-width {max-width:1170px;}
+</style>
+<link rel='stylesheet' id='mpce-font-awesome-css' href='https://www.eighty.com.br/wp-content/plugins/motopress-content-editor/fonts/font-awesome/css/font-awesome.min.css?ver=4.3.0' type='text/css' media='all' />
+<script type="text/javascript" src="https://www.eighty.com.br/wp-includes/js/jquery/jquery.min.js?ver=3.7.1" id="jquery-core-js"></script>
+<script type="text/javascript" src="https://www.eighty.com.br/wp-includes/js/jquery/jquery-migrate.min.js?ver=3.4.1" id="jquery-migrate-js"></script>
+<script type="text/javascript" src="https://www.eighty.com.br/wp-content/plugins/cf7-invisible-recaptcha/js/cf7_invisible_recaptcha.js?ver=1.2.3" id="cf7_invisible_recaptcha_functions-js"></script>
+<link rel="https://api.w.org/" href="https://www.eighty.com.br/wp-json/" /><link rel="alternate" type="application/json" href="https://www.eighty.com.br/wp-json/wp/v2/pages/5" /><link rel="EditURI" type="application/rsd+xml" title="RSD" href="https://www.eighty.com.br/xmlrpc.php?rsd" />
+<link rel="alternate" type="application/json+oembed" href="https://www.eighty.com.br/wp-json/oembed/1.0/embed?url=https%3A%2F%2Fwww.eighty.com.br%2F" />
+<link rel="alternate" type="text/xml+oembed" href="https://www.eighty.com.br/wp-json/oembed/1.0/embed?url=https%3A%2F%2Fwww.eighty.com.br%2F&#038;format=xml" />
+	<script type="text/javascript">
+		MPSLCore = {
+			'path': "https://www.eighty.com.br/wp-content/plugins/motopress-slider/motoslider_core/",
+			'version': "2.0.0"
+		};
+	</script>
+<link type="image/x-icon" href="https://www.eighty.com.br/wp-content/uploads/2016/12/apple-icon-152x152-1-150x150.png" rel="shortcut icon"><link href="https://www.eighty.com.br/wp-content/uploads/2016/12/apple-icon-152x152-1-150x150.png" sizes="57x57" rel="apple-touch-icon-precomposed"><link href="https://www.eighty.com.br/wp-content/uploads/2016/12/apple-icon-152x152-1-150x150.png" sizes="72x72" rel="apple-touch-icon-precomposed"><link href="https://www.eighty.com.br/wp-content/uploads/2016/12/apple-icon-152x152-1-150x150.png" sizes="114x114" rel="apple-touch-icon-precomposed"><link href="https://www.eighty.com.br/wp-content/uploads/2016/12/apple-icon-152x152-1-150x150.png" sizes="144x144" rel="apple-touch-icon-precomposed"></head>
+<body data-rsssl=1 class="home page-template-default page page-id-5 cherry-responsive cherry-no-sidebar" dir="ltr">
+
+	
+	<div id="site-wrapper" class="hfeed site">
+
+		<header id="header" class="site-header wide" role="banner">
+		<div id="static-area-header-top" class="header-top static-area"><div class="container"><div class="row"><div class="col-xs-12 col-sm-12 col-md-3 col-lg-3 static-header-logo"><div class="site-branding"><h1 class="site-title image-logo"><a href="https://www.eighty.com.br/" rel="home"><img src="https://www.eighty.com.br/wp-content/uploads/2016/12/logo_eighty-1.png" alt="Eighty"></a></h1> </div></div><div class="col-xs-12 col-sm-12 col-md-7 col-lg-7 static-header-menu">
+	<!-- Primary navigation -->
+	<nav class="menu-primary menu" role="navigation" id="menu-primary">
+
+		<button class="menu-primary_trigger" aria-expanded="false" aria-controls="menu-primary-items">Menu</button><ul id="menu-primary-items" class="menu-items simple-menu"><li id="menu-item-1589" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-has-children menu-item-1589"><a href="https://www.eighty.com.br/solucoes/">Soluções</a>
+<ul class="sub-menu">
+	<li id="menu-item-1758" class="menu-item menu-item-type-post_type menu-item-object-service menu-item-1758"><a href="https://www.eighty.com.br/servicos/live-streaming-curitiba/">Live Streaming &#8211; Transmissão</a></li>
+	<li id="menu-item-2093" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-2093"><a href="/servicos/tour-virtual-360-em-curitiba-parana/">Tour Virtual 360</a></li>
+	<li id="menu-item-1931" class="menu-item menu-item-type-post_type menu-item-object-service menu-item-1931"><a href="https://www.eighty.com.br/servicos/consultoria-em-marketing-digital-curitiba-diagnostico/">Consultoria em Marketing Digital</a></li>
+	<li id="menu-item-1760" class="menu-item menu-item-type-post_type menu-item-object-service menu-item-1760"><a href="https://www.eighty.com.br/servicos/marketing-de-conteudo/">Marketing de Conteúdo</a></li>
+	<li id="menu-item-1761" class="menu-item menu-item-type-post_type menu-item-object-service menu-item-1761"><a href="https://www.eighty.com.br/servicos/redes-sociais-curitiba/">Redes Sociais &#8211; Mídias</a></li>
+	<li id="menu-item-1762" class="menu-item menu-item-type-post_type menu-item-object-service menu-item-1762"><a href="https://www.eighty.com.br/servicos/seo-em-curitiba/">SEO &#8211; Otimização</a></li>
+	<li id="menu-item-1756" class="menu-item menu-item-type-post_type menu-item-object-service menu-item-1756"><a href="https://www.eighty.com.br/servicos/design-grafico-curitiba/">Design Gráfico &#8211; Publicidade</a></li>
+	<li id="menu-item-1755" class="menu-item menu-item-type-post_type menu-item-object-service menu-item-1755"><a href="https://www.eighty.com.br/servicos/criacao-de-sites-curitiba/">Criação de Sites</a></li>
+	<li id="menu-item-1759" class="menu-item menu-item-type-post_type menu-item-object-service menu-item-1759"><a href="https://www.eighty.com.br/servicos/lojas-virtuais-curitiba/">Lojas Virtuais</a></li>
+	<li id="menu-item-1952" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-1952"><a href="https://www.eighty.com.br/servicos/criacao-de-aplicativos-curitiba-android-e-ios/">Criação de Aplicativos</a></li>
+	<li id="menu-item-1757" class="menu-item menu-item-type-post_type menu-item-object-service menu-item-1757"><a href="https://www.eighty.com.br/servicos/divulgacao-na-imprensa/">Divulgação na Imprensa</a></li>
+</ul>
+</li>
+<li id="menu-item-1590" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-has-children menu-item-1590"><a href="https://www.eighty.com.br/sobre-nos/">Quem Somos</a>
+<ul class="sub-menu">
+	<li id="menu-item-1675" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-1675"><a href="https://www.eighty.com.br/sobre-nos/">A Empresa</a></li>
+	<li id="menu-item-1710" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-1710"><a href="https://www.eighty.com.br/portfolio/">Portfólio</a></li>
+	<li id="menu-item-1697" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-1697"><a href="https://www.eighty.com.br/clientes/">Clientes</a></li>
+	<li id="menu-item-1674" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-1674"><a href="https://www.eighty.com.br/equipe/">Equipe</a></li>
+	<li id="menu-item-1664" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-1664"><a href="https://www.eighty.com.br/depoimentos/">Depoimentos</a></li>
+</ul>
+</li>
+<li id="menu-item-1591" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-1591"><a href="https://www.eighty.com.br/blog/">Blog</a></li>
+<li id="menu-item-1592" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-1592"><a href="https://www.eighty.com.br/contato/">Contato</a></li>
+<li id="menu-item-1933" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-1933"><a href="tel:+5541999937156">(41) 4042-2480</a></li>
+</ul>
+	</nav>
+
+</div><div class="col-xs-12 col-sm-12 col-md-2 col-lg-2 static-social-follow"><div id='cherry-follow-items-1' class='cherry-follow_wrap'><ul class='cherry-follow_list clearfix'><li class="cherry-follow_item google-item"><a class="cherry-follow_link" href="https://plus.google.com/u/0/+CafetecnologiaBrasil110473764189007055556/posts" target="_blank" rel="nofollow" title="Google+"><i class='flaticon-googleplus'></i><span class="cherry-follow_label">Google+</span></a></li><li class="cherry-follow_item twitter-item"><a class="cherry-follow_link" href="https://twitter.com/eighty_brasil" target="_blank" rel="nofollow" title="Twitter"><i class='flaticon-twitter'></i><span class="cherry-follow_label">Twitter</span></a></li><li class="cherry-follow_item facebook-item"><a class="cherry-follow_link" href="https://www.facebook.com/eighty.brasil/" target="_blank" rel="nofollow" title="Facebook"><i class='flaticon-facebook'></i><span class="cherry-follow_label">Facebook</span></a></li></ul></div></div></div></div></div><div id="static-area-showcase-area" class="showcase-area static-area"><div class="container"><div class="row"><div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 static-moto-slider moto-slider"><div class="motoslider_wrapper " id="motoslider_wrapper655dba7fe8abd" >
+        <div data-motoslider style="height: 797px; max-height: 797px;">
+    </div>
+    <div class="motoslider">
+        <div id="settings"  data-full-window-width="true" data-full-height="false" data-full-height-offset="px" data-full-height-offset-container="" data-full-size-grid="false" data-timer="true" data-timer-delay="5000" data-hover-timer="false" data-counter="false" data-slider-layout="auto" data-timer-reverse="false" data-arrows-show="false" data-thumbnails-show="true" data-slideshow-timer-show="false" data-slideshow-ppb-show="false" data-controls-hide-on-leave="false" data-swipe="false" data-delay-init="0" data-scroll-init="false" data-start-slide="1" data-visible-from="" data-visible-till="" data-layout-desktop-width="1170" data-layout-desktop-height="797" data-layout-notebook-width="1024" data-layout-notebook-height="768" data-layout-tablet-width="778" data-layout-tablet-height="960" data-layout-mobile-width="480" data-layout-mobile-height="720" data-layout="true;false;false;false" data-custom-class="">
+        </div>
+        <div id="slides">
+                            <div class="slide"  data-class="" data-id="" data-animation="msSlide" data-fade-animation="msSlide" data-duration="1500" data-easing="easeOutCirc">
+                    <div class="slide_bg" >
+                        <div  data-type="color" data-color="rgb(104, 194, 182)"></div><div  data-src="https://www.eighty.com.br/wp-content/uploads/2016/09/home_design_grafico_agencia_cafetecnologia_curitiba.jpg" data-type="image" data-fit="normal" data-position="percentage" data-position-x="29" data-position-y="0" data-repeat="no-repeat"></div>                    </div>
+                    <div class="layers">
+                                                            <div class="layer"  data-type="html" data-align-horizontal="right;right;right;right" data-align-vertical="middle;middle;middle;middle" data-offset-x="11;11;11;11" data-offset-y="-292;-292;-292;-292" data-animation="fadeInRightBig" data-timing-function="linear" data-duration="1000" data-leave-animation="fadeOutLeftBig" data-leave-timing-function="linear" data-leave-duration="1000" data-delay="50" data-resizable="1" data-dont-change-position="" data-hide-width="" data-font-size=";;;" data-line-height=";;;" data-text-align=";;;" data-width=";;;" data-leave-delay="7200" data-white-space="normal;normal;normal;normal" data-class="slider_title_1 mpsl-layer mpsl-private-preset-57">Design Gráfico</div>
+                                                                    <div class="layer"  data-type="html" data-align-horizontal="right;right;right;right" data-align-vertical="middle;middle;middle;middle" data-offset-x="11;11;11;11" data-offset-y="-189;-189;-189;-189" data-animation="fadeInRightBig" data-timing-function="linear" data-duration="1000" data-leave-animation="fadeOutLeftBig" data-leave-timing-function="linear" data-leave-duration="1000" data-delay="250" data-resizable="1" data-dont-change-position="" data-hide-width="" data-font-size=";;;" data-line-height=";;;" data-text-align=";;;" data-width=";;;" data-leave-delay="7300" data-white-space="normal;normal;normal;normal" data-class="slider_title_2 mpsl-layer">Logomarcas, Identidade Visual, Banners,<br />Outdoors, Design Editorial, Web Design.</div>
+                                                                    <div class="layer"  data-link="/servicos/design-grafico-curitiba/" data-target="_self" data-type="button" data-align-horizontal="right;right;right;right" data-align-vertical="middle;middle;middle;middle" data-offset-x="11;11;11;11" data-offset-y="-93;-93;-93;-93" data-animation="fadeInRightBig" data-timing-function="linear" data-duration="1000" data-leave-animation="fadeOutLeftBig" data-leave-timing-function="linear" data-leave-duration="1000" data-delay="450" data-resizable="1" data-dont-change-position="" data-hide-width="" data-font-size=";;;" data-line-height=";;;" data-text-align=";;;" data-leave-delay="7400" data-class="slider_button mpsl-layer">leia mais</div>
+                                                    </div>
+                </div>
+                            <div class="slide"  data-class="" data-id="" data-animation="msSlide" data-fade-animation="msSlide" data-duration="1500" data-easing="easeOutCirc">
+                    <div class="slide_bg" >
+                        <div  data-type="color" data-color="rgb(90, 221, 219)"></div><div  data-src="https://www.eighty.com.br/wp-content/uploads/2016/09/home_lojas_virtuais_agencia_cafetecnologia_curitiba.jpg" data-type="image" data-fit="normal" data-position="percentage" data-position-x="29" data-position-y="0" data-repeat="no-repeat"></div>                    </div>
+                    <div class="layers">
+                                                            <div class="layer"  data-type="html" data-align-horizontal="right;right;right;right" data-align-vertical="middle;middle;middle;middle" data-offset-x="14;14;14;14" data-offset-y="-297;-297;-297;-297" data-animation="fadeInRightBig" data-timing-function="linear" data-duration="1000" data-leave-animation="fadeOutLeftBig" data-leave-timing-function="linear" data-leave-duration="1000" data-delay="50" data-resizable="1" data-dont-change-position="" data-hide-width="" data-font-size=";;;" data-line-height=";;;" data-text-align=";;;" data-width=";;;" data-leave-delay="7200" data-white-space="normal;normal;normal;normal" data-class="slider_title_1 mpsl-layer">E-commerce</div>
+                                                                    <div class="layer"  data-type="html" data-align-horizontal="right;right;right;right" data-align-vertical="middle;middle;middle;middle" data-offset-x="14;14;14;14" data-offset-y="-195;-195;-195;-195" data-animation="fadeInRightBig" data-timing-function="linear" data-duration="1000" data-leave-animation="fadeOutLeftBig" data-leave-timing-function="linear" data-leave-duration="1000" data-delay="250" data-resizable="1" data-dont-change-position="" data-hide-width="" data-font-size=";;;" data-line-height=";;;" data-text-align=";;;" data-width=";;;" data-leave-delay="7300" data-white-space="normal;normal;normal;normal" data-class="slider_title_2 mpsl-layer">Aumente os seus lucros<br />vendendo pela Internet.</div>
+                                                                    <div class="layer"  data-link="/servicos/lojas-virtuais-curitiba/" data-target="_self" data-type="button" data-align-horizontal="right;right;right;right" data-align-vertical="middle;middle;middle;middle" data-offset-x="14;14;14;14" data-offset-y="-89;-89;-89;-89" data-animation="fadeInRightBig" data-timing-function="linear" data-duration="1000" data-leave-animation="fadeOutLeftBig" data-leave-timing-function="linear" data-leave-duration="1000" data-delay="450" data-resizable="1" data-dont-change-position="" data-hide-width="" data-font-size=";;;" data-line-height=";;;" data-text-align=";;;" data-leave-delay="7400" data-class="slider_button mpsl-layer">leia mais</div>
+                                                    </div>
+                </div>
+                            <div class="slide"  data-class="" data-id="" data-animation="msSlide" data-fade-animation="msSlide" data-duration="1500" data-easing="easeOutCirc">
+                    <div class="slide_bg" >
+                        <div  data-type="color" data-color="rgb(186, 37, 47)"></div><div  data-src="https://www.eighty.com.br/wp-content/uploads/motopress-slider/import/slide_1img-4.jpg" data-type="image" data-fit="normal" data-position="percentage" data-position-x="29" data-position-y="0" data-repeat="no-repeat"></div>                    </div>
+                    <div class="layers">
+                                                            <div class="layer"  data-type="html" data-align-horizontal="right;right;right;right" data-align-vertical="middle;middle;middle;middle" data-offset-x="14;14;14;14" data-offset-y="-287;-287;-287;-287" data-animation="fadeInRightBig" data-timing-function="linear" data-duration="1000" data-leave-animation="fadeOutLeftBig" data-leave-timing-function="linear" data-leave-duration="1000" data-delay="50" data-resizable="1" data-dont-change-position="" data-hide-width="" data-font-size=";;;" data-line-height=";;;" data-text-align=";;;" data-width=";;;" data-leave-delay="7200" data-white-space="normal;normal;normal;normal" data-class="slider_title_1 mpsl-layer mpsl-private-preset-51">Criação de Sites</div>
+                                                                    <div class="layer"  data-type="html" data-align-horizontal="right;right;right;right" data-align-vertical="middle;middle;middle;middle" data-offset-x="14;14;14;14" data-offset-y="-185;-185;-185;-185" data-animation="fadeInRightBig" data-timing-function="linear" data-duration="1000" data-leave-animation="fadeOutLeftBig" data-leave-timing-function="linear" data-leave-duration="1000" data-delay="250" data-resizable="1" data-dont-change-position="" data-hide-width="" data-font-size=";;;" data-line-height=";;;" data-text-align=";;;" data-width=";;;" data-leave-delay="7300" data-white-space="normal;normal;normal;normal" data-class="slider_title_2 mpsl-layer mpsl-private-preset-52">Sites dinâmicos e responsivos.</div>
+                                                                    <div class="layer"  data-link="/servicos/criacao-de-sites-curitiba/" data-target="_self" data-type="button" data-align-horizontal="right;right;right;right" data-align-vertical="middle;middle;middle;middle" data-offset-x="14;14;14;14" data-offset-y="-83;-83;-83;-83" data-animation="fadeInRightBig" data-timing-function="linear" data-duration="1000" data-leave-animation="fadeOutLeftBig" data-leave-timing-function="linear" data-leave-duration="1000" data-delay="450" data-resizable="1" data-dont-change-position="" data-hide-width="" data-font-size=";;;" data-line-height=";;;" data-text-align=";;;" data-leave-delay="7400" data-class="slider_button mpsl-layer">leia mais</div>
+                                                    </div>
+                </div>
+                            <div class="slide"  data-class="" data-id="" data-animation="msSlide" data-fade-animation="msSlide" data-duration="1500" data-easing="easeOutCirc">
+                    <div class="slide_bg" >
+                        <div  data-type="color" data-color="rgb(85, 178, 209)"></div><div  data-src="https://www.eighty.com.br/wp-content/uploads/2016/09/home_redes_sociais_agencia_cafetecnologia_curitiba.jpg" data-type="image" data-fit="normal" data-position="percentage" data-position-x="29" data-position-y="0" data-repeat="no-repeat"></div>                    </div>
+                    <div class="layers">
+                                                            <div class="layer"  data-type="html" data-align-horizontal="right;right;right;right" data-align-vertical="middle;middle;middle;middle" data-offset-x="12;12;12;12" data-offset-y="-302;-302;-302;-302" data-animation="fadeInRightBig" data-timing-function="linear" data-duration="1000" data-leave-animation="fadeOutLeftBig" data-leave-timing-function="linear" data-leave-duration="1000" data-delay="50" data-resizable="1" data-dont-change-position="" data-hide-width="" data-font-size=";;;" data-line-height=";;;" data-text-align=";;;" data-width=";;;" data-leave-delay="7200" data-white-space="normal;normal;normal;normal" data-class="slider_title_1 mpsl-layer mpsl-private-preset-60">Redes Sociais</div>
+                                                                    <div class="layer"  data-type="html" data-align-horizontal="right;right;right;right" data-align-vertical="middle;middle;middle;middle" data-offset-x="12;12;12;12" data-offset-y="-193;-193;-193;-193" data-animation="fadeInRightBig" data-timing-function="linear" data-duration="1000" data-leave-animation="fadeOutLeftBig" data-leave-timing-function="linear" data-leave-duration="1000" data-delay="250" data-resizable="1" data-dont-change-position="" data-hide-width="" data-font-size=";;;" data-line-height=";;;" data-text-align=";;;" data-width=";;;" data-leave-delay="7300" data-white-space="normal;normal;normal;normal" data-class="slider_title_2 mpsl-layer">Administração e Gerenciamento de<br />Facebook, Twitter, Linkedin.</div>
+                                                                    <div class="layer"  data-link="/servicos/redes-sociais-curitiba/" data-target="_self" data-type="button" data-align-horizontal="right;right;right;right" data-align-vertical="middle;middle;middle;middle" data-offset-x="12;12;12;12" data-offset-y="-96;-96;-96;-96" data-animation="fadeInRightBig" data-timing-function="linear" data-duration="1000" data-leave-animation="fadeOutLeftBig" data-leave-timing-function="linear" data-leave-duration="1000" data-delay="450" data-resizable="1" data-dont-change-position="" data-hide-width="" data-font-size=";;;" data-line-height=";;;" data-text-align=";;;" data-leave-delay="7400" data-class="slider_button mpsl-layer">leia mais</div>
+                                                    </div>
+                </div>
+                            <div class="slide"  data-class="" data-id="" data-animation="msSlide" data-fade-animation="msSlide" data-duration="1500" data-easing="easeOutCirc">
+                    <div class="slide_bg" >
+                        <div  data-type="color" data-color="rgb(131, 158, 164)"></div><div  data-src="https://www.eighty.com.br/wp-content/uploads/motopress-slider/import/slide_2img-4.jpg" data-type="image" data-fit="normal" data-position="percentage" data-position-x="29" data-position-y="0" data-repeat="no-repeat"></div>                    </div>
+                    <div class="layers">
+                                                            <div class="layer"  data-type="html" data-align-horizontal="right;right;right;right" data-align-vertical="middle;middle;middle;middle" data-offset-x="6;6;6;6" data-offset-y="-305;-305;-305;-305" data-animation="fadeInRightBig" data-timing-function="linear" data-duration="1000" data-leave-animation="fadeOutLeftBig" data-leave-timing-function="linear" data-leave-duration="1000" data-delay="50" data-resizable="1" data-dont-change-position="" data-hide-width="" data-font-size=";;;" data-line-height=";;;" data-text-align=";;;" data-width=";;;" data-leave-delay="7200" data-white-space="normal;normal;normal;normal" data-class="slider_title_1 mpsl-layer mpsl-private-preset-40">Marketing de Conteúdo</div>
+                                                                    <div class="layer"  data-type="html" data-align-horizontal="right;right;right;right" data-align-vertical="middle;middle;middle;middle" data-offset-x="6;6;6;6" data-offset-y="-200;-200;-200;-200" data-animation="fadeInRightBig" data-timing-function="linear" data-duration="1000" data-leave-animation="fadeOutLeftBig" data-leave-timing-function="linear" data-leave-duration="1000" data-delay="250" data-resizable="1" data-dont-change-position="" data-hide-width="" data-font-size=";;;" data-line-height=";;;" data-text-align=";;;" data-width=";;;" data-leave-delay="7300" data-white-space="normal;normal;normal;normal" data-class="slider_title_2 mpsl-layer mpsl-private-preset-41">Criação de conteúdo original e de<br />qualidade para o site da sua empresa.</div>
+                                                                    <div class="layer"  data-link="/servicos/marketing-de-conteudo/" data-target="_self" data-type="button" data-align-horizontal="right;right;right;right" data-align-vertical="middle;middle;middle;middle" data-offset-x="6;6;6;6" data-offset-y="-103;-103;-103;-103" data-animation="fadeInRightBig" data-timing-function="linear" data-duration="1000" data-leave-animation="fadeOutLeftBig" data-leave-timing-function="linear" data-leave-duration="1000" data-delay="450" data-resizable="1" data-dont-change-position="" data-hide-width="" data-font-size=";;;" data-line-height=";;;" data-text-align=";;;" data-leave-delay="7400" data-class="slider_button mpsl-layer">leia mais</div>
+                                                    </div>
+                </div>
+                            <div class="slide"  data-class="" data-id="" data-animation="msSlide" data-fade-animation="msSlide" data-duration="1500" data-easing="easeOutCirc">
+                    <div class="slide_bg" >
+                        <div  data-type="color" data-color="rgb(27, 49, 64)"></div><div  data-src="https://www.eighty.com.br/wp-content/uploads/motopress-slider/import/slide_3img-4.jpg" data-type="image" data-fit="normal" data-position="percentage" data-position-x="29" data-position-y="0" data-repeat="no-repeat"></div>                    </div>
+                    <div class="layers">
+                                                            <div class="layer"  data-type="html" data-align-horizontal="right;right;right;right" data-align-vertical="middle;middle;middle;middle" data-offset-x="18;18;18;18" data-offset-y="-285;-285;-285;-285" data-animation="fadeInRightBig" data-timing-function="linear" data-duration="1000" data-leave-animation="fadeOutLeftBig" data-leave-timing-function="linear" data-leave-duration="1000" data-delay="50" data-resizable="1" data-dont-change-position="" data-hide-width="" data-font-size=";;;" data-line-height=";;;" data-text-align=";;;" data-width=";;;" data-leave-delay="7200" data-white-space="normal;normal;normal;normal" data-class="slider_title_1 mpsl-layer mpsl-private-preset-43">SEO / SEM</div>
+                                                                    <div class="layer"  data-type="html" data-align-horizontal="right;right;right;right" data-align-vertical="middle;middle;middle;middle" data-offset-x="18;18;18;18" data-offset-y="-179;-179;-179;-179" data-animation="fadeInRightBig" data-timing-function="linear" data-duration="1000" data-leave-animation="fadeOutLeftBig" data-leave-timing-function="linear" data-leave-duration="1000" data-delay="250" data-resizable="1" data-dont-change-position="" data-hide-width="" data-font-size=";;;" data-line-height=";;;" data-text-align=";;;" data-width=";;;" data-leave-delay="7300" data-white-space="normal;normal;normal;normal" data-class="slider_title_2 mpsl-layer mpsl-private-preset-44">Melhore seus rankings no Google com<br />a Otimização de Buscadores.</div>
+                                                                    <div class="layer"  data-link="/servicos/seo-em-curitiba/" data-target="_blank" data-type="button" data-align-horizontal="right;right;right;right" data-align-vertical="middle;middle;middle;middle" data-offset-x="18;18;18;18" data-offset-y="-75;-75;-75;-75" data-animation="fadeInRightBig" data-timing-function="linear" data-duration="1000" data-leave-animation="fadeOutLeftBig" data-leave-timing-function="linear" data-leave-duration="1000" data-delay="450" data-resizable="1" data-dont-change-position="" data-hide-width="" data-font-size=";;;" data-line-height=";;;" data-text-align=";;;" data-leave-delay="7400" data-class="slider_button mpsl-layer">leia mais</div>
+                                                    </div>
+                </div>
+                    </div>
+    </div>
+</div>
+<p class="motopress-hide-script mpsl-hide-script">
+    <script type="text/javascript" id='mpsl-fix-height-motoslider_wrapper655dba7fe8abd'>
+        var aspect = 0.68119658119658;
+        var sliderWrapper = document.getElementById('motoslider_wrapper655dba7fe8abd');
+        var outerWidth = sliderWrapper.offsetWidth;
+        var curHeight = outerWidth * aspect;
+        sliderWrapper.querySelector('[data-motoslider]').height = curHeight + 'px';
+    </script>
+</p></div></div></div></div>
+		</header>
+<div id="content" class="site-content wide">
+	<div class="container-fluid">
+
+		<div id="primary" class="content-area"><main id="main" class="site-main" role="main"><article class="clearfix post-5 page type-page status-publish hentry" id="post-5">
+
+
+<div class="entry-meta entry-meta-top">
+	
+	
+	
+</div>
+
+<div class="entry-content"><div class="row extrabox_1 " ><div class="cherry-box   box-942"><div class="inner"><div class="container"><div class="row row-edge">
+<div class="row  " ><div class="container"><div class="row row-edge">
+<div class="col-md-12">
+<h2>Bem-vindo!</h2>
+</div>
+</div></div></div>
+<div class="col-xs-12 col-sm-3 col-md-4 col-lg-5">
+</div>
+<div class="col-xs-12 col-sm-9 col-md-8 col-lg-7">
+<div class="row row-edge  " >
+<div class="col-md-12">
+<h3>Tecnologia, Qualidade e bom Atendimento.</h3>
+</div>
+</div>
+<div class="row row-edge  " >
+<div class="col-md-12">
+<p style="text-align: justify;">A <strong>Eighty</strong> é uma Agência de Marketing Digital focada em otimizar os resultados dos seus clientes. Ao longo de mais de uma década de história, inúmeros projetos foram desenvolvidos em ambiente online e offline, entre eles a criação de sites e lojas virtuais, administração de Redes Sociais, gerenciamento de campanhas de publicidade, desenvolvimento de logomarcas, projetos gráficos, identidade visual, design de embalagens, manuais de produtos, rotulagem, etc.</p>
+</div>
+</div>
+<div class="row row-edge  " >
+<div class="col-md-12">
+<a class="cherry-btn cherry-btn-primary cherry-btn-medium cherry-btn-inline cherry-btn-fade extrabutton_1 " target="_self" href="/sobre-nos/">leia mais</a>
+</div>
+</div>
+</div>
+</div></div></div></div></div>
+<div class="row extrabox_2 " ><div class="cherry-box   box-267"><div class="inner"><div class="container-fluid"><div class="row row-edge"><div class="col-md-12">
+<div class="row  " ><div class="container"><div class="row row-edge">
+<div class="col-xs-12 col-sm-12 col-md-8 col-lg-8">
+<p><strong>Soluções Inovadoras</strong></p>
+</div>
+<div class="col-xs-12 col-sm-12 col-md-4 col-lg-4">
+<a class="cherry-btn cherry-btn-primary cherry-btn-medium cherry-btn-inline cherry-btn-fade  " target="_self" href="/solucoes/">leia mais</a>
+</div>
+</div></div></div>
+</div></div></div></div></div></div>
+<div class="row extrabox_3 " ><div class="cherry-box   box-120"><div class="inner"><div class="container-fluid"><div class="row row-edge">
+<div class="col-md-12">
+<div class="row  " ><div class="container"><div class="row row-edge">
+<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+<div class="cherry-swiper-carousel-container"><section id="cherry-swiper-carousel-1" class="cherry-swiper-carousel swiper-container template-swiper_carousel_1 extratesti_1" data-post-per-page="3" data-slides-per-view="1" data-slides-per-group="1" data-slides-per-column="1" data-space-between-slides="10" data-duration-speed="300" data-swiper-loop="1" data-free-mode="" data-grab-cursor="1" data-mouse-wheel="" data-centered-slide="" data-swiper-effect="slide" data-uniq-id="swiper-carousel-1"><div class="swiper-wrapper"><article class="cherry-swiper-carousel-slide swiper-slide post-item testimonial-item item-0 odd"><div class="inner clearfix"><h3><a href="https://www.eighty.com.br/testimonial-view/philip-jones/" title="Josimar Monteiro Silva">Josimar Monteiro Silva</a></h3>
+<div class="post-content part">Minha empresa precisava de uma consultoria em Serviços Online de modo a identificarmos os pontos e fracos da nossa presença online e também traçar um diagnóstico com as</div></div></article><!--/.cherry-swiper-carousel-item--><article class="cherry-swiper-carousel-slide swiper-slide post-item testimonial-item item-1 even"><div class="inner clearfix"><h3><a href="https://www.eighty.com.br/testimonial-view/sandra-cox/" title="Hellen Pereira Nunes">Hellen Pereira Nunes</a></h3>
+<div class="post-content part">A marca da minha empresa precisava passar por modificações e modernização, além de necessitar de uma identidade visual que nunca tivemos. Contratei os serviços da Eighty, que além</div></div></article><!--/.cherry-swiper-carousel-item--><article class="cherry-swiper-carousel-slide swiper-slide post-item testimonial-item item-2 odd"><div class="inner clearfix"><h3><a href="https://www.eighty.com.br/testimonial-view/jacob-scott/" title="Márcio Assis Barros">Márcio Assis Barros</a></h3>
+<div class="post-content part">Fiz meu projeto de comércio eletrônico com a Eighty, que demonstrou conhecimento técnico acima das minhas expectativas. Hoje a Internet representa mais de 50% do faturamento mensal da</div></div></article><!--/.cherry-swiper-carousel-item--></div><div id="swiper-carousel-1-pagination" class="swiper-pagination"></div></section></div>
+</div>
+</div></div></div>
+</div>
+</div></div></div></div></div>
+<div class="row extrabox_4 " ><div class="container"><div class="row row-edge">
+<div class="col-md-12">
+<div class="row  " ><div class="container"><div class="row row-edge">
+<div class="col-md-12">
+<h2>Nossas Soluções</h2>
+</div>
+</div></div></div>
+<div class="row  " ><div class="container"><div class="row row-edge">
+<div class="col-md-12">
+<div class="cherry-swiper-carousel-container"><section id="cherry-swiper-carousel-2" class="cherry-swiper-carousel swiper-container template-swiper_carousel_2 extracarousel_2" data-post-per-page="4" data-slides-per-view="4" data-slides-per-group="1" data-slides-per-column="1" data-space-between-slides="30" data-duration-speed="300" data-swiper-loop="1" data-free-mode="" data-grab-cursor="1" data-mouse-wheel="" data-centered-slide="" data-swiper-effect="slide" data-uniq-id="swiper-carousel-2"><div class="swiper-wrapper"><article class="cherry-swiper-carousel-slide swiper-slide post-item service-item item-0 odd"><div class="inner clearfix"><img fetchpriority="high" decoding="async" width="640" height="480" src="https://www.eighty.com.br/wp-content/uploads/2021/05/criar-tour-virtual-360-graus-curitiba-parana-brasil.jpg" class="attachment-large size-large wp-post-image" alt="" srcset="https://www.eighty.com.br/wp-content/uploads/2021/05/criar-tour-virtual-360-graus-curitiba-parana-brasil.jpg 640w, https://www.eighty.com.br/wp-content/uploads/2021/05/criar-tour-virtual-360-graus-curitiba-parana-brasil-300x225.jpg 300w" sizes="(max-width: 640px) 100vw, 640px" />
+
+<h3><a href="https://www.eighty.com.br/servicos/tour-virtual-360-em-curitiba-parana/" title="Tour Virtual 360">Tour Virtual 360</a></h3>
+<div class="post-content part">Um Tour Virtual 360 é uma coleção de imagens panorâmicas rotativas de 360 graus, &#8220;costuradas&#8221; juntas para formar uma visão</div></div></article><!--/.cherry-swiper-carousel-item--><article class="cherry-swiper-carousel-slide swiper-slide post-item service-item item-1 even"><div class="inner clearfix"><img decoding="async" width="640" height="480" src="https://www.eighty.com.br/wp-content/uploads/2019/05/criacao-de-aplicativos-curitiba-parana-android-ios.jpg" class="attachment-large size-large wp-post-image" alt="" srcset="https://www.eighty.com.br/wp-content/uploads/2019/05/criacao-de-aplicativos-curitiba-parana-android-ios.jpg 640w, https://www.eighty.com.br/wp-content/uploads/2019/05/criacao-de-aplicativos-curitiba-parana-android-ios-300x225.jpg 300w" sizes="(max-width: 640px) 100vw, 640px" />
+
+<h3><a href="https://www.eighty.com.br/servicos/criacao-de-aplicativos-curitiba-android-e-ios/" title="Criação de Aplicativos &#8211; Curitiba &#8211; Android e iOS">Criação de Aplicativos &#8211; Curitiba &#8211; Android e iOS</a></h3>
+<div class="post-content part">Para a criação de aplicativos é necessário grande know-how para o desenvolvimento do layout e também da parte técnica do app.</div></div></article><!--/.cherry-swiper-carousel-item--><article class="cherry-swiper-carousel-slide swiper-slide post-item service-item item-2 odd"><div class="inner clearfix"><img decoding="async" width="640" height="480" src="https://www.eighty.com.br/wp-content/uploads/2017/10/consultoria-em-marketing-digital-curitiba.jpg" class="attachment-large size-large wp-post-image" alt="" srcset="https://www.eighty.com.br/wp-content/uploads/2017/10/consultoria-em-marketing-digital-curitiba.jpg 640w, https://www.eighty.com.br/wp-content/uploads/2017/10/consultoria-em-marketing-digital-curitiba-300x225.jpg 300w" sizes="(max-width: 640px) 100vw, 640px" />
+
+<h3><a href="https://www.eighty.com.br/servicos/consultoria-em-marketing-digital-curitiba-diagnostico/" title="Consultoria Marketing Digital Curitiba &#8211; Diagnóstico">Consultoria Marketing Digital Curitiba &#8211; Diagnóstico</a></h3>
+<div class="post-content part">Você sabia que mais de 90% das empresas que possuem alguma presença online desconhecem o quão bem (ou mal) está</div></div></article><!--/.cherry-swiper-carousel-item--><article class="cherry-swiper-carousel-slide swiper-slide post-item service-item item-3 even"><div class="inner clearfix"><img loading="lazy" decoding="async" width="640" height="480" src="https://www.eighty.com.br/wp-content/uploads/2016/09/lojas_virtuais_agencia_cafetecnologia_curitiba.jpg" class="attachment-large size-large wp-post-image" alt="" srcset="https://www.eighty.com.br/wp-content/uploads/2016/09/lojas_virtuais_agencia_cafetecnologia_curitiba.jpg 640w, https://www.eighty.com.br/wp-content/uploads/2016/09/lojas_virtuais_agencia_cafetecnologia_curitiba-300x225.jpg 300w" sizes="(max-width: 640px) 100vw, 640px" />
+
+<h3><a href="https://www.eighty.com.br/servicos/lojas-virtuais-curitiba/" title="Lojas Virtuais Curitiba &#8211; Portais de E-commerce">Lojas Virtuais Curitiba &#8211; Portais de E-commerce</a></h3>
+<div class="post-content part">Desenvolvemos o E-commerce (loja virtual) da sua empresa utilizando as mais bem conceituadas plataformas de comércio eletrônico do mercado, de</div></div></article><!--/.cherry-swiper-carousel-item--></div></section><div id="swiper-carousel-2-next" class="swiper-button-next outer"></div><div id="swiper-carousel-2-prev" class="swiper-button-prev outer"></div></div>
+</div>
+</div></div></div>
+</div>
+</div></div></div>
+<div class="row extrabox_5 " ><div class="cherry-box   box-747"><div class="inner"><div class="container"><div class="row row-edge">
+<div class="col-md-12">
+<div class="row  " ><div class="container"><div class="row row-edge">
+<div class="col-md-12">
+<h2>Nosso Time</h2>
+</div>
+</div></div></div>
+<div class="row  " ><div class="container"><div class="row row-edge">
+<div class="col-xs-12 col-sm-12 col-md-1 col-lg-1">
+</div>
+<div class="col-xs-12 col-sm-12 col-md-10 col-lg-10">
+<div class="team-wrap template-team_1 extrateam_1"><div class="team-listing row"><div id="team-127" class="team-item item-1 clearfix odd col-xs-12 clear-col-xs col-sm-12 clear-col-sm col-md-4 clear-col-md col-lg-4 clear-col-lg"><div class="team-listing_photo"><a href="https://www.eighty.com.br/nossa-equipe/anderson-rodrigo-schmidt/"><img loading="lazy" decoding="async" width="125" height="125" src="https://www.eighty.com.br/wp-content/uploads/2016/09/team-1.jpg" class="avatar wp-post-image" alt="Anderson Rodrigo Schmidt" /></a></div>
+<h3 class="team-listing_name"><a href="https://www.eighty.com.br/nossa-equipe/anderson-rodrigo-schmidt/">Anderson Rodrigo Schmidt</a></h3>
+<div class="cherry-team_excerpt">CEO - Executivo</div></div><!--/.team-item--><div id="team-126" class="team-item item-2 clearfix even col-xs-12 clear-col-xs col-sm-12 clear-col-sm col-md-4 col-lg-4"><div class="team-listing_photo"><a href="https://www.eighty.com.br/nossa-equipe/cesar-benitez-garcia/"><img loading="lazy" decoding="async" width="125" height="125" src="https://www.eighty.com.br/wp-content/uploads/2016/09/team-2.jpg" class="avatar wp-post-image" alt="César Benitez Garcia" /></a></div>
+<h3 class="team-listing_name"><a href="https://www.eighty.com.br/nossa-equipe/cesar-benitez-garcia/">César Benitez Garcia</a></h3>
+<div class="cherry-team_excerpt">CMO - Marketing</div></div><!--/.team-item--><div id="team-124" class="team-item item-3 clearfix odd col-xs-12 clear-col-xs col-sm-12 clear-col-sm col-md-4 col-lg-4"><div class="team-listing_photo"><a href="https://www.eighty.com.br/nossa-equipe/carlos-halmschlager/"><img loading="lazy" decoding="async" width="125" height="125" src="https://www.eighty.com.br/wp-content/uploads/2016/09/team-3.jpg" class="avatar wp-post-image" alt="Carlos Halmschlager" /></a></div>
+<h3 class="team-listing_name"><a href="https://www.eighty.com.br/nossa-equipe/carlos-halmschlager/">Carlos Halmschlager</a></h3>
+<div class="cherry-team_excerpt">CTO - Técnico</div></div><!--/.team-item--></div></div>
+</div>
+</div></div></div>
+</div>
+</div></div></div></div></div>
+<div class="row  " ><div class="cherry-box   box-304"><div class="inner"><div class="container-fluid"><div class="row row-edge">
+<div class="col-md-12">
+<div class="row  " ><div class="container"><div class="row row-edge">
+<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+<script>(function() {
+	window.mc4wp = window.mc4wp || {
+		listeners: [],
+		forms: {
+			on: function(evt, cb) {
+				window.mc4wp.listeners.push(
+					{
+						event   : evt,
+						callback: cb
+					}
+				);
+			}
+		}
+	}
+})();
+</script><!-- Mailchimp for WordPress v4.9.10 - https://wordpress.org/plugins/mailchimp-for-wp/ --><form id="mc4wp-form-1" class="mc4wp-form mc4wp-form-1609" method="post" data-id="1609" data-name="CAFE" ><div class="mc4wp-form-fields"><p>
+<label>Newsletter </label>
+<input type="email" id="mc4wp_email" name="EMAIL" placeholder="Email" required />
+</p>
+
+<p>
+<input type="submit" value="subscribe" />
+</p></div><label style="display: none !important;">Leave this field empty if you're human: <input type="text" name="_mc4wp_honeypot" value="" tabindex="-1" autocomplete="off" /></label><input type="hidden" name="_mc4wp_timestamp" value="1700641407" /><input type="hidden" name="_mc4wp_form_id" value="1609" /><input type="hidden" name="_mc4wp_form_element_id" value="mc4wp-form-1" /><div class="mc4wp-response"></div></form><!-- / Mailchimp for WordPress Plugin -->
+</div>
+</div></div></div>
+</div>
+</div></div></div></div></div>
+<div class="row extrabox_6 " ><section class="parallax-box image-parallax-box " style="min-height: 300px"><div class="parallax-content"><div class="container"><div class="row row-edge">
+<div class="col-md-12">
+<div class="row  " ><div class="container"><div class="row row-edge"><div class="col-md-12">
+<h2>Indicadores</h2>
+</div></div></div></div>
+<div class="row  " ><div class="container"><div class="row row-edge">
+<div class="col-xs-12 col-sm-12 col-md-2 col-lg-3">
+</div>
+<div class="col-xs-12 col-sm-12 col-md-8 col-lg-6">
+<div class="cherry-chart chart-progress_bar chart-id-1599 "><h3>Navegação por dispositivos móveis</h3>
+<div class="cherry-progress-bar">
+<span class="cherry-charts-bar horizontal" data-animate="yes" data-percent="72" data-value="72" style="width:500px;height:30px;background-color:#ecf0f1;"><span class="cherry-charts-progress" style="background-color:#F7464A;"></span></span>
+<strong>72%</strong>
+</div></div>
+<div class="cherry-chart chart-progress_bar chart-id-1603 "><h3>% de compras feitas via smartphones</h3>
+<div class="cherry-progress-bar">
+<span class="cherry-charts-bar horizontal" data-animate="yes" data-percent="23" data-value="23" style="width:500px;height:30px;background-color:#ecf0f1;"><span class="cherry-charts-progress" style="background-color:#F7464A;"></span></span>
+<strong>23%</strong>
+</div></div>
+<div class="cherry-chart chart-progress_bar chart-id-1605 "><h3>Brasileiros com Internet em casa</h3>
+<div class="cherry-progress-bar">
+<span class="cherry-charts-bar horizontal" data-animate="yes" data-percent="54" data-value="54" style="width:500px;height:30px;background-color:#ecf0f1;"><span class="cherry-charts-progress" style="background-color:#F7464A;"></span></span>
+<strong>54%</strong>
+</div></div>
+</div>
+</div></div></div>
+</div>
+</div></div><div class="clear"></div></div><div class="parallax-bg" data-parallax-type="image" data-img-url="https://www.eighty.com.br/wp-content/uploads/2016/09/parallaximg1.jpg" data-speed="1.8" data-invert="" ></div></section></div>
+<div class="row row-edge extramap " ><div class="col-md-12">
+</div></div>
+<p><center></p>
+<div class="mapouter">
+<div class="gmap_canvas"><iframe loading="lazy" width="100%" height="300" id="gmap_canvas" src="https://maps.google.com/maps?q=avenida%20candido%20de%20abreu%2C%20776%20curitiba&#038;t=&#038;z=15&#038;ie=UTF8&#038;iwloc=&#038;output=embed" frameborder="0" scrolling="no" marginheight="0" marginwidth="0"></iframe></div>
+<style>.mapouter{text-align:right;height:300px;width:100%;}.gmap_canvas {overflow:hidden;background:none!important;height:300px;width:100%;}</style>
+</div>
+<p></center></p>
+</div>
+</article></main></div>
+				
+	</div>
+</div>
+
+<footer id="footer" class="site-footer wide" role="contentinfo"><div id="static-area-footer-top" class="footer-top static-area"><div class="container"><div class="row"><div class="col-sm-12 col-md-12 col-lg-12 static-footer-sidebars"><div class="col-xs-12 col-sm-12"><div class="sidebar-footer-1 widget-area" role="complementary"><aside id="cherry-social-follow-2" class="widget cherry-social-follow-class"><div id='cherry-follow-items-2' class='cherry-follow_wrap footer_social'><ul class='cherry-follow_list clearfix'><li class="cherry-follow_item google-item"><a class="cherry-follow_link" href="https://plus.google.com/u/0/+CafetecnologiaBrasil110473764189007055556/posts" target="_blank" rel="nofollow" title="Google+"><i class='flaticon-googleplus'></i><span class="cherry-follow_label">Google+</span></a></li><li class="cherry-follow_item twitter-item"><a class="cherry-follow_link" href="https://twitter.com/eighty_brasil" target="_blank" rel="nofollow" title="Twitter"><i class='flaticon-twitter'></i><span class="cherry-follow_label">Twitter</span></a></li><li class="cherry-follow_item facebook-item"><a class="cherry-follow_link" href="https://www.facebook.com/eighty.brasil/" target="_blank" rel="nofollow" title="Facebook"><i class='flaticon-facebook'></i><span class="cherry-follow_label">Facebook</span></a></li></ul></div></aside></div></div><div class="col-xs-12 col-sm-12"><div class="sidebar-footer-2 widget-area" role="complementary"></div></div><div class="col-xs-12 col-sm-12"><div class="sidebar-footer-3 widget-area" role="complementary"></div></div><div class="col-xs-12 col-sm-12"><div class="sidebar-footer-4 widget-area" role="complementary"></div></div></div><div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 static-footer-info"><div class="site-info">Copyright 2021© EIGHTY | <a href="/contato/">CONTATO</a> | (41) 4042-2480</div></div></div></div></div></footer>
+	</div><!--site-wrapper-->
+
+
+<script>(function() {function maybePrefixUrlField () {
+  const value = this.value.trim()
+  if (value !== '' && value.indexOf('http') !== 0) {
+    this.value = 'http://' + value
+  }
+}
+
+const urlFields = document.querySelectorAll('.mc4wp-form input[type="url"]')
+for (let j = 0; j < urlFields.length; j++) {
+  urlFields[j].addEventListener('blur', maybePrefixUrlField)
+}
+})();</script><!-- Click to Chat - https://holithemes.com/plugins/click-to-chat/  v3.30.1 -->  
+            <div class="ht-ctc ht-ctc-chat ctc-analytics ctc_wp_desktop style-3  " id="ht-ctc-chat"  
+                style="display: none;  position: fixed; bottom: 15px; right: 15px;"   >
+                                <div class="ht_ctc_style ht_ctc_chat_style">
+                <div title = 'WhatsApp' style="display:flex;justify-content:center;align-items:center; " class="ctc_s_3 ctc_nb" data-nb_top="-5px" data-nb_right="-5px">
+    <p class="ctc-analytics ctc_cta ctc_cta_stick ht-ctc-cta " style="padding: 0px 16px; line-height: 1.6; ; background-color: #25d366; color: #ffffff; border-radius:10px; margin:0 10px;  display: none; ">WhatsApp</p>
+    <svg style="pointer-events:none; display:block; height:50px; width:50px;" width="50px" height="50px" viewBox="0 0 1219.547 1225.016">
+            <path style="fill: #E0E0E0;" fill="#E0E0E0" d="M1041.858 178.02C927.206 63.289 774.753.07 612.325 0 277.617 0 5.232 272.298 5.098 606.991c-.039 106.986 27.915 211.42 81.048 303.476L0 1225.016l321.898-84.406c88.689 48.368 188.547 73.855 290.166 73.896h.258.003c334.654 0 607.08-272.346 607.222-607.023.056-162.208-63.052-314.724-177.689-429.463zm-429.533 933.963h-.197c-90.578-.048-179.402-24.366-256.878-70.339l-18.438-10.93-191.021 50.083 51-186.176-12.013-19.087c-50.525-80.336-77.198-173.175-77.16-268.504.111-278.186 226.507-504.503 504.898-504.503 134.812.056 261.519 52.604 356.814 147.965 95.289 95.36 147.728 222.128 147.688 356.948-.118 278.195-226.522 504.543-504.693 504.543z"/>
+            <linearGradient id="htwaicona-chat" gradientUnits="userSpaceOnUse" x1="609.77" y1="1190.114" x2="609.77" y2="21.084">
+                <stop offset="0" stop-color="#20b038"/>
+                <stop offset="1" stop-color="#60d66a"/>
+            </linearGradient>
+            <path style="fill: url(#htwaicona-chat);" fill="url(#htwaicona-chat)" d="M27.875 1190.114l82.211-300.18c-50.719-87.852-77.391-187.523-77.359-289.602.133-319.398 260.078-579.25 579.469-579.25 155.016.07 300.508 60.398 409.898 169.891 109.414 109.492 169.633 255.031 169.57 409.812-.133 319.406-260.094 579.281-579.445 579.281-.023 0 .016 0 0 0h-.258c-96.977-.031-192.266-24.375-276.898-70.5l-307.188 80.548z"/>
+            <image overflow="visible" opacity=".08" width="682" height="639" transform="translate(270.984 291.372)"/>
+            <path fill-rule="evenodd" clip-rule="evenodd" style="fill: #FFFFFF;" fill="#FFF" d="M462.273 349.294c-11.234-24.977-23.062-25.477-33.75-25.914-8.742-.375-18.75-.352-28.742-.352-10 0-26.25 3.758-39.992 18.766-13.75 15.008-52.5 51.289-52.5 125.078 0 73.797 53.75 145.102 61.242 155.117 7.5 10 103.758 166.266 256.203 226.383 126.695 49.961 152.477 40.023 179.977 37.523s88.734-36.273 101.234-71.297c12.5-35.016 12.5-65.031 8.75-71.305-3.75-6.25-13.75-10-28.75-17.5s-88.734-43.789-102.484-48.789-23.75-7.5-33.75 7.516c-10 15-38.727 48.773-47.477 58.773-8.75 10.023-17.5 11.273-32.5 3.773-15-7.523-63.305-23.344-120.609-74.438-44.586-39.75-74.688-88.844-83.438-103.859-8.75-15-.938-23.125 6.586-30.602 6.734-6.719 15-17.508 22.5-26.266 7.484-8.758 9.984-15.008 14.984-25.008 5-10.016 2.5-18.773-1.25-26.273s-32.898-81.67-46.234-111.326z"/>
+            <path style="fill: #FFFFFF;" fill="#FFF" d="M1036.898 176.091C923.562 62.677 772.859.185 612.297.114 281.43.114 12.172 269.286 12.039 600.137 12 705.896 39.633 809.13 92.156 900.13L7 1211.067l318.203-83.438c87.672 47.812 186.383 73.008 286.836 73.047h.255.003c330.812 0 600.109-269.219 600.25-600.055.055-160.343-62.328-311.108-175.649-424.53zm-424.601 923.242h-.195c-89.539-.047-177.344-24.086-253.93-69.531l-18.227-10.805-188.828 49.508 50.414-184.039-11.875-18.867c-49.945-79.414-76.312-171.188-76.273-265.422.109-274.992 223.906-498.711 499.102-498.711 133.266.055 258.516 52 352.719 146.266 94.195 94.266 146.031 219.578 145.992 352.852-.118 274.999-223.923 498.749-498.899 498.749z"/>
+        </svg></div>                </div>
+            </div>
+                        <span class="ht_ctc_chat_data" 
+                data-no_number=""
+                data-settings="{&quot;number&quot;:&quot;554140422480&quot;,&quot;pre_filled&quot;:&quot;Ol\u00e1 Equipe Eighty, voc\u00eas podem me ajudar?&quot;,&quot;dis_m&quot;:&quot;show&quot;,&quot;dis_d&quot;:&quot;show&quot;,&quot;css&quot;:&quot;display: none; cursor: pointer; z-index: 99999999;&quot;,&quot;pos_d&quot;:&quot;position: fixed; bottom: 15px; right: 15px;&quot;,&quot;pos_m&quot;:&quot;position: fixed; bottom: 15px; right: 15px;&quot;,&quot;schedule&quot;:&quot;no&quot;,&quot;se&quot;:150,&quot;ani&quot;:&quot;no-animations&quot;,&quot;url_target_d&quot;:&quot;_blank&quot;,&quot;ga&quot;:&quot;yes&quot;,&quot;fb&quot;:&quot;yes&quot;}" 
+            ></span>
+            <style type="text/css">.box-942 .inner{background-image:url(https://www.eighty.com.br/wp-content/uploads/2016/09/page1_bg1.png);background-repeat:no-repeat;background-position:bottom center;background-attachment:scroll;background-size:auto;}.box-267 .inner{background-color:#555555;}.box-120 .inner{background-color:#5acdd4;}.box-747 .inner{background-color:#c57962;}.box-304 .inner{background-color:#555555;}</style><style id="motopress-ce-private-styles" data-posts="" type="text/css"></style><link rel='stylesheet' id='mpsl-core-css' href='https://www.eighty.com.br/wp-content/plugins/motopress-slider/motoslider_core/styles/motoslider.css?ver=2.0.0' type='text/css' media='all' />
+<style id='mpsl-core-inline-css' type='text/css'>
+.mpsl-layer.mpsl-btn-blue{background-color:#20b9d5;color:#ffffff;font-size:18px;font-family:Open Sans;text-shadow:0px 1px 0px #06879f;padding-top:12px;padding-right:28px;padding-bottom:13px;padding-left:28px;-webkit-border-radius:5px;-moz-border-radius:5px;border-radius:5px;text-decoration: none; -webkit-box-shadow: 0px 2px 0px 0px #06879f; -moz-box-shadow: 0px 2px 0px 0px #06879f; box-shadow: 0px 2px 0px 0px #06879f;}.mpsl-layer.mpsl-btn-blue:hover{}.mpsl-layer.mpsl-btn-green{background-color:#58cf6e;color:#ffffff;font-size:18px;font-family:Open Sans;text-shadow:0px 1px 0px #17872d;padding-top:12px;padding-right:28px;padding-bottom:13px;padding-left:28px;-webkit-border-radius:5px;-moz-border-radius:5px;border-radius:5px;text-decoration: none; -webkit-box-shadow: 0px 2px 0px 0px #2ea044; -moz-box-shadow: 0px 2px 0px 0px #2ea044; box-shadow: 0px 2px 0px 0px #2ea044;}.mpsl-layer.mpsl-btn-green:hover{}.mpsl-layer.mpsl-btn-red{background-color:#e75d4a;color:#ffffff;font-size:18px;font-family:Open Sans;text-shadow:0px 1px 0px #c03826;padding-top:12px;padding-right:28px;padding-bottom:13px;padding-left:28px;-webkit-border-radius:5px;-moz-border-radius:5px;border-radius:5px;text-decoration: none; -webkit-box-shadow: 0px 2px 0px 0px #cd3f2b; -moz-box-shadow: 0px 2px 0px 0px #cd3f2b; box-shadow: 0px 2px 0px 0px #cd3f2b;}.mpsl-layer.mpsl-btn-red:hover{}.mpsl-layer.mpsl-txt-header-dark{color:#000000;font-size:48px;font-family:Open Sans;font-weight:300;letter-spacing: -0.025em;}.mpsl-layer.mpsl-txt-header-dark:hover{}.mpsl-layer.mpsl-txt-header-white{color:#ffffff;font-size:48px;font-family:Open Sans;font-weight:300;letter-spacing: -0.025em;}.mpsl-layer.mpsl-txt-header-white:hover{}.mpsl-layer.mpsl-txt-sub-header-dark{background-color:rgba(0, 0, 0, 0.6);color:#ffffff;font-size:26px;font-family:Open Sans;font-weight:300;padding-top:14px;padding-right:14px;padding-bottom:14px;padding-left:14px;}.mpsl-layer.mpsl-txt-sub-header-dark:hover{}.mpsl-layer.mpsl-txt-sub-header-white{background-color:rgba(255, 255, 255, 0.6);color:#000000;font-size:26px;font-family:Open Sans;font-weight:300;padding-top:14px;padding-right:14px;padding-bottom:14px;padding-left:14px;}.mpsl-layer.mpsl-txt-sub-header-white:hover{}.mpsl-layer.mpsl-txt-dark{color:#000000;font-size:18px;font-family:Open Sans;font-weight:normal;line-height:30px;text-shadow:0px 1px 0px rgba(255, 255, 255, 0.45);}.mpsl-layer.mpsl-txt-dark:hover{}.mpsl-layer.mpsl-txt-white{color:#ffffff;font-size:18px;font-family:Open Sans;font-weight:normal;line-height:30px;text-shadow:0px 1px 0px rgba(0, 0, 0, 0.45);}.mpsl-layer.mpsl-txt-white:hover{}.mpsl-layer.mpsl-private-preset-51{}.mpsl-layer.mpsl-private-preset-51:hover{}.mpsl-layer.mpsl-private-preset-52{}.mpsl-layer.mpsl-private-preset-52:hover{}.mpsl-layer.mpsl-private-preset-43{}.mpsl-layer.mpsl-private-preset-43:hover{}.mpsl-layer.mpsl-private-preset-44{}.mpsl-layer.mpsl-private-preset-44:hover{}.mpsl-layer.mpsl-private-preset-40{}.mpsl-layer.mpsl-private-preset-40:hover{}.mpsl-layer.mpsl-private-preset-41{}.mpsl-layer.mpsl-private-preset-41:hover{}.mpsl-layer.mpsl-private-preset-57{color:rgb(255, 255, 255);}.mpsl-layer.mpsl-private-preset-57:hover{}.mpsl-layer.mpsl-private-preset-60{}.mpsl-layer.mpsl-private-preset-60:hover{}
+</style>
+<link rel='stylesheet' id='mpsl-object-style-css' href='https://www.eighty.com.br/wp-content/plugins/motopress-slider/css/theme.css?ver=2.0.0' type='text/css' media='all' />
+<link rel='stylesheet' id='mpsl-object-gfonts-css' href='//fonts.googleapis.com/css?family=Open+Sans%3A300italic%2C400italic%2C600italic%2C700italic%2C800italic%2C400%2C300%2C600%2C700%2C800&#038;ver=2.0.0' type='text/css' media='all' />
+<link rel='stylesheet' id='mpsl-custom-style-css' href='https://www.eighty.com.br/wp-content/themes/theme55252/assets/css/slider-styles.css?ver=bb270fba1988038f5680f75b7475565e' type='text/css' media='all' />
+<script type="text/javascript" id="cherry-api-js-extra">
+/* <![CDATA[ */
+var wp_load_style = {"0":"ht_ctc_main_css.css","1":"wp-emoji-styles.css","2":"wp-block-library.css","3":"classic-theme-styles.css","4":"global-styles.css","5":"cherry-portfolio.css","6":"cherry-social.css","7":"cherry-testimonials.css","8":"contact-form-7.css","9":"pdfprnt_frontend.css","10":"font-awesome.css","11":"swiper.css","12":"magnific-popup.css","13":"cherry-shortcodes-all.css","14":"cherry-charts.css","15":"theme55252-grid-base.css","16":"theme55252-grid-responsive.css","17":"slick.css","18":"cherryframework4-drop-downs.css","19":"theme55252-main.css","20":"theme55252-main-responsive.css","21":"cherryframework4-add-ons.css","22":"theme55252-style.css","23":"cherry-google-fonts.css","24":"cherry-services.css","25":"cherry-team.css","26":"cherry-dynamic-style.css","27":"mpce-theme.css","29":"mpce-font-awesome.css"};
+var wp_load_script = ["cherry-api.js","ht_ctc_app_js.js","comment-reply.js","magnific-popup.js","cherry-script.js","cf7_invisible_recaptcha_functions.js","contact-form-7.js","pn-script-app-frontend.js","pn-script-analytics.js","pn-script-messaging-frontend.js","pn-script-frontend.js","cherry-stick-up.js","wpcf7-recaptcha.js"];
+var cherry_ajax = "bd472afa29";
+/* ]]> */
+</script>
+<script type="text/javascript" src="https://www.eighty.com.br/wp-content/themes/cherryframework4/lib/assets/js/cherry-api.min.js?ver=4.0.5.6" id="cherry-api-js"></script>
+<script type="text/javascript" id="ht_ctc_app_js-js-extra">
+/* <![CDATA[ */
+var ht_ctc_chat_var = {"number":"554140422480","pre_filled":"Ol\u00e1 Equipe Eighty, voc\u00eas podem me ajudar?","dis_m":"show","dis_d":"show","css":"display: none; cursor: pointer; z-index: 99999999;","pos_d":"position: fixed; bottom: 15px; right: 15px;","pos_m":"position: fixed; bottom: 15px; right: 15px;","schedule":"no","se":"150","ani":"no-animations","url_target_d":"_blank","ga":"yes","fb":"yes"};
+/* ]]> */
+</script>
+<script type="text/javascript" src="https://www.eighty.com.br/wp-content/plugins/click-to-chat-for-whatsapp/new/inc/assets/js/app.js?ver=3.30.1" id="ht_ctc_app_js-js"></script>
+<script type="text/javascript" src="https://www.eighty.com.br/wp-includes/js/comment-reply.min.js?ver=bb270fba1988038f5680f75b7475565e" id="comment-reply-js" async="async" data-wp-strategy="async"></script>
+<script type="text/javascript" src="https://www.eighty.com.br/wp-content/themes/cherryframework4/lib/assets/js/jquery.magnific-popup.min.js?ver=1.0.0" id="magnific-popup-js"></script>
+<script type="text/javascript" id="cherry-script-js-extra">
+/* <![CDATA[ */
+var cherry_data = {"use_lightbox":"1"};
+var sticky_data = {"selector":"#static-area-header-top","args":{"correctionSelector":"#wpadminbar","listenSelector":".listenSelector","pseudo":true,"active":true}};
+/* ]]> */
+</script>
+<script type="text/javascript" src="https://www.eighty.com.br/wp-content/themes/cherryframework4/lib/assets/js/script.min.js?ver=4.0.5.6" id="cherry-script-js"></script>
+<script type="text/javascript" src="https://www.eighty.com.br/wp-content/plugins/contact-form-7/includes/swv/js/index.js?ver=5.8.3" id="swv-js"></script>
+<script type="text/javascript" id="contact-form-7-js-extra">
+/* <![CDATA[ */
+var wpcf7 = {"api":{"root":"https:\/\/www.eighty.com.br\/wp-json\/","namespace":"contact-form-7\/v1"}};
+/* ]]> */
+</script>
+<script type="text/javascript" src="https://www.eighty.com.br/wp-content/plugins/contact-form-7/includes/js/index.js?ver=5.8.3" id="contact-form-7-js"></script>
+<script type="text/javascript" id="pn-script-app-frontend-js-extra">
+/* <![CDATA[ */
+var pnScriptSetting = {"nonce":"af1cad2040","pn_config":{"apiKey":"AIzaSyDhRbFy9m-NXZVkozYJwKdDYJuwsL6W_bw","authDomain":"pushnotificationsio.firebaseapp.com","databaseURL":"https:\/\/pushnotificationsio.firebaseio.com","projectId":"pushnotificationsio","storageBucket":"pushnotificationsio.appspot.com","messagingSenderId":"788493704860","appId":"1:788493704860:web:ba71fd692e7cc9651f5759","measurementId":"G-NXS0Z75BCH"},"swsource":"https:\/\/www.eighty.com.br\/?push_notification_sw=1","scope":"https:\/\/www.eighty.com.br\/","ajax_url":"https:\/\/www.eighty.com.br\/wp-admin\/admin-ajax.php","cookie_scope":"\/","notification_popup_show_again":"30","popup_show_afternseconds":"3","popup_show_afternpageview":"1","pn_token_exists":"1"};
+/* ]]> */
+</script>
+<script type="text/javascript" src="https://www.eighty.com.br/wp-content/plugins/push-notification/assets/public/application.min.js?ver=1.31" id="pn-script-app-frontend-js"></script>
+<script type="text/javascript" src="https://www.eighty.com.br/wp-content/plugins/push-notification/assets/public/analytics.js?ver=1.31" id="pn-script-analytics-js"></script>
+<script type="text/javascript" id="pn-script-analytics-js-after">
+/* <![CDATA[ */
+window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+/* ]]> */
+</script>
+<script type="text/javascript" src="https://www.eighty.com.br/wp-content/plugins/push-notification/assets/public/messaging.min.js?ver=1.31" id="pn-script-messaging-frontend-js"></script>
+<script type="text/javascript" src="https://www.eighty.com.br/wp-content/plugins/push-notification/assets/public/app.js?ver=1.31" id="pn-script-frontend-js"></script>
+<script type="text/javascript" src="https://www.eighty.com.br/wp-content/themes/cherryframework4/lib/assets/js/jquery.cherry.stickup.min.js?ver=1.0.0" id="cherry-stick-up-js"></script>
+<script type="text/javascript" src="https://www.google.com/recaptcha/api.js?render=6Le4kaMUAAAAAFE_n9fYVi3rYbp1WuMSrusLmG-n&amp;ver=3.0" id="google-recaptcha-js"></script>
+<script type="text/javascript" src="https://www.eighty.com.br/wp-includes/js/dist/vendor/wp-polyfill-inert.min.js?ver=3.1.2" id="wp-polyfill-inert-js"></script>
+<script type="text/javascript" src="https://www.eighty.com.br/wp-includes/js/dist/vendor/regenerator-runtime.min.js?ver=0.14.0" id="regenerator-runtime-js"></script>
+<script type="text/javascript" src="https://www.eighty.com.br/wp-includes/js/dist/vendor/wp-polyfill.min.js?ver=3.15.0" id="wp-polyfill-js"></script>
+<script type="text/javascript" id="wpcf7-recaptcha-js-extra">
+/* <![CDATA[ */
+var wpcf7_recaptcha = {"sitekey":"6Le4kaMUAAAAAFE_n9fYVi3rYbp1WuMSrusLmG-n","actions":{"homepage":"homepage","contactform":"contactform"}};
+/* ]]> */
+</script>
+<script type="text/javascript" src="https://www.eighty.com.br/wp-content/plugins/contact-form-7/modules/recaptcha/index.js?ver=5.8.3" id="wpcf7-recaptcha-js"></script>
+<script type="text/javascript" src="https://www.eighty.com.br/wp-content/plugins/motopress-slider/motoslider_core/scripts/vendor.js?ver=2.0.0" id="mpsl-vendor-js"></script>
+<script type="text/javascript" src="https://www.eighty.com.br/wp-content/plugins/motopress-slider/motoslider_core/scripts/motoslider.js?ver=2.0.0" id="mpsl-core-js"></script>
+<script type="text/javascript" src="https://www.eighty.com.br/wp-content/plugins/cherry-charts/assets/public/js/min/chart.min.js?ver=1.1.0" id="charts-js"></script>
+<script type="text/javascript" src="https://www.eighty.com.br/wp-content/plugins/cherry-charts/assets/public/js/min/script.min.js?ver=1.1.0" id="charts-public-js"></script>
+<script type="text/javascript" src="https://www.eighty.com.br/wp-content/plugins/cherry-shortcodes/assets/js/shotcodes/swiper.jquery.min.js?ver=1.0.7.6" id="swiper-js"></script>
+<script type="text/javascript" src="https://www.eighty.com.br/wp-content/plugins/cherry-shortcodes/assets/js/shotcodes/init.min.js?ver=1.0.7.6" id="cherry-shortcodes-init-js"></script>
+<script type="text/javascript" src="https://www.eighty.com.br/wp-content/plugins/cherry-shortcodes/assets/js/shotcodes/device.min.js?ver=1.0.7.6" id="device-js"></script>
+<script type="text/javascript" src="https://www.eighty.com.br/wp-content/plugins/cherry-shortcodes/assets/js/shotcodes/parallax.min.js?ver=1.0.7.6" id="cherry-parallax-js"></script>
+<script type="text/javascript" defer src="https://www.eighty.com.br/wp-content/plugins/mailchimp-for-wp/assets/js/forms.js?ver=4.9.10" id="mc4wp-forms-api-js"></script>
+<style>.pn-wrapper{
+			box-shadow: 0 1px 3px 0 rgba(60,64,67,0.302), 0 4px 8px 3px rgba(60,64,67,0.149);
+		    font-size: 14px;
+		    align-items: center;
+		    background-color: #222;
+		    border: none;
+		    border-radius: 4px;
+		    box-sizing: border-box;
+		    color: #fff;
+		    display: none;
+		    flex-wrap: wrap;
+		    font-weight: 400;
+		    padding: 16px 22px;
+		    z-index:99999;
+		    text-align: left;
+		    position: fixed;
+		    bottom: 0;
+		    left: 0;
+		    margin: 20px;
+		    right: auto;
+		    top: auto;
+		}
+.pn-wrapper .pn-txt-wrap {
+    display: flex;
+    flex-wrap: wrap;
+    position: relative;
+    height: auto;
+    line-height: 1;
+}
+.pn-wrapper .btn.act{color: #8ab4f8;}
+.pn-wrapper .btn{
+	align-items: center;
+    border: none;
+    display: inline-flex;
+    outline: none;
+    position: relative;
+    font-size: 14px;
+    background: none;
+    border-radius: 4px;
+    box-sizing: border-box;
+    color: #5f6368;
+    cursor: pointer;
+    font-weight: 500;
+    outline: none;
+    margin-left: 8px;
+    min-width: auto;
+    padding: 0 8px;
+    text-decoration: none;
+}
+.pn-txt-wrap.pn-select-box {
+	display: block;
+	padding: 5px 15px;
+}
+.categories-multiselect {
+	font-size: 13px;
+    margin: 10px 0;
+}
+#pn-activate-permission-categories {
+    background-color: #fff;
+    padding: 8px 15px;
+    color: #000;
+}
+#pn-categories-checkboxes label{
+    padding-right: 12px;
+    text-transform: capitalize;
+}
+#pn-categories-checkboxes input{
+	margin-right: 3px;
+}
+#pn-activate-permission-categories-text {
+    padding: 12px 0;
+    margin-top: 5px;
+    font-size: 12px;
+    font-weight: 600;
+}
+</style><div class="pn-wrapper">
+			   	<span class="pn-txt-wrap pn-select-box">
+			   		<div class="pn-msg-box">
+				   		<span class="pn-msg">Enable Notifications</span>
+				   		<span class="pn-btns">
+				   			<span class="btn act" id="pn-activate-permission_link" tabindex="0" role="link" aria-label="ok link">
+				   				OK
+				   			</span>
+				   			<span class="btn" id="pn-activate-permission_link_nothanks" tabindex="0" role="link" aria-label="no thanks link">
+				   				No thanks
+				   			</span>
+				   		</span>
+			   		</div></span>
+			</div></body>
+</html>

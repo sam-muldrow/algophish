@@ -1,0 +1,557 @@
+<!DOCTYPE html><html lang="en">
+<head>
+    <title>Login - AUthenticate</title>
+    <meta charset="UTF-8"/><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1"/><link rel="stylesheet" href="/cas/css/aucas.css"/><link rel="stylesheet" href="//auburn.edu/template/2022/_assets/css/bootstrap.min.css"><!--	<link rel="stylesheet" href="//cdn.auburn.edu/assets/css/font-awesome.min.css"> --><link rel="stylesheet" href="//auburn.edu/template/2022/_assets/css/global.css"><link rel="icon" href="/cas/favicon.ico" type="image/x-icon"/><script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/zxcvbn/4.3.0/zxcvbn.js"></script>
+    <script type="text/javascript" src="//ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <script type="text/javascript" src="//ajax.googleapis.com/ajax/libs/jqueryui/1.11.4/jquery-ui.min.js"></script>
+    <script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/jquery-cookie/1.4.1/jquery.cookie.min.js"></script>
+    <script src="//auburn.edu/template/2022/_assets/js/bootstrap.bundle.min.js"></script>
+
+    <script>
+        /*<![CDATA[*/
+
+        var trackGeoLocation = false;
+
+        var googleAnalyticsTrackingId = "UA-75670846-1";
+
+        if (googleAnalyticsTrackingId != null && googleAnalyticsTrackingId != '') {
+            (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+                        (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+                    m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+            })(window, document, 'script', 'https://www.google-analytics.com/analytics.js', 'ga');
+
+            ga('create', googleAnalyticsTrackingId, 'auto');
+            ga('send', 'pageview');
+        }
+
+        /*]]>*/
+    </script>
+
+    <style type="text/css">
+      .unit-title {
+          border-bottom: 2px solid #eaeaea;
+          position: relative;
+          background-color: #0b2341;
+          overflow: hidden;
+          padding: 1% 10%;
+          color: #fff;
+          font-size: 2em;
+          font-weight: 700;
+          font-family: sweet-sans-pro,sans-serif;
+          font-variant: small-caps;
+          word-spacing: 5px;
+      }
+      .username, .password {
+        margin-bottom: 0.7em;
+      }
+      .username input, .password input {
+        width: 278px!important;
+      }
+      form {
+        margin: 0;
+      }
+      .input-prepend .add-on {
+        height: 30px;
+        position: relative;
+        width: 30px;
+      }
+      .input-prepend i {
+        color: #282828;
+        font-size: 24px;
+        height: 24px;
+        left: 50%;
+        margin-left: -12px;
+        margin-top: -12px;
+        position: absolute;
+        top: 50%;
+        width: 24px;
+      }
+      input#username, input#password {
+        height: 40px;
+      }
+      .username {
+        margin-top: 13px;
+      }
+      .input-group-text{
+        border-radius: 0.25rem 0 0 0.25rem;
+      }
+      .input-group-text > .bi {
+        padding: 2px;
+      }
+
+      .content_container {
+        margin: 4em auto 2em;
+        max-width: 1280px;
+      }
+	.loginWrapper {
+	  /* background: url(https://www.auburn.edu/images/oit/loginAubie.png) no-repeat top left transparent;
+	  padding: 12px 0 0 76px; */
+	  margin: 0 auto;
+	  width: 427px; }
+	
+	.applicaitonIdentity {
+	  color: #282828;
+	  padding-top: 5px; }
+	
+	.login {
+	  display: inline-block;
+	  border: 1px solid #bbb;
+	  padding: 2em 3em;
+          /* border-radius: 0px 5px 5px; */
+	  border-radius: 5px;
+	}
+	
+	.login ul {
+		padding: 0 0 2em;
+	 }
+	
+	.login ul li {
+		list-style-position: outside;
+		list-style-type: none;
+		background: none;
+		padding-left: 0;
+	}
+	
+	.login-buttons {
+		margin-top: 2em;
+	}
+	
+	footer {
+		padding: 10px 0;
+	}
+	
+	.footer_col {
+		margin-bottom: 0;
+	}
+	
+	.visible-xs {
+		display: none !important;
+	}
+	
+	#duo_form > #login {
+		margin: 1em;
+		text-align: center;
+	}
+	
+	@media only screen and (max-width: 500px) {
+
+	}
+	
+	@media (min-width: 768px) {
+		.header_logos_container img {
+			width: 65%;	}
+	}
+	
+	@media (max-width: 767px) {
+                .unit-title {
+                        font-size:1.5em; }
+		.footer_col_logo {
+			display:none; }
+		
+		.loginWrapper {
+			background: none;
+			margin: 0 1em;
+			padding: 0;
+			width: auto; }
+		
+		.login {
+			border: none;
+			padding: 0; }
+			
+		.visible-xs {
+			display: block !important;
+		}
+		
+		#duo_iframe {
+			width: 100%; }
+	}
+	
+    </style>
+
+</head>
+
+<body id="cas">
+<div id="top" role="navigation" aria-label="Main navigation shortcuts">
+	<a href="#" data-bs-toggle="modal" data-bs-target="#au_navigation" class="skipto btn">Skip to Primary Navigation</a>
+	<a href="#content" class="skipto btn">Skip to Content</a>
+</div>
+
+<div class="site-header" role="banner" aria-label="Site header">
+	<div class="row align-items-center">
+	<!-- SITE WORDMARK --><div class="col-9 col-md-4 image header-logo">
+		<a href="//auburn.edu/oit">
+			<img src="https://auburn.service-now.com/OIT_formal_h_fullcolor.png" class="d-print-none" alt="Auburn University Homepage"><img src="https://auburn.service-now.com/OIT_formal_h_onecolor_black.png" alt="Auburn University homepage" class="d-none d-print-block" style="width:500px;"></a>
+	</div>
+	<!-- NAV TOGGLE --><div class="col-3 col-md-1 nav-toggle d-print-none">
+	<button type="button" id="nav_btn_modal_nav_open" class="btn" style="" data-bs-toggle="modal" data-bs-target="#au_navigation"><span class="visually-hidden">Toggle site navigation</span>
+		<svg xmlns="http://www.w3.org/2000/svg" width="100%" fill="currentColor" class="bi bi-list" viewBox="0 0 16 16" alt="">
+		<path fill-rule="evenodd" d="M2.5 12a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5zm0-4a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5zm0-4a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5z"/></svg>	
+		<span class="text">
+			<span class="d-none d-xxl-block">Menu</span>
+		</span>	
+	</button>
+	</div>
+	<!-- HEADER LINKS--><div class="row col-12 col-md-7 links align-items-center d-print-none">
+		<a class="col" href="https://auburn.service-now.com/it?id=students">IT for <br class="visible-xs">Students</a>
+		<a class="col" href="https://auburn.service-now.com/it?id=employees">IT for <br class="visible-xs">Employees</a>
+		<a class="col" href="https://auburn.service-now.com/it?id=sc_category&sys_id=e15706fc0a0a0aa7007fc21e1ab70c2f">Get <br class="visible-xs">Help</a>
+		<a id="search_btn1" href="#" class="col" data-bs-toggle="modal" data-bs-target="#au_search">AU Search</a>
+	</div>
+	</div>
+</div>
+
+<!-- Search Modal --><div class="modal fade au-search d-print-none" id="au_search" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-hidden="true">
+	<div class="modal-dialog modal-fullscreen">
+		<div class="modal-content">
+			<div class="modal-header">
+				<div class="image col-8 col-sm-4">
+					<img src="https://auburn.edu/template/2022/_assets/images/logos/auburn/formal_horiz/white_orange/auburn_formal_h_white_orange.png" alt=""></div>
+				<button type="button" class="nav-close" data-bs-dismiss="modal" aria-label="Close">
+					<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" class="bi bi-x-circle-fill" viewBox="0 0 16 16" alt=""><path d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0zM5.354 4.646a.5.5 0 1 0-.708.708L7.293 8l-2.647 2.646a.5.5 0 0 0 .708.708L8 8.707l2.646 2.647a.5.5 0 0 0 .708-.708L8.707 8l2.647-2.646a.5.5 0 0 0-.708-.708L8 7.293 5.354 4.646z"/></svg>    
+				</button>
+			</div>
+			<div class="modal-body row align-items-center justify-content-center">
+				<div class="col-md-5">
+					<div class="col-sm-12 row au-search-links" role="navigation" aria-label="Search links">
+						<div class="col"><a href="https://auburn.edu/map">Campus Map</a></div>
+						<div class="col"><a href="https://auburn.edu/main/sitemap.php">A-Z Index</a></div>
+						<div class="col"><a href="https://auburn.edu/main/people-finder/">People Finder</a></div>
+					</div>
+					<div class="col-sm-12">
+						<form action="https://search.auburn.edu" class="" method="get" role="search">
+						<input class="form-control form-control-lg searchfield" type="text" name="q" aria-label="Auburn University Search"  placeholder="Search Auburn.edu" style="width:100%;"><input type="hidden" name="cx" value="006456623919840955604:pinevfah6qm"><input type="hidden" name="ie" value="utf-8"><input type="submit" class="visually-hidden-focusable" value="Search"/></form>
+					</div>	
+				</div> 
+			</div>     
+		</div>
+	</div>
+</div>
+
+<!-- Navigation Modal --><div class="navigation modal fade d-print-none" id="au_navigation" role="navigation" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-hidden="true" aria-labelledby="sitenav" >
+	<span id="sitenav" class="visually-hidden">Site navigation</span>
+	<div class="modal-dialog modal-fullscreen">
+		<div class="modal-content">
+			<div class="modal-header row align-items-center">
+				<div class="col-9 col-md-4 image logo clearfix">
+					<img src="https://auburn.edu/template/2022/_assets/images/logos/auburn/formal_horiz/white_orange/auburn_formal_h_white_orange.png" alt=""></div>
+				<div class="col-3 col-md-1 nav-close d-print-none order-sm-last">
+					<button type="button" id="nav_btn_modal_nav_close" class="btn" style="" data-bs-toggle="modal" data-bs-target="#au_navigation"><span class="visually-hidden">Close site navigation</span>
+						<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" class="bi bi-x-circle-fill" viewBox="0 0 16 16" alt=""><path d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0zM5.354 4.646a.5.5 0 1 0-.708.708L7.293 8l-2.647 2.646a.5.5 0 0 0 .708.708L8 8.707l2.646 2.647a.5.5 0 0 0 .708-.708L8.707 8l2.647-2.646a.5.5 0 0 0-.708-.708L8 7.293 5.354 4.646z"/></svg>	
+					</button>
+				</div>  
+				<div class="col-12 col-md-7 links align-items-center d-print-none row">
+					<div class="row links audience-links row-cols-3 row-cols-lg-3 row-cols-xl-6">
+						<div class="col"><a href="https://auburn.edu/about/">About <span class="d-none d-xxl-inline" style="padding-left:4%;">Auburn</span></a></div>
+						<div class="col"><a href="https://auburn.edu/administration/">Administration</a></div>
+						<div class="col"><a href="https://auburn.edu/students">Students</a></div>
+						<div class="col"><a href="https://auburn.edu/parents">Parents</a></div>
+						<div class="col"><a href="https://www.alumni.auburn.edu/">Alumni</a></div>
+						<div class="col"><a href="https://auburn.edu/employees">Employees</a></div>
+					</div>
+				</div>  
+
+			</div>
+			<div class="modal-body row">
+				<div class="row links nav-links">
+					<div class="nav-level-1 row">	
+						<div class="col-sm-6 col-lg-3 column">
+							<div class="col-title"><a id="titlelink1" href="#">Academics</a></div>
+							<ul class="nav-level-2 navlinks1">
+								<li><a href="https://auburn.edu/academic/provost" tabindex="0">Office of the Provost</a></li>
+								<li><a href="https://auburn.edu/academic/" tabindex="0">Colleges</a></li>
+								<li><a href="https://bulletin.auburn.edu/undergraduate/majors/" tabindex="0">Majors</a></li>
+								<li><a href="https://auburn.edu/administration/registrar/core_curriculum/" tabindex="0">Core Curriculum</a></li>
+								<li><a href="https://lib.auburn.edu/" tabindex="0">Libraries</a></li>
+								<li><a href="https://auburn.edu/about/academic-calendar/" tabindex="0">Academic Calendar</a></li>
+								<li><a href="https://ssbprod.auburn.edu/pls/PROD/bwckschd.p_disp_dyn_sched" tabindex="0">Course Schedule</a></li>
+								<li><a href="https://auburn.edu/administration/registrar/calendars.html" tabindex="0">Advisement Schedule</a></li>
+								<li><a href="https://auburn.edu/administration/registrar/calendars.html#finalExam" tabindex="0">Final Exam Schedule</a></li>
+								<li class="deptlink">
+									<a href="https://auburn.edu/academic/" tabindex="0">Visit Academics</a>	
+								</li>
+
+							</ul>	
+						</div>
+						<div class="col-sm-6 col-lg-3 column">
+							<div class="col-title"><a id="titlelink2" href="#">Admissions</a></div>
+							<ul class="nav-level-2 navlinks2">
+								<li><a href="https://auburn.edu/apply" tabindex="0">Apply Now</a></li>
+								<li><a href="https://auburn.edu/admissions/attention-applicants.html" tabindex="0">Check Application Status</a></li>
+								<li><a href="https://auburn.edu/admissions" tabindex="0">Undergraduate Admissions</a></li>
+								<li><a href="https://graduate.auburn.edu/" tabindex="0">Graduate Admissions</a></li>
+								<li><a href="https://pharmacy.auburn.edu/apply/" tabindex="0">Pharmacy Admissions</a></li>
+								<li><a href="https://www.vetmed.auburn.edu/prospective-students" tabindex="0">Veterinary Medicine Admissions</a></li>
+								<li><a href="https://auburn.edu/online/" tabindex="0">Distance Ed</a></li>
+								<li><a href="https://auburn.edu/admissions/acceptedstudents.html" tabindex="0">Accepted Students</a></li>
+								<li><a href="https://apply.auburn.edu/register/inquiryform" tabindex="0">Request Information</a></li>
+								<li class="deptlink">
+									<a href="https://auburn.edu/admissions/" tabindex="0">Visit Admissions</a>	
+								</li>
+							</ul>
+						</div>	
+						<div class="col-sm-6 col-lg-3 column">
+							<div class="col-title"><a id="titlelink3" href="#">Outreach</a></div>
+							<ul class="nav-level-2 navlinks3">
+								<li><a href="https://auburn.edu/outreach/ops/" tabindex="0">Public Service &amp; Community Partnerships</a></li>
+								<li><a href="https://auburn.edu/outreach/opce/" tabindex="0">Professional &amp; Continuing Education</a></li>
+								<li><a href="https://auburn.edu/outreach/opce/auburnyouthprograms/index.htm" tabindex="0">Youth Programs</a></li>
+								<li><a href="https://auburn.edu/outreach/gedi/" tabindex="0">Government &amp; Economic Development</a></li>
+								<li><a href="https://auburn.edu/outreach/olliatauburn/" tabindex="0">Osher Lifelong Learning Institute</a></li>
+								<li><a href="https://auburn.edu/outreach/facultyengagement/" tabindex="0">Faculty Engagement</a></li>
+								<li><a href="https://auburn.edu/outreach/global/" tabindex="0">Outreach Global</a></li>
+								<li><a href="https://auburn.edu/outreach/ceoe/" tabindex="0">K-12 Outreach</a></li>
+								<li><a href="https://www.aces.edu/" tabindex="0">Extension</a></li>
+								<li class="deptlink">
+									<a href="https://auburn.edu/outreach/" tabindex="0">Visit Outreach</a>	
+								</li>
+							</ul>					
+						</div>
+						<div class="col-sm-6 col-lg-3 column">
+							<div class="col-title"><a id="titlelink4" href="#">Research</a></div>
+							<ul class="nav-level-2 navlinks4">
+								<li><a href="https://cws.auburn.edu/ovpr/pm/adminmain" tabindex="0">Research Administration</a></li>
+								<li><a href="https://cws.auburn.edu/ovpr/pm/workwithus" tabindex="0">Work with Auburn Research</a></li>
+								<li><a href="https://scholars.proquest.com/gallery/auburn" tabindex="0">Find Auburn Expertise</a></li>
+								<li><a href="https://cws.auburn.edu/ovpr/pm/resources" tabindex="0">Research Resources</a></li>
+								<li><a href="https://cws.auburn.edu/OVPR/pm/centersinstitutes" tabindex="0">Centers &amp; Institutes</a></li>
+								<li><a href="https://cws.auburn.edu/OVPR/pm/graduatestudents" tabindex="0">Graduate Research</a></li>
+								<li><a href="https://our.auburn.edu/" tabindex="0">Undergraduate Research</a></li>
+								<li><a href="https://ocm.auburn.edu/research-magazine" tabindex="0">Auburn Research Magazine</a></li>
+								<li><a href="https://cws.auburn.edu/OVPR/pm/thisisresearch" tabindex="0">Research Symposia</a></li>
+								<li class="deptlink">
+									<a href="https://auburn.edu/research/" tabindex="0">Visit Research</a>	
+								</li>
+							</ul>
+						</div>				
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>	
+
+<h1 id="page_title" class="unit-title">AUthenticate<span style="float: right;font-size: 6pt;color: #777;">1</span></h1>
+<!-- 
+
+<header>
+    <a id="logo" href="http://www.apereo.org" th:title="#{logo.title}">Apereo</a>
+    <h1>Central Authentication Service (CAS)</h1>
+</header>
+
+ --><div id="content">
+        <div class="row content_container">
+<!--         <div id="notices">
+                <div th:replace="fragments/insecure"/>
+                <div th:replace="fragments/defaultauthn"/>
+                <div th:replace="fragments/cookies"/>
+                <div th:replace="fragments/serviceui"/>
+                <div th:replace="fragments/cas-resources-list" />
+                <div th:replace="fragments/loginProviders" />
+            </div> --><script language="javascript" type="text/javascript" src="https://www.auburn.edu/template/includes/emergency.js"></script>
+            <div id="svcId" class="alert alert-info" role="alert"><strong>Qualtrics</strong> is requesting that you be authenticated.  If you trust this service, enter your Auburn Username and Password below.</div>
+            <div class="loginWrapper">
+                <div class="login" id="login">
+<!-- 
+    <div class="login-header">
+        <h2 th:text="#{cas.login.pagetitle}"></h2>
+        <span class="fa-stack fa-2x hidden-xs">
+          <i class="fa fa-circle fa-stack-2x"></i>
+          <i class="fa fa-lock fa-stack-1x fa-inverse"></i>
+        </span>
+    </div>
+ --><form method="post" id="fm1">
+
+        <!--         <h2 th:utext="#{screen.welcome.instructions}"></h2> --><section class="username">
+<!--             <label for="username" th:utext="#{screen.welcome.label.netid}"/> --><div>
+            	<div class="input-group">
+                <div class="input-group-prepend"><span class="input-group-text"><svg xmlns="http://www.w3.org/2000/svg" width="26" height="26" fill="currentColor" class="bi bi-person-fill" viewBox="0 0 16 16"><path d="M3 14s-1 0-1-1 1-4 6-4 6 3 6 4-1 1-1 1H3zm5-6a3 3 0 1 0 0-6 3 3 0 0 0 0 6z"/></svg></span></div>
+                <input class="required form-control"
+                       id="username"
+                       size="25"
+                       type="text"
+                       aria-label="Username"
+                       autocomplete="off"
+                       placeholder="Username" name="username" value="" /></div>
+            </div>
+        </section>
+
+        <section class="password">
+<!--             <label for="password" th:utext="#{screen.welcome.label.password}"/> --><div>
+            	<div class="input-group">
+            	<div class="input-group-prepend"><span class="input-group-text"><svg xmlns="http://www.w3.org/2000/svg" width="26" height="26" fill="currentColor" class="bi bi-lock-fill" viewBox="0 0 16 16"><path d="M8 1a2 2 0 0 1 2 2v4H6V3a2 2 0 0 1 2-2zm3 6V3a3 3 0 0 0-6 0v4a2 2 0 0 0-2 2v5a2 2 0 0 0 2 2h6a2 2 0 0 0 2-2V9a2 2 0 0 0-2-2z"/></svg></span></div>
+                <input class="required form-control"
+                       type="password"
+                       id="password"
+                       size="25"
+                       aria-label="Password"
+                       autocomplete="off"
+                       placeholder="Password" name="password" value="" /></div>
+                <span id="capslock-on" style="display:none;">
+                    <p>
+                        <i class="fa fa-exclamation-circle"></i>
+                        <span>CAPSLOCK key is turned on!</span>
+                    </p>
+                </span>
+            </div>
+        </section>
+        <section class="check">
+            </section>
+        
+        <section class="btn-row">
+            <input type="hidden" name="execution" value="65d65055-8e80-468b-a857-d820d779a58b_ZXlKaGJHY2lPaUpJVXpVeE1pSjkuU21wblkycEhPRmwxWVVOVk5FaDZibmRYTTBGNlN6VnpSbHBCVjI0d05USm9MMVpYVDI1c05HMHJlVEY2VmxVclV6RXZMMFkxZGl0UVZUSTNSMUE1Y210S2NYWk5jWE0xTDIxQlEwTmxkMU1yTTBkUGRpOTFXamRHWVhsaE5ubGhja2d3Ym01bmVVaHJOM2MxUVc1YWFIWTNLMDFNV25wWldpdHFURUYxYzFWaVYzRmlObk5FVlRZMVZFMXRjRFpRTVRWd1ZGQlpNVFpQYVZocU1sVmpSRFZKUVhGbmRtVmlSemxuWW5oMldqZGhORWxDY3paaGNFWjBWV0ZxY1dKRFkyUlRMMlp3V0ZaMk1Ia3ZTbXMwTkROeVduWkdTamhMZFhSeVF6bE5TV1ZPT0VSNVRsZHpNSEkyYjJ4VlIwMVpRa0U1TkZGQlUxQlhNMEpuY2t4aWVuWm1OM0ZzZUd4YU9GVlNPR1JQZDJ0ME1XeGhWR1pXY1ZkblpqVjRWV3RtWkRGdWVsQkxTVEJxVjFkTk4yMHdhRXBuTlROd01VaE5iVEkxUldsSGNqQXhZbU55YldSWFJFcDVNMjVGT1VSUGMyaFVVV3g2WjJNcmNtcFdVSGREVEN0SWVuSkRXbFZtYkZnNU1pdG9SazFsUTBndmNYazNaVVJYZFhoVFoyWTVRMUZOV2pOM1VXeHhWMmxWVUU5TFlVcExlak5YTURKclpuaEpZbmhPVmxsc1pTOTRNemxWT0VnMmVXeHNZMjVsWWpWSGQwOU5lVGhQZUVWbVVGQlFMMWw0Vm1oaFdtUnhVMFZDT0hoUlJVZ3JaRkpsT1ZwTVdVUjNlV05KUlc5bE5tWTBVblJXUjFSSmNsUllSbmtyV1ZwNFV6bG5UV1I1VDNCd1YweGtUVWx4Y0VFeFRXczJVeTk2Vms5amNFNUhZekY0VjB4cWNUSnZkVTUyUldGdFJERjRWRlZVWTA5aE5qVldMM0l4U3k5aWRVUmlNV056WW5KMWFVTjNUVlJoSzBwUFJEVTBkM2x6UldGRlJISkpkbmhEZFRSRk1YTlNZa1ZoYlZrd1lXSTROa2RNUlU1alVFUjBOakZKTDB4S2FtUktNbE5pWjJaNWNqRXliVWRvZDFSeVJIUlRUMFl3VkZZNGFqWXJjVkpFY25wRmJqbFJOVkJEYmtKQlRuTkpkVVpoZWs5WmIxRnRabXhOZVdsTE9IUjNSWGxUVm5KblQyeE9RbFpRWW1oaGEwVlNOR1JKTW1veGFucGFkM3BMUzNGRFdIQndZWEJaWTFod1oyUmpZa1JTVmxSS05HeE5WVEp0YVVOYWMxaGxTV1pvZFZoc1VYVnNja2xCV1VzNFIydHpPR1JqTm5WV1pqTnRkVkY0Y1hwbldFUkRkR2d2VkZOd2FIUkJSRVpvVVRGc2JUY3ZNRE5EUmxKUGJGUnVZelJ4Ym5wNk5HeHZWM1I2ZURjMGFtSjZhM1kxVEdzdlZFTlROR1pFTlN0aE1tVnlkR3hWTkRCU1kydERjRzFCV1UxV05HNTNXRFUzY0VwMmVuZ3lTRXR3Vlc1bWRDdHdlREpTU0hJcmIwOWlMeTlZTTBwU00zUnJOamMzY0RkeFpqRkhMM3BpT0hJd2QyVlZkMEZpY2xkeFZqVmtibkpoVVROelZWUjZRbXBMYmtrNVNVNVpNbEI0U21Wb2QxRnRORTVwWWtsTU1WUlNORmxxY1hsRWNFZG1SMGMxU1hGNVUxaE9WRXBDVUZwaVprRktPSEJGZDNsYVdHNUlTMU00Y2xVdk16TTFRV1pKUXpoS1RrSk5aVlUyWldKdU1tZ3JTMkpUVUVwaE9UTkRVbmgxUXpoNFdYcHhXRms1WjNSR1kxRk1lVmRzT1hwYVRFaFJSRXRvU21OaWN6Qm9MM2hQVGpNdmFFNTVRelZ3VWpST09XNURjbVFyYzB3MlkwOVFTazl2U0d0M1NVbFFRVzFMWkdkbFoxaHNOMmg2Um1sUE4xTnFZMmh2WkVOUGMxTm5WbkJNYm1oWFpXVkljRXhMVDJsVWFHWmpkMVJvYVhFclNYZERRemRoVmpGTGFVbHpVVzFQYVdvcmFVOURXREJ0ZFRSblIzaG5SbU5GY1c5c1pWSnlWVkkyVFhoSFN6UkdhVzloYm1KbFVrcEljMlpEVDJscE4zVTVRU3MwZG5wbE1YSmpkMkpMUWpsTWRtTk5XRzFoTm5oamFHNDVkVGhpTkZKRWEybEhRMHgwUVhsdk5YUnlSUzl3ZGtkdWRVdEJPREZCYjBSYWJHa3JZblphTkVRMWEzSmFkbkZxU3poeE9HUm1jakZ1YzNKSVRsbGlUak5yYVhneFoxWkpiWFp3VG1WNmNXWktOaXRqUnpKclZqZzBaVTlaVkRFd05qWjBPVkIxWkc1VFFtZHBNU3MzT0hkSmVFaDNWM1ppVFVsWksyRk1OWEpJUlVGc1prWlZjSGM0VDJKWWIxQXhVazVZWkRZNVRtTTNNMlV3T0ZOdFoxQnJSbE54TkhCV2MyTjFSVEl4U21VeGNscFhhV3BPVm1oeFJXZHBTbEpqUjFGVFRITldlR3N4WlhGNFJrVnpaVXhoTjJzNVVYazBWMmxQWW1nd1dITk9WM1ZJYms5ME9YUjFUMVpKU0hoRFZWZHNOa3BVWWxwYWRIVnBVMGRJUm1aTlIwaGxXV3d4ZVZweFUyTnZia0pXZEZOS2VDdGlXSEo1WlhKNmRVWXpkMUptYUZaUlUySTFWMHgzYkhob1JsSnhNV2xhVEhOWWRIWm5iVFJtYUdsQ2JWcDFiM1JQV0Vab1JUWnZaM3A2WldGTGRXZFVWVEJ2TlVKRVFXaGlkall4WlRWRGMycEpiREZVUWtkMFJFSjVUa2MyVFhKbFdsVnhUM2RRTkdOVGFtOHdja0l4UVhCRVRrUkpaV2RDU1VRMmFWRlNWVzFOYm1ZM1RrYzNSV3gyVlcxRWQySm1NWEpWV1ZRME5tdHdTWGh1TTAwck1UWnJRMEV4VDNSbGNtbDBOMDFKTDNrM1pWaHliRVJwVm5GTFNIcDZTbHBGTUZSWGVtVTJORXROYkdrMWRXcEdTV281YUhCNFdrdFJXV1ppTjNCMFMzaFpRM1JpVHpKeGNFMWpVVXg0TkVWcmFWUkRRMDFzWm01dE9GTkJWREI1TjJzeFZVNTBhbFI0VDJ0MlpsTnBlVFo1V0RCUFZreFRiM2RpY2tsdk5rSnNNbFJTWkRseVpFUnhXa014WkROR1FrZDZka2s0Y1hvdlRqTjBOblJOVWpKSWRsVk9PRUpaZWxONlRrNXNUVll5S3pkSFZWRlViMkY2UzFKYU9EaENWbUV4VW1KMFdFSklWa1ZFTHpaV1owOVVSMFZKVVdkT05pOVhhMU5RVjFwd0wxVnlaV1pXVUhoMFRHUkZRVkJRZW5SMU16bG1lSGxQVkVGTVpUbFJkbTRyU2pGME5WVk1SV2xFTjBGbk9UWlZSVmQ1VlUxMFNHaDRhMHhDZVdwT0syVkdXSFJLVlhCcVoweDVPVUZ6VmtsRGFrNDBUekJPV1RGMFVIVTRlbXBDWVdGUFNEVmtUWFpyYml0WVJFSmhSWGszUkRGTWNUSnFTVVprZEVGR09WcHhXalJ1U21GNFdtZzFiWE5TUW05MGJVdHZZek5zV21WNFRVazRTa2xMVWpKU1NsWmFjbU5wUjJ0V1oxbFZSMHR5VWs5Q1EwbzBlalJhZW14cVlsWk9kbVJSUldkVmNrTm9VbXA1YWtOUmJFSXhjbFpKTlZJcmJuQllRM2RCZGk5cE5YazVOMVl3U0VKU2JYVmxkRzQ1THpoaGRrdHpaVlp4TWpseldYWmxUMUoxWWxsUlNGUmFWRlp3UlhOM1lWQnBUbmxWZDFSNVMxRkhTVEkxUW05cWVGQXJSRUZ2UkRWSmRrSlBZbHB5YW1zelVGbGpZalpFYlZkSGVXWnBPVWR2V1RObVdXSnpWRE15UWt0c1FXaGpVelJsUzFWWE1rbzRkakJyVDJoT01qY3dNM0pVU2tOeVkzUkJPR2xYV0Zvek5tTlRhREpRTjNSME4yczVkbWhwUkRFMVFtbHdjVnBxYWxoNU1XUnZNSEpJUTBweFFXZDBSWEJFYlhKNlNXVnhUMUZxZHpGV1JrUXpSbGx4ZDJoblQxRnlRems0VlRZeWVHczNORFppVlRGTlRHMWpaVkpFZWxwQk1WUjZha3htZEhOdVFtMW1VMFpwZDA1b1UxWkdZVzF2WkRCeFNVazVWbWh0U2l0MkwzQXhibkF5Y0d4SGRFaEVUVll4WjNkMGIwbG5iVmRUY0RGdlUxRk9ORUUzWlU1T1NXbG1jbEp6V1RodmNtUmxZVTh3UzFaalFsRlhjREZHVG1aYWIwOVNVMVJOYlRKTlVHSkdjV1ZDY25WWlFtSmlPSFkxZVVOVlUzbFNTR1Z2UVhkbVUxQlpVbXhuSzBaWk1HazFiR2R6TmtSeU5TdGpkR0prVjJkMUt5OWhiMGhsVGxrd1lXVlplSGhHUVRneGJrVm1aMWcyTldweVVESkJiSGhPWjFWTVQxSlRja0Z5WW10eWNHZ3lUbU5FVVU5V1JtZE9Sa2RTVkV0aVUwWlBiMFp6VVVSQ2FVbHJjbmRUUmtwQmVXTlJXVEYxUzFWcVdIaEliWEZUYVdWQ2MxQmtSRlZzYTJrMldHaE5TRXAySzJWMllscHRiakI0WWl0U2NUTnVSSEJNUlcxUWMzWnlXVmhrTXpsdGFuSlZOQ3R3ZG0xSFNUbEJNR2hoY2pKd1JWQkhSV2M1S3pOM05YQkdjeXRDTUdWcVJpOWlhemRWWm10NldFTktOV05FYTFJNVpWSkNVVU5IVUZsVlRtbEVWMG80ZEU5eU9ISXlaR2d2WVRSTFpVRkZUM2MwV0VsQ01HUm9kbXQyYVd0WmF6WTFjVXhoTkVzeWRWRnhPU3RDWmtOcVNXOXhRa1JyVUVSdmIwRkNOUzlEZVhSeFNIQmlRWEIzWjI5SlMyWlRhV2RWTjI5b04zZFZjbFpaU1hGT05UQXlMMWh3WlVKMFptZHZQUS5NLXhJM3JQaGtNRV9ZUjQ1SnV1TkpiSEdCX2F0YVlFVFp4ZnR0TFdMTUNIQTk3dXdKWjdGNVBhZFh5V2F6SnlpTVBMbFFCOGMyX3Fwc19nUmNBRE5NQQ=="/><input type="hidden" name="_eventId" value="submit"/><input type="hidden" name="geolocation"/><input class="btn btn-submit fs-6 btn-au-bdark mb-2"
+                   name="submit"
+                   accesskey="l"
+                   value="LOGIN"
+                   type="submit"/></section>
+    </form>
+
+    <div class="text-end">
+        <span ><a href="http://www.auburn.edu/forgotpassword" class="btn btn-link pull-right" style="padding-right: 0;">Forgot Password?</a></span>
+        <p/></div>
+    
+    <script type="text/javascript">
+        var i = "One moment please..."
+        $("#fm1").submit(function() {
+            $(":submit").attr("disabled", true);
+            $(":submit").attr("value", i);
+            return true;
+        });
+    </script>
+    <!-- <div th:replace="fragments/loginsidebar"/> --></div>
+</div>
+        </div>
+    </div>
+<div class="site-footer d-print-none" id="footer" role="contentinfo">
+   <div role="navigation" class="social" aria-label="Social Links">
+      <div class="icons row align-items-center">
+         <div class="item facebook col col-xl">
+            <a href="https://www.facebook.com/auburnu" target="_blank">
+               <span class="visually-hidden">Link to Auburn University Facebook page</span>
+               <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" class="bi bi-facebook" viewBox="0 0 16 16" alt="" role="img" labelledby="imglabel">
+                  <title id="imglable">Facebook logo</title>
+                 <path d="M16 8.049c0-4.446-3.582-8.05-8-8.05C3.58 0-.002 3.603-.002 8.05c0 4.017 2.926 7.347 6.75 7.951v-5.625h-2.03V8.05H6.75V6.275c0-2.017 1.195-3.131 3.022-3.131.876 0 1.791.157 1.791.157v1.98h-1.009c-.993 0-1.303.621-1.303 1.258v1.51h2.218l-.354 2.326H9.25V16c3.824-.604 6.75-3.934 6.75-7.951z"/></svg>
+            </a>   
+         </div>
+         <div class="item twitter col col-xl">
+            <a href="https://twitter.com/auburnu"  target="_blank">
+               <span class="visually-hidden">Link to Auburn University Twitter account</span>
+               <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" class="bi bi-twitter" viewBox="0 0 16 16" alt="" role="img" labelledby="imglabel">
+                  <title id="imglable">Twitter logo</title>
+                 <path d="M5.026 15c6.038 0 9.341-5.003 9.341-9.334 0-.14 0-.282-.006-.422A6.685 6.685 0 0 0 16 3.542a6.658 6.658 0 0 1-1.889.518 3.301 3.301 0 0 0 1.447-1.817 6.533 6.533 0 0 1-2.087.793A3.286 3.286 0 0 0 7.875 6.03a9.325 9.325 0 0 1-6.767-3.429 3.289 3.289 0 0 0 1.018 4.382A3.323 3.323 0 0 1 .64 6.575v.045a3.288 3.288 0 0 0 2.632 3.218 3.203 3.203 0 0 1-.865.115 3.23 3.23 0 0 1-.614-.057 3.283 3.283 0 0 0 3.067 2.277A6.588 6.588 0 0 1 .78 13.58a6.32 6.32 0 0 1-.78-.045A9.344 9.344 0 0 0 5.026 15z"/></svg>
+            </a>   
+         </div>
+         <div class="item instagram col col-xl">
+            <a href="https://instagram.com/auburnu"  target="_blank">
+               <span class="visually-hidden">Link to Auburn University Instagram account</span>
+               <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" class="bi bi-instagram" viewBox="0 0 16 16" alt="" role="img" labelledby="imglabel">
+                  <title id="imglable">Instagram logo</title>
+               <path d="M8 0C5.829 0 5.556.01 4.703.048 3.85.088 3.269.222 2.76.42a3.917 3.917 0 0 0-1.417.923A3.927 3.927 0 0 0 .42 2.76C.222 3.268.087 3.85.048 4.7.01 5.555 0 5.827 0 8.001c0 2.172.01 2.444.048 3.297.04.852.174 1.433.372 1.942.205.526.478.972.923 1.417.444.445.89.719 1.416.923.51.198 1.09.333 1.942.372C5.555 15.99 5.827 16 8 16s2.444-.01 3.298-.048c.851-.04 1.434-.174 1.943-.372a3.916 3.916 0 0 0 1.416-.923c.445-.445.718-.891.923-1.417.197-.509.332-1.09.372-1.942C15.99 10.445 16 10.173 16 8s-.01-2.445-.048-3.299c-.04-.851-.175-1.433-.372-1.941a3.926 3.926 0 0 0-.923-1.417A3.911 3.911 0 0 0 13.24.42c-.51-.198-1.092-.333-1.943-.372C10.443.01 10.172 0 7.998 0h.003zm-.717 1.442h.718c2.136 0 2.389.007 3.232.046.78.035 1.204.166 1.486.275.373.145.64.319.92.599.28.28.453.546.598.92.11.281.24.705.275 1.485.039.843.047 1.096.047 3.231s-.008 2.389-.047 3.232c-.035.78-.166 1.203-.275 1.485a2.47 2.47 0 0 1-.599.919c-.28.28-.546.453-.92.598-.28.11-.704.24-1.485.276-.843.038-1.096.047-3.232.047s-2.39-.009-3.233-.047c-.78-.036-1.203-.166-1.485-.276a2.478 2.478 0 0 1-.92-.598 2.48 2.48 0 0 1-.6-.92c-.109-.281-.24-.705-.275-1.485-.038-.843-.046-1.096-.046-3.233 0-2.136.008-2.388.046-3.231.036-.78.166-1.204.276-1.486.145-.373.319-.64.599-.92.28-.28.546-.453.92-.598.282-.11.705-.24 1.485-.276.738-.034 1.024-.044 2.515-.045v.002zm4.988 1.328a.96.96 0 1 0 0 1.92.96.96 0 0 0 0-1.92zm-4.27 1.122a4.109 4.109 0 1 0 0 8.217 4.109 4.109 0 0 0 0-8.217zm0 1.441a2.667 2.667 0 1 1 0 5.334 2.667 2.667 0 0 1 0-5.334z"/></svg>
+            </a>   
+         </div>
+         <div class="item linkedin col col-xl">
+            <a href="https://www.linkedin.com/school/auburn-university/" target="_blank">
+               <span class="visually-hidden">Link to Auburn University LinkedIn page</span>
+               <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" class="bi bi-linkedin" viewBox="0 0 16 16" alt="" role="img" labelledby="imglabel">
+                  <title id="imglable">LinkedIn logo</title>
+                 <path d="M0 1.146C0 .513.526 0 1.175 0h13.65C15.474 0 16 .513 16 1.146v13.708c0 .633-.526 1.146-1.175 1.146H1.175C.526 16 0 15.487 0 14.854V1.146zm4.943 12.248V6.169H2.542v7.225h2.401zm-1.2-8.212c.837 0 1.358-.554 1.358-1.248-.015-.709-.52-1.248-1.342-1.248-.822 0-1.359.54-1.359 1.248 0 .694.521 1.248 1.327 1.248h.016zm4.908 8.212V9.359c0-.216.016-.432.08-.586.173-.431.568-.878 1.232-.878.869 0 1.216.662 1.216 1.634v3.865h2.401V9.25c0-2.22-1.184-3.252-2.764-3.252-1.274 0-1.845.7-2.165 1.193v.025h-.016a5.54 5.54 0 0 1 .016-.025V6.169h-2.4c.03.678 0 7.225 0 7.225h2.4z"/></svg>
+            </a>   
+         </div>
+         <div class="item youtube col col-xl">
+            <a href="https://www.youtube.com/channel/UCBjooqS8f03kRAb3ESrIGlQ/playlists" target="_blank">
+               <span class="visually-hidden">OIT YouTube page</span>
+               <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" class="bi bi-youtube" viewBox="0 0 16 16" alt="" role="img" labelledby="imglabel">
+                  <path d="M8.051 1.999h.089c.822.003 4.987.033 6.11.335a2.01 2.01 0 0 1 1.415 1.42c.101.38.172.883.22 1.402l.01.104.022.26.008.104c.065.914.073 1.77.074 1.957v.075c-.001.194-.01 1.108-.082 2.06l-.008.105-.009.104c-.05.572-.124 1.14-.235 1.558a2.007 2.007 0 0 1-1.415 1.42c-1.16.312-5.569.334-6.18.335h-.142c-.309 0-1.587-.006-2.927-.052l-.17-.006-.087-.004-.171-.007-.171-.007c-1.11-.049-2.167-.128-2.654-.26a2.007 2.007 0 0 1-1.415-1.419c-.111-.417-.185-.986-.235-1.558L.09 9.82l-.008-.104A31.4 31.4 0 0 1 0 7.68v-.123c.002-.215.01-.958.064-1.778l.007-.103.003-.052.008-.104.022-.26.01-.104c.048-.519.119-1.023.22-1.402a2.007 2.007 0 0 1 1.415-1.42c.487-.13 1.544-.21 2.654-.26l.17-.007.172-.006.086-.003.171-.007A99.788 99.788 0 0 1 7.858 2h.193zM6.4 5.209v4.818l4.157-2.408L6.4 5.209z"></path>
+               </svg>
+            </a>
+         </div>
+      </div>
+   </div>
+   <div class="row content clearfix align-items-start">
+      <div class="column column-01 col-sm-6 col-xxl-3 row">
+         <div class="logo image">   
+            <img src="https://auburn.edu/template/2022/_assets/images/logos/auburn/informal_horiz/white_orange/auburn_informal_h_white_orange.png" alt="" class="d-xxl-none horiz"><img src="https://auburn.edu/template/2022/_assets/images/logos/auburn/informal_vert/white_orange/auburn_informal_v_white_orange.png" alt="" class="d-none d-xxl-block vert"></div>
+      </div>
+      <div class="column column-02 row col-sm-6 col-xxl-3">
+         <div class="column-title">Contact Us</div>
+         <ul>
+            <li>
+               <div class="col-12 map">
+                  <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-pin-map" viewBox="0 0 16 16" alt="">
+                    <path fill-rule="evenodd" d="M3.1 11.2a.5.5 0 0 1 .4-.2H6a.5.5 0 0 1 0 1H3.75L1.5 15h13l-2.25-3H10a.5.5 0 0 1 0-1h2.5a.5.5 0 0 1 .4.2l3 4a.5.5 0 0 1-.4.8H.5a.5.5 0 0 1-.4-.8l3-4z"/><path fill-rule="evenodd" d="M8 1a3 3 0 1 0 0 6 3 3 0 0 0 0-6zM4 4a4 4 0 1 1 4.5 3.969V13.5a.5.5 0 0 1-1 0V7.97A4 4 0 0 1 4 3.999z"/></svg>
+                  <a href="https://www.google.com/maps/place/OIT+Building/@32.5981511,-85.4865049,17z/data=!4m13!1m7!3m6!1s0x888cf31cea067167:0xbe475215b40ce95f!2sSamford+Hall,+182+S+College+St,+Auburn+University,+AL+36849!3b1!8m2!3d32.6047401!4d-85.4827927!3m4!1s0x888cf3071a13dd6b:0x278471edaa699699!8m2!3d32.594269!4d-85.4856335"> 300 Lem Morrison Drive<br>Auburn, Alabama 36849 </a>
+               </div>
+            </li>
+            <li>
+               <div class="col-12 phone">
+                  <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-telephone-fill" viewBox="0 0 16 16" alt="">
+                    <path fill-rule="evenodd" d="M1.885.511a1.745 1.745 0 0 1 2.61.163L6.29 2.98c.329.423.445.974.315 1.494l-.547 2.19a.678.678 0 0 0 .178.643l2.457 2.457a.678.678 0 0 0 .644.178l2.189-.547a1.745 1.745 0 0 1 1.494.315l2.306 1.794c.829.645.905 1.87.163 2.611l-1.034 1.034c-.74.74-1.846 1.065-2.877.702a18.634 18.634 0 0 1-7.01-4.42 18.634 18.634 0 0 1-4.42-7.009c-.362-1.03-.037-2.137.703-2.877L1.885.511z"/></svg>
+                  <a href="tel:3348444944">(334) 844-4944</a>
+               </div>
+            </li>
+            <li>
+               <div class="col-12 email">
+                  <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-envelope" viewBox="0 0 16 16" alt="">
+                    <path d="M0 4a2 2 0 0 1 2-2h12a2 2 0 0 1 2 2v8a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2V4Zm2-1a1 1 0 0 0-1 1v.217l7 4.2 7-4.2V4a1 1 0 0 0-1-1H2Zm13 2.383-4.708 2.825L15 11.105V5.383Zm-.034 6.876-5.64-3.471L8 9.583l-1.326-.795-5.64 3.47A1 1 0 0 0 2 13h12a1 1 0 0 0 .966-.741ZM1 11.105l4.708-2.897L1 5.383v5.722Z"/></svg>
+                  <a href="mailto:itservicedesk@auburn.edu">itservicedesk@auburn.edu</a>
+               </div>
+            </li>
+         </ul>
+      </div>
+      <div class="column column-03 row col-sm-6 col-xxl-3">
+         <div class="column-title">IT Resources</div>
+            <ul>
+               <li><a href="https://aub.ie/itpolicies">IT Policies</a></li>
+               <li><a href="https://aub.ie/itsp" target="_blank">IT Strategic Plan</a></li>
+               <li><a href="https://aub.ie/itstaff">IT Staff</a></li>
+               <li><a href="https://aub.ie/aboutoit">About OIT</a></li>
+            </ul>
+      </div>
+      <div class="column column-03 row col-sm-6 col-xxl-3">
+         <div class="column-title">AU Resources</div>   
+            <ul>
+               <li><a href="https://auburn.edu/myaccount">MyAccount</a></li>
+               <li><a href="https://auburn.edu/map">Campus Map</a></li>
+               <li><a href="https://auaccess.auburn.edu/">AU Access</a></li>
+               <li><a href="https://auburn.edu/websitefeedback/" target="_blank">Website Feedback</a></li>
+            </ul>
+      </div>
+   </div>
+   <div class="subrow" role="navigation" aria-label="Subcontent">
+      <div class="column row">
+         <div class="col-sm-2"><a href="https://auburn.edu/hr">Employment</a></div>
+         <div class="col-sm-2"><a href="https://auburn.edu/titleix">Title IX</a></div>
+         <div class="col-sm-2"><a href="https://auburn.edu/accessibility">Accessibility</a></div>
+         <div class="col-sm-2"><a href="https://auburn.edu/privacy">Privacy Statement</a></div>
+         <div class="col-sm-2"><a href="https://auburn.edu/main/sitemap.php">A-Z Index</a></div>
+         <div class="col-sm-2"><a href="https://auburn.edu/copyright">Copyright © 2022</a></div>
+      </div>
+   </div>
+   <div class="to-top">
+      <a href="#top" class="btn btn-light">
+         <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-arrow-up" viewBox="0 0 16 16" alt="">
+        <path fill-rule="evenodd" d="M8 15a.5.5 0 0 0 .5-.5V2.707l3.146 3.147a.5.5 0 0 0 .708-.708l-4-4a.5.5 0 0 0-.708 0l-4 4a.5.5 0 1 0 .708.708L7.5 2.707V14.5a.5.5 0 0 0 .5.5z"/></svg><br/><span class="visually-hidden">Back to Top</span></a>
+   </div>
+</div>   
+
+<script>   
+   $(function() {
+      $(window).scroll(function() {    
+         var scroll = $(document).scrollTop();
+         if (scroll > 300 ) {
+            $("html").addClass("totop");
+            } else {
+            $("html").removeClass("totop");
+         }
+      });
+   });      
+</script>
+
+<div><script src="//cdnjs.cloudflare.com/ajax/libs/headjs/1.0.3/head.min.js"></script>
+<script type="text/javascript" src="/cas/js/cas.js"></script>
+
+
+
+</div>
+
+</body>
+</html>

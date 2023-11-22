@@ -1,0 +1,708 @@
+<!DOCTYPE html>
+<html lang="en" class="h-full bg-slate-50">
+	<head>
+		<meta charset="utf-8">
+		
+		<title>SimilarSiteSearch.com - The Best Place To Find Similar Websites</title>
+
+		<meta name="description" content="SimilarSiteSearch.com helps you find similar, related, or alternative websites. Our goal is to generate the most relevant results for our users." />
+
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+
+		<script defer src="/dist/app.js"></script>
+
+		<link href="/dist/main.css" rel="stylesheet">
+
+		<link rel="canonical" href="https://www.similarsitesearch.com/" />
+
+		<link rel="shortcut icon" href="/favicon.ico" type="image/x-icon">
+
+		<meta name="twitter:card" content="summary_large_image" />
+		<meta property="fb:app_id" content="567582844767504" />
+
+		<meta property="og:site_name" content="SimilarSiteSearch" />
+		<meta property="og:title" content="SimilarSiteSearch.com - The Best Place To Find Similar Websites" />
+		<meta property="og:description" content="SimilarSiteSearch.com helps you find similar, related, or alternative websites. Our goal is to generate the most relevant results for our users." />
+		<meta property="og:type" content="website" />
+		<meta property="og:url" content="https://www.similarsitesearch.com/" />
+		<meta property="og:locale" content="en" />
+
+
+
+		<meta name="apple-mobile-web-app-title" content="SimilarSiteSearch" />
+		<meta name="application-name" content="SimilarSiteSearch" />
+
+		<script>
+			const TIMESTAMP = new Date().getTime()
+			const API_ENDPOINT = 'https://www.similarsitesearch.com/api/v1'
+			const APP_VERSION = '1'
+		
+			const L = {
+				'error_retry': 'An error occured. Please reload the page and try again.',
+				'timeout_retry': 'Timeout, please try again.',
+				'backend_error': 'Backend error.',
+				'request_failed': 'Request failed.',
+				'request_help': 'Please contact support@similarsitesearch.com for help.',
+				'day': 'day',
+				'days': 'days',
+				'hour': 'hour',
+				'hours': 'hours',
+				'minute': 'minute',
+				'minutes': 'minutes',
+				'second': 'second',
+				'seconds': 'seconds',
+			}
+		</script>
+
+			<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-6707528622666682"
+			crossorigin="anonymous"></script>
+	</head>
+	<body class="h-full">
+		<div class="min-h-full flex flex-col">
+			<header class="bg-white shadow">
+	<div class="mx-auto max-w-6xl px-2 sm:px-4 lg:px-8">
+		<div class="flex h-16 justify-between" x-data="{ openMobileMenu: false }">
+			<div class="flex px-2 lg:px-0">
+				<div class="flex flex-shrink-0 items-center">
+					<a class="flex items-center space-x-3" href="/">
+						<img class="h-8 w-auto" src="/images/logos/similarsitesearch_small.png"
+							alt="SimilarSiteSearch">
+						<span class="hidden sm:inline font-bold text-2xl tracking-tight">SimilarSiteSearch</span>
+					</a>
+				</div>
+				<nav aria-label="Global" class="hidden lg:ml-6 lg:flex lg:items-center lg:space-x-4">
+					<a href="/popular/" class="px-3 py-2 text-sm font-medium text-gray-900">Popular</a>
+
+					<a href="/trending/" class="px-3 py-2 text-sm font-medium text-gray-900">Trending</a>
+
+					<a href="/topics/" class="px-3 py-2 text-sm font-medium text-gray-900">Topics</a>
+
+					<a href="/api/" class="px-3 py-2 text-sm font-medium text-gray-900">API</a>
+				</nav>
+			</div>
+			<div class="flex flex-1 items-center justify-center px-2 lg:ml-6 lg:justify-end">
+				<form method="GET" action="/search/" class="w-full max-w-lg lg:max-w-xs">
+					<label for="search" class="sr-only">Search</label>
+					<div class="relative">
+						<div class="pointer-events-none absolute inset-y-0 left-0 flex items-center pl-3">
+							<!-- Heroicon name: mini/magnifying-glass -->
+							<svg class="h-5 w-5 text-gray-400" xmlns="http://www.w3.org/2000/svg"
+								viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
+								<path fill-rule="evenodd"
+									d="M9 3.5a5.5 5.5 0 100 11 5.5 5.5 0 000-11zM2 9a7 7 0 1112.452 4.391l3.328 3.329a.75.75 0 11-1.06 1.06l-3.329-3.328A7 7 0 012 9z"
+									clip-rule="evenodd" />
+							</svg>
+						</div>
+						<input id="search" name="q"
+							class="block w-full rounded-md border border-gray-300 bg-white py-2 pl-10 pr-3 leading-5 placeholder-gray-500 shadow-sm focus:border-blue-600 focus:placeholder-gray-400 focus:outline-none focus:ring-1 focus:ring-blue-600 sm:text-sm"
+							placeholder="Search" type="search">
+					</div>
+				</form>
+			</div>
+			<div class="flex items-center lg:hidden">
+				<!-- Mobile menu button -->
+				<button type="button" @click="openMobileMenu = true"
+					class="inline-flex items-center justify-center rounded-md p-2 text-gray-400 hover:bg-gray-100 hover:text-gray-500 focus:outline-none focus:ring-2 focus:ring-inset focus:ring-blue-500"
+					aria-expanded="false">
+					<span class="sr-only">Open main menu</span>
+					<!-- Heroicon name: outline/bars-3 -->
+					<svg class="block h-6 w-6" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
+						stroke-width="1.5" stroke="currentColor" aria-hidden="true">
+						<path stroke-linecap="round" stroke-linejoin="round"
+							d="M3.75 6.75h16.5M3.75 12h16.5m-16.5 5.25h16.5" />
+					</svg>
+				</button>
+			</div>
+
+			<!-- Mobile menu, show/hide based on mobile menu state. -->
+			<div class="lg:hidden" x-dialog x-model="openMobileMenu">
+				<div x-dialog:overlay x-transition.opacity class="fixed inset-0 z-20 bg-black bg-opacity-25" aria-hidden="true"></div>
+				<div x-dialog:panel x-transition class="absolute top-0 right-0 z-30 w-full max-w-none origin-top transform p-2 transition">
+					<div class="divide-y divide-gray-200 rounded-lg bg-white shadow-lg ring-1 ring-black ring-opacity-5">
+						<div class="pt-3 pb-2">
+							<div class="flex items-center justify-between px-4">
+								<div class="flex flex-shrink-0 items-center space-x-3">
+									<img class="h-8 w-auto"
+										src="/images/logos/similarsitesearch_small.png"
+										alt="SimilarSiteSearch">
+									<span class="font-bold text-2xl tracking-tight">SimilarSiteSearch</span>
+								</div>
+								<div class="-mr-2">
+									<button type="button" @click="$dialog.close()"
+										class="inline-flex items-center justify-center rounded-md bg-white p-2 text-gray-400 hover:bg-gray-100 hover:text-gray-500 focus:outline-none focus:ring-2 focus:ring-inset focus:ring-blue-500">
+										<span class="sr-only">Close menu</span>
+										<!-- Heroicon name: outline/x-mark -->
+										<svg class="h-6 w-6" xmlns="http://www.w3.org/2000/svg" fill="none"
+											viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"
+											aria-hidden="true">
+											<path stroke-linecap="round" stroke-linejoin="round"
+												d="M6 18L18 6M6 6l12 12" />
+										</svg>
+									</button>
+								</div>
+							</div>
+							<div class="mt-3 space-y-1 px-2">
+								<a href="/popular/"
+									class="block rounded-md px-3 py-2 text-base font-medium text-gray-900 hover:bg-gray-100 hover:text-gray-800">Popular</a>
+
+								<a href="/trending/"
+									class="block rounded-md px-3 py-2 text-base font-medium text-gray-900 hover:bg-gray-100 hover:text-gray-800">Trending</a>
+
+								<a href="/topics/"
+									class="block rounded-md px-3 py-2 text-base font-medium text-gray-900 hover:bg-gray-100 hover:text-gray-800">Topics</a>
+
+								<a href="/api/"
+									class="block rounded-md px-3 py-2 text-base font-medium text-gray-900 hover:bg-gray-100 hover:text-gray-800">API</a>
+							</div>
+						</div>
+							<div class="grid grid-cols-2 gap-6 px-4 py-5 text-center">
+								<a class="button w-full bg-slate-200 text-slate-900 rounded-md px-3 py-2" href="/login/">Login</a>
+								<a class="button w-full bg-blue-500 text-white rounded-md px-3 py-2" href="/signup/">Sign up</a>
+							</div>
+					</div>
+				</div>
+			</div>
+
+			<div class="hidden lg:flex items-center space-x-2">
+				<a class="button bg-slate-200 text-slate-900 rounded-md px-3 py-1.5" href="/login/">Login</a>
+				<a class="button bg-blue-500 text-white rounded-md px-3 py-1.5" href="/signup/">Sign up</a>
+			</div>
+		</div>
+	</div>
+
+</header>
+
+
+			<main class="flex-1">
+	<div x-data="homepage()" class="isolate bg-gradient-to-b from-white to-slate-50">
+		<div class="relative px-6 lg:px-8">
+			<div class="mx-auto max-w-3xl pt-20 pb-32 sm:pt-48 sm:pb-40">
+				<div>
+					<div>
+						<h1 class="text-4xl font-bold tracking-tight sm:text-center sm:text-6xl">Find Similar Websites.
+						</h1>
+						<p class="mt-6 text-lg leading-8 text-gray-600 sm:text-center">Explore the best alternatives for
+							your favorite websites. Our search engine enables you to quickly discover sites that offer
+							similar content, features, and services.</p>
+						<form method="GET" action="/search/" class="mt-8 h-12 flex gap-x-4 sm:justify-center">
+							<div class="w-full h-full max-w-lg">
+								<label for="search" class="sr-only">Search</label>
+								<div class="relative h-full ">
+									<div class="pointer-events-none absolute inset-y-0 left-0 flex items-center pl-3">
+										<!-- Heroicon name: mini/magnifying-glass -->
+										<svg class="h-5 w-5 text-gray-400" xmlns="http://www.w3.org/2000/svg"
+											viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
+											<path fill-rule="evenodd"
+												d="M9 3.5a5.5 5.5 0 100 11 5.5 5.5 0 000-11zM2 9a7 7 0 1112.452 4.391l3.328 3.329a.75.75 0 11-1.06 1.06l-3.329-3.328A7 7 0 012 9z"
+												clip-rule="evenodd"></path>
+										</svg>
+									</div>
+									<input id="search" name="q" x-ref="searchbar"
+										class="block w-full h-full rounded-md border border-gray-300 bg-white pl-10 pr-3 leading-5 placeholder-gray-500 shadow-sm focus:border-blue-600 focus:placeholder-gray-400 focus:outline-none focus:ring-1 focus:ring-blue-600"
+										placeholder="Enter a site name..." type="search">
+								</div>
+							</div>
+							<button type="submit"
+								class="flex items-center space-x-1 h-full rounded-lg bg-indigo-600 px-6 text-base font-semibold leading-7 text-white shadow-sm ring-1 ring-indigo-600 hover:bg-indigo-700 hover:ring-indigo-700">
+								<span>Search</span>
+								<span class="text-indigo-200" aria-hidden="true">&rarr;</span>
+							</button>
+						</form>
+					</div>
+					<div class="mt-6 grid grid-cols-1 gap-6 sm:flex sm:items-center sm:justify-center sm:space-x-9 text-gray-400 text-sm ">
+						<div class="flex items-center justify-center space-x-2">
+							
+
+<svg 
+	
+	class="h-5 w-5 " 
+	xmlns="http://www.w3.org/2000/svg" 
+	fill="none"
+	viewBox="0 0 24 24"
+	stroke="currentColor">
+	<path d="M16.5003 18.75H7.50026M16.5003 18.75C18.1571 18.75 19.5003 20.0931 19.5003 21.75H4.50026C4.50026 20.0931 5.8434 18.75 7.50026 18.75M16.5003 18.75V15.375C16.5003 14.7537 15.9966 14.25 15.3753 14.25H14.5036M7.50026 18.75V15.375C7.50026 14.7537 8.00394 14.25 8.62526 14.25H9.49689M14.5036 14.25H9.49689M14.5036 14.25C13.9563 13.3038 13.6097 12.227 13.5222 11.0777M9.49689 14.25C10.0442 13.3038 10.3908 12.227 10.4783 11.0777M5.25026 4.23636C4.26796 4.3792 3.29561 4.55275 2.33423 4.75601C2.78454 7.42349 4.99518 9.49282 7.72991 9.72775M5.25026 4.23636V4.5C5.25026 6.60778 6.21636 8.48992 7.72991 9.72775M5.25026 4.23636V2.72089C7.45568 2.41051 9.70922 2.25 12.0003 2.25C14.2913 2.25 16.5448 2.41051 18.7503 2.72089V4.23636M7.72991 9.72775C8.51748 10.3719 9.45329 10.8415 10.4783 11.0777M18.7503 4.23636V4.5C18.7503 6.60778 17.7842 8.48992 16.2706 9.72775M18.7503 4.23636C19.7326 4.3792 20.7049 4.55275 21.6663 4.75601C21.216 7.42349 19.0053 9.49282 16.2706 9.72775M16.2706 9.72775C15.483 10.3719 14.5472 10.8415 13.5222 11.0777M13.5222 11.0777C13.0331 11.1904 12.5236 11.25 12.0003 11.25C11.4769 11.25 10.9675 11.1904 10.4783 11.0777" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+
+</svg>
+
+							<a href="/popular/">Most Popular Sites 2023</a>
+						</div>
+						<div class="flex items-center justify-center space-x-2">
+							
+
+<svg 
+	
+	class="h-5 w-5 " 
+	xmlns="http://www.w3.org/2000/svg" 
+	fill="none"
+	viewBox="0 0 24 24"
+	stroke="currentColor">
+	<path d="M2.25 18.0004L9 11.2504L13.3064 15.5568C14.5101 13.1885 16.5042 11.2027 19.1203 10.038L21.8609 8.81775M21.8609 8.81775L15.9196 6.53711M21.8609 8.81775L19.5802 14.759" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+
+</svg>
+
+							<a href="/trending/">Trendings Sites</a>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<div class="overflow-hidden bg-gray-50 py-16 lg:py-24">
+		<div class="relative mx-auto max-w-xl px-6 lg:max-w-6xl lg:px-8">
+			<svg class="absolute left-full hidden -translate-x-1/2 -translate-y-1/4 transform lg:block" width="404"
+				height="784" fill="none" viewBox="0 0 404 784" aria-hidden="true">
+				<defs>
+					<pattern id="b1e6e422-73f8-40a6-b5d9-c8586e37e0e7" x="0" y="0" width="20" height="20"
+						patternUnits="userSpaceOnUse">
+						<rect x="0" y="0" width="4" height="4" class="text-gray-200" fill="currentColor" />
+					</pattern>
+				</defs>
+				<rect width="404" height="784" fill="url(#b1e6e422-73f8-40a6-b5d9-c8586e37e0e7)" />
+			</svg>
+
+			<div class="relative">
+				<h2 class="text-center text-3xl font-bold leading-8 tracking-tight text-gray-900 sm:text-4xl">
+					A better way to find new websites
+				</h2>
+				<p class="mx-auto mt-4 max-w-3xl text-center text-xl text-gray-500">
+					Discovering new websites just got easier with this innovative new approach!
+				</p>
+			</div>
+
+			<div class="relative mt-12 lg:mt-24 lg:grid lg:grid-cols-2 lg:items-center lg:gap-8">
+				<div class="relative">
+					<h3 class="text-2xl font-bold tracking-tight text-gray-900 sm:text-3xl">
+						Popular tags and topics
+					</h3>
+					<p class="mt-3 text-lg text-gray-500">Discover new websites by browsing your favorite topics and tags. Sort by relevancy or popularity to speed up your search.</p>
+
+					<dl class="mt-10 space-y-10">
+						<div class="relative">
+							<dt>
+								<div
+									class="absolute flex h-12 w-12 items-center justify-center rounded-xl bg-indigo-500 text-white">
+									
+
+<svg 
+	
+	class="h-8 w-8 " 
+	xmlns="http://www.w3.org/2000/svg" 
+	fill="none"
+	viewBox="0 0 24 24"
+	stroke="currentColor">
+	<path d="M12 18V12.75M12 12.75C12.5179 12.75 13.0206 12.6844 13.5 12.561M12 12.75C11.4821 12.75 10.9794 12.6844 10.5 12.561M14.25 20.0394C13.5212 20.1777 12.769 20.25 12 20.25C11.231 20.25 10.4788 20.1777 9.75 20.0394M13.5 22.422C13.007 22.4736 12.5066 22.5 12 22.5C11.4934 22.5 10.993 22.4736 10.5 22.422M14.25 18V17.8083C14.25 16.8254 14.9083 15.985 15.7585 15.4917C17.9955 14.1938 19.5 11.7726 19.5 9C19.5 4.85786 16.1421 1.5 12 1.5C7.85786 1.5 4.5 4.85786 4.5 9C4.5 11.7726 6.00446 14.1938 8.24155 15.4917C9.09173 15.985 9.75 16.8254 9.75 17.8083V18" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+
+</svg>
+
+								</div>
+								<p class="ml-16 text-lg font-medium leading-6 text-gray-900">
+									Get fresh ideas
+								</p>
+							</dt>
+							<dd class="mt-2 ml-16 text-base text-gray-500">
+								Think outside the box by breaking away from familiar sites and actively seeking similar alternatives.
+							</dd>
+						</div>
+
+						<div class="relative">
+							<dt>
+								<div
+									class="absolute flex h-12 w-12 items-center justify-center rounded-xl bg-indigo-500 text-white">
+									
+
+<svg 
+	
+	class="h-8 w-8 " 
+	xmlns="http://www.w3.org/2000/svg" 
+	fill="none"
+	viewBox="0 0 24 24"
+	stroke="currentColor">
+	<path d="M9 12.75L11.25 15L15 9.75M21 12C21 13.2683 20.3704 14.3895 19.4067 15.0682C19.6081 16.2294 19.2604 17.4672 18.3637 18.3639C17.467 19.2606 16.2292 19.6083 15.068 19.4069C14.3893 20.3705 13.2682 21 12 21C10.7319 21 9.61072 20.3705 8.93204 19.407C7.77066 19.6086 6.53256 19.261 5.6357 18.3641C4.73886 17.4673 4.39125 16.2292 4.59286 15.0678C3.62941 14.3891 3 13.2681 3 12C3 10.7319 3.62946 9.61077 4.59298 8.93208C4.39147 7.77079 4.7391 6.53284 5.63587 5.63607C6.53265 4.73929 7.77063 4.39166 8.93194 4.59319C9.61061 3.62955 10.7318 3 12 3C13.2682 3 14.3893 3.6295 15.068 4.59307C16.2294 4.39145 17.4674 4.73906 18.3643 5.6359C19.2611 6.53274 19.6087 7.77081 19.4071 8.93218C20.3706 9.61087 21 10.7319 21 12Z" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+
+</svg>
+
+								</div>
+								<p class="ml-16 text-lg font-medium leading-6 text-gray-900">Community proven</p>
+							</dt>
+							<dd class="mt-2 ml-16 text-base text-gray-500">Our results are reviewed and monitored by an active community.</dd>
+						</div>
+
+						<div class="relative">
+							<dt>
+								<div
+									class="absolute flex h-12 w-12 items-center justify-center rounded-xl bg-indigo-500 text-white">
+									
+
+<svg 
+	
+	class="h-8 w-8 " 
+	xmlns="http://www.w3.org/2000/svg" 
+	fill="none"
+	viewBox="0 0 24 24"
+	stroke="currentColor">
+	<path d="M3.75 13.5L14.25 2.25L12 10.5H20.25L9.75 21.75L12 13.5H3.75Z" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+
+</svg>
+
+								</div>
+								<p class="ml-16 text-lg font-medium leading-6 text-gray-900">Results are instant</p>
+							</dt>
+							<dd class="mt-2 ml-16 text-base text-gray-500">Not only our speed will inspire them, but also the results of the search are fast and effective.</dd>
+						</div>
+					</dl>
+				</div>
+
+				<div class="relative -mx-4 mt-10 lg:mt-0">
+					<div class="max-w-2xl px-8 grid grid-cols-2 gap-6">
+							<div class="bg-white px-5 py-4 rounded shadow-md flex items-center justify-center text-center">
+								<a href="/topics/shopping/" class="link font-semibold">Shopping</a>
+							</div>
+							<div class="bg-white px-5 py-4 rounded shadow-md flex items-center justify-center text-center">
+								<a href="/topics/accessories/" class="link font-semibold">Accessories</a>
+							</div>
+							<div class="bg-white px-5 py-4 rounded shadow-md flex items-center justify-center text-center">
+								<a href="/topics/fashion/" class="link font-semibold">Fashion</a>
+							</div>
+							<div class="bg-white px-5 py-4 rounded shadow-md flex items-center justify-center text-center">
+								<a href="/topics/technology/" class="link font-semibold">Technology</a>
+							</div>
+							<div class="bg-white px-5 py-4 rounded shadow-md flex items-center justify-center text-center">
+								<a href="/topics/music/" class="link font-semibold">Music</a>
+							</div>
+							<div class="bg-white px-5 py-4 rounded shadow-md flex items-center justify-center text-center">
+								<a href="/topics/online-shopping/" class="link font-semibold">Online Shopping</a>
+							</div>
+							<div class="bg-white px-5 py-4 rounded shadow-md flex items-center justify-center text-center">
+								<a href="/topics/entertainment/" class="link font-semibold">Entertainment</a>
+							</div>
+							<div class="bg-white px-5 py-4 rounded shadow-md flex items-center justify-center text-center">
+								<a href="/topics/deals/" class="link font-semibold">Deals</a>
+							</div>
+					</div>
+				</div>
+			</div>
+
+			<svg class="absolute right-full hidden translate-x-1/2 translate-y-12 transform lg:block" width="404"
+				height="784" fill="none" viewBox="0 0 404 784" aria-hidden="true">
+				<defs>
+					<pattern id="64e643ad-2176-4f86-b3d7-f2c5da3b6a6d" x="0" y="0" width="20" height="20"
+						patternUnits="userSpaceOnUse">
+						<rect x="0" y="0" width="4" height="4" class="text-gray-200" fill="currentColor" />
+					</pattern>
+				</defs>
+				<rect width="404" height="784" fill="url(#64e643ad-2176-4f86-b3d7-f2c5da3b6a6d)" />
+			</svg>
+
+			<div class="relative mt-12 sm:mt-16 lg:mt-24">
+				<div class="lg:grid lg:grid-flow-row-dense lg:grid-cols-2 lg:items-center lg:gap-8">
+					<div class="lg:col-start-2">
+						<h3 class="text-2xl font-bold tracking-tight text-gray-900 sm:text-3xl">Trending sites</h3>
+						<p class="mt-3 text-lg text-gray-500">
+							Explore trending sites that are popular right now and discover the most liked alternatives for them.
+						</p>
+
+						<dl class="mt-10 space-y-10">
+							<div class="relative">
+								<dt>
+									<div
+										class="absolute flex h-12 w-12 items-center justify-center rounded-xl bg-indigo-500 text-white">
+										
+
+<svg 
+	
+	class="h-8 w-8 " 
+	xmlns="http://www.w3.org/2000/svg" 
+	fill="none"
+	viewBox="0 0 24 24"
+	stroke="currentColor">
+	<path d="M2.25 18.0004L9 11.2504L13.3064 15.5568C14.5101 13.1885 16.5042 11.2027 19.1203 10.038L21.8609 8.81775M21.8609 8.81775L15.9196 6.53711M21.8609 8.81775L19.5802 14.759" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+
+</svg>
+
+									</div>
+									<p class="ml-16 text-lg font-medium leading-6 text-gray-900">Stay up to date</p>
+								</dt>
+								<dd class="mt-2 ml-16 text-base text-gray-500">A lot is happening at once on the web and developments are happening rapidly. If there is something new on the market, you will learn about it here very early.</dd>
+							</div>
+
+							<div class="relative">
+								<dt>
+									<div
+										class="absolute flex h-12 w-12 items-center justify-center rounded-xl bg-indigo-500 text-white">
+										
+
+<svg 
+	
+	class="h-8 w-8 " 
+	xmlns="http://www.w3.org/2000/svg" 
+	fill="none"
+	viewBox="0 0 24 24"
+	stroke="currentColor">
+	<path d="M2.25 15C2.25 17.4853 4.26472 19.5 6.75 19.5H18C20.0711 19.5 21.75 17.8211 21.75 15.75C21.75 14.1479 20.7453 12.7805 19.3316 12.2433C19.4407 11.9324 19.5 11.5981 19.5 11.25C19.5 9.59315 18.1569 8.25 16.5 8.25C16.1767 8.25 15.8654 8.30113 15.5737 8.39575C14.9765 6.1526 12.9312 4.5 10.5 4.5C7.6005 4.5 5.25 6.85051 5.25 9.75C5.25 10.0832 5.28105 10.4092 5.3404 10.7252C3.54555 11.3167 2.25 13.0071 2.25 15Z" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+
+</svg>
+
+									</div>
+									<p class="ml-16 text-lg font-medium leading-6 text-gray-900">Accessible everywhere</p>
+								</dt>
+								<dd class="mt-2 ml-16 text-base text-gray-500">No matter from where, no matter what device. We deliver fast results to anyone. Just try it out!</dd>
+							</div>
+						</dl>
+					</div>
+
+					<div class="relative -mx-4 mt-10 lg:col-start-1 lg:mt-0">
+						<svg class="absolute z-0 left-1/2 -translate-x-1/2 translate-y-16 transform lg:hidden" width="784"
+							height="404" fill="none" viewBox="0 0 784 404" aria-hidden="true">
+							<defs>
+								<pattern id="e80155a9-dfde-425a-b5ea-1f6fadd20131" x="0" y="0" width="20" height="20"
+									patternUnits="userSpaceOnUse">
+									<rect x="0" y="0" width="4" height="4" class="text-gray-200" fill="currentColor" />
+								</pattern>
+							</defs>
+							<rect width="784" height="404" fill="url(#e80155a9-dfde-425a-b5ea-1f6fadd20131)" />
+						</svg>
+						<div class="max-w-2xl space-y-4 px-8 relative z-10">
+								<div class="bg-white px-5 py-4 flex items-center justify-between rounded shadow-md">
+									<div class="flex items-center space-x-3">
+										<div class="shrink-0 flex items-center justify-center h-10 w-10 p-1 shadow">
+											<img class="bg-white object-cover w-6 h-6" src="/images/icons/aliexpress-clothes-3779365.png" />
+										</div>
+										<a href="/sites/aliexpress-clothes/" class="link font-semibold">AliExpress Clothes</a>
+									</div>
+									<div class="flex items-center space-x-1 text-sm">
+										<span class="text-rose-500">
+											
+
+<svg 
+	
+	class="h-5 w-5 " 
+	xmlns="http://www.w3.org/2000/svg" 
+	fill="currentColor"
+	viewBox="0 0 24 24"
+	stroke="">
+	<path d="M11.645 20.9107L11.6384 20.9071L11.6158 20.8949C11.5965 20.8844 11.5689 20.8693 11.5336 20.8496C11.4629 20.8101 11.3612 20.7524 11.233 20.6769C10.9765 20.5261 10.6132 20.3039 10.1785 20.015C9.31074 19.4381 8.15122 18.5901 6.9886 17.5063C4.68781 15.3615 2.25 12.1751 2.25 8.25C2.25 5.32194 4.7136 3 7.6875 3C9.43638 3 11.0023 3.79909 12 5.0516C12.9977 3.79909 14.5636 3 16.3125 3C19.2864 3 21.75 5.32194 21.75 8.25C21.75 12.1751 19.3122 15.3615 17.0114 17.5063C15.8488 18.5901 14.6893 19.4381 13.8215 20.015C13.3868 20.3039 13.0235 20.5261 12.767 20.6769C12.6388 20.7524 12.5371 20.8101 12.4664 20.8496C12.4311 20.8693 12.4035 20.8844 12.3842 20.8949L12.3616 20.9071L12.355 20.9107L12.3523 20.9121C12.1323 21.0289 11.8677 21.0289 11.6477 20.9121L11.645 20.9107Z"/>
+
+</svg>
+
+										</span>
+										<span>20225</span>
+									</div>
+								</div>
+								<div class="bg-white px-5 py-4 flex items-center justify-between rounded shadow-md">
+									<div class="flex items-center space-x-3">
+										<div class="shrink-0 flex items-center justify-center h-10 w-10 p-1 shadow">
+											<img class="bg-white object-cover w-6 h-6" src="/images/icons/temp-exposed-1026712665.png" />
+										</div>
+										<a href="/sites/temp-exposed/" class="link font-semibold">temp.exposed</a>
+									</div>
+									<div class="flex items-center space-x-1 text-sm">
+										<span class="text-rose-500">
+											
+
+<svg 
+	
+	class="h-5 w-5 " 
+	xmlns="http://www.w3.org/2000/svg" 
+	fill="currentColor"
+	viewBox="0 0 24 24"
+	stroke="">
+	<path d="M11.645 20.9107L11.6384 20.9071L11.6158 20.8949C11.5965 20.8844 11.5689 20.8693 11.5336 20.8496C11.4629 20.8101 11.3612 20.7524 11.233 20.6769C10.9765 20.5261 10.6132 20.3039 10.1785 20.015C9.31074 19.4381 8.15122 18.5901 6.9886 17.5063C4.68781 15.3615 2.25 12.1751 2.25 8.25C2.25 5.32194 4.7136 3 7.6875 3C9.43638 3 11.0023 3.79909 12 5.0516C12.9977 3.79909 14.5636 3 16.3125 3C19.2864 3 21.75 5.32194 21.75 8.25C21.75 12.1751 19.3122 15.3615 17.0114 17.5063C15.8488 18.5901 14.6893 19.4381 13.8215 20.015C13.3868 20.3039 13.0235 20.5261 12.767 20.6769C12.6388 20.7524 12.5371 20.8101 12.4664 20.8496C12.4311 20.8693 12.4035 20.8844 12.3842 20.8949L12.3616 20.9071L12.355 20.9107L12.3523 20.9121C12.1323 21.0289 11.8677 21.0289 11.6477 20.9121L11.645 20.9107Z"/>
+
+</svg>
+
+										</span>
+										<span>10518</span>
+									</div>
+								</div>
+								<div class="bg-white px-5 py-4 flex items-center justify-between rounded shadow-md">
+									<div class="flex items-center space-x-3">
+										<div class="shrink-0 flex items-center justify-center h-10 w-10 p-1 shadow">
+											<img class="bg-white object-cover w-6 h-6" src="/images/icons/kekma-net-84586863.png" />
+										</div>
+										<a href="/sites/kekma-net/" class="link font-semibold">Kekma.net</a>
+									</div>
+									<div class="flex items-center space-x-1 text-sm">
+										<span class="text-rose-500">
+											
+
+<svg 
+	
+	class="h-5 w-5 " 
+	xmlns="http://www.w3.org/2000/svg" 
+	fill="currentColor"
+	viewBox="0 0 24 24"
+	stroke="">
+	<path d="M11.645 20.9107L11.6384 20.9071L11.6158 20.8949C11.5965 20.8844 11.5689 20.8693 11.5336 20.8496C11.4629 20.8101 11.3612 20.7524 11.233 20.6769C10.9765 20.5261 10.6132 20.3039 10.1785 20.015C9.31074 19.4381 8.15122 18.5901 6.9886 17.5063C4.68781 15.3615 2.25 12.1751 2.25 8.25C2.25 5.32194 4.7136 3 7.6875 3C9.43638 3 11.0023 3.79909 12 5.0516C12.9977 3.79909 14.5636 3 16.3125 3C19.2864 3 21.75 5.32194 21.75 8.25C21.75 12.1751 19.3122 15.3615 17.0114 17.5063C15.8488 18.5901 14.6893 19.4381 13.8215 20.015C13.3868 20.3039 13.0235 20.5261 12.767 20.6769C12.6388 20.7524 12.5371 20.8101 12.4664 20.8496C12.4311 20.8693 12.4035 20.8844 12.3842 20.8949L12.3616 20.9071L12.355 20.9107L12.3523 20.9121C12.1323 21.0289 11.8677 21.0289 11.6477 20.9121L11.645 20.9107Z"/>
+
+</svg>
+
+										</span>
+										<span>9218</span>
+									</div>
+								</div>
+								<div class="bg-white px-5 py-4 flex items-center justify-between rounded shadow-md">
+									<div class="flex items-center space-x-3">
+										<div class="shrink-0 flex items-center justify-center h-10 w-10 p-1 shadow">
+											<img class="bg-white object-cover w-6 h-6" src="/images/icons/movie-blog-29018359.png" />
+										</div>
+										<a href="/sites/movie-blog/" class="link font-semibold">Movie-Blog</a>
+									</div>
+									<div class="flex items-center space-x-1 text-sm">
+										<span class="text-rose-500">
+											
+
+<svg 
+	
+	class="h-5 w-5 " 
+	xmlns="http://www.w3.org/2000/svg" 
+	fill="currentColor"
+	viewBox="0 0 24 24"
+	stroke="">
+	<path d="M11.645 20.9107L11.6384 20.9071L11.6158 20.8949C11.5965 20.8844 11.5689 20.8693 11.5336 20.8496C11.4629 20.8101 11.3612 20.7524 11.233 20.6769C10.9765 20.5261 10.6132 20.3039 10.1785 20.015C9.31074 19.4381 8.15122 18.5901 6.9886 17.5063C4.68781 15.3615 2.25 12.1751 2.25 8.25C2.25 5.32194 4.7136 3 7.6875 3C9.43638 3 11.0023 3.79909 12 5.0516C12.9977 3.79909 14.5636 3 16.3125 3C19.2864 3 21.75 5.32194 21.75 8.25C21.75 12.1751 19.3122 15.3615 17.0114 17.5063C15.8488 18.5901 14.6893 19.4381 13.8215 20.015C13.3868 20.3039 13.0235 20.5261 12.767 20.6769C12.6388 20.7524 12.5371 20.8101 12.4664 20.8496C12.4311 20.8693 12.4035 20.8844 12.3842 20.8949L12.3616 20.9071L12.355 20.9107L12.3523 20.9121C12.1323 21.0289 11.8677 21.0289 11.6477 20.9121L11.645 20.9107Z"/>
+
+</svg>
+
+										</span>
+										<span>8628</span>
+									</div>
+								</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+
+
+</main>
+
+<script>
+	function homepage() {
+		return {
+			init() {
+				this.$refs.searchbar.focus()
+			}
+		}
+	}
+</script>
+
+
+			<footer class="bg-white" aria-labelledby="footer-heading">
+	<h2 id="footer-heading" class="sr-only">Footer</h2>
+	<div class="mx-auto max-w-6xl py-12 px-4 sm:px-6 lg:py-16 lg:px-8">
+		<div class="xl:grid xl:grid-cols-3 xl:gap-8">
+			<div class="space-y-8 xl:col-span-1">
+				<div class="flex items-center space-x-3">
+
+					<img class="h-10" src="/images/logos/similarsitesearch_small.png" alt="SimilarSiteSearch">
+					<span class="text-slate-900 text-2xl font-semibold">SimilarSiteSearch</span>
+				</div>
+				<p class="text-base text-gray-500">The Best Place To Find Similar Websites.</p>
+				<div class="flex space-x-6">
+					<a href="https://www.facebook.com/SimilarSiteSearch/" target="_blank"
+						class="text-gray-400 hover:text-gray-500">
+						<span class="sr-only">Facebook</span>
+						<svg class="h-6 w-6" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+							<path fill-rule="evenodd"
+								d="M22 12c0-5.523-4.477-10-10-10S2 6.477 2 12c0 4.991 3.657 9.128 8.438 9.878v-6.987h-2.54V12h2.54V9.797c0-2.506 1.492-3.89 3.777-3.89 1.094 0 2.238.195 2.238.195v2.46h-1.26c-1.243 0-1.63.771-1.63 1.562V12h2.773l-.443 2.89h-2.33v6.988C18.343 21.128 22 16.991 22 12z"
+								clip-rule="evenodd" />
+						</svg>
+					</a>
+
+				</div>
+			</div>
+			<div class="mt-12 grid grid-cols-2 gap-8 xl:col-span-2 xl:mt-0">
+				<div class="md:grid md:grid-cols-2 md:gap-8">
+					<div>
+						<h3 class="text-base font-medium text-gray-900">Solutions</h3>
+						<ul role="list" class="mt-4 space-y-4">
+							<li>
+								<a href="/popular/" class="text-base text-gray-500 hover:text-gray-900">Popular</a>
+							</li>
+
+							<li>
+								<a href="/trending/" class="text-base text-gray-500 hover:text-gray-900">Trending</a>
+							</li>
+
+							<li>
+								<a href="/topics/" class="text-base text-gray-500 hover:text-gray-900">Topics</a>
+							</li>
+						</ul>
+					</div>
+					<div class="mt-12 md:mt-0">
+						<h3 class="text-base font-medium text-gray-900">Support</h3>
+						<ul role="list" class="mt-4 space-y-4">
+							<li>
+								<a href="/support/" class="text-base text-gray-500 hover:text-gray-900">Contact</a>
+							</li>
+							<li>
+								<a href="/tips/" class="text-base text-gray-500 hover:text-gray-900">Tips</a>
+							</li>
+
+							<li>
+								<a href="/api/" class="text-base text-gray-500 hover:text-gray-900">API Docs</a>
+							</li>
+						</ul>
+					</div>
+				</div>
+				<div class="md:grid md:grid-cols-2 md:gap-8">
+					<div>
+						<h3 class="text-base font-medium text-gray-900">Company</h3>
+						<ul role="list" class="mt-4 space-y-4">
+							<li>
+								<a href="/about/" class="text-base text-gray-500 hover:text-gray-900">About</a>
+							</li>
+
+							<li>
+								<a href="/imprint/" class="text-base text-gray-500 hover:text-gray-900">Imprint</a>
+							</li>
+						</ul>
+					</div>
+					<div class="mt-12 md:mt-0">
+						<h3 class="text-base font-medium text-gray-900">Legal</h3>
+						<ul role="list" class="mt-4 space-y-4">
+							<li>
+								<a href="/privacy/" class="text-base text-gray-500 hover:text-gray-900">Privacy</a>
+							</li>
+
+							<li>
+								<a href="/tos/" class="text-base text-gray-500 hover:text-gray-900">Terms</a>
+							</li>
+						</ul>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="mt-12 border-t border-gray-200 pt-8">
+			<p class="text-base text-gray-400 xl:text-center">&copy; 2023 SimilarSiteSearch. All rights reserved.
+			</p>
+		</div>
+	</div>
+</footer>
+
+		</div>
+
+		<script>
+			function global() {
+				return {
+					isMobileView: false,
+					init() {
+						let width = (window.innerWidth > 0) ? window.innerWidth : screen.width
+						if (width < 970) {
+							this.isMobileView = true
+						}
+		
+						this.$store.meta.update({
+							availableLanguages: ['en'],
+							displayLang: "en",
+							csrfToken: "fa2334ae8ee2d19fd3b0131f45ae200bb76c512c",
+						})
+		
+						dayjs.locale(similar.getLanguage())
+					}
+				}
+			}
+		</script>
+	</body>
+</html>

@@ -1,0 +1,101 @@
+<?php
+
+
+	$clubname = getenv("HTTP_HOST");
+	$clubname2 = getenv("HTTP_HOST");
+
+	$clubname = str_replace(".lifestyleezine.com", "", $clubname);
+	$clubname = str_replace("lifestyleezine.com", "", $clubname);
+	$clubname = str_replace(".memberezine.com", "", $clubname);
+
+
+if (is_int(strrpos($clubname2, "fitdv.com"))) {
+	$clubname = str_replace(".fitdv.com", "", $clubname);
+	$clubname = str_replace(".", "", $clubname);
+	if ($clubname == "phoenixfitness"){
+		header("Location: http://".$clubname.".fitdv.com/new/mainpage.php");
+	} elseif ($clubname == "esportfitness"){
+		header("Location: http://".$clubname.".fitdv.com/new/mainpage.php");
+	} elseif ($clubname == "umanitoba"){
+		header("Location: http://".$clubname.".fitdv.com/new/mainpage.php");
+	} elseif ($clubname== "mgwebcomcom"){
+		header("Location: http://www.mgwebcom.com");
+	} elseif ($clubname != "www") {
+		header("Location: http://".$clubname.".fitdv.com/new/mainpage.php");
+	} elseif ($clubname== "www"){
+		header("Location: http://www.lifestyleezine.com");
+	} elseif ($clubname== "profitness"){
+		header("Location: http://".$clubname.".fitdv.com/new/discontinued.html");
+	}
+
+
+} else {
+
+	include($_SERVER['DOCUMENT_ROOT'].'/mag/include/database.php');
+	include($_SERVER['DOCUMENT_ROOT'].'/mag/include/common.php');
+
+	$subdomain = get_domain('domain');
+	if ($subdomain == "www"){
+
+	} else {
+		$query = "SELECT templateid FROM club_links WHERE domain='$subdomain'";
+		$DB_query = db_query($query) or die(mysql_error());
+		list($DB_templateid) = db_fetch_row($DB_query);
+		if ($DB_templateid>0){
+			header("Location: http://".$subdomain.".lifestyleezine.com/main/");
+		} else {
+			header("Location: http://".$subdomain.".lifestyleezine.com/mag/");
+		}
+	}
+
+/*
+	$clubname = str_replace(".", "", $clubname);
+	if ($clubname == "subaruhamilton" or $clubname == "acuraonbrant" or $clubname == "toyotahamilton" or $clubname == "erinwoodford" or $clubname == "sterlinghonda" or $clubname == "saturnhamilton" or $clubname == "nethercottchev" or $clubname == "ancastertoyota" or $clubname == "demo" or $clubname == "fitnessdepot" or $clubname == "fitessentialresults" or $clubname == "phoenixfitness" or $clubname == "hamiltonshotel" or $clubname == "fitnessclubthornhill" or $clubname == "fitnessdepotcommercial" or $clubname == "bodywaves" or $clubname == "pinaclehealthandfitness" or $clubname == "curves" or $clubname == "bionicsfitness" or $clubname == "ipowertrain"){
+		header("Location: http://".$clubname.".lifestyleezine.com/mag/");
+	} elseif ($clubname == "dundasvalleygolf"){
+		header("Location: http://".$clubname.".memberezine.com/mag/");
+	} else {
+		header("Location: http://www.mgwebcom.com");
+	}
+*/
+}
+
+?>
+
+<html>
+<head><meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<title>Lifestyle E-Zine</title>
+
+<link rel="stylesheet" type="text/css" media="all" href="master.css" />
+
+</head>
+
+<body>
+<div class="page">
+<div align="center" style="font-size: 16px; font-family: Tahoma, Geneva, sans-serif; font-weight: bold; color: #444; margin: 20px 0 10px 0;"><em></em></div>
+<div align="center" style="font-size: 35px; font-family:  Techno, Impact, sans-serif; color: #cc0000;">The lifestyle magazine distributed by the best brands in the world, <Br>because they care to deliver the best information for their valued clients.</div>
+<div align="center" style="margin: 10px 0 0 0;">
+	<table style="margin: 0; padding: 0; border: 0;">
+		<tr valign="top">
+			<td>
+				<img src="images/new_mag_button.png" alt="Online Fitness Magazine" border="0" style="padding: 80px 0 0 0;" />
+			</td>
+		</tr>
+	</table>
+<p>
+<b>Postal Address</b><br>
+Ultimate Fitness Marketing<br>
+4496 Southside Blvd.<br>
+Jacksonville, Fl<br>
+USA<br>
+Telephone 1-866-273-9217<br>
+Email support@ultimatefitnessmarketing.com
+</p>
+</div>
+<div class="footer">
+	<div class="footer_menu"><a href="index.html">Home</a> | <a href="privacy.html">Privacy Policy</a> | <a href="antispam.html">Anti-Spam Policy</a> | <a href="terms.html">Terms Of Use</a> </div>
+	<div class="copyright">Copyright 2008-<?php echo date("Y"); ?> &copy; Lifestyleezine.com</div>
+</div>
+</div>
+</body>
+</html>

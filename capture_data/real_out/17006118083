@@ -1,0 +1,214 @@
+
+
+
+
+
+
+
+<!doctype html>
+<html lang="sv">
+    <head>
+        <meta charset="utf-8"/>
+        <base href="/"/>
+        <meta name="theme-color" media="(prefers-color-scheme: light)" content="#FDFDFD"/>
+        <meta name="theme-color" media="(prefers-color-scheme: dark)" content="#031D20"/>
+        <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=5, viewport-fit=cover"/>
+        <meta name="apple-mobile-web-app-capable" content="yes"/>
+
+        <link rel="dns-prefetch" href="https://smetrics.avanza.se"/>
+
+        <link rel="modulepreload" href="/frontend/pwa/resource.pwa/dist/release-2023-46.9/main.5c39835cfcc5a276.js"/><link rel="modulepreload" href="/frontend/pwa/resource.pwa/dist/release-2023-46.9/polyfills.3ac445163d2af922.js"/>
+
+        <link rel="preload" as="font" href="/frontend/pwa/resource.woff/app/fonts/Roboto-Bold-latin.woff2" type="font/woff2" crossorigin="anonymous"/>
+        <link rel="preload" as="font" href="/frontend/pwa/resource.woff/app/fonts/Roboto-Medium-latin.woff2" type="font/woff2" crossorigin="anonymous"/>
+        <link rel="preload" as="font" href="/frontend/pwa/resource.woff/app/fonts/Roboto-Regular-latin.woff2" type="font/woff2" crossorigin="anonymous"/>
+        <link rel="preload" as="font" href="/frontend/pwa/resource.woff/app/fonts/Roboto-Avanza-Slab-Bold-latin.woff2" type="font/woff2" crossorigin="anonymous"/>
+
+        <meta property="og:title" content=""/>
+        <meta property="og:description" content=""/>
+        
+        <meta property="og:image" content="https://www.avanza.se/avanzabank/ikoner/open-graph-default-logo.png"/>
+
+        
+        <meta name="format-detection" content="telephone=no"/>
+
+        
+
+        
+            <meta name="description" content="Mer till dig, mindre till banken. Den idén har gett oss Sveriges nöjdaste sparare 13 år i rad. Kom igång med ett sparande på 3 minuter. Välkommen till en bank som den borde vara.">
+        
+
+        
+
+        <title>Välkommen till Avanza | Avanza</title>
+
+        
+
+        <link href="/frontend/image/pwa/favicon.ico" rel="shortcut icon"/>
+        <link href="/frontend/pwa/resource.json/manifest.json" rel="manifest" crossorigin="use-credentials"/>
+	<link rel="stylesheet" href="/frontend/pwa/resource.pwa/dist/release-2023-46.9/styles.2e9eaf71599e6502.css"></head>
+    <body data-theme="" class="">
+        <script type="text/javascript">
+            var AZA = AZA || {};
+            function AZAPostPlatformBootFailed(retries) {
+                if (document.cookie.indexOf('AZAWEBVIEW=true') === -1) {
+                    return;
+                }
+
+                var HOOK_NAME = 'avanzaNativeApp';
+                if (!window[HOOK_NAME] || typeof window[HOOK_NAME].onEvent !== 'function') {
+                    if (retries < 200) {
+                        setTimeout(function () {
+                            AZAPostPlatformBootFailed(retries + 1);
+                        }, 50);
+                    }
+                    return;
+                }
+
+                window[HOOK_NAME].onEvent('PLATFORM_BOOT_FAILED', JSON.stringify({}));
+            }
+
+            var AZAPlatformBootErrorHandler = function (e) {
+                if (e.target && e.target.src && e.target.src.match(/\.js/gi) !== null) {
+                    window.removeEventListener('error', AZAPlatformBootErrorHandler, true);
+                    AZAPostPlatformBootFailed(0);
+                }
+            };
+
+            window.AZAPlatformLoad = function () {
+                window.removeEventListener('error', AZAPlatformBootErrorHandler, true);
+            };
+
+            window.addEventListener('error', AZAPlatformBootErrorHandler, true);
+        </script>
+
+        <script type="text/javascript">
+            // Handle theme setting so that boot loader etc is correctly themed
+            try {
+                // This implementation needs to match theme handler service and local storage service
+                let theme = 'light';
+                const themeEnc = localStorage.getItem('browser-theme-setting');
+                if (themeEnc) {
+                    theme = JSON.parse(decodeURIComponent(atob(themeEnc))).value;
+                }
+
+                if (theme === 'system') {
+                    theme = window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
+                }
+
+                if (theme === 'dark') {
+                    document.body.dataset.theme = 'dark';
+                }
+            } catch (e) {}
+        </script>
+
+        <aza-app></aza-app>
+
+        
+            
+
+
+
+
+
+
+<div id="boot-loader-animation">
+    <style>
+        
+        aza-app {
+            display: block;
+            height: 50000px;
+        }
+
+        @keyframes boot-loader-fade-in {
+            85% {
+                opacity: 0;
+                animation-timing-function: ease-in;
+            }
+            100% {
+                opacity: 1;
+            }
+        }
+
+        @keyframes boot-loader-rotate {
+            100% {
+                transform: rotate(360deg);
+            }
+        }
+
+        @keyframes boot-loader-fade-out {
+            30% {
+                transform: scale(1.1);
+                animation-timing-function: ease-in;
+            }
+            100% {
+                transform: scale(0);
+            }
+        }
+
+        #boot-loader-animation {
+            background-color: #FDFDFD;
+            bottom: 0;
+            left: 0;
+            opacity: 1;
+            position: fixed;
+            right: 0;
+            top: 0;
+            transition: opacity 0.4s ease-out 0.1s;
+            z-index: 999999;
+        }
+        body[data-theme=dark] #boot-loader-animation {
+            background-color: #031D20;
+        }
+
+        .boot-loader {
+            animation: boot-loader-fade-in 1.2s linear forwards;
+            position: absolute;
+            left: 50%;
+            top: 50%;
+            transform: translate(-50%, -50%);
+            opacity: 0;
+        }
+        .boot-loader svg {
+            display: block;
+            position: relative;
+            width: 48px;
+            height: 48px;
+            transform-origin: center center;
+            animation: boot-loader-rotate 1s ease-in-out infinite;
+        }
+        .boot-loader svg .indicator {
+            stroke-linecap: round;
+            transform-origin: center center;
+            stroke-dasharray: 30, 150;
+            stroke-dashoffset: 100;
+        }
+
+        body[data-theme=dark] .boot-loader svg .shape {
+            stroke: #054c54;
+        }
+
+        .hide-boot-loader-animation {
+            opacity: 0;
+        }
+        .hide-boot-loader-animation svg .indicator {
+            opacity: 0;
+        }
+        .hide-boot-loader-animation svg {
+            animation: boot-loader-fade-out 0.4s ease-out forwards;
+        }
+    </style>
+
+    <div class="boot-loader">
+        <svg class="spinner" viewBox="0 0 48 48" height="48" width="48">
+            <circle class="shape" cx="24" cy="24" r="20" fill="none" stroke="#E5F8F2" stroke-width="5"></circle>
+            <circle class="indicator" cx="24" cy="24" r="20" fill="none" stroke="#00C281" stroke-width="5"></circle>
+        </svg>
+    </div>
+</div>
+
+        
+
+        
+    <script src="/frontend/pwa/resource.pwa/dist/release-2023-46.9/polyfills.3ac445163d2af922.js" type="module"></script><script src="/frontend/pwa/resource.pwa/dist/release-2023-46.9/main.5c39835cfcc5a276.js" type="module"></script></body>
+</html>

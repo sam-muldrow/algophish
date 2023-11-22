@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en-us">
+<head>
+<meta charset="utf-8">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<link rel="stylesheet" href="TemplateData/style.css?2">
+<script src="../lib/jquery.min.js"></script>
+<script src="../lib/happygame.7.js"></script>
+<script src="Build/UnityLoader.min.js"></script>
+<script src="Build/UnityProgress.min.js"></script>
+<body>
+<div id='hm_preloader'>
+<div id='hm_bar'></div>
+<style>
+#hm_preloader{position:absolute;left:0;top:0;margin:0;padding:0;width:100%;height:100%;background:url(bg.jpg) no-repeat;background-size:100% 100%;background-color:#999;z-index:99999;}
+#hm_bar{position:absolute;left:30%;top:60%;width:40%;height:20px;background:#e0e0e0;border:1px solid #eee;z-index:999;}
+.loadie{background-color:#000;width:0;height:100%;-webkit-transition:width 0.5s ease-out;box-shadow:0px 1px 5px rgba(0,0,0,0.25);}
+</style>
+<script>!function($){var Loadie={};Loadie.uid=function(){var newDate=new Date;return newDate.getTime()};Loadie.finish=function(dom){var loadie=$("#loadie-"+dom.data("loadie-id"),dom);loadie.fadeOut(200)};Loadie.update=function(dom,percent){var loadie=$("#loadie-"+dom.data("loadie-id"),dom);var parentWidth=dom.width();loadie.css("width",Math.floor(percent*parentWidth)+"px")};Loadie.init=function(dom,percent){var uid=this.uid();var loadie=dom.append($('<div id="loadie-'+uid+'" class="loadie"></div>'));dom.data("loadie-id",uid);dom.css("position","relative");this.update(dom,percent)};$.fn.loadie=function(percent,callback){var percent=percent||0;var parent=$(this);if(parent.data("loadie-loaded")!==1){Loadie.init(parent,percent)}else{Loadie.update(parent,percent)}if(percent>=1){setTimeout(function(){Loadie.finish(parent)},200)}parent.data("loadie-loaded",1);return this}}(jQuery);
+var hm_itv;$(function() {$('#hm_bar').loadie();var n=0,speed=0;hm_itv = setInterval(function(){
+if (n<50){speed=0.5;} else if (n>=50 && n<80){speed=0.25;}else{speed=0.05;}n+=speed;$('#hm_bar').loadie(n/100);if (n>99.8){clearInterval(hm_itv);}},100);})
+function hm_load_complete(){
+clearInterval(hm_itv);$('#hm_bar').loadie(0.9999);setTimeout(function(){$("#hm_preloader").hide();},500);
+hm_preload_end();hm_play_times++;gtag('event',hm_game_id+'-loadcomplete',{'event_category':'game'});
+}
+</script>
+</div>
+
+<table><tr><td><div class="webgl-content" style='margin:auto 0;text-align:center;'><div id="gameContainer" style="width:750px;height:440px"></div></div><img id='cover' src='TemplateData/c.png'></td></tr></table>
+
+<script>
+
+var gameInstance = UnityLoader.instantiate("gameContainer", "Build/Mbuild.json", {onProgress: UnityProgress});
+gameSizeInit=function(){var box=gameInstance.container;
+var w=750,h=440;
+if ($(document.body).height()/$(document.body).width() > h/w){
+box.style.width=$(document.body).width()+"px";
+box.style.height=$(document.body).width()*h/w+"px";
+} else {
+box.style.height=$(document.body).height()+"px";
+box.style.width=$(document.body).height()*w/h+"px";
+}
+if ( $(document.body).width()>$('#gameContainer').width() ){
+	$('#gameContainer').css({left:($(document.body).width()-$('#gameContainer').width())/2});
+}
+var cv_left=$('#gameContainer').offset().left,
+cv_width=352/1564*$('#gameContainer').width(),
+cv_height=55/352*cv_width;
+cv_top=$('#gameContainer').height() + $('#gameContainer').offset().top - cv_height;
+$("#cover").css({left:cv_left,top:cv_top,width:cv_width,height:cv_height});
+}
+window.onload=gameSizeInit;
+	var hm_game_id='tank_stars';
+	hm_fullscreen_show_time=new Date().getTime()/1000;
+	//setTimeout(function(){setInterval(function(){ hm_preload_fullscreen('hm_callback'); },10000);},15000);
+</script>
+<script async src="https://www.googletagmanager.com/gtag/js?id=UA-214739973-14"></script>
+<script>
+if ( typeof(hm_game_id)=='undefined' ){
+	var hm_game_id,found=window.location.href.match(/\/games\/([a-zA-Z0-9-_]+)\//);
+	if ( found!=null ){
+		hm_game_id=found[1];
+	} else {
+		hm_game_id="64.222.201.246#"+window.location.href+"#"+navigator.userAgent;
+	}
+}
+window.dataLayer = window.dataLayer || [];
+function gtag(){dataLayer.push(arguments);}
+gtag('js', new Date());
+gtag('config', 'UA-214739973-14');
+gtag('event',hm_game_id+'-pv',{'event_category':'game'});
+gtag('event','123apkbaixar-pv',{'event_category':'domain'});
+gtag('event','123apkbaixar-uv',{'event_category':'domain'});
+
+if ( typeof(window.HappyMod)=='undefined' ){
+	var HappyMod = new Object();
+	HappyMod.handleAd = function( a,b ){
+		console.log("handleAd:" + a +'~'+ b);
+	}
+	HappyMod.handleLog = function(a){
+		console.log("handleLog:" + a);
+	}
+	HappyMod.finishSplash = function(){
+		console.log("finishsplash");
+	}
+	console.log('handleAd is defined.');
+} else {
+	console.log('handleAd is existed');
+}
+</script></body>
+</html>

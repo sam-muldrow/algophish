@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta http-equiv="content-type" content="text/html; charset=utf-8"/>
+    <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+    <title>Reverso Context</title>
+    <meta name="robots" content="noindex, nofollow">
+    <meta content="NOARCHIVE" name="GOOGLEBOT">
+    <link rel="shortcut icon" href="https://cdn.reverso.net/context/v4010/reverso-context-fav.ico" />
+    <link rel="stylesheet" type="text/css" href="https://cdn.reverso.net/context/v4010/css/bst.style.css"/>
+    <style>
+      @font-face{font-family:'contexticons';src:url('https://cdn.reverso.net/context/v4010/fonts/contexticons.eot?uk2hvl');src:url('https://cdn.reverso.net/context/v4010/fonts/contexticons.eot?uk2hvl#iefix') format('embedded-opentype'),url('https://cdn.reverso.net/context/v4010/fonts/contexticons.ttf?uk2hvl') format('truetype'),url('https://cdn.reverso.net/context/v4010/fonts/contexticons.woff?uk2hvl') format('woff'),url('https://cdn.reverso.net/context/v4010/fonts/contexticons.svg?uk2hvl#contexticons') format('svg');font-weight: normal;font-style: normal;}
+      #error-content {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        padding: 10vh 30px;
+        box-sizing: border-box;
+        margin: 0;
+        overflow: hidden;
+      }
+      #error-content .text {
+        height: auto;
+        box-sizing: border-box;
+        width: 100%;
+      }
+    </style>
+  </head>
+  <body>
+    <div id="wrapper" class="error">
+      <section id="top-content">
+        <a class="reverso-logo nonselectable" href="/" title="Reverso Context: the search engine for translations in context">
+          <div class="logo">
+            <span> <img src="https://cdn.reverso.net/v1540/static/img/logo/logo-en.svg" alt="ReversoTranslation"></span>
+          </div>        
+	</a>
+        <div class="reverso-links">
+          <a class="translation-link" target="_blank" href="http://www.reverso.net/text_translation.aspx?lang=EN">
+            Translation
+          </a>
+          <a class="dictionary-link" target="_blank" href="http://dictionary.reverso.net">
+            Dictionary
+          </a>
+          <a class="speller-link" target="_blank" href="http://www.reverso.net/spell-checker/english-spelling-grammar/">
+            Spell Check
+          </a>
+          <a class="conjugation-link" target="_blank" href="http://conjugator.reverso.net">
+            Conjugator
+          </a>
+          <a class="grammar-link last" target="_blank" href="http://grammar.reverso.net/">
+            Grammar
+          </a>
+        </div>
+      </section>
+      <section id="error-content">
+        <p id="text-en" class="text" style="display: none">
+          You've been denied access â IP blacklisted<br>
+          Your IP <b class="ip"></b> has been considered as sending illegitimate traffic to our servers.<br>
+          If you think your traffic is legitimate, please fill in the form below so we could investigate why you were blacklisted.<br><br>
+          Thank you,<br>
+          The Reverso Team
+        </p>
+        <p id="text-fr" class="text" style="display: none">
+          Votre accÃ¨s a Ã©tÃ© bloquÃ©<br>
+          Nous avons dÃ©tectÃ© que votre adresse IP <b class="ip"><!--# echo var="remote_addr" --></b> utilise notre service de maniÃ¨re non-conforme.<br>
+          Si vous pensez qu'il s'agit d'une erreur, merci de remplir le formulaire de contact ci-dessous et nous reviendrons vers vous rapidement.<br><br>
+          Cordialement,<br>
+          L'Ã©quipe Reverso
+        </p>
+        <iframe id="iframe-form" width="1000" height="3000" frameborder="0" scrolling="auto" marginheight="0" marginwidth="0">Loading...</iframe>
+        <script type="text/javascript">
+          var userLang = navigator.language || navigator.userLanguage;
+          var referrer = encodeURIComponent(document.domain || document.location);
+          var error_type = "General purpose blacklist";
+          var ip = "";
+          
+          if (userLang) {
+            var code = userLang.slice(0,2);
+            switch(code) {
+              case "fr":
+                document.getElementById("text-fr").style.display = "inline-block";
+                document.getElementById("iframe-form").src = "https://docs.google.com/forms/d/e/1FAIpQLSc1OHspxMBUkn3JIBWZ7x6_7OUhyhDYpw94ZoYBFslKeCEB6g/viewform?usp=pp_url&entry.2007143517=" + referrer + "&entry.995552299&entry.493914488=" + ip + "&entry.915325004&entry.1470696955=" + error_type;
+                break;
+              case "en":
+              default:
+                document.getElementById("text-en").style.display = "inline-block";
+                document.getElementById("iframe-form").src = "https://docs.google.com/forms/d/e/1FAIpQLSfMBhGzhLBDgL5KAValyjXJT4M3OB_ERtmIfsxQ6drIZ5Zwqg/viewform?usp=pp_url&entry.2007143517=" + referrer + "&entry.995552299&entry.493914488=" + ip + "&entry.915325004&entry.1470696955=" + error_type;
+            }
+          }
+          function getIP(json) {
+            ip = json.ip;
+            var ip_array = document.getElementsByClassName("ip");
+            for(var i in ip_array) {
+              ip_array[i].innerHTML = ip;
+            }
+            if (userLang) {
+              var code = userLang.slice(0,2);
+              switch(code) {
+                case "fr":
+                  document.getElementById("text-fr").style.display = "inline-block";
+                  document.getElementById("iframe-form").src = "https://docs.google.com/forms/d/e/1FAIpQLSc1OHspxMBUkn3JIBWZ7x6_7OUhyhDYpw94ZoYBFslKeCEB6g/viewform?usp=pp_url&entry.2007143517=" + referrer + "&entry.995552299&entry.493914488=" + ip + "&entry.915325004&entry.1470696955=" + error_type;
+                  break;
+                case "en":
+                default:
+                  document.getElementById("text-en").style.display = "inline-block";
+                  document.getElementById("iframe-form").src = "https://docs.google.com/forms/d/e/1FAIpQLSfMBhGzhLBDgL5KAValyjXJT4M3OB_ERtmIfsxQ6drIZ5Zwqg/viewform?usp=pp_url&entry.2007143517=" + referrer + "&entry.995552299&entry.493914488=" + ip + "&entry.915325004&entry.1470696955=" + error_type;
+              }
+            }
+          }          
+          document.getElementById("iframe-form").width = window.innerWidth > 300 ? window.innerWidth.toString() : "300";
+        </script>
+	<script type="application/javascript" src="https://api.ipify.org?format=jsonp&callback=getIP"></script>
+      </section>
+      <p class="developers">Developed by Prompsit Language Engineering for Softissimo</p>
+      <section id="footer">
+        <p class="copy">Â© 2017 Softissimo Inc. All rights reserved.</p>
+      </section>
+    </div>
+  </body>
+</html>

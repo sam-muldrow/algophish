@@ -1,0 +1,210 @@
+<!DOCTYPE html>
+<html lang="en">
+<head><meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="author" content="">
+	<meta http-equiv="Expires" content="0">
+    <title>POLLOS CROCK - COVEIN</title>
+    <!-- Bootstrap Core CSS -->
+    <link href="css/bootstrap.min.css" rel="stylesheet">
+    <!-- MetisMenu CSS -->
+    <link href="css/plugins/metisMenu/metisMenu.min.css" rel="stylesheet">
+    <!-- Custom CSS -->
+    <link href="css/sb-admin-2.css" rel="stylesheet">
+	<!-- Morris Charts CSS -->
+    <link href="css/plugins/morris.css" rel="stylesheet">
+    <!-- Custom Fonts -->
+    <link href="font-awesome-4.1.0/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+        <script src="js/html5shiv.js"></script>
+        <script src="js/respond.min.js"></script>
+    <![endif]-->
+	<link rel="stylesheet" type="text/css" href="datatables/dataTables.bootstrap.css">
+	<link href="datepicker/css/datepicker.css" rel="stylesheet">
+</head>
+<body>
+	    <div class="container">
+        <div class="row">
+            <div class="col-md-4 col-md-offset-4">
+                <div class="login-panel panel panel-default">
+                    <div class="panel-heading">
+                        <img src="img/logo.png" class="img-responsive center-block" alt="Responsive image">
+                    </div>
+                    <div class="panel-body">
+                        <form role="form" action="process.php" method="post">
+                            <fieldset>
+                                <div class="form-group">
+                                    <input class="form-control" type="text" id="user" name="user" value="" placeholder="Usuario" autofocus>
+									                                </div>
+                                <div class="form-group">
+                                    <input class="form-control" id="pass" name="pass" value="" placeholder="Password" type="password">
+											
+                                </div>
+                                <div class="form-group">
+									<input type="hidden" name="sublogin" value="1">
+									<input class="btn btn-info pull-right" type="submit" value="Ingresar">
+                                    <a href="#" class="pull-left">Ultimo mantenimiento realizado:<br>
+									05/12/2022 a las 09:50<br></a>
+								</div>
+                            </fieldset>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- jQuery Version 1.11.0 -->
+    <script src="js/jquery-1.11.0.js"></script>
+    <!-- Bootstrap Core JavaScript -->
+    <script src="js/bootstrap.min.js"></script>
+    <!-- Metis Menu Plugin JavaScript -->
+    <script src="js/plugins/metisMenu/metisMenu.min.js"></script>
+    <!-- Custom Theme JavaScript -->
+    <script src="js/sb-admin-2.js"></script>
+		<!--js para el autocompletado -->
+	<!--OJO, debe ir por fuera del php-->
+	<script type="text/javascript" src="js/jquery-1.7.min.js" ></script>
+	<script type='text/javascript' src='js/jquery.bgiframe.min.js'></script>
+	<script type='text/javascript' src='js/jquery.ajaxQueue.js'></script>
+	<script type='text/javascript' src="js/jquery.autocomplete.js"></script>
+	<link rel="stylesheet" type="text/css" href="js/jquery.autocomplete.css" />
+<!-- Script de autocompletado -->
+		<script type="text/javascript">
+	$().ready(function() {
+
+		$("#codigo_producto").autocomplete("include/autocompletar.php", {
+			width: 320,
+		});
+
+		$("#codigo_producto").result(function(event, data) {
+			$("#codigo_producto").val(data[1]);
+			$("#nombre_producto").val(data[2]);
+			$("#precio_producto").val(data[3]);
+			$("#unidades_equiv_producto").val(data[4]);
+			$("#producto_equiv_producto").val(data[5]);
+		});
+	});
+	</script>
+	<!-- Script para pasar a mayusculas -->
+	<script language="javascript">
+		function ToUpper(ctrl)
+		{  
+		var t = ctrl.value;
+		ctrl.value = t.toUpperCase();
+		}
+		function sendForm() {
+		document.form1.submit()
+	}
+	</script>
+<!-- Script calcular el vuelto -->	
+	<script language="javascript">
+	function restar()
+	{ 
+	document.forms[1].cambio_control_ventas.value=eval(document.forms[1].efectivo_control_ventas.value)- eval(document.forms[1].total.value);
+	}
+	</script>
+<!-- Morris Charts JavaScript -->
+    <script src="js/plugins/morris/raphael.min.js"></script>
+    <script src="js/plugins/morris/morris.min.js"></script>
+	
+<!-- Script para el datepicker -->
+	<script type="text/javascript" src="datepicker/js/bootstrap-datepicker.js"></script>
+	<script type="text/javascript" language="javascript">
+	if (top.location != location) {
+    top.location.href = document.location.href ;
+  }
+		$(function(){
+			window.prettyPrint && prettyPrint();
+			$('#dp1').datepicker({
+				format: 'yyyy-mm-dd'
+			});
+			$('#dp2').datepicker();
+			$('#dp3').datepicker();
+			$('#dp3').datepicker();
+			$('#dpYears').datepicker();
+			$('#dpMonths').datepicker();
+			
+			
+			var startDate = new Date(2012,1,20);
+			var endDate = new Date(2012,1,25);
+			$('#dp4').datepicker()
+				.on('changeDate', function(ev){
+					if (ev.date.valueOf() > endDate.valueOf()){
+						$('#alert').show().find('strong').text('The start date can not be greater then the end date');
+					} else {
+						$('#alert').hide();
+						startDate = new Date(ev.date);
+						$('#startDate').text($('#dp4').data('date'));
+					}
+					$('#dp4').datepicker('hide');
+				});
+			$('#dp5').datepicker()
+				.on('changeDate', function(ev){
+					if (ev.date.valueOf() < startDate.valueOf()){
+						$('#alert').show().find('strong').text('The end date can not be less then the start date');
+					} else {
+						$('#alert').hide();
+						endDate = new Date(ev.date);
+						$('#endDate').text($('#dp5').data('date'));
+					}
+					$('#dp5').datepicker('hide');
+				});
+
+        // disabling dates
+        var nowTemp = new Date();
+        var now = new Date(nowTemp.getFullYear(), nowTemp.getMonth(), nowTemp.getDate(), 0, 0, 0, 0);
+
+        var checkin = $('#dpd1').datepicker({
+          onRender: function(date) {
+            return date.valueOf() < now.valueOf() ? 'enabled' : '';
+          }
+        }).on('changeDate', function(ev) {
+          if (ev.date.valueOf() > checkout.date.valueOf()) {
+            var newDate = new Date(ev.date)
+            newDate.setDate(newDate.getDate() + 1);
+            checkout.setValue(newDate);
+          }
+          checkin.hide();
+          $('#dpd2')[0].focus();
+        }).data('datepicker');
+        var checkout = $('#dpd2').datepicker({
+          onRender: function(date) {
+            return date.valueOf() <= checkin.date.valueOf() ? 'enabled' : '';
+          }
+        }).on('changeDate', function(ev) {
+          checkout.hide();
+        }).data('datepicker');
+		});
+	</script>
+<!-- Script para crear el grafico 1 -->
+	
+<!-- Script para crear el grafico 2 -->
+
+<!-- Script para los combos dependientes de los gastos -->
+ 
+<script type="text/javascript" language="javascript" src="datatables/jquery.dataTables.min.js"></script>
+<script type="text/javascript" language="javascript" src="datatables/dataTables.bootstrap.js"></script>
+<script type="text/javascript">
+	// For demo to fit into DataTables site builder...
+	$(document).ready(function() {
+		$('#example').dataTable();
+		} );
+	$('#example')
+		.removeClass( 'display' )
+		.addClass('table table-striped table-condensed');
+</script>
+<script type="text/javascript">
+var newwindow;
+function poptastic(url)
+{
+	newwindow=window.open(url,'name','height=600,width=800','status=no','scrollbars=no','toolbars=no','menubar=no');
+	if (window.focus) {newwindow.focus()}
+}
+</script>
+</body>
+</html>

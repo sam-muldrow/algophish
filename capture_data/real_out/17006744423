@@ -1,0 +1,405 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8"/>
+	<title>NZBIndex - We index, you search</title>
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<link href="/favicon.ico" type="image/x-icon" rel="icon"/><link href="/favicon.ico" type="image/x-icon" rel="shortcut icon"/><link rel="stylesheet" href="/css/bootstrap.min.css?v=6.1.42"/><link rel="stylesheet" href="/css/bootstrap-responsive.min.css?v=6.1.42"/><link rel="stylesheet" href="/css/nzbindex.min.css?v=6.1.42"/><script src="/js/jquery.min.js?v=6.1.42"></script><script src="/js/jquery.cookie.min.js?v=6.1.42" defer="defer"></script><script src="/js/bootstrap.min.js?v=6.1.42" defer="defer"></script><script src="/js/nzbindex-all.min.js?v=6.1.42" defer="defer"></script>    <script async defer src='https://www.hCaptcha.com/1/api.js'></script>
+</head>
+<body>
+	<nav class="navbar navbar-inverse navbar-fixed-top">
+	<div class="navbar-inner">
+		<div class="container-fluid">
+			<button type="button" class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
+				<span class="icon-bar"></span>
+				<span class="icon-bar"></span>
+				<span class="icon-bar"></span>
+			</button>
+
+			<a class="brand" href="/search">
+				NZBIndex
+			</a>
+
+			<div class="nav-collapse collapse">
+				<ul class="nav">
+					<li class="active"><a href="/locale/en_US">English</a></li>
+					<li><a href="/locale/nl_NL">Nederlands</a></li>
+				</ul>
+
+				<ul class="nav pull-right">
+					<li><a href="/search">Search</a></li>
+					<li><a href="/groups">Groups</a></li>
+					<li><a href="/api/docs" style="color: white; background-color: #b94a48">API</a></li>
+					<li><a href="/faq">FAQ</a></li>
+
+									</ul>
+			</div>
+		</div>
+	</div>
+</nav>
+
+	<div class="main container-fluid">
+		<div id="news" class="alert alert-info hide"></div>
+		<div></div>
+		
+<!-- Simple search form -->
+<form id="search" class="form-horizontal">
+	<div class="row-fluid">
+		<div class="span12 text-center">
+			<div class="input-append">
+				<input class="input-xxlarge" id="query" name="q" type="text" value="" placeholder="Start searching now...">
+				<button class="btn btn-primary" type="submit"><i class="icon-search icon-white"></i></button>
+				<button id="less-search-button" type="button" class="btn btn-default hide hidden-phone" onclick="toggleMore();">Less <span class="caret-up"></span></button>
+				<button id="more-search-button" type="button" class="btn btn-default hidden-phone" onclick="toggleMore();">More <span class="caret"></span></button>
+			</div>
+		</div>
+	</div>
+
+	<div id="more-search" class="well hide hidden-phone">
+		<div class="row-fluid">
+			<div class="span3">
+				<div class="control-group">
+					<label class="control-label" for="resultsPerPage">Results per page</label>
+					<div class="controls">
+						<select id="resultsPerPage" name="max" class="input-small">
+							<option selected>25</option>
+							<option>50</option>
+							<option>100</option>
+							<option>250</option>
+						</select>
+					</div>
+				</div>
+
+				<div class="control-group">
+					<label class="control-label" for="minimumAge">Minimum age</label>
+					<div class="controls">
+						<input type="text" id="minimumAge" name="minage" class="input-small" placeholder="days" value="">
+					</div>
+				</div>
+
+				<div class="control-group">
+					<label class="control-label" for="maximumAge">Maximum age</label>
+					<div class="controls">
+						<input type="text" id="maximumAge" name="maxage" class="input-small" placeholder="days" value="">
+					</div>
+				</div>
+
+				<div class="control-group">
+					<label class="control-label" for="hideSpam">Hide SPAM</label>
+					<div class="controls">
+						<input type="checkbox" id="hideSpam" onclick="toggleValue(this);"  checked>
+						<input type="hidden" id="hideSpamValue" name="hidespam" value="1">
+					</div>
+				</div>
+
+				<div class="control-group">
+					<label class="control-label" for="hidePassworded">Hide passworded</label>
+					<div class="controls">
+						<input type="checkbox" id="hidePassworded" onclick="toggleValue(this);" >
+						<input type="hidden" id="hidePasswordedValue" name="hidepassword" value="0">
+					</div>
+				</div>
+			</div>
+
+			<div class="span3">
+				<div class="control-group">
+					<label class="control-label" for="sortBy">Sort by</label>
+					<div class="controls">
+						<select id="sortBy" name="sort" class="input-medium">
+							<option value="agedesc" selected>Age (newest first)</option>
+							<option value="ageasc">Age (oldest first)</option>
+							<option value="sizeasc">Size (smallest first)</option>
+							<option value="sizedesc">Size (largest first)</option>
+						</select>
+					</div>
+				</div>
+
+				<div class="control-group">
+					<label class="control-label" for="minimumSize">Minimum size</label>
+					<div class="controls">
+						<input type="text" id="minimumSize" name="minsize" class="input-small" placeholder="MB" value="">
+					</div>
+				</div>
+
+				<div class="control-group">
+					<label class="control-label" for="maximumSize">Maximum size</label>
+					<div class="controls">
+						<input type="text" id="maximumSize" name="maxsize" class="input-small" placeholder="MB" value="">
+					</div>
+				</div>
+
+				<div class="control-group">
+					<label class="control-label" for="completeReleases">Complete releases</label>
+					<div class="controls">
+						<input type="checkbox" id="completeReleases" onclick="toggleValue(this);" >
+						<input type="hidden" id="completeReleasesValue" name="complete" value="0">
+					</div>
+				</div>
+
+				<div class="control-group">
+					<label class="control-label" for="hideCrossposts">Hide crossposts</label>
+					<div class="controls">
+						<input type="checkbox" id="hideCrossposts" onclick="toggleValue(this);" >
+						<input type="hidden" id="hideCrosspostsValue" name="hidecross" value="0">
+					</div>
+				</div>
+			</div>
+
+			<div class="span6">
+				<div class="control-group">
+					<label class="control-label" for="groupList">Groups</label>
+					<div class="controls">
+                        <input id="group-search" type="text" class="input" placeholder="Filter groups" autocomplete="off">
+						<ul id="group-list">
+							<li>Loading...</li>
+						</ul>
+					</div>
+				</div>
+			</div>
+		</div>
+
+		<div class="row-fluid">
+		    <div class="span3">
+				<div class="control-group">
+                    <label class="control-label" for="hasNFO">Has NFO file</label>
+                    <div class="controls">
+                        <input type="checkbox" id="hasNFO" onclick="toggleValue(this);" >
+                        <input type="hidden" id="hasNFOValue" name="hasNFO" value="0">
+                    </div>
+                </div>
+		    </div>
+
+			<div class="span5">
+				<div class="control-group">
+					<label class="control-label" for="poster">Poster name</label>
+					<div class="controls">
+						<input id="poster" name="poster" type="text" class="input-xlarge" value="">
+					</div>
+				</div>
+			</div>
+
+			<div class="span4">
+				<button class="btn pull-right" onclick="saveSearchSettings('Your settings have been saved'); return false;">Save current settings</button>
+				<div id="save-message" class="alert alert-info hide pull-right">
+					<div class="message"></div>
+				</div>
+			</div>
+		</div>
+	</div>
+</form>
+
+<div id="7077787930" class="row-fluid text-center hide">
+    <div class="inner"></div>
+</div>
+
+<!-- Query statistics -->
+<div id="stats" class="pull-left hide">
+	Showing	<span class="results_start"></span>-<span class="results_end"></span>
+	out of	<span class="results_total"></span>
+	search results	<span class="hidden-phone">
+		in		<span class="seconds"></span>
+		seconds	</span>
+</div>
+
+<!-- Pager -->
+<div id="pager" class="pagination pagination-right hide">
+	<ul>
+		<li id="previous-pager"><a href="/search/?q=&amp;max=25&amp;minage=0&amp;maxage=0&amp;hidespam=1&amp;hidepassword=0&amp;sort=agedesc&amp;minsize=0&amp;maxsize=0&amp;complete=0&amp;hidecross=0&amp;hasNFO=0&amp;poster=&amp;p=">&#171;</a></li>
+		<li id="template-pager" class="hide hidden-phone"><a href="/search/?q=&amp;max=25&amp;minage=0&amp;maxage=0&amp;hidespam=1&amp;hidepassword=0&amp;sort=agedesc&amp;minsize=0&amp;maxsize=0&amp;complete=0&amp;hidecross=0&amp;hasNFO=0&amp;poster=&amp;p="></a></li>
+		<li id="next-pager"><a href="/search/?q=&amp;max=25&amp;minage=0&amp;maxage=0&amp;hidespam=1&amp;hidepassword=0&amp;sort=agedesc&amp;minsize=0&amp;maxsize=0&amp;complete=0&amp;hidecross=0&amp;hasNFO=0&amp;poster=&amp;p=">&#187;</a></li>
+	</ul>
+</div>
+
+<!-- Loader -->
+<div id="loading" class="row-fluid center-message hide">
+	<div class="span6 offset3">
+		<div><img src="/img/loading.gif" alt="Searching..."/></div>
+		<div>Searching...</div>
+	</div>
+</div>
+
+<!-- No results response -->
+<div id="noresults" class="row-fluid center-message hide">
+	<div class="span6 offset3 alert alert-block">
+		<h4 class="title">No results found!</h4>
+		<p>Don&#039;t see what you&#039;re looking for? Here are some basic tips and tricks to help you find just what you want.</p>
+		<ul>
+			<li><a href="/faq#options">Search options</a></li>
+			<li><a href="/faq">FAQ</a></li>
+			<li><a href="/contact">Report a problem</a></li>
+		</ul>
+	</div>
+</div>
+
+<!-- Error response -->
+<div id="error" class="row-fluid center-message hide">
+	<div id="error" class="span6 offset3 alert alert-error">
+		<h4 class="title">Oooops, something went wrong while searching for your usenet data. Please try again.</h4>
+		<p><a href="/contact">Inform us about the issue.</a></p>
+		<p id="error-msg"></p>
+	</div>
+</div>
+
+<!-- The results table -->
+<table id="results-table" class="table table-hover table-striped hide">
+
+	<!-- Results header -->
+	<thead>
+		<tr>
+			<th style="width: 15px;">
+				<input id="select-all-top" type="checkbox" class="checkbox select-all" onclick="selectResults('#select-all-top'); blur();">
+			</th>
+			<th>
+				<div id="actions" class="pull-left">
+					<button class="btn btn-primary" type="button" onclick="download('/download', getQuery(), getSelectedResults(), 'Please select at least one result!');">
+						Download selected					</button>
+				</div>
+
+				<div id="inverse-select-top" class="dropdown pull-left">
+					&nbsp;
+					<button class="btn btn-info" type="button" onclick="inverseResults();">
+						Inverse					</button>
+				</div>
+
+				<div id="actions-nt" class="hidden-phone dropdown pull-left">
+					&nbsp;
+					<button class="btn" type="button" onclick="noticeAndTakedown('/notice-and-takedown', getSelectedResults(), 'Please select at least one result!');">
+						Notice &amp; Takedown					</button>
+				</div>
+
+				<div id="rss" class="hidden-phone pull-left">
+					&nbsp;
+					<a class="btn" type="button" href="/search/rss?q=&amp;max=25&amp;minage=0&amp;maxage=0&amp;hidespam=1&amp;hidepassword=0&amp;sort=agedesc&amp;minsize=0&amp;maxsize=0&amp;complete=0&amp;hidecross=0&amp;hasNFO=0&amp;poster=" target="_blank"	>
+						<i class="rss-icon"></i> RSS feed					</a>
+				</div>
+			</th>
+			<th class="hidden-phone" style="width: 100px;"><div class="text-right">Size</div></th>
+			<th class="span2 hidden-phone">Group</th>
+			<th class="hidden-phone" style="width: 75px;"><div class="text-right">Age</div></th>
+		</tr>
+	</thead>
+
+	<!-- The results body -->
+	<tbody>
+		<!-- The template used for every row -->
+		<tr id="template" class="result hide">
+			<td><input type="checkbox" class="checkbox result-checkbox" onclick="shiftClickResults(arguments[0]); blur();"></td>
+			<td>
+			    <div class="details pull-right text-right visible-phone">
+                    <div class="age"></div>
+                    <div class="size"></div>
+				</div>
+				<label class="name dont-break-out"></label>
+				<div class="details">
+					<span class="completeness hidden-phone">
+						<span class="file_count"></span> <span class="file_text hide">file</span><span class="files_text hide">files</span>
+						(<span class="part_count"></span> <span class="part_text hide">part</span><span class="parts_text hide">parts</span><span class="missing hide">, <span class="missing_count"></span> missing</span>)
+					</span>
+					<span>by</span> <a href="/?q=&amp;max=25&amp;minage=0&amp;maxage=0&amp;hidespam=1&amp;hidepassword=0&amp;sort=agedesc&amp;minsize=0&amp;maxsize=0&amp;complete=0&amp;hidecross=0&amp;hasNFO=0&amp;poster=&amp;poster=" class="poster"></a>
+				</div>
+				<div class="details types hide">
+					<span class="type-list"></span>
+				</div>
+                <div class="progress completeness-indicator pull-right visible-phone">
+                    <div class="bar bar-danger">
+                        <div class="bar bar-success"></div>
+                    </div>
+                </div>
+
+				<div class="details">
+					<span class="download"><a href="/download">Download</a></span>
+					<span class="collection hide"> - <a href="/collection">View collection</a></span>
+					<span class="password hide"> - Password protected</span>
+					<span class="spam hide"> - Possible SPAM</span>
+				</div>
+			</td>
+			<td class="hidden-phone">
+				<div class="size text-right"></div>
+				<div class="progress size-indicator pull-right">
+				    <div class="bar bar-info small hide"></div>
+				    <div class="bar bar-info medium hide"></div>
+				    <div class="bar bar-info large hide"></div>
+				</div>
+				<div class="progress completeness-indicator">
+					<div class="bar bar-danger">
+					    <div class="bar bar-success"></div>
+					</div>
+				</div>
+			</td>
+			<td class="hidden-phone">
+				<div class="groups"></div>
+				<div class="groups_more hide">+<span class="more_value"></span> more groups</div>
+			</td>
+			<td class="hidden-phone">
+			    <div class="age text-right"></div>
+			</td>
+		</tr>
+
+		<!-- The template used for an extra row -->
+        <tr id="template-ir" class="hide">
+            <td colspan="5">
+                <div class="inner"></div>
+            </td>
+        </tr>
+	</tbody>
+
+	<!-- Results footer -->
+    <tfoot>
+        <tr>
+            <th style="width: 15px;">
+                <input id="select-all-bottom" type="checkbox" class="checkbox select-all" onclick="selectResults('#select-all-bottom'); blur();">
+            </th>
+            <th>
+                <div id="actions" class="pull-left">
+                    <button class="btn btn-primary" type="button" onclick="download('/download', getQuery(), getSelectedResults(), 'Please select at least one result!');">
+                        Download selected                    </button>
+                </div>
+
+				<div id="inverse-select-bottom" class="dropdown pull-left">
+					&nbsp;
+					<button class="btn btn-info" type="button" onclick="inverseResults();">
+						Inverse					</button>
+				</div>
+
+                <div id="actions-nt" class="hidden-phone dropdown pull-left">
+                    &nbsp;
+                    <button class="btn" type="button" onclick="noticeAndTakedown('/notice-and-takedown', getSelectedResults(), 'Please select at least one result!');">
+                        Notice &amp; Takedown                    </button>
+                </div>
+
+                <div id="rss" class="hidden-phone pull-left">
+                    &nbsp;
+                    <a class="btn" type="button" href="/search/rss?q=&amp;max=25&amp;minage=0&amp;maxage=0&amp;hidespam=1&amp;hidepassword=0&amp;sort=agedesc&amp;minsize=0&amp;maxsize=0&amp;complete=0&amp;hidecross=0&amp;hasNFO=0&amp;poster=" target="_blank"	>
+                        <i class="rss-icon"></i> RSS feed                    </a>
+                </div>
+            </th>
+            <th class="hidden-phone"></th>
+            <th class="hidden-phone"></th>
+            <th class="hidden-phone"></th>
+        </tr>
+    </tfoot>
+</table>
+
+<!-- Scripts -->
+<script>
+	$(document).ready(function() {
+		loadGroups('/groups/form', '');
+		loadMore();
+				$('#query').select();
+		loadSearchSettings();
+				$('#group-search').keyup(function() {
+			filterGroups();
+		});
+	});
+</script>
+	</div>
+
+	<script>
+	    $(document).ready(function() {
+            showI('/', 'top_en_US', '#7077787930');
+            showNews('/', 'en_US');
+		});
+	</script>
+</body>
+</html>

@@ -1,0 +1,2352 @@
+<!DOCTYPE html>
+<html lang="az" >
+<head>
+    <meta charset="UTF-8">
+    <title>Milli.Az - Azərbaycanın portalı. Ölkənin və dünyanın ən son xəbərləri.</title>
+            <meta name="description" content="Azərbaycanın ən son xəbərləri Milli.Az portalında. Bu günün ən vacib dünya xəbərləri və aktual hadisələri." />            <meta name="keywords" content="Azərbaycan xəbərləri, dünya xəbərləri, aktual hadisələr, bu günün xəbərləri." />    
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta property="fb:app_id" content="1576993772574764"/>
+    <link rel="icon" href="/favicon.ico" type="image/x-icon"/>
+    <link rel="shortcut icon" href="/favicon.ico" type="image/x-icon"/>
+    <link rel="stylesheet" href="/css/bootstrap.css" type="text/css"/>
+    <link rel="stylesheet" href="/css/font-awesome/css/font-awesome.min.css" type="text/css"/>
+    <link rel="stylesheet" href="/css/all.css?v1698736635"/>
+    <link rel="stylesheet" href="/css/custom.min.css?v1690447129"/>
+    <link rel="stylesheet" href="/css/jquery.mCustomScrollbar.min.css">
+    <link rel="stylesheet" href="/mmenu/core/css/jquery.mmenu.css" type="text/css"/>
+    <script type="text/javascript" src="/js/jquery-2.1.4.min.js"></script>
+    <meta http-equiv="refresh" content="900" />
+
+    <script async src="https://securepubads.g.doubleclick.net/tag/js/gpt.js"></script>
+    <script>
+
+        function genUID() {
+            return Math.random().toString(36).substr(2, 7) + '_' + Math.random().toString(36).substr(2, 7) + '_' + Math.random().toString(36).substr(2, 7) + '_' + Math.random().toString(36).substr(2, 7);
+        }
+
+        function sendMetricsRender(d) {
+            return true;
+            // console.log('sendMetrics');
+            //
+            // function encodeDataToURL(data) {
+            //     return Object
+            //         .keys(data)
+            //         .map(value => `${value}=${encodeURIComponent(data[value])}`)
+            //         .join('&');
+            // }
+            //
+            // var xhttp = new XMLHttpRequest();
+            // xhttp.open("POST", "https://www.zeroline.az/ads_metrics.php");
+            // xhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+            // xhttp.send(encodeDataToURL(d));
+        }
+
+        function getNavigator() {
+            var _navigator = {};
+            for (var i in navigator) _navigator[i] = navigator[i];
+            return JSON.stringify(_navigator);
+        }
+
+        var sessionUID = genUID();
+        var slotUIDs = {};
+        var slotTIMERS = {};
+        var SECONDS_TO_WAIT_AFTER_VIEWABILITY = 40;
+
+        window.googletag = window.googletag || {cmd: []};
+        googletag.cmd.push(function () {
+
+            // This listener is called when a slot has finished rendering.
+            googletag.pubads().addEventListener('slotRenderEnded',
+                function (event) {
+                    var slot = event.slot.getSlotElementId();
+                    slotTIMERS[slot] = null;
+                    console.group('Slot', slot, 'finished rendering.');
+
+                    // Log details of the rendered ad.
+                    console.log('Advertiser ID:', event.advertiserId);
+                    console.log('Campaign ID: ', event.campaignId);
+                    console.log('Creative ID: ', event.creativeId);
+                    console.log('Is empty?:', event.isEmpty);
+                    console.log('Line Item ID:', event.lineItemId);
+                    console.log('Size:', event.size);
+                    console.groupEnd();
+                    slotUIDs[slot] = genUID();
+                    var data = {
+                        event: 'slotRenderEnded',
+                        slot: slot,
+                        advertiser_id: event.advertiserId,
+                        campaign_id: event.campaignId,
+                        creative_id: event.creativeId,
+                        is_empty: event.isEmpty,
+                        line_item_id: event.lineItemId,
+                        width: window.innerWidth,
+                        height: window.innerHeight,
+                        session_uid: sessionUID,
+                        slot_uid: slotUIDs[slot],
+                        user_agent: navigator.userAgent,
+                        visibility_state: document.visibilityState,
+                        scroll_top: Math.round(window.scrollY),
+                        page_url: window.location.href
+                    };
+                    sendMetricsRender(data);
+                }
+            );
+
+
+            googletag.pubads().addEventListener('impressionViewable', function (event) {
+                var slot = event.slot.getSlotElementId();
+                console.log('Impression for slot', slot, 'became viewable.');
+
+                var data = {
+                    event: 'impressionViewable',
+                    slot: slot,
+                    width: window.innerWidth,
+                    height: window.innerHeight,
+                    session_uid: sessionUID,
+                    slot_uid: slotUIDs[slot],
+                    user_agent: navigator.userAgent,
+                    scroll_top: window.scrollY
+                };
+                sendMetricsRender(data);
+            });
+
+
+            googletag.pubads().addEventListener('slotVisibilityChanged',
+                function (event) {
+                    var slot = event.slot.getSlotElementId();
+                    console.group('Visibility of slot', slot, 'changed.');
+                    console.log('Visible area:', event.inViewPercentage + '%');
+                    console.groupEnd();
+
+
+                    if (event.inViewPercentage >= 50) {
+                        if (slotTIMERS[slot] === null) {
+                            console.log('START TIMER for slot ' + slot);
+                            slotTIMERS[slot] = setTimeout(function () {
+                                console.log('Refresh ' + slot + ' ad unit.');
+                                googletag.pubads().refresh([event.slot]);
+                            }, SECONDS_TO_WAIT_AFTER_VIEWABILITY * 1000);
+                        }
+                    } else {
+                        console.log('STOP TIMER for slot ' + slot);
+                        if (slotTIMERS[slot] !== 'undefined') {
+                            clearTimeout(slotTIMERS[slot]);
+                            slotTIMERS[slot] = null;
+                        }
+                    }
+
+
+                }
+            );
+
+            googletag.defineSlot('/30175131/MILLI_Slot_Top_1000x120', [1000, 120], 'MILLI_Slot_Top_1000x120').addService(googletag.pubads());
+            googletag.defineSlot('/30175131/MILLI_Slot_Vertical_01_240x400', [240, 400], 'Slot_Vertical_01_240x400').addService(googletag.pubads());
+            googletag.defineSlot('/30175131/MILLI_Slot_Mobile_320x50', [[320, 50], [320, 100]], 'MILLI_Slot_Mobile_320x50').addService(googletag.pubads());
+            googletag.defineSlot('/30175131/MILLI_Slot_Mobile_320x50_2', [[320, 50], [320, 100]], 'MILLI_Slot_Mobile_320x50_2').addService(googletag.pubads());
+            googletag.defineSlot('/30175131/MILLI_Slot_Mobile_320x50_3', [[320, 50], [320, 100]], 'MILLI_Slot_Mobile_320x50_3').addService(googletag.pubads());
+            googletag.defineSlot('/30175131/MILLI_Slot_Horizontal_01_728x90', [728, 90], 'Slot_Horizontal_01_728x90').addService(googletag.pubads());
+            googletag.defineSlot('/30175131/MILLI_Slot_Horizontal_02_728x90', [728, 90], 'Slot_Horizontal_02_728x90').addService(googletag.pubads());
+            googletag.defineSlot('/30175131/MILLI_Slot_Horizontal_03_728x90', [728, 90], 'Slot_Horizontal_03_728x90').addService(googletag.pubads());
+
+            googletag.defineSlot('/30175131/MILLI_Slot_Vertical_02_240x400', [240, 400], 'Slot_Vertical_02_240x400').addService(googletag.pubads());
+            googletag.defineSlot('/30175131/MILLI_Slot_Vertical_03_240x400', [240, 400], 'Slot_Vertical_03_240x400').addService(googletag.pubads());
+            googletag.defineSlot('/30175131/MILLI_Slot_News_Body_01', [728, 90], 'MILLI_Slot_News_Body_01').addService(googletag.pubads());
+            googletag.defineSlot("/30175131/MILLI_Slot_END_HTML", [1, 1], "MILLI_Slot_END_HTML").addService(googletag.pubads());
+            googletag.defineSlot("/30175131/MILLI_Slot_END_HTML2", [1, 1], "MILLI_Slot_END_HTML2").addService(googletag.pubads());
+            googletag.defineSlot("/30175131/MILLI_Slot_News_END_HTML", [1, 1], "MILLI_Slot_News_END_HTML").addService(googletag.pubads());
+            googletag.defineSlot("/30175131/MILLI_Slot_News_END_HTML2", [1, 1], "MILLI_Slot_News_END_HTML2").addService(googletag.pubads());
+            googletag.defineSlot('/30175131/Milli_Slot_Newspage_bottom_728x90', [728, 90], 'Milli_Slot_Newspage_bottom_728x90').addService(googletag.pubads());
+            googletag.pubads().setTargeting('front_page', ['Yes']);
+            googletag.pubads().setTargeting('M_Category', ['']);
+            //googletag.pubads().enableSingleRequest();
+            googletag.pubads().collapseEmptyDivs();
+            googletag.enableServices();
+        });
+    </script>
+
+    
+    <script async src="https://widget.svk-native.ru/js/loader.js"></script>
+    <script src="https://cdn.gravitec.net/storage/330a0e76f2fca5241562ad80486ba3b2/client.js" async></script>
+
+
+    <!-- 29.08.2022-->
+    <!--<script async src="https://iigmlx.com/0sr17l921ilvm0p3y0qh8876quv876pyk3gsv.php"></script>-->
+
+    <!-- 15.09.2022-->
+    <!--В <head> сайта один раз добавьте код загрузчика-->
+    <script>window.yaContextCb = window.yaContextCb || []</script>
+    <script src="https://yandex.ru/ads/system/context.js" async></script>
+</head>
+<body>
+<div>
+    <div id="fb-root"></div>
+    <script>(function (d, s, id) {
+            var js, fjs = d.getElementsByTagName(s)[0];
+            if (d.getElementById(id))
+                return;
+            js = d.createElement(s);
+            js.id = id;
+            js.src = "//connect.facebook.net/az_AZ/sdk.js#xfbml=1&version=v2.9&appId=1576993772574764";
+            fjs.parentNode.insertBefore(js, fjs);
+        }(document, 'script', 'facebook-jssdk'));</script>
+    <!--LiveInternet counter-->
+    <script type="text/javascript">
+        new Image().src = "//counter.yadro.ru/hit?r" +
+            escape(document.referrer) + ((typeof (screen) == "undefined") ? "" :
+                ";s" + screen.width + "*" + screen.height + "*" + (screen.colorDepth ?
+                    screen.colorDepth : screen.pixelDepth)) + ";u" + escape(document.URL) +
+            ";h" + escape(document.title.substring(0, 150)) +
+            ";" + Math.random();</script><!--/LiveInternet-->
+<div class="container">
+    <header id="header" style="background-color: #fff;">
+        <div class="ad-mobile">
+    <div id='MILLI_Slot_Mobile_320x50' style='width:320px; min-height:50px; max-height:100px;  text-align: center; margin-left: auto; margin-right: auto;'>
+        <script type='text/javascript'>
+            googletag.cmd.push(function () {
+                googletag.display('MILLI_Slot_Mobile_320x50');
+            });
+        </script>
+    </div>
+</div>
+        <div class="ad-back" style="z-index: 102; width: 1000px; height: 120px; top: 0; position: fixed; background-color: #fff;">
+    <!--    <iframe src="/adv/MILLI_Slot_Top_1000x120.php?dfp_category=-->
+    <!--&dfp_front_page=-->
+    <!--" style="width:1000px; height: 120px; z-index: 300; border: none; margin: 0 0; padding: 0 0; overflow: hidden;"></iframe>-->
+    <div id='MILLI_Slot_Top_1000x120' style='height:120px; width:1000px;'>
+        <script type='text/javascript'>
+            googletag.cmd.push(function () {
+                googletag.display('MILLI_Slot_Top_1000x120');
+            });
+        </script>
+    </div>
+</div>
+        <div class="nav-holder2" style="position: fixed; z-index: 100; width: 1000px; top: 120px; border-top: 1px solid #fff;">
+            <div class="nav-section">
+                <a href="#milli-menu" class="opener"></a>
+                <nav id="milli-menu">
+                    <ul>
+                        <li>
+                            <form action="/search.php" method="get" class="mm-search">
+                                <input type="search" name="query" placeholder="Axtar...">
+                            </form>
+                        </li>
+                        <li><a href="https://news.milli.az/">XƏBƏR LENTİ</a></li>
+                        <li><a href="https://news.milli.az/country/">ÖLKƏ</a><ul><li><a href="https://news.milli.az/society/">Cəmiyyət</a></li><li><a href="https://news.milli.az/regional/">Bölgə xəbərləri</a></li><li><a href="https://news.milli.az/showbiz/">Şou-biznes</a></li><li><a href="https://news.milli.az/culture/">Mədəniyyət</a></li><li><a href="https://news.milli.az/rnotes/">Oxucu məktubları</a></li><li><a href="https://news.milli.az/weather/">Hava</a></li><li><a href="https://news.milli.az/crime/">Kriminal</a></li><li><a href="https://news.milli.az/incedent/">Hadisə</a></li><li><a href="https://news.milli.az/breynrinq/">Breyn Rinq</a></li></ul></li><li><a href="https://news.milli.az/politics/">SİYASƏT</a><ul><li><a href="https://news.milli.az/ipolitcs/">İç siyasət</a></li><li><a href="https://news.milli.az/elections/">Seçkilər</a></li><li><a href="https://news.milli.az/karabah/">Ermənistan-Azərbaycan münaqişəsi</a></li></ul></li><li><a href="https://news.milli.az/economy/">İQTİSADİYYAT</a><ul><li><a href="https://news.milli.az/oilgas/">Neft və qaz</a></li><li><a href="https://news.milli.az/exibitions/">Sərgilər</a></li><li><a href="https://news.milli.az/banklar/">Banklar</a></li></ul></li><li><a href="https://news.milli.az/sport/">İDMAN</a></li><li><a href="https://news.milli.az/world/">DÜNYA</a><ul><li><a href="https://news.milli.az/russia/">Rusiya</a></li><li><a href="https://news.milli.az/georgia/">Gürcüstan</a></li><li><a href="https://news.milli.az/armenia/">Ermənistan</a></li><li><a href="https://news.milli.az/turkey/">Türkiyə</a></li><li><a href="https://news.milli.az/iran/">İran</a></li><li><a href="https://news.milli.az/europ/">Avropa</a></li><li><a href="https://news.milli.az/amerika/">Amerika</a></li></ul></li><li><a href="https://news.milli.az/interest/">MARAQLI</a><ul><li><a href="https://news.milli.az/photos/">Fotosessiya</a></li><li><a href="https://news.milli.az/video/">Video</a></li><li><a href="https://news.milli.az/avto/">Avto</a></li><li><a href="https://news.milli.az/saglamqida/">Sağlam qida</a></li><li><a href="https://news.milli.az/kilinariya/">Kulinariya</a></li><li><a href="https://news.milli.az/seriallar/">Seriallar</a></li><li><a href="https://news.milli.az/dizayn/">Dizayn</a></li><li><a href="https://news.milli.az/hitech/">Texnologiya</a></li><li><a href="https://news.milli.az/elm/">Elm</a></li><li><a href="https://news.milli.az/mobilt/">Mobil telefon</a></li><li><a href="https://news.milli.az/horoscope/">Qoroskop</a></li><li><a href="https://news.milli.az/religion/">Din</a></li></ul></li><li><a href="https://news.milli.az/health/">SAĞLAMLIQ</a></li>                        <!--<li><a href="https://news.milli.az/tag/2606.html" style="font-weight: bold; color: #EE365D">DÇ-2018</a></li>-->
+                        <li><a href="https://weather.day.az/az/" style="color:#FFF; font-weight: bold;">HAVA</a></li>
+                    </ul>
+                </nav>
+                <nav id="nav">
+                    <ul>
+                        <li><a href="https://news.milli.az/">XƏBƏR LENTİ</a></li>
+                        <li><a href="/country/">ÖLKƏ</a><ul><li><a href="/society/">Cəmiyyət</a></li><li><a href="/regional/">Bölgə xəbərləri</a></li><li><a href="/showbiz/">Şou-biznes</a></li><li><a href="/culture/">Mədəniyyət</a></li><li><a href="/rnotes/">Oxucu məktubları</a></li><li><a href="/weather/">Hava</a></li><li><a href="/crime/">Kriminal</a></li><li><a href="/incedent/">Hadisə</a></li><li><a href="/breynrinq/">Breyn Rinq</a></li></ul></li><li><a href="/politics/">SİYASƏT</a><ul><li><a href="/ipolitcs/">İç siyasət</a></li><li><a href="/elections/">Seçkilər</a></li><li><a href="/karabah/">Ermənistan-Azərbaycan münaqişəsi</a></li></ul></li><li><a href="/economy/">İQTİSADİYYAT</a><ul><li><a href="/oilgas/">Neft və qaz</a></li><li><a href="/exibitions/">Sərgilər</a></li><li><a href="/banklar/">Banklar</a></li></ul></li><li><a href="/sport/">İDMAN</a></li><li><a href="/world/">DÜNYA</a><ul><li><a href="/russia/">Rusiya</a></li><li><a href="/georgia/">Gürcüstan</a></li><li><a href="/armenia/">Ermənistan</a></li><li><a href="/turkey/">Türkiyə</a></li><li><a href="/iran/">İran</a></li><li><a href="/europ/">Avropa</a></li><li><a href="/amerika/">Amerika</a></li></ul></li><li><a href="/interest/">MARAQLI</a><ul><li><a href="/photos/">Fotosessiya</a></li><li><a href="/video/">Video</a></li><li><a href="/avto/">Avto</a></li><li><a href="/saglamqida/">Sağlam qida</a></li><li><a href="/kilinariya/">Kulinariya</a></li><li><a href="/seriallar/">Seriallar</a></li><li><a href="/dizayn/">Dizayn</a></li><li><a href="/hitech/">Texnologiya</a></li><li><a href="/elm/">Elm</a></li><li><a href="/mobilt/">Mobil telefon</a></li><li><a href="/horoscope/">Qoroskop</a></li><li><a href="/religion/">Din</a></li></ul></li><li><a href="/health/">SAĞLAMLIQ</a></li>                        <!--<li><a href="https://news.milli.az/tag/2606.html" style="font-weight: bold; color: #EE365D">DÇ-2018</a></li>-->
+                        <li><a target="_blank" href="https://newstube.az/az/"><img src="//newstube.az/assets_new/images/daytube_link_icon.png" style="width: 16px; display: inline-block; margin: -6px 5px 0px 0;">NewsTube</a></li>
+                        <li><a href="https://100.5fm.az/" target="_blank"><img src="/images/radio_tmb.svg" style="height:20px; display: inline-block; margin: -5px 5px -5px 0;"></a></li>
+
+                    </ul>
+                </nav>
+            </div>
+        </div>
+
+        <div class="info-panel2" style="margin-top: 163px;">
+            <ul class="menu">
+                <li><a href="/contacts.php">Əlaqə</a></li>
+                <li><a href="/advertising.php">Reklam</a></li>
+            </ul>
+            <span class="time">06:24</span>
+            <div class="text-holder">
+                <p>
+                    <span style="float:right; padding: 2px 10px; font-weight: bold; font-size: 13px;"><a style="color: #ff2d2d !important;" href="https://www.idman.biz/az/" target="_blank">İdman.biz</a></span>
+                    <span style="float:right; padding: 2px 10px; font-weight: bold; font-size: 13px;"><a style="color: #EE162D !important;" href="https://www.azernews.az" target="_blank">Azernews.Az</a></span>
+                    <span style="float:right; padding: 2px 10px; font-weight: bold; font-size: 13px;"><a style="color: #EE162D !important;" href="https://az.trend.az" target="_blank">Trend.Az</a></span>
+                    <span style="float:right; padding: 2px 10px; font-weight: bold; font-size: 13px;"><a style="color: #EE162D !important;" href="https://www.day.az" target="_blank">Day.Az</a></span>
+                    <!--                    <span style="float:right; padding: 2px 10px; font-weight: bold; font-size: 13px;"><a style="color: #1f4498 !important;" href="https://avia.day.az/" target="_blank">AVİAREYSLƏR</a></span>-->
+                    <span style="float:right; padding: 2px 10px; font-weight: bold; font-size: 13px;"><a style="color: #1f4498 !important;" href="https://weather.day.az/az/" target="_blank">HAVA PROQNOZU</a></span>
+                    <span style="float:right; padding: 2px 10px; font-weight: bold; font-size: 13px;"><a style="color: #f48120 !important;" href="https://azn.day.az/az/" target="_blank">
+                            <img src="https://azn.day.az/assets/favicon/favicon-16x16.png" style="width: 16px; display: inline-block; margin: 0 5px 0 0; display: none;">PUL</a>
+                    </span>
+<!--                    <span style="float:right; margin-top: -7px; padding: 9px 10px; font-size: 13px; background-color: #81b916; font-weight: bold; ">-->
+<!--                                            <a style="color: #FFF !important;" href="https://ramazan.milli.az/" target="_blank"><i class="fa fa-moon-o"></i> RAMAZAN</a>-->
+<!--                                        </span>-->
+                    <!--                    <span style="float:left; padding: 0 10px; font-weight: bold; font-size: 13px;"">-->
+                    <!--                        <a href="https://news.milli.az/tag/2493.html" target="_blank" style="color: #EE162D !important;" >-->
+                    <!--                            Gimnastika-->
+                    <!--                        </a>-->
+                    <!--                    </span>-->
+
+                    <!--                    <span style="float:left; padding: 0 10px; font-weight: bold; font-size: 13px; line-height: 17px;">-->
+                    <!--                        <a href="https://news.milli.az/tag/3331.html" target="_blank" style="color: #EE162D !important;">-->
+                    <!--                            POLİTŞOU-->
+                    <!--                        </a>-->
+                    <!--                    </span>-->
+                    <span style="float:left; padding: 0 10px; font-weight: bold; font-size: 13px; line-height: 17px;">
+                      <a href="https://www.youtube.com/user/TRENDNews2011" target="_blank" style="color: #5f060b !important; ">Trend TV</a>
+                              </span>
+                    <!--                    <span style="float:left; padding: 0 10px; font-weight: bold; font-size: 13px; line-height: 17px;">-->
+                    <!--                      <a href="https://news.milli.az/tag/3439.html" target="_blank" style="color: #5f060b !important; ">QƏLƏBƏNİN XRONİKASI</a>-->
+                    <!--                              </span>-->
+                </p>
+            </div>
+        </div>
+
+        <div class="logo-holder2">
+            <div class="logo-frame" style="margin: 0 50px 0 0;">
+                <strong class="logo"><a href="https://www.milli.az/">Milli.AZ</a></strong>
+
+
+                <style>
+                    .logo-frame {
+                        position: relative;
+                    }
+
+                    .icon {
+                        position: absolute;
+                        width: 50px;
+                        top: -5px;
+                        right: -60px;
+                    }
+                </style>
+                                    <img src="/images/icon04122020_256.png" class="icon" alt="">
+                
+
+
+                            </div>
+
+            <form action="/search.php" class="search-form3" method="get" style="width: 420px;">
+                <fieldset>
+                    <input type="text" class="text" name="query" style="width: 320px;">
+                    <input type="submit" value="Axtar">
+                </fieldset>
+            </form>
+
+            <!--            <ul class="social-networks">-->
+            <!--                <li><a target="_blank" href="https://www.facebook.com/MilliAz" class="facebook">Facebook</a></li>-->
+            <!--                <li><a target="_blank" href="https://twitter.com/MilliAz" class="twitter">Twitter</a></li>-->
+            <!--                <li><a target="_blank" href="https://vk.com/id210129428" class="vkontakte">VKontakte</a></li>-->
+            <!--                <li><a target="_blank" href="https://www.instagram.com/milli.az.resmi/" class="instagram">Instagram</a></li>-->
+            <!--                <li><a target="_blank" href="https://www.youtube.com/user/milliaz2010" class="youtube">Youtube</a></li>-->
+            <!--            </ul>-->
+
+            <ul class="social-networks-new">
+                <li class="whatsapp"><a target="_blank" href="https://whatsapp.com/channel/0029Va8ZTm18qIzm6WlK4V30" >
+                        <svg version="1.1" style="height: 20px; margin-top: 6px;" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
+                             viewBox="0 0 24 24" enable-background="new 0 0 24 24" xml:space="preserve">
+<g id="XMLID_468_">
+    <path id="XMLID_469_" fill="#FFFFFF" d="M17.76,13.79c-0.05-0.02-1.8-0.88-2.11-1c-0.13-0.05-0.26-0.09-0.41-0.09
+		c-0.24,0-0.43,0.12-0.59,0.35c-0.17,0.26-0.7,0.88-0.87,1.06c-0.02,0.02-0.05,0.05-0.07,0.05c-0.02,0-0.29-0.11-0.37-0.15
+		c-1.88-0.82-3.3-2.78-3.5-3.11c-0.03-0.05-0.03-0.07-0.03-0.07c0.01-0.03,0.07-0.09,0.1-0.12c0.1-0.09,0.2-0.22,0.3-0.34
+		c0.05-0.06,0.09-0.11,0.14-0.17c0.14-0.17,0.21-0.3,0.28-0.45l0.04-0.08c0.18-0.36,0.03-0.67-0.02-0.77
+		c-0.04-0.08-0.78-1.87-0.86-2.05C9.62,6.42,9.37,6.21,9.02,6.21c-0.03,0,0,0-0.13,0.01C8.72,6.22,7.83,6.34,7.43,6.59
+		C7.01,6.85,6.3,7.69,6.3,9.18c0,1.33,0.85,2.59,1.21,3.07c0.01,0.01,0.03,0.04,0.05,0.07c1.39,2.03,3.13,3.54,4.89,4.24
+		c1.69,0.68,2.5,0.76,2.95,0.76c0,0,0,0,0,0c0.19,0,0.35-0.02,0.48-0.03l0.09-0.01c0.59-0.05,1.87-0.72,2.16-1.53
+		c0.23-0.64,0.29-1.34,0.14-1.59C18.17,13.99,17.99,13.9,17.76,13.79z"/>
+    <path id="XMLID_470_" fill="#FFFFFF" d="M12.21,0C5.71,0,0.42,5.25,0.42,11.7c0,2.09,0.56,4.13,1.62,5.92l-2.02,5.97
+		c-0.04,0.11-0.01,0.23,0.07,0.32C0.15,23.97,0.23,24,0.31,24c0.03,0,0.06,0,0.09-0.01l6.23-1.98c1.7,0.91,3.63,1.39,5.58,1.39
+		c6.5,0,11.79-5.25,11.79-11.7C24,5.25,18.71,0,12.21,0z M12.21,20.96c-1.83,0-3.61-0.53-5.14-1.53c-0.05-0.03-0.11-0.05-0.17-0.05
+		c-0.03,0-0.06,0-0.09,0.01l-3.12,0.99l1.01-2.97c0.03-0.1,0.02-0.2-0.04-0.28c-1.16-1.59-1.78-3.47-1.78-5.43
+		c0-5.11,4.19-9.26,9.34-9.26c5.15,0,9.34,4.16,9.34,9.26C21.55,16.81,17.36,20.96,12.21,20.96z"/>
+</g>
+</svg>
+                    </a></li>
+                <li class="telegram"><a target="_blank" href="https://t.me/milli_az"><i class="icon-paper-plane"></i></a></li>
+                <li class="facebook"><a target="_blank" href="https://www.facebook.com/milliazxeber"><i class="icon-facebook"></i></a></li>
+                <li class="instagram"><a target="_blank" href="https://www.instagram.com/milli.az.resmi/"><i class="icon-instagram"></i></a></li>
+                <li class="tiktok"><a target="_blank" href="https://www.tiktok.com/@milli.az_official">
+                        <svg version="1.1" style="height: 22px; margin-top: 6px;" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
+                             viewBox="0 0 21.23 24" enable-background="new 0 0 21.23 24" xml:space="preserve">
+<g>
+    <path fill="#25F4EE" d="M8.27,9.45V8.52C7.95,8.47,7.62,8.44,7.29,8.43c-3.18-0.01-6,2.06-6.95,5.09
+		c-0.96,3.03,0.17,6.34,2.78,8.16c-1.96-2.09-2.5-5.14-1.39-7.78C2.85,11.25,5.41,9.51,8.27,9.45L8.27,9.45z"/>
+    <path fill="#25F4EE" d="M8.45,20.05c1.78,0,3.24-1.4,3.32-3.18V1h2.9c-0.06-0.33-0.09-0.67-0.08-1h-3.96v15.84
+		c-0.07,1.79-1.53,3.2-3.32,3.2c-0.53,0-1.06-0.14-1.53-0.38C6.39,19.53,7.38,20.04,8.45,20.05z M20.08,6.39V5.5
+		c-1.07,0-2.11-0.31-3-0.9C17.86,5.5,18.91,6.13,20.08,6.39z"/>
+    <path fill="#FE2C55" d="M17.08,4.6c-0.87-1-1.36-2.28-1.36-3.6h-1.06C14.94,2.48,15.81,3.78,17.08,4.6z M7.29,12.4
+		c-1.53,0.01-2.85,1.05-3.21,2.54s0.33,3.02,1.68,3.73c-1.08-1.48-0.74-3.56,0.74-4.64c0.57-0.41,1.25-0.63,1.95-0.63
+		c0.33,0,0.66,0.06,0.98,0.15V9.52C9.1,9.47,8.78,9.45,8.45,9.44H8.27v3.07C7.95,12.42,7.62,12.39,7.29,12.4L7.29,12.4z"/>
+    <path fill="#FE2C55" d="M20.08,6.39v3.07c-1.97,0-3.9-0.63-5.5-1.79v8.06C14.57,19.74,11.31,23,7.29,23
+		c-1.49,0-2.95-0.46-4.17-1.32c2.04,2.19,5.2,2.91,7.99,1.82c2.78-1.09,4.61-3.78,4.61-6.77V8.69c1.6,1.15,3.53,1.77,5.5,1.76V6.51
+		C20.84,6.51,20.46,6.47,20.08,6.39z"/>
+    <path fill="#FFFFFF" d="M14.58,15.72V7.67c1.6,1.15,3.53,1.77,5.5,1.76V6.36c-1.17-0.25-2.22-0.87-3-1.76
+		c-1.27-0.82-2.14-2.12-2.41-3.6h-2.9v15.87c-0.06,1.42-1.01,2.64-2.36,3.05c-1.36,0.41-2.82-0.08-3.65-1.23
+		c-1.35-0.71-2.04-2.25-1.68-3.73s1.69-2.53,3.21-2.54c0.33,0,0.66,0.05,0.98,0.15V9.5c-2.88,0.05-5.46,1.8-6.58,4.45
+		c-1.12,2.66-0.56,5.72,1.43,7.81C4.35,22.59,5.8,23.03,7.29,23C11.31,23,14.57,19.74,14.58,15.72L14.58,15.72z"/>
+</g>
+</svg>
+                    </a></li>
+                <li class="twitter"><a target="_blank" href="https://twitter.com/MilliAz"><i class="icon-twitter"></i></a></li>
+                <li class="threads"><a target="_blank" href="https://www.threads.net/@milli.az.resmi">
+                        <svg style="height: 19px; margin-top: 5px;" aria-label="Threads" fill="none" height="100%" role="img" viewBox="0 0 192 192" width="100%" xmlns="http://www.w3.org/2000/svg"><path fill="#FFF" d="M141.537 88.9883C140.71 88.5919 139.87 88.2104 139.019 87.8451C137.537 60.5382 122.616 44.905 97.5619 44.745C97.4484 44.7443 97.3355 44.7443 97.222 44.7443C82.2364 44.7443 69.7731 51.1409 62.102 62.7807L75.881 72.2328C81.6116 63.5383 90.6052 61.6848 97.2286 61.6848C97.3051 61.6848 97.3819 61.6848 97.4576 61.6855C105.707 61.7381 111.932 64.1366 115.961 68.814C118.893 72.2193 120.854 76.925 121.825 82.8638C114.511 81.6207 106.601 81.2385 98.145 81.7233C74.3247 83.0954 59.0111 96.9879 60.0396 116.292C60.5615 126.084 65.4397 134.508 73.775 140.011C80.8224 144.663 89.899 146.938 99.3323 146.423C111.79 145.74 121.563 140.987 128.381 132.296C133.559 125.696 136.834 117.143 138.28 106.366C144.217 109.949 148.617 114.664 151.047 120.332C155.179 129.967 155.42 145.8 142.501 158.708C131.182 170.016 117.576 174.908 97.0135 175.059C74.2042 174.89 56.9538 167.575 45.7381 153.317C35.2355 139.966 29.8077 120.682 29.6052 96C29.8077 71.3178 35.2355 52.0336 45.7381 38.6827C56.9538 24.4249 74.2039 17.11 97.0132 16.9405C119.988 17.1113 137.539 24.4614 149.184 38.788C154.894 45.8136 159.199 54.6488 162.037 64.9503L178.184 60.6422C174.744 47.9622 169.331 37.0357 161.965 27.974C147.036 9.60668 125.202 0.195148 97.0695 0H96.9569C68.8816 0.19447 47.2921 9.6418 32.7883 28.0793C19.8819 44.4864 13.2244 67.3157 13.0007 95.9325L13 96L13.0007 96.0675C13.2244 124.684 19.8819 147.514 32.7883 163.921C47.2921 182.358 68.8816 191.806 96.9569 192H97.0695C122.03 191.827 139.624 185.292 154.118 170.811C173.081 151.866 172.51 128.119 166.26 113.541C161.776 103.087 153.227 94.5962 141.537 88.9883ZM98.4405 129.507C88.0005 130.095 77.1544 125.409 76.6196 115.372C76.2232 107.93 81.9158 99.626 99.0812 98.6368C101.047 98.5234 102.976 98.468 104.871 98.468C111.106 98.468 116.939 99.0737 122.242 100.233C120.264 124.935 108.662 128.946 98.4405 129.507Z"></path></svg>
+                    </a></li>
+<!--                <li class="youtube"><a target="_blank" href="https://www.youtube.com/user/milliaz2010"><i class="icon-youtube"></i></a></li>-->
+            </ul>
+        </div>
+
+        <div class="gallery-holder">
+    <a href="#" class="btn-prev">Geri</a>
+    <a href="#" class="btn-next">İrəli</a>
+    <div class="mask">
+        <ul class="slideset">
+                            <li>
+                    <a href="https://news.milli.az/society/1159433.html">
+                        <img src="https://img.milli.az/2017/12/17/250x178/horoscope_2r847364656.jpg" alt="Günün qoroskopu: Uzaq qohumlar və dostlardan birinə yardım gərəkdir">
+                        <span class="text">Günün qoroskopu: Uzaq qohumlar və dostlardan birinə yardım gərəkdir</span>
+                    </a>
+                </li>
+                            <li>
+                    <a href="https://news.milli.az/showbiz/1159991.html">
+                        <img src="https://img.milli.az/2022/02/15/250x178/toy_0785.jpg" alt="Xalq artistinin oğlunun TOYUDUR - FOTO - VİDEO">
+                        <span class="text">Xalq artistinin oğlunun TOYUDUR - FOTO - VİDEO</span>
+                    </a>
+                </li>
+                            <li>
+                    <a href="https://news.milli.az/interest/1159993.html">
+                        <img src="https://img.milli.az/2023/11/20/250x178/1159993.jpg" alt="Əsas uğursuzlar &lt;span class=&quot;color_red&quot;&gt;bu tarixlərdə doğulur&lt;/span&gt;">
+                        <span class="text">Əsas uğursuzlar <span class="color_red">bu tarixlərdə doğulur</span></span>
+                    </a>
+                </li>
+                            <li>
+                    <a href="https://news.milli.az/country/1159989.html">
+                        <img src="https://img.milli.az/2022/12/13/250x178/1670956342_pull.jpg" alt="Azərbaycanda dilənçi qızın qazancı eşidənləri şoka saldı: “Günə...” - VİDEO">
+                        <span class="text">Azərbaycanda dilənçi qızın qazancı eşidənləri şoka saldı: “Günə...” - VİDEO</span>
+                    </a>
+                </li>
+                            <li>
+                    <a href="https://news.milli.az/showbiz/1159973.html">
+                        <img src="https://img.milli.az/2023/11/20/250x178/1159973.jpg" alt="Aysunun keçmiş əri ilə görüntülənən Müjgan: &lt;span class=&quot;color_red&quot;&gt;Öyrədiblər ki... - VİDEO - FOTO&lt;/span&gt;">
+                        <span class="text">Aysunun keçmiş əri ilə görüntülənən Müjgan: <span class="color_red">Öyrədiblər ki... - VİDEO - FOTO</span></span>
+                    </a>
+                </li>
+                            <li>
+                    <a href="https://news.milli.az/health/1159863.html">
+                        <img src="https://img.milli.az/2023/11/20/250x178/1159863.jpg" alt="Mağazalarımızda darçın adı ilə satılan ədviyyat &lt;span class=&quot;color_red&quot;&gt;xərçəng yaradır - FOTOlar&lt;/span&gt;">
+                        <span class="text">Mağazalarımızda darçın adı ilə satılan ədviyyat <span class="color_red">xərçəng yaradır - FOTOlar</span></span>
+                    </a>
+                </li>
+                            <li>
+                    <a href="https://news.milli.az/showbiz/1159956.html">
+                        <img src="https://img.milli.az/2023/11/20/250x178/1159956.jpg" alt="&amp;quot;Televiziya &amp;quot;can verir&amp;quot;">
+                        <span class="text">&quot;Televiziya &quot;can verir&quot;</span>
+                    </a>
+                </li>
+                            <li>
+                    <a href="https://news.milli.az/world/1159945.html">
+                        <img src="https://img.milli.az/2023/11/20/250x178/1159945.jpg" alt="Prezident seçilməsinin sevincini belə yaşadı - &lt;span class=&quot;color_red&quot;&gt;VİDEO&lt;/span&gt;">
+                        <span class="text">Prezident seçilməsinin sevincini belə yaşadı - <span class="color_red">VİDEO</span></span>
+                    </a>
+                </li>
+                            <li>
+                    <a href="https://news.milli.az/horoscope/1159887.html">
+                        <img src="https://img.milli.az/2021/08/24/250x178/sevgililer_0888.jpg" alt="Ər seçimində bu 3 bürcə &lt;span class=&quot;color_red&quot;&gt;diqqət edin&lt;/span&gt;">
+                        <span class="text">Ər seçimində bu 3 bürcə <span class="color_red">diqqət edin</span></span>
+                    </a>
+                </li>
+                            <li>
+                    <a href="https://news.milli.az/society/1159926.html">
+                        <img src="https://img.milli.az/2023/11/20/250x178/1159926.jpg" alt="Maklerlərin yeni fırıldağı: &lt;span class=&quot;color_red&quot;&gt;Müştəriləri belə aldadırlar - AÇIQLAMA&lt;/span&gt;">
+                        <span class="text">Maklerlərin yeni fırıldağı: <span class="color_red">Müştəriləri belə aldadırlar - AÇIQLAMA</span></span>
+                    </a>
+                </li>
+                            <li>
+                    <a href="https://news.milli.az/showbiz/1159860.html">
+                        <img src="https://img.milli.az/2023/11/20/250x178/1159860(1).png" alt="&amp;quot;Şkafı açanda artıq Tünzalənin qoxusu gəlmir&amp;quot;">
+                        <span class="text">&quot;Şkafı açanda artıq Tünzalənin qoxusu gəlmir&quot;</span>
+                    </a>
+                </li>
+                            <li>
+                    <a href="https://news.milli.az/world/1159819.html">
+                        <img src="https://img.milli.az/2023/11/20/250x178/1159819.png" alt="Peskovun qızından maraqlı paylaşım - &lt;span class=&quot;color_red&quot;&gt;VİDEO&lt;/span&gt;">
+                        <span class="text">Peskovun qızından maraqlı paylaşım - <span class="color_red">VİDEO</span></span>
+                    </a>
+                </li>
+                            <li>
+                    <a href="https://news.milli.az/showbiz/1159917.html">
+                        <img src="https://img.milli.az/2023/11/20/250x178/1159917.jpg" alt="Rəmişin evini 280 min manata kim satıb?">
+                        <span class="text">Rəmişin evini 280 min manata kim satıb?</span>
+                    </a>
+                </li>
+                            <li>
+                    <a href="https://news.milli.az/showbiz/1159852.html">
+                        <img src="https://img.milli.az/2023/11/20/250x178/letife_soyuoz_2023.jpg" alt="Azərbaycanlı müğənni yeni yayılmış virusa yoluxub">
+                        <span class="text">Azərbaycanlı müğənni yeni yayılmış virusa yoluxub</span>
+                    </a>
+                </li>
+                            <li>
+                    <a href="https://news.milli.az/showbiz/1159876.html">
+                        <img src="https://img.milli.az/2023/11/20/250x178/1159876.jpg" alt="Arif Babayevdən Doğuşun xəyanət iddialarına &lt;span class=&quot;color_red&quot;&gt;reaksiya&lt;/span&gt;">
+                        <span class="text">Arif Babayevdən Doğuşun xəyanət iddialarına <span class="color_red">reaksiya</span></span>
+                    </a>
+                </li>
+                            <li>
+                    <a href="https://news.milli.az/society/1159888.html">
+                        <img src="https://img.milli.az/2023/11/20/250x178/park_cutluk_2023.jpg" alt="Bakıda parkda &amp;quot;qız söhbəti&amp;quot; - &lt;span class=&quot;color_red&quot;&gt;Qazini Alatavada niyə öldürdülər?&lt;/span&gt;">
+                        <span class="text">Bakıda parkda &quot;qız söhbəti&quot; - <span class="color_red">Qazini Alatavada niyə öldürdülər?</span></span>
+                    </a>
+                </li>
+                    </ul>
+    </div>
+</div>        <div class="ad-text_line" style="padding-top: 0; display: flex; justify-content: space-between;">
+            <!--
+            <div style="margin-top: 3px; width:auto; margin: 0 0 0 0;">
+                <a href="https://ramazan.milli.az/az/" target="_blank" style="color: #76ab0e; font-size:14px; font-weight: bold; text-decoration: none;"><i class="fa fa-moon-o"></i> Ramazan ayının təqvimi</a>
+            </div>
+            -->
+            <!--<div style="margin-top: 3px; width:auto; margin: 0 0 0 0;">
+                <iframe src="/adv/DAY_Text_Adv_1.html?v6" width="330" height="18" frameborder="0" scrolling="no" marginwidth="0" marginheight="0" border="0" style="background-color: transparent; margin-left: 0px; margin-right: 0;"></iframe>
+            </div>-->
+            <!-- <div style="margin-top: 3px; width:auto; margin: 0 0 0 0;">
+                <iframe src="/adv/DAY_Text_Adv_2.html?v3" width="330" height="18" frameborder="0" scrolling="no" marginwidth="0" marginheight="0" border="0" style="border:none; background-color: transparent; margin: 0 5px;"></iframe>
+            </div> -->
+            <!--            <div style="width:auto; margin: 3px 15px 0 0;">-->
+            <!--                <a href="https://news.milli.az/tag/3232.html" target="_blank" style="line-height: 26px; color: #f22; font-size:12px; font-weight: bold; text-decoration: none;">PREZİDENT. MÜSTƏQİLLİK. TƏHLÜKƏSİZLİK. RİFAH</a>-->
+            <!--            </div>-->
+            <div style="width:auto; margin: 0;">
+                <!--<a href="https://new.day.az/" target="_blank" style="line-height: 26px; display: inline-block; color: #1d88db; font-size:12px; font-weight: bold; text-decoration: none;" class="color-change">
+                    НОВЫЙ САЙТ DAY.AZ. КЛИКНИ, ПРОТЕСТИРУЙ!
+                </a>-->
+            </div>
+
+            <div style="width:auto; margin: 0;">
+                <a href="https://azn.day.az/az/" target="_blank" style="color: #f48120; font-size:12px; font-weight: bold; text-decoration: none; line-height: 26px;"><img alt="azn" src="https://azn.day.az/assets/favicon/favicon-16x16.png"
+                                                                                                                                                                           style="width: 16px; display: inline-block; margin: 0 5px 0 0;">Azərbaycanda
+                    ən yaxşı valyuta məzənnələri burada!</a>
+            </div>
+        </div>
+    </header>
+    <script type="text/javascript">
+        var rData = {isAjax: 1, ts: 0, t_ts: 0};
+        var content_url = '/bottom_news.php';
+        var back_url = '/bottom_news.php';
+    </script>
+    <div id="main">
+        <div class="twocol">
+            <div id="content">
+                <div class="ad-holder">
+    <div id="Slot_Horizontal_01_728x90" style="height:90px; width:728px;">
+        <script type='text/javascript'>
+            googletag.cmd.push(function () {
+                googletag.display('Slot_Horizontal_01_728x90');
+            });
+        </script>
+    </div>
+</div>
+
+                <!--h2>Baş xəbər</h2-->
+<div class="news-holder">
+    <div class="main-articles-wide">
+        <div class="main-articles-content">
+                            <div class="main-article active" data-id="1159985">
+                    <div class="card">
+                        <a href="https://news.milli.az/economy/1159985.html">
+                            <img class="card-img-top" src="https://img.milli.az/2023/11/20/600x450/erzaq.png" alt="Market və apteklərdə qiymətlər ucuzlaşa bilər –">
+                        </a>
+                        <div class="card-body">
+                            <a href="economy/" class="category-name">İqtisadiyyat</a>
+                            <a href="https://news.milli.az/economy/1159985.html">
+                                <h5 class="card-title">Market və apteklərdə qiymətlər ucuzlaşa bilər – <span class="color_red">Tariflər azaldılıb</span></h5>
+                            </a>
+                            <span class="date-author">20 Noyabr 2023 21:44</span>
+                        </div>
+                    </div>
+                </div>
+                                <div class="main-article" data-id="1159933">
+                    <div class="card">
+                        <a href="https://news.milli.az/politics/1159933.html">
+                            <img class="card-img-top" src="https://img.milli.az/2023/11/20/600x450/1159933.jpg" alt="İlham Əliyev: Heç bir beynəlxalq təzyiq iradəmizə təsir göstərə bilməz">
+                        </a>
+                        <div class="card-body">
+                            <a href="politics/" class="category-name">Siyasət</a>
+                            <a href="https://news.milli.az/politics/1159933.html">
+                                <h5 class="card-title">İlham Əliyev: Heç bir beynəlxalq təzyiq iradəmizə təsir göstərə bilməz</h5>
+                            </a>
+                            <span class="date-author">20 Noyabr 2023 17:42</span>
+                        </div>
+                    </div>
+                </div>
+                                <div class="main-article" data-id="1159899">
+                    <div class="card">
+                        <a href="https://news.milli.az/politics/1159899.html">
+                            <img class="card-img-top" src="https://img.milli.az/2023/11/20/600x450/1159899.jpg" alt="Vaşinqtonun “Bakı planı” puç oldu:">
+                        </a>
+                        <div class="card-body">
+                            <a href="politics/" class="category-name">Siyasət</a>
+                            <a href="https://news.milli.az/politics/1159899.html">
+                                <h5 class="card-title">Vaşinqtonun “Bakı planı” puç oldu: <span class="color_red">bunu artıq Brüssel də anlayır</span></h5>
+                            </a>
+                            <span class="date-author">20 Noyabr 2023 16:26</span>
+                        </div>
+                    </div>
+                </div>
+                                <div class="main-article" data-id="1159862">
+                    <div class="card">
+                        <a href="https://news.milli.az/politics/1159862.html">
+                            <img class="card-img-top" src="https://img.milli.az/2023/11/20/600x450/1159862.jpg" alt="Prezidentin adından İraq Prezidentinin şərəfinə rəsmi nahar verilib - VİDEO - FOTO">
+                        </a>
+                        <div class="card-body">
+                            <a href="politics/" class="category-name">Siyasət</a>
+                            <a href="https://news.milli.az/politics/1159862.html">
+                                <h5 class="card-title">Prezidentin adından İraq Prezidentinin şərəfinə rəsmi nahar verilib - VİDEO - FOTO</h5>
+                            </a>
+                            <span class="date-author">20 Noyabr 2023 14:43</span>
+                        </div>
+                    </div>
+                </div>
+                                <div class="main-article" data-id="1159836">
+                    <div class="card">
+                        <a href="https://news.milli.az/politics/1159836.html">
+                            <img class="card-img-top" src="https://img.milli.az/2023/11/20/600x450/1159836.jpg" alt="Azərbaycan və İraq prezidentləri mətbuata bəyanatlarla çıxış ediblər -">
+                        </a>
+                        <div class="card-body">
+                            <a href="politics/" class="category-name">Siyasət</a>
+                            <a href="https://news.milli.az/politics/1159836.html">
+                                <h5 class="card-title">Azərbaycan və İraq prezidentləri mətbuata bəyanatlarla çıxış ediblər - <span class="color_red">VİDEO - FOTO</span></h5>
+                            </a>
+                            <span class="date-author">20 Noyabr 2023 13:22</span>
+                        </div>
+                    </div>
+                </div>
+                                <div class="main-article" data-id="1159829">
+                    <div class="card">
+                        <a href="https://news.milli.az/politics/1159829.html">
+                            <img class="card-img-top" src="https://img.milli.az/2023/11/20/600x450/1159829_1.jpg" alt="Azərbaycan-İraq sənədləri imzalanıb -">
+                        </a>
+                        <div class="card-body">
+                            <a href="politics/" class="category-name">Siyasət</a>
+                            <a href="https://news.milli.az/politics/1159829.html">
+                                <h5 class="card-title">Azərbaycan-İraq sənədləri imzalanıb - <span class="color_red">VİDEO - FOTO</span></h5>
+                            </a>
+                            <span class="date-author">20 Noyabr 2023 12:53</span>
+                        </div>
+                    </div>
+                </div>
+                                <div class="main-article" data-id="1159812">
+                    <div class="card">
+                        <a href="https://news.milli.az/country/1159812.html">
+                            <img class="card-img-top" src="https://img.milli.az/2022/07/28/600x450/pensiya_teqaud_kart_bankomat_d.jpg" alt="Pensiyaçılara şad xəbər - Bu məkanlarda">
+                        </a>
+                        <div class="card-body">
+                            <a href="country/" class="category-name">Ölkə</a>
+                            <a href="https://news.milli.az/country/1159812.html">
+                                <h5 class="card-title">Pensiyaçılara şad xəbər - Bu məkanlarda <span class="color_red">güzəştlər olacaq</span></h5>
+                            </a>
+                            <span class="date-author">20 Noyabr 2023 12:09</span>
+                        </div>
+                    </div>
+                </div>
+                                <div class="main-article" data-id="1159806">
+                    <div class="card">
+                        <a href="https://news.milli.az/politics/1159806.html">
+                            <img class="card-img-top" src="https://img.milli.az/2023/11/20/600x450/1159806.png" alt="Azərbaycan və İraq prezidentlərinin geniş tərkibdə görüşü olub - VİDEO">
+                        </a>
+                        <div class="card-body">
+                            <a href="politics/" class="category-name">Siyasət</a>
+                            <a href="https://news.milli.az/politics/1159806.html">
+                                <h5 class="card-title">Azərbaycan və İraq prezidentlərinin geniş tərkibdə görüşü olub - VİDEO</h5>
+                            </a>
+                            <span class="date-author">20 Noyabr 2023 11:54</span>
+                        </div>
+                    </div>
+                </div>
+                                <div class="main-article" data-id="1159799">
+                    <div class="card">
+                        <a href="https://news.milli.az/politics/1159799.html">
+                            <img class="card-img-top" src="https://img.milli.az/2023/11/20/600x450/1159799_1.jpg" alt="Azərbaycan və İraq prezidentlərinin təkbətək görüşü keçirilib -">
+                        </a>
+                        <div class="card-body">
+                            <a href="politics/" class="category-name">Siyasət</a>
+                            <a href="https://news.milli.az/politics/1159799.html">
+                                <h5 class="card-title">Azərbaycan və İraq prezidentlərinin təkbətək görüşü keçirilib - <span class="color_red">VİDEO - FOTO</span></h5>
+                            </a>
+                            <span class="date-author">20 Noyabr 2023 11:28</span>
+                        </div>
+                    </div>
+                </div>
+                                <div class="main-article" data-id="1159798">
+                    <div class="card">
+                        <a href="https://news.milli.az/politics/1159798.html">
+                            <img class="card-img-top" src="https://img.milli.az/2023/11/20/600x450/1159798.jpg" alt="İraq Prezidentinin rəsmi qarşılanma mərasimi olub -">
+                        </a>
+                        <div class="card-body">
+                            <a href="politics/" class="category-name">Siyasət</a>
+                            <a href="https://news.milli.az/politics/1159798.html">
+                                <h5 class="card-title">İraq Prezidentinin rəsmi qarşılanma mərasimi olub - <span class="color_red">VİDEO - FOTO</span></h5>
+                            </a>
+                            <span class="date-author">20 Noyabr 2023 11:26</span>
+                        </div>
+                    </div>
+                </div>
+                                <div class="main-article" data-id="1159777">
+                    <div class="card">
+                        <a href="https://news.milli.az/country/1159777.html">
+                            <img class="card-img-top" src="https://img.milli.az/2023/11/20/600x450/1159777.png" alt="Meyitlər burada təxminən bir həftə qaldı - Raşid Beqlaryan">
+                        </a>
+                        <div class="card-body">
+                            <a href="country/" class="category-name">Ölkə</a>
+                            <a href="https://news.milli.az/country/1159777.html">
+                                <h5 class="card-title">Meyitlər burada təxminən bir həftə qaldı - Raşid Beqlaryan</h5>
+                            </a>
+                            <span class="date-author">20 Noyabr 2023 10:29</span>
+                        </div>
+                    </div>
+                </div>
+                                <div class="main-article" data-id="1159775">
+                    <div class="card">
+                        <a href="https://news.milli.az/country/1159775.html">
+                            <img class="card-img-top" src="https://img.milli.az/2023/11/20/600x450/durdane_eliyeva1159775.jpg" alt="Dürdanə Əliyeva məhkəmə zalında həbs edildi">
+                        </a>
+                        <div class="card-body">
+                            <a href="country/" class="category-name">Ölkə</a>
+                            <a href="https://news.milli.az/country/1159775.html">
+                                <h5 class="card-title">Dürdanə Əliyeva məhkəmə zalında həbs edildi</h5>
+                            </a>
+                            <span class="date-author">20 Noyabr 2023 10:19</span>
+                        </div>
+                    </div>
+                </div>
+                                <div class="main-article" data-id="1159770">
+                    <div class="card">
+                        <a href="https://news.milli.az/politics/1159770.html">
+                            <img class="card-img-top" src="https://img.milli.az/2022/09/27/600x450/prezident_04_2022.jpg" alt="Prezident Qoşulmama Hərəkatının konfrans iştirakçılarına müraciət ünvanlayıb">
+                        </a>
+                        <div class="card-body">
+                            <a href="politics/" class="category-name">Siyasət</a>
+                            <a href="https://news.milli.az/politics/1159770.html">
+                                <h5 class="card-title">Prezident Qoşulmama Hərəkatının konfrans iştirakçılarına müraciət ünvanlayıb</h5>
+                            </a>
+                            <span class="date-author">20 Noyabr 2023 10:11</span>
+                        </div>
+                    </div>
+                </div>
+                                <div class="main-article" data-id="1159768">
+                    <div class="card">
+                        <a href="https://news.milli.az/country/1159768.html">
+                            <img class="card-img-top" src="https://img.milli.az/2023/11/20/600x450/1159769.png" alt="Xocalı qatili Beqlaryan cinayət törətdiyi yerləri göstərdi -">
+                        </a>
+                        <div class="card-body">
+                            <a href="country/" class="category-name">Ölkə</a>
+                            <a href="https://news.milli.az/country/1159768.html">
+                                <h5 class="card-title">Xocalı qatili Beqlaryan cinayət törətdiyi yerləri göstərdi - <span class="color_red">DTX - VİDEO</span></h5>
+                            </a>
+                            <span class="date-author">20 Noyabr 2023 09:58</span>
+                        </div>
+                    </div>
+                </div>
+                                <div class="main-article" data-id="1159746">
+                    <div class="card">
+                        <a href="https://news.milli.az/country/1159746.html">
+                            <img class="card-img-top" src="https://img.milli.az/2023/06/10/600x450/qaz_problemi_2023.jpg" alt="Bakının bu ərazilərində">
+                        </a>
+                        <div class="card-body">
+                            <a href="country/" class="category-name">Ölkə</a>
+                            <a href="https://news.milli.az/country/1159746.html">
+                                <h5 class="card-title">Bakının bu ərazilərində <span class="color_red">qaz olmayacaq</span></h5>
+                            </a>
+                            <span class="date-author">20 Noyabr 2023 08:58</span>
+                        </div>
+                    </div>
+                </div>
+                                <div class="main-article" data-id="1159744">
+                    <div class="card">
+                        <a href="https://news.milli.az/armenia/1159744.html">
+                            <img class="card-img-top" src="https://img.milli.az/2023/02/16/600x450/pasinyan.jpg" alt="Paşinyan 44 günlük savaşdan">
+                        </a>
+                        <div class="card-body">
+                            <a href="armenia/" class="category-name">Ermənistan</a>
+                            <a href="https://news.milli.az/armenia/1159744.html">
+                                <h5 class="card-title">Paşinyan 44 günlük savaşdan <span class="color_red">10 gün öncə yazmışdı ki…</span></h5>
+                            </a>
+                            <span class="date-author">20 Noyabr 2023 08:39</span>
+                        </div>
+                    </div>
+                </div>
+                                <div class="main-article" data-id="1159733">
+                    <div class="card">
+                        <a href="https://news.milli.az/world/1159733.html">
+                            <img class="card-img-top" src="https://img.milli.az/2023/11/20/600x450/1159733.png" alt="Qara dənizdə gəmi batdı - İçərisində 12 nəfər var idi...">
+                        </a>
+                        <div class="card-body">
+                            <a href="world/" class="category-name">Dünya</a>
+                            <a href="https://news.milli.az/world/1159733.html">
+                                <h5 class="card-title">Qara dənizdə gəmi batdı - İçərisində 12 nəfər var idi...</h5>
+                            </a>
+                            <span class="date-author">20 Noyabr 2023 07:52</span>
+                        </div>
+                    </div>
+                </div>
+                                <div class="main-article" data-id="1159731">
+                    <div class="card">
+                        <a href="https://news.milli.az/country/1159731.html">
+                            <img class="card-img-top" src="https://img.milli.az/2023/11/20/600x450/1159731_(2).jpg" alt="Erməni hay-küyü: Hadrutda “dağıdılan” kilsəyə baxın – FOTO">
+                        </a>
+                        <div class="card-body">
+                            <a href="country/" class="category-name">Ölkə</a>
+                            <a href="https://news.milli.az/country/1159731.html">
+                                <h5 class="card-title">Erməni hay-küyü: Hadrutda “dağıdılan” kilsəyə baxın – FOTO</h5>
+                            </a>
+                            <span class="date-author">20 Noyabr 2023 07:45</span>
+                        </div>
+                    </div>
+                </div>
+                                <div class="main-article" data-id="1159728">
+                    <div class="card">
+                        <a href="https://news.milli.az/country/1159728.html">
+                            <img class="card-img-top" src="https://img.milli.az/2023/11/20/600x450/1159728x.png" alt="Zabuxa daha 91 nəfər yola salındı">
+                        </a>
+                        <div class="card-body">
+                            <a href="country/" class="category-name">Ölkə</a>
+                            <a href="https://news.milli.az/country/1159728.html">
+                                <h5 class="card-title">Zabuxa daha 91 nəfər yola salındı</h5>
+                            </a>
+                            <span class="date-author">20 Noyabr 2023 07:08</span>
+                        </div>
+                    </div>
+                </div>
+                                <div class="main-article" data-id="1159719">
+                    <div class="card">
+                        <a href="https://news.milli.az/incedent/1159719.html">
+                            <img class="card-img-top" src="https://img.milli.az/2023/11/20/600x450/1159719.jpg" alt="Qarakənd faciəsindən 32 il ötür">
+                        </a>
+                        <div class="card-body">
+                            <a href="incedent/" class="category-name">Hadisə</a>
+                            <a href="https://news.milli.az/incedent/1159719.html">
+                                <h5 class="card-title">Qarakənd faciəsindən 32 il ötür</h5>
+                            </a>
+                            <span class="date-author">20 Noyabr 2023 00:05</span>
+                        </div>
+                    </div>
+                </div>
+                        </div>
+
+        <div class="main-articles-list">
+                            <div class="related-article active" data-id="1159985">
+                    <a href="https://news.milli.az/economy/1159985.html">Market və apteklərdə qiymətlər ucuzlaşa bilər – <span class="color_red">Tariflər azaldılıb</span></a>
+                </div>
+                                <div class="related-article" data-id="1159933">
+                    <a href="https://news.milli.az/politics/1159933.html">İlham Əliyev: Heç bir beynəlxalq təzyiq iradəmizə təsir göstərə bilməz</a>
+                </div>
+                                <div class="related-article" data-id="1159899">
+                    <a href="https://news.milli.az/politics/1159899.html">Vaşinqtonun “Bakı planı” puç oldu: <span class="color_red">bunu artıq Brüssel də anlayır</span></a>
+                </div>
+                                <div class="related-article" data-id="1159862">
+                    <a href="https://news.milli.az/politics/1159862.html">Prezidentin adından İraq Prezidentinin şərəfinə rəsmi nahar verilib - VİDEO - FOTO</a>
+                </div>
+                                <div class="related-article" data-id="1159836">
+                    <a href="https://news.milli.az/politics/1159836.html">Azərbaycan və İraq prezidentləri mətbuata bəyanatlarla çıxış ediblər - <span class="color_red">VİDEO - FOTO</span></a>
+                </div>
+                                <div class="related-article" data-id="1159829">
+                    <a href="https://news.milli.az/politics/1159829.html">Azərbaycan-İraq sənədləri imzalanıb - <span class="color_red">VİDEO - FOTO</span></a>
+                </div>
+                                <div class="related-article" data-id="1159812">
+                    <a href="https://news.milli.az/country/1159812.html">Pensiyaçılara şad xəbər - Bu məkanlarda <span class="color_red">güzəştlər olacaq</span></a>
+                </div>
+                                <div class="related-article" data-id="1159806">
+                    <a href="https://news.milli.az/politics/1159806.html">Azərbaycan və İraq prezidentlərinin geniş tərkibdə görüşü olub - VİDEO</a>
+                </div>
+                                <div class="related-article" data-id="1159799">
+                    <a href="https://news.milli.az/politics/1159799.html">Azərbaycan və İraq prezidentlərinin təkbətək görüşü keçirilib - <span class="color_red">VİDEO - FOTO</span></a>
+                </div>
+                                <div class="related-article" data-id="1159798">
+                    <a href="https://news.milli.az/politics/1159798.html">İraq Prezidentinin rəsmi qarşılanma mərasimi olub - <span class="color_red">VİDEO - FOTO</span></a>
+                </div>
+                                <div class="related-article" data-id="1159777">
+                    <a href="https://news.milli.az/country/1159777.html">Meyitlər burada təxminən bir həftə qaldı - Raşid Beqlaryan</a>
+                </div>
+                                <div class="related-article" data-id="1159775">
+                    <a href="https://news.milli.az/country/1159775.html">Dürdanə Əliyeva məhkəmə zalında həbs edildi</a>
+                </div>
+                                <div class="related-article" data-id="1159770">
+                    <a href="https://news.milli.az/politics/1159770.html">Prezident Qoşulmama Hərəkatının konfrans iştirakçılarına müraciət ünvanlayıb</a>
+                </div>
+                                <div class="related-article" data-id="1159768">
+                    <a href="https://news.milli.az/country/1159768.html">Xocalı qatili Beqlaryan cinayət törətdiyi yerləri göstərdi - <span class="color_red">DTX - VİDEO</span></a>
+                </div>
+                                <div class="related-article" data-id="1159746">
+                    <a href="https://news.milli.az/country/1159746.html">Bakının bu ərazilərində <span class="color_red">qaz olmayacaq</span></a>
+                </div>
+                                <div class="related-article" data-id="1159744">
+                    <a href="https://news.milli.az/armenia/1159744.html">Paşinyan 44 günlük savaşdan <span class="color_red">10 gün öncə yazmışdı ki…</span></a>
+                </div>
+                                <div class="related-article" data-id="1159733">
+                    <a href="https://news.milli.az/world/1159733.html">Qara dənizdə gəmi batdı - İçərisində 12 nəfər var idi...</a>
+                </div>
+                                <div class="related-article" data-id="1159731">
+                    <a href="https://news.milli.az/country/1159731.html">Erməni hay-küyü: Hadrutda “dağıdılan” kilsəyə baxın – FOTO</a>
+                </div>
+                                <div class="related-article" data-id="1159728">
+                    <a href="https://news.milli.az/country/1159728.html">Zabuxa daha 91 nəfər yola salındı</a>
+                </div>
+                                <div class="related-article" data-id="1159719">
+                    <a href="https://news.milli.az/incedent/1159719.html">Qarakənd faciəsindən 32 il ötür</a>
+                </div>
+                        </div>
+    </div>
+</div>                <div class="ad-mobile">
+    <div id='MILLI_Slot_Mobile_320x50_2' style='width:320px; text-align: center; margin-left: auto; margin-right: auto;'>
+        <script type='text/javascript'>
+            googletag.cmd.push(function () {
+                googletag.display('MILLI_Slot_Mobile_320x50_2');
+            });
+        </script>
+    </div>
+</div>
+                <div class="blocks-holder">
+                    <div class="col-full">
+                        <div class="content-gallery">
+    <div class="mask">
+        <ul class="slideset">
+                                                        <li>
+                    <a href="https://news.milli.az/politics/1160011.html">
+                        <span class="img-holder">
+                            <img src="https://img.milli.az/2023/11/20/600x450/1160011.jpg" alt="İrəvan Bakının məktubuna cavab vermir: &lt;span class=&quot;color_red&quot;&gt;Ermənistan hücuma hazırlaşır?&lt;/span&gt;">
+                                                    </span>
+                        <span class="info-holder">
+                            <span class="date">20 Noyabr 23:47</span>
+                        </span>
+                        <span class="text">İrəvan Bakının məktubuna cavab vermir: <span class="color_red">Ermənistan hücuma hazırlaşır?</span></span>
+                    </a>
+                </li>
+                                                            <li>
+                    <a href="https://news.milli.az/country/1159992.html">
+                        <span class="img-holder">
+                            <img src="https://img.milli.az/2015/12/16/600x450/kemaleddin_heyderov_012.jpg" alt="Nazir polkovniki işdən çıxartdı">
+                                                    </span>
+                        <span class="info-holder">
+                            <span class="date">20 Noyabr 22:07</span>
+                        </span>
+                        <span class="text">Nazir polkovniki işdən çıxartdı</span>
+                    </a>
+                </li>
+                                                            <li>
+                    <a href="https://news.milli.az/politics/1159986.html">
+                        <span class="img-holder">
+                            <img src="https://img.milli.az/2023/11/20/600x450/agdere.jpg" alt="Azərbaycanda yeni rayon yaradılır">
+                                                    </span>
+                        <span class="info-holder">
+                            <span class="date">20 Noyabr 21:46</span>
+                        </span>
+                        <span class="text">Azərbaycanda yeni rayon yaradılır</span>
+                    </a>
+                </li>
+                                                            <li>
+                    <a href="https://news.milli.az/world/1159961.html">
+                        <span class="img-holder">
+                            <img src="https://img.milli.az/2023/11/20/600x450/1159961.jpg" alt="Bu ölkə Rusiya ilə sərhəddi bütünlüklə &lt;span class=&quot;color_red&quot;&gt;bağlayacaq&lt;/span&gt;">
+                                                    </span>
+                        <span class="info-holder">
+                            <span class="date">20 Noyabr 20:07</span>
+                        </span>
+                        <span class="text">Bu ölkə Rusiya ilə sərhəddi bütünlüklə <span class="color_red">bağlayacaq</span></span>
+                    </a>
+                </li>
+                                                    </ul>
+    </div>
+</div>                    </div>
+                </div>
+
+                <div class="blocks-holder">
+                    <div class="col-full">
+                        <!--<div class="content-gallery">-->
+<!--    <h3>GÜNDƏM</h3>-->
+<!--    <div class="mask">-->
+<!--        <ul class="slideset">-->
+<!--            --><!--            --><!--                --><!--                <li>-->
+<!--                    <a href="--><!--">-->
+<!--                        <span class="img-holder">-->
+<!--                            <img src="--><!--" alt="--><!--">-->
+<!--                            --><!--                                <span class="comments"><span>--><!--</span></span>-->
+<!--                            --><!--                        </span>-->
+<!--                        <span class="info-holder">-->
+<!--                            <span class="date">--><!--</span>-->
+<!--                        </span>-->
+<!--                        <span class="text">--><!--</span>-->
+<!--                    </a>-->
+<!--                </li>-->
+<!--                --><!--            --><!--        </ul>-->
+<!--    </div>-->
+<!--</div>-->
+
+<div class="row no-gutters">
+    <div class="col-12">
+        <div class="photo-video-wrapper">
+            <h3>GÜNDƏM</h3>
+            <div class="pv-container gundem">
+                <div class="owl-carousel" id="www-gundem-news-slider">
+                                            <div class="featured-article video-slide">
+                            <div class="card">
+                                <a href="https://news.milli.az/showbiz/1159973.html">
+                                    <img class="card-img-top" src="https://img.milli.az/2023/11/20/600x450/1159973.jpg"
+                                         alt="">
+                                </a>
+                                <div class="card-body">
+                                    <a href="https://news.milli.az/showbiz/1159973.html">
+                                        <h5 class="card-title">Aysunun keçmiş əri ilə görüntülənən Müjgan: <span class="color_red">Öyrədiblər ki... - VİDEO - FOTO</span></h5>
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                                            <div class="featured-article video-slide">
+                            <div class="card">
+                                <a href="https://news.milli.az/society/1159926.html">
+                                    <img class="card-img-top" src="https://img.milli.az/2023/11/20/600x450/1159926.jpg"
+                                         alt="">
+                                </a>
+                                <div class="card-body">
+                                    <a href="https://news.milli.az/society/1159926.html">
+                                        <h5 class="card-title">Maklerlərin yeni fırıldağı: <span class="color_red">Müştəriləri belə aldadırlar - AÇIQLAMA</span></h5>
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                                            <div class="featured-article video-slide">
+                            <div class="card">
+                                <a href="https://news.milli.az/society/1159888.html">
+                                    <img class="card-img-top" src="https://img.milli.az/2023/11/20/600x450/park_cutluk_2023.jpg"
+                                         alt="">
+                                </a>
+                                <div class="card-body">
+                                    <a href="https://news.milli.az/society/1159888.html">
+                                        <h5 class="card-title">Bakıda parkda &quot;qız söhbəti&quot; - <span class="color_red">Qazini Alatavada niyə öldürdülər?</span></h5>
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                                            <div class="featured-article video-slide">
+                            <div class="card">
+                                <a href="https://news.milli.az/interest/1159802.html">
+                                    <img class="card-img-top" src="https://img.milli.az/2023/11/20/600x450/1159802x.jpg"
+                                         alt="">
+                                </a>
+                                <div class="card-body">
+                                    <a href="https://news.milli.az/interest/1159802.html">
+                                        <h5 class="card-title">Konsertdə ölən qızın FOTOsu yayıldı</h5>
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                                            <div class="featured-article video-slide">
+                            <div class="card">
+                                <a href="https://news.milli.az/country/1159821.html">
+                                    <img class="card-img-top" src="https://img.milli.az/2023/11/10/600x450/qadin_2023.jpg"
+                                         alt="">
+                                </a>
+                                <div class="card-body">
+                                    <a href="https://news.milli.az/country/1159821.html">
+                                        <h5 class="card-title">Qaynanasını döyən gəlin bu evli kişiyə qoşulub qaçdı - Azərbaycanda qəribə olay - <span class="color_red">FOTO</span></h5>
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                                            <div class="featured-article video-slide">
+                            <div class="card">
+                                <a href="https://news.milli.az/country/1159820.html">
+                                    <img class="card-img-top" src="https://img.milli.az/2022/05/16/600x450/avtobus_28485.jpg"
+                                         alt="">
+                                </a>
+                                <div class="card-body">
+                                    <a href="https://news.milli.az/country/1159820.html">
+                                        <h5 class="card-title">Azərbaycanda şok olay: Avtobusda qadının yerinə pul verən kişi onunla evlənməyə məcbur edildi - <span class="color_red">VİDEO</span></h5>
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                                            <div class="featured-article video-slide">
+                            <div class="card">
+                                <a href="https://news.milli.az/showbiz/1159804.html">
+                                    <img class="card-img-top" src="https://img.milli.az/2023/09/06/600x450/1141818.jpg"
+                                         alt="">
+                                </a>
+                                <div class="card-body">
+                                    <a href="https://news.milli.az/showbiz/1159804.html">
+                                        <h5 class="card-title">Aysunun keçmiş əri bu müğənni ilə &quot;tutuldu&quot;  - FOTO</h5>
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                                            <div class="featured-article video-slide">
+                            <div class="card">
+                                <a href="https://news.milli.az/showbiz/1159792.html">
+                                    <img class="card-img-top" src="https://img.milli.az/2023/11/20/600x450/1159792x.jpg"
+                                         alt="">
+                                </a>
+                                <div class="card-body">
+                                    <a href="https://news.milli.az/showbiz/1159792.html">
+                                        <h5 class="card-title">Hadisə yenə geyimi ilə <span class="color_red">diqqət çəkdi - FOTO</span></h5>
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                                            <div class="featured-article video-slide">
+                            <div class="card">
+                                <a href="https://news.milli.az/incedent/1159794.html">
+                                    <img class="card-img-top" src="https://img.milli.az/2023/11/20/600x450/1159794x.jpg"
+                                         alt="">
+                                </a>
+                                <div class="card-body">
+                                    <a href="https://news.milli.az/incedent/1159794.html">
+                                        <h5 class="card-title">Bakı metrosunda maraqlı anlar - <span class="color_red">VİDEO</span></h5>
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                                    </div>
+            </div>
+        </div>
+    </div>
+</div>
+                    </div>
+                </div>
+                                <div class="ad-holder">
+    <div id="Slot_Horizontal_02_728x90" style="height:90px; width:728px;">
+        <script type='text/javascript'>
+            googletag.cmd.push(function () {
+                googletag.display('Slot_Horizontal_02_728x90');
+            });
+        </script>
+    </div>
+</div>
+
+
+                <div class="columns-holder">
+    <div class="right-col">
+        <h3>TOP XƏBƏRLƏR</h3>
+        <ul class="post-list">
+                            <li>
+                    <a href="https://news.milli.az/sport/1160025.html">
+                        <img src="https://img.milli.az/2023/06/20/600x450/avro-2024.jpg" alt="İtaliya, Çexiya və Sloveniya sevindi, millimiz pley-off şansını da itirdi">
+                        <p>İtaliya, Çexiya və Sloveniya sevindi, millimiz pley-off şansını da itirdi</p>
+                    </a>
+                    <div class="info-block">
+                        <span class="time">02:11</span>
+                                            </div>
+                </li>
+                            <li>
+                    <a href="https://news.milli.az/sport/1160017.html">
+                        <img src="https://img.milli.az/2023/11/21/600x450/sahmat44.jpg" alt="Şahmat millimizdən Avropa çempionatında &lt;span class=&quot;color_red&quot;&gt;TARİXİ NƏTİCƏ&lt;/span&gt;">
+                        <p>Şahmat millimizdən Avropa çempionatında <span class="color_red">TARİXİ NƏTİCƏ</span></p>
+                    </a>
+                    <div class="info-block">
+                        <span class="time">00:34</span>
+                                            </div>
+                </li>
+                            <li>
+                    <a href="https://news.milli.az/incedent/1160022.html">
+                        <img src="https://img.milli.az/2023/11/21/600x450/ulvi_hesenli.jpg" alt="Ülvi Həsənli cinayət məsuliyyətinə cəlb edildi">
+                        <p>Ülvi Həsənli cinayət məsuliyyətinə cəlb edildi</p>
+                    </a>
+                    <div class="info-block">
+                        <span class="time">00:20</span>
+                                            </div>
+                </li>
+                            <li>
+                    <a href="https://news.milli.az/world/1160015.html">
+                        <img src="https://img.milli.az/2023/11/21/600x450/1160015.jpg" alt="Məsciddə raket zavodu aşkarlandı - VİDEO">
+                        <p>Məsciddə raket zavodu aşkarlandı - VİDEO</p>
+                    </a>
+                    <div class="info-block">
+                        <span class="time">00:18</span>
+                                            </div>
+                </li>
+                            <li>
+                    <a href="https://news.milli.az/world/1160012.html">
+                        <img src="https://img.milli.az/2023/11/20/600x450/zelenski.jpg" alt="Zelenski nədən qorxur? – &lt;span class=&quot;color_red&quot;&gt;Britaniya nəşrindən iddia&lt;/span&gt;">
+                        <p>Zelenski nədən qorxur? – <span class="color_red">Britaniya nəşrindən iddia</span></p>
+                    </a>
+                    <div class="info-block">
+                        <span class="time">20 Noyabr 23:57</span>
+                                            </div>
+                </li>
+                            <li>
+                    <a href="https://news.milli.az/incedent/1160008.html">
+                        <img src="https://img.milli.az/2023/11/20/600x450/1160008.jpg" alt="Xəbərdarlığa məhəl qoymadı, bədbəxt hadisə baş verdi - VİDEO">
+                        <p>Xəbərdarlığa məhəl qoymadı, bədbəxt hadisə baş verdi - VİDEO</p>
+                    </a>
+                    <div class="info-block">
+                        <span class="time">20 Noyabr 23:52</span>
+                                            </div>
+                </li>
+                            <li>
+                    <a href="https://news.milli.az/world/1160010.html">
+                        <img src="https://img.milli.az/2023/11/20/600x450/qezza55.jpg" alt="Qəzzada ölən və yaralananların sayı açıqlandı">
+                        <p>Qəzzada ölən və yaralananların sayı açıqlandı</p>
+                    </a>
+                    <div class="info-block">
+                        <span class="time">20 Noyabr 23:42</span>
+                                            </div>
+                </li>
+                            <li>
+                    <a href="https://news.milli.az/country/1160007.html">
+                        <img src="https://img.milli.az/2023/11/20/600x450/1160007.jpg" alt="Bu ərazilərdə gömrük-keçid məntəqələri &lt;span class=&quot;color_red&quot;&gt;necə qurulacaq? - VİDEO&lt;/span&gt;">
+                        <p>Bu ərazilərdə gömrük-keçid məntəqələri <span class="color_red">necə qurulacaq? - VİDEO</span></p>
+                    </a>
+                    <div class="info-block">
+                        <span class="time">20 Noyabr 23:33</span>
+                                            </div>
+                </li>
+                    </ul>
+    </div>
+    <div class="left-col">
+        <h3>XƏBƏR LENTİ</h3>
+        <ul class="post-list2">
+                            <li>
+                    <a href="https://news.milli.az/interest/1159900.html">
+                        <img class="alignleft" src="https://img.milli.az/2023/11/20/600x450/1159900_(11).jpg" alt="İştah öldürən yeməklər - &lt;span class=&quot;color_red&quot;&gt;FOTOlar&lt;/span&gt;">
+                    </a>
+                    <div class="text-holder">
+                        <strong class="title "><a href="https://news.milli.az/interest/1159900.html">İştah öldürən yeməklər - <span class="color_red">FOTOlar</span></a></strong>
+                        <p></p>
+                        <div class="info-block">
+                            <span class="time">06:15</span>
+                                                    </div>
+                    </div>
+
+                </li>
+                            <li>
+                    <a href="https://news.milli.az/showbiz/1159964.html">
+                        <img class="alignleft" src="https://img.milli.az/2023/11/20/600x450/1159964.jpg" alt="Puqaçovanın ailəsi maddi sıxıntı çəkir">
+                    </a>
+                    <div class="text-holder">
+                        <strong class="title "><a href="https://news.milli.az/showbiz/1159964.html">Puqaçovanın ailəsi maddi sıxıntı çəkir</a></strong>
+                        <p></p>
+                        <div class="info-block">
+                            <span class="time">06:00</span>
+                                                    </div>
+                    </div>
+
+                </li>
+                            <li>
+                    <a href="https://news.milli.az/society/1159974.html">
+                        <img class="alignleft" src="https://img.milli.az/2023/10/30/600x450/islam1.jpg" alt="Yusuf peyğəmbərin həyatı">
+                    </a>
+                    <div class="text-holder">
+                        <strong class="title "><a href="https://news.milli.az/society/1159974.html">Yusuf peyğəmbərin həyatı</a></strong>
+                        <p></p>
+                        <div class="info-block">
+                            <span class="time">06:00</span>
+                                                    </div>
+                    </div>
+
+                </li>
+                            <li>
+                    <a href="https://news.milli.az/health/1159962.html">
+                        <img class="alignleft" src="https://img.milli.az/2023/11/20/600x450/1159962.jpg" alt="Hər gün yumurta yeməyin zərərləri">
+                    </a>
+                    <div class="text-holder">
+                        <strong class="title "><a href="https://news.milli.az/health/1159962.html">Hər gün yumurta yeməyin zərərləri</a></strong>
+                        <p></p>
+                        <div class="info-block">
+                            <span class="time">05:45</span>
+                                                    </div>
+                    </div>
+
+                </li>
+                            <li>
+                    <a href="https://news.milli.az/health/911698.html">
+                        <img class="alignleft" src="https://img.milli.az/2021/01/07/600x450/911698.jpg" alt="Bədəndəki bu ağrıların səbəbi xolesterin ola bilər">
+                    </a>
+                    <div class="text-holder">
+                        <strong class="title "><a href="https://news.milli.az/health/911698.html">Bədəndəki bu ağrıların səbəbi xolesterin ola bilər</a></strong>
+                        <p>
+
+</p>
+                        <div class="info-block">
+                            <span class="time">05:30</span>
+                                                    </div>
+                    </div>
+
+                </li>
+                            <li>
+                    <a href="https://news.milli.az/health/1159912.html">
+                        <img class="alignleft" src="https://img.milli.az/2023/11/20/600x450/1159912.jpg" alt="İnfarktın gözlənilməz əlamətləri  AŞKARLANDI">
+                    </a>
+                    <div class="text-holder">
+                        <strong class="title "><a href="https://news.milli.az/health/1159912.html">İnfarktın gözlənilməz əlamətləri  AŞKARLANDI</a></strong>
+                        <p></p>
+                        <div class="info-block">
+                            <span class="time">05:15</span>
+                                                    </div>
+                    </div>
+
+                </li>
+                            <li>
+                    <a href="https://news.milli.az/society/1159972.html">
+                        <img class="alignleft" src="https://img.milli.az/2023/10/31/600x450/islam4.jpg" alt="Uhud savaşı haqqında">
+                    </a>
+                    <div class="text-holder">
+                        <strong class="title "><a href="https://news.milli.az/society/1159972.html">Uhud savaşı haqqında</a></strong>
+                        <p></p>
+                        <div class="info-block">
+                            <span class="time">05:00</span>
+                                                    </div>
+                    </div>
+
+                </li>
+                            <li>
+                    <a href="https://news.milli.az/showbiz/1159789.html">
+                        <img class="alignleft" src="https://img.milli.az/2023/11/20/600x450/1159789.png" alt="Eşq iddialarını yalanladı - &lt;span class=&quot;color_red&quot;&gt;FOTO&lt;/span&gt;">
+                    </a>
+                    <div class="text-holder">
+                        <strong class="title "><a href="https://news.milli.az/showbiz/1159789.html">Eşq iddialarını yalanladı - <span class="color_red">FOTO</span></a></strong>
+                        <p></p>
+                        <div class="info-block">
+                            <span class="time">04:45</span>
+                                                    </div>
+                    </div>
+
+                </li>
+                            <li>
+                    <a href="https://news.milli.az/sport/1159848.html">
+                        <img class="alignleft" src="https://img.milli.az/2023/11/20/600x450/1159848.jpg" alt="Devid Bekhem onu “İnter Mayami”yə dəvət etmək istəyir">
+                    </a>
+                    <div class="text-holder">
+                        <strong class="title "><a href="https://news.milli.az/sport/1159848.html">Devid Bekhem onu “İnter Mayami”yə dəvət etmək istəyir</a></strong>
+                        <p></p>
+                        <div class="info-block">
+                            <span class="time">04:30</span>
+                                                    </div>
+                    </div>
+
+                </li>
+                            <li>
+                    <a href="https://news.milli.az/health/914539.html">
+                        <img class="alignleft" src="https://img.milli.az/2020/09/11/600x450/findiq_025.jpg" alt="Azərbaycanda yetişən möcüzənin BİLMƏDİYİMİZ FAYDALARI: &lt;span class=&quot;color_red&quot;&gt;xərçəngi yox edir, ürək və damarları...&lt;/span&gt;">
+                    </a>
+                    <div class="text-holder">
+                        <strong class="title "><a href="https://news.milli.az/health/914539.html">Azərbaycanda yetişən möcüzənin BİLMƏDİYİMİZ FAYDALARI: <span class="color_red">xərçəngi yox edir, ürək və damarları...</span></a></strong>
+                        <p>
+</p>
+                        <div class="info-block">
+                            <span class="time">04:20</span>
+                                                    </div>
+                    </div>
+
+                </li>
+                            <li>
+                    <a href="https://news.milli.az/health/1159910.html">
+                        <img class="alignleft" src="https://img.milli.az/2023/11/20/600x450/1159910.jpg" alt="Uşaqlara hepatit bundan yoluxur">
+                    </a>
+                    <div class="text-holder">
+                        <strong class="title "><a href="https://news.milli.az/health/1159910.html">Uşaqlara hepatit bundan yoluxur</a></strong>
+                        <p></p>
+                        <div class="info-block">
+                            <span class="time">04:15</span>
+                                                    </div>
+                    </div>
+
+                </li>
+                            <li>
+                    <a href="https://news.milli.az/society/1159971.html">
+                        <img class="alignleft" src="https://img.milli.az/2023/10/31/600x450/islam2.jpg" alt="Vəhşinin hekayəsi">
+                    </a>
+                    <div class="text-holder">
+                        <strong class="title "><a href="https://news.milli.az/society/1159971.html">Vəhşinin hekayəsi</a></strong>
+                        <p></p>
+                        <div class="info-block">
+                            <span class="time">04:00</span>
+                                                    </div>
+                    </div>
+
+                </li>
+                            <li>
+                    <a href="https://news.milli.az/showbiz/1159916.html">
+                        <img class="alignleft" src="https://img.milli.az/2023/11/20/600x450/1159916_(7).jpg" alt="Məşhur aparıcı bikinidə belə poz verdi - &lt;span class=&quot;color_red&quot;&gt;FOTOlar&lt;/span&gt;">
+                    </a>
+                    <div class="text-holder">
+                        <strong class="title "><a href="https://news.milli.az/showbiz/1159916.html">Məşhur aparıcı bikinidə belə poz verdi - <span class="color_red">FOTOlar</span></a></strong>
+                        <p></p>
+                        <div class="info-block">
+                            <span class="time">03:45</span>
+                                                    </div>
+                    </div>
+
+                </li>
+                            <li>
+                    <a href="https://news.milli.az/health/908516.html">
+                        <img class="alignleft" src="https://img.milli.az/2020/11/06/600x450/esnemek_0965.jpg" alt="Tez-tez əsnəmək nədən xəbər verir - Problemini axtar">
+                    </a>
+                    <div class="text-holder">
+                        <strong class="title "><a href="https://news.milli.az/health/908516.html">Tez-tez əsnəmək nədən xəbər verir - Problemini axtar</a></strong>
+                        <p>
+
+</p>
+                        <div class="info-block">
+                            <span class="time">03:30</span>
+                                                    </div>
+                    </div>
+
+                </li>
+                            <li>
+                    <a href="https://news.milli.az/health/1159905.html">
+                        <img class="alignleft" src="https://img.milli.az/2023/11/20/600x450/1159905.jpg" alt="“Fast food” IQ səviyyəsini &lt;span class=&quot;color_red&quot;&gt;aşağı salır&lt;/span&gt;">
+                    </a>
+                    <div class="text-holder">
+                        <strong class="title "><a href="https://news.milli.az/health/1159905.html">“Fast food” IQ səviyyəsini <span class="color_red">aşağı salır</span></a></strong>
+                        <p></p>
+                        <div class="info-block">
+                            <span class="time">03:15</span>
+                                                    </div>
+                    </div>
+
+                </li>
+                            <li>
+                    <a href="https://news.milli.az/society/1159970.html">
+                        <img class="alignleft" src="https://img.milli.az/2023/10/30/600x450/islam_36d632.jpg" alt="Ey şər istəyən, dayan!">
+                    </a>
+                    <div class="text-holder">
+                        <strong class="title "><a href="https://news.milli.az/society/1159970.html">Ey şər istəyən, dayan!</a></strong>
+                        <p></p>
+                        <div class="info-block">
+                            <span class="time">03:00</span>
+                                                    </div>
+                    </div>
+
+                </li>
+                            <li>
+                    <a href="https://news.milli.az/showbiz/1159788.html">
+                        <img class="alignleft" src="https://img.milli.az/2023/11/20/600x450/1159788_(1).jpg" alt="&amp;quot;Yasak elma&amp;quot;nın aktyoru yeni serialda - &lt;span class=&quot;color_red&quot;&gt;FOTO&lt;/span&gt;">
+                    </a>
+                    <div class="text-holder">
+                        <strong class="title "><a href="https://news.milli.az/showbiz/1159788.html">&quot;Yasak elma&quot;nın aktyoru yeni serialda - <span class="color_red">FOTO</span></a></strong>
+                        <p></p>
+                        <div class="info-block">
+                            <span class="time">02:45</span>
+                                                    </div>
+                    </div>
+
+                </li>
+                    </ul>
+    </div>
+</div>            </div>
+            <div id="sidebar" class="top">
+                <div class="ad-holder">
+    <div id="Slot_Vertical_01_240x400" style="max-height:400px; width:240px; position: relative;  overflow: visible;">
+        <script type="text/javascript">
+            googletag.cmd.push(function () {
+                googletag.display('Slot_Vertical_01_240x400');
+            });
+        </script>
+    </div>    
+</div>
+
+                <!--<div class="ad-holder">
+                    <a href="https://koronavirusinfo.az/">
+                        <img src="/images/ad_koronavirus.jpg" alt="koronavirusinfo.az">
+                    </a>
+                </div>-->
+
+                <div class="ad-holder">
+    <div id="Slot_Vertical_02_240x400" style="max-height:400px; width:240px; position: relative;  overflow: visible;">
+        <script type="text/javascript">
+            googletag.cmd.push(function () {
+                googletag.display('Slot_Vertical_02_240x400');
+            });
+        </script>
+    </div>
+</div>
+                <div class="tab-section">
+    <ul class="tabset">
+        <li class="active"><a href="#popular1">Populyar</a></li>
+        <li><a href="#popular7">Həftə</a></li>
+        <li><a href="#top_commented">Şərhlər</a></li>
+    </ul> 
+    <div class="tab-content">
+        <div class="tab-pane fade active in" id="popular1">
+            <ul>
+                                    <li>
+                        <img src="https://img.milli.az/2023/09/06/250x178/1141818.jpg" alt="Aysunun keçmiş əri bu müğənni ilə &amp;quot;tutuldu&amp;quot;  - FOTO">
+                        <a href="https://news.milli.az/showbiz/1159804.html">
+                            <span class="align">
+                                <span class="info-holder">
+                                    <span class="time">20 Noyabr 11:50</span>
+                                    <span class="views"><span>6 766</span></span>
+                                </span>
+                                <span class="text">Aysunun keçmiş əri bu müğənni ilə &quot;tutuldu&quot;  - FOTO</span>
+                            </span>
+                        </a>
+                    </li>
+                                    <li>
+                        <img src="https://img.milli.az/2022/05/16/250x178/avtobus_28485.jpg" alt="Azərbaycanda şok olay: Avtobusda qadının yerinə pul verən kişi onunla evlənməyə məcbur edildi - &lt;span class=&quot;color_red&quot;&gt;VİDEO&lt;/span&gt;">
+                        <a href="https://news.milli.az/country/1159820.html">
+                            <span class="align">
+                                <span class="info-holder">
+                                    <span class="time">20 Noyabr 12:37</span>
+                                    <span class="views"><span>4 368</span></span>
+                                </span>
+                                <span class="text">Azərbaycanda şok olay: Avtobusda qadının yerinə pul verən kişi onunla evlənməyə məcbur edildi - <span class="color_red">VİDEO</span></span>
+                            </span>
+                        </a>
+                    </li>
+                                    <li>
+                        <img src="https://img.milli.az/2023/11/20/250x178/1159767.jpg" alt="Nigar Camal bu geyimdə Qubada səhnəyə çıxdı - &lt;span class=&quot;color_red&quot;&gt;VİDEO&lt;/span&gt;">
+                        <a href="https://news.milli.az/showbiz/1159767.html">
+                            <span class="align">
+                                <span class="info-holder">
+                                    <span class="time">20 Noyabr 09:57</span>
+                                    <span class="views"><span>4 284</span></span>
+                                </span>
+                                <span class="text">Nigar Camal bu geyimdə Qubada səhnəyə çıxdı - <span class="color_red">VİDEO</span></span>
+                            </span>
+                        </a>
+                    </li>
+                                    <li>
+                        <img src="https://img.milli.az/2023/11/20/250x178/qirisiqliq.jpg" alt="Bakıda dolğu etdirən qadının üzü &lt;span class=&quot;color_red&quot;&gt;bu hala düşdü - VİDEO&lt;/span&gt;">
+                        <a href="https://news.milli.az/country/1159732.html">
+                            <span class="align">
+                                <span class="info-holder">
+                                    <span class="time">20 Noyabr 07:37</span>
+                                    <span class="views"><span>4 121</span></span>
+                                </span>
+                                <span class="text">Bakıda dolğu etdirən qadının üzü <span class="color_red">bu hala düşdü - VİDEO</span></span>
+                            </span>
+                        </a>
+                    </li>
+                                    <li>
+                        <img src="https://img.milli.az/2022/11/01/250x178/1667322189_1667321406_palatka.jpg" alt="Bakıda 16 yaşlı qız faciəvi şəkildə öldü">
+                        <a href="https://news.milli.az/incedent/1159750.html">
+                            <span class="align">
+                                <span class="info-holder">
+                                    <span class="time">20 Noyabr 09:08</span>
+                                    <span class="views"><span>3 721</span></span>
+                                </span>
+                                <span class="text">Bakıda 16 yaşlı qız faciəvi şəkildə öldü</span>
+                            </span>
+                        </a>
+                    </li>
+                                    <li>
+                        <img src="https://img.milli.az/2023/11/20/250x178/durdane_eliyeva1159775.jpg" alt="Dürdanə Əliyeva məhkəmə zalında həbs edildi">
+                        <a href="https://news.milli.az/country/1159775.html">
+                            <span class="align">
+                                <span class="info-holder">
+                                    <span class="time">20 Noyabr 10:19</span>
+                                    <span class="views"><span>3 382</span></span>
+                                </span>
+                                <span class="text">Dürdanə Əliyeva məhkəmə zalında həbs edildi</span>
+                            </span>
+                        </a>
+                    </li>
+                                    <li>
+                        <img src="https://img.milli.az/2023/11/20/250x178/1159973.jpg" alt="Aysunun keçmiş əri ilə görüntülənən Müjgan: &lt;span class=&quot;color_red&quot;&gt;Öyrədiblər ki... - VİDEO - FOTO&lt;/span&gt;">
+                        <a href="https://news.milli.az/showbiz/1159973.html">
+                            <span class="align">
+                                <span class="info-holder">
+                                    <span class="time">20 Noyabr 20:36</span>
+                                    <span class="views"><span>3 365</span></span>
+                                </span>
+                                <span class="text">Aysunun keçmiş əri ilə görüntülənən Müjgan: <span class="color_red">Öyrədiblər ki... - VİDEO - FOTO</span></span>
+                            </span>
+                        </a>
+                    </li>
+                            </ul>
+        </div>
+        <div class="tab-pane fade" id="popular7">
+            <ul>
+                                    <li>
+                        <img src="https://img.milli.az/2023/06/16/250x178/burcler_qoroskop_pul_x.jpg" alt="İki bürc üçün “yaşıl işıq”:Pul yağış kimi yağacaq">
+                        <a href="https://news.milli.az/horoscope/1159626.html">
+                            <span class="align">
+                                <span class="info-holder">
+                                    <span class="time">19 Noyabr 18:20</span>
+                                    <span class="views"><span>13 124</span></span>
+                                </span>
+                                <span class="text">İki bürc üçün “yaşıl işıq”:Pul yağış kimi yağacaq</span>
+                            </span>
+                        </a>
+                    </li>
+                                    <li>
+                        <img src="https://img.milli.az/2015/10/22/250x178/tecili_yardim.jpg" alt="Azərbaycanda ağır qəza - Yaralılardan biri öldü  - &lt;span class=&quot;color_red&quot;&gt;YENİLƏNİB - FOTO&lt;/span&gt;">
+                        <a href="https://news.milli.az/incedent/1159511.html">
+                            <span class="align">
+                                <span class="info-holder">
+                                    <span class="time">18 Noyabr 23:42</span>
+                                    <span class="views"><span>9 054</span></span>
+                                </span>
+                                <span class="text">Azərbaycanda ağır qəza - Yaralılardan biri öldü  - <span class="color_red">YENİLƏNİB - FOTO</span></span>
+                            </span>
+                        </a>
+                    </li>
+                                    <li>
+                        <img src="https://img.milli.az/2023/11/18/250x178/masinda_intim.jpg" alt="Maşında biabırçı vəziyyətdə tutulan qadının kimliyi təəccübləndirir - Ailəvi FOTOsu">
+                        <a href="https://news.milli.az/world/1159394.html">
+                            <span class="align">
+                                <span class="info-holder">
+                                    <span class="time">18 Noyabr 13:44</span>
+                                    <span class="views"><span>8 170</span></span>
+                                </span>
+                                <span class="text">Maşında biabırçı vəziyyətdə tutulan qadının kimliyi təəccübləndirir - Ailəvi FOTOsu</span>
+                            </span>
+                        </a>
+                    </li>
+                                    <li>
+                        <img src="https://img2.milli.az/233x173c/n/elnur/08/3/tecili_yardim1.jpg" alt="Dünənki dəhşətli qəzada ölən Fəridin FOTOsu">
+                        <a href="https://news.milli.az/country/1159591.html">
+                            <span class="align">
+                                <span class="info-holder">
+                                    <span class="time">19 Noyabr 12:25</span>
+                                    <span class="views"><span>8 088</span></span>
+                                </span>
+                                <span class="text">Dünənki dəhşətli qəzada ölən Fəridin FOTOsu</span>
+                            </span>
+                        </a>
+                    </li>
+                                    <li>
+                        <img src="https://img.milli.az/2020/08/17/250x178/aynisan_a.jpg" alt="Aynişanın başına Misirdə oyun açdılar - &lt;span class=&quot;color_red&quot;&gt;ölümdən döndü? - VİDEO - FOTO&lt;/span&gt;">
+                        <a href="https://news.milli.az/showbiz/1159223.html">
+                            <span class="align">
+                                <span class="info-holder">
+                                    <span class="time">17 Noyabr 19:38</span>
+                                    <span class="views"><span>8 056</span></span>
+                                </span>
+                                <span class="text">Aynişanın başına Misirdə oyun açdılar - <span class="color_red">ölümdən döndü? - VİDEO - FOTO</span></span>
+                            </span>
+                        </a>
+                    </li>
+                                    <li>
+                        <img src="https://img.milli.az/2022/11/01/250x178/1667322189_1667321406_palatka.jpg" alt="Akif Əsgərov vəfat etdi - &lt;span class=&quot;color_red&quot;&gt;FOTO&lt;/span&gt;">
+                        <a href="https://news.milli.az/incedent/1159482.html">
+                            <span class="align">
+                                <span class="info-holder">
+                                    <span class="time">18 Noyabr 16:40</span>
+                                    <span class="views"><span>7 651</span></span>
+                                </span>
+                                <span class="text">Akif Əsgərov vəfat etdi - <span class="color_red">FOTO</span></span>
+                            </span>
+                        </a>
+                    </li>
+                                    <li>
+                        <img src="https://img.milli.az/2023/05/13/250x178/fedaye_lacin_0263.jpg" alt="Fədayə Tacirlə avtomobildə GÖRÜNTÜLƏNDİLƏR - VİDEO">
+                        <a href="https://news.milli.az/showbiz/1159649.html">
+                            <span class="align">
+                                <span class="info-holder">
+                                    <span class="time">19 Noyabr 19:10</span>
+                                    <span class="views"><span>7 632</span></span>
+                                </span>
+                                <span class="text">Fədayə Tacirlə avtomobildə GÖRÜNTÜLƏNDİLƏR - VİDEO</span>
+                            </span>
+                        </a>
+                    </li>
+                            </ul>
+        </div>
+        <div class="tab-pane fade" id="top_commented">
+            <ul>
+                                    <li>
+                        <img src="https://img.milli.az/2023/11/20/250x178/1159900_(11).jpg" alt="İştah öldürən yeməklər - &lt;span class=&quot;color_red&quot;&gt;FOTOlar&lt;/span&gt;">
+                        <a href="https://news.milli.az/interest/1159900.html">
+                            <span class="align">
+                                <span class="info-holder">
+                                    <span class="time">06:15</span>
+                                    <span class="comment"><span></span></span>
+                                </span>
+                                <span class="text">İştah öldürən yeməklər - <span class="color_red">FOTOlar</span></span>
+                            </span>
+                        </a>
+                    </li>
+                                    <li>
+                        <img src="https://img.milli.az/2023/11/20/250x178/1159964.jpg" alt="Puqaçovanın ailəsi maddi sıxıntı çəkir">
+                        <a href="https://news.milli.az/showbiz/1159964.html">
+                            <span class="align">
+                                <span class="info-holder">
+                                    <span class="time">06:00</span>
+                                    <span class="comment"><span></span></span>
+                                </span>
+                                <span class="text">Puqaçovanın ailəsi maddi sıxıntı çəkir</span>
+                            </span>
+                        </a>
+                    </li>
+                                    <li>
+                        <img src="https://img.milli.az/2023/10/30/250x178/islam1.jpg" alt="Yusuf peyğəmbərin həyatı">
+                        <a href="https://news.milli.az/society/1159974.html">
+                            <span class="align">
+                                <span class="info-holder">
+                                    <span class="time">06:00</span>
+                                    <span class="comment"><span></span></span>
+                                </span>
+                                <span class="text">Yusuf peyğəmbərin həyatı</span>
+                            </span>
+                        </a>
+                    </li>
+                                    <li>
+                        <img src="https://img.milli.az/2023/11/20/250x178/1159962.jpg" alt="Hər gün yumurta yeməyin zərərləri">
+                        <a href="https://news.milli.az/health/1159962.html">
+                            <span class="align">
+                                <span class="info-holder">
+                                    <span class="time">05:45</span>
+                                    <span class="comment"><span></span></span>
+                                </span>
+                                <span class="text">Hər gün yumurta yeməyin zərərləri</span>
+                            </span>
+                        </a>
+                    </li>
+                                    <li>
+                        <img src="https://img.milli.az/2021/01/07/250x178/911698.jpg" alt="Bədəndəki bu ağrıların səbəbi xolesterin ola bilər">
+                        <a href="https://news.milli.az/health/911698.html">
+                            <span class="align">
+                                <span class="info-holder">
+                                    <span class="time">05:30</span>
+                                    <span class="comment"><span></span></span>
+                                </span>
+                                <span class="text">Bədəndəki bu ağrıların səbəbi xolesterin ola bilər</span>
+                            </span>
+                        </a>
+                    </li>
+                                    <li>
+                        <img src="https://img.milli.az/2023/11/20/250x178/1159912.jpg" alt="İnfarktın gözlənilməz əlamətləri  AŞKARLANDI">
+                        <a href="https://news.milli.az/health/1159912.html">
+                            <span class="align">
+                                <span class="info-holder">
+                                    <span class="time">05:15</span>
+                                    <span class="comment"><span></span></span>
+                                </span>
+                                <span class="text">İnfarktın gözlənilməz əlamətləri  AŞKARLANDI</span>
+                            </span>
+                        </a>
+                    </li>
+                                    <li>
+                        <img src="https://img.milli.az/2023/10/31/250x178/islam4.jpg" alt="Uhud savaşı haqqında">
+                        <a href="https://news.milli.az/society/1159972.html">
+                            <span class="align">
+                                <span class="info-holder">
+                                    <span class="time">05:00</span>
+                                    <span class="comment"><span></span></span>
+                                </span>
+                                <span class="text">Uhud savaşı haqqında</span>
+                            </span>
+                        </a>
+                    </li>
+                            </ul>
+        </div>
+    </div>
+</div>                <div style="margin: 15px 0;">
+                    <!--<iframe style="width: 252px; height: 240px; margin: 0 auto; overflow: hidden;" frameborder="none" src="https://www.day.az/ads/html5/aztv_252x240_18112022/index.html?v18112022"></iframe>-->
+                    <a href="https://www.youtube.com/watch?v=DbQ5iHowQNA" target="_blank">
+                        <img style="width: 100%" src="https://www.day.az/ads/html5/aztv_252x240_07042023/252x242.jpg?v3" alt="AzTV">
+                    </a>
+                </div>
+                <!--<div class="ad-holder">
+                    <iframe frameborder="0" style="width: 100%; height: 240px;" src="https://www.day.az/online-tv/arb/index.php" allowfullscreen></iframe>
+                </div>-->
+                <h2>TOP VIDEO</h2>
+<ul class="story-list">
+            <li>
+            <a href="https://news.milli.az/world/1160015.html">
+                <span class="img-holder">
+                    <img src="https://img.milli.az/2023/11/21/600x450/1160015.jpg" alt="Məsciddə raket zavodu aşkarlandı - VİDEO">
+                    <span class="btn-play"></span>
+                                    </span>
+                <span class="info-holder">
+                    <span class="date">00:18</span>
+                </span>
+                <span class="text">Məsciddə raket zavodu aşkarlandı - VİDEO</span>
+            </a>
+        </li>
+            <li>
+            <a href="https://news.milli.az/incedent/1160008.html">
+                <span class="img-holder">
+                    <img src="https://img.milli.az/2023/11/20/600x450/1160008.jpg" alt="Xəbərdarlığa məhəl qoymadı, bədbəxt hadisə baş verdi - VİDEO">
+                    <span class="btn-play"></span>
+                                    </span>
+                <span class="info-holder">
+                    <span class="date">20 Noyabr 23:52</span>
+                </span>
+                <span class="text">Xəbərdarlığa məhəl qoymadı, bədbəxt hadisə baş verdi - VİDEO</span>
+            </a>
+        </li>
+            <li>
+            <a href="https://news.milli.az/country/1160007.html">
+                <span class="img-holder">
+                    <img src="https://img.milli.az/2023/11/20/600x450/1160007.jpg" alt="Bu ərazilərdə gömrük-keçid məntəqələri &lt;span class=&quot;color_red&quot;&gt;necə qurulacaq? - VİDEO&lt;/span&gt;">
+                    <span class="btn-play"></span>
+                                    </span>
+                <span class="info-holder">
+                    <span class="date">20 Noyabr 23:33</span>
+                </span>
+                <span class="text">Bu ərazilərdə gömrük-keçid məntəqələri <span class="color_red">necə qurulacaq? - VİDEO</span></span>
+            </a>
+        </li>
+    </ul>
+
+
+
+                <div class="ad-holder">
+    <div id='Slot_Vertical_03_240x400' style='width:240px; max-height:400px; position: relative;  overflow: visible;'>
+        <script type='text/javascript'>
+            googletag.cmd.push(function () {
+                googletag.display('Slot_Vertical_03_240x400');
+            });
+        </script>
+    </div>
+</div>
+                <h2>SORĞU</h2>            
+<form action="/poll/" method="post" id="poll_form" name="poll_form" class="win-form">
+    <fieldset>
+        <h4>"Bir manatlıq" taksilərə münasibətiniz necədir?</h4>
+                    <div class="check-holder">
+                <label for="radio416">
+                    <input type="radio" id="radio416" name="answer_id" value="416">
+                    <span class="text">Mənfi</span>
+                    <span class="col"></span>
+                </label>
+            </div>
+                    <div class="check-holder">
+                <label for="radio417">
+                    <input type="radio" id="radio417" name="answer_id" value="417">
+                    <span class="text">Müsbət</span>
+                    <span class="col"></span>
+                </label>
+            </div>
+                    <div class="check-holder">
+                <label for="radio418">
+                    <input type="radio" id="radio418" name="answer_id" value="418">
+                    <span class="text">İstifadə etmirəm</span>
+                    <span class="col"></span>
+                </label>
+            </div>
+                <div class="submit-holder">
+            <a href="javascript:window.poll_form.submit();" class="vote">Göndərmək</a>
+            <a href="/poll/45/" class="result">Sorğu nəticələri</a>
+        </div>
+    </fieldset>
+    <input type="hidden" name="poll_id" value="45">
+</form>            </div>
+        </div>
+        <div class="large-ad-holder">
+    <div id="Slot_Horizontal_03_728x90" style="height:90px; width:728px;">
+        <script type='text/javascript'>
+            googletag.cmd.push(function () {
+                googletag.display('Slot_Horizontal_03_728x90');
+            });
+        </script>
+    </div>
+</div>
+
+        <table class="gallery-grid-holder">
+    <tbody>
+        <tr>
+            <td colspan="2" rowspan="2" class="big">
+                <a href="https://news.milli.az/showbiz/1159916.html">
+                    <img src="https://img.milli.az/2023/11/20/600x450/1159916_(7).jpg" alt="Məşhur aparıcı bikinidə belə poz verdi - &lt;span class=&quot;color_red&quot;&gt;FOTOlar&lt;/span&gt;">
+                    <span class="title">Məşhur aparıcı bikinidə belə poz verdi - <span class="color_red">FOTOlar</span></span>
+                </a>
+            </td>
+            <td colspan="2" rowspan="2" class="big">
+                <a href="https://news.milli.az/showbiz/1159882.html">
+                    <img src="https://img.milli.az/2023/11/20/600x450/1159882_(6).jpg" alt="Mərasimə şəffaf libasda gəldi - &lt;span class=&quot;color_red&quot;&gt;&quot;Demək olar ki, lütdür&quot; - FOTO&lt;/span&gt;">
+                    <span class="title">Mərasimə şəffaf libasda gəldi - <span class="color_red">"Demək olar ki, lütdür" - FOTO</span></span>
+                </a>
+            </td>
+            <td class="small">
+                <a href="https://news.milli.az/showbiz/1159852.html">
+                    <img src="https://img.milli.az/2023/11/20/250x178/letife_soyuoz_2023.jpg" alt="Azərbaycanlı müğənni yeni yayılmış virusa yoluxub">
+                    <span class="title">Azərbaycanlı müğənni yeni yayılmış virusa yoluxub</span>
+                </a>
+            </td>
+        </tr>
+        <tr>
+            <td class="small">
+                <a href="https://news.milli.az/world/1159874.html">
+                    <img src="https://img.milli.az/2023/11/20/250x178/1159874x.jpg" alt="Gecə klubunda rəqqasələr birləşib kişini döydülər - FOTOlar">
+                    <span class="title">Gecə klubunda rəqqasələr birləşib kişini döydülər - FOTOlar</span>
+                </a>
+            </td>
+        </tr>
+        <tr>
+            <td colspan="2" rowspan="2" class="big">
+                <a href="https://news.milli.az/showbiz/1159978.html">
+                    <img src="https://img.milli.az/2023/11/20/600x450/1159978.jpg" alt="Bu gün instaqramda nələr paylaşıldı?">
+                    <span class="title">Bu gün instaqramda nələr paylaşıldı?</span>
+                </a>
+            </td>
+            <td colspan="2" rowspan="2" class="big">
+                <a href="https://news.milli.az/showbiz/1159973.html">
+                    <img src="https://img.milli.az/2023/11/20/600x450/1159973.jpg" alt="Aysunun keçmiş əri ilə görüntülənən Müjgan: &lt;span class=&quot;color_red&quot;&gt;Öyrədiblər ki... - VİDEO - FOTO&lt;/span&gt;">
+                    <span class="title">Aysunun keçmiş əri ilə görüntülənən Müjgan: <span class="color_red">Öyrədiblər ki... - VİDEO - FOTO</span></span>
+                </a>
+            </td>
+            <td class="small">
+                <a href="https://news.milli.az/interest/1159802.html">
+                    <img src="https://img.milli.az/2023/11/20/250x178/1159802x.jpg" alt="Konsertdə ölən qızın FOTOsu yayıldı">
+                    <span class="title">Konsertdə ölən qızın FOTOsu yayıldı</span>
+                </a>
+            </td>
+        </tr>
+        <tr>
+            <td class="small">
+                <a href="https://news.milli.az/showbiz/1159792.html">
+                    <img src="https://img.milli.az/2023/11/20/250x178/1159792x.jpg" alt="Hadisə yenə geyimi ilə &lt;span class=&quot;color_red&quot;&gt;diqqət çəkdi - FOTO&lt;/span&gt;">
+                    <span class="title">Hadisə yenə geyimi ilə <span class="color_red">diqqət çəkdi - FOTO</span></span>
+                </a>
+            </td>
+        </tr>
+    </tbody>
+</table>        <div style="clear: both; background: #dadada; margin: -38px  0 20px 0;">
+            <div style="width: 728px; height: 110px; margin: 0 auto 0 auto;">
+                <iframe src="//news.day.az/informers/milli_728x90.php" style="border: none; width: 728px; height: 90px; margin: 10px 0 10px 0;" class="hidden-sm hidden-xs"></iframe>
+            </div>
+        </div>
+        <div class="ajax-data-block" data-ts="0" data-tts="0">
+    <div class="columns-holder">
+        <div class="right-col">
+                            <h3>TOP XƏBƏRLƏR</h3>
+                        <ul class="post-list">
+                                                    <li>
+                        <a href="https://news.milli.az/politics/1160005.html">
+                            <img src="https://img.milli.az/2015/10/12/250x178/aleksandr_lukasenko_041.jpg" alt="Lukaşenkodan Azərbaycan açıqlaması – “Bitib, artıq...”">
+                            <p>Lukaşenkodan Azərbaycan açıqlaması – “Bitib, artıq...”</p>
+                        </a>
+                        <div class="info-block">
+                            <span class="time">20 Noyabr 23:23</span>
+                                                    </div>
+                    </li>
+                                                    <li>
+                        <a href="https://news.milli.az/world/1160004.html">
+                            <img src="https://img.milli.az/2022/10/27/250x178/kiyev-muharibe.jpg" alt="Ukraynalılar kütləvi şəkildə Kiyevə qaçır">
+                            <p>Ukraynalılar kütləvi şəkildə Kiyevə qaçır</p>
+                        </a>
+                        <div class="info-block">
+                            <span class="time">20 Noyabr 23:19</span>
+                                                    </div>
+                    </li>
+                                                    <li>
+                        <a href="https://news.milli.az/world/1160003.html">
+                            <img src="https://img.milli.az/2023/11/20/250x178/1160003.jpg" alt="Ermənistan sovet silahlarını Ukraynaya ötürür">
+                            <p>Ermənistan sovet silahlarını Ukraynaya ötürür</p>
+                        </a>
+                        <div class="info-block">
+                            <span class="time">20 Noyabr 23:03</span>
+                                                    </div>
+                    </li>
+                                                    <li>
+                        <a href="https://news.milli.az/turkey/1160002.html">
+                            <img src="https://img.milli.az/2022/08/09/250x178/sehid.jpg" alt="Türkiyə Ordusu şəhid verdi">
+                            <p>Türkiyə Ordusu şəhid verdi</p>
+                        </a>
+                        <div class="info-block">
+                            <span class="time">20 Noyabr 22:54</span>
+                                                    </div>
+                    </li>
+                                                    <li>
+                        <a href="https://news.milli.az/world/1160000.html">
+                            <img src="https://img.milli.az/2023/11/20/250x178/nalbandyan.jpg" alt="Ermənistanın keçmiş naziri Moskva metrosunda - VİDEO">
+                            <p>Ermənistanın keçmiş naziri Moskva metrosunda - VİDEO</p>
+                        </a>
+                        <div class="info-block">
+                            <span class="time">20 Noyabr 22:42</span>
+                                                    </div>
+                    </li>
+                                                    <li>
+                        <a href="https://news.milli.az/incedent/1159998.html">
+                            <img src="https://img.milli.az/2023/11/20/250x178/ogurluq.jpg" alt="Bakıda dilənçinin evinə basqın: &lt;span class=&quot;color_red&quot;&gt;Görün nə qədər pulunu apardılar&lt;/span&gt;">
+                            <p>Bakıda dilənçinin evinə basqın: <span class="color_red">Görün nə qədər pulunu apardılar</span></p>
+                        </a>
+                        <div class="info-block">
+                            <span class="time">20 Noyabr 22:33</span>
+                                                    </div>
+                    </li>
+                                                    <li>
+                        <a href="https://news.milli.az/world/1159997.html">
+                            <img src="https://img.milli.az/2023/11/20/250x178/erdogan.jpg" alt="Qərb vicdansızlıq edir, səlibçilərin yürüşü kimi...">
+                            <p>Qərb vicdansızlıq edir, səlibçilərin yürüşü kimi...</p>
+                        </a>
+                        <div class="info-block">
+                            <span class="time">20 Noyabr 22:27</span>
+                                                    </div>
+                    </li>
+                                                    <li>
+                        <a href="https://news.milli.az/politics/1159990.html">
+                            <img src="https://img.milli.az/2023/11/20/250x178/1159990.jpg" alt="Hiyləgər PLAN - &lt;span class=&quot;color_red&quot;&gt;Bakı dərhal imtina etdi&lt;/span&gt;">
+                            <p>Hiyləgər PLAN - <span class="color_red">Bakı dərhal imtina etdi</span></p>
+                        </a>
+                        <div class="info-block">
+                            <span class="time">20 Noyabr 22:04</span>
+                                                    </div>
+                    </li>
+                            </ul>
+        </div>
+        <div class="left-col">
+                            <h3>XƏBƏR LENTİ</h3>
+                        <ul class="post-list2">
+                                                    <li>
+                        <a href="https://news.milli.az/health/908970.html">
+                            <img class="alignleft" src="https://img.milli.az/2020/12/28/250x178/908970.jpg" alt="Təbii daşların heç yerdə rast gəlməyəcəyiniz MÖCÜZƏVİ FAYDALARI: &lt;span class=&quot;color_red&quot;&gt;bu xəstəlikləri sağaldır - FOTO&lt;/span&gt;">
+                        </a>
+                        <div class="text-holder">
+                            <strong class="title "><a href="https://news.milli.az/health/908970.html">Təbii daşların heç yerdə rast gəlməyəcəyiniz MÖCÜZƏVİ FAYDALARI: <span class="color_red">bu xəstəlikləri sağaldır - FOTO</span></a></strong>
+                            <p>
+</p>
+                            <div class="info-block">
+                                <span class="time">02:30</span>
+                                                            </div>
+                        </div>
+
+                    </li>
+                                                    <li>
+                        <a href="https://news.milli.az/health/1159903.html">
+                            <img class="alignleft" src="https://img.milli.az/2023/11/20/250x178/1159903.jpg" alt="D vitamini daha çox kimə lazımdır?">
+                        </a>
+                        <div class="text-holder">
+                            <strong class="title "><a href="https://news.milli.az/health/1159903.html">D vitamini daha çox kimə lazımdır?</a></strong>
+                            <p></p>
+                            <div class="info-block">
+                                <span class="time">02:15</span>
+                                                            </div>
+                        </div>
+
+                    </li>
+                                                    <li>
+                        <a href="https://news.milli.az/sport/1160025.html">
+                            <img class="alignleft" src="https://img.milli.az/2023/06/20/250x178/avro-2024.jpg" alt="İtaliya, Çexiya və Sloveniya sevindi, millimiz pley-off şansını da itirdi">
+                        </a>
+                        <div class="text-holder">
+                            <strong class="title bold "><a href="https://news.milli.az/sport/1160025.html">İtaliya, Çexiya və Sloveniya sevindi, millimiz pley-off şansını da itirdi</a></strong>
+                            <p></p>
+                            <div class="info-block">
+                                <span class="time">02:11</span>
+                                                            </div>
+                        </div>
+
+                    </li>
+                                                    <li>
+                        <a href="https://news.milli.az/society/1159969.html">
+                            <img class="alignleft" src="https://img.milli.az/2023/10/31/250x178/islam9.jpg" alt="Əgər O istəsəydi, sizin hamınızı doğru yola yönəldərdi">
+                        </a>
+                        <div class="text-holder">
+                            <strong class="title "><a href="https://news.milli.az/society/1159969.html">Əgər O istəsəydi, sizin hamınızı doğru yola yönəldərdi</a></strong>
+                            <p></p>
+                            <div class="info-block">
+                                <span class="time">02:00</span>
+                                                            </div>
+                        </div>
+
+                    </li>
+                                                    <li>
+                        <a href="https://news.milli.az/showbiz/1159882.html">
+                            <img class="alignleft" src="https://img.milli.az/2023/11/20/250x178/1159882_(6).jpg" alt="Mərasimə şəffaf libasda gəldi - &lt;span class=&quot;color_red&quot;&gt;&quot;Demək olar ki, lütdür&quot; - FOTO&lt;/span&gt;">
+                        </a>
+                        <div class="text-holder">
+                            <strong class="title "><a href="https://news.milli.az/showbiz/1159882.html">Mərasimə şəffaf libasda gəldi - <span class="color_red">"Demək olar ki, lütdür" - FOTO</span></a></strong>
+                            <p></p>
+                            <div class="info-block">
+                                <span class="time">01:45</span>
+                                                            </div>
+                        </div>
+
+                    </li>
+                                                    <li>
+                        <a href="https://news.milli.az/health/910467.html">
+                            <img class="alignleft" src="https://img.milli.az/2021/01/04/250x178/910467.jpg" alt="Hipertoniya müalicəsi bu hallarda &lt;span class=&quot;color_red&quot;&gt;ZƏRƏRLİDİR&lt;/span&gt;">
+                        </a>
+                        <div class="text-holder">
+                            <strong class="title "><a href="https://news.milli.az/health/910467.html">Hipertoniya müalicəsi bu hallarda <span class="color_red">ZƏRƏRLİDİR</span></a></strong>
+                            <p>
+</p>
+                            <div class="info-block">
+                                <span class="time">01:30</span>
+                                                            </div>
+                        </div>
+
+                    </li>
+                                                    <li>
+                        <a href="https://news.milli.az/health/1159911.html">
+                            <img class="alignleft" src="https://img.milli.az/2023/11/20/250x178/1159911.jpg" alt="İnsanlığı “ağ ölüm” gözləyir">
+                        </a>
+                        <div class="text-holder">
+                            <strong class="title "><a href="https://news.milli.az/health/1159911.html">İnsanlığı “ağ ölüm” gözləyir</a></strong>
+                            <p></p>
+                            <div class="info-block">
+                                <span class="time">01:15</span>
+                                                            </div>
+                        </div>
+
+                    </li>
+                                                    <li>
+                        <a href="https://news.milli.az/society/1159968.html">
+                            <img class="alignleft" src="https://img.milli.az/2023/10/30/250x178/islam.jpg" alt="Möminin və kafirin qəbirdəki halı">
+                        </a>
+                        <div class="text-holder">
+                            <strong class="title "><a href="https://news.milli.az/society/1159968.html">Möminin və kafirin qəbirdəki halı</a></strong>
+                            <p></p>
+                            <div class="info-block">
+                                <span class="time">01:00</span>
+                                                            </div>
+                        </div>
+
+                    </li>
+                                                    <li>
+                        <a href="https://news.milli.az/interest/1160019.html">
+                            <img class="alignleft" src="https://img.milli.az/2017/11/21/250x178/qapi-ogurluq.jpg" alt="Qarət üçün girdiyi evdə yatdı, xorultusu ilə ev sahibini oyatdı - FOTO">
+                        </a>
+                        <div class="text-holder">
+                            <strong class="title "><a href="https://news.milli.az/interest/1160019.html">Qarət üçün girdiyi evdə yatdı, xorultusu ilə ev sahibini oyatdı - FOTO</a></strong>
+                            <p></p>
+                            <div class="info-block">
+                                <span class="time">00:53</span>
+                                                            </div>
+                        </div>
+
+                    </li>
+                                                    <li>
+                        <a href="https://news.milli.az/interest/1160016.html">
+                            <img class="alignleft" src="https://img.milli.az/2023/11/21/250x178/seks.jpg" alt="Seks haqqında ən gülməli MİFLƏR">
+                        </a>
+                        <div class="text-holder">
+                            <strong class="title "><a href="https://news.milli.az/interest/1160016.html">Seks haqqında ən gülməli MİFLƏR</a></strong>
+                            <p></p>
+                            <div class="info-block">
+                                <span class="time">00:46</span>
+                                                            </div>
+                        </div>
+
+                    </li>
+                                                    <li>
+                        <a href="https://news.milli.az/nightread/1159915.html">
+                            <img class="alignleft" src="https://img.milli.az/2023/11/20/250x178/1159915.jpg" alt="Maqnit qasırğaları zamanı qəhvə içmək olmaz?">
+                        </a>
+                        <div class="text-holder">
+                            <strong class="title "><a href="https://news.milli.az/nightread/1159915.html">Maqnit qasırğaları zamanı qəhvə içmək olmaz?</a></strong>
+                            <p></p>
+                            <div class="info-block">
+                                <span class="time">00:40</span>
+                                                            </div>
+                        </div>
+
+                    </li>
+                                                    <li>
+                        <a href="https://news.milli.az/sport/1160017.html">
+                            <img class="alignleft" src="https://img.milli.az/2023/11/21/250x178/sahmat44.jpg" alt="Şahmat millimizdən Avropa çempionatında &lt;span class=&quot;color_red&quot;&gt;TARİXİ NƏTİCƏ&lt;/span&gt;">
+                        </a>
+                        <div class="text-holder">
+                            <strong class="title bold "><a href="https://news.milli.az/sport/1160017.html">Şahmat millimizdən Avropa çempionatında <span class="color_red">TARİXİ NƏTİCƏ</span></a></strong>
+                            <p></p>
+                            <div class="info-block">
+                                <span class="time">00:34</span>
+                                                            </div>
+                        </div>
+
+                    </li>
+                                                    <li>
+                        <a href="https://news.milli.az/society/1159967.html">
+                            <img class="alignleft" src="https://img.milli.az/2023/10/30/250x178/islam_384757.jpg" alt="Muhəmməd Peyğəmbərin dünyaya gəlməsi">
+                        </a>
+                        <div class="text-holder">
+                            <strong class="title "><a href="https://news.milli.az/society/1159967.html">Muhəmməd Peyğəmbərin dünyaya gəlməsi</a></strong>
+                            <p></p>
+                            <div class="info-block">
+                                <span class="time">00:30</span>
+                                                            </div>
+                        </div>
+
+                    </li>
+                                                    <li>
+                        <a href="https://news.milli.az/sport/1160013.html">
+                            <img class="alignleft" src="https://img.milli.az/2023/11/20/250x178/qrizmann.png" alt="“Mançester Yunayted”in Qrizmann arzusu">
+                        </a>
+                        <div class="text-holder">
+                            <strong class="title "><a href="https://news.milli.az/sport/1160013.html">“Mançester Yunayted”in Qrizmann arzusu</a></strong>
+                            <p></p>
+                            <div class="info-block">
+                                <span class="time">00:24</span>
+                                                            </div>
+                        </div>
+
+                    </li>
+                                                    <li>
+                        <a href="https://news.milli.az/incedent/1160022.html">
+                            <img class="alignleft" src="https://img.milli.az/2023/11/21/250x178/ulvi_hesenli.jpg" alt="Ülvi Həsənli cinayət məsuliyyətinə cəlb edildi">
+                        </a>
+                        <div class="text-holder">
+                            <strong class="title bold "><a href="https://news.milli.az/incedent/1160022.html">Ülvi Həsənli cinayət məsuliyyətinə cəlb edildi</a></strong>
+                            <p></p>
+                            <div class="info-block">
+                                <span class="time">00:20</span>
+                                                            </div>
+                        </div>
+
+                    </li>
+                                                    <li>
+                        <a href="https://news.milli.az/world/1160015.html">
+                            <img class="alignleft" src="https://img.milli.az/2023/11/21/250x178/1160015.jpg" alt="Məsciddə raket zavodu aşkarlandı - VİDEO">
+                        </a>
+                        <div class="text-holder">
+                            <strong class="title bold "><a href="https://news.milli.az/world/1160015.html">Məsciddə raket zavodu aşkarlandı - VİDEO</a></strong>
+                            <p></p>
+                            <div class="info-block">
+                                <span class="time">00:18</span>
+                                                            </div>
+                        </div>
+
+                    </li>
+                                                    <li>
+                        <a href="https://news.milli.az/health/910798.html">
+                            <img class="alignleft" src="https://img.milli.az/2021/01/05/250x178/910798.jpg" alt="Xolesterinin səviyyəsini aşağı salan əlavələr &lt;span class=&quot;color_red&quot;&gt;BUNLARDIR&lt;/span&gt;">
+                        </a>
+                        <div class="text-holder">
+                            <strong class="title "><a href="https://news.milli.az/health/910798.html">Xolesterinin səviyyəsini aşağı salan əlavələr <span class="color_red">BUNLARDIR</span></a></strong>
+                            <p>
+</p>
+                            <div class="info-block">
+                                <span class="time">00:12</span>
+                                                            </div>
+                        </div>
+
+                    </li>
+                            </ul>
+        </div>
+    </div>
+</div>
+<script>
+    rData = {
+        isAjax: 1,
+        ts: '7449542',
+        t_ts: '7449670',
+        t_eid: rData.t_eid,
+    };
+</script>
+        <div id="content_container"></div>
+        <div id="additional_content_loader" class="isotope-loading hidden"></div>
+    </div>
+
+
+    <div class="marquee">
+        <ul>
+                            <li>
+                    <a href="https://news.milli.az/incedent/1160022.html">
+                        <span class="category">Hadisə</span>
+                        Ülvi Həsənli cinayət məsuliyyətinə cəlb edildi                    </a>
+                </li>
+                            <li>
+                    <a href="https://news.milli.az/incedent/1160014.html">
+                        <span class="category">Hadisə</span>
+                        Ağcabədidə ağır yol qəzası: Əmioğlulardan birinin boynu sındı                    </a>
+                </li>
+                            <li>
+                    <a href="https://news.milli.az/showbiz/1160001.html">
+                        <span class="category">Şou-biznes</span>
+                        Məşhur aktrisada xərçəng aşkarlandı - FOTO                    </a>
+                </li>
+                            <li>
+                    <a href="https://news.milli.az/world/1159994.html">
+                        <span class="category">Dünya</span>
+                        19 nəfər narkotikdən zəhərləndi, 6-sının vəziyyəti ağırdır                    </a>
+                </li>
+                            <li>
+                    <a href="https://news.milli.az/world/1159987.html">
+                        <span class="category">Dünya</span>
+                        HƏMAS Təl-Əvivə ağır raket atəşinə tutdu                    </a>
+                </li>
+                            <li>
+                    <a href="https://news.milli.az/incedent/1159984.html">
+                        <span class="category">Hadisə</span>
+                        &quot;Prius&quot; aşdı - <span class="color_red">Ölən və yaralananlar var</span>                    </a>
+                </li>
+                    </ul>
+    </div>
+
+
+<footer id="footer">
+    <div class="text-holder">
+        <span class="copy">Copyright &copy; 2023 Milli.Az</span>
+        <p>Saytdakı materialların istifadəsi zamanı istinad edilməsi vacibdir. Məlumat <br/>internet səhifələrində istifadə edildikdə hiperlink vasitəsi ilə istinad mütləqdir.</p>
+    </div>
+    <div class="counter-holder">
+    <div>
+        <!--LiveInternet logo--><a href="//www.liveinternet.ru/click"
+                                   target="_blank"><img src="//counter.yadro.ru/logo?16.6"
+                                                        title="LiveInternet: показано число просмотров за 24 часа, посетителей за 24 часа и за сегодня"
+                                                        alt="" border="0" width="88" height="31"/></a><!--/LiveInternet-->
+
+    </div>
+
+    <div>
+        <!--Openstat-->
+        <!--        <span id="openstat2148093"></span>-->
+        <!--        <script type="text/javascript">-->
+        <!--            var openstat = {counter: 2148093, image: 5045, next: openstat, track_links: "all"};-->
+        <!--            (function (d, t, p) {-->
+        <!--                var j = d.createElement(t);-->
+        <!--                j.async = true;-->
+        <!--                j.type = "text/javascript";-->
+        <!--                j.src = ("https:" == p ? "https:" : "http:") + "//openstat.net/cnt.js";-->
+        <!--                var s = d.getElementsByTagName(t)[0];-->
+        <!--                s.parentNode.insertBefore(j, s);-->
+        <!--            })(document, "script", document.location.protocol);-->
+        <!--        </script>-->
+        <!--/Openstat-->
+    </div>
+
+    <div>
+        <!--Ilk 10-->
+        <script type="text/javascript"> x = screen.width;
+            y = screen.height;
+            resolution = x + "x" + y;
+            document.write("<a href='https://www.ilk10.az/' target=_blank><img border=0 alt='ILK-10 Azeri Website Directory' src='//www.ilk10.az/counter/count3.php?color=blue&id=24675&res=" + resolution + "&ref=" + escape(document.referrer) + "'></a> ");</script>
+        <noscript><a href='https://www.ilk10.az/' target=_blank><img border=0 alt='ILK-10 Azeri Website Directory' src='//www.ilk10.az/counter/count3.php?color=blue&id=24675'></a></noscript>
+        <!--/Ilk 10-->
+    </div>
+</div></footer>
+</div><!--<script>-->
+<!--  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){-->
+<!--  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),-->
+<!--  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)-->
+<!--  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');-->
+<!---->
+<!--  ga('create', 'UA-7734105-3', 'auto');-->
+<!--  ga('send', 'pageview');-->
+<!---->
+<!--</script>-->
+
+ Global site tag (gtag.js) - Google Analytics
+<script async src="https://www.googletagmanager.com/gtag/js?id=UA-7734105-3"></script>
+<script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+
+    gtag('config', 'UA-7734105-3');
+</script>
+
+
+
+<!-- Yandex.Metrika counter -->
+<script type="text/javascript">
+(function (d, w, c) {
+    (w[c] = w[c] || []).push(function() {
+        try {
+            w.yaCounter6875149 = new Ya.Metrika({id:6875149,
+                    clickmap:true,
+                    trackLinks:true,
+                    accurateTrackBounce:true});
+        } catch(e) { }
+    });
+
+    var n = d.getElementsByTagName("script")[0],
+        s = d.createElement("script"),
+        f = function () { n.parentNode.insertBefore(s, n); };
+    s.type = "text/javascript";
+    s.async = true;
+    s.src = (d.location.protocol == "https:" ? "https:" : "http:") + "//mc.yandex.ru/metrika/watch.js";
+
+    if (w.opera == "[object Opera]") {
+        d.addEventListener("DOMContentLoaded", f, false);
+    } else { f(); }
+})(document, window, "yandex_metrika_callbacks");
+</script>
+<noscript><div><img src="//mc.yandex.ru/watch/6875149" style="position:absolute; left:-9999px;" alt="" /></div></noscript>
+<!-- /Yandex.Metrika counter --><script>
+    window.digitalks=window.digitalks||new function(){var t=this;t._e=[],t._c={},t.config=function(c){var i;t._c=c,t._c.script_id?((i=document.createElement("script")).src="//data.digitalks.az/v1/scripts/"+t._c.script_id+"/track.js?&cb="+Math.random(),i.async=!0,document.head.appendChild(i)):console.error("digitalks: script_id cannot be empty!")};["track","identify"].forEach(function(c){t[c]=function(){t._e.push([c].concat(Array.prototype.slice.call(arguments,0)))}})};
+
+    digitalks.config({
+        script_id: "aba7b363-9694-432a-8c20-a82aa4deb596",
+        page_url: location.href,
+        referrer: document.referrer
+    })
+</script>
+<script src="/mmenu/core/js/jquery.mmenu.min.js"></script>
+<script src="/js/bootstrap.js"></script>
+<script src="/js/jquery.viewport.mini.js?v1"></script>
+<script src="/js/jquery.marquee.js"></script>
+<script src="/js/jquery.mCustomScrollbar.concat.min.js"></script>
+<script src="/js/owl.carousel.js"></script>
+<script src="/js/jquery.main.js?v1690447129"></script>
+
+<div id="MILLI_Slot_END_HTML" style="width: 0;height: 0;overflow: hidden;"><script>googletag.cmd.push(function() { googletag.display("MILLI_Slot_END_HTML"); });</script></div>
+<div id="MILLI_Slot_END_HTML2" style="width: 0;height: 0;overflow: hidden;"><script>googletag.cmd.push(function() { googletag.display("MILLI_Slot_END_HTML2"); });</script></div>
+
+</div>
+</body>
+</html>

@@ -1,0 +1,232 @@
+
+
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+        <title>CAMPLUS Login</title>
+        <link rel="icon" href="fav_new.ico" type="image/x-icon" />
+        <link rel="stylesheet" type="text/css" href="/ext-3.4.0/resources/css/ext-all.css"/>
+        <link rel="stylesheet" type="text/css" href="/ext-3.4.0/resources/css/xtheme-blue.css"/>
+        <link rel="stylesheet" type="text/css" href="resources/css/styles.css" />
+
+        <script type="text/javascript" src="/ext-3.4.0/adapter/ext/ext-base.js"></script>
+        <script type="text/javascript" src="/ext-3.4.0/ext-all.js"></script>
+        <script type="text/javascript" src="js/webtoolkit.md5.js"></script>
+        <script type="text/javascript" src="js/login-debug.js"></script>
+        <script type="text/javascript">
+            function forgotScreen() {
+
+                document.getElementById("loginScreen").style.display = 'none';
+                document.getElementById("passScreen").style.display = 'block';
+            }
+
+            function validateEmail(email) {
+
+                var re = /^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+                if (re.test(email)) {
+
+                    Ext.Ajax.request({
+                        url: '?module=auth&op=resetPassword',
+                        method: 'post',
+                        params: {
+                            email: email
+                        },
+                        success: function (res) {
+
+                            var tmp = Ext.decode(res.responseText);
+                            if (tmp.success == true) {
+
+                                if (tmp.error == '') {
+                                    document.getElementById("passScreen").style.display = 'none';
+                                    document.getElementById("loginScreen").style.display = 'block';
+                                    Ext.MessageBox.alert('Notification', 'Your login details have been sent to the email address. Please login with the new details.');
+                                }
+                                else {
+                                    document.getElementById("forgotDetails").innerHTML = tmp.error;
+
+                                    Ext.MessageBox.alert('Notification', 'This email address is not available in the system!.');
+                                }
+                            }
+                        }
+                    });
+                }
+                else {
+                    Ext.MessageBox.alert('Notification', 'Please provide a valid email address.');
+                }
+            }
+
+            function backtoHome() {
+                window.parent.location = '/index.php';
+                return false;
+            }
+        </script>
+
+
+        <script type="text/javascript">
+            function showMessage() {
+            }
+
+        </script>
+         <style type="text/css">
+html, body {
+	width: 100%;
+	height: 100%;
+}
+body {
+	margin: 0;
+	display: table
+}
+body>div.boder-cloud {
+	display: table-cell;
+	text-align: center; /* horizontal */
+	vertical-align: middle; /* vertical */ 
+	background:url('resources/images/default/smudge.png') no-repeat center center;
+}
+.boder-cloud div.lgbg {
+	border-radius: 65px;
+	background: #fff;
+	width: 350px; padding:10px;
+	margin: 0 auto;  -moz-box-shadow:   11px 16px 91px #56666b;
+  -webkit-box-shadow: 11px 16px 91px #56666b;box-shadow:11px 16px 91px #56666b;
+}
+.LR-padding26 {
+    padding: 8px 0;
+}
+.userlog-field {
+	width: 100%;
+	border-top: none;
+	border-bottom: 1px solid #ccc;
+	border-left: none;
+	border-right: none;
+	color: #000;
+	font-size: 18px;
+	width: 100%;
+	padding: 5px 0; margin:5px 0;
+}
+.userlog-field-small {
+	float: left;
+	width: 30%;	
+	border-top: none;
+	border: 1px solid #ccc;
+	color: #000;
+	font-size: 18px;
+	padding: 5px; margin:5px 0;
+}
+.cap-left {
+	float: left;padding: 5px 38px 5px 0;
+}
+i{color:#ccc;font-size:32px!important;}
+.fgr{float:left; padding:7px 0 0 0}
+#login-button{ float:right;margin-top:5px;}
+.remember {
+    border: none/*1px Solid #000*/;
+    font: 12px Arial, Helvetica, sans-serif;     
+    color: #587884;       
+}
+.forgot{cursor: pointer;text-align:center; text-decoration:underline; }
+.forgot:hover{color:#FEC00D;}
+
+</style>
+    </head>
+
+    <body onload="showMessage();" class="login-bg">
+
+        <div class="boder-cloud">
+          <div class="lgbg">
+    <table width="100%" border="0" cellspacing="0" cellpadding="5" class="">
+              <tr>
+        <td align="left" valign="top" style="padding:25px;"><table width="100%" border="0" cellspacing="0" cellpadding="0">
+            <tr>
+              <td class="LR-padding26"  style="text-align:center;"><form name="login" id="login" onSubmit="return false;" method="post">
+                  <div  style="display: block" id="loginScreen">
+                    <table width="100%" border="0" cellspacing="0" cellpadding="0" >
+                      <tr>
+                        <td style="padding-top:6px"></td>
+                      </tr>
+                      <tr>
+                        <td><img src="resources/images/default/inner-logo.png" style="width:50%;"/></td>
+                      </tr>
+                      <tr>
+                        <td valign="middle" style="font-size:20px; font-weight:200px; color:#587884; padding:15px 0;">Campus Management </td>
+                      </tr>
+                      <tr>
+                        <td valign="middle" style="font-size:20px; font-weight:200px; color:#000; padding:5px 0;font-weight:bold;">LOGIN</td>
+                      </tr>
+                      <tr><td class="remember forgot" style="cursor: pointer;padding-top:10px; text-align:center" onclick="forgotScreen();">Forgot Password?</td></tr>
+                      <tr>
+                        <td><table width="100%" border="0" cellspacing="3" cellpadding="1">
+                            <tr>
+                              <td><input name="loginUsername" autocomplete="off" type="text" class="userlog-field" id="loginUsername" tabindex='1' maxlength="30" placeholder="Username"/></td>
+                            </tr>
+                            <tr>
+                              <td><input name="loginPassword" autocomplete="off" type="password" class="userlog-field" id="loginPassword" tabindex='2' maxlength="15" placeholder="Password"/></td>
+                            </tr>
+                            <tr>
+                              <td><label for="loginPassword"></label>
+                                 <img src= /captcha.php class='cap-left' id='imgcaptcha'/>                                <input name="captcha_entered" autocomplete="off" type="text" id="captcha_entered" size="5" maxlength="2" tabindex='3' class="userlog-field-small"/>
+                                <input type="hidden" autocomplete="off" class="userlog-field-small" name="captcha_total" id="captcha_total" value=""/>  <input type="image" src="resources/images/default/login-button.png" alt=""  border="0" id="login-button" tabindex='3'  /></td>
+                            </tr>
+                            <tr>
+                              <td  align="right" style="padding:5px 0;"><div class="fgr" style="display:none"><table width="100%" border="0" cellspacing="0" cellpadding="0">
+                                  <tr>
+                                    <td width="20"><input type="checkbox" name="rememberMe" id="rememberMe" value="1" /></td>
+                                    <td nowrap="nowrap" class="remember"> 
+                                      <label for="rememberMe" >Remember password</label>
+                                      <input type="hidden" id="remSelect" value="0" /></td><tr><td width="20"> </td>
+                                  </tr>
+                                </table></div>  </td>
+                            </tr>
+                            
+                          
+                            
+                          </table></td>
+                      </tr>
+                    
+                    </table>
+                  </div>
+                </form>
+                <table width="100%" border="0" cellspacing="0" cellpadding="0"  style="display: none" id="passScreen">
+                <tr>
+                        <td><img src="resources/images/default/inner-logo.png" style="width:50%;"/></td>
+                      </tr>
+                  <tr>
+                        <td valign="middle" style="font-size:20px; font-weight:200px; color:#587884; padding:15px 0;">Campus Management </td>
+                      </tr>
+                      <tr>
+                        <td valign="middle" style="font-size:20px; font-weight:200px; color:#000; padding:5px 0;font-weight:bold;">Forgot Password?</td>
+                      </tr>
+                  
+                  <tr>
+                    <td class="gray40" style="color:#587884; text-align:justify;">Please provide your email id associated with the system in the text box given below. Your password will be reset and activation link will be sent to the email id.</td>
+                  </tr>
+                
+                  <tr>
+                    <td><table width="100%" border="0" cellspacing="3" cellpadding="1">
+                        <tr>
+                         
+                          <td colspan="2"><input name="loginEmail" autocomplete="off"  type="text" class="userlog-field" id="loginEmail" tabindex='1' maxlength="30" placeholder="Email"/></td>
+                        </tr>
+                        <tr>
+                          <td height="25" colspan="2"align="right" valign="bottom" style="color: red" id ="forgotDetails"></td>
+                        </tr>
+                        <tr>
+                          <td height="28" align="left" valign="bottom"  ><input onclick="return backtoHome();" type="image" src="resources/images/default/back.png" alt="Back" border="0" id="back-button" tabindex='3'  /></td>
+                          <td height="28" align="right" valign="bottom"  ><input onclick="validateEmail(document.getElementById('loginEmail').value);" type="image" src="resources/images/default/login-button.png" alt="Submit" border="0" id="submit-button" tabindex='4'  /></td>
+                        </tr>
+                      </table></td>
+                  </tr>
+                
+                 
+                </table></td>
+            </tr>
+          </table></td>
+      </tr>
+            </table>
+  </div>
+        </div>
+        <div id="animEl" name="animEl"></div>
+
+    </body>
+</html>

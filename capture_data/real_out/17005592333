@@ -1,0 +1,323 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+    <head>
+        
+        <title>A1WebDirectory.org</title>
+        
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+        <script type="text/javascript">
+            var DOC_ROOT = 'https://www.a1webdirectory.org';
+        </script>
+        
+        
+	<link rel="stylesheet" type="text/css" href="/templates/a1webdirectory/style/column.css" />
+	<link rel="stylesheet" type="text/css" href="/templates/a1webdirectory/style/form.css" />
+	<link rel="stylesheet" type="text/css" href="/templates/a1webdirectory/style/main_min.css" />
+        <link rel="stylesheet" type="text/css" href="/templates/a1webdirectory/style/colors/default-theme.css" />
+         <!--[if IE 7]>
+   	<link rel="stylesheet" type="text/css" href="/templates/a1webdirectory/style/ie7.css" />
+	  <![endif]-->
+
+        
+        <link rel="stylesheet" type="text/css" href="/templates/Core/DefaultFrontend/style/select2.css"  />
+        <link rel="stylesheet" type="text/css" href="/templates/Core/DefaultFrontend/style/fg.menu.css" />
+        <link rel="stylesheet" type="text/css" href="/templates/Core/DefaultFrontend/style/theme/jquery-ui-1.8.23.custom.css"  />
+
+
+        
+                                    <meta name="keywords" content="Web Directory, A1WebDirectory.org" />
+                                        <meta name="description" content="Web directory that provides website listings with short descriptions for reference. Site organized by continents and topics." />
+                                                        
+        
+        <meta name="generator" content="PHP Link Directory 5.3" />
+
+        
+        
+                <script type="text/javascript" src="//ajax.googleapis.com/ajax/libs/jquery/1.8.2/jquery.min.js"></script>
+        <script type="text/javascript" src="//ajax.googleapis.com/ajax/libs/jqueryui/1.8.23/jquery-ui.min.js"></script>
+        
+        
+            <script type="text/javascript">
+             var $ = jQuery.noConflict();
+            </script>
+        
+
+        <script type="text/javascript" src="/javascripts/jquery/jquery.select2.js"></script>
+        <script type="text/javascript" src="/javascripts/jquery/jquery.fg.menu.js"></script>
+
+        
+<style type="text/css">
+body {
+
+
+}
+</style>
+
+        
+        
+    </head>
+    <body>
+            <div class="phpld-wbox">
+                <!-- 
+<div class="userPanel">
+            <a href="/login" class="btn-slide">Login</a>
+        &nbsp;|&nbsp;
+        <a href="/user/register" title="Register new user">Register</a>
+        </div>
+ -->
+                <div class="phpld-clearfix"></div>
+
+                <div class="header">
+                    <div class="headerLogo">
+                        <!--   <h1>  <a href="/" title="A1WebDirectory.Org">
+        <img src="/logo_thumbnail.php?pic=/uploads/logo_thumbnail.jpg&amp;width=" style="" alt="A1WebDirectory.Org" /></h1>
+    </a>
+ -->
+                                   <h1>  <a href="/" title="A1WebDirectory.Org">
+        <img src="/logo_thumbnail.php?pic=/uploads/logo_thumbnail.jpg&amp;width=" style="" alt="A1WebDirectory.Org" /></h1>
+    </a>
+
+                    </div>
+                    
+
+<script type="text/javascript">
+
+var servername = ""+"/Search/ajaxSearchLinks/";
+
+function split( val ) {
+    return val.split( /,\s*/ );
+}
+
+function extractLast( term ) {
+    return split( term ).pop();
+}
+
+function linkFormatResult(link) {
+    //<![CDATA[
+    var markup = "<hr \/><div class='listing-list-item ajax-search-result'>";
+    markup += "<div class='link-info'><div class='listing-title'><a href='"+link.url+"'><b>" + link.title + "</b></a></div>";
+    if (link.description !== undefined) {
+        markup += "<div class='description'><a href='"+link.url+"'>" + link.description + "</a></div>";
+    }
+    markup += "</div></div>"
+    return markup;
+    //]]>
+}
+
+
+function linkFormatSelection(link) {
+     return link.title;
+}
+
+var currEnteredData = null;
+
+jQuery(document).ready(function($){
+    $("#autoquery").select2({
+        placeholder:"Search for a link",
+        minimumInputLength:1,
+        ajax:{
+            url:servername,
+            dataType:'json',
+            quietMillis:100,
+            allowClear:true,
+            data:function (term, page) { // page is the one-based page number tracked by Select2
+                return {
+                    linkQuery: {q: term, loc: $("#autoquery-location").val()}, //search term
+                    page_limit:100 // page size
+                };
+            },
+        results:function (data, page) {
+            // notice we return the value of more so Select2 knows if more results can be loaded
+            for (x in data.result) {
+                data.result[x].id = data.result[x].url;
+            }
+            data.result.unshift({'id':data.url, 'title':currEnteredData, 'url':'/search?search='+currEnteredData})
+            return {results:data.result};
+        }
+    },
+
+    formatResult:linkFormatResult, // omitted for brevity, see the source of this page
+
+    formatSelection:linkFormatSelection // omitted for brevity, see the source of this page
+
+    }).on('change', function(event){
+
+        document.location.href = $(this).val();
+
+    });
+
+
+
+    jQuery(".select2-search input[type='text']").keyup(function(event){
+        currEnteredData = jQuery(this).val();
+
+    });
+
+	jQuery("#search_form").submit(function(){
+		jQuery("#autoquery").val(currEnteredData);		
+	});	
+
+});
+
+
+
+</script>
+
+
+
+ <form class="phpld-form headerSearch" action="/search" method="get" id="search_form">
+	<div class="phpld-columnar phpld-equalize" style="overflow: visible">
+     	<div class="phpld-fbox-text float-left" style="margin-top:5px;">
+        	<input name="search" maxlength="150" id="autoquery" style="width: 400px;" value="" />
+    	</div>
+    	<div class="phpld-fbox-button float-left " style="position:absolute; margin-top:7px;">  
+        	<input class="button phpld-searchbutton" type="submit" value="GO" />
+    	</div>
+	</div>
+</form>
+
+                </div>
+            </div>
+        </div>
+        
+        <div class="phpld-clearfix"></div>
+
+        <div id="nav">
+            <div class="phpld-wbox">
+                <div class="phpld-hlist">
+                    <ul><li><a href="http://www.a1webdirectory.org/">Home</a></li><li><a href="https://www.a1webdirectory.org//page/about_us.html">About us</a></li><li><a href="https://www.a1webdirectory.org//page/guidelines-11">How to Submit?</a></li><li><a href="https://www.a1webdirectory.org//page/contact.html">Contact</a></li></ul>
+               </div>
+            </div>
+        </div>
+
+        <div class="phpld-wbox">
+        <div class="phpld-clearfix"></div>
+        <div class="content-wrapper"><div class="path">
+
+
+
+
+
+
+
+</div><div class="phpld-column linearize-level-1" style=""><div class="phpld-col3"  style="margin-left:10px;margin-right:10px;"><div class="phpld-cbox"><div class="phpld-grid phpld-full phpld-widget" id="widget_13">
+    <div class="boxTop"></div>
+        
+<div class="divBorderHome brw_by_countries" style="width:210px;float:left;">
+	<div class="divTitleHome">Browse by Countries</div>
+	<div class="middle">
+	<ul>
+	<li><img border="0" src="/templates/a1webdirectory/images/us.png"> <a href="/Regional/Countries/United-States/">United States</a></li>
+         <li><img border="0" src="/templates/a1webdirectory/images/gb.png"/> <a href="/Regional/Europe/United-Kingdom/">United Kingdom</a></li>
+	<li><img border="0" src="/templates/a1webdirectory/images/ca.png"/> <a href="/Regional/North-America/Canada/">Canada</a></li>
+	<li><img border="0" src="/templates/a1webdirectory/images/mx.png"/> <a href="/Regional/North-America/Mexico/">Mexico</a></li>
+	<li><img border="0" src="/templates/a1webdirectory/images/in.png"/> <a href="/Regional/Asia/India/">India</a></li>
+	<li><img border="0" src="/templates/a1webdirectory/images/cn.png"/> <a href="/Regional/Asia/China/">China</a></li>
+	<li><img border="0" src="/templates/a1webdirectory/images/au.png"/> <a href="/Regional/Oceania/Australia/">Australia</a></li>
+        <li><img border="0" src="/templates/a1webdirectory/images/nz.png"/> <a href="/Regional/Oceania/New-Zealand/">New Zealand</a></li>
+        <li><img border="0" src="/templates/a1webdirectory/images/es.png"/> <a href="/Regional/Europe/Spain/">Spain</a></li>
+        <li><img border="0" src="/templates/a1webdirectory/images/it.png"/> <a href="/Regional/Europe/Italy/">Italy</a></li>
+        <li><img border="0" src="/templates/a1webdirectory/images/fr.png"/> <a href="/Regional/Europe/France/">France</a></li>
+        <li><img border="0" src="/templates/a1webdirectory/images/de.png"/> <a href="/Regional/Europe/Germany/">Germany</a></li>
+
+<li align="right"><a href="/Regional/Countries/">more...</a></li>
+	
+	
+	</ul>
+	</div>
+</div>
+
+<!-- Categories and subcategories listing -->
+<div class="divBorderHome brw_by_topics" style="width: 707px; float: left; margin-left: 18px;">
+	<div class="divTitleHome">Browse by Topics</div>
+	<div class="middle">
+	<div class="categItem">
+	<span class="left"><a title="Arts" href="/Arts/">Arts</a></span>
+	<span class="right"><a title="Crafts" href="/Arts/Crafts/">Crafts</a>, <a title="Media" href="/Arts/Media/">Media</a>, <a title="Entertainment" href="/Arts/Entertainment/">Entertainment</a> ...</span>
+	</div>
+	<div class="categItem">
+	<span class="left"><a title="Business" href="/Business/">Business</a></span>
+	<span class="right"><a title="Business to Business" href="/Business/B2B/">B2B</a>, <a title="Employment" href="/Business/Employment/">Jobs</a>, <a title="Finance" href="/Business/Finance/">Finance</a>, <a title="Real Estate" href="/Business/Real-Estate/">Real Estate</a>...</span>
+	</div>
+	<div class="clear"></div>
+	
+	<div class="categItem">
+	<span class="left"><a title="Computers" href="/Computers/">Computers</a></span>
+	<span class="right"><a title="Internet" href="/Computers/Internet/">Internet</a>, <a title="Hardware" href="/Computers/Hardware/">Hardware</a>, <a title="Software" href="/Computers/Software/">Software</a> ...</span>
+	</div>
+	<div class="categItem">
+	<span class="left"><a title="Education" href="/Education/">Education</a></span>
+	<span class="right"><a title="Colleges & Universities" href="/Education/Colleges-and-Universities/">Colleges</a>, <a title="Online Degrees" href="/Education/Online-Degrees/">Degrees</a>, <a title="Language Education" href="/Education/Language-Education/">Languages</a> ...</span>
+	</div>
+	<div class="clear"></div>
+	
+	<div class="categItem">
+	<span class="left"><a title="Health" href="/Health/">Health</a></span>
+	<span class="right"><a title="Alternative Medicine" href="/Health/Alternative-Medicine/">Alternative</a>, <a title="Diseases & Conditions" href="/Health/Diseases-and-Conditions/">Diseases</a>, <a title="Fitness" href="/Health/Fitness/">Fitness</a> ...</span>
+	</div>
+       	<div class="categItem">
+	<span class="left"><a title="Home & Family" href="/Home/">Home</a></span>
+	<span class="right"><a title="Cooking" href="/Home/Cooking/">Cooking</a>, <a title="Family" href="/Home/Family/">Family</a>, <a title="Gardening" href="/Home/Gardening/">Gardening</a> ...</span>
+	</div>
+	<div class="clear"></div>
+<div class="categItem">
+	<span class="left"><a title="Kids & Teens" href="/Kids-and-Teens/">Kids</a></span>
+	<span class="right"><a title="Sports & Hobbies" href="/Kids-and-Teens/Sports-and-Hobbies/">Hobbies</a>, <a title="Pre-School" href="/Kids-and-Teens/Pre-School/">Pre-School</a>, <a title="Teen Life" href="/Kids-and-Teens/Teen-Life/">Teen Life</a> ...</span>
+	</div>
+	<div class="categItem">
+	<span class="left"><a title="Reference" href="/Reference/">Reference</a></span>
+	<span class="right"><a title="Maps" href="/Reference/Maps/">Maps</a>, <a title="Classifieds" href="/Reference/Classifieds/">Classifieds</a>, <a title="Directories" href="/Reference/Directories/">Directories</a> ...</span>
+	</div>
+	<div class="clear"></div>
+<div class="categItem">
+	<span class="left"><a title="Shopping" href="/Shopping/">Shopping</a></span>
+	<span class="right"><a title="Beauty & Personal Care" href="/Shopping/Beauty/">Beauty</a>, <a title="Clothing & Apparel" href="/Shopping/Clothing/">Clothing</a>, <a title="Gifts" href="/Shopping/Gifts/">Gifts</a>, <a title="Jewelry" href="/Shopping/Jewelry/">Jewelry</a>...</span>
+	</div>
+	<div class="categItem">
+	<span class="left"><a title="Society" href="/Society/">Society</a></span>
+	<span class="right"><a title="Government" href="/Society/Government/">Government</a>, <a title="Law" href="/Society/Law/">Law</a>, <a title="Politics" href="/Society/Politics/">Politics</a> ...</span>
+	</div>
+	<div class="clear"></div>
+<div class="categItem">
+	<span class="left"><a title="Sports" href="/Sports/">Sports</a></span>
+	<span class="right"><a title="Games" href="/Sports/Games/">Games</a>, <a title="Outdoors" href="/Sports/Outdoors/">Outdoors</a>, <a title="Recreation" href="/Sports/Recreation/">Recreation</a> ...</span>
+	</div>
+	<div class="categItem">
+	<span class="left"><a title="Travel" href="/Travel/">Travel</a></span>
+	<span class="right"><a title="Air Travel" href="/Travel/Air-Travel/">Air Travel</a>, <a title="Automotive" href="/Travel/Automotive/">Automotive</a>, <a title="Lodging" href="/Travel/Lodging/">Lodging</a>...</span>
+	</div>
+	<div class="clear"></div>
+	</div>
+</div>
+
+<div style="float: right;margin-right:5px;margin-top:20px;" class="brw_by_region">
+<div class="orangeTitleBg"></div>
+<div class="orangeMiddleBg">
+<a class="region" href="/Regional/Asia/">Asia</a><a class="region" href="/Regional/Africa/">Africa</a><a class="region" href="/Regional/Caribbean/">Caribbean</a><a class="region" href="/Regional/Europe/">Europe</a><a class="region" href="/Regional/Middle-East/">Middle East</a>
+<div class="clear"></div>
+<a class="region" href="/Regional/North-America/">North America</a><a class="region" href="/Regional/Oceania/">Oceania</a><a class="region" href="/Regional/Polar-Regions/">Polar Regions</a><a class="region" href="/Regional/South-America/">South America</a>
+<div class="clear"></div>
+
+
+</div>
+<div class="orangeFooterBg"></div>
+</div>
+
+</div>
+</div></div></div></div><div class="footer"><div style="padding-top:5px; text-align:center;"><a href="/submit" title="Submit Site"> Submit Site</a> | <a href="/page/terms.html" title="Terms of use">Terms of Use</a> | <a href="/page/privacy.html" title="Privacy Policy">Privacy Policy</a> | <a href="/page/about_us.html" title="Contact us">Contact Us</a> | <a href="/page/link_to_us.html" title="Link to us">Link to Us</a></div><br /><span style="color:#000">Copyright &copy; 2007-2023 <a style="color:#000000; text-decoration:none;" href="http://www.a1webdirectory.org">A1WebDirectory.org</a>. All Rights Reserved.</span></div><script type="text/javascript">
+    /* <![CDATA[ */
+    var root = '';
+    
+    var a = document.getElementsByTagName("a");
+    for(i = 0; i< a.length; i++)
+        if(a[i].id != '')
+            a[i].onclick = count_link;
+    function count_link(event) {
+        i = new Image();
+        i.src= root+'/cl.php?id='+this.id;
+        return true;
+    }
+
+    
+    /* ]]> */
+</script></body></html>

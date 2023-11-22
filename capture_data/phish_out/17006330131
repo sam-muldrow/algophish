@@ -1,0 +1,471 @@
+<!doctype html>
+<html class="uk-height-1-1 " lang="en" >
+<head>
+    <meta charset="utf-8">
+    <title>Login | Dyn Portal</title>
+    <meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1, minimal-ui">
+
+    
+    <meta name="referrer" content="same-origin" />
+    <link rel="shortcut icon" href="/static/ico/favicon.1d6c21680db4.ico"/>
+    <link href="/static/css/dyn_auth.edf50d9328a3.css" rel="stylesheet" />
+    <script src="/jsi18n/"></script>
+    
+<base href="/">
+
+
+</head>
+<body 
+ng-app="ssoApp"
+>
+    <noscript>
+        <iframe src="//www.googletagmanager.com/ns.html?id=GTM-TLJ5DQ" height="0" width="0" style="display:none;visibility:hidden"></iframe>
+    </noscript>
+    <script>
+        dataLayer = [{'ga_id': 'UA-210032-49'}];
+        (function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+        new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+        j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+        '//www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+        })(window,document,'script','dataLayer','GTM-TLJ5DQ');
+    </script>
+
+    
+
+    <header class="uk-width-1-1" id="dh-wrapper">
+    
+        <a href="/" class="uk-float-left" id="dh-logo"><span class="uk-margin-remove uk-float-left uk-text-hidden">Dyn Logo</span></a>
+    
+        <nav class="uk-position-absolute uk-position-top-right uk-margin-right uk-height-1-1 uk-hidden" id="dh-nav" unauthorized-nav>
+            <a id="dh-logout" href="https://portal.dynect.net/logout/" target="_self" ng-if="showLogoutLink">
+                Logout
+                <i class="uk-icon-sign-out uk-margin-small-left"></i>
+            </a>
+        </nav>
+    
+    </header>
+
+
+    
+
+    <section class="uk-float-left ds-wrapper-closed" id="ds-wrapper" tabindex="-1">
+    
+    </section>
+
+
+    <section class="uk-offcanvas" id="ds-mobile-wrapper" data-uk-observe>
+        <nav class="uk-offcanvas-bar" id="ds-mobile-nav">
+            <div class="uk-offcanvas-shadow" aria-hidden="true" role="presentation"></div>
+            <div id="ds-mobile-nav-pane-wrapper">
+                <section class="ds-mobile-nav-pane" id="ds-mobile-nav-pane-main">
+            
+                    <strong class="uk-h6 uk-display-block ds-mobile-nav-pane-title">Login</strong>
+                
+                
+                </section>
+                <section class="ds-mobile-nav-pane ds-mobile-nav-pane-secondary">
+                
+                </section>
+                <section class="ds-mobile-nav-pane ds-mobile-nav-pane-secondary">
+                
+                </section>
+        
+            </div>
+        </nav>
+    </section>
+
+
+    <main id="da-wrapper" class="uk-nbfc uk-clearfix">
+        
+<section id="sso-wrapper">
+    <header class="uk-container-center uk-text-center uk-margin-large-top" id="sso-header">
+        <h1 id="dynid-welcome-text" title="Welcome to DynID">DynID Login</h1>
+        <p class="uk-h5 uk-margin-top">
+        
+            
+                We've got an App for that.
+            
+        
+        </p>
+        <hr>
+    </header>
+    <div ui-view></div>
+</section>
+<script type="text/ng-template" id="/partials/dynid_login.ng-template">
+
+<track-reset-password initial-value="false">
+<pw-reset-stepper
+    ng-if="loginPasswordReset"
+    step="step3"
+></pw-reset-stepper>
+
+<main id="login_wrapper">
+    <div id="dynid_login_wrapper" class="sso-container uk-container-center">
+        <form name="dynid_login_form" method="post" class="uk-form" ng-submit="dynidAuth(dynid_login_form.$invalid)" novalidate dynid-login>
+            <div class="uk-container-center uk-form-row uk-width-large-1-2 uk-width-medium-3-4">
+                <input type='hidden' name='csrfmiddlewaretoken' value='keQSvSxndaQBHCci1jkLrPTCb8iCccME' />
+                <div class="uk-form-row">
+                    <label class="uk-form-label" for="dynid">DynID:</label>
+                    <div class="uk-form-controls">
+                        <input class="uk-width-1-1 dynid-input-field ng-pristine ng-valid ng-valid-email ng-valid-required ng-valid-pattern ng-valid-minlength ng-touched" id="dynid" name="dynid" ng-class="{'uk-form-danger': dynid_username_error}" ng-minlength="1" ng-model="dynid" ng-pattern="/^.+@.+\..+$/" ng-required="true" placeholder="e.g. user@example.com" tabindex="0" type="email" required 
+                        >
+                    </div>
+                </div>
+                <div class="uk-form-row">
+                    <label class="uk-form-label" for="password">Password:</label>
+                    <div class="uk-form-controls">
+                        <input class="uk-width-1-1 ng-valid-minlength ng-dirty ng-valid-parse ng-valid ng-valid-required ng-touched" id="password" name="password" ng-class="{'uk-form-danger': dynid_password_error}" ng-minlength="1" ng-model="password" ng-required="true" placeholder="Password" tabindex="0" type="password" required>
+                    </div>
+                </div>
+                <div class="uk-form-row uk-margin-remove">
+                    <div class="uk-form-controls uk-float-right uk-width-small-1-1 uk-width-medium-1-2 uk-text-right uk-margin-top">
+                        <button type="submit" name="dynid_login_submit" class="uk-button uk-button-primary uk-width-small-1-1 uk-width-medium-1-2 uk-float-right" ng-if="!dynidAuthenticating" tabindex="0">Login</button>
+                        <button type="button" class="uk-button uk-button-primary uk-cursor-default uk-width-small-1-1 uk-width-medium-1-2 uk-float-right" ng-if="dynidAuthenticating"><i class="uk-icon-spinner uk-icon-spin"></i></button>
+                    </div>
+                    <div class="uk-form-controls uk-float-left uk-width-small-1-1 uk-width-medium-1-2 uk-text-center-small uk-margin-top">
+                        <input type="checkbox" id="remember_user" name="remember_user" ng-model="doRemember" ng-true-value="true" ng-false-value="false">
+                        <label for="remember_user" class="uk-margin-small-left">Remember my DynID</label>
+                    </div>
+                </div>
+                <div class="uk-form-row">
+                    <div class="uk-width-1-1 uk-form-controls uk-text-center uk-margin-large-top">
+                        <a name="reset_password" class="uk-button uk-button-link uk-padding-remove" ng-click="forgotPassword()" tabindex="0" ng-keycode="{ 13: 'forgotPassword()' }" >Forgot Password?</a>
+                    </div>
+                </div>
+                <div ng-if="!loginPasswordReset" class="uk-h6 uk-container-center uk-text-center uk-margin-top" ng-click="swapLoginForms()">
+                    Don't have a DynID? <span class="uk-margin-small-left uk-link" tabindex="0" data-tid="get-dynid" ng-keycode="{ 13: 'swapLoginForms()' }">Click here to get one</span>
+                </div>
+            </div>
+        </form>
+    </div>
+</main>
+</track-reset-password>
+</script>
+<script type="text/ng-template" id="/partials/legacy_login.ng-template">
+
+<main id="login_wrapper">
+    <div id="legacy_login_wrapper" class="sso-container uk-container-center">
+        <div class="uk-grid">
+
+            <div class="uk-form uk-margin-top uk-width-large-1-2 uk-width-medium-3-4 uk-container-center">
+                <div class="uk-form-row" ng-if="dest_app == 'portal'">
+                    <h2 class="uk-h4">Enroll with your existing credentials</h2>
+                    <label class="uk-form-label" for="product">Product:</label>
+                    <div class="uk-form-controls">
+                        <select name="product" id="product" class="uk-width-1-1" ng-model="login_type" tabindex="0" ng-options="product.value as product.text for product in products" ng-change="resetForm(login_type)"></select>
+                    </div>
+                </div>
+                <div class="uk-form-row" ng-if="dest_app == 'dns'">
+                    <h2 class="uk-h4 uk-margin-bottom-remove">Managed DNS</h3>
+                </div>
+                <div class="uk-form-row" ng-if="dest_app == 'email'">
+                    <h2 class="uk-h4 uk-margin-bottom-remove">Email Delivery</h3>
+                </div>
+                <form id="dns_login_form" name="dns_login_form" class="uk-form-row" ng-submit="dnsAuth(dns_login_form.$invalid)" novalidate ng-if="login_type == 'dns'" dns-login>
+                    <input type='hidden' name='csrfmiddlewaretoken' value='keQSvSxndaQBHCci1jkLrPTCb8iCccME' />
+                    
+                    <div class="uk-form-row">
+                        <label class="uk-form-label" for="customer">Customer Name:</label>
+                        <div class="uk-form-controls">
+                            <input class="uk-width-1-1" id="dns_customer" name="customer" ng-class="{&#39;uk-form-danger&#39;: dns_customer_error}" ng-minlength="1" ng-model="dns.customer" ng-required="true" placeholder="" tabindex="0" type="text" />
+                        </div>
+                    </div>
+                    
+                    <div class="uk-form-row">
+                        <label class="uk-form-label" for="username">Username:</label>
+                        <div class="uk-form-controls">
+                            <input class="uk-width-1-1" id="dns_username" maxlength="100" name="username" ng-class="{&#39;uk-form-danger&#39;: dns_username_error}" ng-maxlength="100" ng-minlength="1" ng-model="dns.username" ng-required="true" placeholder="" tabindex="0" type="text" />
+                        </div>
+                    </div>
+                    
+                    <div class="uk-form-row">
+                        <label class="uk-form-label" for="password">Password:</label>
+                        <div class="uk-form-controls">
+                            <input class="uk-width-1-1" id="dns_password" name="password" ng-class="{&#39;uk-form-danger&#39;: dns_password_error}" ng-minlength="1" ng-model="dns.password" ng-required="true" placeholder="" tabindex="0" type="password" />
+                        </div>
+                    </div>
+                    
+
+                    <div class="uk-form-row uk-margin-remove">
+                        <div class="uk-form-controls uk-float-right uk-width-small-1-1 uk-width-medium-1-2 uk-text-right uk-margin-top">
+                            <button type="submit" name="legacy_login_submit" class="uk-button uk-button-primary uk-width-small-1-1 uk-width-medium-1-2" ng-if="!dnsAuthenticating" data-tid="dynid-enrollment-dns-auth" tabindex="0">Enroll</button>
+                            <button type="button" class="uk-button uk-cursor-default uk-button-primary uk-width-small-1-1 uk-width-medium-1-2" ng-if="dnsAuthenticating"><i class="uk-icon-spinner uk-icon-spin"></i></button>
+                        </div>
+                        <div class="uk-form-controls uk-float-left uk-width-small-1-1 uk-width-medium-1-2 uk-margin-top">
+                            <p id="having-trouble">
+                                Having trouble logging in?
+                                <br>
+                                <a href="mailto:concierge@dyn.com?subject=DynID%20Enrollment%20Issue" class="uk-width-small-1-1 uk-width-medium-1-2" tabindex="0" data-tid="dynid-enrollment-dns-contact-support">Contact Dyn Support</a>
+                            </p>
+                        </div>
+                    </div>
+                </form>
+
+                <form id="email_login_form" name="email_login_form" class="uk-form-row" ng-submit="emailAuth(email_login_form.$invalid)" novalidate ng-if="login_type == 'email'" email-login>
+
+                    
+                    <div class="uk-form-row">
+                        <label class="uk-form-label" for="username">Username:</label>
+                        <div class="uk-form-controls"><input class="uk-width-1-1" id="email_username" name="username" ng-class="{&#39;uk-form-danger&#39;: email_username_error}" ng-minlength="1" ng-model="email.username" ng-required="true" placeholder="" tabindex="0" type="text" /></div>
+                    </div>
+                    
+                    <div class="uk-form-row">
+                        <label class="uk-form-label" for="password">Password:</label>
+                        <div class="uk-form-controls"><input class="uk-width-1-1" id="email_password" name="password" ng-class="{&#39;uk-form-danger&#39;: email_password_error}" ng-minlength="1" ng-model="email.password" ng-required="true" placeholder="" tabindex="0" type="password" /></div>
+                    </div>
+                    
+
+                    <div class="uk-form-row uk-margin-remove">
+                        <div class="uk-form-controls uk-float-right uk-width-small-1-1 uk-width-medium-1-2 uk-text-right uk-margin-top">
+                            <button type="submit" name="legacy_login_submit" class="uk-button uk-button-primary uk-width-small-1-1 uk-width-medium-1-2" ng-if="!emailAuthenticating" data-tid="dynid-enrollment-email-auth" tabindex="0">Enroll</button>
+                            <button type="button" class="uk-button uk-cursor-default uk-button-primary uk-width-small-1-1 uk-width-medium-1-2" ng-if="emailAuthenticating"><i class="uk-icon-spinner uk-icon-spin"></i></button>
+                        </div>
+                        <div class="uk-form-controls uk-float-left uk-width-small-1-1 uk-width-medium-1-2 uk-margin-top">
+                            <p>
+                                Having trouble logging in?
+                                <br>
+                                <a href="mailto:concierge@dyn.com?subject=DynID%20Enrollment%20Issue" class="uk-width-small-1-1 uk-width-medium-1-2" tabindex="0" data-tid="dynid-enrollment-email-contact-support">Contact Dyn Support</a>
+                            </p>
+                        </div>
+                    </div>
+                </form>
+
+                <div class="uk-h6 uk-container-center uk-text-center uk-margin-large-top uk-margin-bottom">
+                    Already have a DynID? <span class="uk-margin-small-left uk-link"  ng-click="swapLoginForms()" tabindex="0" ng-keycode="{ 13: 'swapLoginForms()' }" data-tid="dynid-enrollment-swap-to-login">Click here to login</span>
+                </div>
+            </div>
+
+            <div class="uk-width-large-1-2 uk-width-medium-3-4 uk-container-center">
+                <h3 class="uk-h4 uk-margin-top">What is DynID?</h3>
+                <p>Dyn is migrating our products to use a single set of credentials. After creating your DynID, your former credentials will cease to work and you will need to use your DynID to login. Want to find out more? <a href="https://help.dyn.com/dynid-and-multi-product-login/" target="_blank" tabindex="0" data-tid="dynid-enrollment-faq">DynID help documentation.</a></p>
+                <ul id="sso-check-list" class="uk-list uk-width-9-10">
+                    <li>Online Support Tickets</li>
+                    <li>Multi-product Login</li>
+                    <li>Account Management</li>
+                    <li>More Features Coming</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</main>
+</script>
+
+    </main>
+
+    <footer class="uk-position-relative" id="df-wrapper">
+        <div class="uk-float-left uk-text-truncate" id="df-copyright">
+            &copy; <span class="uk-hidden-small">1998-</span>2023
+            Dyn<span class="uk-hidden-small">amic Network Services, Inc.</span>
+        </div>
+        <ul class="uk-list uk-float-right uk-margin-remove" id="df-links">
+            <li class="uk-float-left uk-visible-large">IP: 64.222.201.246</li>
+        
+            
+            
+            <li class="uk-float-left">
+                <a href="http://dyn.com/legal/support-portal-terms-of-use/" target="_blank" data-gtm-id="footer-menu-oracle-support">
+                    <span class="uk-hidden-large">Oracle ToU</span>
+                    <span class="uk-visible-large">Oracle Support Terms of Use</span>
+                </a>
+            </li>
+            
+            
+        
+            
+            
+            
+        
+            
+            
+            <li class="uk-float-left">
+                <a href="mailto:concierge@dyn.com?subject=Dyn%20Portal%20Support" target="_blank" data-gtm-id="footer-menu-support-link-logged-out">
+                    <span class="uk-hidden-large">Support</span>
+                    <span class="uk-visible-large">Dyn Support</span>
+                </a>
+            </li>
+            
+            
+        
+            
+            
+            <li class="uk-float-left">
+                <a href="http://www.dynstatus.com/" target="_blank" data-gtm-id="footer-menu-status-link">
+                    <span class="uk-hidden-large">Status</span>
+                    <span class="uk-visible-large">System Status</span>
+                </a>
+            </li>
+            
+            
+        
+            
+            
+            <li class="uk-float-left">
+                <a href="http://dyn.com/legal/" target="_blank" data-gtm-id="footer-menu-legal-link">
+                    <span class="uk-hidden-large">Legal</span>
+                    <span class="uk-visible-large">Legal Notices</span>
+                </a>
+            </li>
+            
+            
+        
+            
+            
+            <li class="uk-float-left">
+                <a href="http://dyn.com/legal/dyn-privacy-policy/" target="_blank" data-gtm-id="footer-menu-privacy-link">
+                    <span class="uk-hidden-large">Privacy</span>
+                    <span class="uk-visible-large">Privacy Policy</span>
+                </a>
+            </li>
+            
+            
+        
+        </ul>
+    </footer>
+
+
+    
+    <script src="/static/compressed/jquery.efbd28b3f4d6.js"></script>
+    <script src="/static/compressed/uikit.0b5c27e4452f.js"></script>
+    
+<script type="text/javascript" src="/static/compressed/angular.a32ad1972c0e.js"></script>
+<script type="text/javascript" src="/static/compressed/dyn_sso.de07e236c285.js"></script>
+<script type="text/javascript" src="/jsi18n/"></script>
+<script type="text/javascript">
+(function() {
+
+var ssoConstants = angular.module('ssoConstants', ['authModule']);
+
+ssoConstants.constant('Constants', Object.freeze({
+
+    request_timeout: 1,
+    resend_sms_delay: 5,
+    service_provider_key: 'code',
+    dest_app: "email",
+    dest_url: "https%3A//email.dynect.net/",
+    login_type: "email",
+    waiting_modal: "#waiting",
+    job_polling_timeout: '600',
+
+    federated_auth: "/sso/login/",
+    federated_url: "/sso/",
+
+    mfa_login: "/login/2fa/".replace(/^\/sso/, ''),
+    dynid_enroll: "/enroll/".replace(/^\/sso/, ''),
+    dynid_login: "/login/".replace(/^\/sso/, ''),
+    dynid_setup: "/login/setup/".replace(/^\/sso/, ''),
+    dynid_verify: "/login/verify/:token/".replace(/^\/sso/, ''),
+    password_reset: "/dynid/reset/:token/".replace(/^\/sso/, ''),
+    forgot_password: "/dynid/forgot-password/".replace(/^\/sso/, ''),
+
+    auth_dynid_url: "/login/dynid/",
+    auth_dns_url: "/login/legacy/dns/",
+    auth_email_url: "/login/legacy/email/",
+    status_url: "/login/status/",
+
+    federated_login_templateUrl: "/partials/federated_login.ng-template",
+    dynid_login_templateUrl: "/partials/dynid_login.ng-template",
+    legacy_login_templateUrl: "/partials/legacy_login.ng-template",
+
+    products: [
+        { value: 'dns', text: 'Managed DNS' },
+        { value: 'email', text: 'Email Delivery' }
+    ],
+
+
+    dynid_wizard_steps: [{
+        step: 'step0',
+        state: 'dynidSetup.info',
+        state_url: "/login/setup/info/",
+        view_url: "/partials/dynid_wizard_info.view",
+        previous_step: 'step0',
+        next_step: 'step1'
+    }, {
+        step: 'step1',
+        state: 'dynidSetup.email',
+        state_url: "/login/setup/email/",
+        view_url: "/partials/dynid_wizard_email.view",
+        previous_step: 'step0',
+        next_step: 'step2'
+    }, {
+        step: 'step2',
+        state: 'dynidSetup.password',
+        state_url: "/login/setup/password/",
+        view_url: "/partials/dynid_wizard_password.view",
+        previous_step: 'step1',
+        next_step: 'step3'
+    }, {
+        step: 'step3',
+        state: 'dynidSetup.code',
+        state_url: "/login/setup/code/",
+        view_url: "/partials/dynid_wizard_code.view",
+        previous_step: 'step1',
+        next_step: 'step3'
+    }],
+
+    dynid_info_url: "/login/dynid/info/",
+    dynid_email_url: "/login/dynid/email/",
+    dynid_password_url: "/login/dynid/password/",
+    dynid_verify_url: "/login/dynid/verify/",
+    dynid_update_progress_url: "/login/dynid/progress/",
+
+    dynid_wizard_templateUrl: "/partials/dynid_wizard.ng-template",
+
+    dynid_wizard_info_templateUrl: "/partials/dynid_wizard_info.ng-template",
+    dynid_wizard_email_templateUrl: "/partials/dynid_wizard_email.ng-template",
+    dynid_wizard_password_templateUrl: "/partials/dynid_wizard_password.ng-template",
+    dynid_wizard_code_templateUrl: "/partials/dynid_wizard_code.ng-template",
+    dynid_wizard_verify_templateUrl: "/partials/dynid_wizard_verify.ng-template",
+
+
+    mfa_enable_now_url: "/login/mfa/enable/",
+    mfa_remind_me_later_url: "/login/mfa/enable_later/yes/",
+    mfa_not_mention_again_url: "/login/mfa/enable_later/no/",
+    mfa_save_method_url: "/login/mfa/method/",
+    mfa_setup_totp_url: "/login/mfa/setup/totp/",
+    mfa_setup_sms_url: "/login/mfa/setup/sms/",
+    mfa_resend_sms_url: "/login/mfa/resend/sms/",
+    mfa_verify_url: "/login/mfa/verify/",
+    mfa_update_progress_url: "/login/mfa/progress/",
+
+    mfa_wizard_templateUrl: "/partials/mfa_wizard.ng-template",
+
+    mfa_wizard_step0_templateUrl: "/partials/mfa_wizard_account_owner.ng-template",
+    mfa_wizard_step1_templateUrl: "/partials/mfa_wizard_choose.ng-template",
+    mfa_wizard_step2_templateUrl: "/partials/mfa_wizard_setup.ng-template",
+    mfa_wizard_step3_templateUrl: "/partials/mfa_wizard_verify.ng-template",
+
+
+    pw_reset_confirm_dynid_url: "/password/reset/dynid/",
+    pw_reset_confirm_mfa_url: "/password/reset/mfa/",
+    pw_reset_resend_verification_url: "/password/reset/sms/",
+    pw_reset_new_password_url: "/password/reset/password/",
+
+    password_reset_wizard_templateUrl: "/partials/password_reset_wizard.ng-template",
+
+    password_reset_wizard_stepper_templateUrl: "/partials/password_reset_wizard_stepper.ng-template",
+    password_reset_wizard_dynid_templateUrl: "/partials/password_reset_wizard_dynid.ng-template",
+    password_reset_wizard_mfa_templateUrl: "/partials/password_reset_wizard_mfa.ng-template",
+    password_reset_wizard_password_templateUrl: "/partials/password_reset_wizard_pw.ng-template",
+
+
+    forgot_password_clear_session_url: "/password/reset/clear-session/",
+    forgot_password_initiate_url: "/password/reset/initiate/",
+
+    forgot_password_wizard_templateUrl: "/partials/forgot_password_wizard.ng-template",
+
+    forgot_password_wizard_dynid_templateUrl: "/partials/forgot_password_wizard_dynid.ng-template",
+    forgot_password_wizard_sent_templateUrl: "/partials/forgot_password_wizard_sent.ng-template",
+
+    EMAIL_REMINDER_URL: "/login/email-reminder/",
+    EMAIL_REMINDER_TEMPLATE_URL: "/partials/email_reminder.ng-template"
+}));
+
+})();
+</script>
+
+
+
+    
+</body>
+</html>

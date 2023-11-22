@@ -1,0 +1,65 @@
+<!DOCTYPE html><html lang="en"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width"><link href="https://www.arvancloud.ir/css/static-pages-2.5.6.css" rel="stylesheet"><link rel="icon" type="image/x-icon" href="//DOMAIN/favicon.ico"><title></title></head><body><section class="error-section error-section--waiting error-section--ltr error-section--hide" id="en"><div class="container"><div class="error-section__wrapper error-section__wrapper--waiting"><div class="error-section__information"><h1 class="error-section__title"></h1><h1 class="error-section__subtitle error-section__subtitle--waiting">Checking your browser before accessing the website...</h1><div class="error-section__contents"><p class="error-section__content">Please complete the security check before accessing the website.</p></div><div class="redirect__captcha" id="captcha"></div></div></div></div></section><section class="error-section error-section--waiting error-section--hide" id="fa"><div class="container"><div class="error-section__wrapper error-section__wrapper--waiting"><div class="error-section__information"><h1 class="error-section__title"></h1><h1 class="error-section__subtitle error-section__subtitle--waiting">Ø¯Ø± Ø­Ø§Ù Ø¨Ø±Ø±Ø³Û ÙØ±ÙØ±Ú¯Ø±Ø Ù¾ÛØ´ Ø§Ø² Ø§ÙØªÙØ§Ù Ø¨Ù Ø³Ø§ÛØª ÙØ³ØªÛÙ ...</h1><div class="error-section__contents"><p class="error-section__content">Ø¨Ø±Ø§Û Ø¯Ø³ØªØ±Ø³Û Ø¨Ù ÙØ¨âØ³Ø§ÛØª ÙÙØ±Ø¯ÙØ¸Ø±Ø Ú¯Ø²ÛÙÙ Ø²ÛØ± Ø±Ø§ ØªØ§ÛÛØ¯ Ú©ÙÛØ¯.</p></div><div class="redirect__captcha" id="captcha_element"></div></div></div></div></section><script>"use strict";
+
+var isTehranTimezone = function isTehranTimezone() {
+  try {
+    var intlName = window.Intl.DateTimeFormat().resolvedOptions().timeZone;
+    if (intlName) {
+      return intlName.toLowerCase().includes('tehran');
+    }
+  } catch (e) {}
+
+  var now = new Date();
+  return now.toString().toLowerCase().includes('iran');
+};
+
+var showPage = function showPage() {
+  var errorPage;
+  var headTitleElement = document.getElementsByTagName('title');
+
+  if (isTehranTimezone()) {
+    errorPage = document.getElementById('fa');
+  } else {
+    errorPage = document.getElementById('en');
+  }
+
+  var lang;
+  if (isTehranTimezone()) {
+    lang = 'fa';
+  } else {
+    lang = 'en';
+  }
+
+  var pageTitle = errorPage.getElementsByClassName('error-section__title')[0].textContent;
+  headTitleElement[0].innerHTML = pageTitle;
+  errorPage.classList.remove('error-section--hide');
+  afterShowPage(errorPage, lang)
+};
+
+window.addEventListener("load", showPage);</script><script type="text/javascript">var page = { current: null };
+
+function onloadCallback() {
+    var captchaBox = page.current.getElementsByClassName('redirect__captcha')[0];
+    grecaptcha.render(captchaBox, {
+        'sitekey': '6Le8dMkUAAAAAEzy7WYOlWbYh0eun-xK0j5aXt6W',
+        'theme': 'light',
+        'callback': function (response) {
+            var token = encodeURIComponent(response);
+            if (token.length >= 4096) {
+                var urlParams = new URLSearchParams(window.location.search);
+                urlParams.set(encodeURIComponent('__arcsrc'), token);
+                document.cookie = '__arcsrc=fromSearch; Max-Age=3600; path=/; Domain=' + encodeURIComponent('azmoon.iau.ir') + '';
+                window.location.search = urlParams;
+            } else {
+                document.cookie = '__arcsrc=' + token + '; Max-Age=3600; path=/; Domain=' + encodeURIComponent('azmoon.iau.ir') + '';
+                location.reload();
+            }
+        }
+    });
+}
+
+function afterShowPage(errorPage, lang) {
+    page.current = errorPage;
+    document.querySelector('#arvanRecaptcha')
+            .setAttribute('src', "https://www.google.com/recaptcha/api.js?hl=".concat(lang, "&onload=onloadCallback&render=explicit"));
+}
+</script><script id="arvanRecaptcha" defer="defer" async="async"></script></body></html>

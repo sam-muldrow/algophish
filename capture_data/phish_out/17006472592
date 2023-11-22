@@ -1,0 +1,1934 @@
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<title>Encrypt, Decrypt files with Drive</title>
+<meta name="description" content="This is a file encryption and decryption tool for Google Drvie and your local files. It allows you to encrypt your files so that no one can look at them. This app uses powerful encryption algorithms (Encrypt/Decrypt any file using AES with 128 bit key).">
+<meta name="keywords" content="encrypt for google drive, decrypt for google drive, encryption file, decryption file, aes algorithms, encryption for drive, decryption for drive, cloud file encryption, cloud decryption">
+
+<meta property="og:title" content="Encrypt, Decrypt files with Drive"> 
+<meta property="og:description" content="This is a file encryption and decryption tool for Google Drvie and your local files. It allows you to encrypt your files so that no one can look at them. This app uses powerful encryption algorithms (Encrypt/Decrypt any file using AES with 128 bit key).">
+<meta property="og:type" content="website">
+<meta property="og:url" content="//encryptdrive.booogle.net/">
+<meta property="og:image" content="//encryptdrive.booogle.net/img/logo128.png">
+
+
+<link rel="shortcut icon" href="./favicon.ico">
+<head>
+<style>
+body,table,td,span,select,input,textarea{
+	font-size:14px;
+	font-family: Verdana, Arial, Helvetica, sans-serif;
+}
+button{
+	font-size:14px;
+	font-family: Verdana, Arial, Helvetica, sans-serif;
+}
+
+body{background:#e3e3e3;}
+A:link    {color:#0860A8;text-decoration:none;}
+A:visited {color:#0860A8;text-decoration:none;}
+A:active  {color:#0860A8;text-decoration:underline;}
+A:hover  {color:#0860A8;text-decoration:underline;}
+.divopt{
+	-webkit-box-shadow: 0 0 10px #999;
+	-moz-box-shadow: 0 0 10px #999;
+	box-shadow: 0 0 10px #999;
+	/*border-radius:7px;
+	-moz-border-radius:7px;*/
+}
+.menulink{font-size:15px;}
+.input{width:630px;}
+.small{font-size:13px;}
+</style>
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script>
+<script src="//iblogbox.github.io/js/encryptdrive/all.js" type="text/javascript"></script>
+<link href="js/dialogs/jquery.alerts.css" rel="stylesheet" type="text/css" media="screen">
+<script src="js/dialogs/jquery.alerts.js" type="text/javascript"></script>
+
+<script>
+var gadb=false;
+var henc=html_entity_encode;
+window.URL=(window.URL || window.webkitURL);
+var g_expires=1000*60*60*6;
+function init(){
+	window.onunload=function(){
+		proc_saveopt();
+	}	
+	_getid('log').style.width="100%";
+	var w=_getid('log').offsetWidth;
+	if(w<792) w=792;
+	_getid('log').style.width=w;
+}
+</script>
+</head>
+<body onload="init()">
+
+<table align=center>
+<tr><td height=10>
+</table>
+
+<table id="maintable" width=820 border=0 align=center class="divopt" style="background-color:white;padding:6px 8px;border: 0px solid #2E79DB;">
+<tr><td>
+<center>
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+<ins class="adsbygoogle"
+     style="display:inline-block;width:728px;height:90px"
+     data-ad-client="ca-pub-1113541014872557"
+     data-ad-slot="2527852709"></ins>
+<script>
+     (adsbygoogle = window.adsbygoogle || []).push({});
+</script>
+</center>
+<tr><td>
+
+<table width=100%><tr>
+<td><img src="img/logo65.png" width=65>
+<td>
+<td><a id="toptitle" href="./" title="Go Home" style="color:#1667A0"><span style="font-size:27px;font-family:Verdana, Arial;white-space:nowrap;">Encrypt, Decrypt files with Drive</span></a>
+<div style="margin-left:2px">
+This is a file encryption and decryption tool for Google Drvie and your local files. It allows you to encrypt your files so that no one can look at them.<br>
+You can select files to encrypt/decrypt from your local computer or from Google Drive. and you can directly save the converted files to Google Drive.<br>
+This app uses powerful encryption algorithms (AES with 128 bit key). This app does not save or share the file you select. It only works locally without going through the server. (HTML5 technology) It's very safe, and guarantees privacy. Supports  IE10, Chrome, Firefox..<br>
+Size limit per a file: Encryption about 12 M, Decryption about 30 M
+</div>
+</table>
+
+<center>
+<script type="text/javascript">
+    google_ad_client = "ca-pub-1113541014872557";
+    google_ad_slot = "2527852709";
+    google_ad_width = 728;
+    google_ad_height = 90;
+</script>
+<script type="text/javascript"
+src="//pagead2.googlesyndication.com/pagead/show_ads.js" onerror="gadb=true;">
+</script>
+</center>
+
+<tr><td>
+<script>
+function get_data(){
+	var s=getstorage("c_filedata");
+	if (!s) s="[]";
+	var a=[];
+	try{
+		a=JSON.parse(s);
+	}catch(err){
+		a=[];
+	}
+	if(!a) a=[];
+	return a;
+}
+
+function proc_savetohistory(){
+	var subject=getstorage('c_lastsubject') || '';
+	subject=prompt("Please enter a title or name.",subject);	
+	if(!subject){
+		//alert('You need to enter the subject.');
+		return;
+	}
+	setstorage('c_lastsubject',subject);
+	var b={};
+	b.id=(new Date()).getTime();
+	b.subject=subject;
+	b.files=[];
+	var d;
+	for(var i= 0; i <= gd_files.length-1;i++){
+		if(!gd_files[i].id)continue;
+		d={};
+		d.id=gd_files[i].id;
+		d.name=gd_files[i].name;
+		b.files.push(d);
+	}
+
+	var a=get_data();
+	a.push(b);
+	if(a.length>15) a.splice(0,1);
+	if(window.JSON) setstorage("c_filedata",JSON.stringify(a));		
+	
+	proc_displayhistory();
+	var obj=_getid('history');
+	if(obj.options.length>=2) obj.selectedIndex=1;
+}
+function proc_displayhistory(){
+	var obj=_getid('history');
+	var a=get_data();
+	
+	for(var i=obj.options.length-1;i>=0;i--) obj.remove(i);
+	var c=document.createElement("option");
+	c.value='';
+	c.appendChild(document.createTextNode('*File History'));		         
+	obj.appendChild(c);		
+
+	var s;
+	for(var i=a.length-1;i>=0;i--){
+		var c=document.createElement("option");
+		c.value=a[i].id;		
+		s=a[i].subject+' ('+datetimetostring(a[i].id)+')';
+		c.appendChild(document.createTextNode(s));		         
+		obj.appendChild(c);		
+	}
+}
+
+function proc_historychange(){
+	var obj=_getid('history');
+	if(!obj.value)return;
+	var a=get_data();
+	for(i = 0; i < a.length; i++){
+		if(a[i].id==obj.value){
+			if(a[i].files && a[i].files.length>0){
+				attach_clear();								
+				var docs=[];var d;
+				for(var j = 0; j <= a[i].files.length-1;j++){
+					if(!a[i].files[j].id)continue;
+					d={};
+					d.id=a[i].files[j].id;
+					d.name=a[i].files[j].name;
+					docs.push(d);
+				}
+				gd_login(function(result){
+					if(!result) return;
+					gd_loadfiles(docs);
+				},true);								
+			}
+			break;
+		}
+	}
+}
+function proc_deletehistory(){
+	var obj=_getid('history');
+	if(!obj.value)return;
+	var a=get_data();
+	for(i = 0; i < a.length; i++){
+		if(a[i].id==obj.value){
+			a.splice(i,1);
+			if(window.JSON) setstorage("c_filedata",JSON.stringify(a));
+			var idx=obj.selectedIndex;
+			obj.remove(idx);
+			if(idx>obj.options.length-1) idx=obj.options.length-1;
+			obj.selectedIndex=idx;
+			break;
+		}
+	}
+}
+function proc_clearhistory(){
+	for(i = 1; i <= 2; i++){
+		var answer=confirm("All stored history will be deleted. ["+i+"/2]"+"\n\n"+"Are you sure?");				
+		if(!answer) return;
+	}
+	setstorage("c_filedata","[]");
+	var obj=_getid('history');
+	for(var i=obj.options.length-1;i>=1;i--) obj.remove(i);
+}
+
+
+function proc_saveopt(){
+	var b=[];
+	var c;
+	var obj=_getid("optcontainer");
+	var a=obj.getElementsByTagName('INPUT');
+	for(var i = 0; i < a.length; i++){    
+		if(a[i].type=='checkbox'){
+			c={};
+			c.name=a[i].name;
+			c.type=a[i].type;
+			c.checked=a[i].checked;
+			b.push(c);
+		}else if(a[i].type=='text' || a[i].type=='password'){
+			c={};
+			c.name=a[i].name;
+			c.type=a[i].type;
+			c.value=a[i].value || '';
+			if(a[i].name=='o_pass_value' && !document.optcontainer['o_pass_keep'].checked) c.value='';
+			b.push(c);
+		}
+	}
+	var a=obj.getElementsByTagName('SELECT');
+	for(var i = 0; i < a.length; i++){    
+		if(a[i].form && a[i].form.name){
+			c={};
+			c.name=a[i].name;
+			c.type='select';
+			c.value=a[i].value || '';
+			b.push(c);
+		}
+	}
+
+	if(window.JSON) setstorage('c_opt',JSON.stringify(b));
+}
+function proc_loadopt(){
+	var s=getstorage('c_opt');
+	var b=[];
+	try{
+		b=JSON.parse(s);
+	}catch(err){
+		b=[];
+	}
+	if(!b) b=[];
+
+	var c;
+	for(var i = 0; i < b.length; i++){    
+		if(b[i].type=='checkbox'){
+			c=document.optcontainer[b[i].name];
+			if(c) c.checked=b[i].checked;
+		}else if(b[i].type=='select' || b[i].type=='text' || b[i].type=='password'){
+			c=document.optcontainer[b[i].name];
+			if(c) c.value=b[i].value;
+		}
+	}
+	var a=_getid("optcontainer").getElementsByTagName('*');
+	for(var i = 0; i < a.length; i++){    
+		if(a[i].tagName=='SELECT'){
+			a[i].onchange=proc_saveopt;
+		}else if(a[i].tagName=='INPUT'){
+			if(a[i].type=='checkbox') a[i].onclick=proc_saveopt;
+			else if(a[i].type=='text' || a[i].type=='password') a[i].onchange=proc_saveopt;
+		}
+	}
+}
+
+
+function proc_show(name){
+	var a=_getid(name);
+	if(!a)return;
+	if(a.style.display=='') a.style.display='none';
+	else a.style.display='';
+}
+function getValue(s,s_find,s_end){
+  s_find=s_find.toLowerCase();
+  s_end=s_end.toLowerCase();
+  
+  ss=s.toLowerCase();    
+  p1=ss.indexOf(s_find);
+  if (p1<0) return;
+  s1=s.substr(p1+s_find.length,s.length);
+  
+  ss=s1.toLowerCase();
+  p1=ss.indexOf(s_end);
+  if (p1<0) return;
+  s1=s1.substr(0,p1);
+  return s1;
+}
+function openWindow(url, name, w, h) {
+  var winX = 0;
+  var winY = 0;
+  if (parseInt(navigator.appVersion) >= 4) {
+    winX = (screen.availWidth - w)*.5;
+    winY = (screen.availHeight - h)*.5;
+  }
+  var features = 'width=' + w + ',height=' + h + ',left=' + winX + ',top=' + winY +', resizable=yes, scrollbars=yes';
+  window.open(url, name, features);
+}
+var g_logcount=0;
+var iserror;
+function proc_log(s,state){
+	if(state=='error') iserror=true;
+	var obj=_getid("log");
+	if(obj.style.display!='') obj.style.display='';
+	if(g_logcount>200){
+		g_logcount=0;
+		obj.innerHTML='';
+	}
+	var a=document.createElement("div");
+	a.setAttribute('style','display:block;');
+	a.innerHTML=s;
+	obj.appendChild(a);  
+	obj.scrollTop=obj.scrollHeight;
+	g_logcount++;
+}
+</script>
+
+<style>
+#holder1, #holder2 { border: 5px dashed #ccc; width: 98%; height: 60px; margin: 5px auto;}
+#holder1.hover { border: 5px dashed #333; }
+#holder2.hover { border: 5px dashed #333; }
+.uploaded{
+	color:green;
+}
+.error{
+	color:#8A0808;
+}
+.welcome{
+	color:#45616D;
+}
+.big1{font-size:20px;}
+.big2{font-size:17px;color:#1667A0;font-weight:normal}/*8A4B08*/
+#gd_progress{width:650px;white-space:nowrap;overflow:hidden;border:0px solid red;}
+#gd_progress2{width:610px;white-space:nowrap;overflow:hidden;border:0px solid red;}
+</style>
+	<table width=100%>					
+		<tr><td><label id="sel1" class=big2><input type=radio name="selenc" id="selenc" checked> Select files from Google Drive</label>
+		<tr><td>			
+			<button type="button" id='btn_open' onclick="gd_open_picker()" title="Select files from Google Drive" style=""><img src="//iblogbox.github.io/js/gdrive/product16.png" width=16 align="absmiddle"> Select files from Google Drive</button>
+			<button type="button" id="gd_btn_reopen" onclick="gd_reopen()" style="display:none" title="Reopen the file loaded from drive.google.com">Reopen</button>		
+			<button type="button" onclick="attach_delete()">Remove</button>
+			<button type="button" onclick="attach_clear()">Clear</button>		
+			
+		<tr><td>			
+			<div id="downlink" style="margin-bottom:2px">Add files to the list below. Select from Google Drive.</div>
+			<select id='attachment' style="width:100%;height:150px" multiple=true onchange="attachment_onchange(this)" onclick="attachment_onchange(this)"></select>
+
+			<div id="desc" style="margin-top:2px;color:green;width:700px;white-space:nowrap;overflow:hidden;border:0px solid red"></div>
+			<font style="font-size:13px">*Unknown Size: Google Document Formats.</font>
+
+			<table align=center>
+			<td><button type=button onclick="proc_savetohistory()">Save this file list</button>
+			<td><select id='history' onchange="proc_historychange()" style="width:250px"></select>
+			<td><button type=button onclick="proc_historychange()" title="Select"><img src="images/commit.png"></button>
+			<td><button type=button onclick="proc_deletehistory()" title="Delete"><img src="images/close.png"></button>
+			<td><button type=button onclick="proc_clearhistory()">Clear all</button>
+			</table>
+
+		<tr><td>
+		<tr><td><label id="sel2" class=big2><input type=radio name="selenc" id="selenc2"> Select files from Local Computer</label>
+		<tr><td>
+			<button type="button" onclick="gd_open_picker(2)"><img src="//iblogbox.github.io/js/gdrive/product16.png" width=18 align="absmiddle"> Select Target Folder from Google Drive</button>
+			<button type="button" onclick="proc_setfolder('','');" title="Reset to Root Folder">Root Folder</button>
+			<div id="foldername2" style="width:600px;white-space:nowrap;overflow:hidden;border:0px solid red;font-size:15px;margin-top:2px;margin-bottom:2px;">Root Folder</div>
+
+		<tr><td>
+			<div id="holder2"><table width=100% height=100%><tr><td align=center valign=middle><font style="font-size:19px;">Drop files here.</font></table></div>
+			<div id="dfile2" style="display:inline"></div>
+			<div id="dfile2msg" style="width:700px;white-space:nowrap;overflow:hidden;border:0px solid red"></div>
+			<script>document.getElementById("dfile2").innerHTML='<input type="file" id="fileload2" style="width:306px" name="files[]" multiple>';</script>				
+
+		<tr><td align=center>
+			<button onclick="attach_encrypt(true)" class="big1">Encrypt</button>
+			<button onclick="attach_encrypt(false)" class="big1">Decrypt</button>		
+			<button onclick="proc_show('optcontainer')" class="">Options</button>		
+			<button type="button" id="btn_password" onclick="attach_password()">Set New Password</button>
+		<tr><td>
+			<form id="optcontainer" name="optcontainer" style="display:none;border:2px dashed #0860A8;padding:2px" onsubmit="return false">
+				<table>
+				<tr><td>
+				*Password Key <input type=text name='o_pass_value' style="width:250px;background-color:#F2F2F2;" readonly> <button onclick="document.optcontainer['o_pass_value'].value='';document.optcontainer['o_pass_keep'].checked=false;proc_saveopt();">Remove Password</button>
+				<br><label><input type=checkbox name='o_pass_keep'> Keep this password (stored on browser's local storage for convenience and testing. this password does not encrypted. not recommended)</label> 
+				<tr><td height=5>
+				<tr><td>*Prefered Export Formats for Google Documents
+				<tr><td>
+					Documents <select name='o_prefer_doc'><option value="pdf">PDF<option value="docx">DOCX<option value="odt">ODT<option value="rtf">RTF<option value="txt">TXT<option value="zip">ZIP</select>
+					Spreadsheet <select name='o_prefer_spr'><option value="pdf">PDF<option value="xlsx">XLSX<option value="ods">ODS<option value="csv">CSV<option value="zip">ZIP</select>
+					Presentation <select name='o_prefer_pre'><option value="pdf">PDF<option value="pptx">PPTX<option value="txt">TXT</select>
+					Drawing <select name='o_prefer_dra'><option value="pdf">PDF<option value="png">PNG<option value="jpeg">JPEG<option value="svg">SVG</select>
+				</table>
+			</form>
+
+		<tr><td>
+			<div id="downlink2" style="margin-bottom:2px"></div>
+			<div id="log" style="width:792px;height:220px;overflow-y:scroll"></div>
+	</table>
+
+<tr><td>
+<tr><td align=center>
+<script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+<ins class="adsbygoogle"
+     style="display:block"
+     data-ad-client="ca-pub-1113541014872557"
+     data-ad-slot="2527852709"
+     data-ad-format="auto"></ins>
+<script>
+(adsbygoogle = window.adsbygoogle || []).push({});
+</script>
+
+</table>
+
+
+<style>
+a.bottomlink:link{text-decoration:underline;}
+a.bottomlink:visited{text-decoration:underline;}
+a.bottomlink:active{text-decoration:underline;}
+a.bottomlink:hover{text-decoration:underline;}
+</style>
+
+<table id="bottomtable" align=center>
+<tr><td height=7>
+<tr><td align=center><span id="bottomtitle">â Encrypt, Decrypt files with Drive, 2023</span>
+	</table><br>
+
+<style>
+.gd_div{background-color:#FFFFE1;position:absolute;overflow:hidden;-webkit-box-shadow: 0 0 25px #999;-moz-box-shadow: 0 0 25px #999;box-shadow: 0 0 25px #999;}
+</style>
+<div id="layer_message" class="gd_div" style="z-index:10001;display:none;"></div>
+<div id="gd_window" class="gd_div" style="z-index:10000001;display:none;"></div>
+<div id="gd_btn_login" class="gd_div" style="z-index:10000000;display:none;">
+<table>
+<tr><td align=center><button onclick="gd_login_manual()" style="font-size:20px"><img src="//iblogbox.github.io/js/gdrive/product20.png" align="absmiddle"> Login & Authorize</button> <button onclick="gd_login_close()" style="font-size:20px">Close</button>
+<tr><td>To use this app, Please login to the Google Drive and authorize this app or website.
+<br>(Note: If your browser block or disable the third-party cookies, this login does not work correctly.)
+</table>
+</div>
+<script>
+var CLIENT_ID = '192033613978-dmr5vne9p00il9e0qss95rqsqqs5q2ji.apps.googleusercontent.com';
+var SCOPES = [
+	'https://www.googleapis.com/auth/drive.install',
+	'https://www.googleapis.com/auth/drive.file'
+];
+var gd_developerKey='AIzaSyDgNmMNEsn0fLCXo7rxF8rFrRFS30Vq-_Q';
+var gd_mimetype="";
+var gd_export_extension=[];
+var gd_state='';
+
+var gd_picker,gd_picker2,gd_loaded,gd_pickerloaded,gd_lastprogress,gd_issupported,gd_isdownloading,gd_load_timer,gd_bloburl,gd_state2;
+var gd_loginexp=0;
+var gd_callback;
+var ismsie=false;
+if(navigator.appName!="Netscape"){
+	if(navigator.userAgent.indexOf("MSIE")>=0) ismsie=true;
+}
+var issafari=false;
+var ua = navigator.userAgent.toLowerCase(); 
+if (ua.indexOf('safari') != -1 && ua.indexOf('chrome') <0) issafari=true;
+
+function number_format(number, decimals, dec_point, thousands_sep) {
+  number = (number + '').replace(/[^0-9+\-Ee.]/g, '');
+  var n = !isFinite(+number) ? 0 : +number,
+    prec = !isFinite(+decimals) ? 0 : Math.abs(decimals),
+    sep = (typeof thousands_sep === 'undefined') ? ',' : thousands_sep,
+    dec = (typeof dec_point === 'undefined') ? '.' : dec_point,
+    s = '',
+    toFixedFix = function (n, prec) {
+      var k = Math.pow(10, prec);
+      return '' + Math.round(n * k) / k;
+    };
+  s = (prec ? toFixedFix(n, prec) : '' + Math.round(n)).split('.');
+  if (s[0].length > 3) {
+    s[0] = s[0].replace(/\B(?=(?:\d{3})+(?!\d))/g, sep);
+  }
+  if ((s[1] || '').length < prec) {
+    s[1] = s[1] || '';
+    s[1] += new Array(prec - s[1].length + 1).join('0');
+  }
+  return s.join(dec);
+}
+function getWindowWidth(){
+    var windowWidth = 0;
+    if (typeof(window.innerWidth) == 'number'){
+        windowWidth = window.innerWidth;
+    }else{
+        var ieStrict = document.documentElement.clientWidth;
+        var ieQuirks = document.body.clientWidth; 
+        windowWidth = (ieStrict > 0) ? ieStrict : ieQuirks;
+    }
+	if(!windowWidth) windowWidth=0;
+    return windowWidth;
+}
+function getWindowHeight(){
+    var windowHeight = 0;
+    if (typeof(window.innerHeight) == 'number'){
+        windowHeight = window.innerHeight;
+    }else{
+        var ieStrict = document.documentElement.clientHeight; 
+        var ieQuirks = document.body.clientHeight;
+        windowHeight = (ieStrict > 0) ? ieStrict : ieQuirks;
+    }
+	if(!windowHeight) windowHeight=0;
+    return windowHeight;
+}
+function getScrollLeft(){
+    var scrollLeft;
+	if(document.body && document.body.scrollLeft){
+		scrollLeft = document.body.scrollLeft;
+	}else if(document.documentElement && document.documentElement.scrollLeft){
+		scrollLeft = document.documentElement.scrollLeft;
+	}
+	if(!scrollLeft) scrollLeft=0;
+    return scrollLeft;
+}
+function getScrollTop(){
+    var scrollTop;
+	if(document.body && document.body.scrollTop){
+		scrollTop = document.body.scrollTop;
+	}else if(document.documentElement && document.documentElement.scrollTop){
+		scrollTop = document.documentElement.scrollTop;
+	}
+	if(!scrollTop) scrollTop=0;
+    return scrollTop;
+} 
+
+var messagetimer=null;
+function show_message(s,x,y,padding,timeout){
+	if (!x) x=10;
+	if (!y) y=10;
+	if (!padding) padding=5;
+	if (!timeout) timeout=2000;
+
+	var kind=1;
+	for(var i=1; i <= 4; i++){
+		var s1="layer_message";
+		if (i>1) s1="layer_message"+i;
+		var obj=document.getElementById(s1);
+		if (obj){
+			kind=i;
+			break;
+		}
+	}
+			
+	obj.style.left="1px";
+	obj.style.top="1px";		
+	obj.innerHTML="<label>"+s+"</label>";
+	obj.style.display="";	
+	
+	if (kind==1) {
+		x=getScrollLeft()+x;	
+		y=getScrollTop()+y;
+	} else if (kind==2) {
+		x=getScrollLeft()+((getWindowWidth()-obj.clientWidth) / 2);
+		y=getScrollTop()+((getWindowHeight()-obj.clientHeight) / 2);
+	} else if (kind==3) {
+		x=document.body.offsetWidth-obj.clientWidth-5;
+		y=getScrollTop()+y;
+	} else {
+		x=getScrollLeft()+((getWindowWidth()-obj.clientWidth) / 2);
+		y=getScrollTop()+y;
+	}
+	x=parseInt(x);
+	y=parseInt(y);
+	
+	obj.style["border"]="1px solid #000000";
+	obj.style["padding"]=padding+"px";
+	obj.style.left=x+"px";
+	obj.style.top=y+"px";
+	
+	if (messagetimer) clearTimeout(messagetimer);
+	messagetimer=setTimeout(hide_message, timeout);
+}
+function hide_message(){
+	for(var i=1; i <= 4; i++){
+		var s1="layer_message";
+		if (i>1) s1="layer_message"+i;
+		var obj=document.getElementById(s1);
+		if (obj){
+			obj.style.display="none";
+		}
+	}
+}
+function gd_btn_login2(e,callback){
+	function go(a){
+		if(a && a.style.display==''){
+			var x=getScrollLeft()+((getWindowWidth()-a.clientWidth) / 2);
+			var y=getScrollTop()+((getWindowHeight()-a.clientHeight) / 2);
+			a.style["border"]="1px solid #000000";
+			a.style["padding"]="10px";
+			a.style.left=x+"px";
+			a.style.top=y+"px";
+		}
+	}
+	go(_getid("gd_btn_login"));
+	go(_getid("gd_window"));	
+	setTimeout(function(){
+		go(_getid("gd_btn_login"));
+		go(_getid("gd_window"));	
+		if(callback)callback();
+	},10);
+}
+function gd_btn_login(isshow){
+	var a=_getid("gd_btn_login");
+	if(isshow){
+		a.style.display='';
+		gd_btn_login2();
+	}else{
+		a.style.display='none';
+	}
+}
+function gd_login_close(){
+	gd_btn_login(false);
+	gd_state='';
+}
+function gd_login_manual(){
+	var p={'client_id': CLIENT_ID, 'scope': SCOPES.join(' '), 'immediate': false};
+	if(gd_userId){p['login_hint']=gd_userId;p['authuser']=-1;}
+	gapi.auth.authorize(p, function (authResult){ 
+		if (authResult && !authResult.error){
+			gd_loginexp=(new Date()).getTime()+parseInt(authResult.expires_in*0.7*1000);
+			gd_btn_login(false);gd_info();
+			show_message("Login ok!!");
+			if(gd_callback) gd_callback(true);
+			else gd_open_state(true);
+		}else{
+			gd_btn_login(true);
+			show_message("Login failed!!");
+		}
+	});
+}
+function gd_login(callback,react){
+	if(gd_loginexp==0 || gd_loginexp<(new Date()).getTime()){
+	}else{
+		callback(true);
+		return;
+	}
+	var p={'client_id': CLIENT_ID, 'scope': SCOPES.join(' '), 'immediate': true};
+	if(gd_userId){p['login_hint']=gd_userId;p['authuser']=-1;}
+	gapi.auth.authorize(p, function (authResult){
+		if (authResult && !authResult.error){
+			gd_loginexp=(new Date()).getTime()+parseInt(authResult.expires_in*0.7*1000);
+			gd_btn_login(false);gd_info();
+			callback(true);
+		}else{
+			show_message("Login failed!!");
+			gd_btn_login(true);
+			callback(false);
+			if(react) gd_callback=callback;
+			else gd_callback=null;
+		}
+	});
+}
+function gd_checklogin(callback){
+	gd_login(function(result){
+		if(result)callback();
+	},true);
+}
+
+function gd_loadpicker() {		
+	gapi.load('picker',{'callback': function(){
+			gd_pickerloaded=true;
+		}
+	});	
+}
+
+function gd_createpicker(kind) {
+	function gd_pickercallback(data) {
+		if (data.action == google.picker.Action.PICKED) {
+			if(data.docs && data.docs.length>0 && data.docs[0].id){
+				if(!kind){
+					gd_loadfiles(data.docs);
+				}else if(kind==2){
+					if(data.docs[0].type!="folder"){
+						alert("It's not a folder.");
+						return;
+					}
+					var id=data.docs[0].id;
+					var name=data.docs[0].name;
+					proc_setfolder(id, name);
+				}
+			}
+		}
+	}
+	var access_token=gapi.auth.getToken().access_token;
+	if(!access_token){
+		alert('Error!! No access token.');
+		return;
+	}
+	if(!kind){
+	 if(!gd_picker){
+	  var view2 = new google.picker.DocsView(google.picker.ViewId.DOCS);
+	  if(gd_mimetype) view2.setMimeTypes(gd_mimetype);
+	  view2.setMode(google.picker.DocsViewMode.LIST);
+
+		var view4 = new google.picker.DocsView();
+		view4.setIncludeFolders(true);
+		view4.setParent("root");
+		view4.setMimeTypes(gd_mimetype);
+		view4.setMode(google.picker.DocsViewMode.LIST);
+		var view5 = new google.picker.View(google.picker.ViewId.RECENTLY_PICKED);
+
+      gd_picker = new google.picker.PickerBuilder()
+		  .enableFeature(google.picker.Feature.MULTISELECT_ENABLED)
+		  .setLocale("en")
+		  .setAppId(CLIENT_ID.split("-")[0]) //scope
+          .setOAuthToken(access_token)
+		  .setTitle("Select files")
+          .addView(view2)
+		  .addView(view4)
+		  .addView(view5)
+          .addView(new google.picker.DocsUploadView())
+          .setDeveloperKey(gd_developerKey)
+          .setCallback(gd_pickercallback)
+          .build();
+	 }
+	 gd_picker.setVisible(true);
+	}else if(kind==2){
+	  if(!gd_picker2){
+		var docsView = new google.picker.DocsView()
+          .setIncludeFolders(true) 
+		  .setParent("root")
+          .setMimeTypes('application/vnd.google-apps.folder')
+		  .setMode(google.picker.DocsViewMode.LIST)
+          .setSelectFolderEnabled(true);
+		var view5 = new google.picker.View(google.picker.ViewId.RECENTLY_PICKED);
+
+        gd_picker2 = new google.picker.PickerBuilder()
+		  .setLocale("en") 
+		  .setAppId(CLIENT_ID.split("-")[0]) //scope
+          .setOAuthToken(access_token)
+		  .setDeveloperKey(gd_developerKey)
+		  .setTitle("Select Target Folder")
+          .addView(docsView)
+		  .addView(view5)
+          .setCallback(gd_pickercallback)
+          .build();
+	  }
+	  gd_picker2.setVisible(true);
+	}
+}
+
+function getsize(fileSize){
+	if(!fileSize) return 'Unknown';
+	function humanFileSize(bytes){
+		var thresh = 1024;
+		if(bytes < thresh) return bytes + ' B';
+		var units = ['kB','MB','GB','TB','PB','EB','ZB','YB'];
+		var u = -1;
+		do {
+			bytes /= thresh;
+			++u;
+		} while(bytes >= thresh);
+		return bytes.toFixed(1)+' '+units[u];
+	}
+	return humanFileSize(fileSize);
+}					
+
+function getSupported(d){
+	var m=d.mimeType || '';
+	if(m.indexOf('vnd.google-apps.document')>=0 || m.indexOf('vnd.google-apps.presentation')>=0 || m.indexOf('vnd.google-apps.drawing')>=0 || m.indexOf('vnd.google-apps.spreadsheet')>=0){
+		return true;
+	}
+}
+function getPrefered(m){
+	var a=document.optcontainer['o_prefer_'+m];
+	if(a) return a.value || 'pdf';
+	else return 'pdf';
+}
+
+var gd_files=[];
+var gd_files_count=0;
+function gd_loadfiles(docs,isstart){
+	if(gadb){alert('Please disable the adblock for free use.');return;}	if(gd_isdownloading){
+		alert("It's working... Please try again in a few minutes. or Cancel the current job.");
+		return;
+	}
+
+	function end(){
+		gd_isdownloading=false;
+		clearTimeout(messagetimer);
+		hide_message();
+		var a=_getid("downlink");
+		if(a.innerHTML && a.innerHTML.indexOf("adownlink")<0){
+			_getid("downlink").innerHTML="Add files to the list below. Select from Google Drive.";
+		}
+	}	
+	var canceled=false;
+	var idesc='file';
+	if(isstart) idesc='file or folder';
+	_getid("downlink").innerHTML="<table><tr><td><img src='images/wait.gif' align='absmiddle'><td><a href='#' id='gd_cancel'>Cancel</a><td><div id='gd_progress'>Getting "+idesc+" information...</div></table>";	
+	_getid('gd_cancel').onclick=function(){
+		canceled=true;
+		return false;
+	}
+	gd_isdownloading=true;
+	if(!docs){
+		end();return;
+	}
+
+	var files=[];
+	for(var i = 0; i <= docs.length-1; i++){
+		if(!docs[i].id)continue;
+		var d={};
+		d.id=docs[i].id;
+		d.name=docs[i].name;
+		files.push(d);
+	}
+	
+	function complete(){
+		var d,s;
+		var a=_getid("attachment");
+		for(var i = 0; i <= files.length-1; i++){
+			d=files[i];
+			if(!d.resp || !d.resp.title)continue;
+			if(d.resp.mimeType=='application/vnd.google-apps.folder')continue;
+			var c=document.createElement("option");
+			gd_files_count++;
+			d.idx=gd_files_count;
+			c.value=d.idx;
+			s='';
+			//if(d.shared) s='[Shared] ';
+			if(d.resp.exportLinks && !getSupported(d.resp)) s='[Not Supported] ';
+			s=s+d.resp.title+' ('+getsize(d.resp.fileSize || 0)+')';			
+			c.appendChild(document.createTextNode(s));		 
+			a.appendChild(c);		
+			gd_files.push(files[i]);
+		}		
+		_getid("selenc").checked=true;
+	}
+	function get(idx){
+		if(idx>files.length-1 || canceled){
+			end();
+			complete();
+			return;
+		}
+		var fileId=files[idx].id;
+		var a=_getid("gd_progress");
+		if(a) a.innerHTML='Getting '+idesc+' info... ('+(idx+1)+'/'+files.length+')';
+
+			var request = gapi.client.drive.files.get({
+				'fileId': fileId, 'fields':'id,title,fileSize,alternateLink,webContentLink,parents/id,mimeType,exportLinks,downloadUrl'
+			});
+			request.execute(function(resp){
+				if(isstart && resp.mimeType=='application/vnd.google-apps.folder'){
+					end();
+					var s=resp.title || 'No Name';
+					proc_setfolder(resp.id, s);
+					_getid("selenc2").checked=true;
+					_getid("sel2").style.color="green";
+					return;
+				}
+				if(isstart) _getid("sel1").style.color="green";
+				if(resp.error){
+					var s='Error. ';
+					if(files[idx].name) s+=files[idx].name+'  ';
+					if(resp.error.message) s+=resp.error.message+' ';
+					if(resp.error.code==401) s+='Login or Authorize Error.';					
+					proc_log('<font class="error">'+henc(s)+'</font>','error');
+				}
+				files[idx].resp=resp;
+				idx++;
+				get(idx);
+			});
+	}
+
+	if(files.length==0){
+		end();return;
+	}
+	gapi.client.load('drive', 'v2', function(){
+		get(0);
+	});
+}
+
+var gd_lastidx, gd_uniqid, g_password;
+function attach_encrypt(isencrypt){
+	if(gadb){alert('Please disable the adblock for free use.');return;}	if(!gd_issupported){
+		alert("This browser does not support.");
+		return;
+	}
+	if(!gd_loaded || !gd_pickerloaded){
+		alert('Not loaded library. Please try again in a few minutes.');
+		return;
+	}
+	function _go(){
+		proc_saveopt();
+		if(gd_isdownloading){
+			alert("Please try again in a few minutes. or Cancel the current job.");
+			return;
+		}
+		proc_logincheck();
+		gd_login(function(result){
+			if(!result) return;
+			//proc_log('<font class=welcome>Login checked.</font>');
+			var fromdrvie=_getid("selenc").checked;
+			attach_encrypt2(isencrypt, fromdrvie);
+		},true);
+	}
+	
+	if(!g_password) g_password=document.optcontainer['o_pass_value'].value;
+	g_password=trim(g_password || '');	
+	if(g_password){
+		_go();
+	}else{
+		jPrompt('Enter your password key. You can use any characters.', g_password , document.title, function(r){
+			r=trim(r || '');
+			if(r){
+				g_password=r;
+				document.optcontainer['o_pass_value'].value=r;
+				if(document.optcontainer['o_pass_keep'].checked) proc_saveopt();			
+			}
+			if(g_password)	_go();
+		});
+	}
+}
+function attach_password(){
+	if(!g_password) g_password=document.optcontainer['o_pass_value'].value;
+	g_password=trim(g_password || '');
+	jPrompt('Enter your password key. You can use any characters.', g_password , document.title, function(r){
+		r=trim(r || '');
+		if(r){
+			g_password=r;
+			document.optcontainer['o_pass_value'].value=r;
+			if(document.optcontainer['o_pass_keep'].checked) proc_saveopt();			
+		}
+	});
+}
+function attach_encrypt2(isencrypt, fromdrvie){
+	iserror=false;
+	if(isencrypt) var maxfilesize=1024*1024*12;
+	else var maxfilesize=1024*1024*30;
+
+	if(gd_isdownloading){
+		alert("Please try again in a few minutes. or Cancel the current job.");
+		return;
+	}	
+	var rcount=0;
+	var files;
+	if(fromdrvie){
+		try{
+			files=JSON.parse(JSON.stringify(gd_files));
+		}catch(err){
+			files=gd_files;
+		}
+	}else{
+		files=gd_files2;
+	}
+	if(files.length==0){
+		alert('No selected file.');
+		return;
+	}
+	var accessToken = gapi.auth.getToken().access_token;
+	if(!accessToken){
+		alert('Error!! No access token.');
+		return;
+	}
+
+	gd_lastidx=0;
+	gd_uniqid=(new Date()).getTime();
+	var uniqid=gd_uniqid;
+
+	function end(){
+		gd_isdownloading=false;
+		clearTimeout(messagetimer);
+		hide_message();
+		var c=_getid('gd_cancelall');if(c) c.style.display='none';
+		var c=_getid('gd_cancel2');if(c) c.style.display='none';
+		var s='Completed.';
+		if(iserror) s+=' but there are some errors. Check the red line on log.'; 
+		proc_log('<font class=welcome>'+s+'</font>');
+	}	
+
+	var canceled=false;
+	_getid("downlink2").innerHTML="<table><tr><td><a href='#' id='gd_cancelall' style='display:none' title='Cancel all tasks'>Cancel all</a>&nbsp;<td><a href='#' id='gd_cancel2' style='display:none' title='Cancel the current task'>Cancel</a><td><div id='gd_progress2'></div></table>";		
+	gd_isdownloading=true;
+	
+	var xhr = new XMLHttpRequest();
+	var xhr2 = new XMLHttpRequest();
+	if(!fromdrvie) var reader = new FileReader();
+	var isworkerrun;
+
+	var c=_getid('gd_cancelall');
+	if(c){
+		c.style.display='';
+		c.onclick=function(){
+			canceled=true;			
+			var a=_getid('gd_cancel2');
+			if(a && a.onclick) a.onclick();
+			return false;
+		}
+	}
+
+	function get(idx){
+		var xcancel;
+		if(idx>files.length-1 || canceled){
+			end();
+			return;
+		}
+		var idx2=idx;
+
+		function _progress(s,nolog){
+			if(gd_uniqid!=uniqid)return;
+			var s1='['+(idx2+1)+'/'+files.length+'] '+s+' '+henc(files[idx2].resp.title2 || files[idx2].resp.title);
+			if(!nolog) proc_log(s1);
+			if(gd_lastidx>idx2)return;		
+			gd_lastidx=idx2;
+			var a=_getid("gd_progress2");
+			if(a) a.innerHTML=s1;
+		}
+		function _next(force){
+			if(!force && xcancel)return;
+			xhr.abort();xhr2.abort();
+			setTimeout(function(){
+				gd_checklogin(function(){
+					accessToken = gapi.auth.getToken().access_token;
+					get(idx+1);
+				});
+			},20);
+		}
+		function error(s){
+			iserror=true;
+			_progress('<font class="error">'+s+'</font>');			
+			_next();
+		}
+
+		var c=_getid('gd_cancel2');
+		if(c){
+			c.style.display='';
+			c.onclick=function(){
+				xhr.abort(); 
+				xhr2.abort();
+				xcancel=true;
+				if(isworkerrun && gworker){gworker.terminate(); gworker=null;}
+				this.style.display='none';
+				this.onclick=function(){return false;}
+				iserror=true;
+				_progress('<font class="error">Canceled by user.</font>');			
+				_next(true);
+				return false;
+			}
+		}
+		
+		//////filedata read
+	var filedata;
+	function _getfiledata(start,chunk,response){	
+		if(fromdrvie){
+			response(filedata); //filedata.substr(start, chunk)
+			return;
+		}
+		if(files[idx].f.size>maxfilesize){
+			error('Error. The maximum size for this task is '+(maxfilesize/1024/1024)+' M.');
+			return;
+		}
+		var usearray;
+		reader.onload = function(e) {
+			if(usearray){
+				var b=new Uint8Array(e.target.result);
+				var s='';
+				var len = b.byteLength;
+				for (var i = 0; i < len; i++) {
+					s+=String.fromCharCode(b[i]);
+				}
+				response(s);
+			}else{
+				response(e.target.result);
+			}
+		};
+		reader.onerror = function(){
+			error('Read Error: '+files[idx].f.name);
+		};
+		/*var blob;
+		if(files[idx].f.slice) blob=files[idx].f.slice(start,chunk+start);
+		else if(files[idx].f.webkitSlice) blob=files[idx].f.webkitSlice(start,chunk+start);
+		else if(files[idx].f.mozSlice) blob=files[idx].f.mozSlice(start,chunk+start);		
+		if(!blob){
+			error("Read Error: This browser does not support FileReader slice.");
+			return;
+		}*/
+		if(!reader.readAsBinaryString){
+			if(!reader.readAsArrayBuffer){
+				error("Read Error: This browser does not support FileReader API.");
+				return;
+			}
+			usearray=true;
+			reader.readAsArrayBuffer(files[idx].f);
+		}else{
+			reader.readAsBinaryString(files[idx].f);
+		}
+	}
+	
+		//////upload
+	function _uploadbefore(){
+		var title,arr;		
+		if(isencrypt){
+			title=(files[idx].resp.title2 || files[idx].resp.title)+'.encrypted';
+		}else{
+			arr=(files[idx].resp.title2 || files[idx].resp.title).split('.');
+			if(arr.length>1 && arr[arr.length-1]=='encrypted'){
+				arr.splice(arr.length-1,1);
+			}
+			if(arr.length>1){
+				var ext=arr[arr.length-1];
+				arr.splice(arr.length-1,1);
+				title=arr.join('.')+'_decrypted.'+ext;
+			}else{
+				title=arr.join('.')+'_decrypted';
+			}
+		}
+		files[idx].gtitle=title;
+
+		_getfiledata(0,0,function(s){ //read all
+			if(isencrypt) _progress('Encrypting...');	 else _progress('Decrypting...');						
+			var t1,t2,s1;
+			function go(callback){
+				try{
+		//worker
+		if(!window.Worker){
+			if(isencrypt) filedata=Aes.Ctr.encrypt(s, g_password, 128);else filedata=Aes.Ctr.decrypt(s, g_password, 128);
+			callback();return;
+		}
+		if(!gworker) gworker=new Worker('js/worker.js?t=1');
+		isworkerrun=true;
+		gworker.onerror = function(err){
+			isworkerrun=false;
+			var s='';
+			if(err && (typeof err === 'string' || err instanceof String)) s+=err;
+			else if(err && err.message) s+=err.message;
+			gworker.terminate();gworker=null;
+			error('Error. '+s);			
+		}
+		gworker.onmessage = function(event) {
+			var message = event.data;
+			if (message.type === 'started'){
+			} else if (message.type === 'result') {
+				isworkerrun=false;
+				if(message.error){
+					//gworker.terminate(); gworker=null;
+					error('Error. '+message.error);					
+				}else{
+					filedata=message.content;
+					callback();
+				}
+			}
+		}		
+		t1 = new Date();
+		gworker.postMessage({'type': 'start', 'isencrypt':isencrypt, 'data': s, 'password':g_password});
+				}catch(err){
+					error('Error. '+err);
+				}
+			}
+			
+			go(function(){
+				if(canceled){
+					end();return;
+				}
+				if(isencrypt) s1='Encrypted. '; else s1='Decrypted. ';
+				t2 = new Date();
+				s1+=((t2 - t1)/1000)+' seconds';
+				if(rcount==0){
+					gfiledata=filedata;
+					gisencrypt=isencrypt;
+					gtitle=files[idx].gtitle;
+					s1+=' --> <a href="#" onclick="return proc_download(this);">Save File (Supports only First file)</a>';
+				}
+				_progress(s1);			
+				if(rcount==0){
+					var answer=confirm("Do you want to upload file to Google Drive? and want to continue to convert the other files?");				
+					if(!answer){
+						end();
+						return;  
+					}
+				}
+				rcount++;
+				//_next();
+				_upload();
+			});
+
+		});
+	}
+
+		function _upload(){
+			if(canceled){
+				end();return;
+			}
+
+	var chunk=256*1024*2*10; //5M
+	var len=filedata.length;
+	chunk=len;
+
+	function _up(url, start){
+		var end=start+chunk;
+		if(end>len) end=len;
+
+	function _go(){
+		if(canceled){
+			end();return;
+		}
+		if(!filedata){
+			error('Filedata read 0 byte.');				
+			return;
+		}		
+		
+		try{
+			var body=btoa(filedata);
+		}catch(err){
+			error('Error. '+err+' Check the password for encryption, decryption.');
+			return;
+		}
+		var sizeratio=filedata.length / body.length;
+		
+		if(start==0) gd_lastprogress=(new Date()).getTime();
+		
+		var method='PUT';
+		if(xcancel)return;
+		xhr2.open(method, url);
+		xhr2.setRequestHeader('Authorization', 'Bearer ' + accessToken);
+		xhr2.setRequestHeader('Content-Range', 'bytes '+start+'-'+(end-1)+'/'+len);
+		xhr2.setRequestHeader('Content-Encoding', 'base64');
+		if(xhr2.upload){
+			xhr2.upload.onprogress=function(event){
+				if(gd_lastprogress){
+					var elaspetime = new Date();
+					var dt=(elaspetime.getTime()-gd_lastprogress)/1000;
+					if(dt<1)return;
+					gd_lastprogress=elaspetime.getTime();
+				}
+				var a=event;
+				var total=a.totalSize || a.total || 0;
+				var current=a.position || a.loaded  || 0;
+				current=Math.floor(current*sizeratio)+start;
+				_progress('Uploading.. ('+number_format(current)+'/'+number_format(len)+')', true);
+			};
+		}
+	    xhr2.onload = function(){
+			//var status=xhr2.getResponseHeader("status");
+			var range;
+			if(!this.response) range=xhr2.getResponseHeader("range");
+			if(range){
+				var next=parseInt(range.split('-')[1]);
+				if(!next || isNaN(next)){
+					error('Results range value error');				
+				}else{
+					_up(url, next+1);
+				}
+				return;
+			}else{
+				var result;
+				try{
+					result=JSON.parse(this.response);
+				}catch(err){
+					result='';				
+				}
+				if(result){
+					var s;
+					if(result.error){
+						s='Upload Error. '+files[idx].gtitle+' ';
+						if(result.error.message){
+							s+=result.error.message+' ';
+							if(gfolderid && result.error.message.indexOf(gfolderid)>=0) s+='Please check that the folder exists. ';
+						}
+						if(result.error.code==401) s+='Login or Authorize Error.';					
+						error(s);
+					}else{
+						var s='<font class=uploaded>Uploaded to '+henc(files[idx].gtitle)+'</font>';
+						if(result.parents && result.parents[0] && result.parents[0].id) 
+							s+=' &nbsp;<a href="'+gd_weburl()+'#folders/'+result.parents[0].id+'" onclick="gd_clickweburl(this)" target="_blank" title="Folder ID: '+result.parents[0].id+'">Folder</a>';
+						var link=result.alternateLink || result.webContentLink;
+						if(link) s+=' &nbsp;<a href="'+link+'" target="_blank" title="View this file">View</a>';
+						link=result.downloadUrl;
+						if(link){
+							link+='&access_token='+encodeURIComponent(accessToken);
+							s+=' &nbsp;<a href="'+(result.webContentLink || link)+'" target="_blank" id="dn_'+result.id+'" download="">Download</a>';
+						}
+						s+=' &nbsp;<a href="#" onclick="proc_delete(this);return false;" data="'+result.id+'" data2="'+escape(files[idx].gtitle)+'">Delete</a>';
+						_progress(s);
+						s=_getid('dn_'+result.id);
+						if(s) s.download=files[idx].gtitle;
+						_next();
+					}
+				}else{
+					error('Results value error');				
+				}
+			}			
+		};
+		xhr2.onerror = function(e){      
+			var s="Error " + e.target.status + " occurred while uploading the file.";
+			error(s);
+		};
+		xhr2.send(body); 	
+	}
+		
+		try{
+			_go();
+		}catch(err){
+			error('Error. '+err);
+		}
+		/*_getfiledata(start,chunk,function(s){
+			_go(s);
+		});*/
+	}
+
+	try{
+		var method='POST';
+		var path='/upload/drive/v2/files';
+		var param='uploadType=resumable';
+		
+        var metadata = {
+            'title': files[idx].gtitle,
+            'mimeType': files[idx].resp.mimeType2 || files[idx].resp.mimeType
+        };
+		if(fromdrvie){
+			var parent=files[idx].resp.parents;
+			if(parent && parent.length>0 && parent[0].id) metadata.parents=[{"id": parent[0].id}];
+		}else{
+			if(!files[idx].resp.mimeType) files[idx].resp.mimeType=getmimetype(files[idx].resp.title) || 'application/octet-stream';		
+			if(!gfolderid){
+				gfolderid='root';
+			}
+			if(gfolderid) metadata.parents=[{"id": gfolderid}];
+		}	
+		
+		var body=JSON.stringify(metadata);
+		//console.log(metadata);		
+		_progress('Request upload...',true);
+		
+		if(xcancel)return;
+		xhr2.open(method, 'https://www.googleapis.com'+path+'?'+param, true);
+		xhr2.setRequestHeader('Authorization', 'Bearer ' + accessToken);
+		xhr2.setRequestHeader('Content-Type', 'application/json; charset=UTF-8');
+		xhr2.setRequestHeader('X-Upload-Content-Type', files[idx].resp.mimeType2 || files[idx].resp.mimeType || 'application/octet-stream');
+		xhr2.setRequestHeader('X-Upload-Content-Length', len);
+	    xhr2.onload = function(){
+			var url=xhr2.getResponseHeader("Location");
+			if(url){
+				_up(url, 0);
+			}else{
+				error('Error. Can not find resumable upload URL.');
+			}
+		};
+		xhr2.onerror = function(e){      
+			var s="Error " + e.target.status + " occurred while uploading the file.";
+			error(s);
+		};
+		xhr2.send(body); 	
+	}catch(err){
+		error(err+'\n\nor This browser does not support. Please upgrade your browser.');
+	}
+
+		}
+		//////upload
+		
+		//////download
+		function _download(){
+				if(files[idx].resp.fileSize && files[idx].resp.fileSize>maxfilesize){
+					error('Error. The maximum size for this task is '+(maxfilesize/1024/1024)+' M.');
+					return;
+				}
+				var downloadurl='';
+				if(files[idx].resp.downloadUrl) downloadurl='https://www.googleapis.com/drive/v2/files/'+files[idx].resp.id+'?alt=media';
+				if(!downloadurl && files[idx].resp.exportLinks){
+					var m=files[idx].resp.mimeType;
+					var ext,url,match;
+					if(m.indexOf('vnd.google-apps.document')>=0) ext=getPrefered('doc');
+					else if(m.indexOf('vnd.google-apps.spreadsheet')>=0) ext=getPrefered('spr');
+					else if(m.indexOf('vnd.google-apps.presentation')>=0) ext=getPrefered('pre');
+					else if(m.indexOf('vnd.google-apps.drawing')>=0) ext=getPrefered('dra');
+					ext=(ext || '').toLowerCase();
+					for (x in files[idx].resp.exportLinks){
+						url=files[idx].resp.exportLinks[x] || '';
+						match=url.match(/(exportFormat=|format=)(.*?)(&|$)/i);
+						if(ext && match && match[2] && match[2].toLowerCase()==ext){
+							//downloadurl=url;
+							downloadurl='https://www.googleapis.com/drive/v2/files/'+files[idx].resp.id+'/export?mimeType='+encodeURIComponent(x);
+							files[idx].resp.title2=files[idx].resp.title+'.'+ext;
+							files[idx].resp.mimeType2=getmimetype(files[idx].resp.title2) || 'application/octet-stream';
+							break;
+						}
+					}
+				}
+				if(!downloadurl){
+					error('Error. Can not find a Download URL.');
+					return;
+				}
+				try{					
+					gd_lastprogress=(new Date()).getTime();
+					if(xcancel)return;
+					var su=downloadurl;//+'&access_token='+encodeURIComponent(accessToken);
+					/*if(files[idx].resp.mimeType=='application/vnd.google-apps.spreadsheet'){
+						su='https://speedtesting.herokuapp.com/proxyrss/geturl2.php?max=15&url='+encodeURIComponent(su);
+					}*/
+					xhr.open('GET', su);
+					xhr.responseType = 'arraybuffer';
+					xhr.onprogress=function(event){
+						if(gd_lastprogress){
+							var elaspetime = new Date();
+							var dt=(elaspetime.getTime()-gd_lastprogress)/1000;
+							if(dt<1)return;
+							gd_lastprogress=elaspetime.getTime();
+						}
+						var a=event;
+						var total=a.totalSize || files[idx].resp.fileSize || 0;//a.total 
+						var current=a.position || a.loaded  || 0;
+						_progress('Downloading... ('+number_format(current)+'/'+number_format(total)+')', true);
+					};
+					xhr.setRequestHeader('Authorization', 'Bearer ' + accessToken);
+				    xhr.onload = function(){
+						if(this.status == 200){
+							var b=new Uint8Array(this.response || '');
+							if(b.length>maxfilesize){
+								error('Error. The maximum size for this task is '+(maxfilesize/1024/1024)+' M.');
+								return;
+							}
+							var s='';
+							var len = b.byteLength;
+							for (var i = 0; i < len; i++) {
+								s+=String.fromCharCode(b[i]);
+							}
+							_progress('Downloaded.',true);
+							filedata=s;		
+							_uploadbefore();
+						}else{
+							var s="Error (status) " + this.status + "("+this.statusText+") occurred while receiving the file.";
+							error(s);
+						}						
+					};
+					xhr.onerror = function(e){      
+						var s="Error " + e.target.status + " occurred while receiving the file.";
+						error(s);
+					};
+					xhr.send();
+				}catch(err){
+					error(err+'\n\nor This browser does not support. Please upgrade your browser.');
+				}
+		}
+		//////download
+		
+		if(files[idx].resp.title2)files[idx].resp.title2='';
+		_progress('<font class=welcome>Starting...</font>');
+
+		if(files[idx].resp.exportLinks && !getSupported(files[idx].resp)){
+			error('Not supported format.');
+			return;
+		}
+
+		if(fromdrvie) _download();		
+		else _uploadbefore();
+	}
+
+	gapi.client.load('drive', 'v2', function(){
+		get(0);
+	});
+}
+
+var gworker;
+var gformats=[["pdf","application/pdf"],["gif","image/gif"],["jpg","image/jpeg"],["jpeg","image/jpeg"],["png","image/png"],["doc","application/msword"],["ppt","application/vnd.ms-powerpoint"],["xls","application/vnd.ms-excel"],["docx","application/vnd.openxmlformats-officedocument.wordprocessingml.document"],["pptx","application/vnd.openxmlformats-officedocument.presentationml.presentation"],["xlsx","application/vnd.openxmlformats-officedocument.spreadsheetml.sheet"],["htm","text/html"],["html","text/html"],["txt","text/plain"],["ps","application/postscript"]];
+function getmimetype(s){
+	var arr=(s || '').split(".");
+	var ext=arr[arr.length-1].toLowerCase();
+	for(var i=0; i <= gformats.length-1; i++){
+		if(gformats[i][0]==ext){
+			return gformats[i][1];
+		}
+	}
+}
+
+var gd_files2=[];
+var gfiles2, gfiledata, gisencrypt, gtitle, gblob, gbloburl;
+function handleFileSelect2(files){
+	if(!window.FileReader || !window.XMLHttpRequest){
+		alert("This browser does not support.");
+		return;
+	}
+	if(gd_isdownloading){
+		alert("It's working. Please try again in a few minutes. or Cancel the current job.");
+		return;
+	}
+	
+	_getid("dfile2msg").innerHTML='';
+	if(files) gfiles2=files;
+	if(!gfiles2 || gfiles2.length==0) return;
+	_getid("dfile2msg").innerHTML=(gfiles2[0].name || '')+' ('+gfiles2.length+' file selected)';
+	
+	gd_files2=[];
+	for(var i = 0, f; f = gfiles2[i]; i++){
+		var a={};
+		a.f=f;
+		a.resp={};
+		a.resp.title=f.name;		
+		gd_files2.push(a);
+	}	
+	_getid("selenc2").checked=true;
+}
+
+function proc_download(f){
+	if(!f.getAttribute("data")){
+		f.setAttribute("data","1");
+		if(gisencrypt){
+			gblob=new Blob([gfiledata], { type: 'text/plain' });
+		}else{
+			var contentBytes = new Uint8Array(gfiledata.length);
+			for (var i=0; i<gfiledata.length; i++) {
+				contentBytes[i] = gfiledata.charCodeAt(i);
+			}
+			gblob=new Blob([contentBytes], { type: 'application/octet-stream' });
+		}
+		f.download=gtitle;
+		if(!navigator.msSaveBlob){
+			if(window.URL){
+				if(gbloburl)window.URL.revokeObjectURL(gbloburl);
+				gbloburl=window.URL.createObjectURL(gblob);
+				f.href=gbloburl;		
+				f.target='_blank';
+			}
+			gblob='';
+		}
+		gfiledata='';
+	}
+	
+	if(navigator.msSaveBlob){
+		f.href="#";
+		navigator.msSaveBlob(gblob, f.download);
+		return false;
+	}else{
+		if(!window.URL){
+			alert('This browser does not support.');
+			return false;
+		}else if(issafari){
+			window.open(f.href);
+			return false;
+		}
+		return true;
+	}	
+}
+function proc_delete(f){
+	var fileid=f.getAttribute("data");
+	if(!fileid) return;
+	if(gd_isdownloading){
+		alert("Please try again in a few minutes. or Cancel the current job.");
+		return;
+	}	
+	gd_isdownloading=true;
+	function _log(s){
+		var a=_getid('gd_progress2');
+		if(a) a.innerHTML=s;
+	}
+	var title=unescape(f.getAttribute("data2") || '');
+	_log('Deleting...');
+	var request = gapi.client.drive.files['delete']({
+		'fileId': fileid
+	});
+	request.execute(function(resp){
+		gd_isdownloading=false;
+		var s;
+		if(resp.result && !resp.message){
+			s='<font style="color:green">File deleted successfully. '+henc(title)+'</font>';
+			_log(s);
+		}else{
+			s='<font style="color:red">Delete failed. <b>'+resp.message+'</b> '+henc(title)+'</font>';
+			_log(s,'error');
+		}		
+	});
+}
+
+function proc_logincheck(){
+	_getid("log").innerHTML='';
+	var b=_getid("gd_progress2");
+	if(b) b.innerHTML='';
+	proc_log('<font class=welcome>Login checking...</font>');
+}
+
+
+function attach_delete(){
+	function remove(idx){
+		for(var i = 0; i <= gd_files.length-1; i++){
+			if(gd_files[i].idx==idx){
+				gd_files.splice(i,1);
+				return;
+			}
+		}
+	}
+	var a=_getid("attachment");
+	var k=-1;
+	for(var i=a.options.length-1;i>=0;i--){
+		if(a.options[i].selected){
+			remove(a.options[i].value);
+			a.remove(i);
+			k=i;
+		}
+	}
+	if (k>a.options.length-1) k=a.options.length-1;
+	if (k>=0){
+		a.selectedIndex=k;
+	}
+}
+function attach_clear(){
+	var a=_getid("attachment");
+	for(var i=a.options.length-1;i>=0;i--) a.remove(i);
+	gd_files=[];
+	gd_files_count=0;
+}
+function attachment_onchange(f){
+	function find(idx){
+		for(var i = 0; i <= gd_files.length-1; i++){
+			if(gd_files[i].idx==idx){
+				var s=gd_files[i].resp.title;
+				var link=gd_files[i].resp.alternateLink || gd_files[i].resp.webContentLink;
+				if(link) s='<a href="'+link+'" target="_blank" title="View this file">'+henc(s)+'</a>';
+				s+=' ('+getsize(gd_files[i].resp.fileSize)+')';
+				_getid("desc").innerHTML=s;
+				return;
+			}
+		}
+	}
+	var a=_getid("attachment");
+	for(var i=a.options.length-1;i>=0;i--){
+		if(a.options[i].selected){
+			find(a.options[i].value);
+			break;
+		}
+	}
+}
+
+function gd_open_picker(kind){
+	if(!gd_issupported){
+		alert("This browser does not support.");
+		return;
+	}
+	if(!gd_loaded || !gd_pickerloaded){
+		if(!gd_load_timer) gd_loadscript(function(){gd_open_picker(kind);});
+		else alert('Not loaded library. Please try again in a few minutes.');
+		return;
+	}
+	gd_login(function(result){
+		if(!result) return;
+		gd_createpicker(kind);
+	},true);
+}
+
+function gd_getparam(s,name){
+	name=name+"=";
+	name=name.toLowerCase();
+	var p1=s.toLowerCase().indexOf(name);
+	if (p1<0) return "";
+	s=s.substr(p1+name.length);
+	var p2=s.toLowerCase().indexOf("&");
+	if (p2>=0) {
+		return s.substr(0,p2);
+	} else {
+		return s;
+	}
+}
+function gd_open_state(force){
+	var s=gd_state;
+	if(s){
+		if(!gd_issupported){
+			gd_state='';
+			alert("This browser does not support.");
+			return;
+		}
+		s=decodeURIComponent(s);
+		try{
+			var a=JSON.parse(s);
+			var ids=[];
+			function find(b){
+				if(!b)return;
+				for(var i=0; i <= b.length-1; i++){
+					if(b[i]){
+						var cc={};
+						cc.id=b[i];
+						ids.push(cc);
+					}
+				}
+			}
+			find(a.ids);
+			find(a.exportIds);
+			if(ids.length>0){
+				gd_login(function(result){
+					if(gd_open2 && !force)return;
+					gd_open2=true;
+					if(!result)return;				
+					//_getid('gd_btn_reopen').style.display='';
+					gd_state='';
+					gd_loadfiles(ids,true);
+				});				
+			}
+		}catch(err){
+		}
+	}
+}
+function gd_clientload(){
+	gd_loaded=true;
+	if (window.addEventListener){
+		window.addEventListener("resize", gd_btn_login2, false);
+	}else if (window.attachEvent){
+		window.attachEvent("onresize", gd_btn_login2);
+	}
+	gd_open_state();
+}
+var gd_open2;
+function gd_open_state2(){
+	setTimeout(function(){
+		if(!gd_open2)gd_open_state();
+	}, 1000);
+}
+
+function gd_loadscript(callback){
+	function inject(s){
+		var o = document.createElement('scri' + 'pt');
+		o.setAttribute('src', s);
+		o.setAttribute('type', 'text/javascript');
+		document.body.appendChild(o);
+	}
+	if(gd_load_timer)return;
+	if(gd_loaded && gd_pickerloaded)return;
+	gd_load_timer=setInterval(function(){
+		if(gd_loaded && gd_pickerloaded){
+			clearInterval(gd_load_timer);
+			if(callback) callback();
+		}
+	},100);
+	inject('https://apis.google.com/js/client.js?onload=gd_clientload');
+	inject('https://apis.google.com/js/api.js?onload=gd_loadpicker');	
+}
+function gd_reopen(){
+	if(gd_state2){
+		var m="";
+		var s='?';
+		if(m) s+='m='+m+'&';
+		s+='state='+encodeURIComponent(gd_state2);
+		location.href=s;
+	}
+}
+function gd_dblclick(){
+	function dblclick(){
+		try{
+			if(gd_picker)gd_picker.setVisible(false);
+			if(gd_picker2)gd_picker2.setVisible(false);
+		}catch(err){}
+	}
+	function keydown(e){
+		if(!e)e=window.event;
+		if(e && e.keyCode==27) dblclick();
+	}
+	if(window.addEventListener){
+		document.addEventListener("dblclick", dblclick, false);
+		document.addEventListener("keydown", keydown, false);
+	}else if(window.attachEvent){
+		document.attachEvent("ondblclick", dblclick);
+		document.attachEvent("onkeydown", keydown);
+	}
+}
+var gd_userId,gd_email;
+function gd_weburl(){
+	var s;
+	if(gd_email) s='https://drive.google.com/?authuser='+encodeURIComponent(gd_email);
+	else s='https://drive.google.com/';
+	return s;
+}
+function gd_clickweburl(f){
+	var s=f.href || '';
+	var p1=s.indexOf('#');
+	if(p1<0) s='';
+	else s=s.substr(p1,s.length);
+	f.href=gd_weburl()+s;
+}
+function gd_info(){
+	if(gd_email)return;
+	gapi.client.load('drive', 'v2', function(){
+		var request = gapi.client.drive.about.get();
+		request.execute(function(resp) {
+			if(resp && resp.user){
+				if(gd_email)return;
+				gd_email=resp.user.emailAddress;
+				if(gd_email){
+					var a=_getid('btn_open');
+					var b=_getid('gd_btn_reopen');
+					if(a)a.title=a.title+' ('+gd_email+')';
+					if(b)b.title=b.title+' ('+gd_email+')';
+				}				
+			}
+		});
+	});
+}
+function gd_init(){
+	gd_dblclick();
+	gd_state2=gd_state;
+	if(!window.XMLHttpRequest){//!window.FileReader || !window.URL ||
+	}else{
+		gd_issupported=true;
+		if(gd_state){
+			try{
+				var a=JSON.parse(gd_state);
+				gd_userId=a.userId;
+				if(a.ids || a.exportIds){
+					_getid("downlink").innerHTML="<table><tr><td><div id='gd_progress'>Ready...</div></table>";
+				}
+			}catch(err){}			
+			if(window.addEventListener) window.addEventListener("load", gd_open_state2, false);
+			else if (window.attachEvent) window.attachEvent("onload", gd_open_state2);
+		}
+		gd_loadscript();
+	}
+}
+gd_init();
+</script>
+
+
+<script>
+var gfolderid;
+function proc_setfolder(id,name,reload){
+	if(reload){
+		id=getstorage('gd_folder_id') || '';
+		name=getstorage('gd_folder_name') || 'Root Folder';
+	}
+	gfolderid=id;
+	var s;
+	if(id){
+		s=gd_weburl()+'#folders/'+id;
+	}else{
+		s=gd_weburl();
+		name='Root Folder';
+	}
+	_getid("foldername2").innerHTML='<a href="'+s+'" onclick="gd_clickweburl(this)" target="_blank" title="Show Folder">'+html_entity_encode(name)+'</a>';		
+	setstorage('gd_folder_id',id);
+	setstorage('gd_folder_name', name);
+}
+
+function init_load(){
+	proc_setfolder('','',true);
+	proc_displayhistory();
+	proc_loadopt();
+
+	function _fileload(e){
+		if(!e || !e.target){
+			alert("This browser does not support.");
+			return;
+		}
+		handleFileSelect2(e.target.files);
+	}
+	_getid('fileload2').onchange=_fileload;
+	
+	function _ondragover(e){
+		this.className = 'hover'; 
+		try{var ua=navigator.userAgent;
+			if(ua && ua.indexOf("Chrome")>=0){					
+				if(e.originalEvent) e = e.originalEvent;
+				if(e.dataTransfer){
+					var b = e.dataTransfer.effectAllowed;
+					e.dataTransfer.dropEffect = ('move' === b || 'linkMove' === b) ? 'move' : 'copy';
+				}
+			}
+		}catch(err){}
+		return false; 
+	}
+	function _ondragend(){
+		this.className = ''; return false;
+	}
+	function _ondrop(e){
+		this.className = '';
+		e.preventDefault();				
+		handleFileSelect2(e.dataTransfer.files);
+		_getid("holder2").className = '';
+		return false;
+	}
+
+	var holder = _getid('holder2');
+	holder.ondragover = _ondragover;
+	holder.ondragend = _ondragend;
+	holder.ondrop = _ondrop;
+}
+init_load();
+</script>
+<script>
+function gd_findscope(s){
+	function trim(str){return (str || '').replace(/^\s*|\s*$/g,"");}
+	var s1;
+	try{
+		if(!s) return false;
+		s=' '+s.toLowerCase()+' ';
+		for(var i = 0; i < SCOPES.length; i++){    
+			if(!SCOPES[i])continue;
+			s1=trim(SCOPES[i].split('/').pop().toLowerCase());
+			//if(s1=='drive.appfolder') s1='drive.appdata';
+			if(!/^(drive\.install|drive\.file|drive)$/.test(s1)) continue;
+			if(s.indexOf(s1+' ')<0) return false;
+		}
+	}catch(err){}
+	return true;
+}
+function init_fix_scope(){	
+	var a=window.gd_login_manual;
+	var b=window.gd_login;
+	if(!a) a=window.proc_login_manual; if(!b) b=window.proc_login;
+	if(a) a=a+''; if(b) b=b+'';
+	var ss='if (authResult && !authResult.error';
+	var ss2='if (authResult && (!authResult.error || authResult.access_token)';
+	if(a && a.indexOf(ss)>=0 && a.indexOf('gd_findscope(')<0){
+		a=a.replace(ss,'if (authResult && !authResult.error && gd_findscope(authResult.scope)');window.eval(a);
+	}else if(a && a.indexOf(ss2)>=0 && a.indexOf('gd_findscope(')<0){
+		a=a.replace(ss2,'if (authResult && (!authResult.error || authResult.access_token) && gd_findscope(authResult.scope)');window.eval(a);
+	}
+	if(b && b.indexOf(ss)>=0 && b.indexOf('gd_findscope(')<0){
+		b=b.replace(ss,'if (authResult && !authResult.error && gd_findscope(authResult.scope)');window.eval(b);
+	}else if(b && b.indexOf(ss2)>=0 && b.indexOf('gd_findscope(')<0){
+		b=b.replace(ss2,'if (authResult && (!authResult.error || authResult.access_token) && gd_findscope(authResult.scope)');window.eval(b);
+	}
+}
+init_fix_scope();
+</script>
+</body>
+</html>

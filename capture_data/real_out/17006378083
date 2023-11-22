@@ -1,0 +1,721 @@
+<!DOCTYPE html>
+<html lang="en-US">
+<head><meta charset="UTF-8"><script>if(navigator.userAgent.match(/MSIE|Internet Explorer/i)||navigator.userAgent.match(/Trident\/7\..*?rv:11/i)){var href=document.location.href;if(!href.match(/[?&]nowprocket/)){if(href.indexOf("?")==-1){if(href.indexOf("#")==-1){document.location.href=href+"?nowprocket=1"}else{document.location.href=href.replace("#","?nowprocket=1#")}}else{if(href.indexOf("#")==-1){document.location.href=href+"&nowprocket=1"}else{document.location.href=href.replace("#","&nowprocket=1#")}}}}</script><script>class RocketLazyLoadScripts{constructor(){this.v="1.2.4",this.triggerEvents=["keydown","mousedown","mousemove","touchmove","touchstart","touchend","wheel"],this.userEventHandler=this._triggerListener.bind(this),this.touchStartHandler=this._onTouchStart.bind(this),this.touchMoveHandler=this._onTouchMove.bind(this),this.touchEndHandler=this._onTouchEnd.bind(this),this.clickHandler=this._onClick.bind(this),this.interceptedClicks=[],window.addEventListener("pageshow",t=>{this.persisted=t.persisted}),window.addEventListener("DOMContentLoaded",()=>{this._preconnect3rdParties()}),this.delayedScripts={normal:[],async:[],defer:[]},this.trash=[],this.allJQueries=[]}_addUserInteractionListener(t){if(document.hidden){t._triggerListener();return}this.triggerEvents.forEach(e=>window.addEventListener(e,t.userEventHandler,{passive:!0})),window.addEventListener("touchstart",t.touchStartHandler,{passive:!0}),window.addEventListener("mousedown",t.touchStartHandler),document.addEventListener("visibilitychange",t.userEventHandler)}_removeUserInteractionListener(){this.triggerEvents.forEach(t=>window.removeEventListener(t,this.userEventHandler,{passive:!0})),document.removeEventListener("visibilitychange",this.userEventHandler)}_onTouchStart(t){"HTML"!==t.target.tagName&&(window.addEventListener("touchend",this.touchEndHandler),window.addEventListener("mouseup",this.touchEndHandler),window.addEventListener("touchmove",this.touchMoveHandler,{passive:!0}),window.addEventListener("mousemove",this.touchMoveHandler),t.target.addEventListener("click",this.clickHandler),this._renameDOMAttribute(t.target,"onclick","rocket-onclick"),this._pendingClickStarted())}_onTouchMove(t){window.removeEventListener("touchend",this.touchEndHandler),window.removeEventListener("mouseup",this.touchEndHandler),window.removeEventListener("touchmove",this.touchMoveHandler,{passive:!0}),window.removeEventListener("mousemove",this.touchMoveHandler),t.target.removeEventListener("click",this.clickHandler),this._renameDOMAttribute(t.target,"rocket-onclick","onclick"),this._pendingClickFinished()}_onTouchEnd(){window.removeEventListener("touchend",this.touchEndHandler),window.removeEventListener("mouseup",this.touchEndHandler),window.removeEventListener("touchmove",this.touchMoveHandler,{passive:!0}),window.removeEventListener("mousemove",this.touchMoveHandler)}_onClick(t){t.target.removeEventListener("click",this.clickHandler),this._renameDOMAttribute(t.target,"rocket-onclick","onclick"),this.interceptedClicks.push(t),t.preventDefault(),t.stopPropagation(),t.stopImmediatePropagation(),this._pendingClickFinished()}_replayClicks(){window.removeEventListener("touchstart",this.touchStartHandler,{passive:!0}),window.removeEventListener("mousedown",this.touchStartHandler),this.interceptedClicks.forEach(t=>{t.target.dispatchEvent(new MouseEvent("click",{view:t.view,bubbles:!0,cancelable:!0}))})}_waitForPendingClicks(){return new Promise(t=>{this._isClickPending?this._pendingClickFinished=t:t()})}_pendingClickStarted(){this._isClickPending=!0}_pendingClickFinished(){this._isClickPending=!1}_renameDOMAttribute(t,e,r){t.hasAttribute&&t.hasAttribute(e)&&(event.target.setAttribute(r,event.target.getAttribute(e)),event.target.removeAttribute(e))}_triggerListener(){this._removeUserInteractionListener(this),"loading"===document.readyState?document.addEventListener("DOMContentLoaded",this._loadEverythingNow.bind(this)):this._loadEverythingNow()}_preconnect3rdParties(){let t=[];document.querySelectorAll("script[type=rocketlazyloadscript][data-rocket-src]").forEach(e=>{let r=e.getAttribute("data-rocket-src");if(r&&0!==r.indexOf("data:")){0===r.indexOf("//")&&(r=location.protocol+r);try{let i=new URL(r).origin;i!==location.origin&&t.push({src:i,crossOrigin:e.crossOrigin||"module"===e.getAttribute("data-rocket-type")})}catch(n){}}}),t=[...new Map(t.map(t=>[JSON.stringify(t),t])).values()],this._batchInjectResourceHints(t,"preconnect")}async _loadEverythingNow(){this.lastBreath=Date.now(),this._delayEventListeners(),this._delayJQueryReady(this),this._handleDocumentWrite(),this._registerAllDelayedScripts(),this._preloadAllScripts(),await this._loadScriptsFromList(this.delayedScripts.normal),await this._loadScriptsFromList(this.delayedScripts.defer),await this._loadScriptsFromList(this.delayedScripts.async);try{await this._triggerDOMContentLoaded(),await this._pendingWebpackRequests(this),await this._triggerWindowLoad()}catch(t){console.error(t)}window.dispatchEvent(new Event("rocket-allScriptsLoaded")),this._waitForPendingClicks().then(()=>{this._replayClicks()}),this._emptyTrash()}_registerAllDelayedScripts(){document.querySelectorAll("script[type=rocketlazyloadscript]").forEach(t=>{t.hasAttribute("data-rocket-src")?t.hasAttribute("async")&&!1!==t.async?this.delayedScripts.async.push(t):t.hasAttribute("defer")&&!1!==t.defer||"module"===t.getAttribute("data-rocket-type")?this.delayedScripts.defer.push(t):this.delayedScripts.normal.push(t):this.delayedScripts.normal.push(t)})}async _transformScript(t){if(await this._littleBreath(),!0===t.noModule&&"noModule"in HTMLScriptElement.prototype){t.setAttribute("data-rocket-status","skipped");return}return new Promise(navigator.userAgent.indexOf("Firefox/")>0||""===navigator.vendor?e=>{let r=document.createElement("script");[...t.attributes].forEach(t=>{let e=t.nodeName;"type"!==e&&("data-rocket-type"===e&&(e="type"),"data-rocket-src"===e&&(e="src"),r.setAttribute(e,t.nodeValue))}),t.text&&(r.text=t.text),r.hasAttribute("src")?(r.addEventListener("load",e),r.addEventListener("error",e)):(r.text=t.text,e());try{t.parentNode.replaceChild(r,t)}catch(i){e()}}:e=>{function r(){t.setAttribute("data-rocket-status","failed"),e()}try{let i=t.getAttribute("data-rocket-type"),n=t.getAttribute("data-rocket-src");i?(t.type=i,t.removeAttribute("data-rocket-type")):t.removeAttribute("type"),t.addEventListener("load",function r(){t.setAttribute("data-rocket-status","executed"),e()}),t.addEventListener("error",r),n?(t.removeAttribute("data-rocket-src"),t.src=n):t.src="data:text/javascript;base64,"+window.btoa(unescape(encodeURIComponent(t.text)))}catch(s){r()}})}async _loadScriptsFromList(t){let e=t.shift();return e&&e.isConnected?(await this._transformScript(e),this._loadScriptsFromList(t)):Promise.resolve()}_preloadAllScripts(){this._batchInjectResourceHints([...this.delayedScripts.normal,...this.delayedScripts.defer,...this.delayedScripts.async],"preload")}_batchInjectResourceHints(t,e){var r=document.createDocumentFragment();t.forEach(t=>{let i=t.getAttribute&&t.getAttribute("data-rocket-src")||t.src;if(i){let n=document.createElement("link");n.href=i,n.rel=e,"preconnect"!==e&&(n.as="script"),t.getAttribute&&"module"===t.getAttribute("data-rocket-type")&&(n.crossOrigin=!0),t.crossOrigin&&(n.crossOrigin=t.crossOrigin),t.integrity&&(n.integrity=t.integrity),r.appendChild(n),this.trash.push(n)}}),document.head.appendChild(r)}_delayEventListeners(){let t={};function e(e,r){!function e(r){!t[r]&&(t[r]={originalFunctions:{add:r.addEventListener,remove:r.removeEventListener},eventsToRewrite:[]},r.addEventListener=function(){arguments[0]=i(arguments[0]),t[r].originalFunctions.add.apply(r,arguments)},r.removeEventListener=function(){arguments[0]=i(arguments[0]),t[r].originalFunctions.remove.apply(r,arguments)});function i(e){return t[r].eventsToRewrite.indexOf(e)>=0?"rocket-"+e:e}}(e),t[e].eventsToRewrite.push(r)}function r(t,e){let r=t[e];Object.defineProperty(t,e,{get:()=>r||function(){},set(i){t["rocket"+e]=r=i}})}e(document,"DOMContentLoaded"),e(window,"DOMContentLoaded"),e(window,"load"),e(window,"pageshow"),e(document,"readystatechange"),r(document,"onreadystatechange"),r(window,"onload"),r(window,"onpageshow")}_delayJQueryReady(t){let e;function r(t){return t.split(" ").map(t=>"load"===t||0===t.indexOf("load.")?"rocket-jquery-load":t).join(" ")}function i(i){if(i&&i.fn&&!t.allJQueries.includes(i)){i.fn.ready=i.fn.init.prototype.ready=function(e){return t.domReadyFired?e.bind(document)(i):document.addEventListener("rocket-DOMContentLoaded",()=>e.bind(document)(i)),i([])};let n=i.fn.on;i.fn.on=i.fn.init.prototype.on=function(){return this[0]===window&&("string"==typeof arguments[0]||arguments[0]instanceof String?arguments[0]=r(arguments[0]):"object"==typeof arguments[0]&&Object.keys(arguments[0]).forEach(t=>{let e=arguments[0][t];delete arguments[0][t],arguments[0][r(t)]=e})),n.apply(this,arguments),this},t.allJQueries.push(i)}e=i}i(window.jQuery),Object.defineProperty(window,"jQuery",{get:()=>e,set(t){i(t)}})}async _pendingWebpackRequests(t){let e=document.querySelector("script[data-webpack]");async function r(){return new Promise(t=>{e.addEventListener("load",t),e.addEventListener("error",t)})}e&&(await r(),await t._requestAnimFrame(),await t._pendingWebpackRequests(t))}async _triggerDOMContentLoaded(){this.domReadyFired=!0,await this._littleBreath(),document.dispatchEvent(new Event("rocket-DOMContentLoaded")),await this._littleBreath(),window.dispatchEvent(new Event("rocket-DOMContentLoaded")),await this._littleBreath(),document.dispatchEvent(new Event("rocket-readystatechange")),await this._littleBreath(),document.rocketonreadystatechange&&document.rocketonreadystatechange()}async _triggerWindowLoad(){await this._littleBreath(),window.dispatchEvent(new Event("rocket-load")),await this._littleBreath(),window.rocketonload&&window.rocketonload(),await this._littleBreath(),this.allJQueries.forEach(t=>t(window).trigger("rocket-jquery-load")),await this._littleBreath();let t=new Event("rocket-pageshow");t.persisted=this.persisted,window.dispatchEvent(t),await this._littleBreath(),window.rocketonpageshow&&window.rocketonpageshow({persisted:this.persisted})}_handleDocumentWrite(){let t=new Map;document.write=document.writeln=function(e){let r=document.currentScript;r||console.error("WPRocket unable to document.write this: "+e);let i=document.createRange(),n=r.parentElement,s=t.get(r);void 0===s&&(s=r.nextSibling,t.set(r,s));let a=document.createDocumentFragment();i.setStart(a,0),a.appendChild(i.createContextualFragment(e)),n.insertBefore(a,s)}}async _littleBreath(){Date.now()-this.lastBreath>45&&(await this._requestAnimFrame(),this.lastBreath=Date.now())}async _requestAnimFrame(){return document.hidden?new Promise(t=>setTimeout(t)):new Promise(t=>requestAnimationFrame(t))}_emptyTrash(){this.trash.forEach(t=>t.remove())}static run(){let t=new RocketLazyLoadScripts;t._addUserInteractionListener(t)}}RocketLazyLoadScripts.run();</script>
+	
+	<meta name='robots' content='index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1' />
+<meta name="viewport" content="width=device-width, initial-scale=1">
+	<!-- This site is optimized with the Yoast SEO plugin v21.5 - https://yoast.com/wordpress/plugins/seo/ -->
+	<title>Credo Action - Taking Action for a Better World</title><link rel="preload" as="style" href="https://fonts.googleapis.com/css?family=Lato%3A100%2C100italic%2C300%2C300italic%2Cregular%2Citalic%2C700%2C700italic%2C900%2C900italic%7CPlayfair%20Display%3Aregular%2Citalic%2C700%2C700italic%2C900%2C900italic&#038;display=swap" /><link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Lato%3A100%2C100italic%2C300%2C300italic%2Cregular%2Citalic%2C700%2C700italic%2C900%2C900italic%7CPlayfair%20Display%3Aregular%2Citalic%2C700%2C700italic%2C900%2C900italic&#038;display=swap" media="print" onload="this.media='all'" /><noscript><link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Lato%3A100%2C100italic%2C300%2C300italic%2Cregular%2Citalic%2C700%2C700italic%2C900%2C900italic%7CPlayfair%20Display%3Aregular%2Citalic%2C700%2C700italic%2C900%2C900italic&#038;display=swap" /></noscript>
+	<meta name="description" content="Taking Action for a Better World" />
+	<link rel="canonical" href="https://www.credoaction.com/" />
+	<link rel="next" href="https://www.credoaction.com/page/2/" />
+	<meta property="og:locale" content="en_US" />
+	<meta property="og:type" content="website" />
+	<meta property="og:title" content="Credo Action" />
+	<meta property="og:description" content="Taking Action for a Better World" />
+	<meta property="og:url" content="https://www.credoaction.com/" />
+	<meta property="og:site_name" content="Credo Action" />
+	<meta name="twitter:card" content="summary_large_image" />
+	<script type="application/ld+json" class="yoast-schema-graph">{"@context":"https://schema.org","@graph":[{"@type":"CollectionPage","@id":"https://www.credoaction.com/","url":"https://www.credoaction.com/","name":"Credo Action - Taking Action for a Better World","isPartOf":{"@id":"https://www.credoaction.com/#website"},"about":{"@id":"https://www.credoaction.com/#organization"},"description":"Taking Action for a Better World","breadcrumb":{"@id":"https://www.credoaction.com/#breadcrumb"},"inLanguage":"en-US"},{"@type":"BreadcrumbList","@id":"https://www.credoaction.com/#breadcrumb","itemListElement":[{"@type":"ListItem","position":1,"name":"Home"}]},{"@type":"WebSite","@id":"https://www.credoaction.com/#website","url":"https://www.credoaction.com/","name":"Credo Action","description":"Taking Action for a Better World","publisher":{"@id":"https://www.credoaction.com/#organization"},"potentialAction":[{"@type":"SearchAction","target":{"@type":"EntryPoint","urlTemplate":"https://www.credoaction.com/?s={search_term_string}"},"query-input":"required name=search_term_string"}],"inLanguage":"en-US"},{"@type":"Organization","@id":"https://www.credoaction.com/#organization","name":"Credo Action","url":"https://www.credoaction.com/","logo":{"@type":"ImageObject","inLanguage":"en-US","@id":"https://www.credoaction.com/#/schema/logo/image/","url":"https://www.credoaction.com/wp-content/uploads/2022/11/cropped-credoaction.com-logo-20221107121059.png","contentUrl":"https://www.credoaction.com/wp-content/uploads/2022/11/cropped-credoaction.com-logo-20221107121059.png","width":500,"height":215,"caption":"Credo Action"},"image":{"@id":"https://www.credoaction.com/#/schema/logo/image/"}}]}</script>
+	<!-- / Yoast SEO plugin. -->
+
+
+<link href='https://fonts.gstatic.com' crossorigin rel='preconnect' />
+<link href='https://fonts.googleapis.com' crossorigin rel='preconnect' />
+<link rel="alternate" type="application/rss+xml" title="Credo Action &raquo; Feed" href="https://www.credoaction.com/feed/" />
+<style id='wp-emoji-styles-inline-css'>
+
+	img.wp-smiley, img.emoji {
+		display: inline !important;
+		border: none !important;
+		box-shadow: none !important;
+		height: 1em !important;
+		width: 1em !important;
+		margin: 0 0.07em !important;
+		vertical-align: -0.1em !important;
+		background: none !important;
+		padding: 0 !important;
+	}
+</style>
+<link rel='stylesheet' id='wp-block-library-css' href='https://www.credoaction.com/wp-includes/css/dist/block-library/style.min.css?ver=6.4.1' media='all' />
+<style id='classic-theme-styles-inline-css'>
+/*! This file is auto-generated */
+.wp-block-button__link{color:#fff;background-color:#32373c;border-radius:9999px;box-shadow:none;text-decoration:none;padding:calc(.667em + 2px) calc(1.333em + 2px);font-size:1.125em}.wp-block-file__button{background:#32373c;color:#fff;text-decoration:none}
+</style>
+<style id='global-styles-inline-css'>
+body{--wp--preset--color--black: #000000;--wp--preset--color--cyan-bluish-gray: #abb8c3;--wp--preset--color--white: #ffffff;--wp--preset--color--pale-pink: #f78da7;--wp--preset--color--vivid-red: #cf2e2e;--wp--preset--color--luminous-vivid-orange: #ff6900;--wp--preset--color--luminous-vivid-amber: #fcb900;--wp--preset--color--light-green-cyan: #7bdcb5;--wp--preset--color--vivid-green-cyan: #00d084;--wp--preset--color--pale-cyan-blue: #8ed1fc;--wp--preset--color--vivid-cyan-blue: #0693e3;--wp--preset--color--vivid-purple: #9b51e0;--wp--preset--color--contrast: var(--contrast);--wp--preset--color--contrast-2: var(--contrast-2);--wp--preset--color--contrast-3: var(--contrast-3);--wp--preset--color--base: var(--base);--wp--preset--color--base-2: var(--base-2);--wp--preset--color--base-3: var(--base-3);--wp--preset--color--accent: var(--accent);--wp--preset--gradient--vivid-cyan-blue-to-vivid-purple: linear-gradient(135deg,rgba(6,147,227,1) 0%,rgb(155,81,224) 100%);--wp--preset--gradient--light-green-cyan-to-vivid-green-cyan: linear-gradient(135deg,rgb(122,220,180) 0%,rgb(0,208,130) 100%);--wp--preset--gradient--luminous-vivid-amber-to-luminous-vivid-orange: linear-gradient(135deg,rgba(252,185,0,1) 0%,rgba(255,105,0,1) 100%);--wp--preset--gradient--luminous-vivid-orange-to-vivid-red: linear-gradient(135deg,rgba(255,105,0,1) 0%,rgb(207,46,46) 100%);--wp--preset--gradient--very-light-gray-to-cyan-bluish-gray: linear-gradient(135deg,rgb(238,238,238) 0%,rgb(169,184,195) 100%);--wp--preset--gradient--cool-to-warm-spectrum: linear-gradient(135deg,rgb(74,234,220) 0%,rgb(151,120,209) 20%,rgb(207,42,186) 40%,rgb(238,44,130) 60%,rgb(251,105,98) 80%,rgb(254,248,76) 100%);--wp--preset--gradient--blush-light-purple: linear-gradient(135deg,rgb(255,206,236) 0%,rgb(152,150,240) 100%);--wp--preset--gradient--blush-bordeaux: linear-gradient(135deg,rgb(254,205,165) 0%,rgb(254,45,45) 50%,rgb(107,0,62) 100%);--wp--preset--gradient--luminous-dusk: linear-gradient(135deg,rgb(255,203,112) 0%,rgb(199,81,192) 50%,rgb(65,88,208) 100%);--wp--preset--gradient--pale-ocean: linear-gradient(135deg,rgb(255,245,203) 0%,rgb(182,227,212) 50%,rgb(51,167,181) 100%);--wp--preset--gradient--electric-grass: linear-gradient(135deg,rgb(202,248,128) 0%,rgb(113,206,126) 100%);--wp--preset--gradient--midnight: linear-gradient(135deg,rgb(2,3,129) 0%,rgb(40,116,252) 100%);--wp--preset--font-size--small: 13px;--wp--preset--font-size--medium: 20px;--wp--preset--font-size--large: 36px;--wp--preset--font-size--x-large: 42px;--wp--preset--spacing--20: 0.44rem;--wp--preset--spacing--30: 0.67rem;--wp--preset--spacing--40: 1rem;--wp--preset--spacing--50: 1.5rem;--wp--preset--spacing--60: 2.25rem;--wp--preset--spacing--70: 3.38rem;--wp--preset--spacing--80: 5.06rem;--wp--preset--shadow--natural: 6px 6px 9px rgba(0, 0, 0, 0.2);--wp--preset--shadow--deep: 12px 12px 50px rgba(0, 0, 0, 0.4);--wp--preset--shadow--sharp: 6px 6px 0px rgba(0, 0, 0, 0.2);--wp--preset--shadow--outlined: 6px 6px 0px -3px rgba(255, 255, 255, 1), 6px 6px rgba(0, 0, 0, 1);--wp--preset--shadow--crisp: 6px 6px 0px rgba(0, 0, 0, 1);}:where(.is-layout-flex){gap: 0.5em;}:where(.is-layout-grid){gap: 0.5em;}body .is-layout-flow > .alignleft{float: left;margin-inline-start: 0;margin-inline-end: 2em;}body .is-layout-flow > .alignright{float: right;margin-inline-start: 2em;margin-inline-end: 0;}body .is-layout-flow > .aligncenter{margin-left: auto !important;margin-right: auto !important;}body .is-layout-constrained > .alignleft{float: left;margin-inline-start: 0;margin-inline-end: 2em;}body .is-layout-constrained > .alignright{float: right;margin-inline-start: 2em;margin-inline-end: 0;}body .is-layout-constrained > .aligncenter{margin-left: auto !important;margin-right: auto !important;}body .is-layout-constrained > :where(:not(.alignleft):not(.alignright):not(.alignfull)){max-width: var(--wp--style--global--content-size);margin-left: auto !important;margin-right: auto !important;}body .is-layout-constrained > .alignwide{max-width: var(--wp--style--global--wide-size);}body .is-layout-flex{display: flex;}body .is-layout-flex{flex-wrap: wrap;align-items: center;}body .is-layout-flex > *{margin: 0;}body .is-layout-grid{display: grid;}body .is-layout-grid > *{margin: 0;}:where(.wp-block-columns.is-layout-flex){gap: 2em;}:where(.wp-block-columns.is-layout-grid){gap: 2em;}:where(.wp-block-post-template.is-layout-flex){gap: 1.25em;}:where(.wp-block-post-template.is-layout-grid){gap: 1.25em;}.has-black-color{color: var(--wp--preset--color--black) !important;}.has-cyan-bluish-gray-color{color: var(--wp--preset--color--cyan-bluish-gray) !important;}.has-white-color{color: var(--wp--preset--color--white) !important;}.has-pale-pink-color{color: var(--wp--preset--color--pale-pink) !important;}.has-vivid-red-color{color: var(--wp--preset--color--vivid-red) !important;}.has-luminous-vivid-orange-color{color: var(--wp--preset--color--luminous-vivid-orange) !important;}.has-luminous-vivid-amber-color{color: var(--wp--preset--color--luminous-vivid-amber) !important;}.has-light-green-cyan-color{color: var(--wp--preset--color--light-green-cyan) !important;}.has-vivid-green-cyan-color{color: var(--wp--preset--color--vivid-green-cyan) !important;}.has-pale-cyan-blue-color{color: var(--wp--preset--color--pale-cyan-blue) !important;}.has-vivid-cyan-blue-color{color: var(--wp--preset--color--vivid-cyan-blue) !important;}.has-vivid-purple-color{color: var(--wp--preset--color--vivid-purple) !important;}.has-black-background-color{background-color: var(--wp--preset--color--black) !important;}.has-cyan-bluish-gray-background-color{background-color: var(--wp--preset--color--cyan-bluish-gray) !important;}.has-white-background-color{background-color: var(--wp--preset--color--white) !important;}.has-pale-pink-background-color{background-color: var(--wp--preset--color--pale-pink) !important;}.has-vivid-red-background-color{background-color: var(--wp--preset--color--vivid-red) !important;}.has-luminous-vivid-orange-background-color{background-color: var(--wp--preset--color--luminous-vivid-orange) !important;}.has-luminous-vivid-amber-background-color{background-color: var(--wp--preset--color--luminous-vivid-amber) !important;}.has-light-green-cyan-background-color{background-color: var(--wp--preset--color--light-green-cyan) !important;}.has-vivid-green-cyan-background-color{background-color: var(--wp--preset--color--vivid-green-cyan) !important;}.has-pale-cyan-blue-background-color{background-color: var(--wp--preset--color--pale-cyan-blue) !important;}.has-vivid-cyan-blue-background-color{background-color: var(--wp--preset--color--vivid-cyan-blue) !important;}.has-vivid-purple-background-color{background-color: var(--wp--preset--color--vivid-purple) !important;}.has-black-border-color{border-color: var(--wp--preset--color--black) !important;}.has-cyan-bluish-gray-border-color{border-color: var(--wp--preset--color--cyan-bluish-gray) !important;}.has-white-border-color{border-color: var(--wp--preset--color--white) !important;}.has-pale-pink-border-color{border-color: var(--wp--preset--color--pale-pink) !important;}.has-vivid-red-border-color{border-color: var(--wp--preset--color--vivid-red) !important;}.has-luminous-vivid-orange-border-color{border-color: var(--wp--preset--color--luminous-vivid-orange) !important;}.has-luminous-vivid-amber-border-color{border-color: var(--wp--preset--color--luminous-vivid-amber) !important;}.has-light-green-cyan-border-color{border-color: var(--wp--preset--color--light-green-cyan) !important;}.has-vivid-green-cyan-border-color{border-color: var(--wp--preset--color--vivid-green-cyan) !important;}.has-pale-cyan-blue-border-color{border-color: var(--wp--preset--color--pale-cyan-blue) !important;}.has-vivid-cyan-blue-border-color{border-color: var(--wp--preset--color--vivid-cyan-blue) !important;}.has-vivid-purple-border-color{border-color: var(--wp--preset--color--vivid-purple) !important;}.has-vivid-cyan-blue-to-vivid-purple-gradient-background{background: var(--wp--preset--gradient--vivid-cyan-blue-to-vivid-purple) !important;}.has-light-green-cyan-to-vivid-green-cyan-gradient-background{background: var(--wp--preset--gradient--light-green-cyan-to-vivid-green-cyan) !important;}.has-luminous-vivid-amber-to-luminous-vivid-orange-gradient-background{background: var(--wp--preset--gradient--luminous-vivid-amber-to-luminous-vivid-orange) !important;}.has-luminous-vivid-orange-to-vivid-red-gradient-background{background: var(--wp--preset--gradient--luminous-vivid-orange-to-vivid-red) !important;}.has-very-light-gray-to-cyan-bluish-gray-gradient-background{background: var(--wp--preset--gradient--very-light-gray-to-cyan-bluish-gray) !important;}.has-cool-to-warm-spectrum-gradient-background{background: var(--wp--preset--gradient--cool-to-warm-spectrum) !important;}.has-blush-light-purple-gradient-background{background: var(--wp--preset--gradient--blush-light-purple) !important;}.has-blush-bordeaux-gradient-background{background: var(--wp--preset--gradient--blush-bordeaux) !important;}.has-luminous-dusk-gradient-background{background: var(--wp--preset--gradient--luminous-dusk) !important;}.has-pale-ocean-gradient-background{background: var(--wp--preset--gradient--pale-ocean) !important;}.has-electric-grass-gradient-background{background: var(--wp--preset--gradient--electric-grass) !important;}.has-midnight-gradient-background{background: var(--wp--preset--gradient--midnight) !important;}.has-small-font-size{font-size: var(--wp--preset--font-size--small) !important;}.has-medium-font-size{font-size: var(--wp--preset--font-size--medium) !important;}.has-large-font-size{font-size: var(--wp--preset--font-size--large) !important;}.has-x-large-font-size{font-size: var(--wp--preset--font-size--x-large) !important;}
+.wp-block-navigation a:where(:not(.wp-element-button)){color: inherit;}
+:where(.wp-block-post-template.is-layout-flex){gap: 1.25em;}:where(.wp-block-post-template.is-layout-grid){gap: 1.25em;}
+:where(.wp-block-columns.is-layout-flex){gap: 2em;}:where(.wp-block-columns.is-layout-grid){gap: 2em;}
+.wp-block-pullquote{font-size: 1.5em;line-height: 1.6;}
+</style>
+<link rel='stylesheet' id='crp-style-text-only-css' href='https://www.credoaction.com/wp-content/plugins/contextual-related-posts/css/text-only.min.css?ver=3.4.1' media='all' />
+<link data-minify="1" rel='stylesheet' id='c4wp-public-css' href='https://www.credoaction.com/wp-content/cache/min/1/wp-content/plugins/wp-captcha/assets/css/c4wp-public.css?ver=1696890048' media='all' />
+<link rel='stylesheet' id='generate-widget-areas-css' href='https://www.credoaction.com/wp-content/themes/generatepress/assets/css/components/widget-areas.min.css?ver=3.3.1' media='all' />
+<link rel='stylesheet' id='generate-style-css' href='https://www.credoaction.com/wp-content/themes/generatepress/assets/css/main.min.css?ver=3.3.1' media='all' />
+<style id='generate-style-inline-css'>
+#nav-below {display:none;}
+.generate-columns {margin-bottom: 30px;padding-left: 30px;}.generate-columns-container {margin-left: -30px;}.page-header {margin-bottom: 30px;margin-left: 30px}.generate-columns-container > .paging-navigation {margin-left: 30px;}
+body{background-color:#fbfbfb;color:#3a3a3a;}a{color:#c20135;}a:hover, a:focus, a:active{color:#000000;}.grid-container{max-width:1170px;}.wp-block-group__inner-container{max-width:1170px;margin-left:auto;margin-right:auto;}.site-header .header-image{width:280px;}.navigation-search{position:absolute;left:-99999px;pointer-events:none;visibility:hidden;z-index:20;width:100%;top:0;transition:opacity 100ms ease-in-out;opacity:0;}.navigation-search.nav-search-active{left:0;right:0;pointer-events:auto;visibility:visible;opacity:1;}.navigation-search input[type="search"]{outline:0;border:0;vertical-align:bottom;line-height:1;opacity:0.9;width:100%;z-index:20;border-radius:0;-webkit-appearance:none;height:60px;}.navigation-search input::-ms-clear{display:none;width:0;height:0;}.navigation-search input::-ms-reveal{display:none;width:0;height:0;}.navigation-search input::-webkit-search-decoration, .navigation-search input::-webkit-search-cancel-button, .navigation-search input::-webkit-search-results-button, .navigation-search input::-webkit-search-results-decoration{display:none;}.gen-sidebar-nav .navigation-search{top:auto;bottom:0;}:root{--contrast:#222222;--contrast-2:#575760;--contrast-3:#b2b2be;--base:#f0f0f0;--base-2:#f7f8f9;--base-3:#ffffff;--accent:#1e73be;}:root .has-contrast-color{color:var(--contrast);}:root .has-contrast-background-color{background-color:var(--contrast);}:root .has-contrast-2-color{color:var(--contrast-2);}:root .has-contrast-2-background-color{background-color:var(--contrast-2);}:root .has-contrast-3-color{color:var(--contrast-3);}:root .has-contrast-3-background-color{background-color:var(--contrast-3);}:root .has-base-color{color:var(--base);}:root .has-base-background-color{background-color:var(--base);}:root .has-base-2-color{color:var(--base-2);}:root .has-base-2-background-color{background-color:var(--base-2);}:root .has-base-3-color{color:var(--base-3);}:root .has-base-3-background-color{background-color:var(--base-3);}:root .has-accent-color{color:var(--accent);}:root .has-accent-background-color{background-color:var(--accent);}body, button, input, select, textarea{font-family:Lato, sans-serif;font-weight:300;font-size:17px;}body{line-height:1.6;}.main-title{text-transform:uppercase;font-size:29px;}.main-navigation a, .main-navigation .menu-toggle, .main-navigation .menu-bar-items{font-weight:300;text-transform:uppercase;font-size:16px;}.widget-title{font-family:Lato, sans-serif;font-weight:500;text-transform:uppercase;font-size:20px;}button:not(.menu-toggle),html input[type="button"],input[type="reset"],input[type="submit"],.button,.wp-block-button .wp-block-button__link{font-weight:500;text-transform:uppercase;font-size:14px;}h1{font-family:Playfair Display, serif;font-size:50px;}h2{font-family:Playfair Display, serif;font-size:30px;}h3{font-family:Playfair Display, serif;font-size:24px;}h4{font-weight:700;font-size:18px;}.top-bar{background-color:#000000;color:#ffffff;}.top-bar a{color:#ffffff;}.top-bar a:hover{color:#303030;}.site-header{background-color:rgba(255,255,255,0);color:#3a3a3a;}.site-header a{color:#3a3a3a;}.main-title a,.main-title a:hover{color:#222222;}.site-description{color:#757575;}.mobile-menu-control-wrapper .menu-toggle,.mobile-menu-control-wrapper .menu-toggle:hover,.mobile-menu-control-wrapper .menu-toggle:focus,.has-inline-mobile-toggle #site-navigation.toggled{background-color:rgba(0, 0, 0, 0.02);}.main-navigation,.main-navigation ul ul{background-color:rgba(255,255,255,0);}.main-navigation .main-nav ul li a, .main-navigation .menu-toggle, .main-navigation .menu-bar-items{color:#3a3a3a;}.main-navigation .main-nav ul li:not([class*="current-menu-"]):hover > a, .main-navigation .main-nav ul li:not([class*="current-menu-"]):focus > a, .main-navigation .main-nav ul li.sfHover:not([class*="current-menu-"]) > a, .main-navigation .menu-bar-item:hover > a, .main-navigation .menu-bar-item.sfHover > a{color:#3a3a3a;background-color:rgba(255,84,129,0);}button.menu-toggle:hover,button.menu-toggle:focus{color:#3a3a3a;}.main-navigation .main-nav ul li[class*="current-menu-"] > a{color:#3a3a3a;background-color:rgba(63,63,63,0);}.navigation-search input[type="search"],.navigation-search input[type="search"]:active, .navigation-search input[type="search"]:focus, .main-navigation .main-nav ul li.search-item.active > a, .main-navigation .menu-bar-items .search-item.active > a{color:#3a3a3a;background-color:rgba(255,84,129,0);}.main-navigation ul ul{background-color:#3a3a3a;}.main-navigation .main-nav ul ul li a{color:#515151;}.main-navigation .main-nav ul ul li:not([class*="current-menu-"]):hover > a,.main-navigation .main-nav ul ul li:not([class*="current-menu-"]):focus > a, .main-navigation .main-nav ul ul li.sfHover:not([class*="current-menu-"]) > a{color:#7a8896;background-color:#4f4f4f;}.main-navigation .main-nav ul ul li[class*="current-menu-"] > a{color:#8f919e;background-color:#4f4f4f;}.separate-containers .inside-article, .separate-containers .comments-area, .separate-containers .page-header, .one-container .container, .separate-containers .paging-navigation, .inside-page-header{background-color:#fbfbfb;}.entry-title a{color:#000000;}.entry-title a:hover{color:#000000;}.entry-meta{color:#595959;}.entry-meta a{color:#595959;}.entry-meta a:hover{color:#222222;}h2{color:#222222;}.sidebar .widget{background-color:#f4f6f7;}.sidebar .widget .widget-title{color:#3a3a3a;}.footer-widgets{color:#3a3a3a;background-color:rgba(0,0,0,0);}.footer-widgets a{color:#c20135;}.footer-widgets a:hover{color:#222222;}.footer-widgets .widget-title{color:#c20135;}.site-info{color:#c20135;background-color:rgba(34,34,34,0);}.site-info a{color:#0a0a0a;}.site-info a:hover{color:#606060;}.footer-bar .widget_nav_menu .current-menu-item a{color:#606060;}input[type="text"],input[type="email"],input[type="url"],input[type="password"],input[type="search"],input[type="tel"],input[type="number"],textarea,select{color:#666666;background-color:#fafafa;border-color:#cccccc;}input[type="text"]:focus,input[type="email"]:focus,input[type="url"]:focus,input[type="password"]:focus,input[type="search"]:focus,input[type="tel"]:focus,input[type="number"]:focus,textarea:focus,select:focus{color:#666666;background-color:#ffffff;border-color:#bfbfbf;}button,html input[type="button"],input[type="reset"],input[type="submit"],a.button,a.wp-block-button__link:not(.has-background){color:#ffffff;background-color:#c20135;}button:hover,html input[type="button"]:hover,input[type="reset"]:hover,input[type="submit"]:hover,a.button:hover,button:focus,html input[type="button"]:focus,input[type="reset"]:focus,input[type="submit"]:focus,a.button:focus,a.wp-block-button__link:not(.has-background):active,a.wp-block-button__link:not(.has-background):focus,a.wp-block-button__link:not(.has-background):hover{color:#b5005a;background-color:#ffffff;}a.generate-back-to-top{background-color:rgba( 0,0,0,0.4 );color:#ffffff;}a.generate-back-to-top:hover,a.generate-back-to-top:focus{background-color:rgba( 0,0,0,0.6 );color:#ffffff;}:root{--gp-search-modal-bg-color:var(--base-3);--gp-search-modal-text-color:var(--contrast);--gp-search-modal-overlay-bg-color:rgba(0,0,0,0.2);}@media (max-width: 768px){.main-navigation .menu-bar-item:hover > a, .main-navigation .menu-bar-item.sfHover > a{background:none;color:#3a3a3a;}}.inside-top-bar{padding:10px;}.inside-top-bar.grid-container{max-width:1190px;}.inside-header{padding:20px 10px 20px 10px;}.inside-header.grid-container{max-width:1190px;}.separate-containers .inside-article, .separate-containers .comments-area, .separate-containers .page-header, .separate-containers .paging-navigation, .one-container .site-content, .inside-page-header{padding:0px 0px 60px 0px;}.site-main .wp-block-group__inner-container{padding:0px 0px 60px 0px;}.separate-containers .paging-navigation{padding-top:20px;padding-bottom:20px;}.entry-content .alignwide, body:not(.no-sidebar) .entry-content .alignfull{margin-left:-0px;width:calc(100% + 0px);max-width:calc(100% + 0px);}.one-container.right-sidebar .site-main,.one-container.both-right .site-main{margin-right:0px;}.one-container.left-sidebar .site-main,.one-container.both-left .site-main{margin-left:0px;}.one-container.both-sidebars .site-main{margin:0px;}.sidebar .widget, .page-header, .widget-area .main-navigation, .site-main > *{margin-bottom:30px;}.separate-containers .site-main{margin:30px;}.both-right .inside-left-sidebar,.both-left .inside-left-sidebar{margin-right:15px;}.both-right .inside-right-sidebar,.both-left .inside-right-sidebar{margin-left:15px;}.one-container.archive .post:not(:last-child):not(.is-loop-template-item), .one-container.blog .post:not(:last-child):not(.is-loop-template-item){padding-bottom:60px;}.separate-containers .featured-image{margin-top:30px;}.separate-containers .inside-right-sidebar, .separate-containers .inside-left-sidebar{margin-top:30px;margin-bottom:30px;}.main-navigation .main-nav ul li a,.menu-toggle,.main-navigation .menu-bar-item > a{line-height:50px;}.navigation-search input[type="search"]{height:50px;}.rtl .menu-item-has-children .dropdown-menu-toggle{padding-left:20px;}.rtl .main-navigation .main-nav ul li.menu-item-has-children > a{padding-right:20px;}.widget-area .widget{padding:15px;}.footer-widgets-container.grid-container{max-width:1250px;}.inside-site-info{padding:20px;}.inside-site-info.grid-container{max-width:1210px;}@media (max-width:768px){.separate-containers .inside-article, .separate-containers .comments-area, .separate-containers .page-header, .separate-containers .paging-navigation, .one-container .site-content, .inside-page-header{padding:20px;}.site-main .wp-block-group__inner-container{padding:20px;}.inside-site-info{padding-right:10px;padding-left:10px;}.entry-content .alignwide, body:not(.no-sidebar) .entry-content .alignfull{margin-left:-20px;width:calc(100% + 40px);max-width:calc(100% + 40px);}.one-container .site-main .paging-navigation{margin-bottom:30px;}}/* End cached CSS */.is-right-sidebar{width:25%;}.is-left-sidebar{width:25%;}.site-content .content-area{width:75%;}@media (max-width: 768px){.main-navigation .menu-toggle,.sidebar-nav-mobile:not(#sticky-placeholder){display:block;}.main-navigation ul,.gen-sidebar-nav,.main-navigation:not(.slideout-navigation):not(.toggled) .main-nav > ul,.has-inline-mobile-toggle #site-navigation .inside-navigation > *:not(.navigation-search):not(.main-nav){display:none;}.nav-align-right .inside-navigation,.nav-align-center .inside-navigation{justify-content:space-between;}}
+.dynamic-author-image-rounded{border-radius:100%;}.dynamic-featured-image, .dynamic-author-image{vertical-align:middle;}.one-container.blog .dynamic-content-template:not(:last-child), .one-container.archive .dynamic-content-template:not(:last-child){padding-bottom:0px;}.dynamic-entry-excerpt > p:last-child{margin-bottom:0px;}
+</style>
+
+<link rel='stylesheet' id='generate-blog-css' href='https://www.credoaction.com/wp-content/plugins/gp-premium/blog/functions/css/style.min.css?ver=2.2.0' media='all' />
+<link rel='stylesheet' id='generate-offside-css' href='https://www.credoaction.com/wp-content/plugins/gp-premium/menu-plus/functions/css/offside.min.css?ver=2.2.0' media='all' />
+<style id='generate-offside-inline-css'>
+.slideout-navigation.main-navigation{background-color:#fbfbfb;}.slideout-navigation.main-navigation .main-nav ul li a{color:#3a3a3a;}.slideout-navigation.main-navigation .main-nav ul li:not([class*="current-menu-"]):hover > a, .slideout-navigation.main-navigation .main-nav ul li:not([class*="current-menu-"]):focus > a, .slideout-navigation.main-navigation .main-nav ul li.sfHover:not([class*="current-menu-"]) > a{color:#fbfbfb;background-color:#3a3a3c;}.slideout-navigation.main-navigation .main-nav ul li[class*="current-menu-"] > a{color:#fbfbfb;background-color:#3a3a3c;}.slideout-navigation, .slideout-navigation a{color:#3a3a3a;}.slideout-navigation button.slideout-exit{color:#3a3a3a;padding-left:20px;padding-right:20px;}.slide-opened nav.toggled .menu-toggle:before{display:none;}@media (max-width: 768px){.menu-bar-item.slideout-toggle{display:none;}}
+</style>
+<style id='rocket-lazyload-inline-css'>
+.rll-youtube-player{position:relative;padding-bottom:56.23%;height:0;overflow:hidden;max-width:100%;}.rll-youtube-player:focus-within{outline: 2px solid currentColor;outline-offset: 5px;}.rll-youtube-player iframe{position:absolute;top:0;left:0;width:100%;height:100%;z-index:100;background:0 0}.rll-youtube-player img{bottom:0;display:block;left:0;margin:auto;max-width:100%;width:100%;position:absolute;right:0;top:0;border:none;height:auto;-webkit-transition:.4s all;-moz-transition:.4s all;transition:.4s all}.rll-youtube-player img:hover{-webkit-filter:brightness(75%)}.rll-youtube-player .play{height:100%;width:100%;left:0;top:0;position:absolute;background:url(https://www.credoaction.com/wp-content/plugins/wp-rocket/assets/img/youtube.png) no-repeat center;background-color: transparent !important;cursor:pointer;border:none;}.wp-embed-responsive .wp-has-aspect-ratio .rll-youtube-player{position:absolute;padding-bottom:0;width:100%;height:100%;top:0;bottom:0;left:0;right:0}
+</style>
+<script type="rocketlazyloadscript" data-minify="1" data-rocket-src="https://www.credoaction.com/wp-content/cache/min/1/wp-content/plugins/stop-user-enumeration/frontend/js/frontend.js?ver=1683207948" id="stop-user-enumeration-js" defer></script>
+<script type="rocketlazyloadscript" data-rocket-src="https://www.credoaction.com/wp-includes/js/jquery/jquery.min.js?ver=3.7.1" id="jquery-core-js" defer></script>
+<script type="rocketlazyloadscript" data-rocket-src="https://www.credoaction.com/wp-includes/js/jquery/jquery-migrate.min.js?ver=3.4.1" id="jquery-migrate-js" defer></script>
+<script type="rocketlazyloadscript" data-minify="1" data-rocket-src="https://www.credoaction.com/wp-content/cache/min/1/wp-content/plugins/wp-captcha/assets/js/c4wp-public.js?ver=1683207948" id="c4wp-public-js" defer></script>
+<link rel="https://api.w.org/" href="https://www.credoaction.com/wp-json/" /><link rel="EditURI" type="application/rsd+xml" title="RSD" href="https://www.credoaction.com/xmlrpc.php?rsd" />
+<meta name="generator" content="WordPress 6.4.1" />
+<link rel="icon" href="https://www.credoaction.com/wp-content/uploads/2022/11/credoaction.com-favicon-20221107121059-150x150.png" sizes="32x32" />
+<link rel="icon" href="https://www.credoaction.com/wp-content/uploads/2022/11/credoaction.com-favicon-20221107121059-300x300.png" sizes="192x192" />
+<link rel="apple-touch-icon" href="https://www.credoaction.com/wp-content/uploads/2022/11/credoaction.com-favicon-20221107121059-300x300.png" />
+<meta name="msapplication-TileImage" content="https://www.credoaction.com/wp-content/uploads/2022/11/credoaction.com-favicon-20221107121059-300x300.png" />
+		<style id="wp-custom-css">
+			/* GeneratePress Site CSS */ /* Colors */
+.main-navigation ul li:after {
+    background-color: #000;
+}
+
+.main-navigation .inside-navigation {
+    border-top: 0.5px solid #d4d7d8;
+}
+
+.wpsp-card, .wpsp-card a, .wpsp-card .wp-show-posts-meta a, .wpsp-card .wp-show-posts-meta a:visited {
+    color: #fff;
+}
+.navigation-search.nav-search-active {
+	background-color: rgba(255,255,255,0.95);
+	top: 100%;
+}
+
+/* Theme Global */
+@media (min-width: 769px) {
+    body {
+        margin: 0 30px;
+    }
+}
+
+body.single-post.no-sidebar .site-content {
+    max-width: 720px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+/* Navigation */
+.second-nav.grid-container {
+    padding: 0;
+}
+
+@media (min-width: 769px) {
+    .main-navigation ul li {
+        position: relative;
+    }
+
+    .main-navigation ul li:after {
+        content: '';
+        position: absolute;
+        height: 0;
+        width: 100%;
+        bottom: 0;
+        left: 0;
+        pointer-events: none;
+        filter: hue-rotation(90deg);
+        -webkit-filter: hue-rotation(90deg);
+        -webkit-transition: height 0.35s ease;
+        transition: height 0.35s ease;
+    }
+
+    .main-navigation ul li:hover:after, .main-navigation ul li.current-menu-item:after {
+        height: 6px;
+    }
+}
+
+/* Widgets */
+.widget-title {
+    margin: 1em 0;
+    font-size: 0.8em !Important;
+}
+
+.widget .wp-show-posts article {
+    margin-bottom: 0.5em !important;
+}
+
+.zero-padding {
+    padding: 0 !important;
+}
+
+.widget.no-background {
+    background-color: transparent;
+}
+
+/* Buttons */
+button, html input[type="button"], input[type="reset"], input[type="submit"], a.button, a.button:visited, a.wp-block-button__link:not(.has-background) {
+    pointer-events: initial !important;
+    border-color: inherit;
+    border: 1px solid;
+}
+
+/* Blog */
+.generate-columns .inside-article {
+    padding: 0 0 15px;
+}
+
+@media (max-width: 768px) {
+    .generate-columns .inside-article>*:not(.post-image) {
+        padding: 0 15px;
+    }
+}
+
+.generate-columns-container article .inside-article .post-image {
+    margin-bottom: 0.5em;
+}
+
+.generate-columns-container article .inside-article .entry-summary {
+    margin-top: 0.5em;
+    font-size: 0.8em;
+}
+
+.generate-columns-container article .entry-header, .wp-show-posts-entry-header {
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-orient: vertical;
+    -webkit-box-direction: reverse;
+    -ms-flex-direction: column-reverse;
+    flex-direction: column-reverse;
+}
+
+@media (min-width: 768px) {
+.generate-columns-container article .entry-header .entry-title, .wp-show-posts article .wp-show-posts-entry-title {
+    line-height: 2.5ex;
+    height: 5ex;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+}
+
+.wp-show-posts .wp-show-posts-inner {
+    overflow: hidden;
+}
+
+@media (min-width: 420px) {
+.wpsp-align .wp-show-posts-image {
+    margin-bottom: 0;
+}
+}
+.wpsp-align .wp-show-posts-image a, .wpsp-align .wp-show-posts-image img {
+    height: 100%;
+}
+
+.generate-columns-container article .inside-article img, .wp-show-posts-image img {
+    -o-object-fit: cover !important;
+    object-fit: cover !important;
+}
+
+/* WPSP Grids */
+/* Single column align side image */
+/* Add wpsp-align class to to WPSP List shortcode wrapper */
+@media (min-width: 420px) {
+    .wpsp-align .wp-show-posts-inner {
+        display: -webkit-box;
+        display: -ms-flexbox;
+        display: flex;
+    }
+
+    .wpsp-align .wp-show-posts-inner>div {
+        -webkit-box-flex: 1;
+        -ms-flex: 1;
+        flex: 1;
+        display: -webkit-box;
+        display: -ms-flexbox;
+        display: flex;
+        -webkit-box-orient: vertical;
+        -webkit-box-direction: normal;
+        -ms-flex-direction: column;
+        flex-direction: column;
+        -webkit-box-pack: center;
+        -ms-flex-pack: center;
+        justify-content: center;
+    }
+}
+
+@media (max-width: 768px) and (min-width: 420px) {
+    .wpsp-align .wp-show-posts-inner .wp-show-posts-image {
+        margin-right: 1.5em;
+    }
+}
+
+/* magazine Grid Golden Ratio 5 block standard */
+/* Add wpsp-grid class to WPSP List shortcode wrapper */
+@media (min-width: 600px) {
+    .wpsp-grid .wp-show-posts {
+        display: grid;
+    }
+}
+
+@media (min-width: 900px) {
+    .wpsp-grid .wp-show-posts {
+        grid-template-columns: repeat(8, 1fr);
+        grid-template-rows: 1fr auto;
+    }
+
+    .wpsp-grid .wp-show-posts article:first-child {
+        grid-column: 1 / 5;
+        grid-row: 1 / 4;
+    }
+
+    .wpsp-grid .wp-show-posts article:nth-child(2) {
+        grid-column: 5 / end;
+        grid-row: 1 / 2;
+    }
+
+    .wpsp-grid .wp-show-posts article:nth-child(3) {
+        grid-column: 5 / 7;
+        grid-row: 2 / 4;
+    }
+
+    .wpsp-grid .wp-show-posts article:nth-child(4) {
+        grid-column: 7 / end;
+        grid-row: 2 / 4;
+    }
+}
+
+@media (max-width: 899px) and (min-width: 600px) {
+    .wpsp-grid .wp-show-posts article {
+        grid-column: span 4;
+    }
+
+    .wpsp-grid .wp-show-posts article:nth-child(3), .wpsp-grid .wp-show-posts article:nth-child(4) {
+        grid-row: 3;
+        grid-column: span 2;
+    }
+}
+
+.wpsp-grid article:not(:first-child) .wp-show-posts-image a img {
+    height: 250px;
+    width: 100%;
+    -o-object-fit: cover;
+    object-fit: cover;
+}
+
+.wpsp-grid article:first-child .wp-show-posts-image a img {
+    height: 500px;
+    width: 100%;
+    -o-object-fit: cover;
+    object-fit: cover;
+}
+
+.wpsp-grid article:not(:first-child) .wp-show-posts-entry-summary, .wpsp-grid article:not(:first-child) .wp-show-posts-entry-meta-below-post, .wpsp-grid article:not(:first-child) .wpsp-read-more {
+    display: none;
+}
+
+/* WPSP Card Styling */
+/* Add wpsp-card class to WPSP List shortcode wrapper */
+.wpsp-card .wp-show-posts-meta a, .wpsp-card .wp-show-posts-meta a:visited {
+    font-size: 1em;
+    font-weight: 500;
+    text-transform: uppercase;
+}
+
+:not(.widget).wpsp-card .wp-show-posts article, .wpsp-card .wp-show-posts-image {
+    margin-bottom: 0 !important;
+}
+
+.wpsp-card .wp-show-posts-inner {
+    position: relative;
+    -webkit-box-sizing: border-box;
+    box-sizing: border-box;
+}
+
+.wpsp-card .wpsp-content-wrap {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    padding: 5% 8%;
+    -webkit-box-sizing: border-box;
+    box-sizing: border-box;
+    background-color: rgba(0, 0, 0, 0.35);
+    background: -webkit-gradient(linear, left bottom, left top, color-stop(30%, rgba(80, 50, 50, 0.5)), to(rgba(0, 0, 0, 0)));
+    background: linear-gradient(0deg, rgba(80, 50, 50, 0.5) 30%, rgba(0, 0, 0, 0) 100%);
+    pointer-events: none;
+}
+
+.wpsp-card article {
+    position: relative;
+    overflow: hidden;
+}
+
+.wpsp-card article, .wpsp-card article .wp-show-posts-image img {
+    -webkit-backface-visibility: hidden;
+    -webkit-transition: 0.3s all ease;
+    transition: 0.3s all ease;
+}
+
+.wpsp-card article:hover .wp-show-posts-image img {
+    -webkit-transform: scale(1.1);
+    transform: scale(1.1);
+    -webkit-transition: 0.3s all ease;
+    transition: 0.3s all ease;
+}
+
+
+.header-widget .lsi-social-icons li {
+	margin-bottom: 0 !important;
+}
+
+body .happyforms-flex {
+	padding: 0;
+} /* End GeneratePress Site CSS */		</style>
+		<noscript><style id="rocket-lazyload-nojs-css">.rll-youtube-player, [data-lazy-src]{display:none !important;}</style></noscript></head>
+
+<body class="home blog wp-custom-logo wp-embed-responsive post-image-above-header post-image-aligned-center generate-columns-activated infinite-scroll slideout-enabled slideout-mobile sticky-menu-fade right-sidebar nav-below-header separate-containers nav-search-enabled header-aligned-left dropdown-hover" itemtype="https://schema.org/Blog" itemscope>
+	<a class="screen-reader-text skip-link" href="#content" title="Skip to content">Skip to content</a>		<header class="site-header grid-container" id="masthead" aria-label="Site"  itemtype="https://schema.org/WPHeader" itemscope>
+			<div class="inside-header grid-container">
+				<div class="site-logo">
+					<a href="https://www.credoaction.com/" rel="home">
+						<img  class="header-image is-logo-image" alt="Credo Action" src="https://www.credoaction.com/wp-content/uploads/2022/11/cropped-credoaction.com-logo-20221107121059.png" width="500" height="215" />
+					</a>
+				</div>			</div>
+		</header>
+				<nav class="main-navigation grid-container has-menu-bar-items sub-menu-right" id="site-navigation" aria-label="Primary"  itemtype="https://schema.org/SiteNavigationElement" itemscope>
+			<div class="inside-navigation grid-container">
+				<form method="get" class="search-form navigation-search" action="https://www.credoaction.com/">
+					<input type="search" class="search-field" value="" name="s" title="Search" />
+				</form>				<button class="menu-toggle" aria-controls="generate-slideout-menu" aria-expanded="false">
+					<span class="gp-icon icon-menu-bars"><svg viewBox="0 0 512 512" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="1em" height="1em"><path d="M0 96c0-13.255 10.745-24 24-24h464c13.255 0 24 10.745 24 24s-10.745 24-24 24H24c-13.255 0-24-10.745-24-24zm0 160c0-13.255 10.745-24 24-24h464c13.255 0 24 10.745 24 24s-10.745 24-24 24H24c-13.255 0-24-10.745-24-24zm0 160c0-13.255 10.745-24 24-24h464c13.255 0 24 10.745 24 24s-10.745 24-24 24H24c-13.255 0-24-10.745-24-24z" /></svg><svg viewBox="0 0 512 512" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="1em" height="1em"><path d="M71.029 71.029c9.373-9.372 24.569-9.372 33.942 0L256 222.059l151.029-151.03c9.373-9.372 24.569-9.372 33.942 0 9.372 9.373 9.372 24.569 0 33.942L289.941 256l151.03 151.029c9.372 9.373 9.372 24.569 0 33.942-9.373 9.372-24.569 9.372-33.942 0L256 289.941l-151.029 151.03c-9.373 9.372-24.569 9.372-33.942 0-9.372-9.373-9.372-24.569 0-33.942L222.059 256 71.029 104.971c-9.372-9.373-9.372-24.569 0-33.942z" /></svg></span><span class="mobile-menu">Menu</span>				</button>
+						<div id="primary-menu" class="main-nav">
+			<ul class="menu sf-menu">
+							</ul>
+		</div>
+		<div class="menu-bar-items"><span class="menu-bar-item search-item"><a aria-label="Open Search Bar" href="#"><span class="gp-icon icon-search"><svg viewBox="0 0 512 512" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="1em" height="1em"><path fill-rule="evenodd" clip-rule="evenodd" d="M208 48c-88.366 0-160 71.634-160 160s71.634 160 160 160 160-71.634 160-160S296.366 48 208 48zM0 208C0 93.125 93.125 0 208 0s208 93.125 208 208c0 48.741-16.765 93.566-44.843 129.024l133.826 134.018c9.366 9.379 9.355 24.575-.025 33.941-9.379 9.366-24.575 9.355-33.941-.025L337.238 370.987C301.747 399.167 256.839 416 208 416 93.125 416 0 322.875 0 208z" /></svg><svg viewBox="0 0 512 512" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="1em" height="1em"><path d="M71.029 71.029c9.373-9.372 24.569-9.372 33.942 0L256 222.059l151.029-151.03c9.373-9.372 24.569-9.372 33.942 0 9.372 9.373 9.372 24.569 0 33.942L289.941 256l151.03 151.029c9.372 9.373 9.372 24.569 0 33.942-9.373 9.372-24.569 9.372-33.942 0L256 289.941l-151.029 151.03c-9.373 9.372-24.569 9.372-33.942 0-9.372-9.373-9.372-24.569 0-33.942L222.059 256 71.029 104.971c-9.372-9.373-9.372-24.569 0-33.942z" /></svg></span></a></span></div>			</div>
+		</nav>
+		
+	<div class="site grid-container container hfeed" id="page">
+				<div class="site-content" id="content">
+			
+	<div class="content-area" id="primary">
+		<main class="site-main" id="main">
+			<div class="generate-columns-container "><article id="post-197" class="post-197 post type-post status-publish format-standard has-post-thumbnail hentry category-activism tag-change tag-examples tag-grassroots-activism tag-injustices tag-movements tag-rights tag-society tag-textbook infinite-scroll-item generate-columns tablet-grid-50 mobile-grid-100 grid-parent grid-66 featured-column" itemtype="https://schema.org/CreativeWork" itemscope>
+	<div class="inside-article">
+		<div class="post-image">
+						
+						<a href="https://www.credoaction.com/textbook-examples-of-grassroots-activism/">
+							<img width="900" height="540" src="https://www.credoaction.com/wp-content/uploads/2023/06/Examples-Of-Grassroots-Activism-scaled.jpg" class="attachment-full size-full wp-post-image" alt="Examples Of Grassroots Activism" itemprop="image" decoding="async" fetchpriority="high" srcset="https://www.credoaction.com/wp-content/uploads/2023/06/Examples-Of-Grassroots-Activism-scaled.jpg 900w, https://www.credoaction.com/wp-content/uploads/2023/06/Examples-Of-Grassroots-Activism-300x180.jpg 300w, https://www.credoaction.com/wp-content/uploads/2023/06/Examples-Of-Grassroots-Activism-768x461.jpg 768w" sizes="(max-width: 900px) 100vw, 900px" />
+						</a>
+					</div>			<header class="entry-header" aria-label="Content">
+				<h2 class="entry-title" itemprop="headline"><a href="https://www.credoaction.com/textbook-examples-of-grassroots-activism/" rel="bookmark">10 Textbook Examples Of Grassroots Activism &#8211; Revolutionizing Society</a></h2>		<div class="entry-meta">
+			<span class="posted-on"><time class="updated" datetime="2023-08-01T08:44:31+00:00" itemprop="dateModified">August 1, 2023</time><time class="entry-date published" datetime="2023-08-01T05:37:27+00:00" itemprop="datePublished">August 1, 2023</time></span> <span class="byline">by <span class="author vcard" itemprop="author" itemtype="https://schema.org/Person" itemscope><a class="url fn n" href="https://www.credoaction.com/author/stedza-000/" title="View all posts by Frank Thornton" rel="author" itemprop="url"><span class="author-name" itemprop="name">Frank Thornton</span></a></span></span> 		</div>
+					</header>
+			
+			<div class="entry-summary" itemprop="text">
+				<p>You&#8217;ve probably heard the term &#8216;grassroots activism&#8217; thrown around in political conversations or across news headlines, but what does it truly signify? Essentially, grassroots activism &#8230; <a title="10 Textbook Examples Of Grassroots Activism &#8211; Revolutionizing Society" class="read-more" href="https://www.credoaction.com/textbook-examples-of-grassroots-activism/" aria-label="More on 10 Textbook Examples Of Grassroots Activism &#8211; Revolutionizing Society">Read more</a></p>
+			</div>
+
+				<footer class="entry-meta" aria-label="Entry meta">
+			<span class="cat-links"><span class="gp-icon icon-categories"><svg viewBox="0 0 512 512" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="1em" height="1em"><path d="M0 112c0-26.51 21.49-48 48-48h110.014a48 48 0 0143.592 27.907l12.349 26.791A16 16 0 00228.486 128H464c26.51 0 48 21.49 48 48v224c0 26.51-21.49 48-48 48H48c-26.51 0-48-21.49-48-48V112z" /></svg></span><span class="screen-reader-text">Categories </span><a href="https://www.credoaction.com/category/activism/" rel="category tag">Activism</a></span> <span class="tags-links"><span class="gp-icon icon-tags"><svg viewBox="0 0 512 512" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="1em" height="1em"><path d="M20 39.5c-8.836 0-16 7.163-16 16v176c0 4.243 1.686 8.313 4.687 11.314l224 224c6.248 6.248 16.378 6.248 22.626 0l176-176c6.244-6.244 6.25-16.364.013-22.615l-223.5-224A15.999 15.999 0 00196.5 39.5H20zm56 96c0-13.255 10.745-24 24-24s24 10.745 24 24-10.745 24-24 24-24-10.745-24-24z"/><path d="M259.515 43.015c4.686-4.687 12.284-4.687 16.97 0l228 228c4.686 4.686 4.686 12.284 0 16.97l-180 180c-4.686 4.687-12.284 4.687-16.97 0-4.686-4.686-4.686-12.284 0-16.97L479.029 279.5 259.515 59.985c-4.686-4.686-4.686-12.284 0-16.97z" /></svg></span><span class="screen-reader-text">Tags </span><a href="https://www.credoaction.com/tag/change/" rel="tag">Change</a>, <a href="https://www.credoaction.com/tag/examples/" rel="tag">Examples</a>, <a href="https://www.credoaction.com/tag/grassroots-activism/" rel="tag">Grassroots Activism</a>, <a href="https://www.credoaction.com/tag/injustices/" rel="tag">Injustices</a>, <a href="https://www.credoaction.com/tag/movements/" rel="tag">Movements</a>, <a href="https://www.credoaction.com/tag/rights/" rel="tag">Rights</a>, <a href="https://www.credoaction.com/tag/society/" rel="tag">Society</a>, <a href="https://www.credoaction.com/tag/textbook/" rel="tag">Textbook</a></span> 		</footer>
+			</div>
+</article>
+<article id="post-188" class="post-188 post type-post status-publish format-standard has-post-thumbnail hentry category-general tag-active-participation tag-community tag-community-involvement tag-local-area tag-positive-impact tag-stronger-communities infinite-scroll-item generate-columns tablet-grid-50 mobile-grid-100 grid-parent grid-33" itemtype="https://schema.org/CreativeWork" itemscope>
+	<div class="inside-article">
+		<div class="post-image">
+						
+						<a href="https://www.credoaction.com/what-is-community-involvement/">
+							<img width="900" height="564" src="https://www.credoaction.com/wp-content/uploads/2023/06/Community-Involvement-scaled.jpg" class="attachment-full size-full wp-post-image" alt="Community Involvement" itemprop="image" decoding="async" srcset="https://www.credoaction.com/wp-content/uploads/2023/06/Community-Involvement-scaled.jpg 900w, https://www.credoaction.com/wp-content/uploads/2023/06/Community-Involvement-300x188.jpg 300w, https://www.credoaction.com/wp-content/uploads/2023/06/Community-Involvement-768x481.jpg 768w" sizes="(max-width: 900px) 100vw, 900px" />
+						</a>
+					</div>			<header class="entry-header" aria-label="Content">
+				<h2 class="entry-title" itemprop="headline"><a href="https://www.credoaction.com/what-is-community-involvement/" rel="bookmark">The Power of Community Involvement &#8211; Making a Difference in Your Surroundings</a></h2>		<div class="entry-meta">
+			<span class="posted-on"><time class="updated" datetime="2023-07-31T12:50:53+00:00" itemprop="dateModified">July 31, 2023</time><time class="entry-date published" datetime="2023-07-31T09:31:14+00:00" itemprop="datePublished">July 31, 2023</time></span> <span class="byline">by <span class="author vcard" itemprop="author" itemtype="https://schema.org/Person" itemscope><a class="url fn n" href="https://www.credoaction.com/author/aljosa824/" title="View all posts by Henry Camacho" rel="author" itemprop="url"><span class="author-name" itemprop="name">Henry Camacho</span></a></span></span> 		</div>
+					</header>
+			
+			<div class="entry-summary" itemprop="text">
+				<p>Community engagement begins right at your doorstep. Volunteering is a quintessential form of involvement, providing numerous opportunities to connect with and uplift your neighborhood. Nonprofit &#8230; <a title="The Power of Community Involvement &#8211; Making a Difference in Your Surroundings" class="read-more" href="https://www.credoaction.com/what-is-community-involvement/" aria-label="More on The Power of Community Involvement &#8211; Making a Difference in Your Surroundings">Read more</a></p>
+			</div>
+
+				<footer class="entry-meta" aria-label="Entry meta">
+			<span class="cat-links"><span class="gp-icon icon-categories"><svg viewBox="0 0 512 512" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="1em" height="1em"><path d="M0 112c0-26.51 21.49-48 48-48h110.014a48 48 0 0143.592 27.907l12.349 26.791A16 16 0 00228.486 128H464c26.51 0 48 21.49 48 48v224c0 26.51-21.49 48-48 48H48c-26.51 0-48-21.49-48-48V112z" /></svg></span><span class="screen-reader-text">Categories </span><a href="https://www.credoaction.com/category/general/" rel="category tag">General</a></span> <span class="tags-links"><span class="gp-icon icon-tags"><svg viewBox="0 0 512 512" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="1em" height="1em"><path d="M20 39.5c-8.836 0-16 7.163-16 16v176c0 4.243 1.686 8.313 4.687 11.314l224 224c6.248 6.248 16.378 6.248 22.626 0l176-176c6.244-6.244 6.25-16.364.013-22.615l-223.5-224A15.999 15.999 0 00196.5 39.5H20zm56 96c0-13.255 10.745-24 24-24s24 10.745 24 24-10.745 24-24 24-24-10.745-24-24z"/><path d="M259.515 43.015c4.686-4.687 12.284-4.687 16.97 0l228 228c4.686 4.686 4.686 12.284 0 16.97l-180 180c-4.686 4.687-12.284 4.687-16.97 0-4.686-4.686-4.686-12.284 0-16.97L479.029 279.5 259.515 59.985c-4.686-4.686-4.686-12.284 0-16.97z" /></svg></span><span class="screen-reader-text">Tags </span><a href="https://www.credoaction.com/tag/active-participation/" rel="tag">Active Participation</a>, <a href="https://www.credoaction.com/tag/community/" rel="tag">Community</a>, <a href="https://www.credoaction.com/tag/community-involvement/" rel="tag">Community Involvement</a>, <a href="https://www.credoaction.com/tag/local-area/" rel="tag">Local Area</a>, <a href="https://www.credoaction.com/tag/positive-impact/" rel="tag">Positive Impact</a>, <a href="https://www.credoaction.com/tag/stronger-communities/" rel="tag">Stronger Communities</a></span> 		</footer>
+			</div>
+</article>
+<article id="post-194" class="post-194 post type-post status-publish format-standard has-post-thumbnail hentry category-blog tag-argument tag-balance tag-comparison tag-context tag-judicial-activism tag-judicial-restraint infinite-scroll-item generate-columns tablet-grid-50 mobile-grid-100 grid-parent grid-33" itemtype="https://schema.org/CreativeWork" itemscope>
+	<div class="inside-article">
+		<div class="post-image">
+						
+						<a href="https://www.credoaction.com/judicial-activism-vs-judicial-restraint/">
+							<img width="900" height="506" src="https://www.credoaction.com/wp-content/uploads/2023/07/Yellow-World-Day-Of-Social-Justice-Facebook-Post-scaled.jpg" class="attachment-full size-full wp-post-image" alt="dichotomy between judicial activism and judicial restraint" itemprop="image" decoding="async" srcset="https://www.credoaction.com/wp-content/uploads/2023/07/Yellow-World-Day-Of-Social-Justice-Facebook-Post-scaled.jpg 900w, https://www.credoaction.com/wp-content/uploads/2023/07/Yellow-World-Day-Of-Social-Justice-Facebook-Post-300x169.jpg 300w, https://www.credoaction.com/wp-content/uploads/2023/07/Yellow-World-Day-Of-Social-Justice-Facebook-Post-768x432.jpg 768w" sizes="(max-width: 900px) 100vw, 900px" />
+						</a>
+					</div>			<header class="entry-header" aria-label="Content">
+				<h2 class="entry-title" itemprop="headline"><a href="https://www.credoaction.com/judicial-activism-vs-judicial-restraint/" rel="bookmark">Judicial Activism vs Judicial Restraint &#8211; Balancing the Scales</a></h2>		<div class="entry-meta">
+			<span class="posted-on"><time class="updated" datetime="2023-07-31T12:50:57+00:00" itemprop="dateModified">July 31, 2023</time><time class="entry-date published" datetime="2023-07-31T09:14:43+00:00" itemprop="datePublished">July 31, 2023</time></span> <span class="byline">by <span class="author vcard" itemprop="author" itemtype="https://schema.org/Person" itemscope><a class="url fn n" href="https://www.credoaction.com/author/stedza-000/" title="View all posts by Frank Thornton" rel="author" itemprop="url"><span class="author-name" itemprop="name">Frank Thornton</span></a></span></span> 		</div>
+					</header>
+			
+			<div class="entry-summary" itemprop="text">
+				<p>Understanding the dichotomy between judicial activism and judicial restraint is integral to our comprehension of the modern judicial system. As we dissect these contrasting theories, &#8230; <a title="Judicial Activism vs Judicial Restraint &#8211; Balancing the Scales" class="read-more" href="https://www.credoaction.com/judicial-activism-vs-judicial-restraint/" aria-label="More on Judicial Activism vs Judicial Restraint &#8211; Balancing the Scales">Read more</a></p>
+			</div>
+
+				<footer class="entry-meta" aria-label="Entry meta">
+			<span class="cat-links"><span class="gp-icon icon-categories"><svg viewBox="0 0 512 512" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="1em" height="1em"><path d="M0 112c0-26.51 21.49-48 48-48h110.014a48 48 0 0143.592 27.907l12.349 26.791A16 16 0 00228.486 128H464c26.51 0 48 21.49 48 48v224c0 26.51-21.49 48-48 48H48c-26.51 0-48-21.49-48-48V112z" /></svg></span><span class="screen-reader-text">Categories </span><a href="https://www.credoaction.com/category/blog/" rel="category tag">Blog</a></span> <span class="tags-links"><span class="gp-icon icon-tags"><svg viewBox="0 0 512 512" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="1em" height="1em"><path d="M20 39.5c-8.836 0-16 7.163-16 16v176c0 4.243 1.686 8.313 4.687 11.314l224 224c6.248 6.248 16.378 6.248 22.626 0l176-176c6.244-6.244 6.25-16.364.013-22.615l-223.5-224A15.999 15.999 0 00196.5 39.5H20zm56 96c0-13.255 10.745-24 24-24s24 10.745 24 24-10.745 24-24 24-24-10.745-24-24z"/><path d="M259.515 43.015c4.686-4.687 12.284-4.687 16.97 0l228 228c4.686 4.686 4.686 12.284 0 16.97l-180 180c-4.686 4.687-12.284 4.687-16.97 0-4.686-4.686-4.686-12.284 0-16.97L479.029 279.5 259.515 59.985c-4.686-4.686-4.686-12.284 0-16.97z" /></svg></span><span class="screen-reader-text">Tags </span><a href="https://www.credoaction.com/tag/argument/" rel="tag">Argument</a>, <a href="https://www.credoaction.com/tag/balance/" rel="tag">Balance</a>, <a href="https://www.credoaction.com/tag/comparison/" rel="tag">Comparison</a>, <a href="https://www.credoaction.com/tag/context/" rel="tag">Context</a>, <a href="https://www.credoaction.com/tag/judicial-activism/" rel="tag">Judicial Activism</a>, <a href="https://www.credoaction.com/tag/judicial-restraint/" rel="tag">Judicial Restraint</a></span> 		</footer>
+			</div>
+</article>
+<article id="post-145" class="post-145 post type-post status-publish format-standard has-post-thumbnail hentry category-news tag-break-ties tag-gun-violence tag-news tag-nra infinite-scroll-item generate-columns tablet-grid-50 mobile-grid-100 grid-parent grid-33" itemtype="https://schema.org/CreativeWork" itemscope>
+	<div class="inside-article">
+		<div class="post-image">
+						
+						<a href="https://www.credoaction.com/its-time-to-break-ties-with-the-nra/">
+							<img width="900" height="506" src="https://www.credoaction.com/wp-content/uploads/2022/11/Break-Ties-With-The-NRA-scaled.jpg" class="attachment-full size-full wp-post-image" alt="" itemprop="image" decoding="async" loading="lazy" srcset="https://www.credoaction.com/wp-content/uploads/2022/11/Break-Ties-With-The-NRA-scaled.jpg 900w, https://www.credoaction.com/wp-content/uploads/2022/11/Break-Ties-With-The-NRA-300x169.jpg 300w, https://www.credoaction.com/wp-content/uploads/2022/11/Break-Ties-With-The-NRA-768x432.jpg 768w" sizes="(max-width: 900px) 100vw, 900px" />
+						</a>
+					</div>			<header class="entry-header" aria-label="Content">
+				<h2 class="entry-title" itemprop="headline"><a href="https://www.credoaction.com/its-time-to-break-ties-with-the-nra/" rel="bookmark">It’s Time To Break Ties With The NRA</a></h2>		<div class="entry-meta">
+			<span class="posted-on"><time class="entry-date published" datetime="2022-11-09T11:45:50+00:00" itemprop="datePublished">November 9, 2022</time></span> <span class="byline">by <span class="author vcard" itemprop="author" itemtype="https://schema.org/Person" itemscope><a class="url fn n" href="https://www.credoaction.com/author/sandra543/" title="View all posts by Ceara Calderon" rel="author" itemprop="url"><span class="author-name" itemprop="name">Ceara Calderon</span></a></span></span> 		</div>
+					</header>
+			
+			<div class="entry-summary" itemprop="text">
+				<p>If we want to stop the epidemic of gun violence in this country, we have to stop the NRA. And a key part of stopping the &#8230; <a title="It’s Time To Break Ties With The NRA" class="read-more" href="https://www.credoaction.com/its-time-to-break-ties-with-the-nra/" aria-label="More on It’s Time To Break Ties With The NRA">Read more</a></p>
+			</div>
+
+				<footer class="entry-meta" aria-label="Entry meta">
+			<span class="cat-links"><span class="gp-icon icon-categories"><svg viewBox="0 0 512 512" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="1em" height="1em"><path d="M0 112c0-26.51 21.49-48 48-48h110.014a48 48 0 0143.592 27.907l12.349 26.791A16 16 0 00228.486 128H464c26.51 0 48 21.49 48 48v224c0 26.51-21.49 48-48 48H48c-26.51 0-48-21.49-48-48V112z" /></svg></span><span class="screen-reader-text">Categories </span><a href="https://www.credoaction.com/category/news/" rel="category tag">News</a></span> <span class="tags-links"><span class="gp-icon icon-tags"><svg viewBox="0 0 512 512" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="1em" height="1em"><path d="M20 39.5c-8.836 0-16 7.163-16 16v176c0 4.243 1.686 8.313 4.687 11.314l224 224c6.248 6.248 16.378 6.248 22.626 0l176-176c6.244-6.244 6.25-16.364.013-22.615l-223.5-224A15.999 15.999 0 00196.5 39.5H20zm56 96c0-13.255 10.745-24 24-24s24 10.745 24 24-10.745 24-24 24-24-10.745-24-24z"/><path d="M259.515 43.015c4.686-4.687 12.284-4.687 16.97 0l228 228c4.686 4.686 4.686 12.284 0 16.97l-180 180c-4.686 4.687-12.284 4.687-16.97 0-4.686-4.686-4.686-12.284 0-16.97L479.029 279.5 259.515 59.985c-4.686-4.686-4.686-12.284 0-16.97z" /></svg></span><span class="screen-reader-text">Tags </span><a href="https://www.credoaction.com/tag/break-ties/" rel="tag">Break Ties</a>, <a href="https://www.credoaction.com/tag/gun-violence/" rel="tag">Gun Violence</a>, <a href="https://www.credoaction.com/tag/news/" rel="tag">News</a>, <a href="https://www.credoaction.com/tag/nra/" rel="tag">NRA</a></span> 		</footer>
+			</div>
+</article>
+<article id="post-106" class="post-106 post type-post status-publish format-standard has-post-thumbnail hentry category-news tag-betsy-devos tag-news tag-not-qualified tag-politics tag-secretary-of-education infinite-scroll-item generate-columns tablet-grid-50 mobile-grid-100 grid-parent grid-33" itemtype="https://schema.org/CreativeWork" itemscope>
+	<div class="inside-article">
+		<div class="post-image">
+						
+						<a href="https://www.credoaction.com/betsy-devos-not-qualified-to-be-secretary-of-education/">
+							<img width="900" height="600" src="https://www.credoaction.com/wp-content/uploads/2022/11/Betsy-Devos-Is-Not-Qualified-To-Be-Secretary-Of-Education-scaled.webp" class="attachment-full size-full wp-post-image" alt="" itemprop="image" decoding="async" loading="lazy" srcset="https://www.credoaction.com/wp-content/uploads/2022/11/Betsy-Devos-Is-Not-Qualified-To-Be-Secretary-Of-Education-scaled.webp 900w, https://www.credoaction.com/wp-content/uploads/2022/11/Betsy-Devos-Is-Not-Qualified-To-Be-Secretary-Of-Education-300x200.webp 300w, https://www.credoaction.com/wp-content/uploads/2022/11/Betsy-Devos-Is-Not-Qualified-To-Be-Secretary-Of-Education-768x512.webp 768w, https://www.credoaction.com/wp-content/uploads/2022/11/Betsy-Devos-Is-Not-Qualified-To-Be-Secretary-Of-Education-1536x1024.webp 1536w, https://www.credoaction.com/wp-content/uploads/2022/11/Betsy-Devos-Is-Not-Qualified-To-Be-Secretary-Of-Education-2048x1365.webp 2048w" sizes="(max-width: 900px) 100vw, 900px" />
+						</a>
+					</div>			<header class="entry-header" aria-label="Content">
+				<h2 class="entry-title" itemprop="headline"><a href="https://www.credoaction.com/betsy-devos-not-qualified-to-be-secretary-of-education/" rel="bookmark">Calls Needed: Betsy Devos Is Not Qualified To Be Secretary Of Education</a></h2>		<div class="entry-meta">
+			<span class="posted-on"><time class="entry-date published" datetime="2022-11-09T09:34:07+00:00" itemprop="datePublished">November 9, 2022</time></span> <span class="byline">by <span class="author vcard" itemprop="author" itemtype="https://schema.org/Person" itemscope><a class="url fn n" href="https://www.credoaction.com/author/sandra543/" title="View all posts by Ceara Calderon" rel="author" itemprop="url"><span class="author-name" itemprop="name">Ceara Calderon</span></a></span></span> 		</div>
+					</header>
+			
+			<div class="entry-summary" itemprop="text">
+				<p>It’s incredible. Because of your activism, we have a fighting chance to keep Betsy DeVos from getting her hands on the Department of Education. Sens. &#8230; <a title="Calls Needed: Betsy Devos Is Not Qualified To Be Secretary Of Education" class="read-more" href="https://www.credoaction.com/betsy-devos-not-qualified-to-be-secretary-of-education/" aria-label="More on Calls Needed: Betsy Devos Is Not Qualified To Be Secretary Of Education">Read more</a></p>
+			</div>
+
+				<footer class="entry-meta" aria-label="Entry meta">
+			<span class="cat-links"><span class="gp-icon icon-categories"><svg viewBox="0 0 512 512" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="1em" height="1em"><path d="M0 112c0-26.51 21.49-48 48-48h110.014a48 48 0 0143.592 27.907l12.349 26.791A16 16 0 00228.486 128H464c26.51 0 48 21.49 48 48v224c0 26.51-21.49 48-48 48H48c-26.51 0-48-21.49-48-48V112z" /></svg></span><span class="screen-reader-text">Categories </span><a href="https://www.credoaction.com/category/news/" rel="category tag">News</a></span> <span class="tags-links"><span class="gp-icon icon-tags"><svg viewBox="0 0 512 512" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="1em" height="1em"><path d="M20 39.5c-8.836 0-16 7.163-16 16v176c0 4.243 1.686 8.313 4.687 11.314l224 224c6.248 6.248 16.378 6.248 22.626 0l176-176c6.244-6.244 6.25-16.364.013-22.615l-223.5-224A15.999 15.999 0 00196.5 39.5H20zm56 96c0-13.255 10.745-24 24-24s24 10.745 24 24-10.745 24-24 24-24-10.745-24-24z"/><path d="M259.515 43.015c4.686-4.687 12.284-4.687 16.97 0l228 228c4.686 4.686 4.686 12.284 0 16.97l-180 180c-4.686 4.687-12.284 4.687-16.97 0-4.686-4.686-4.686-12.284 0-16.97L479.029 279.5 259.515 59.985c-4.686-4.686-4.686-12.284 0-16.97z" /></svg></span><span class="screen-reader-text">Tags </span><a href="https://www.credoaction.com/tag/betsy-devos/" rel="tag">Betsy Devos</a>, <a href="https://www.credoaction.com/tag/news/" rel="tag">News</a>, <a href="https://www.credoaction.com/tag/not-qualified/" rel="tag">Not Qualified</a>, <a href="https://www.credoaction.com/tag/politics/" rel="tag">Politics</a>, <a href="https://www.credoaction.com/tag/secretary-of-education/" rel="tag">Secretary Of Education</a></span> 		</footer>
+			</div>
+</article>
+<article id="post-120" class="post-120 post type-post status-publish format-standard has-post-thumbnail hentry category-news tag-dangerous-border-patrol tag-netflix tag-news tag-politics tag-propaganda infinite-scroll-item generate-columns tablet-grid-50 mobile-grid-100 grid-parent grid-33" itemtype="https://schema.org/CreativeWork" itemscope>
+	<div class="inside-article">
+		<div class="post-image">
+						
+						<a href="https://www.credoaction.com/netflix-stop-spreading-dangerous-border-patrol-propaganda/">
+							<img width="900" height="506" src="https://www.credoaction.com/wp-content/uploads/2022/11/Border-Security-Americas-Front-Line-scaled.jpg" class="attachment-full size-full wp-post-image" alt="" itemprop="image" decoding="async" loading="lazy" srcset="https://www.credoaction.com/wp-content/uploads/2022/11/Border-Security-Americas-Front-Line-scaled.jpg 900w, https://www.credoaction.com/wp-content/uploads/2022/11/Border-Security-Americas-Front-Line-300x169.jpg 300w, https://www.credoaction.com/wp-content/uploads/2022/11/Border-Security-Americas-Front-Line-768x432.jpg 768w, https://www.credoaction.com/wp-content/uploads/2022/11/Border-Security-Americas-Front-Line-1536x864.jpg 1536w" sizes="(max-width: 900px) 100vw, 900px" />
+						</a>
+					</div>			<header class="entry-header" aria-label="Content">
+				<h2 class="entry-title" itemprop="headline"><a href="https://www.credoaction.com/netflix-stop-spreading-dangerous-border-patrol-propaganda/" rel="bookmark">Tell Netflix: Stop Spreading Dangerous Border Patrol Propaganda</a></h2>		<div class="entry-meta">
+			<span class="posted-on"><time class="updated" datetime="2022-11-09T10:17:58+00:00" itemprop="dateModified">November 9, 2022</time><time class="entry-date published" datetime="2019-11-09T10:15:51+00:00" itemprop="datePublished">November 9, 2019</time></span> <span class="byline">by <span class="author vcard" itemprop="author" itemtype="https://schema.org/Person" itemscope><a class="url fn n" href="https://www.credoaction.com/author/sandra543/" title="View all posts by Ceara Calderon" rel="author" itemprop="url"><span class="author-name" itemprop="name">Ceara Calderon</span></a></span></span> 		</div>
+					</header>
+			
+			<div class="entry-summary" itemprop="text">
+				<p>You won&#8217;t believe what&#8217;s streaming on Netflix right now. Season two of Border Security: America&#8217;s Front Line is now available on the platform.1 This reality series &#8230; <a title="Tell Netflix: Stop Spreading Dangerous Border Patrol Propaganda" class="read-more" href="https://www.credoaction.com/netflix-stop-spreading-dangerous-border-patrol-propaganda/" aria-label="More on Tell Netflix: Stop Spreading Dangerous Border Patrol Propaganda">Read more</a></p>
+			</div>
+
+				<footer class="entry-meta" aria-label="Entry meta">
+			<span class="cat-links"><span class="gp-icon icon-categories"><svg viewBox="0 0 512 512" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="1em" height="1em"><path d="M0 112c0-26.51 21.49-48 48-48h110.014a48 48 0 0143.592 27.907l12.349 26.791A16 16 0 00228.486 128H464c26.51 0 48 21.49 48 48v224c0 26.51-21.49 48-48 48H48c-26.51 0-48-21.49-48-48V112z" /></svg></span><span class="screen-reader-text">Categories </span><a href="https://www.credoaction.com/category/news/" rel="category tag">News</a></span> <span class="tags-links"><span class="gp-icon icon-tags"><svg viewBox="0 0 512 512" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="1em" height="1em"><path d="M20 39.5c-8.836 0-16 7.163-16 16v176c0 4.243 1.686 8.313 4.687 11.314l224 224c6.248 6.248 16.378 6.248 22.626 0l176-176c6.244-6.244 6.25-16.364.013-22.615l-223.5-224A15.999 15.999 0 00196.5 39.5H20zm56 96c0-13.255 10.745-24 24-24s24 10.745 24 24-10.745 24-24 24-24-10.745-24-24z"/><path d="M259.515 43.015c4.686-4.687 12.284-4.687 16.97 0l228 228c4.686 4.686 4.686 12.284 0 16.97l-180 180c-4.686 4.687-12.284 4.687-16.97 0-4.686-4.686-4.686-12.284 0-16.97L479.029 279.5 259.515 59.985c-4.686-4.686-4.686-12.284 0-16.97z" /></svg></span><span class="screen-reader-text">Tags </span><a href="https://www.credoaction.com/tag/dangerous-border-patrol/" rel="tag">Dangerous Border Patrol</a>, <a href="https://www.credoaction.com/tag/netflix/" rel="tag">Netflix</a>, <a href="https://www.credoaction.com/tag/news/" rel="tag">News</a>, <a href="https://www.credoaction.com/tag/politics/" rel="tag">Politics</a>, <a href="https://www.credoaction.com/tag/propaganda/" rel="tag">Propaganda</a></span> 		</footer>
+			</div>
+</article>
+<article id="post-110" class="post-110 post type-post status-publish format-standard has-post-thumbnail hentry category-news tag-finance tag-mortgage-plan tag-news tag-politics tag-trump infinite-scroll-item generate-columns tablet-grid-50 mobile-grid-100 grid-parent grid-33" itemtype="https://schema.org/CreativeWork" itemscope>
+	<div class="inside-article">
+		<div class="post-image">
+						
+						<a href="https://www.credoaction.com/reject-trumps-horrible-mortgage-plan/">
+							<img width="900" height="600" src="https://www.credoaction.com/wp-content/uploads/2022/11/Trumps-Horrible-Mortgage-Plan-scaled.jpg" class="attachment-full size-full wp-post-image" alt="" itemprop="image" decoding="async" loading="lazy" srcset="https://www.credoaction.com/wp-content/uploads/2022/11/Trumps-Horrible-Mortgage-Plan-scaled.jpg 900w, https://www.credoaction.com/wp-content/uploads/2022/11/Trumps-Horrible-Mortgage-Plan-300x200.jpg 300w, https://www.credoaction.com/wp-content/uploads/2022/11/Trumps-Horrible-Mortgage-Plan-768x512.jpg 768w" sizes="(max-width: 900px) 100vw, 900px" />
+						</a>
+					</div>			<header class="entry-header" aria-label="Content">
+				<h2 class="entry-title" itemprop="headline"><a href="https://www.credoaction.com/reject-trumps-horrible-mortgage-plan/" rel="bookmark">Reject Trump&#8217;s Horrible Mortgage Plan</a></h2>		<div class="entry-meta">
+			<span class="posted-on"><time class="updated" datetime="2022-11-09T09:43:55+00:00" itemprop="dateModified">November 9, 2022</time><time class="entry-date published" datetime="2019-09-20T09:35:48+00:00" itemprop="datePublished">September 20, 2019</time></span> <span class="byline">by <span class="author vcard" itemprop="author" itemtype="https://schema.org/Person" itemscope><a class="url fn n" href="https://www.credoaction.com/author/sandra543/" title="View all posts by Ceara Calderon" rel="author" itemprop="url"><span class="author-name" itemprop="name">Ceara Calderon</span></a></span></span> 		</div>
+					</header>
+			
+			<div class="entry-summary" itemprop="text">
+				<p>It&#8217;s like Donald Trump&#8217;s dream policy: In one fell swoop, he gets to help Wall Street while hurting people of color and low-income Americans. Trump &#8230; <a title="Reject Trump&#8217;s Horrible Mortgage Plan" class="read-more" href="https://www.credoaction.com/reject-trumps-horrible-mortgage-plan/" aria-label="More on Reject Trump&#8217;s Horrible Mortgage Plan">Read more</a></p>
+			</div>
+
+				<footer class="entry-meta" aria-label="Entry meta">
+			<span class="cat-links"><span class="gp-icon icon-categories"><svg viewBox="0 0 512 512" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="1em" height="1em"><path d="M0 112c0-26.51 21.49-48 48-48h110.014a48 48 0 0143.592 27.907l12.349 26.791A16 16 0 00228.486 128H464c26.51 0 48 21.49 48 48v224c0 26.51-21.49 48-48 48H48c-26.51 0-48-21.49-48-48V112z" /></svg></span><span class="screen-reader-text">Categories </span><a href="https://www.credoaction.com/category/news/" rel="category tag">News</a></span> <span class="tags-links"><span class="gp-icon icon-tags"><svg viewBox="0 0 512 512" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="1em" height="1em"><path d="M20 39.5c-8.836 0-16 7.163-16 16v176c0 4.243 1.686 8.313 4.687 11.314l224 224c6.248 6.248 16.378 6.248 22.626 0l176-176c6.244-6.244 6.25-16.364.013-22.615l-223.5-224A15.999 15.999 0 00196.5 39.5H20zm56 96c0-13.255 10.745-24 24-24s24 10.745 24 24-10.745 24-24 24-24-10.745-24-24z"/><path d="M259.515 43.015c4.686-4.687 12.284-4.687 16.97 0l228 228c4.686 4.686 4.686 12.284 0 16.97l-180 180c-4.686 4.687-12.284 4.687-16.97 0-4.686-4.686-4.686-12.284 0-16.97L479.029 279.5 259.515 59.985c-4.686-4.686-4.686-12.284 0-16.97z" /></svg></span><span class="screen-reader-text">Tags </span><a href="https://www.credoaction.com/tag/finance/" rel="tag">Finance</a>, <a href="https://www.credoaction.com/tag/mortgage-plan/" rel="tag">Mortgage Plan</a>, <a href="https://www.credoaction.com/tag/news/" rel="tag">News</a>, <a href="https://www.credoaction.com/tag/politics/" rel="tag">Politics</a>, <a href="https://www.credoaction.com/tag/trump/" rel="tag">Trump</a></span> 		</footer>
+			</div>
+</article>
+<article id="post-76" class="post-76 post type-post status-publish format-standard has-post-thumbnail hentry category-news tag-black-activists tag-fbi tag-news tag-security tag-white-supremacy infinite-scroll-item generate-columns tablet-grid-50 mobile-grid-100 grid-parent grid-33" itemtype="https://schema.org/CreativeWork" itemscope>
+	<div class="inside-article">
+		<div class="post-image">
+						
+						<a href="https://www.credoaction.com/tell-the-fbi-stop-covering-up-white-supremacy/">
+							<img width="900" height="600" src="https://www.credoaction.com/wp-content/uploads/2022/11/Stop-Covering-Up-White-Supremacy-scaled.webp" class="attachment-full size-full wp-post-image" alt="" itemprop="image" decoding="async" loading="lazy" srcset="https://www.credoaction.com/wp-content/uploads/2022/11/Stop-Covering-Up-White-Supremacy-scaled.webp 900w, https://www.credoaction.com/wp-content/uploads/2022/11/Stop-Covering-Up-White-Supremacy-300x200.webp 300w, https://www.credoaction.com/wp-content/uploads/2022/11/Stop-Covering-Up-White-Supremacy-768x512.webp 768w" sizes="(max-width: 900px) 100vw, 900px" />
+						</a>
+					</div>			<header class="entry-header" aria-label="Content">
+				<h2 class="entry-title" itemprop="headline"><a href="https://www.credoaction.com/tell-the-fbi-stop-covering-up-white-supremacy/" rel="bookmark">Tell the FBI: Stop Covering Up White Supremacy</a></h2>		<div class="entry-meta">
+			<span class="posted-on"><time class="updated" datetime="2022-11-08T08:35:10+00:00" itemprop="dateModified">November 8, 2022</time><time class="entry-date published" datetime="2019-08-11T08:22:37+00:00" itemprop="datePublished">August 11, 2019</time></span> <span class="byline">by <span class="author vcard" itemprop="author" itemtype="https://schema.org/Person" itemscope><a class="url fn n" href="https://www.credoaction.com/author/sandra543/" title="View all posts by Ceara Calderon" rel="author" itemprop="url"><span class="author-name" itemprop="name">Ceara Calderon</span></a></span></span> 		</div>
+					</header>
+			
+			<div class="entry-summary" itemprop="text">
+				<p>Dear Friend, Trump&#8217;s racism is showing. Again. Leaked documents recently revealed that Trump&#8217;s FBI considers Black activists a greater threat to domestic security than white &#8230; <a title="Tell the FBI: Stop Covering Up White Supremacy" class="read-more" href="https://www.credoaction.com/tell-the-fbi-stop-covering-up-white-supremacy/" aria-label="More on Tell the FBI: Stop Covering Up White Supremacy">Read more</a></p>
+			</div>
+
+				<footer class="entry-meta" aria-label="Entry meta">
+			<span class="cat-links"><span class="gp-icon icon-categories"><svg viewBox="0 0 512 512" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="1em" height="1em"><path d="M0 112c0-26.51 21.49-48 48-48h110.014a48 48 0 0143.592 27.907l12.349 26.791A16 16 0 00228.486 128H464c26.51 0 48 21.49 48 48v224c0 26.51-21.49 48-48 48H48c-26.51 0-48-21.49-48-48V112z" /></svg></span><span class="screen-reader-text">Categories </span><a href="https://www.credoaction.com/category/news/" rel="category tag">News</a></span> <span class="tags-links"><span class="gp-icon icon-tags"><svg viewBox="0 0 512 512" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="1em" height="1em"><path d="M20 39.5c-8.836 0-16 7.163-16 16v176c0 4.243 1.686 8.313 4.687 11.314l224 224c6.248 6.248 16.378 6.248 22.626 0l176-176c6.244-6.244 6.25-16.364.013-22.615l-223.5-224A15.999 15.999 0 00196.5 39.5H20zm56 96c0-13.255 10.745-24 24-24s24 10.745 24 24-10.745 24-24 24-24-10.745-24-24z"/><path d="M259.515 43.015c4.686-4.687 12.284-4.687 16.97 0l228 228c4.686 4.686 4.686 12.284 0 16.97l-180 180c-4.686 4.687-12.284 4.687-16.97 0-4.686-4.686-4.686-12.284 0-16.97L479.029 279.5 259.515 59.985c-4.686-4.686-4.686-12.284 0-16.97z" /></svg></span><span class="screen-reader-text">Tags </span><a href="https://www.credoaction.com/tag/black-activists/" rel="tag">Black activists</a>, <a href="https://www.credoaction.com/tag/fbi/" rel="tag">FBI</a>, <a href="https://www.credoaction.com/tag/news/" rel="tag">News</a>, <a href="https://www.credoaction.com/tag/security/" rel="tag">Security</a>, <a href="https://www.credoaction.com/tag/white-supremacy/" rel="tag">White Supremacy</a></span> 		</footer>
+			</div>
+</article>
+<article id="post-140" class="post-140 post type-post status-publish format-standard has-post-thumbnail hentry category-news tag-anti-lgbtq tag-att tag-companies tag-news tag-politicians infinite-scroll-item generate-columns tablet-grid-50 mobile-grid-100 grid-parent grid-33" itemtype="https://schema.org/CreativeWork" itemscope>
+	<div class="inside-article">
+		<div class="post-image">
+						
+						<a href="https://www.credoaction.com/att-stop-funding-anti-lgbtq-politicians/">
+							<img width="900" height="507" src="https://www.credoaction.com/wp-content/uploads/2022/11/ATT-T-Mobile-and-other-corporations-Stop-funding-anti-LGBTQ-politicians-scaled.webp" class="attachment-full size-full wp-post-image" alt="" itemprop="image" decoding="async" loading="lazy" srcset="https://www.credoaction.com/wp-content/uploads/2022/11/ATT-T-Mobile-and-other-corporations-Stop-funding-anti-LGBTQ-politicians-scaled.webp 900w, https://www.credoaction.com/wp-content/uploads/2022/11/ATT-T-Mobile-and-other-corporations-Stop-funding-anti-LGBTQ-politicians-300x169.webp 300w, https://www.credoaction.com/wp-content/uploads/2022/11/ATT-T-Mobile-and-other-corporations-Stop-funding-anti-LGBTQ-politicians-768x432.webp 768w" sizes="(max-width: 900px) 100vw, 900px" />
+						</a>
+					</div>			<header class="entry-header" aria-label="Content">
+				<h2 class="entry-title" itemprop="headline"><a href="https://www.credoaction.com/att-stop-funding-anti-lgbtq-politicians/" rel="bookmark">Tell AT&#038;T, T-Mobile and other corporations: Stop funding anti-LGBTQ politicians</a></h2>		<div class="entry-meta">
+			<span class="posted-on"><time class="updated" datetime="2022-11-09T11:21:38+00:00" itemprop="dateModified">November 9, 2022</time><time class="entry-date published" datetime="2019-07-20T11:02:56+00:00" itemprop="datePublished">July 20, 2019</time></span> <span class="byline">by <span class="author vcard" itemprop="author" itemtype="https://schema.org/Person" itemscope><a class="url fn n" href="https://www.credoaction.com/author/sandra543/" title="View all posts by Ceara Calderon" rel="author" itemprop="url"><span class="author-name" itemprop="name">Ceara Calderon</span></a></span></span> 		</div>
+					</header>
+			
+			<div class="entry-summary" itemprop="text">
+				<p>AT&amp;T;, T-Mobile, Google, Amazon, Microsoft and Dell are collectively responsible for donating over $5 million to homophobic and hateful politicians. While these corporations plaster rainbow &#8230; <a title="Tell AT&#038;T, T-Mobile and other corporations: Stop funding anti-LGBTQ politicians" class="read-more" href="https://www.credoaction.com/att-stop-funding-anti-lgbtq-politicians/" aria-label="More on Tell AT&#038;T, T-Mobile and other corporations: Stop funding anti-LGBTQ politicians">Read more</a></p>
+			</div>
+
+				<footer class="entry-meta" aria-label="Entry meta">
+			<span class="cat-links"><span class="gp-icon icon-categories"><svg viewBox="0 0 512 512" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="1em" height="1em"><path d="M0 112c0-26.51 21.49-48 48-48h110.014a48 48 0 0143.592 27.907l12.349 26.791A16 16 0 00228.486 128H464c26.51 0 48 21.49 48 48v224c0 26.51-21.49 48-48 48H48c-26.51 0-48-21.49-48-48V112z" /></svg></span><span class="screen-reader-text">Categories </span><a href="https://www.credoaction.com/category/news/" rel="category tag">News</a></span> <span class="tags-links"><span class="gp-icon icon-tags"><svg viewBox="0 0 512 512" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="1em" height="1em"><path d="M20 39.5c-8.836 0-16 7.163-16 16v176c0 4.243 1.686 8.313 4.687 11.314l224 224c6.248 6.248 16.378 6.248 22.626 0l176-176c6.244-6.244 6.25-16.364.013-22.615l-223.5-224A15.999 15.999 0 00196.5 39.5H20zm56 96c0-13.255 10.745-24 24-24s24 10.745 24 24-10.745 24-24 24-24-10.745-24-24z"/><path d="M259.515 43.015c4.686-4.687 12.284-4.687 16.97 0l228 228c4.686 4.686 4.686 12.284 0 16.97l-180 180c-4.686 4.687-12.284 4.687-16.97 0-4.686-4.686-4.686-12.284 0-16.97L479.029 279.5 259.515 59.985c-4.686-4.686-4.686-12.284 0-16.97z" /></svg></span><span class="screen-reader-text">Tags </span><a href="https://www.credoaction.com/tag/anti-lgbtq/" rel="tag">anti-LGBTQ</a>, <a href="https://www.credoaction.com/tag/att/" rel="tag">AT&amp;T</a>, <a href="https://www.credoaction.com/tag/companies/" rel="tag">Companies</a>, <a href="https://www.credoaction.com/tag/news/" rel="tag">News</a>, <a href="https://www.credoaction.com/tag/politicians/" rel="tag">Politicians</a></span> 		</footer>
+			</div>
+</article>
+<article id="post-27" class="post-27 post type-post status-publish format-standard has-post-thumbnail hentry category-news tag-news tag-protest tag-stand-up tag-women-rights tag-womens-health-protection-act infinite-scroll-item generate-columns tablet-grid-50 mobile-grid-100 grid-parent grid-33" itemtype="https://schema.org/CreativeWork" itemscope>
+	<div class="inside-article">
+		<div class="post-image">
+						
+						<a href="https://www.credoaction.com/stand-up-for-women-pass-womens-health-protection-act/">
+							<img width="900" height="601" src="https://www.credoaction.com/wp-content/uploads/2022/11/Womens-Health-Protection-Act.-scaled.webp" class="attachment-full size-full wp-post-image" alt="" itemprop="image" decoding="async" loading="lazy" srcset="https://www.credoaction.com/wp-content/uploads/2022/11/Womens-Health-Protection-Act.-scaled.webp 900w, https://www.credoaction.com/wp-content/uploads/2022/11/Womens-Health-Protection-Act.-300x200.webp 300w, https://www.credoaction.com/wp-content/uploads/2022/11/Womens-Health-Protection-Act.-768x512.webp 768w" sizes="(max-width: 900px) 100vw, 900px" />
+						</a>
+					</div>			<header class="entry-header" aria-label="Content">
+				<h2 class="entry-title" itemprop="headline"><a href="https://www.credoaction.com/stand-up-for-women-pass-womens-health-protection-act/" rel="bookmark">Tell the House of Representatives: Stand up for women. Pass the Women&#8217;s Health Protection Act.</a></h2>		<div class="entry-meta">
+			<span class="posted-on"><time class="updated" datetime="2022-11-07T12:10:14+00:00" itemprop="dateModified">November 7, 2022</time><time class="entry-date published" datetime="2019-05-24T12:07:58+00:00" itemprop="datePublished">May 24, 2019</time></span> <span class="byline">by <span class="author vcard" itemprop="author" itemtype="https://schema.org/Person" itemscope><a class="url fn n" href="https://www.credoaction.com/author/sandra543/" title="View all posts by Ceara Calderon" rel="author" itemprop="url"><span class="author-name" itemprop="name">Ceara Calderon</span></a></span></span> 		</div>
+					</header>
+			
+			<div class="entry-summary" itemprop="text">
+				<p>Donald Trump and Republicans are nothing if not consistently hostile toward women. Already this year, right-wing Republicans in Congress and state legislatures have introduced extreme &#8230; <a title="Tell the House of Representatives: Stand up for women. Pass the Women&#8217;s Health Protection Act." class="read-more" href="https://www.credoaction.com/stand-up-for-women-pass-womens-health-protection-act/" aria-label="More on Tell the House of Representatives: Stand up for women. Pass the Women&#8217;s Health Protection Act.">Read more</a></p>
+			</div>
+
+				<footer class="entry-meta" aria-label="Entry meta">
+			<span class="cat-links"><span class="gp-icon icon-categories"><svg viewBox="0 0 512 512" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="1em" height="1em"><path d="M0 112c0-26.51 21.49-48 48-48h110.014a48 48 0 0143.592 27.907l12.349 26.791A16 16 0 00228.486 128H464c26.51 0 48 21.49 48 48v224c0 26.51-21.49 48-48 48H48c-26.51 0-48-21.49-48-48V112z" /></svg></span><span class="screen-reader-text">Categories </span><a href="https://www.credoaction.com/category/news/" rel="category tag">News</a></span> <span class="tags-links"><span class="gp-icon icon-tags"><svg viewBox="0 0 512 512" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="1em" height="1em"><path d="M20 39.5c-8.836 0-16 7.163-16 16v176c0 4.243 1.686 8.313 4.687 11.314l224 224c6.248 6.248 16.378 6.248 22.626 0l176-176c6.244-6.244 6.25-16.364.013-22.615l-223.5-224A15.999 15.999 0 00196.5 39.5H20zm56 96c0-13.255 10.745-24 24-24s24 10.745 24 24-10.745 24-24 24-24-10.745-24-24z"/><path d="M259.515 43.015c4.686-4.687 12.284-4.687 16.97 0l228 228c4.686 4.686 4.686 12.284 0 16.97l-180 180c-4.686 4.687-12.284 4.687-16.97 0-4.686-4.686-4.686-12.284 0-16.97L479.029 279.5 259.515 59.985c-4.686-4.686-4.686-12.284 0-16.97z" /></svg></span><span class="screen-reader-text">Tags </span><a href="https://www.credoaction.com/tag/news/" rel="tag">News</a>, <a href="https://www.credoaction.com/tag/protest/" rel="tag">Protest</a>, <a href="https://www.credoaction.com/tag/stand-up/" rel="tag">Stand up</a>, <a href="https://www.credoaction.com/tag/women-rights/" rel="tag">Women Rights</a>, <a href="https://www.credoaction.com/tag/womens-health-protection-act/" rel="tag">Women's Health Protection Act</a></span> 		</footer>
+			</div>
+</article>
+		<nav id="nav-below" class="paging-navigation" aria-label="Archive Page">
+								<div class="nav-previous">
+						<span class="gp-icon icon-arrow"><svg viewBox="0 0 330 512" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="1em" height="1em"><path d="M305.913 197.085c0 2.266-1.133 4.815-2.833 6.514L171.087 335.593c-1.7 1.7-4.249 2.832-6.515 2.832s-4.815-1.133-6.515-2.832L26.064 203.599c-1.7-1.7-2.832-4.248-2.832-6.514s1.132-4.816 2.832-6.515l14.162-14.163c1.7-1.699 3.966-2.832 6.515-2.832 2.266 0 4.815 1.133 6.515 2.832l111.316 111.317 111.316-111.317c1.7-1.699 4.249-2.832 6.515-2.832s4.815 1.133 6.515 2.832l14.162 14.163c1.7 1.7 2.833 4.249 2.833 6.515z" /></svg></span>						<span class="prev" title="Previous"><a href="https://www.credoaction.com/page/2/" >Older posts</a></span>
+					</div>
+					<div class="nav-links"><span aria-current="page" class="page-numbers current"><span class="screen-reader-text">Page</span>1</span>
+<a class="page-numbers" href="https://www.credoaction.com/page/2/"><span class="screen-reader-text">Page</span>2</a>
+<span class="page-numbers dots">&hellip;</span>
+<a class="page-numbers" href="https://www.credoaction.com/page/4/"><span class="screen-reader-text">Page</span>4</a>
+<a class="next page-numbers" href="https://www.credoaction.com/page/2/">Next <span aria-hidden="true">&rarr;</span></a></div>		</nav>
+		</div><!-- .generate-columns-contaier --><div class="masonry-load-more load-more has-svg-icon ">
+				<a class="button" href="#"><span class="gp-icon spinner">
+				<svg viewBox="0 0 512 512" aria-hidden="true" version="1.1" xmlns="http://www.w3.org/2000/svg" width="1em" height="1em">
+					<path d="M288 32c0 17.673-14.327 32-32 32-17.673 0-32-14.327-32-32 0-17.673 14.327-32 32-32 17.673 0 32 14.327 32 32zM288 480c0 17.673-14.327 32-32 32-17.673 0-32-14.327-32-32 0-17.673 14.327-32 32-32 17.673 0 32 14.327 32 32zM448 256c0 17.673 14.327 32 32 32 17.673 0 32-14.327 32-32 0-17.673-14.327-32-32-32-17.673 0-32 14.327-32 32zM32 288c-17.673 0-32-14.327-32-32 0-17.673 14.327-32 32-32 17.673 0 32 14.327 32 32 0 17.673-14.327 32-32 32zM391.764 391.764c-12.496 12.497-12.496 32.759 0 45.255 12.497 12.497 32.758 12.497 45.255 0 12.497-12.496 12.497-32.758 0-45.255-12.497-12.496-32.758-12.496-45.255 0zM74.981 120.235c-12.497-12.496-12.497-32.758 0-45.254 12.496-12.497 32.758-12.497 45.254 0 12.497 12.496 12.497 32.758 0 45.254-12.496 12.497-32.758 12.497-45.254 0zM120.235 391.765c-12.496-12.497-32.758-12.497-45.254 0-12.497 12.496-12.497 32.758 0 45.254 12.496 12.497 32.758 12.497 45.254 0 12.497-12.496 12.497-32.758 0-45.254z"/>
+				</svg>
+			</span>+ More</a>
+			</div>		</main>
+	</div>
+
+	<div class="widget-area sidebar is-right-sidebar" id="right-sidebar">
+	<div class="inside-right-sidebar">
+		<aside id="block-2" class="widget inner-padding widget_block widget_search"><form role="search" method="get" action="https://www.credoaction.com/" class="wp-block-search__button-outside wp-block-search__text-button wp-block-search"    ><label class="wp-block-search__label" for="wp-block-search__input-1" >Search</label><div class="wp-block-search__inside-wrapper " ><input class="wp-block-search__input" id="wp-block-search__input-1" placeholder="" value="" type="search" name="s" required /><button aria-label="Search" class="wp-block-search__button wp-element-button" type="submit" >Search</button></div></form></aside><aside id="categories-3" class="widget inner-padding widget_categories"><h2 class="widget-title">Categories</h2>
+			<ul>
+					<li class="cat-item cat-item-114"><a href="https://www.credoaction.com/category/activism/">Activism</a>
+</li>
+	<li class="cat-item cat-item-107"><a href="https://www.credoaction.com/category/blog/">Blog</a>
+</li>
+	<li class="cat-item cat-item-100"><a href="https://www.credoaction.com/category/general/">General</a>
+</li>
+	<li class="cat-item cat-item-2"><a href="https://www.credoaction.com/category/news/">News</a>
+</li>
+			</ul>
+
+			</aside>	</div>
+</div>
+
+	</div>
+</div>
+
+
+<div class="site-footer grid-container">
+				<div id="footer-widgets" class="site footer-widgets">
+				<div class="footer-widgets-container grid-container">
+					<div class="inside-footer-widgets">
+							<div class="footer-widget-1">
+		<aside id="text-3" class="widget inner-padding widget_text"><h2 class="widget-title">Contact us</h2>			<div class="textwidget"><p>marketing [at] shantelllc.com</p>
+</div>
+		</aside>	</div>
+		<div class="footer-widget-2">
+			</div>
+		<div class="footer-widget-3">
+			</div>
+						</div>
+				</div>
+			</div>
+					<footer class="site-info" aria-label="Site"  itemtype="https://schema.org/WPFooter" itemscope>
+			<div class="inside-site-info grid-container">
+								<div class="copyright-bar">
+					&copy; 2023 Credoaction Website				</div>
+			</div>
+		</footer>
+		</div>
+
+<div class="infinite-scroll-path" aria-hidden="true" style="display: none;"><a href="https://www.credoaction.com/page/2/" >Next Page &raquo;</a></div>		<nav id="generate-slideout-menu" class="main-navigation slideout-navigation" itemtype="https://schema.org/SiteNavigationElement" itemscope style="display: none;" aria-hidden>
+			<div class="inside-navigation grid-container grid-parent">
+							</div><!-- .inside-navigation -->
+		</nav><!-- #site-navigation -->
+
+					<div class="slideout-overlay">
+									<button class="slideout-exit has-svg-icon">
+						<span class="gp-icon pro-close">
+				<svg viewBox="0 0 512 512" aria-hidden="true" role="img" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="1em" height="1em">
+					<path d="M71.029 71.029c9.373-9.372 24.569-9.372 33.942 0L256 222.059l151.029-151.03c9.373-9.372 24.569-9.372 33.942 0 9.372 9.373 9.372 24.569 0 33.942L289.941 256l151.03 151.029c9.372 9.373 9.372 24.569 0 33.942-9.373 9.372-24.569 9.372-33.942 0L256 289.941l-151.029 151.03c-9.373 9.372-24.569 9.372-33.942 0-9.372-9.373-9.372-24.569 0-33.942L222.059 256 71.029 104.971c-9.372-9.373-9.372-24.569 0-33.942z" />
+				</svg>
+			</span>						<span class="screen-reader-text">Close</span>
+					</button>
+							</div>
+			<script type="rocketlazyloadscript" id="generate-a11y">!function(){"use strict";if("querySelector"in document&&"addEventListener"in window){var e=document.body;e.addEventListener("mousedown",function(){e.classList.add("using-mouse")}),e.addEventListener("keydown",function(){e.classList.remove("using-mouse")})}}();</script><script id="generate-offside-js-extra">
+var offSide = {"side":"left"};
+</script>
+<script type="rocketlazyloadscript" data-rocket-src="https://www.credoaction.com/wp-content/plugins/gp-premium/menu-plus/functions/js/offside.min.js?ver=2.2.0" id="generate-offside-js" defer></script>
+<script type="rocketlazyloadscript" id="rocket-browser-checker-js-after">
+"use strict";var _createClass=function(){function defineProperties(target,props){for(var i=0;i<props.length;i++){var descriptor=props[i];descriptor.enumerable=descriptor.enumerable||!1,descriptor.configurable=!0,"value"in descriptor&&(descriptor.writable=!0),Object.defineProperty(target,descriptor.key,descriptor)}}return function(Constructor,protoProps,staticProps){return protoProps&&defineProperties(Constructor.prototype,protoProps),staticProps&&defineProperties(Constructor,staticProps),Constructor}}();function _classCallCheck(instance,Constructor){if(!(instance instanceof Constructor))throw new TypeError("Cannot call a class as a function")}var RocketBrowserCompatibilityChecker=function(){function RocketBrowserCompatibilityChecker(options){_classCallCheck(this,RocketBrowserCompatibilityChecker),this.passiveSupported=!1,this._checkPassiveOption(this),this.options=!!this.passiveSupported&&options}return _createClass(RocketBrowserCompatibilityChecker,[{key:"_checkPassiveOption",value:function(self){try{var options={get passive(){return!(self.passiveSupported=!0)}};window.addEventListener("test",null,options),window.removeEventListener("test",null,options)}catch(err){self.passiveSupported=!1}}},{key:"initRequestIdleCallback",value:function(){!1 in window&&(window.requestIdleCallback=function(cb){var start=Date.now();return setTimeout(function(){cb({didTimeout:!1,timeRemaining:function(){return Math.max(0,50-(Date.now()-start))}})},1)}),!1 in window&&(window.cancelIdleCallback=function(id){return clearTimeout(id)})}},{key:"isDataSaverModeOn",value:function(){return"connection"in navigator&&!0===navigator.connection.saveData}},{key:"supportsLinkPrefetch",value:function(){var elem=document.createElement("link");return elem.relList&&elem.relList.supports&&elem.relList.supports("prefetch")&&window.IntersectionObserver&&"isIntersecting"in IntersectionObserverEntry.prototype}},{key:"isSlowConnection",value:function(){return"connection"in navigator&&"effectiveType"in navigator.connection&&("2g"===navigator.connection.effectiveType||"slow-2g"===navigator.connection.effectiveType)}}]),RocketBrowserCompatibilityChecker}();
+</script>
+<script id="rocket-preload-links-js-extra">
+var RocketPreloadLinksConfig = {"excludeUris":"\/(?:.+\/)?feed(?:\/(?:.+\/?)?)?$|\/(?:.+\/)?embed\/|\/(index.php\/)?(.*)wp-json(\/.*|$)|\/refer\/|\/go\/|\/recommend\/|\/recommends\/","usesTrailingSlash":"1","imageExt":"jpg|jpeg|gif|png|tiff|bmp|webp|avif|pdf|doc|docx|xls|xlsx|php","fileExt":"jpg|jpeg|gif|png|tiff|bmp|webp|avif|pdf|doc|docx|xls|xlsx|php|html|htm","siteUrl":"https:\/\/www.credoaction.com","onHoverDelay":"100","rateThrottle":"3"};
+</script>
+<script type="rocketlazyloadscript" id="rocket-preload-links-js-after">
+(function() {
+"use strict";var r="function"==typeof Symbol&&"symbol"==typeof Symbol.iterator?function(e){return typeof e}:function(e){return e&&"function"==typeof Symbol&&e.constructor===Symbol&&e!==Symbol.prototype?"symbol":typeof e},e=function(){function i(e,t){for(var n=0;n<t.length;n++){var i=t[n];i.enumerable=i.enumerable||!1,i.configurable=!0,"value"in i&&(i.writable=!0),Object.defineProperty(e,i.key,i)}}return function(e,t,n){return t&&i(e.prototype,t),n&&i(e,n),e}}();function i(e,t){if(!(e instanceof t))throw new TypeError("Cannot call a class as a function")}var t=function(){function n(e,t){i(this,n),this.browser=e,this.config=t,this.options=this.browser.options,this.prefetched=new Set,this.eventTime=null,this.threshold=1111,this.numOnHover=0}return e(n,[{key:"init",value:function(){!this.browser.supportsLinkPrefetch()||this.browser.isDataSaverModeOn()||this.browser.isSlowConnection()||(this.regex={excludeUris:RegExp(this.config.excludeUris,"i"),images:RegExp(".("+this.config.imageExt+")$","i"),fileExt:RegExp(".("+this.config.fileExt+")$","i")},this._initListeners(this))}},{key:"_initListeners",value:function(e){-1<this.config.onHoverDelay&&document.addEventListener("mouseover",e.listener.bind(e),e.listenerOptions),document.addEventListener("mousedown",e.listener.bind(e),e.listenerOptions),document.addEventListener("touchstart",e.listener.bind(e),e.listenerOptions)}},{key:"listener",value:function(e){var t=e.target.closest("a"),n=this._prepareUrl(t);if(null!==n)switch(e.type){case"mousedown":case"touchstart":this._addPrefetchLink(n);break;case"mouseover":this._earlyPrefetch(t,n,"mouseout")}}},{key:"_earlyPrefetch",value:function(t,e,n){var i=this,r=setTimeout(function(){if(r=null,0===i.numOnHover)setTimeout(function(){return i.numOnHover=0},1e3);else if(i.numOnHover>i.config.rateThrottle)return;i.numOnHover++,i._addPrefetchLink(e)},this.config.onHoverDelay);t.addEventListener(n,function e(){t.removeEventListener(n,e,{passive:!0}),null!==r&&(clearTimeout(r),r=null)},{passive:!0})}},{key:"_addPrefetchLink",value:function(i){return this.prefetched.add(i.href),new Promise(function(e,t){var n=document.createElement("link");n.rel="prefetch",n.href=i.href,n.onload=e,n.onerror=t,document.head.appendChild(n)}).catch(function(){})}},{key:"_prepareUrl",value:function(e){if(null===e||"object"!==(void 0===e?"undefined":r(e))||!1 in e||-1===["http:","https:"].indexOf(e.protocol))return null;var t=e.href.substring(0,this.config.siteUrl.length),n=this._getPathname(e.href,t),i={original:e.href,protocol:e.protocol,origin:t,pathname:n,href:t+n};return this._isLinkOk(i)?i:null}},{key:"_getPathname",value:function(e,t){var n=t?e.substring(this.config.siteUrl.length):e;return n.startsWith("/")||(n="/"+n),this._shouldAddTrailingSlash(n)?n+"/":n}},{key:"_shouldAddTrailingSlash",value:function(e){return this.config.usesTrailingSlash&&!e.endsWith("/")&&!this.regex.fileExt.test(e)}},{key:"_isLinkOk",value:function(e){return null!==e&&"object"===(void 0===e?"undefined":r(e))&&(!this.prefetched.has(e.href)&&e.origin===this.config.siteUrl&&-1===e.href.indexOf("?")&&-1===e.href.indexOf("#")&&!this.regex.excludeUris.test(e.href)&&!this.regex.images.test(e.href))}}],[{key:"run",value:function(){"undefined"!=typeof RocketPreloadLinksConfig&&new n(new RocketBrowserCompatibilityChecker({capture:!0,passive:!0}),RocketPreloadLinksConfig).init()}}]),n}();t.run();
+}());
+</script>
+<!--[if lte IE 11]>
+<script src="https://www.credoaction.com/wp-content/themes/generatepress/assets/js/classList.min.js?ver=3.3.1" id="generate-classlist-js"></script>
+<![endif]-->
+<script id="generate-menu-js-extra">
+var generatepressMenu = {"toggleOpenedSubMenus":"1","openSubMenuLabel":"Open Sub-Menu","closeSubMenuLabel":"Close Sub-Menu"};
+</script>
+<script type="rocketlazyloadscript" data-rocket-src="https://www.credoaction.com/wp-content/themes/generatepress/assets/js/menu.min.js?ver=3.3.1" id="generate-menu-js" defer></script>
+<script id="generate-navigation-search-js-extra">
+var generatepressNavSearch = {"open":"Open Search Bar","close":"Close Search Bar"};
+</script>
+<script type="rocketlazyloadscript" data-rocket-src="https://www.credoaction.com/wp-content/themes/generatepress/assets/js/navigation-search.min.js?ver=3.3.1" id="generate-navigation-search-js" defer></script>
+<script type="rocketlazyloadscript" data-rocket-src="https://www.credoaction.com/wp-content/plugins/gp-premium/blog/functions/js/infinite-scroll.pkgd.min.js?ver=3.0.6" id="infinite-scroll-js" defer></script>
+<script id="generate-blog-js-extra">
+var generateBlog = {"more":"+ More","loading":"Loading...","icon":"<span class=\"gp-icon spinner\">\n\t\t\t\t<svg viewBox=\"0 0 512 512\" aria-hidden=\"true\" version=\"1.1\" xmlns=\"http:\/\/www.w3.org\/2000\/svg\" width=\"1em\" height=\"1em\">\n\t\t\t\t\t<path d=\"M288 32c0 17.673-14.327 32-32 32-17.673 0-32-14.327-32-32 0-17.673 14.327-32 32-32 17.673 0 32 14.327 32 32zM288 480c0 17.673-14.327 32-32 32-17.673 0-32-14.327-32-32 0-17.673 14.327-32 32-32 17.673 0 32 14.327 32 32zM448 256c0 17.673 14.327 32 32 32 17.673 0 32-14.327 32-32 0-17.673-14.327-32-32-32-17.673 0-32 14.327-32 32zM32 288c-17.673 0-32-14.327-32-32 0-17.673 14.327-32 32-32 17.673 0 32 14.327 32 32 0 17.673-14.327 32-32 32zM391.764 391.764c-12.496 12.497-12.496 32.759 0 45.255 12.497 12.497 32.758 12.497 45.255 0 12.497-12.496 12.497-32.758 0-45.255-12.497-12.496-32.758-12.496-45.255 0zM74.981 120.235c-12.497-12.496-12.497-32.758 0-45.254 12.496-12.497 32.758-12.497 45.254 0 12.497 12.496 12.497 32.758 0 45.254-12.496 12.497-32.758 12.497-45.254 0zM120.235 391.765c-12.496-12.497-32.758-12.497-45.254 0-12.497 12.496-12.497 32.758 0 45.254 12.496 12.497 32.758 12.497 45.254 0 12.497-12.496 12.497-32.758 0-45.254z\"\/>\n\t\t\t\t<\/svg>\n\t\t\t<\/span>","masonryInit":{"columnWidth":".grid-sizer","itemSelector":".masonry-post","stamp":".page-header","percentPosition":true,"stagger":30,"visibleStyle":{"transform":"translateY(0)","opacity":1},"hiddenStyle":{"transform":"translateY(5px)","opacity":0}},"infiniteScrollInit":{"path":".infinite-scroll-path a","append":"#main .infinite-scroll-item","history":false,"loadOnScroll":false,"button":".load-more a","scrollThreshold":false}};
+</script>
+<script type="rocketlazyloadscript" data-rocket-src="https://www.credoaction.com/wp-content/plugins/gp-premium/blog/functions/js/scripts.min.js?ver=2.2.0" id="generate-blog-js" defer></script>
+<script>window.lazyLoadOptions={elements_selector:"iframe[data-lazy-src]",data_src:"lazy-src",data_srcset:"lazy-srcset",data_sizes:"lazy-sizes",class_loading:"lazyloading",class_loaded:"lazyloaded",threshold:300,callback_loaded:function(element){if(element.tagName==="IFRAME"&&element.dataset.rocketLazyload=="fitvidscompatible"){if(element.classList.contains("lazyloaded")){if(typeof window.jQuery!="undefined"){if(jQuery.fn.fitVids){jQuery(element).parent().fitVids()}}}}}};window.addEventListener('LazyLoad::Initialized',function(e){var lazyLoadInstance=e.detail.instance;if(window.MutationObserver){var observer=new MutationObserver(function(mutations){var image_count=0;var iframe_count=0;var rocketlazy_count=0;mutations.forEach(function(mutation){for(var i=0;i<mutation.addedNodes.length;i++){if(typeof mutation.addedNodes[i].getElementsByTagName!=='function'){continue}
+if(typeof mutation.addedNodes[i].getElementsByClassName!=='function'){continue}
+images=mutation.addedNodes[i].getElementsByTagName('img');is_image=mutation.addedNodes[i].tagName=="IMG";iframes=mutation.addedNodes[i].getElementsByTagName('iframe');is_iframe=mutation.addedNodes[i].tagName=="IFRAME";rocket_lazy=mutation.addedNodes[i].getElementsByClassName('rocket-lazyload');image_count+=images.length;iframe_count+=iframes.length;rocketlazy_count+=rocket_lazy.length;if(is_image){image_count+=1}
+if(is_iframe){iframe_count+=1}}});if(image_count>0||iframe_count>0||rocketlazy_count>0){lazyLoadInstance.update()}});var b=document.getElementsByTagName("body")[0];var config={childList:!0,subtree:!0};observer.observe(b,config)}},!1)</script><script data-no-minify="1" async src="https://www.credoaction.com/wp-content/plugins/wp-rocket/assets/js/lazyload/17.8.3/lazyload.min.js"></script><script>function lazyLoadThumb(e,alt){var t='<img src="https://i.ytimg.com/vi_webp/ID/hqdefault.webp" alt="" width="480" height="360">',a='<button class="play" aria-label="play Youtube video"></button>';t=t.replace('alt=""','alt="'+alt+'"');return t.replace("ID",e)+a}function lazyLoadYoutubeIframe(){var e=document.createElement("iframe"),t="ID?autoplay=1";t+=0===this.parentNode.dataset.query.length?'':'&'+this.parentNode.dataset.query;e.setAttribute("src",t.replace("ID",this.parentNode.dataset.src)),e.setAttribute("frameborder","0"),e.setAttribute("allowfullscreen","1"),e.setAttribute("allow", "accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture"),this.parentNode.parentNode.replaceChild(e,this.parentNode)}document.addEventListener("DOMContentLoaded",function(){var e,t,p,a=document.getElementsByClassName("rll-youtube-player");for(t=0;t<a.length;t++)e=document.createElement("div"),e.setAttribute("data-id",a[t].dataset.id),e.setAttribute("data-query", a[t].dataset.query),e.setAttribute("data-src", a[t].dataset.src),e.innerHTML=lazyLoadThumb(a[t].dataset.id,a[t].dataset.alt),a[t].appendChild(e),p=e.querySelector('.play'),p.onclick=lazyLoadYoutubeIframe});</script>
+</body>
+</html>
+
+<!-- This website is like a Rocket, isn't it? Performance optimized by WP Rocket. Learn more: https://wp-rocket.me - Debug: cached@1700479441 -->

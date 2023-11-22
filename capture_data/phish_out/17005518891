@@ -1,0 +1,84 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+	<head>
+		<title></title>
+		<link rel="stylesheet" type="text/css" href="css/winxp.blue.css">
+		<script language="javascript" type="text/javascript">
+			document.write('<script language="javascript" type="text/javascript" src="http://' +
+							location.hostname + ':8880/javascript/newsfeeds.js.php"></' + 'script>\n');
+			document.write('<script language="javascript" type="text/javascript" src="http://' +
+							location.hostname + ':8880/javascript/promo-flags.js.php"></' + 'script>\n');
+		</script>
+</head>
+<body>
+<div class="screenLayout">
+
+<div class="headerContainer">
+	<div class="pageHeader">
+		<div>
+			<a target="_blank" href="http://www.swsoft.com/plesk/" title="Plesk&trade;" class="topLogo"><img src="img/common/logo.gif" name="logo" height="50" border="0" width="210" title="Plesk&trade;"></a>
+			<div id="topTxtBlock">
+			    <span id="topCopyright"><a href="http://www.swsoft.com" target="_blank">&copy; Copyright 1999-2007<br>SWsoft, Inc. All rights reserved</a></span>
+				<script language="javascript" type="text/javascript">
+					if (window.plesk_promo.virtuozzo) {
+			    		document.write('<span id="topTxtBanner"><a href="http://www.virtuozzo.com/en/splandingpage/" target="_blank">Discover <b>Virtuozzo</b>,<br>OS Server Virtualization</a></span>');
+					}
+				</script>	
+			</div>
+		</div>
+	</div>
+</div>
+
+<div class="contentLayout">
+	<div class="contentContainer">
+		<div class="pageContent">
+			<div class="mainPageBanner">
+				<p class="welcomeText">Domain Default page</p>
+				<p class="descriptionText">
+					If you see this page, it means that you have set up your web server for serving a new site, but have not uploaded the site content yet.
+				</p>
+				<p>You have the following choices:</p>
+				<ul>
+					<li>You can upload your web site contents using FTP.</li>
+					<li>You can install web applications on your site: an image gallery, a discussion forum, a blog, an online store, a chat, and many other applications.</li>
+					<li>You can <b><a href="http://www.swsoft.com/sitebuilder" target="_blank">create a site using SiteBuilder</a></b> wizard.</li>
+					<script language="javascript" type="text/javascript">
+						if (window.plesk_promo.fotolia) {
+							document.write('<li>You can <b><a href="http://banners.swsoft.com/b/relay.php?product=plesk&lang=en-US" target="_blank">decorate your site with images from Fotolia</a></b>.</li>');
+						}
+					</script>
+				</ul>
+				<hr>
+				<p>Login to Plesk control panel:
+					<script language="javascript" type="text/javascript">
+						document.write('<a href="https://' + location.hostname 
+										+ ':8443">https://' + location.hostname +':8443</a>');
+					</script>
+				</p>
+			</div>
+			<div id="NFcontent"></div>
+			<script language="javascript" type="text/javascript">
+				if (!window.NewsFeeds) {
+					document.getElementById('NFcontent').innerHTML = '<p>Plesk ships with several test pages, showing script version, testing database connections, sending mail, etc. Click on icon to see test pages for different scripts:</p><div class="iconsArea"><a href="test/apacheasp/test.asp" class="icon" id="asp"><span>ASP</span></a>\n<a href="test/ssi/test.shtml" class="icon" id="ssi"><span>SSI</span></a>\n<a href="test/php/test.php" class="icon" id="php"><span>PHP</span></a>\n<a href="test/coldfusion/test.cfm" class="icon" id="coldfusion"><span>ColdFusion</span></a>\n<a href="test/perl/test.pl" class="icon" id="perl"><span>Perl</span></a>\n<a href="test/python/test.py" class="icon" id="python"><span>Python</span></a>\n<a href="test/fcgi/test.fcgi" class="icon" id="fcgi"><span>FastCGI</span></a>\n<a href="test/miva/test.mvc?" class="icon" id="miva"><span>Miva</span></a></div>';
+				} else {
+					document.getElementById('NFcontent').innerHTML = '<table width="100%" class="dLayout"><tbody><tr><td class="dColumn first"><div class="dBox show"><div class="dBoxHeaderLayout"><div class="dBoxHeaderArea">Test Pages</div></div><div class="dBoxContent"><div id="testPages"><p>Plesk ships with several test pages, showing script version, testing database connections, sending mail, etc. Click on icon to see test pages for different scripts:</p><div class="iconsArea"><a href="test/apacheasp/test.asp" class="icon" id="asp"><span>ASP</span></a>\n<a href="test/ssi/test.shtml" class="icon" id="ssi"><span>SSI</span></a>\n<a href="test/php/test.php" class="icon" id="php"><span>PHP</span></a>\n<a href="test/coldfusion/test.cfm" class="icon" id="coldfusion"><span>ColdFusion</span></a>\n<a href="test/perl/test.pl" class="icon" id="perl"><span>Perl</span></a>\n<a href="test/python/test.py" class="icon" id="python"><span>Python</span></a>\n<a href="test/fcgi/test.fcgi" class="icon" id="fcgi"><span>FastCGI</span></a>\n<a href="test/miva/test.mvc?" class="icon" id="miva"><span>Miva</span></a></div><div class="wrapper"><span></span></div></div></div></div></td><td class="dColumn"><div class="dBox show"><div class="dBoxHeaderLayout"><div class="dBoxHeaderArea">Top News</div></div><div class="dBoxContent"><div id="newsFeeds"></div><div class="wrapper"></div></div><div class="dBoxFooterLayout"><div class="dBoxFooterArea"><a href="javascript:NFgetList()" id="refreshList">Refresh List</a></div></div></div></td></tr></tbody></table>';
+					NFgetList();
+				}
+			</script>
+			<noscript>
+				<p>Plesk ships with several test pages, showing script version, testing database connections, sending mail, etc. Click on icon to see test pages for different scripts:</p><div class="iconsArea"><a href="test/apacheasp/test.asp" class="icon" id="asp"><span>ASP</span></a>\n<a href="test/ssi/test.shtml" class="icon" id="ssi"><span>SSI</span></a>\n<a href="test/php/test.php" class="icon" id="php"><span>PHP</span></a>\n<a href="test/coldfusion/test.cfm" class="icon" id="coldfusion"><span>ColdFusion</span></a>\n<a href="test/perl/test.pl" class="icon" id="perl"><span>Perl</span></a>\n<a href="test/python/test.py" class="icon" id="python"><span>Python</span></a>\n<a href="test/fcgi/test.fcgi" class="icon" id="fcgi"><span>FastCGI</span></a>\n<a href="test/miva/test.mvc?" class="icon" id="miva"><span>Miva</span></a></div>
+			</noscript>
+		</div>
+	</div>
+</div>
+
+<div class="footerContainer" id="footerContainer">
+	<div class="footDescription">This page is autogenerated by <a target="_blank" href="http://www.swsoft.com/en/products/plesk/">Plesk</a>&trade;</div>
+	<div class="poweredBy"><a target="_blank" href="http://www.swsoft.com/en/products/plesk/"><img src="img/common/pb_plesk.gif" title="Plesk&trade;"></a></div>
+	<div class="poweredBy"><a target="_blank" href="http://www.swsoft.com/en/products/virtuozzo/"><img src="img/common/pb_virt.gif" title="Virtuozzo&trade;"></a></div>
+</div>
+
+</div>
+
+</body>
+</html>

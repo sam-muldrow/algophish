@@ -1,0 +1,430 @@
+
+<!DOCTYPE html>
+
+<html>
+<head><meta http-equiv="X-UA-Compatible" content="IE=edge" /><title>
+	Sign In
+</title><link rel="shortcut icon" href="/favicon.ico?v=India15.01" /><link type="text/css" rel="Stylesheet" href="/Styles/Originators.css?v=2023.12.1700018436+taurus" /><link type="text/css" rel="Stylesheet" href="/Styles/PopUp.Dialog.css?v=2023.12.1700018436+taurus" /><link type="text/css" rel="Stylesheet" href="/Styles/PopUp.Message.css?v=2023.12.1700018436+taurus" />
+
+	<!-- Ignite UI Required Javascript Files -->
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.3/jquery.min.js"></script>
+	<script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.13.2/jquery-ui.min.js"></script>
+
+	<script src="/Scripts/Util/modernizr.2.8.3.js"></script>
+
+	<script type="text/javascript" src="/Scripts/Originators.js?v=2023.12.1700018436+taurus"></script>
+	<script type="text/javascript" src="/Scripts/MercUtil.js?v=2023.12.1700018436+taurus"></script>
+	<script type="text/javascript" src="/Scripts/PopUp.iDialog.js?v=2023.12.1700018436+taurus"></script>
+	<script type="text/javascript" src="/Scripts/PopUp.Message.js?v=2023.12.1700018436+taurus"></script>
+	<script type="text/javascript" src="/Scripts/Util/jwt-decode.min.js?v=2023.12.1700018436+taurus"></script>
+	<script type="text/javascript" src="/Scripts/Api.js?v=2023.12.1700018436+taurus"></script>
+	<script type="text/javascript" src="/Scripts/PredicateChainClass.js?v=2023.12.1700018436+taurus"></script>
+	<script type="text/javascript" src="/Scripts/StringExtensionsClass.js?v=2023.12.1700018436+taurus"></script>
+	<script type="text/javascript" src="/Scripts/PasswordClass.js?v=2023.12.1700018436+taurus"></script>
+
+	<!-- Google Tag Manager -->
+	<script>(function (w, d, s, l, i) {
+			w[l] = w[l] || []; w[l].push({
+				'gtm.start':
+					new Date().getTime(), event: 'gtm.js'
+			}); var f = d.getElementsByTagName(s)[0],
+				j = d.createElement(s), dl = l != 'dataLayer' ? '&l=' + l : ''; j.async = true; j.src =
+					'https://www.googletagmanager.com/gtm.js?id=' + i + dl; f.parentNode.insertBefore(j, f);
+		})(window, document, 'script', 'dataLayer', 'GTM-N32J54');</script>
+	<!-- End Google Tag Manager -->
+
+	
+	<link type="text/css" rel="Stylesheet" href="/Styles/Public.css?v=2023.12.1700018436+taurus" />
+
+	<script type="text/javascript" src="/Scripts/Public.js?v=2023.12.1700018436+taurus"></script>
+
+	
+
+	<script type="text/javascript" src="/Scripts/WebFormsAjaxModule.js?v=2023.12.1700018436+taurus"></script>
+	<script type="text/javascript" src="/Scripts/SignInModule.js?v=2023.12.1700018436+taurus"></script>
+
+	<link type="text/css" rel="Stylesheet" href="https://netdna.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.css">
+	<link type="text/css"  rel="Stylesheet" href="Styles/SignIn.css?v=2023.12.1700018436+taurus" />
+	<script src="https://www.google.com/recaptcha/api.js?render=6LfXoMAUAAAAAL2UD4W-R3MZ0_zcDRc2GDwnZ1FO"></script>
+
+	<script type="text/javascript">
+		grecaptcha.ready(function() {
+			grecaptcha
+				.execute('6LfXoMAUAAAAAL2UD4W-R3MZ0_zcDRc2GDwnZ1FO', { action: 'vmpclientsignin' })
+				.then(function(token) {
+					$("#recaptcha-token").val(token);
+				});
+		});
+
+		var img_blackbar = new Image();
+
+		function onPageLoad()
+		{
+			if (document.getElementById('ctl00_ctl00_Main_Main_cbRememberMe').checked)
+			{
+				document.getElementById('ctl00_ctl00_Main_Main_txtPassword').focus();
+			}
+			else
+			{
+				document.getElementById('ctl00_ctl00_Main_Main_txtUsername').focus();
+			}
+
+			document.onkeypress = function (e)
+			{ //override default button for the send account info dialog
+				e = e || event;
+				if ((e.keyCode ? e.keyCode : e.which) == 13 && signInModule.signInFormActive()) {
+					console.log('sending');
+					var divSendAccInfo = document.getElementById("divSendAccountInfo");
+					if (divSendAccInfo && divSendAccInfo.style.display != "none") {
+						setTimeout(SendAccountInfo, 50);
+						return false;
+					}
+				}
+				else console.log('canceling');
+			};
+		}
+
+		function ShowInvalidLogin()
+		{
+			ShowAlert('Invalid Login', 'The username and/or password you entered is invalid.<br><br>Please try again.', 'warning');
+		}
+
+		function ShowSignInNotAllowed(company, email)
+		{
+			ShowAlert('Sign In', 'You do not have rights to sign into ' + company + '\'s XSite. Please contact the XSite administrator (' + email + ') if you believe this is an error.', 'warning');
+		}
+
+		function ShowEmployeeDeactivated(company, email) {
+			ShowAlert('Sign In', 'The company (' + company + ') or email (' + email + ')  belongs to an invalid employee account. Please reach out to dev support.', 'warning');
+		}
+
+		function ShowRestrictedAccess(company)
+		{
+			ShowAlert('Access Restricted', company + ' has restricted access to this page. Please contact ' + company + ' for more information.', 'warning');
+		}
+
+		function btnSignIn_Click()
+		{
+			if (signInModule.signInFormActive() && Page_ClientValidate('SignIn'))
+			{
+				setTimeout("ShowClock('Authenticating', 'Please wait while you are signed in.');", 50);
+				return true;
+			}
+			else
+				return false;
+		}
+
+		function ShowSendAccountInfo()
+		{
+			document.getElementById('ctl00_ctl00_Dialogs_Dialogs_txtEmailAddress').value = '';
+			ShowDialog('divSendAccountInfo');
+			FocusControl('ctl00_ctl00_Dialogs_Dialogs_txtEmailAddress');
+		}
+
+		function SendAccountInfo()
+		{
+			if (Page_ClientValidate('SendAccountInfo'))
+			{
+				var strEmail = document.getElementById('ctl00_ctl00_Dialogs_Dialogs_txtEmailAddress').value;
+				if (strEmail.length > 0)
+				{
+					ShowClock('Send Account Info', 'Please wait while we send your account information...');
+					PageMethods.set_timeout(5000);
+					PageMethods.SendAccountInfo(strEmail, onSendAccountInfoSuccess, onSendAccountInfoFail);
+				}
+				else
+					ShowAlert('Send Account Info', 'Please enter your e-mail address before continuing.', 'warning');
+			}
+		}
+		function onSendAccountInfoSuccess(result, response, context)
+		{
+			HideDialogs();
+			switch (parseInt(result))
+			{
+				case 0:
+					ShowAlert('Send Account Info', 'Your account information has been sent.', 'success');
+					break;
+				case -1:
+					ShowAlert('Send Account Info', 'A problem was encountered and your account information was not sent.', 'error');
+					break;
+				case -2:
+					ShowSendAccountInfo();
+					ShowAlert('Send Account Info', 'Sorry, we can not find that username in our database.', 'error');
+					break;
+			}
+		}
+
+		function onSendAccountInfoFail(result, response, context)
+		{
+			HideDialogs();
+			ShowAlert('Send Account Info', 'A problem was encountered and your account information was not sent.', 'error');
+		}
+
+    </script>
+
+<link id="ctl00_ctl00_ThemeCSS" type="text/css" rel="stylesheet" href="/App_Themes/SkinButton/Theme.css" /><link id="ctl00_ctl00_SkinButtonCSS" type="text/css" rel="stylesheet" href="/WebResource.axd?d=DsZsq5AhX7dvmDkJvo-57bWCNorva1M2exLeQ73JR4G9wOAT2OUHA9wcQl11PKS7MVVcoX29YoEW9FHDHMwfMqG0GuEuVR2rleABIEGYSDpy5PYqb_RV0JyGPvzw8NIT2GdXY5j23CfxTpvwpA-_f0weH48GNd7OWf-37gojqpXyfTBl0&amp;t=638355936900000000" /></head>
+<body>
+	<!-- Google Tag Manager (noscript) -->
+	<noscript>
+		<iframe src="https://www.googletagmanager.com/ns.html?id=GTM-N32J54"
+			height="0" width="0" style="display: none; visibility: hidden"></iframe>
+	</noscript>
+	<!-- End Google Tag Manager (noscript) -->
+	<form name="aspnetForm" method="post" action="./SignIn.aspx" id="aspnetForm" autocomplete="off" class="Unknown">
+<input type="hidden" name="__VIEWSTATE" id="__VIEWSTATE" value="MFYYXPpEi4v2xqeCQGru+afsJRsAmQECGI6smHV2KEbrz9XFXWG2yVxom+kmg2U/VxWsN4GvjgqWQScEqg5uVRrgRhAPFjIAikI+b631mNsLG+4rv6bebek59+4/KUwL9sMzzsR77UNvmuPz7IduXz6g671HnO8u21fR/dGNLdLe63Dz8TM0ehX5oFNaQBdgPrjXDXq+4PLIj9yzWZF5rrcPBw5eQF8vFJHfbCaj9WdpjM86A171Sy1PtlbU6+N68K+nhVkuPzin6WnY4Iyc7TJaJ482zWi+NzPcTTTUAzeAWyPFPX7j07NTsUMu1Uj3lmI8N7ZasESP7Q27LpLJIiDgZRyZMuXwr9fqzBg81TwEVWilqzddgmll8vluxKwgjG7GDvuNyDWYixbcpqliGMEm+ghqUcDO8eut6G9vhFUtQ1eUOlNSm7mqSSfQo0/vEspR6zSCUQeX0bzHf17m0uwNN7wRB986Qc0Yc3VGLc8uZQEE/uqdLWoC1osaKxsHh3GfY1RNuOKta/0vvF/Brjl7A8s=" />
+
+
+<script src="/WebResource.axd?d=MTUIl-YO70jtsOX_6tt1dZVv9mgzs-mM_69xk1Rra41UjRkhqG5scWvwvk-AlXijP2RCPe8MHlldrMPBO8UPNjBVzIrqm-Sd61vMnh0TacHely40BZweZJLIDKaJAtWVRKmeQtnoyx0KDuVaANfW1v-e49cCWfyJkYQaxe_qpgF7OAMK0&amp;t=638355936900000000" type="text/javascript"></script>
+<script src="/ScriptResource.axd?d=uHIkleVeDJf4xS50Krz-yEbH5R32wqV21NUy4el5D1PDIs_RJG4aj59GO9rC0g31ch_2Sqno3zfpCsrFHvDyYsmSzBbWeJ8uDmLXIJD26BXLLqY36lgdC9hlL13pKk2Dujig5xgJzYqRWW_M39IvZJa1Ih81&amp;t=96346c8" type="text/javascript"></script>
+<script type="text/javascript">
+//<![CDATA[
+var PageMethods = function() {
+PageMethods.initializeBase(this);
+this._timeout = 0;
+this._userContext = null;
+this._succeeded = null;
+this._failed = null;
+}
+PageMethods.prototype = {
+_get_path:function() {
+ var p = this.get_path();
+ if (p) return p;
+ else return PageMethods._staticInstance.get_path();},
+SendAccountInfo:function(strEmail,succeededCallback, failedCallback, userContext) {
+return this._invoke(this._get_path(), 'SendAccountInfo',false,{strEmail:strEmail},succeededCallback,failedCallback,userContext); }}
+PageMethods.registerClass('PageMethods',Sys.Net.WebServiceProxy);
+PageMethods._staticInstance = new PageMethods();
+PageMethods.set_path = function(value) { PageMethods._staticInstance.set_path(value); }
+PageMethods.get_path = function() { return PageMethods._staticInstance.get_path(); }
+PageMethods.set_timeout = function(value) { PageMethods._staticInstance.set_timeout(value); }
+PageMethods.get_timeout = function() { return PageMethods._staticInstance.get_timeout(); }
+PageMethods.set_defaultUserContext = function(value) { PageMethods._staticInstance.set_defaultUserContext(value); }
+PageMethods.get_defaultUserContext = function() { return PageMethods._staticInstance.get_defaultUserContext(); }
+PageMethods.set_defaultSucceededCallback = function(value) { PageMethods._staticInstance.set_defaultSucceededCallback(value); }
+PageMethods.get_defaultSucceededCallback = function() { return PageMethods._staticInstance.get_defaultSucceededCallback(); }
+PageMethods.set_defaultFailedCallback = function(value) { PageMethods._staticInstance.set_defaultFailedCallback(value); }
+PageMethods.get_defaultFailedCallback = function() { return PageMethods._staticInstance.get_defaultFailedCallback(); }
+PageMethods.set_enableJsonp = function(value) { PageMethods._staticInstance.set_enableJsonp(value); }
+PageMethods.get_enableJsonp = function() { return PageMethods._staticInstance.get_enableJsonp(); }
+PageMethods.set_jsonpCallbackParameter = function(value) { PageMethods._staticInstance.set_jsonpCallbackParameter(value); }
+PageMethods.get_jsonpCallbackParameter = function() { return PageMethods._staticInstance.get_jsonpCallbackParameter(); }
+PageMethods.set_path("SignIn.aspx");
+PageMethods.SendAccountInfo= function(strEmail,onSuccess,onFailed,userContext) {PageMethods._staticInstance.SendAccountInfo(strEmail,onSuccess,onFailed,userContext); }
+//]]>
+</script>
+
+<input type="hidden" name="__VIEWSTATEGENERATOR" id="__VIEWSTATEGENERATOR" value="ECDA716A" />
+<input type="hidden" name="__EVENTVALIDATION" id="__EVENTVALIDATION" value="DJpTw5b5FfWAWBhE2FRMal2hdgQTSvLJMMxb0R2QZEWRejbIaS4CC+3ez4YODZ/xvnY/Muf7WJ5rcW/LTDz07a3l8vBYjweG77u1S9x3XSELzxICxOz45qA2QKJz1BqOOgDdd0HuuTJeoWU/ZnXVKf9hBIy70Rge3XhwMHF72Ee1+wJlXmzSazwrhLl9fakm8WLNpbV6U9oojcHzhsyLIL3T4+DTd2KG7bL12268jMjBNAva" />
+
+		
+	<div style="padding-bottom:14px; background-color:White;padding-top:5px;">
+		<div class="Header">
+			<img id="ctl00_ctl00_Main_imgLogo" class="MasterLogo" src="/StreamDocument.aspx?t=9" border="0" />
+			<div></div>
+		</div>
+		<div class="HeaderDivider"></div>
+		
+	<input id="recaptcha-token" type="hidden" name="recaptcha-token" value="" />
+
+	
+	
+	
+	<div class="BlackBar" style="display:none;"></div> <!-- added to fix an issue with Chrome where the BlackBar.png would not show. -->
+
+	<div id="upEmpty_SignUp">
+
+</div>
+
+
+	
+	<div id="ctl00_ctl00_Main_Main_pnlNewToolsWrapper" class="NewToolsWrapperNotVisible">
+	
+		
+		<div id="SignUpWrapper">
+			<div id="SignUpContent">
+				
+				<div id="SignUpMain">
+					<div class="SignInHeader">Sign In</div>
+					<div class="SignInHelp">
+						Enter your username and password to place orders with us, check the status of your orders, and download reports directly from your account.
+					</div>
+					<table border="0" class="SignIn">
+					<tr id="UsernameFormGroup">
+						<td class="FieldLabelSignIn">Username:</td>
+						<td class="FieldInputSignIn"><input name="ctl00$ctl00$Main$Main$txtUsername" type="text" maxlength="50" id="ctl00_ctl00_Main_Main_txtUsername" class="SignUpUsernameControl" /></td>
+					</tr>
+					<tr ID="PasswordFormGroup">
+						<td class="FieldLabelSignIn">Password:</td>
+						<td class="FieldInputSignIn"><input name="ctl00$ctl00$Main$Main$txtPassword" type="password" maxlength="64" id="ctl00_ctl00_Main_Main_txtPassword" /></td>
+					</tr>
+                    <tr ID="EmailFormGroup" style="display: none;">
+						<td class="FieldLabelSignIn">E-mail:</td>
+						<td class="FieldInputSignIn"><input name="ctl00$ctl00$Main$Main$txtForgotUsernameEmail" type="email" autocomplete="off" maxlength="100" id="ctl00_ctl00_Main_Main_txtForgotUsernameEmail" class="SignUpEmailControl" /></td>
+					</tr>
+					</table>
+					<table class="ForgotPassword" style="width:100%" >
+					<tr>
+						<td>
+							<div class="RememberMeSection">
+							&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+							<input id="ctl00_ctl00_Main_Main_cbRememberMe" type="checkbox" name="ctl00$ctl00$Main$Main$cbRememberMe" />
+							<label for="ctl00_ctl00_Main_Main_cbRememberMe" id="ctl00_ctl00_Main_Main_lblRememberMe" class="RememberMeLabel">Remember me</label>
+							</div>
+							<div class="SignInButtonSection">
+							<input type="image" name="ctl00$ctl00$Main$Main$btnSignIn" id="ctl00_ctl00_Main_Main_btnSignIn" src="/Images/SignIn_Button.png" onclick="return btnSignIn_Click();WebForm_DoPostBackWithOptions(new WebForm_PostBackOptions(&quot;ctl00$ctl00$Main$Main$btnSignIn&quot;, &quot;&quot;, true, &quot;SignIn&quot;, &quot;&quot;, false, false))" border="0" />
+							<br />
+							    <a href="javascript:signInModule.forgotUsernameLinkClicked();" class="ForgotPassword" >Forgot Username</a> or <a href="javascript:signInModule.forgotPasswordLinkClicked();" class="ForgotPassword" >Password?</a>
+							</div>
+							<div class="ForgotPasswordButtonSection" style="display: none">
+								<a id="cancelForgotPasswordLink" class="linkbutton" href="#" onclick="signInModule.cancelForgotPasswordLinkClicked()" style="display: none; position: relative; bottom: 10px">Cancel</a>
+								<input type="image" name="ctl00$ctl00$Main$Main$forgotFieldSubmitButton" id="forgotFieldSubmitButton" src="/Images/Reset_Button.png" onclick="signInModule.submitButtonClicked(); return false;" border="0" />
+								<i id="passwordResetButtonSpinner" class ="fa fa-circle-o-notch fa-spin" style="display: none; font-size: large; position: absolute; color: white; right: 20px; top: 25%"></i>
+							</div>
+						</td>
+					</tr>
+					</table>
+					
+					<br />
+				</div>
+			</div>
+			<div class="PaperBottom">
+				<div class="PaperBottomLeft"></div>
+				<div class="PaperBottomRight"></div>
+			</div>
+		</div>
+	
+</div>
+	<div id="ctl00_ctl00_Main_Main_upMain">
+
+</div>
+
+		<div class="Footer">
+			<a href="http://www.mercuryvmp.com/" target="_blank"><img src="/Images/Powered-by-Mercury-Network.png?v=Eagles" border="0" alt="" /></a><br /><br />
+			<a class="BlueLink" href="javascript:ShowTOU();">Terms of Use</a>
+		</div>
+	</div>
+
+
+		<div class="tooltip" id="divToolTip"></div>
+		<div id="divOverlayDisabled" class="overlaydisabled"></div>
+
+		<div id="divOverlay" class="overlay">
+
+			<div id="AlertDialog" class="MsgBox">
+				<div class="BlackBarNoMargin" id="AlertDialogTitle"></div>
+				<div class="MsgBoxContent">
+					<table class="MNDialog">
+						<tr>
+							<td class="DialogImage">
+								<img id="AlertIcon" src="/Images/Alerts/WarningIcon32x32.png" alt="" /></td>
+							<td id="AlertDialogText" class="DialogMessage"></td>
+						</tr>
+					</table>
+					<br />
+					<div style="text-align: right;">
+						<input type="button" value="OK" style="width: 80px;" onclick="javascript:HideAlert();" /></div>
+				</div>
+			</div>
+
+			<div id="ClockDialog" class="MsgBox" style="width: 350px">
+				<div class="BlackBarNoMargin" id="ClockDialogTitle"></div>
+				<div class="MsgBoxContent">
+					<table class="MNDialog">
+						<tr>
+							<td class="ClockDialogImage">
+								<img src="/Images/icon_loading.gif" alt="" class="ClockDialogImage" /></td>
+							<td id="ClickDialogText" class="ClockDialogText"></td>
+						</tr>
+					</table>
+				</div>
+			</div>
+
+			<div id="SummaryDialog" class="MsgBox">
+				<div class="BlackBarNoMargin" id="SummaryDialogTitle">Invalid Information</div>
+				<div class="MsgBoxContent">
+					<table class="MNDialog">
+						<tr>
+							<td class="DialogImage">
+								<img src="/Images/Alerts/WarningIcon32x32.png" alt="" /></td>
+							<td class="DialogMessage">
+								<div id="SummaryContent"></div>
+							</td>
+						</tr>
+					</table>
+					<div style="text-align: right;">
+						<input type="button" value="OK" style="width: 80px;" onclick="javascript:HideSummaryDialog();" /></div>
+				</div>
+			</div>
+
+
+			<div id="divMessageBusy" class="MessageBoxBusy">
+				<img src="/Images/icon_loading.gif" alt="" class="MessageBoxBusy" />
+				<span class="MessageBoxBusyText">One moment please ...</span>
+			</div>
+
+			<div id="divMessageOK" class="MessageBox">
+				<div class="MessageBoxHeader mbSeparator" id="divMessageOKTitle"></div>
+
+				<div class="MessageBoxText" id="divMessageOKText"></div>
+				<div class="MessageBoxFooter">
+					<div class="MessageBoxButton">
+						<a id="sbdmButton3" onclick="return ButtonVerifyEnabled(this, Mercury.PopUp.Message.Button3_click());" class="SkinButton sbGray" onmouseover="ButtonHover(this,30);" onmouseout="ButtonLeave(this);" onmousedown="ButtonDown(this,30);" onmouseup="ButtonHover(this,30);" skinheight="30"><font color="Black"><div class="SkinButtonLeft" ></div><div class="SkinButtonRight" ></div></font></a>
+					</div>
+					<div class="MessageBoxButton">
+						<a id="sbdmButton2" onclick="return ButtonVerifyEnabled(this, Mercury.PopUp.Message.Button2_click());" class="SkinButton sbGray" onmouseover="ButtonHover(this,30);" onmouseout="ButtonLeave(this);" onmousedown="ButtonDown(this,30);" onmouseup="ButtonHover(this,30);" skinheight="30"><font color="Black"><div class="SkinButtonLeft" ></div><div class="SkinButtonRight" ></div></font></a>
+					</div>
+					<div class="MessageBoxButton">
+						<a id="sbdmButton1" onclick="return ButtonVerifyEnabled(this, Mercury.PopUp.Message.Button1_click());" class="SkinButton sbBlue" onmouseover="ButtonHover(this,30);" onmouseout="ButtonLeave(this);" onmousedown="ButtonDown(this,30);" onmouseup="ButtonHover(this,30);" skinheight="30"><font color="White"><div class="SkinButtonLeft" ></div><div class="SkinButtonRight" ></div></font></a>
+					</div>
+				</div>
+			</div>
+
+			
+			<div id="GenericDialog" class="MsgBox">
+				<div id="GenericDialogTitle" class="BlackBarNoMargin"></div>
+				<img id="GenericDialogCloseButton" src="/Images/DialogCloseButton.png" alt="Close" width="21" height="20" style="position: absolute; top: 0px; left: 379px;" onmousedown="javascript:this.src = '/Images/DialogCloseButton_Down21x20.png'" onmouseup="javascript:this.src = '/Images/DialogCloseButton21x20.png'" onmouseout="javascript:this.src = '/Images/DialogCloseButton21x20.png'" />
+				<div id="GenericDialogContent" class="MsgBoxContent"></div>
+			</div>
+
+			<div id="divSupportRequestComplete" class="MsgBox" style="width: 460px">
+				<div class="BlackBarNoMargin">Support Request</div>
+				<div class="MsgBoxContent">
+					Thank you.   We've received your request and a member of our staff will be contacting you shortly.  In the meantime, if your issue is 
+				urgent, consider calling us at 800-900-4954 and reference support ticket #		
+				<span id="ctl00_ctl00_lblSupportTicketNumber" style="display:inline-block;"></span>
+					<br />
+					<br />
+					<div style="text-align: right; margin-top: 12px;">
+						<input type="button" value="Close" class="Button" onclick="HideDialogs();" />
+					</div>
+				</div>
+			</div>
+
+			<div id="divIFrames"></div>
+
+			
+	
+	<div class="MsgBox" id="divSendAccountInfo" style="width:450px;display:none;">
+		<div class="BlackBarNoMargin">Send Account Info</div>
+		<div style="position:absolute; top:0px; left:427px;"><img src="/Images/DialogCloseButton.png" alt="" class="CloseButton" onmousedown="javascript:this.src = '/Images/DialogCloseButton_down.png'" onmouseup="javascript:this.src = '/Images/DialogCloseButton.png'" onmouseout="javascript:this.src = '/Images/DialogCloseButton.png'" onclick="HideDialogs();" /></div>
+		<div class="MsgBoxContent" style="padding-bottom:20px;">
+			<b>Forgot your Username or Password?</b>
+			<br /><br />
+			Just enter your e-mail and we'll send it to you.
+			<br /><br />
+			<b>E-mail:</b> <input name="ctl00$ctl00$Dialogs$Dialogs$txtEmailAddress" type="text" id="ctl00_ctl00_Dialogs_Dialogs_txtEmailAddress" style="width:200px;margin-left:12px;" /><input type="button" value="Send Account Info" style="margin-left:20px;width:130px;" onclick="SendAccountInfo();" />
+		</div>
+	</div>
+	
+
+
+		</div>
+
+		
+	
+
+
+
+	</form>
+<script type="text/javascript" src="/_Incapsula_Resource?SWJIYLWA=719d34d31c8e3a6e6fffd425f7e032f3&ns=2&cb=891944178" async></script></body>
+</html>

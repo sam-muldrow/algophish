@@ -1,0 +1,374 @@
+<!DOCTYPE html>
+<html>
+<head>
+  
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-7409372346732845" crossorigin="anonymous"></script>
+<script>
+//pause all ad requests until further notice
+(adsbygoogle=window.adsbygoogle||[]).pauseAdRequests=1;  
+</script>
+
+
+
+<!-- Quantcast Choice. Consent Manager Tag v2.0 (for TCF 2.0) -->
+<script type="text/javascript" async=true>
+(function() {
+  var host = 'www.pogdesign.co.uk';  
+  var element = document.createElement('script');
+  var firstScript = document.getElementsByTagName('script')[0];
+  var url = 'https://cmp.quantcast.com'
+    .concat('/choice/', 'E7f20HRKEYd_q', '/', host, '/choice.js?tag_version=V2');
+  var uspTries = 0;
+  var uspTriesLimit = 3;
+  element.async = true;
+  element.type = 'text/javascript';
+  element.src = url;
+
+  firstScript.parentNode.insertBefore(element, firstScript);
+
+  function makeStub() {
+    var TCF_LOCATOR_NAME = '__tcfapiLocator';
+    var queue = [];
+    var win = window;
+    var cmpFrame;
+
+    function addFrame() {
+      var doc = win.document;
+      var otherCMP = !!(win.frames[TCF_LOCATOR_NAME]);
+
+      if (!otherCMP) {
+        if (doc.body) {
+          var iframe = doc.createElement('iframe');
+
+          iframe.style.cssText = 'display:none';
+          iframe.name = TCF_LOCATOR_NAME;
+          doc.body.appendChild(iframe);
+        } else {
+          setTimeout(addFrame, 5);
+        }
+      }
+      return !otherCMP;
+    }
+
+    function tcfAPIHandler() {
+      var gdprApplies;
+      var args = arguments;
+
+      if (!args.length) {
+        return queue;
+      } else if (args[0] === 'setGdprApplies') {
+        if (
+          args.length > 3 &&
+          args[2] === 2 &&
+          typeof args[3] === 'boolean'
+        ) {
+          gdprApplies = args[3];
+          if (typeof args[2] === 'function') {
+            args[2]('set', true);
+          }
+        }
+      } else if (args[0] === 'ping') {
+        var retr = {
+          gdprApplies: gdprApplies,
+          cmpLoaded: false,
+          cmpStatus: 'stub'
+        };
+
+        if (typeof args[2] === 'function') {
+          args[2](retr);
+        }
+      } else {
+        if(args[0] === 'init' && typeof args[3] === 'object') {
+          args[3] = Object.assign(args[3], { tag_version: 'V2' });
+        }
+        queue.push(args);
+      }
+    }
+
+    function postMessageEventHandler(event) {
+      var msgIsString = typeof event.data === 'string';
+      var json = {};
+
+      try {
+        if (msgIsString) {
+          json = JSON.parse(event.data);
+        } else {
+          json = event.data;
+        }
+      } catch (ignore) {}
+
+      var payload = json.__tcfapiCall;
+
+      if (payload) {
+        window.__tcfapi(
+          payload.command,
+          payload.version,
+          function(retValue, success) {
+            var returnMsg = {
+              __tcfapiReturn: {
+                returnValue: retValue,
+                success: success,
+                callId: payload.callId
+              }
+            };
+            if (msgIsString) {
+              returnMsg = JSON.stringify(returnMsg);
+            }
+            if (event && event.source && event.source.postMessage) {
+              event.source.postMessage(returnMsg, '*');
+            }
+          },
+          payload.parameter
+        );
+      }
+    }
+
+    while (win) {
+      try {
+        if (win.frames[TCF_LOCATOR_NAME]) {
+          cmpFrame = win;
+          break;
+        }
+      } catch (ignore) {}
+
+      if (win === window.top) {
+        break;
+      }
+      win = win.parent;
+    }
+    if (!cmpFrame) {
+      addFrame();
+      win.__tcfapi = tcfAPIHandler;
+      win.addEventListener('message', postMessageEventHandler, false);
+    }
+  };
+
+  makeStub();
+
+  var uspStubFunction = function() {
+    var arg = arguments;
+    if (typeof window.__uspapi !== uspStubFunction) {
+      setTimeout(function() {
+        if (typeof window.__uspapi !== 'undefined') {
+          window.__uspapi.apply(window.__uspapi, arg);
+        }
+      }, 500);
+    }
+  };
+
+  var checkIfUspIsReady = function() {
+    uspTries++;
+    if (window.__uspapi === uspStubFunction && uspTries < uspTriesLimit) {
+      console.warn('USP is not accessible');
+    } else {
+      clearInterval(uspInterval);
+    }
+  };
+
+  if (typeof window.__uspapi === 'undefined') {
+    window.__uspapi = uspStubFunction;
+    var uspInterval = setInterval(checkIfUspIsReady, 6000);
+  }
+})();
+</script>
+<!-- End Quantcast Choice. Consent Manager Tag v2.0 (for TCF 2.0) -->
+
+
+
+<script>
+window.__tcfapi('addEventListener', 2, function(tcData, listenerSuccess) {
+    if(listenerSuccess) {
+        //check the eventstatus
+        if(tcData.eventStatus === 'useractioncomplete' || tcData.eventStatus === 'tcloaded') {
+            if(!tcData.gdprApplies) {
+                //GDPR does not apply to this user, load ads immediately
+                (adsbygoogle=window.adsbygoogle||[]).pauseAdRequests=0;
+                return;
+            }
+
+            //deal with parsing tcData for IAB Vendor consents
+            //deal with personalized/non-personalized Google ads
+            if((tcData.vendor.consents[755] || tcData.vendor.legitimateInterests[755]) && (tcData.purpose.consents[1] && tcData.purpose.consents[3] && tcData.purpose.consents[4] && tcData.purpose.legitimateInterests[2] && tcData.purpose.legitimateInterests[7] && tcData.purpose.legitimateInterests[9] && tcData.purpose.legitimateInterests[10])) {
+                //consent signals sufficient for personalized ads
+                //set personalized ads and unpause loading process
+                (adsbygoogle=window.adsbygoogle||[]).requestNonPersonalizedAds=0;
+                (adsbygoogle=window.adsbygoogle||[]).pauseAdRequests=0;
+            } else if((tcData.vendor.consents[755] || tcData.vendor.legitimateInterests[755]) && (tcData.purpose.consents[1] && tcData.purpose.legitimateInterests[2] && tcData.purpose.legitimateInterests[7] && tcData.purpose.legitimateInterests[9] && tcData.purpose.legitimateInterests[10])) {
+                //consent signals NOT sufficient for personalized ads
+                //set non-personalized ads and unpause loading process
+                (adsbygoogle=window.adsbygoogle||[]).requestNonPersonalizedAds=1;
+                (adsbygoogle=window.adsbygoogle||[]).pauseAdRequests=0;
+            }
+        }
+    }
+});
+</script>
+<base href="https://www.pogdesign.co.uk/"> 
+<title>PoGDesign - Webdesign Development Manchester UK </title>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0,user-scalable=no, maximum-scale=1.0, minimum-scale=1.0" />
+<meta name="description" content="" />
+<meta name="keywords" content="" />
+
+<link type="text/css" rel="stylesheet" href="//fonts.googleapis.com/css?family=Roboto:300,400">
+<style>/* Styles */
+
+* { padding: 0; margin: 0; text-decoration: none; }
+
+  html,body {
+  height:100%;
+  margin:0;  
+background: #49c0f0;
+background: -moz-linear-gradient(45deg,  #49c0f0 0%, #1c348c 100%);
+background: -webkit-gradient(linear, left bottom, right top, color-stop(0%,#49c0f0), color-stop(100%,#1c348c));
+background: -webkit-linear-gradient(45deg,  #49c0f0 0%,#1c348c 100%);
+background: -o-linear-gradient(45deg,  #49c0f0 0%,#1c348c 100%);
+background: -ms-linear-gradient(45deg,  #49c0f0 0%,#1c348c 100%);
+background: linear-gradient(45deg,  #49c0f0 0%,#1c348c 100%); 
+
+
+}
+article  {
+  height:100%;
+  min-height:100%;/*for mozilla*/
+}
+html>body article {
+  height: auto;
+}
+
+h1 { text-indent: -99999px; }
+
+ article {
+	background-image: url(pog-logo.png);
+	background-size: 100%;
+	background-repeat: no-repeat;
+	background-position: center;
+ }
+
+aside.telephone {
+	font-family: Roboto;
+	font-weight: 300;
+	position: absolute;
+	top: 0;
+	right: 0;
+	text-align: right;
+	padding: 2vw;
+	color: #fff;
+	font-size: 1.33vw;
+	letter-spacing: -0.05vw; 
+	line-height: 1.2;
+}
+aside.telephone span {
+	display: block;
+	font-size: 4vw;
+	letter-spacing: -0.25vw; 
+}
+aside.telephone a { 
+	color: #fff; 
+}
+
+@media screen and (max-width: 1600px) {
+  
+		aside.telephone { 
+			font-size: 1.5vw; 
+		}
+		aside.telephone span { 
+			font-size: 5vw; 
+	letter-spacing: -0.25vw; 
+		}
+  }
+
+@media screen and (max-width: 1200px) {
+  
+		aside.telephone { 
+			font-size: 2vw; 
+		}
+		aside.telephone span { 
+			font-size: 5.5vw; 
+		}
+  }
+
+@media screen and (max-width: 900px) {
+  
+		aside.telephone { 
+			font-size: 3vw; 
+		}
+		aside.telephone span { 
+			font-size: 7.5vw; 
+	letter-spacing: -0.75vw; 
+		}
+  }
+
+@media screen and (max-width: 700px) {
+  
+		aside.telephone { 
+			font-size: 4vw; 
+		}
+		aside.telephone span { 
+			font-size: 9vw; 
+		}
+  }
+
+@media screen and (max-width: 600px) {
+  
+		aside.telephone { 
+			font-size: 4.5vw; 
+		}
+		aside.telephone span { 
+			font-size: 11.5vw; 
+	letter-spacing: -1vw; 
+		}
+  }
+
+  .calendar { position: absolute; top: 25px; right: 25px; color: #fff; font-family: Roboto; }
+ 
+</style>
+
+
+</head>
+<body>
+
+<article itemscope itemtype="http://schema.org/LocalBusiness">
+	<h1 itemprop="name">PoGDesign Ltd</h1>
+<!--
+	<aside class="telephone">
+		Get in touch, we're here to talk  <span itemprop="telephone"> <a href="tel:08000433764"> 08000 433 764 </a> </span> 
+			  Free from UK Landlines &amp; Mobiles 
+	</aside>
+-->
+</article>
+
+<a href="cat/" class="calendar">Looking for the TV Calendar?</a>
+ 
+
+ 
+ 
+<!-- Quantcast Tag -->
+<script type="text/javascript">
+window._qevents = window._qevents || [];
+
+(function() {
+var elem = document.createElement('script');
+elem.src = (document.location.protocol == "https:" ? "https://secure" : "http://edge") + ".quantserve.com/quant.js";
+elem.async = true;
+elem.type = "text/javascript";
+var scpt = document.getElementsByTagName('script')[0];
+scpt.parentNode.insertBefore(elem, scpt);
+})();
+
+window._qevents.push({
+qacct:"p-E7f20HRKEYd_q",
+uid:"pog@pogdesign.com"
+});
+</script>
+
+<noscript>
+<div style="display:none;">
+<img src="//pixel.quantserve.com/pixel/p-E7f20HRKEYd_q.gif" border="0" height="1" width="1" alt="Quantcast"/>
+</div>
+</noscript>
+<!-- End Quantcast tag -->
+
+
+</body>
+</html>

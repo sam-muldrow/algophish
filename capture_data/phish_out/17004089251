@@ -1,0 +1,1 @@
+<!DOCTYPE html><html><head><title>Deze domeinnaam is geregistreerd door een klant van Yourhosting.nl</title><meta http-equiv="pragma" content="no-cache"></head><body><iframe style="top:0px;left:0px; width:100%; height:100%; position:absolute" frameborder="0" scrolling="auto" src="https://www.yourhosting.nl/parkeerpagina.html"></iframe></body></html>

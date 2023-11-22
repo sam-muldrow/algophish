@@ -1,0 +1,875 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>4Sync - online syncing tool. Sync & sharing access with cloud storage. Synchronization files</title>
+  <meta name="Description" content="A wonderful application that links all of your computers and mobile devices together. Easiest way to back up and sync your files online. Cross platform file management in the cloud">
+  <meta name="Keywords" content="sync, synchronization, access, syncing, back up, storage, collaboration, sync iphone, sync android, pc, ipad, computer, sync file, program, folder, data, application, ios, tool, automatic, cloud, devices, utility, freeware, laptop, document, mobile phone, symbian, mobile storage, share, backup.">
+  <meta name="google-site-verification" content="G3X9XGLItUG5ZMFXEQdOb13KR2X2fRI5WvcxVas0Tr0"/>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1, maximum-scale=1, user-scalable=0" />
+  <link rel="stylesheet" type="text/css" href="https://static.4sync.com/css/common_n.4min.css?ver=-1925194639"/>
+<link rel="stylesheet" type="text/css" href="https://static.4sync.com/css/ui/elements.4min.css?ver=-1193473130"/>
+<link rel="stylesheet" type="text/css" href="https://static.4sync.com/auth-popup.4min.css?ver=2011805563"/>
+<link rel="stylesheet" type="text/css" href="https://static.4sync.com/css/themes/account/icons.4min.css?ver=1206950338"/>
+<link rel="stylesheet" type="text/css" href="https://static.4sync.com/css/tipTip.4min.css?ver=-1558254190"/>
+<script type="text/javascript" src="https://static.4sync.com/js/jquery/jquery-1.9.1.4min.js?ver=-24329501"></script>
+<script type="text/javascript" src="https://static.4sync.com/js/jquery/jquery-migrate-1.2.1.4min.js?ver=-1518983214"></script>
+<script type="text/javascript">
+    $(function () {
+
+      function addHeader(cookie, header, jqXHR) {
+        var value = $.cookie(cookie);
+        if (value) jqXHR.setRequestHeader(header, value);
+      };
+
+      $.ajaxPrefilter(function (options, originalOptions, jqXHR) {
+        if (!$.cookie) return;
+        if (originalOptions.crossDomain && originalOptions.url.search(".4sync.com") == -1) return;
+        addHeader('Login', 'x-security', jqXHR);
+        addHeader('4langcookie', 'locale', jqXHR);
+      });
+    });
+  </script>
+
+  <script defer src="//aj1090.online/dc9e97fb.js"></script>
+<script type="text/javascript">
+  function Config() {
+    return this
+  }
+
+  Config.isVideo4SyncDomain = false;
+  Config.video4SyncDomain = 'video.4sync.com';
+  Config.mainSiteDomain = '4sync.com';
+  Config.mainSiteUrlPath = 'https://www.4sync.com/';
+  Config.mainSiteUrlHttpsPath  = 'https://www.4sync.com/';
+  Config.isRTLLanguage = false;
+  Config.currentLanguage = 'en';
+  Config.revisionNum = 62229;
+  Config.syncDomain = 'https://www.4sync.com/';
+  Config.cdDomain = 'https://dc541.4sync.com/';
+  Config.mailPatterrn = new RegExp("^[_A-Za-z0-9-]+(?:\\.[_A-Za-z0-9-]+)*@[A-Za-z0-9-]+(?:\\.[A-Za-z0-9-]+)+$");
+  Config.isMobile = false;
+  Config.isIpad = false;
+  Config.is4Sync = true;
+  Config.isUserLoggedIn = false;
+  Config.epomHost = 'forshrd.com';
+  Config.isMobileVersion = false;
+  Config.isMobileView = Config.isMobileVersion; //'xs' & 'sm'- mobile size
+  Config.detectAd = {
+    allowedUri: '/empty.js',
+    blockedUri: '/show_ad_',
+    tg: '',
+    host : '',
+    applyD1D2 : 'false'
+  };
+  Config.searchDomain = 'null';
+  Config.mainSiteSecure = 'https://www.4sync.com';
+  Config.suggestionsDomain = 'suggestions.4sync.com';
+  Config.facebookVersion = 'v2.9';
+
+  Config.userVerifiedOrNull = true;
+  Config.userJustLogged = false;
+  Config.captchaSiteKey = '6LeGUQUTAAAAAAWrKGQ2wkmO9aPAfOVTH1MjIoST';
+
+  if (!Config.isVideo4SyncDomain) {
+    document.domain = '4sync.com';
+    Config.cookieDomain = (function () {
+      var domain = document.domain;
+      var splited = domain.split(".");
+      if (splited.length > 2) {
+        splited = splited.splice(splited.length - 2, splited.length);
+      }
+      return "." + splited.join(".");
+    })();
+  }
+
+  $(function() {
+    //lets detect if user just logged
+    if (typeof $.cookie === "function") {
+      Config.userJustLogged = $.cookie('justLogged') === "1";
+      if (Config.userJustLogged) {
+        $.cookie("justLogged", "0", {expires: new Date(), domain: Config.cookieDomain, path: '/'});
+        Events.fireEvent('just.logged');
+      }
+    }
+  });
+  $(function(){
+      //lets detect touch device
+      try{
+          document.createEvent("TouchEvent");
+        if (window.opera && !/Opera Mobi/.test(navigator.userAgent) && !/Opera Mini/.test(navigator.userAgent)) $("body").addClass("notTouch");
+      } catch(e){
+          $("body").addClass("notTouch");
+      }
+  });
+
+
+  
+  function selectLang(lang){
+    if (!Config.isVideo4SyncDomain) {
+      $.post("/web/user/language", {code: lang}, // save langCode into UserEntity
+          function (data) {
+            if (data.status = 'ok') {
+              document.cookie = '4langcookie=' + lang + '; path=/; domain=' + encodeURIComponent(Config.cookieDomain);
+              window.location.reload();
+            }
+          })
+    }
+  }
+</script><script type="text/javascript" src="https://static.4sync.com/js/plugins/favicon.4min.js?ver=589791203"></script>
+<script type="text/javascript" src="https://static.4sync.com/js/header.4min.js?ver=1540030082"></script>
+<script type="text/javascript" src="https://static.4sync.com/js/purchaseStats.4min.js?ver=-644521528"></script>
+<script type="text/javascript" src="https://static.4sync.com/js/login_fnc.4min.js?ver=958304654"></script>
+<script type="text/javascript" src="https://static.4sync.com/js/utils.4min.js?ver=1996083621"></script>
+<script type="text/javascript" src="https://static.4sync.com/js/authScripts.4min.js?ver=1324171495"></script>
+<script type="text/javascript" src="https://static.4sync.com/js/tips.4min.js?ver=-877986736"></script>
+<script type="text/javascript" src="https://static.4sync.com/js/cookie.4min.js?ver=408852653"></script>
+<script type="text/javascript" src="https://static.4sync.com/js/plugins/jquery.jsonWithError.4min.js?ver=881271969"></script>
+<script type="text/javascript" src="https://static.4sync.com/js/smallPlugins.4min.js?ver=-845116982"></script>
+<script type="text/javascript" src="https://static.4sync.com/js/Events.4min.js?ver=-1265666699"></script>
+<script type="text/javascript" src="https://static.4sync.com/js/plugins/jquery.placeholder.patch.4min.js?ver=-305562918"></script>
+<script type="text/javascript" src="https://static.4sync.com/js/plugins/jquery.cookie.4min.js?ver=823523918"></script>
+<script type="text/javascript" src="https://static.4sync.com/js/plugins/jquery.localStorage.4min.js?ver=-204628756"></script>
+<script type="text/javascript" src="https://static.4sync.com/js/plugins/jquery.slimscroll.min.js?ver=899909646"></script>
+<script type="text/javascript" src="https://static.4sync.com/js/plugins/jquery.tipTip.4min.js?ver=424755820"></script>
+<script type="text/javascript" src="https://static.4sync.com/js/jquery/jquery-ui-1.8.24.4min.js?ver=1127854430"></script>
+<script type="text/javascript" src="https://static.4sync.com/js/plugins/json2.4min.js?ver=1033538422"></script>
+<script type="text/javascript" src="https://static.4sync.com/js/plugins/jquery.cycle.all.min.js?ver=-713535238"></script>
+<script type="text/javascript" src="https://static.4sync.com/js/plugins/jquery.mousewheel.4min.js?ver=-1331110344"></script>
+<script type="text/javascript">
+    function sendVerificationLetter(){
+        $.get('https://www.4sync.com/account/sendEmailVerification.jsp?globSysLang=en&callback=?', {ajax: 'true'} ,function(data) {
+            var msg;
+            if (data.ok) {
+                msg = data.verificationMailSentMsg;
+            }else{
+                msg = data.errorMessage;
+            }
+            PopupModule.popupWithButtons({title:"Check your e-mail", content:msg});
+        }, "jsonp");
+    }
+</script><script type="text/javascript">
+  function feedback() {
+    var windowname="Feedback";
+    var url="/feedback.jsp";
+    OpenWindow = window.open(url,windowname,'toolbar=no,scrollbars=yes,resizable=yes,width=600,height=600,left=50,top=50');
+    OpenWindow.focus();
+  }
+  function reportCopyright() {
+    var windowname="reportCopyright";
+    var url="/web/abuse?&abuseType=2&link=" + " ";
+    OpenWindow = window.open(url,windowname,'toolbar=no,scrollbars=yes,resizable=yes,width=600,height=750,left=50,top=50');
+    OpenWindow.focus();
+  }
+
+  $(function () {
+    reportAbuseAttachEvent();
+  });
+
+  function reportAbuseAttachEvent() {
+    $('.jsReportAbuse').click(function () {
+      reportAbuse(document.location.href);
+    });
+
+    function reportAbuse(alink) {
+      var windowname="abuse";
+      var link =  (alink !== undefined) ? "&aLink=" + alink : + " ";
+      var url="/web/abuse?abuseType=1" + link;
+      OpenWindow = window.open(url,windowname,'toolbar=no,scrollbars=yes,resizable=yes,width=600,height=650,left=50,top=50');
+      OpenWindow.focus();
+    }
+  }
+
+</script><link rel="alternate" hreflang="de" href="http://de.4sync.com/" />
+<link rel="alternate" hreflang="ru" href="http://ru.4sync.com/" />
+<link rel="alternate" hreflang="ko" href="http://ko.4sync.com/" />
+<link rel="alternate" hreflang="in" href="http://in.4sync.com/" />
+<link rel="alternate" hreflang="ms" href="http://ms.4sync.com/" />
+<link rel="alternate" hreflang="pt-BR" href="http://br.4sync.com/" />
+<link rel="alternate" hreflang="en" href="http://en.4sync.com/" />
+<link rel="alternate" hreflang="it" href="http://it.4sync.com/" />
+<link rel="alternate" hreflang="fr" href="http://fr.4sync.com/" />
+<link rel="alternate" hreflang="es" href="http://es.4sync.com/" />
+<link rel="alternate" hreflang="zh" href="http://zh.4sync.com/" />
+<link rel="alternate" hreflang="ar" href="http://ar.4sync.com/" />
+<link rel="alternate" hreflang="vi" href="http://vi.4sync.com/" />
+<link rel="alternate" hreflang="th" href="http://th.4sync.com/" />
+<link rel="alternate" hreflang="ja" href="http://ja.4sync.com/" />
+<link rel="alternate" hreflang="fa" href="http://fa.4sync.com/" />
+<link rel="alternate" hreflang="pl" href="http://pl.4sync.com/" />
+<link rel="alternate" hreflang="tr" href="http://tr.4sync.com/" />
+<link rel="alternate" hreflang="x-default" href="http://www.4sync.com/" /><link rel="stylesheet" type="text/css" href="https://static.4sync.com/4sync.com/css/index.4min.css?ver=-1295708569"/>
+<script type="text/javascript" src="https://static.4sync.com/4sync.com/js/indexScripts.4min.js?ver=684533416"></script>
+<script type="text/javascript" src="https://static.4sync.com/4sync.com/js/index-2014.4min.js?ver=-2128662898"></script>
+</head>
+
+<body class="site4sync indx-page lang-en">
+<div id="wrapper">
+  <div class="section sec0 jsScrollAhchor">
+    <link rel="stylesheet" type="text/css" href="https://static.4sync.com/4sync.com/css/header.4min.css?ver=1581812079"/>
+<link rel="stylesheet" type="text/css" href="https://static.4sync.com/4sync.com/css/general.4min.css?ver=-1520740532"/>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,600,700,800" type="text/css">
+<script type="text/javascript" src="https://static.4sync.com/4sync.com/js/login.4min.js?ver=-1173654124"></script>
+<!--[if ie 9]>
+    <style type="text/css" media="screen">
+       .downloadApp {
+            filter: none;
+            background-image: url(https://static.4sync.com/4sync.com/gradient.svg?ver=-1014572791);
+            background-size: 200% 200%;
+            background-repeat: repeat-x;
+            background-position: 0 0;
+        }
+        .downloadApp:hover{
+            filter:none;
+            background-color:#12b0e3;
+        }
+    </style>
+    <![endif]-->
+
+  <!--[if lt ie 9]>
+    <style type="text/css">
+      #valid_new_email{
+        width: 255px !important;
+      }
+    </style>
+   <![endif]-->
+
+  <!--[if lte ie 9]>
+    <style type="text/css">
+      .p_window .cc iframe{
+          margin:10px 20px 0;
+      }
+      .p_window.shPopup .hh{
+          width: auto !important;
+      }
+      .p_window .friend-share{
+          margin: 0 !important;
+      }
+    </style>
+    <![endif]-->
+<link rel="stylesheet" type="text/css" href="https://static.4sync.com/css/popup_n.4min.css?ver=-743252670"/>
+<script type="text/javascript" src="https://static.4sync.com/js/PopupModule.4min.js?ver=-22273199"></script>
+<div id="confirmPopup" style="display:none;">
+  <input type="hidden" class="jsErrorDefaultTitle" value="Error"/>
+  <input type="hidden" class="jsInfoDefaultTitle" value="Info"/>
+  <div class="jsPopupBody confirmPopupBody alignLeft ffshadow">
+    <div class="jsConfirmMsg marginL25 paddingR15"></div>
+  </div>
+  <div class="grayPopupButton marginT15 round4 marginL10 ffshadow floatRight gaClick jsClose">Cancel</div>
+  <div class="bluePopupButton marginT15 confirmPopupBlueButton round4 floatRight gaClick jsConfirmOk">Ok</div>
+  <div class="clear"></div>
+</div><link rel="stylesheet" type="text/css" href="https://static.4sync.com/css/notifyBlock.4min.css?ver=-1408296607"/>
+<script type="text/javascript" src="https://static.4sync.com/js/notifyBlock.4min.js?ver=-1728458541"></script>
+<div id="notify-wrapper" class="notify-wrapper lucida" style="display: none">
+  <span class="notify">
+    <span class="notify-msg"></span>
+    <span class="notify-close"></span>
+  </span>
+</div><div class=" header">
+  <div class="bgFix">
+    <a href="https://www.4sync.com/" class="headLogo floatLeft"><span>4sync.com - online syncing tool</span></a>
+
+    <div class="topMenu floatRight">
+      <div class="loginbox floatLeft ">
+        <span id="login">Log In</span>
+
+        <div id="hidedLoginForm" style="display:none">
+          <div class="dropdownInner">
+            <div class="dropdownTopArrow"></div>
+            <form class="jsFormFocus jsLoginForm" name="loginForm" method="post" action="https://www.4sync.com/web/login" autocomplete="on">
+              <input type="hidden"
+                     value="https%3A%2F%2Fwww.4sync.com%2Faccount%2Fhome.jsp"
+                     name="returnTo">
+
+              <div style="display:none;" id="iloginRejectReason" class="small alert jsErrorPlace">&nbsp;</div>
+              <div style="display:none;" class="capsWarning small red marginB10">You are having Caps Lock on, please turn it off before entering your password</div>
+
+              <div class="inputFields">
+                <input id="iloginfield" class="nInp jsInputLogin" type="text" name="login"
+                       placeholder="Username or email"  autocomplete="on"/>
+                <input id="ipassfield" class="nInp jsInputPassword" type="password" name="password"
+                       placeholder="Password"  autocomplete="on"/>
+              </div>
+
+              <div class="rememberMeBlock clearFix">
+                <input type="hidden" value="on" name="_remember">
+                <label class="absmid f11 floatLeft" for="remember"><input type="checkbox" value="true" checked=""
+                                                                          name="remember" id="remember"
+                                                                          class="absmid">Remember me</label>
+                <a class="f11 floatRight absmid floatRight" href="https://www.4sync.com/remindPassword.jsp">Need help?</a>
+              </div>
+
+              <input type="submit" class="nBtn bblue bbig dropdownWideButton" value="Log In">
+
+              <div class="socialButtons clearFix">
+                <div class="titleText">
+                  <span>or login with</span>
+                </div>
+                <a href="https://www.4sync.com/servlet/signin/twitter?fp=https%3A%2F%2Fwww.4sync.com%2Faccount%2Fhome.jsp"
+                   class="nBtn icoTw gaClick" data-element="h12"></a>
+                <a href="https://www.4sync.com/servlet/signin/facebook?fp=https%3A%2F%2Fwww.4sync.com%2Faccount%2Fhome.jsp"
+                   class="nBtn icoFb gaClick" data-element="h13"></a>
+                <a href="https://www.4sync.com/servlet/signin/google?fp=https%3A%2F%2Fwww.4sync.com%2Faccount%2Fhome.jsp"
+                   class="nBtn icoGp gaClick" data-element="h14"></a>
+                </div>
+            </form>
+          </div>
+        </div>
+      </div>
+
+      <div class="signupbox floatLeft">
+        <span id="signup">Sign Up</span>
+
+        <div id="hidedSignUpForm" style="display:none">
+          <div class="dropdownInner">
+            <div class="dropdownTopArrow"></div>
+            <form class="openid" method="post" action="https://www.4sync.com/web/acc/signup" name="signupForm" autocomplete="off">
+              <div style="display:none;" id="iSignUpRejectReason" class="small alert marginB10">&nbsp;</div>
+              <div id="userNameAndPasswordForm2" class="inputFields">
+                <input type="text" name="login" class="nInp" id="regloginfield"
+                       onkeydown="if(event.keyCode==13) { $(this).closest('form').submit(); return false }"
+                       placeholder="Your e-mail" autocomplete="off">
+                <input type="password" name="password" class="nInp" id="regpassfield"
+                       onkeydown="if(event.keyCode==13) { $(this).closest('form').submit(); return false }"
+                       placeholder="Password" autocomplete="off">
+              </div>
+
+              <input type="submit" class="nBtn borange bbig dropdownWideButton marginT15"
+                     value="Sign Up">
+
+              <div class="socialButtons clearFix">
+                <div class="titleText">
+                  <span>Join now via</span>
+                </div>
+                <a href="https://www.4sync.com/servlet/signin/twitter?fp=https%3A%2F%2Fwww.4sync.com%2Faccount%2Fhome.jsp"
+                   class="nBtn icoTw gaClick" data-element="h12"></a>
+                <a href="https://www.4sync.com/servlet/signin/facebook?fp=https%3A%2F%2Fwww.4sync.com%2Faccount%2Fhome.jsp"
+                   class="nBtn icoFb gaClick" data-element="h13"></a>
+                <a href="https://www.4sync.com/servlet/signin/google?fp=https%3A%2F%2Fwww.4sync.com%2Faccount%2Fhome.jsp"
+                   class="nBtn icoGp gaClick" data-element="h14"></a>
+                </div>
+            </form>
+          </div>
+        </div>
+      </div>
+
+      </div>
+  </div>
+</div>
+
+<div id="langdiv" style="display: none;">
+  <div class="langdiv lucida clearFix">
+          <div class="column floatLeft marginL30"><a href="javascript:void(selectLang('de'));" class="lang-de" data-ga="clang.1-de">Deutsch</a><a href="javascript:void(selectLang('ru'));" class="lang-ru" data-ga="clang.1-ru">Русский</a><a href="javascript:void(selectLang('ko'));" class="lang-ko" data-ga="clang.1-ko">한국어</a><a href="javascript:void(selectLang('in'));" class="lang-in" data-ga="clang.1-in">Bahasa Indonesia</a><a href="javascript:void(selectLang('ms'));" class="lang-ms" data-ga="clang.1-ms">Bahasa Melayu</a><a href="javascript:void(selectLang('pt-BR'));" class="lang-pt-BR" data-ga="clang.1-pt-BR">Português (Brasil)</a></div><div class="column floatLeft marginL30"><a href="javascript:void(selectLang('en'));" class="lang-en" data-ga="clang.1-en">English</a><a href="javascript:void(selectLang('it'));" class="lang-it" data-ga="clang.1-it">Italiano</a><a href="javascript:void(selectLang('fr'));" class="lang-fr" data-ga="clang.1-fr">Français</a><a href="javascript:void(selectLang('es'));" class="lang-es" data-ga="clang.1-es">Español</a><a href="javascript:void(selectLang('zh'));" class="lang-zh" data-ga="clang.1-zh">中文</a><a href="javascript:void(selectLang('ar'));" class="lang-ar" data-ga="clang.1-ar">العربية</a></div><div class="column floatLeft marginL30"><a href="javascript:void(selectLang('vi'));" class="lang-vi" data-ga="clang.1-vi">Tiếng Việt</a><a href="javascript:void(selectLang('th'));" class="lang-th" data-ga="clang.1-th">ไทย</a><a href="javascript:void(selectLang('ja'));" class="lang-ja" data-ga="clang.1-ja">日本語</a><a href="javascript:void(selectLang('fa'));" class="lang-fa" data-ga="clang.1-fa">پارسی</a><a href="javascript:void(selectLang('pl'));" class="lang-pl" data-ga="clang.1-pl">Polski</a><a href="javascript:void(selectLang('tr'));" class="lang-tr" data-ga="clang.1-tr">Türkçe</a></div></div>
+</div>
+
+<script type="text/javascript">
+  $(function() {
+    $('.jsChangeLang').click(function() {
+      window.langPopup = PopupModule.popup({
+        element: $("#langdiv"),
+        title: 'Select language'
+      });
+    });
+  })
+</script>
+
+<h1>Never get caught without an important file again</h1>
+    <div class="title">
+      With 4Sync all files you use most are only a touch away<div class="jsWatchFullMovie">
+        <div class="watchMovieButton">Watch video</div>
+      </div>
+    </div>
+
+    <div class="bottomWhite">
+      <div class="actionsWrapper">
+        <div class="f14">Keep things simple and easy</div>
+        <a href="/web/acc/signup" class="downloadButton jsGaStartUsingNow">Start Using Now</a>
+        <div class="f14">or</div>
+        <div class="jsNext nextButton">Learn more</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="section sec1">
+    <div class="centered">
+      <div class="dividerHolder">
+        <div class="nextStepLink jsNext"></div>
+      </div>
+      <div class="jsScrollAhchor"></div>
+      <div class="textHolder">
+        <div class="textContainer">
+          <h2>A storage solution for everyone</h2>
+          <div class="textTitle">Your perfect everyday companion</div>
+          <div class="textBody regular">
+            4Sync is a trustworthy online storage for your documents, music, photos and other things you value.
+            Anything you put on 4Sync becomes accessible anytime, anywhere on your computers, phones and tablets
+            or from the website with an incredibly intuitive interface. Designed to match all your online storage needs,
+            4Sync is very easy to use and boasts lots of awesome features.</div>
+          <a href="/features.jsp" class="moreLink jsGaAStorageSolutionForEveryone">Learn more</a>
+        </div>
+      </div>
+      <div class="imgsHolder">
+        <img src="https://static.4sync.com/images/smart-img-1.png?ver=1669878059" class="nSmartImg"/>
+        <div class="smartImg">
+          <div class="cloudsWithLines">
+            <div class="folderWithLogo"></div>
+            <div class="desktopSmall"></div>
+            <div class="mobSmall"></div>
+            <div class="tabSmall"></div>
+          </div>
+        </div>
+      </div>
+      <div class="clear"></div>
+    </div>
+  </div>
+
+  <div class="section sec2 deskTabActive">
+    <div class="centered">
+      <div class="dividerHolder">
+        <div class="nextStepLink jsNext"></div>
+      </div>
+      <div class="jsScrollAhchor"></div>
+      <div class="textHolder">
+        <div class="textContainer mobile">
+          <h2>Mobile syncing</h2>
+          <div class="textTitle">Your files, easy to access and share, anytime</div>
+          <div class="textBody regular">4Sync enables you to access your files anywhere - from any computer, mobile phone or tablet. There's no need to save files repeatedly, or spend time downloading and uploading files to save the updates. 4Sync does it all for you.</div>
+          <div class="appsLinks">
+            <a href="https://play.google.com/store/apps/details?id=com.forsync" class="playLink jsGaGooglePlay"></a>
+            <a href="https://itunes.apple.com/us/app/4sync/id666270575" class="storeLink jsGaAppStore"></a>
+          </div>
+          <a href="/mobile.jsp" class="moreLink jsGaViewApps">View all apps</a>
+        </div>
+        <div class="textContainer desktop">
+          <h2>Stay in sync</h2>
+          <div class="textTitle">4Sync brings the power of the cloud to your desktop</div>
+          <div class="textBody regular">
+            No more flash drives, take advantage of our multi-way sync feature that
+              lets you always stay in sync. You can start working on a document in your
+              office, make quick changes on the move or during your break time, and add
+              finishing touches at home. Transfer or backup files in the blink of an eye.</div>
+          <a href="/download.jsp" class="nBtn bblue bbig inline jsGaViewApps">Download</a>
+        </div>
+      </div>
+      <div class="textSwitchers clearFix">
+        <div class="deskSwitcher"><i></i>Desktop</div>
+        <div class="mobSwitcher active"><i></i>Mobile</div>
+      </div>
+      <div class="imgsHolder">
+        <img src="https://static.4sync.com/images/smart-img-2.png?ver=582336264" class="nSmartImg laptopImg"/>
+        <img src="https://static.4sync.com/images/smart-img-3.png?ver=-306775425" class="nSmartImg phoneImg"/>
+        <div class="smartImg">
+          <div class="laptop">
+            <div class="screen">
+              <div class="logoOuter"></div>
+              <div class="logoInner"></div>
+            </div>
+          </div>
+          <div class="phone">
+            <div class="screen">
+              <div class="logoOuter"></div>
+              <div class="logoInner"></div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="clear"></div>
+    </div>
+  </div>
+
+  <div class="section sec3">
+    <div class="centered">
+      <div class="dividerHolder">
+        <div class="nextStepLink jsNext"></div>
+      </div>
+      <div class="jsScrollAhchor"></div>
+      <div class="textHolder">
+        <div class="textContainer">
+          <h2>A service you can trust</h2>
+          <div class="textTitle">Life would be awesome if everything was as reliable as 4Sync</div>
+          <div class="textBody regular">
+            4Sync is an encryption enabled service that makes your data security a priority.
+            It not only protects your photos and other important data, it preserves them. So,
+            you can rest assured that no matter what happens you won't ever lose a single file
+            and your data will never fall into the wrong hands. 4Sync will safeguard all your
+            data against disasters, equipment failure, or simple human errors.</div>
+          <a href="/help_win.jsp#q2" class="moreLink" style="display: none">View details</a>
+        </div>
+      </div>
+      <div class="imgsHolder">
+        <img src="https://static.4sync.com/images/smart-img-4.png?ver=-2021978902" class="nSmartImg"/>
+        <div class="smartImg">
+          <div class="lockArrow"></div>
+          <div class="lockDigits"></div>
+          <div class="lockButton">
+            <div class="lockIcon"></div>
+          </div>
+        </div>
+      </div>
+      <div class="clear"></div>
+    </div>
+  </div>
+
+  <div class="section sec4">
+    <div class="centered">
+      <div class="dividerHolder">
+        <div class="nextStepLink jsNext"></div>
+      </div>
+      <div class="jsScrollAhchor"></div>
+      <div class="textHolder">
+        <div class="textContainer">
+          <h2>Share moments that matter</h2>
+          <div class="textTitle">Keep your ideas moving, inspire the world!</div>
+          <div class="textBody regular">
+            4Sync is a wonderful collaboration tool that helps you and your friends keep all
+              of your adventures in one place. Create shared folders to plan trips or special
+              occasions together, unify photos after a trip, family reunion, or wedding and share
+              them with close friends, colleagues or the whole world. Let's ooh and ahh, laugh and cry together!</div>
+          <a href="/about.jsp" class="moreLink jsGaShareMomentsThatMatter">Learn more</a>
+        </div>
+      </div>
+      <div class="imgsHolder">
+        <img src="https://static.4sync.com/images/smart-img-5.png?ver=400993612" class="nSmartImg"/>
+        <div class="smartImg">
+          <div class="collage">
+            <div class="img1"></div>
+            <div class="img2"></div>
+            <div class="img3"></div>
+          </div>
+        </div>
+      </div>
+      <div class="clear"></div>
+    </div>
+  </div>
+
+  <div class="section sec5">
+    <div class="centered">
+      <div class="dividerHolder">
+        <div class="nextStepLink jsTop"></div>
+      </div>
+      <div class="jsScrollAhchor"></div>
+      <div class="textContainer">
+        <h2>Benefits of 4Sync</h2>
+        <div class="textTitle">Our standard features are everyone else's luxury features.</div>
+      </div>
+      <div class="plans">
+        <div class="plan">
+          <div class="digits">1
+            <div class="gauge">TB</div>
+          </div>
+          <div class="planTitle">1 TB<br>of storage</div>
+          <div class="planDescr">
+            Unlike other cloud storages, measuring in gigabytes, 4Sync offers an actual terabyte. Just imagine,
+            that's more than half a million photos to flip, share and enjoy.</div>
+        </div>
+        <div class="plan">
+          <div class="digits">20
+            <div class="gauge">GB</div>
+          </div>
+          <div class="planTitle">20 GB maximum upload files size</div>
+          <div class="planDescr">
+            You can easily upload really big files to your 4Sync account. Upload a video from your
+            last birthday party or any special occasion and enjoy watching it directly from your account.</div>
+        </div>
+        <div class="plan">
+          <div class="digits infin">&infin;</div>
+          <div class="planTitle">Unlimited<br>bandwidth*</div>
+          <div class="planDescr">
+            4Sync offers flexible bandwidth limitations. That is, whereas all users initially get <b>100GB of monthly</b> traffic at 4Sync, *they can easily purchase any extra amount of traffic, when needed.</div>
+        </div>
+        <a class="nBtn bbig bblue buyPremiumButton" href="/web/acc/signup">Create account</a>
+      </div>
+    </div>
+  </div>
+
+  <div class="sec6 section footer">
+    <div class="secure100block">Safe &amp; Anonymous</div>
+    <div class="jsScrollAhchor"></div>
+    <div id="fstickfooter">
+  <div class="footer_in">
+    <div id="footer" class="footer">
+      <div class="line">
+        <div class="left-blur"></div>
+        <div class="right-blur"></div>
+      </div>
+      <div class="footerBlocksWrapper paddingL20">
+          <span class="footerBlock floatLeft">
+            <img class="footerBlockPic" src="https://static.4sync.com/4sync.com/images/img_4sync_puzzle.png?ver=929893637" width="51" height="206" alt="4Sync" />
+            <div class="colFooter">
+              <ul>
+                <li class="heading">4Sync</li>
+                <li><a href="/">Home</a></li>
+                <li><a href="/download.jsp">Download</a></li>
+                <li><a href="/premium.jsp">Premium</a></li>
+                <li><a href="/mobile.jsp">Mobile</a></li>
+                <li><a href="/features.jsp">Features</a></li>
+                <li><a href="/tour.jsp">Tour</a></li>
+                <li><a href="https://www.4sync.com/web/coupons/card" style="color:#008DCE"><b>Coupons</b></a></li>
+                </ul>
+            </div>
+          </span>
+          <span class="footerBlock floatLeft">
+            <img class="footerBlockPic" src="https://static.4sync.com/4sync.com/images/img_community_writing.png?ver=-1187968013" width="67" height="206">
+            <div class="colFooter">
+              <ul>
+                <li class="heading">Community</li>
+                <li><noindex><a href="https://plus.google.com/108989726854803965353?prsrc=3" target="_blank" rel="rel nofollow">Google+</a></noindex></li>
+                <li><noindex><a href="https://twitter.com/#!/4sync" target="_blank" rel="rel nofollow">Twitter</a></noindex></li>
+                <li><noindex><a href="http://www.facebook.com/4Sync" target="_blank" rel="rel nofollow">Facebook</a></noindex></li>
+                <li><a href="/developer/docs/index.jsp">Developers</a></li>
+                <li><a href="/press.jsp" style="color:#008DCE"><b>Press</b></a></li>
+              </ul>
+            </div>
+          </span>
+          <span class="footerBlock floatLeft">
+            <img class="footerBlockPic" src="https://static.4sync.com/4sync.com/images/img_about_hourglass.png?ver=-1832814152" width="39" height="206">
+            <div class="colFooter">
+              <ul>
+                <li class="heading">Company</li>
+                <li><a href="/about.jsp">About Us</a></li>
+                <li><a href="/testimonials.jsp">Testimonials</a></li>
+                <li><a href="http://blog.4sync.com/" target="_blank">4Sync Blog</a></li>
+                <li><a href="/terms.jsp">Terms</a></li>
+                <li><a href="/privacy.jsp">Privacy</a></li>
+                <li><a href="/dmca.jsp">DMCA</a></li>
+                </ul>
+            </div>
+          </span>
+          <span class="footerBlock floatLeft">
+            <img class="footerBlockPic" src="https://static.4sync.com/4sync.com/images/img_support_cogwheel.png?ver=630525231" width="55" height="206">
+            <div class="colFooter">
+              <ul>
+                <li class="heading">Support</li>
+                <li>
+                  <a href="/help.jsp" rel="nofollow">
+                    <span>Help Center</span>
+                  </a>
+                </li>
+                <li><a href="/contacts.jsp">Contact Us</a></li>
+              </ul>
+            </div>
+          </span>
+      </div>
+        <div class="clear"></div>
+        <div id="copyright">
+          <span>
+               Copyright <span title='dc520202, rev=62229'>&copy;</span> 4Sync Inc. All Rights Reserved </span>
+
+          <div class="langboxabs"><span>&bull;</span>
+    <b class="light-blue f11">English</b>
+
+    <div id="langPanel" class="alignLeft">
+        <div class="languages">
+          <a class="gaClick langItem" data-element="32.de" href="http://de.4sync.com/">
+                <span>Deutsch</span>
+              </a>
+            <a class="gaClick langItem" data-element="32.ru" href="http://ru.4sync.com/">
+                <span>Русский</span>
+              </a>
+            <a class="gaClick langItem" data-element="32.ko" href="http://ko.4sync.com/">
+                <span>한국어</span>
+              </a>
+            <a class="gaClick langItem" data-element="32.in" href="http://in.4sync.com/">
+                <span>Bahasa Indonesia</span>
+              </a>
+            <a class="gaClick langItem" data-element="32.ms" href="http://ms.4sync.com/">
+                <span>Bahasa Melayu</span>
+              </a>
+            <a class="gaClick langItem" data-element="32.pt-BR" href="http://br.4sync.com/">
+                <span>Português (Brasil)</span>
+              </a>
+            <a class="gaClick langItem" data-element="32.it" href="http://it.4sync.com/">
+                <span>Italiano</span>
+              </a>
+            <a class="gaClick langItem" data-element="32.fr" href="http://fr.4sync.com/">
+                <span>Français</span>
+              </a>
+            <a class="gaClick langItem" data-element="32.es" href="http://es.4sync.com/">
+                <span>Español</span>
+              </a>
+            <a class="gaClick langItem" data-element="32.zh" href="http://zh.4sync.com/">
+                <span>中文</span>
+              </a>
+            <a class="gaClick langItem" data-element="32.ar" href="http://ar.4sync.com/">
+                <span>العربية</span>
+              </a>
+            <a class="gaClick langItem" data-element="32.vi" href="http://vi.4sync.com/">
+                <span>Tiếng Việt</span>
+              </a>
+            <a class="gaClick langItem" data-element="32.th" href="http://th.4sync.com/">
+                <span>ไทย</span>
+              </a>
+            <a class="gaClick langItem" data-element="32.ja" href="http://ja.4sync.com/">
+                <span>日本語</span>
+              </a>
+            <a class="gaClick langItem" data-element="32.fa" href="http://fa.4sync.com/">
+                <span>پارسی</span>
+              </a>
+            <a class="gaClick langItem" data-element="32.pl" href="http://pl.4sync.com/">
+                <span>Polski</span>
+              </a>
+            <a class="gaClick langItem" data-element="32.tr" href="http://tr.4sync.com/">
+                <span>Türkçe</span>
+              </a>
+            <div class="langCorner"></div>
+        </div>
+    </div>
+
+</div>
+</div>
+    </div>
+    <!--jscount-->
+<script type="text/javascript">
+     document.write("<img src='//www.jscount.com/a/229/cd04dbf4/z?ref="+
+    escape(document.referrer)+"&url="+escape(document.URL)+"&rand="+Math.random()+"' width=1 height=1 alt='' style='display:none'>")
+</script>
+<!--jscount-->
+
+<!-- Start of google-analytics -->
+<script type="text/javascript">
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+    (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','https://ssl.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-25209864-1', '4sync.com');
+  ga('send', 'pageview');
+</script>
+
+</div>
+</div>
+
+<style>
+  .cookies-notice {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    background: rgba(0,0,0,0.9);
+    color: #E2E5E7;
+    font-size: 12px;
+    line-height: 20px;
+    z-index: 110;
+    display: none;
+  }
+
+  .site4sync .cookies-notice {
+    background: rgba(67, 78, 95, 0.9);
+    color: #fff;
+  }
+
+  .cookies-notice .cookies-holder {
+    padding: 28px 250px 28px 30px;
+    position: relative;
+    max-width: 1200px;
+    margin: auto;
+  }
+
+  .cookies-notice a {
+    color: #E2E5E7;
+    text-decoration: underline;
+    white-space: nowrap;
+  }
+
+  .site4sync .cookies-notice a {
+    color: #fff;
+  }
+
+  .cookies-agree {
+    position: absolute;
+    width: 200px;
+    height: 40px;
+    line-height: 36px;
+    text-align: center;
+    right: 30px;
+    top: 50%;
+    margin-top: -20px;
+    font-weight: bold;
+    font-size: 14px;
+    cursor: pointer;
+    color: #fff;
+    border: 2px solid #3E464E;
+    box-sizing: border-box;
+    border-radius: 18px;
+  }
+
+  .site4sync .cookies-agree {
+    border: 2px solid #FFFFFF;
+    box-sizing: border-box;
+    border-radius: 8px;
+  }
+
+  .cookies-notice a:hover {color: #008BF6}
+  .cookies-agree:hover {
+    border-color: #008BF6;
+    background: #008BF6;
+  }
+
+  .site4sync .cookies-notice a:hover {color: #1CBDEC}
+  .site4sync .cookies-agree:hover {
+    border-color: #1CBDEC;
+    background: #1CBDEC;
+  }
+  .site4sync .cookies-agree:active {
+    border-color: #4FC7F4;
+    background: #4FC7F4;
+  }
+
+  /*XS screen styles*/
+
+  @media (max-width: 767px) {
+    .cookies-notice .cookies-holder {
+      padding: 24px 30px 78px;
+    }
+
+    .cookies-agree {
+      left: 30px;
+      right: 30px;
+      bottom: 24px;
+      top: auto;
+      margin: 0;
+      width: auto;
+    }
+  }
+
+</style>
+
+<div class="cookies-notice jsCookiesMessage">
+  <div class="cookies-holder">
+    <strong>We Use Cookies.</strong> 4Sync uses cookies and other tracking technologies to understand where our visitors are coming from and improve your browsing experience on our Website. By using our Website, you consent to our use of cookies and other tracking technologies. <a href="/privacy.jsp#cookies" target="_blank">Change my preferences</a><div class="cookies-agree jsCookiesAgree">I Agree</div>
+  </div>
+</div>
+
+<script>
+  $(function() {
+    var cookiesMessage = $('.jsCookiesMessage');
+    var body = $('body');
+
+    if (!localStorage.getItem('cookies-message-closed')) {
+      body.addClass('some-priority-popup-visible');
+      cookiesMessage.slideDown();
+    }
+
+    $('.jsCookiesAgree').click(function () {
+      cookiesMessage.slideUp();
+      localStorage.setItem('cookies-message-closed', 'true');
+    });
+
+    if (window.location.hash && body.hasClass('pagePrivacy') && body.hasClass('is-ios')) {
+      setTimeout(function () {
+        var hash = window.location.hash;
+        window.location.hash = "";
+        window.location.hash = hash;
+      }, 1000);
+    }
+  })
+</script><div class="centered">
+      <div class="nextStepLink jsTop"></div>
+    </div>
+  </div>
+</div>
+
+<input type="hidden" id="againButtonText" value="Watch again">
+
+</body>
+</html>

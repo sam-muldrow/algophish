@@ -1,0 +1,1280 @@
+<!DOCTYPE html>
+<html lang="en-US">
+<head profile="http://gmpg.org/xfn/1">
+<link rel="openid.server" href="https://indieauth.com/openid" />
+<link rel="openid.delegate" href="http://meyerweb.com" />
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><link rel="shortcut icon" href="/favicon.ico"><link rel="home" href="http://meyerweb.com/" title="Home" ><link rel="openid.server" href="http://www.myopenid.com/server"><link rel="openid.delegate" href="http://emeyer.myopenid.com/"><meta name="google-site-verification" content="I_JFi4WrY6bW7AE2ya5sSlruVvgvrIeRa1IsqO0GB78" /><link rel="alternate" type="application/rss+xml" title="Thoughts From Eric" href="/eric/thoughts/rss2/full"><link rel="alternate" type="application/rss+xml" title="Thoughts From Eric (only technical posts)" href="/eric/thoughts/category/tech/rss2/full"><link rel="alternate" type="application/rss+xml" title="Thoughts From Eric (only personal posts)" href="/eric/thoughts/category/personal/rss2/full"><link rel="alternate" type="application/rss+xml" title="Excuse of the Day" href="/feeds/excuse/rss20.xml"><link rel="stylesheet" href="/ui/meyerweb.css" type="text/css"><meta name="twitter:card" content="summary"><meta name="twitter:site" content="@meyerweb"><meta name="twitter:title" content="meyerweb.com"><meta name="twitter:description" content="The web home of Eric A. Meyer, CSS guy; and his wife Kathryn, doctor of nursing."><meta name="twitter:url" content="https://meyerweb.com/"><meta name="twitter:image" content="https://meyerweb.com/ui/i/heart/663399love.png"><meta name="twitter:image:width" content="192"><meta name="twitter:image:height" content="192"><meta property="og:type" content="website"><meta property="og:image" content="https://meyerweb.com/ui/i/hamonshu/fb-og-image.png"><link rel="stylesheet" type="text/css" href="https://meyerweb.com/eric/thoughts/wp-content/themes/meyerweb-2020/style.css">
+<title>meyerweb.com</title>
+</head>
+<body id="www-meyerweb-com" class="hpg">
+
+<header role="banner" id="sitemast">
+<h1><a href="/">meyerweb.com</a></h1>
+<nav role="navigation" aria-label="page" id="skiplinks">
+<a href="#main">Main content</a>
+<a href="#navigate">Navigation links</a>
+<a href="#footer">Footer</a>
+</nav>
+</header>
+
+<nav role="navigation" aria-label="site" id="navigate">
+<ul id="navlinks">
+<li id="archLink"><a href="/eric/thoughts/">Post Archives</a></li>
+<li id="cssLink"><a href="/eric/css/">CSS Work</a></li>
+<li id="toolsLink"><a href="/eric/tools/">Toolbox</a></li>
+<li id="writeLink"><a href="/eric/writing.html">Writing</a></li>
+<li id="speakLink"><a href="/eric/talks/">Speaking</a></li>
+<li id="otherLink"><a href="/other/">Other Stuff</a></li>
+<li id="aboutsite"><a href="/ui/about.html">About this site</a></li>
+</ul>
+</nav>
+
+<div id="main">
+
+<main role="main" id="thoughts">
+
+
+<article role="article" class="entry">
+<header>
+<h2 class="title"><a href="https://meyerweb.com/eric/thoughts/2023/11/01/blinded-by-the-light-dom/" rel="bookmark" title="Permanent Link: Blinded By the Light DOM">Blinded By the Light DOM</a></h2>
+<em class="pubtime">Published  2 weeks, 6 days past</em>
+</header>
+
+<div class="text">
+<p>For a while now, Web Components (which I’m not going to capitalize again, you’re welcome) have been one of those things that pop up in the general web conversation, seem intriguing, and then fade into the background again.</p>
+
+<p>I freely admit a lot of this experience is due to me, who is not all that thrilled with the Shadow DOM in general and all the shenanigans required to cross from the Light Side to the Dark Side in particular.  I <em>like</em> the Light DOM.  It’s designed to work together pretty well.  This whole high-fantasy-flavored Shadowlands of the DOM thing just doesn’t sit right with me.</p>
+
+<p>If they do for you, that’s great!  Rock on with your bad self.  I say all this mostly to set the stage for why I only recently had a breakthrough using web components, and now I quite like them.  But not the shadow kind.  I’m talking about Fully Light-DOM Components here.</p>
+
+<p>It started with a one-two punch: first, I read Jim Nielsen’s “<a href="https://blog.jim-nielsen.com/2023/web-components-icon-galleries/">Using Web Components on My Icon Galleries Websites</a>”, which I didn’t really get the first few times I read it, but I could tell there was something new (to me) there.  Very shortly thereafter, I saw Dave Rupert’s <a href="https://codepen.io/davatron5000/pen/rNoRdex?editors=1010"><code>&lt;fit-vids&gt;</code> CodePen</a>, and that’s when the Light DOM Bulb went off in my head.  You just take some normal HTML markup, wrap it with a custom element, and then write some JS to add capabilities which you can then style with regular CSS!  Everything’s of the Light Side of the Web.  No need to pierce the Vale of Shadows or whatever.</p>
+
+<p>Kindly permit me to illustrate at great length and in some depth, using a thing I created while developing a tool for internal use at <a href="https://igalia.com/">Igalia</a> as the basis.  Suppose you have some range inputs, just some happy little slider controls on your page, ready to change some values, like this:</p>
+
+<pre class="html"><code>&lt;label for="title-size"&gt;Title font size&lt;/label&gt;
+&lt;input id="title-size" type="range" min="0.5" max="4" step="0.1" value="2" /&gt;</code>
+</pre>
+
+<p>The idea here is that you use the slider to change the font size of an element of some kind.  Using HTML’s built-in attributes for range inputs, I set a minimum, maximum, and initial value, the step size permitted for value changes, and an ID so a <code>&lt;label&gt;</code> can be associated with it.  Dirt-standard HTML stuff, in other words.  Given that this markup exists in the page, then, it needs to be hooked up to the thing it’s supposed to change.</p>
+
+<p>In Ye Olden Days, you’d need to write a function to go through the entire DOM looking for these controls (maybe you’d add a specific <code>class</code> to the ones you need to find), figure out how to associate them with the element they’re supposed to affect (a title, in this case), add listeners, and so on.  It might go something like:</p>
+
+<pre class="js"><code>let sliders = document.querySelectorAll('input[id]');
+for (i = 0; i &lt; sliders.length; i++) {
+	let slider = sliders[i];
+	// …add event listeners
+	// …target element to control
+	// …set behaviors, maybe call external functions
+	// …etc., etc., etc.
+}</code>
+</pre>
+
+<p>Then you’d have to stuff all that into a <code>window.onload</code> observer or otherwise defer the script until the document is finished loading.</p>
+
+<p>To be clear, you can <em>absolutely</em> still do it that way.  Sometimes, it’s even the most sensible choice!  But fully-light-DOM components can make a lot of this easier, more reusable, and robust.  We can add some custom elements to the page and use those as a foundation for scripting advanced behavior.</p>
+
+<p>Now, if you’re like me (and I know I am), you might think of converting everything into a completely bespoke element and then forcing all the things you want to do with it into its attributes, like this:</p>
+
+<pre class="html"><code>&lt;super-slider type="range" min="0.5" max="4" step="0.1" value="2"
+	          unit="em" target=".preview h1"&gt;
+Title font size
+&lt;/super-slider&gt;</code>
+</pre>
+
+<p>Don’t do this.  If you do, then you end up having to reconstruct the HTML you want to exist out of the data you stuck on the custom element.  As in, you have to read off the <code>type</code>, <code> min</code>, <code> max</code>, <code> step</code>, and <code> value</code> attributes of the <code>&lt;super-slider&gt;</code> element, then create an <code>&lt;input&gt;</code> element and add the attributes and their values you just read off <code>&lt;super-slider&gt;</code>, create a <code>&lt;label&gt;</code> and insert the <code>&lt;super-slider&gt;</code>’s text content into the label’s text content, and why?  Why did I do this to myse&#x202F;—&#x2009; uh, I mean, why do this to yourself?</p>
+
+<p>Do this instead:</p>
+
+<pre class="html"><code>&lt;super-slider unit="em" target=".preview h1"&gt;
+	&lt;label for="title-size"&gt;Title font size&lt;/label&gt;
+	&lt;input id="title-size" type="range" min="0.5" max="4" step="0.1" value="2" /&gt;
+&lt;/super-slider&gt;</code>
+</pre>
+
+<p>This is the pattern I got from <code>&lt;fit-vids&gt;</code>, and the moment that really broke down the barrier I’d had to understanding what makes web components so valuable.  By taking this approach, you get everything HTML gives you with the <code>&lt;label&gt;</code> and <code>&lt;input&gt;</code> elements for free, and you can add things on top of it.  It’s pure progressive enhancement.</p>
+
+<aside>
+<p>Side note: keep in mind that the name <code>&lt;super-slider&gt;</code> was chosen, just as with <code>&lt;fit-vids&gt;</code>, because custom elements <strong>must</strong> (in the <a href="https://www.rfc-editor.org/rfc/rfc2119"> RFC 2119</a> sense of that word) have a hyphen within their name.  You can’t call your element <code>&lt;betterH1&gt;</code> or <code>&lt;fun_textarea&gt;</code> and have it work; you’d have to call them <code>&lt;better-H1&gt;</code> and <code>&lt;fun-textarea&gt;</code> instead.</p>
+<p>Also, don’t @ me about the <code>H1</code> being uppercase.  Element names can be capitalized however you want; we lowercase them out of historical inertia and unexamined habit.</p>
+</aside>
+
+<p>To figure out how all this goes together, I found MDN’s page “<a href="https://developer.mozilla.org/en-US/docs/Web/API/Web_Components/Using_custom_elements">Using custom elements</a>” really quite valuable.  That’s where I internalized the reality that instead of having to scrape the DOM for custom elements and then run through a loop, I could extend HTML itself:</p>
+
+<pre class="js"><code>class superSlider extends HTMLElement {
+	connectedCallback() {
+		//
+		// the magic happens here!
+		//
+	}
+}
+
+customElements.define("super-slider",superSlider);</code>
+</pre>
+
+<p>What that last line does is tell the browser, “any <code>&lt;super-slider&gt;</code> element is of the <code>superSlider</code> JavaScript class”.  Which means, any time the browser sees <code>&lt;super-slider&gt;</code>, it does the stuff that’s defined by <code> class superSlider</code> in the script.  Which is the thing in the previous code block!  So let’s talk about how it works, with concrete examples.</p>
+
+<p>It’s the <code>class</code> structure that holds the real power.  Inside there, <code>connectedCallback()</code> is invoked whenever a <code>&lt;super-slider&gt;</code> is connected; that is, whenever one is encountered in the page by the browser as it parses the markup, or when one is added to the page later on.  It’s an auto-startup <a href="https://developer.mozilla.org/en-US/docs/Glossary/Callback_function">callback</a>.  (What’s a callback? I’ve never truly understood that, but it turns out I don’t have to!)  So in there, I write something like:</p>
+
+<pre class="js"><code>connectedCallback() {
+	let targetEl = document.querySelector(this.getAttribute('target'));
+	let unit = this.getAttribute('unit');
+	let slider = this.querySelector('input[type="range"]');
+}</code>
+</pre>
+
+<p>So far, all I’ve done here is:</p>
+
+<ul>
+<li>Used the value of the <code>target</code> attribute on <code>&lt;super-slider&gt;</code> to find the element that the range slider should affect using a CSS-esque query.</li>
+<li>The <code>unit</code> attribute’s value to know what CSS unit I’ll be using later in the code.</li>
+<li>Grabbed the range input itself by running a <code>querySelector()</code> within the <code>&lt;super-slider&gt;</code> element.</li>
+</ul>
+
+<p>With all those things defined, I can add an event listener to the range input:</p>
+
+<pre class="js"><code>slider.addEventListener("input",(e) =&gt; {
+	let value = slider.value + unit;
+	targetEl.style.setProperty('font-size',value);
+});</code>
+</pre>
+
+<p>…and really, that’s it.  Put all together:</p>
+
+<pre class="js"><code>class superSlider extends HTMLElement {
+	connectedCallback() {
+		let targetEl = document.querySelector(this.getAttribute('target'));
+		let unit = this.getAttribute('unit');
+		let slider = this.querySelector('input[type="range"]');
+		slider.addEventListener("input",(e) =&gt; {
+			targetEl.style.setProperty('font-size',slider.value + unit);
+		});
+	}
+}
+
+customElements.define("super-slider",superSlider);</code>
+</pre>
+
+<p>You can see it in action with <a href="https://codepen.io/meyerweb/pen/oNmXJRX">this CodePen</a>.</p>
+
+<div class="codepen" data-height="350" data-default-tab="js,result" data-slug-hash="oNmXJRX" data-user="meyerweb" style="height: 350px; box-sizing: border-box; display: flex; align-items: center; justify-content: center; border: 2px solid; padding: 1em;">
+<pre><code> &lt;span&gt;See the Pen &lt;a href="https://codepen.io/meyerweb/pen/oNmXJRX"&gt;
+ WebCOLD 01&lt;/a&gt; by Eric A.  Meyer (&lt;a href="https://codepen.io/meyerweb"&gt;@meyerweb&lt;/a&gt;)
+ on &lt;a href="https://codepen.io"&gt;CodePen&lt;/a&gt;.&lt;/span&gt;</code>
+</pre>
+</div>
+
+<script async="async" src="https://cpwebassets.codepen.io/assets/embed/ei.js"></script>
+
+<p>As I said earlier, you can get to essentially the same result by running <code>document.querySelectorAll('super-slider')</code> and then looping through the collection to find all the bits and bobs and add the event listeners and so on.  In a sense, that’s what I’ve done above, except I didn’t have to do the scraping and looping and waiting until the document has loaded &#x202F;—&#x2009;&#160;using web components abstracts all of that away.  I’m also registering all the components with the browser via <code>customElements.define()</code>, so there’s that too.  Overall, somehow, it just feels cleaner.</p>
+
+<p>One thing that sets <code>customElements.define()</code> apart from the collect-and-loop-after-page-load approach is that custom elements fire all that connection callback code on themselves whenever they’re added to the document, all nice and encapsulated.  Imagine for a moment an application where custom elements are added well after page load, perhaps as the result of user input.  No problem!  There isn’t the need to repeat the collect-and-loop code, which would likely have to have special handling to figure out which are the new elements and which already existed.  It’s incredibly handy and much easier to work with.</p>
+
+<p>But that’s not all!  Suppose we want to add a “reset” button &#x202F;—&#x2009;&#160;a control that lets you set the slider back to its starting value.  Adding some code to the <code>connectedCallback()</code> can make that happen.  There’s probably a bunch of different ways to do this, so what follows likely isn’t the most clever or re-usable way.  It is, instead, the way that made sense to me at the time.</p>
+
+<pre class="js"><code>let reset = slider.getAttribute('value');
+let resetter = document.createElement('button');
+resetter.textContent = '↺';
+resetter.setAttribute('title', reset + unit);
+resetter.addEventListener("click",(e) =&gt; {
+	slider.value = reset;
+	slider.dispatchEvent(
+	    new MouseEvent('input', {view: window, bubbles: false})
+	);
+});
+slider.after(resetter);</code>
+</pre>
+
+<p>With that code added into the connection callback, a button gets added right after the slider, and it shows a little circle-arrow to convey the concept of resetting.  You could just as easily make its text “Reset”.  When said button is clicked or keyboard-activated (<code>"click"</code> handles both, it seems), the slider is reset to the stored initial value, and then an input event is fired at the slider so the target element’s style will also be updated.  This is probably an ugly, ugly way to do this!  I did it anyway.</p>
+
+<div class="codepen" data-height="350" data-default-tab="js,result" data-slug-hash="jOdPdyQ" data-user="meyerweb" style="height: 350px; box-sizing: border-box; display: flex; align-items: center; justify-content: center; border: 2px solid; padding: 1em;">
+<pre><code> &lt;span&gt;See the Pen &lt;a href="https://codepen.io/meyerweb/pen/jOdPdyQ"&gt;
+ WebCOLD 02&lt;/a&gt; by Eric A.  Meyer (&lt;a href="https://codepen.io/meyerweb"&gt;@meyerweb&lt;/a&gt;)
+ on &lt;a href="https://codepen.io"&gt;CodePen&lt;/a&gt;.&lt;/span&gt;</code>
+</pre>
+</div>
+
+<p>Okay, so now that I can reset the value, maybe I’d also like to see what the value is, at any given moment in time?  Say, by inserting a classed <code>&lt;span&gt;</code> right after the label and making its text content show the current combination of value and unit?</p>
+
+<pre class="js"><code>let label = this.querySelector('label');
+let readout = document.createElement('span');
+readout.classList.add('readout');
+readout.textContent = slider.value + unit;
+label.after(readout);</code>
+</pre>
+
+<p>Plus, I’ll need to add the same text content update thing to the slider’s handling of <code>input</code> events:</p>
+
+<pre class="js"><code>slider.addEventListener("input", (e) =&gt; {
+	targetEl.style.setProperty("font-size", slider.value + unit);
+	readout.textContent = slider.value + unit;
+});</code>
+</pre>
+
+<p>I imagine I could have made this readout-updating thing a little more generic (less <a href="https://en.wikipedia.org/wiki/Don%27t_repeat_yourself">DRY</a>, if you like) by creating some kind of getter/setter things on the JS class, which is totally possible to do, but that felt like a little much for this particular situation.  Or I could have broken the readout update into its own function, either within the class or external to it, and passed in the readout and slider and reset value and unit to cause the update.  That seems awfully clumsy, though.  Maybe figuring out how to make the span a thing that observes slider changes and updates automatically?  I dunno, just writing the same thing in two places seemed a lot easier, so that’s how I did it.</p>
+
+<p>So, at this point, here’s the entirety of the script, with a CodePen example of the same thing immediately after.</p>
+
+<pre class="js"><code>class superSlider extends HTMLElement {
+	connectedCallback() {
+		let targetEl = document.querySelector(this.getAttribute("target"));
+		let unit = this.getAttribute("unit");
+
+		let slider = this.querySelector('input[type="range"]');
+		slider.addEventListener("input", (e) =&gt; {
+			targetEl.style.setProperty("font-size", slider.value + unit);
+			readout.textContent = slider.value + unit;
+		});
+
+		let reset = slider.getAttribute("value");
+		let resetter = document.createElement("button");
+		resetter.textContent = "↺";
+		resetter.setAttribute("title", reset + unit);
+		resetter.addEventListener("click", (e) =&gt; {
+			slider.value = reset;
+			slider.dispatchEvent(
+				new MouseEvent("input", { view: window, bubbles: false })
+			);
+		});
+		slider.after(resetter);
+
+		let label = this.querySelector("label");
+		let readout = document.createElement("span");
+		readout.classList.add("readout");
+		readout.textContent = slider.value + unit;
+		label.after(readout);
+	}
+}
+
+customElements.define("super-slider", superSlider);</code>
+</pre>
+
+<div class="codepen" data-height="350" data-default-tab="js,result" data-slug-hash="NWoGbWX" data-user="meyerweb" style="height: 350px; box-sizing: border-box; display: flex; align-items: center; justify-content: center; border: 2px solid; padding: 1em;">
+<pre><code> &lt;span&gt;See the Pen &lt;a href="https://codepen.io/meyerweb/pen/NWoGbWX"&gt;
+ WebCOLD 03&lt;/a&gt; by Eric A.  Meyer (&lt;a href="https://codepen.io/meyerweb"&gt;@meyerweb&lt;/a&gt;)
+ on &lt;a href="https://codepen.io"&gt;CodePen&lt;/a&gt;.&lt;/span&gt;</code>
+</pre>
+</div>
+
+<p>Anything you can imagine JS would let you do to the HTML and CSS, you can do in here.  Add a class to the slider when it has a value other than its default value so you can style the reset button to fade in or be given a red outline, for example.</p>
+
+<p>Or maybe do what I did, and add some structural-fix-up code.  For example, suppose I were to write:</p>
+
+<pre class="html"><code>&lt;super-slider unit="em" target=".preview h2"&gt;
+	&lt;label&gt;Subtitle font size&lt;/label&gt;
+	&lt;input type="range" min="0.5" max="2.5" step="0.1" value="1.5" /&gt;
+&lt;/super-slider&gt;</code>
+</pre>
+
+<p>In that bit of markup, I left off the <code>id</code> on the <code>&lt;input&gt;</code> and the <code>for</code> on the <code>&lt;label&gt;</code>, which means they have no structural association with each other.  (You should never do this, but sometimes it happens.)  To handle this sort of failing, I threw some code into the connection callback to detect and fix those kinds of authoring errors, because why not?  It goes a little something like this:</p>
+
+<pre class="js"><code>if (!label.getAttribute('for') &amp;&amp; slider.getAttribute('id')) {
+	label.setAttribute('for',slider.getAttribute('id'));
+}
+if (label.getAttribute('for') &amp;&amp; !slider.getAttribute('id')) {
+	slider.setAttribute('id',label.getAttribute('for'));
+}
+if (!label.getAttribute('for') &amp;&amp; !slider.getAttribute('id')) {
+	let connector = label.textContent.replace(' ','_');
+	label.setAttribute('for',connector);
+	slider.setAttribute('id',connector);
+}</code>
+</pre>
+
+<p>Once more, this is probably the ugliest way to do this in JS, but also again, it works.  Now I’m making sure labels and inputs have association even when the author forgot to explicitly define it, which I count as a win.  If I were feeling particularly spicy, I’d have the code pop an alert chastising me for screwing up, so that I’d fix it instead of being a lazy author.</p>
+
+<p>It also occurs to me, as I review this for publication, that I didn’t try to do anything in situations where both the <code>for</code> and <code>id</code> attributes are present, but their values don’t match.  That feels like something I should auto-fix, since I can’t imagine a scenario where they would need to intentionally be different.  It’s possible my imagination is lacking, of course.</p>
+
+<p>So now, here’s all just-over-40 lines of the script that makes all this work, followed by a CodePen demonstrating it.</p>
+
+<pre class="js"><code>class superSlider extends HTMLElement {
+	connectedCallback() {
+		let targetEl = document.querySelector(this.getAttribute("target"));
+		let unit = this.getAttribute("unit");
+
+		let slider = this.querySelector('input[type="range"]');
+		slider.addEventListener("input", (e) =&gt; {
+			targetEl.style.setProperty("font-size", slider.value + unit);
+			readout.textContent = slider.value + unit;
+		});
+
+		let reset = slider.getAttribute("value");
+		let resetter = document.createElement("button");
+		resetter.textContent = "↺";
+		resetter.setAttribute("title", reset + unit);
+		resetter.addEventListener("click", (e) =&gt; {
+			slider.value = reset;
+			slider.dispatchEvent(
+				new MouseEvent("input", { view: window, bubbles: false })
+			);
+		});
+		slider.after(resetter);
+
+		let label = this.querySelector("label");
+		let readout = document.createElement("span");
+		readout.classList.add("readout");
+		readout.textContent = slider.value + unit;
+		label.after(readout);
+
+		if (!label.getAttribute("for") &amp;&amp; slider.getAttribute("id")) {
+			label.setAttribute("for", slider.getAttribute("id"));
+		}
+		if (label.getAttribute("for") &amp;&amp; !slider.getAttribute("id")) {
+			slider.setAttribute("id", label.getAttribute("for"));
+		}
+		if (!label.getAttribute("for") &amp;&amp; !slider.getAttribute("id")) {
+			let connector = label.textContent.replace(" ", "_");
+			label.setAttribute("for", connector);
+			slider.setAttribute("id", connector);
+		}
+	}
+}
+
+customElements.define("super-slider", superSlider);</code>
+</pre>
+
+<div class="codepen" data-height="350" data-default-tab="result" data-slug-hash="PoVPbzK" data-user="meyerweb" style="height: 350px; box-sizing: border-box; display: flex; align-items: center; justify-content: center; border: 2px solid; padding: 1em;">
+<pre><code> &lt;span&gt;See the Pen &lt;a href="https://codepen.io/meyerweb/pen/PoVPbzK"&gt;
+ WebCOLD 04&lt;/a&gt; by Eric A.  Meyer (&lt;a href="https://codepen.io/meyerweb"&gt;@meyerweb&lt;/a&gt;)
+ on &lt;a href="https://codepen.io"&gt;CodePen&lt;/a&gt;.&lt;/span&gt;</code>
+</pre>
+</div>
+
+<p>There are doubtless cleaner/more elegant/more clever ways to do pretty much everything I did above, considering I’m not much better than an experienced amateur when it comes to JavaScript.  Don’t focus so much on the specifics of what I wrote, and more on the overall concepts at play.</p>
+
+<p>I will say that I ended up using this custom element to affect more than just font sizes.  In some places I wanted to alter margins; in others, the hue angle of colors.  There are a couple of ways to do this.  The first is what I did, which is to use a bunch of CSS variables and change their values.  So the markup and relevant bits of the JS looked more like this:</p>
+
+<pre class="html"><code>&lt;super-slider unit="em" variable="titleSize"&gt;
+	&lt;label for="title-size"&gt;Title font size&lt;/label&gt;
+	&lt;input id="title-size" type="range" min="0.5" max="4" step="0.1" value="2" /&gt;
+&lt;/super-slider&gt;</code>
+</pre>
+
+<pre class="js"><code>let cssvar = this.getAttribute("variable");
+let section = this.closest('section');
+
+slider.addEventListener("input", (e) =&gt; {
+	section.style.setProperty(`--${cssvar}`, slider.value + unit);
+	readout.textContent = slider.value + unit;
+});</code>
+</pre>
+
+<p>The other way (that I can think of) would be to declare the target element’s selector and the property you want to alter, like this:</p>
+
+<pre class="html"><code>&lt;super-slider unit="em" target=".preview h1" property="font-size"&gt;
+	&lt;label for="title-size"&gt;Title font size&lt;/label&gt;
+	&lt;input id="title-size" type="range" min="0.5" max="4" step="0.1" value="2" /&gt;
+&lt;/super-slider&gt;</code>
+</pre>
+
+<p>I’ll leave the associated JS as an exercise for the reader.  I can think of reasons to do either of those approaches.</p>
+
+<p><strong>But wait!  There’s more!</strong> Not more in-depth JS coding (even though we could absolutely keep going, and in the tool I built, I absolutely did), but there are some things to talk about before wrapping up.</p>
+
+<p>First, if you need to invoke the class’s constructor for whatever reason&#x202F;—&#x2009;I’m sure there <em>are</em> reasons, whatever they may be&#x202F;—&#x2009;you have to do it with a <code>super()</code> up top.  Why?  I don’t know.  Why would you need to?  I don’t know.  If I read the intro to the <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/super">super page</a> correctly, I think it has something to do with class prototypes, but the rest went so far over my head the <a href="https://www.faa.gov/">FAA</a> issued a <abbr title="Notice to Airmen/Notice to Air Missions">NOTAM</abbr>.  Apparently I didn’t do anything that depends on the constructor in this article, so I didn’t bother including it.</p>
+
+<p>Second, basically all the JS I wrote in this article went into the <code>connectedCallback()</code> structure.  This is only one of four built-in callbacks!  The others are:</p>
+
+<ul>
+<li>
+<code>disconnectedCallback()</code>, which is fired whenever a custom element of this type is removed from the page.  This seems useful if you have things that can be added or subtracted dynamically, and you want to update other parts of the DOM when they’re subtracted.</li>
+<li>
+<code>adoptedCallback()</code>, which is (to quote MDN) “called each time the element is moved to a new document.” I have 
+<em>no idea</em> what that means.  I understand all the words; it’s just that particular combination of them that confuses me.</li>
+<li>
+<code>attributeChangedCallback()</code>, which is fired when attributes of the custom element change.  I thought about trying to use this for my super-sliders, but in the end, nothing I was doing made sense (to me) to bubble up to the custom element just to monitor and act upon.  A use case that does suggest itself: if I allowed users to change the sizing unit, say from 
+<code>em</code> to 
+<code>vh</code>, I’d want to change other things, like the 
+<code>min</code>, 
+<code>max</code>, 
+<code>step</code>, and default 
+<code>value</code> attributes of the sliders.  So, since I’d have to change the value of the 
+<code>unit</code> attribute anyway, it might make sense to use 
+<code>attributeChangedCallback()</code> to watch for that sort of thing and then take action.  Maybe!</li>
+</ul>
+
+<p>Third, I didn’t really talk about styling any of this.  Well, because all of this stuff is in the Light DOM, I don’t have to worry about Shadow Walls or whatever, I can style everything the normal way.  Here’s a part of the CSS I use in the CodePens, just to make things look a little nicer:</p>
+
+<pre class="css"><code>super-slider {
+	display: flex;
+	align-items: center;
+	margin-block: 1em;
+}
+super-slider input[type="range"] {
+	margin-inline: 0.25em 1px;
+}
+super-slider .readout {
+	width: 3em;
+	margin-inline: 0.25em;
+	padding-inline: 0.5em;
+	border: 1px solid #0003;
+	background: #EEE;
+	font: 1em monospace;
+	text-align: center;
+}</code>
+</pre>
+
+<p>Hopefully that all makes sense, but if not, let me know in the comments and I’ll clarify.</p>
+
+<p>A thing I didn’t do was use the <code>:defined</code> pseudo-class to style custom elements that are defined, or rather, to style those that are <em>not</em> defined.  Remember the last line of the script, where <code>customElements.define()</code> is called to define the custom elements?  Because they are defined that way, I could add some CSS like this:</p>
+
+<pre class="css"><code>super-slider:not(:defined) {
+	display: none;
+}</code>
+</pre>
+
+<p>In other words, if a <code>&lt;super-slider&gt;</code> for some reason <em>isn’t</em> defined, make it and everything inside it just… go away.  Once it becomes defined, the selector will no longer match, and the <code>display: none</code> will be peeled away.  You could use <code>visibility</code> or <code>opacity</code> instead of <code>display</code>; really, it’s up to you.  Heck, you could tile red warning icons in the whole background of the custom element if it hasn’t been defined yet, just to drive the point home.</p>
+
+<p>The beauty of all this is, you don’t have to mess with Shadow DOM selectors like <code>::part()</code> or <code>::slotted()</code>.  You can just style elements the way you always style them, whether they’re built into HTML or special hyphenated elements you made up for your situation and then, like the Boiling Isles’ most powerful witch, called into being.</p>
+
+<p>That said, there’s a “fourth” here, which is that Shadow DOM does offer one very powerful capability that fully Light DOM custom elements lack: the ability to create a structural template with <code>&lt;slot&gt;</code> elements, and then drop your Light-DOM elements into those slots.  This slotting ability does make Shadowy web components a lot more robust and easier to share around, because as long as the slot names stay the same, the template can be changed without breaking anything.  This is a level of robustness that the approach I explored above lacks, and it’s built in.  It’s the one thing I actually do like about Shadow DOM.</p>
+
+<p>It’s true that in a case like I’ve written about here, that’s not a huge issue: I was quickly building a web component for a single tool that I could re-use within the context of that tool.  It works fine in that context.  It isn’t portable, in the sense of being a thing I could turn into an npm package for others to use, or probably even share around my organization for other teams to use.  But then, I only put 40-50 lines worth of coding into it, and was able to rapidly iterate to create something that met my needs perfectly.  I’m a lot more inclined to take this approach in the future, when the need arises, which will be a very powerful addition to my web development toolbox.</p>
+
+<p>I’d love to see the templating/slotting capabilities of Shadow DOM brought into the fully Light-DOM component world.  Maybe that’s what Declarative Shadow DOM is?  Or maybe not!  My eyes still go cross-glazed whenever I try to read articles about Shadow DOM, almost like a trickster demon lurking in the shadows casts a Spell of Confusion at me.</p>
+
+<p>So there you have it: a few thousand words on my journey through coming to understand and work with these fully-Light-DOM web components, otherwise known as custom elements.  Now all they need is a catchy name, so we can draw more people to the Light Side of the Web.  If you have any ideas, please drop ’em in the comments!</p>
+<ul class="meta">
+<li class="date"><a href="https://meyerweb.com/eric/thoughts/2023/11/01/blinded-by-the-light-dom/"><cite>Blinded By the Light DOM</cite></a> was published on <time>Wednesday, November 1st, 2023</time>.</li>
+<li class="cat">It was assigned to the <a href="https://meyerweb.com/eric/thoughts/category/tech/dom/" rel="category tag">DOM</a> and <a href="https://meyerweb.com/eric/thoughts/category/tech/javascript/" rel="category tag">JavaScript</a> categories.</li>
+<li class="cmt">There have been <a href="https://meyerweb.com/eric/thoughts/2023/11/01/blinded-by-the-light-dom/#comments">five replies</a>.</li>
+</ul>
+</div>
+<hr class="fallback">
+</article>
+
+
+<article role="article" class="entry">
+<header>
+<h2 class="title"><a href="https://meyerweb.com/eric/thoughts/2023/10/24/mistakes-were-made/" rel="bookmark" title="Permanent Link: Mistakes Were Made">Mistakes Were Made</a></h2>
+<em class="pubtime">Published  4 weeks past</em>
+</header>
+
+<div class="text">
+<p>Late last week, I posted a tiny hack related to <code>:has()</code> and Firefox.  This was, in some ways, a mistake.  Let me explain how.</p>
+
+<p>Primarily, I should have filed a bug about it.  Someone else <a href="https://bugzilla.mozilla.org/show_bug.cgi?id=1860136">did so</a>, and it’s already been fixed.  This is all great in the wider view, but I shouldn’t be offloading the work of reporting browser bugs when I know perfectly well how to do that.  I got too caught up in the fun of documenting a tiny hack (my favorite kind!) to remember that, which is no excuse.</p>
+
+<p>Not far behind that, I should have remembered that Firefox only supports <code>:has()</code> at the moment if you’ve enabled the <code>layout.css.has-selector.enabled</code> flag in <kbd>about:config</kbd>.  Although this may be the default now in Nightly builds, given that my copy of Firefox Nightly (121.0a1) shows the flag as <code> true</code> without the Boldfacing of Change.  At any rate, I should have been clear about the support status.</p>
+
+<p>Thus, I offer my apologies to the person who did the reporting work I should have done, who also has my gratitude, and to anyone who I misled about the state of support in Firefox by not being clear about it.  Neither was my intent, but impact outweighs intent.  I’ll add a note to the top of the previous article that points here, and resolve to do better.</p>
+<ul class="meta">
+<li class="date"><a href="https://meyerweb.com/eric/thoughts/2023/10/24/mistakes-were-made/"><cite>Mistakes Were Made</cite></a> was published on <time>Tuesday, October 24th, 2023</time>.</li>
+<li class="cat">It was assigned to the <a href="https://meyerweb.com/eric/thoughts/category/tech/browsers/" rel="category tag">Browsers</a> and <a href="https://meyerweb.com/eric/thoughts/category/tech/standards/" rel="category tag">Standards</a> categories.</li>
+<li class="cmt">There have been <a href="https://meyerweb.com/eric/thoughts/2023/10/24/mistakes-were-made/#respond">no replies</a>.</li>
+</ul>
+</div>
+<hr class="fallback">
+</article>
+
+
+<article role="article" class="entry">
+<header>
+<h2 class="title"><a href="https://meyerweb.com/eric/thoughts/2023/10/19/ffhack-has/" rel="bookmark" title="Permanent Link: Prodding Firefox to Update :has() Selection">Prodding Firefox to Update :has() Selection</a></h2>
+<em class="pubtime">Published  1 month, 2 days past</em>
+</header>
+
+<div class="text">
+<p>
+I’ve posted <a href="https://meyerweb.com/eric/thoughts/2023/10/24/mistakes-were-made/">a followup to this post</a> which you should read before you read this post, because you might decide there’s no need to read this one.  If not, <strong>please note</strong> that what’s documented below was a hack to overcome a bug that was <a href="https://bugzilla.mozilla.org/show_bug.cgi?id=1860136">quickly fixed</a>, in a part of CSS that wasn’t enabled in stable Firefox at the time I wrote the post.  Thus, what follows isn’t really useful, and leaves more than one wrong impression.  I apologize for this.  For a more detailed breakdown of my errors, please see <a href="https://meyerweb.com/eric/thoughts/2023/10/24/mistakes-were-made/">the followup post</a>.
+</p>
+
+<hr />
+
+<p>I’ve been doing some development recently on a tool that lets me quickly produce social-media banners for my work at <a href="https://igalia.com">Igalia</a>.  It started out using a vanilla JS script to snarfle up collections of HTML elements like all the range inputs, stick listeners and stuff on them, and then alter CSS variables when the inputs change.  Then I had a conceptual breakthrough and refactored the entire thing to use fully light-DOM web components (FLDWCs), which let me rapidly and radically increase the tool’s capabilities, and I kind of love the FLDWCs even as I struggle to figure out the best practices.</p>
+
+<p>With luck, I’ll write about all that soon, but for today, I wanted to share a little hack I developed to make Firefox a tiny bit more capable.</p>
+
+<p>One of the things I do in the tool’s CSS is check to see if an element (represented here by a <code>&lt;div&gt;</code> for simplicity’s sake) has an image whose <code>src</code> attribute is a <code>base64</code> string instead of a URI, and when it is, add some generated content. (It makes sense in context.  Or at least it makes sense to me.) The CSS rule looks very much like this:</p>
+
+<pre class="css"><code>div:has(img[src*=";data64,"])::before {
+	[…generated content styles go here…]
+}</code>
+</pre>
+
+<p>This works fine in WebKit and Chromium.  Firefox, at least as of the day I’m writing this, often fails to notice the change, which means the selector doesn’t match, even in the Nightly builds, and so the generated content isn’t generated.  It has problems correlating DOM updates and <code>:has()</code>, is what it comes down to.</p>
+
+<p>There is a way to prod it into awareness, though!  What I found during my development was that if I clicked or tabbed into a <code>contenteditable</code> element, the <code>:has()</code> would suddenly match and the generated content would appear.  The editable element didn’t even have to be a child of the <code>div</code> bearing the <code>:has()</code>, which seemed weird to me for no distinct reason, but it made me think that maybe any content editing would work.</p>
+
+<p>I tried adding <code>contenteditable</code> to a nearby element and then immediately removing it via JS, and that didn’t work.  But then I added a tiny delay to removing the <code>contenteditable</code>, and that worked!  I feel like I might have seen a similar tactic proposed by someone on social media or a blog or something, but if so, I can’t find it now, so my apologies if I ganked your idea without attribution.</p>
+
+<p>My one concern was that if I wasn’t careful, I might accidentally pick an element that was <em>supposed</em> to be editable, and then remove the editing state it’s supposed to have.  Instead of doing detection of the attribute during selection, I asked myself, “Self, what’s an element that is assured to be present but almost certainly not ever set to be editable?”</p>
+
+<p>Well, there will always be a root element.  Usually that will be <code>&lt;html&gt;</code> but you never know, maybe it will be something else, what with web components and all that.  Or you could be styling your RSS feed, which is in fact <a href="https://stackoverflow.com/questions/118685/how-can-i-apply-my-css-stylesheet-to-an-rss-feed">a thing one can do</a>.  At any rate, where I landed was to add the following right after the part of my script where I set an image’s <code> src</code> to use a <code>base64</code> URI:</p>
+
+<pre class="js"><code>let ffHack = document.querySelector(':root');
+ffHack.setAttribute('contenteditable','true');
+setTimeout(function(){
+	ffHack.removeAttribute('contenteditable');
+},7);</code>
+</pre>
+
+<p>Literally all this does is grab the page’s root element, set it to be <code>contenteditable</code>, and then seven milliseconds later, remove the <code> contenteditable</code>.  That’s about a millisecond less than the lifetime of a rendering frame at 120fps, so ideally, the browser won’t draw a frame where the root element is actually editable… or, if there is such a frame, it will be replaced by the next frame so quickly that the odds of accidentally editing the root are very, very, very small.</p>
+
+<p>At the moment, I’m not doing any browser sniffing to figure out if the hack needs to be applied, so every browser gets to do this shuffle on Firefox’s behalf.  Lazy, I suppose, but I’m going to wave my hands and intone “browsers are very fast now” while studiously ignoring all the inner voices complaining about inefficiency and inelegance.  I feel like using this hack means it’s too late for all those concerns anyway.</p>
+
+<p>I don’t know how many people out there will need to prod Firefox like this, but for however many there are, I hope this helps.  And if you have an even better approach, please let us know in the comments!</p>
+<ul class="meta">
+<li class="date"><a href="https://meyerweb.com/eric/thoughts/2023/10/19/ffhack-has/"><cite>Prodding Firefox to Update :has() Selection</cite></a> was published on <time>Thursday, October 19th, 2023</time>.</li>
+<li class="cat">It was assigned to the <a href="https://meyerweb.com/eric/thoughts/category/tech/browsers/" rel="category tag">Browsers</a>, <a href="https://meyerweb.com/eric/thoughts/category/tech/css/" rel="category tag">CSS</a>, <a href="https://meyerweb.com/eric/thoughts/category/tech/dom/" rel="category tag">DOM</a>, <a href="https://meyerweb.com/eric/thoughts/category/hacks/" rel="category tag">Hacks</a>, and <a href="https://meyerweb.com/eric/thoughts/category/tech/javascript/" rel="category tag">JavaScript</a> categories.</li>
+<li class="cmt">There have been <a href="https://meyerweb.com/eric/thoughts/2023/10/19/ffhack-has/#comments">four replies</a>.</li>
+</ul>
+</div>
+<hr class="fallback">
+</article>
+
+
+<article role="article" class="entry">
+<header>
+<h2 class="title"><a href="https://meyerweb.com/eric/thoughts/2023/10/05/an-anchored-navbar-solution/" rel="bookmark" title="Permanent Link: An Anchored Navbar Solution">An Anchored Navbar Solution</a></h2>
+<em class="pubtime">Published  1 month, 2 weeks past</em>
+</header>
+
+<div class="text">
+<p>Not quite a year ago, I published <a href="https://meyerweb.com/eric/thoughts/2022/10/19/a-dashing-navbar-solution/">an exploration of how I used layered backgrounds</a> to create the appearance of a single bent line that connected one edge of the design to whichever navbar link corresponded to the current page.  It was fairly creative, if I do say so myself, but even then I knew&#160;&#x202F;—&#x2009; and said explicitly!&#160;&#x202F;—&#x2009; that it was a hack, and that I really wanted to use anchor positioning to do it cleanly.</p>
+
+<p>Now that anchor positioning is supported behind a developer flag in Chrome, we can experiment with it, as I did in the recent post “<a href="https://meyerweb.com/eric/thoughts/2023/09/12/nuclear-anchored-sidenotes/">Nuclear Anchored Sidenotes</a>”.  Well, today, I’m back on my anchor BS with a return to that dashed navbar connector as seen on <a href="https://wpewebkit.org"> wpewebkit.org</a>, and how it can be done more cleanly and simply, just as I’d hoped last year.</p>
+
+<p>First, let’s look at the thing we’re trying to recreate.</p>
+
+<figure class="standalone">
+<a href="https://meyerweb.com/eric/thoughts/wp-content/uploads/anchor-00.png"><img decoding="async" src="https://meyerweb.com/eric/thoughts/wp-content/uploads/anchor-00.png" alt="" /></a>
+<figcaption>The connecting line, as done with a bunch of forcibly-sized and creatively overlapped background gradient images.</figcaption>
+</figure>
+
+<p>To understand the ground on which we stand, let’s make a quick perusal of the simple HTML structure at play here.  At least, the relevant parts of it, with some bits elided by ellipses for clarity.</p>
+
+<pre class="html">
+<code>&lt;nav class="global"&gt;
+	&lt;div&gt;
+		&lt;a href="…"&gt;&lt;img src="…" alt="WPE"&gt;&lt;/a&gt;
+		&lt;ul&gt;…&lt;/ul&gt;
+	&lt;/div&gt;
+&lt;/nav&gt;</code>
+</pre>
+
+<p>Inside that (unclassed! on purpose!) <code>&lt;ul&gt;</code>, there are a number of list items, each of which holds a hyperlink.  Whichever list item contains the hyperlink that corresponds to the current page gets a class of <code> currentPage</code>, because class naming is a deep and mysterious art.</p>
+
+<p>To that HTML structure, the following bits of CSS trickery were applied in the work I did last year, brought together in this code block for the sake of brevity (note this is the old thing, not the new anchoring hotness):</p>
+
+<pre class="css">
+<code>nav.global div {
+	display: flex;
+	justify-content: space-between;
+	gap: 1em;
+	max-width: var(--mainColMax);
+	margin: 0 auto;
+	height: 100%;
+	background: var(--dashH);
+}
+
+@media (min-width: 720px) {
+	nav.global ul li.currentPage::before {
+		content: '';
+		position: absolute;
+		z-index: 1;
+		top: 50%;
+		bottom: 0;
+		left: 50%;
+		right: 0;
+		background:
+			var(--dashV),
+			linear-gradient(0deg, #FFFF 2px, transparent 2px)
+			;
+		background-size: 1px 0.5em, auto;
+	}
+	nav.global ul li.currentPage {
+		position: relative;
+	}
+	nav.global ul li.currentPage a {
+		position: relative;
+		z-index: 2;
+		padding: 0;
+		padding-block: 0.25em;
+		margin: 1em;
+		background: var(--dashH);
+		background-size: 0.5em 1px;
+		background-position: 50% 100%;
+		background-color: #FFF;
+		color: inherit;
+	}
+}</code>
+</pre>
+
+<p>If you’re wondering what the heck is going on there, please feel free to read <a href="https://meyerweb.com/eric/thoughts/2022/10/19/a-dashing-navbar-solution/">the post from last year</a>.  You can even go read it now, if you want, even though I’m about to flip most of that apple cart and stomp on the apples to make ground cider.  Your life is your own; steer it as best suits you.</p>
+
+<p>Anyway, here are the bits I’m tearing out to make way for an anchor-positioning solution.  The positioning-edge properties (<code>top</code>, etc.) removed from the second rule will return shortly in a more logical form.</p>
+
+<pre class="css">
+<code>nav.global div {
+	display: flex;
+	justify-content: space-between;
+	gap: 1em;
+	max-width: var(--mainColMax);
+	margin: 0 auto;
+	height: 100%;
+<del>   background: var(--dashH);</del>
+}
+@media (min-width: 720px) {
+	nav.global ul li.currentPage::before {
+		content: '';
+		position: absolute;
+<del>	   z-index: 1;
+		top: 50%;
+		bottom: 0;
+		left: 50%;
+		right: 0;
+		background:
+			var(--dashV),
+			linear-gradient(0deg, #FFFF 2px, transparent 2px)
+			;
+		background-size: 1px 0.5em, auto;</del>
+	}
+<del>   nav.global ul li.currentPage {
+		position: relative;
+	}</del>
+	nav.global ul li.currentPage a {
+<del>	   position: relative;
+		z-index: 2;</del>
+		padding: 0;
+		padding-block: 0.25em;
+		margin: 1em;
+<del>	   background: var(--dashH);
+		background-size: 0.5em 1px;
+		background-position: 50% 100%;
+		background-color: #FFF;</del>
+		color: inherit;
+	}
+}</code>
+</pre>
+
+<p>That pulls out not only the positioning edge properties, but also the background dash variables and related properties.  And a whole rule to relatively position the <code>currentPage</code> list item, gone.  The resulting lack of any connecting line being drawn is perhaps predictable, but here it is anyway.</p>
+
+<figure class="standalone">
+<a href="https://meyerweb.com/eric/thoughts/wp-content/uploads/anchor-01.png"><img decoding="async" src="https://meyerweb.com/eric/thoughts/wp-content/uploads/anchor-01.png" /></a>
+<figcaption>The connecting line disappears as all its support structures and party tricks are swept away.</figcaption>
+</figure>
+
+<p>With the field cleared of last year’s detritus, let’s get ready to anchor!</p>
+
+<p>Step one is to add in positioning edges, for which I’ll use logical positioning properties instead of the old physical properties.  Along with those, a negative Z index to drop the generated decorator (that is, a decorative component based on generated content, which is what this <code>::before</code> rule is creating) behind the entire set of links, dashed borders along the block and inline ends of the generated decorator, and a light-red background color so we can see the decorator’s placement more clearly.</p>
+
+<pre class="css">
+<code> nav.global ul li.currentPage::before {
+		content: '';
+		position: absolute;
+<ins>	   inset-block-start: 0;
+		inset-block-end: 0;
+		inset-inline-start: 0;
+		inset-block-end: 0;
+		z-index: -1;
+		border: 1px dashed;
+		border-block-width: 0 1px;
+		border-inline-width: 0 1px;
+		background-color: #FCC;</ins>
+	}</code>
+</pre>
+
+<p>I’ll also give the <code>&lt;a&gt;</code> element inside the <code>currentPage</code> list item a dashed border along its block-end edge, since the design calls for one.</p>
+
+<pre class="css">
+<code> nav.global ul li.currentPage a {
+		padding: 0;
+		padding-block: 0.25em;
+		margin: 1em;
+		color: inherit;
+<ins>	   border-block-end: 1px dashed;</ins>
+	}</code>
+</pre>
+
+<p>And those changes give us the result shown here.</p>
+
+<figure class="standalone">
+<a href="https://meyerweb.com/eric/thoughts/wp-content/uploads/anchor-02.png"><img decoding="async" src="https://meyerweb.com/eric/thoughts/wp-content/uploads/anchor-02.png" alt="" /></a>
+<figcaption>The generated decorator, decorating the entirety of its containing block.</figcaption>
+</figure>
+
+<p>Well, I <em>did</em> set all the positioning edge values to be <code>0</code>, so it makes sense that the generated decorator fills out the relatively-positioned <code>&lt;div&gt;</code> acting as its containing block.  Time to fix that.</p>
+
+<p>What we need to do give the top and right&#160;&#x202F;—&#x2009; excuse me, the block-start and inline-end&#160;&#x202F;—&#x2009; edges of the decorator a positioning anchor.  Since the thing we want to connect the decorator’s visible edges to is the <code>&lt;a&gt;</code> inside the <code>currentPage</code> list item, I’ll make it the positioning anchor:</p>
+
+<pre class="css">
+<code> nav.global ul li.currentPage a {
+		padding: 0;
+		padding-block: 0.25em;
+		margin: 1em;
+		color: inherit;
+		border-block-end: 1px dashed;
+<ins>	   anchor-name: --currentPageLink;</ins>
+	}</code>
+</pre>
+
+<p>Yes, you’re reading that correctly: I made an anchor be an anchor.</p>
+
+<p>(That’s an HTML anchor element being designated as a CSS positioning anchor, to be clear.  Sorry to pedantically explain the joke and thus ruin it, but I fear confusion more than banality.)</p>
+
+<p>Now that we have a positioning anchor, the first thing to do, because it’s more clear to do it in this order, is to pin the inline-end edge of the generated decorator to its anchor.  Specifically, to pin it to the <em>center</em> of the anchor, since that’s what the design calls for.</p>
+
+<pre class="css">
+<code> nav.global ul li.currentPage::before {
+		content: '';
+		position: absolute;
+		inset-block-start: 0;
+		inset-block-end: 0;
+		inset-inline-start: 0;
+		inset-inline-end: <ins>anchor(--currentPageLink center);</ins>
+		z-index: -1;
+		border: 1px dashed;
+		border-block-width: 0 1px;
+		border-inline-width: 0 1px;
+		background-color: #FCC;
+	}</code>
+</pre>
+
+<p>Because this <code>anchor()</code> function is being used with an inline inset property, the <code>center</code> here refers to the inline center of the referenced anchor (in both the HTML and CSS senses of that word) <code>--currentPageLink</code>, which in this particular case is its horizontal center.  That gives us the following.</p>
+
+<figure class="standalone">
+<a href="https://meyerweb.com/eric/thoughts/wp-content/uploads/anchor-03a.png"><img decoding="async" src="https://meyerweb.com/eric/thoughts/wp-content/uploads/anchor-03a.png" alt="" /></a>
+<figcaption>The generated decorator with its inline-end edge aligned with the inline center of the anchoring anchor.</figcaption>
+</figure>
+
+<p>The next step is to pin the top block edge of the generated decorator with respect to its positioning anchor.  Since we want the line to come up and touch the block-end edge of the anchor, the <code>end</code> keyword is used to pin to the block end of the anchor (in this situation, its bottom edge).</p>
+
+<pre class="css">
+<code> nav.global ul li.currentPage::before {
+		content: '';
+		position: absolute;
+		inset-block-start: <ins>anchor(--currentPageLink end);</ins>
+		inset-block-end: 0;
+		inset-inline-start: 0;
+		inset-inline-end: anchor(--currentPageLink center);
+		z-index: -1;
+		border: 1px dashed;
+		border-block-width: 0 1px;
+		border-inline-width: 0 1px;
+		background-color: #FCC;
+	}</code>
+</pre>
+
+<p>Since the inset property in this case is block-related, the <code>end</code> keyword here means the block end of the anchor (again, in both senses).  And thus, the job is done, except for removing the light-red diagnostic background.</p>
+
+<figure class="standalone">
+<a href="https://meyerweb.com/eric/thoughts/wp-content/uploads/anchor-03b.png"><img decoding="async" src="https://meyerweb.com/eric/thoughts/wp-content/uploads/anchor-03b.png" alt="" /></a>
+<figcaption>The generated decorator with its block-start edge aligned with the block-end edge of the anchoring anchor.</figcaption>
+</figure>
+
+<p>Once that red background is taken out, we end up with the following rules inside the media query:</p>
+
+<pre class="css">
+<code> nav.global ul li.currentPage::before {
+		content: '';
+		position: absolute;
+		inset-block-start: anchor(--currentPageLink bottom);
+		inset-block-end: 0;
+		inset-inline-start: 0;
+		inset-inline-end: anchor(--currentPageLink center);
+		z-index: -1;
+		border: 1px dashed;
+		border-block-width: 0 1px;
+		border-inline-width: 0 1px;
+	}
+	nav.global ul li.currentPage a {
+		padding: 0;
+		padding-block: 0.25em;
+		margin: 1em;
+		color: inherit;
+		border-block-end: 1px dashed;
+		anchor-name: --currentPageLink;
+	}</code>
+</pre>
+
+<p>The inline-start and block-end edges of the generated decorator still have position values of <code>0</code>, so they stick to the edges of the containing block (the <code>&lt;div&gt;</code>).  The block-start and inline-end edges have values that are set with respect to their anchor.  That’s it, done and dusted.</p>
+
+<figure class="standalone">
+<a href="https://meyerweb.com/eric/thoughts/wp-content/uploads/anchor-04.png"><img decoding="async" src="https://meyerweb.com/eric/thoughts/wp-content/uploads/anchor-04.png" alt="" /></a>
+<figcaption>The connecting line is restored, but is now a lot easier to manage from the CSS side.</figcaption>
+</figure>
+
+<p>…okay, okay, there are a couple more things to talk about before we go.</p>
+
+<p>First, the dashed borders I used here don’t look fully consistent with the other dashed “borders” in the design.  I used actual borders for the CSS in this article because they’re fairly simple, as CSS goes, allowing me to focus on the topic at hand.  To make these borders fully consistent with the rest of the design, I have two choices:</p>
+
+<ol>
+<li>Remove the borders from the generated decorator and put the background-trick “borders” back into it.  This would be relatively straightforward to do, at the cost of inflating the rules a little bit with background sizing and positioning and all that.</li>
+<li>Convert all the other background-trick “borders” to be actual dashed borders.  This would also be pretty straightforward, and would reduce the overall complexity of the CSS.</li>
+</ol>
+
+<p>On balance, I’d probably go with the first option, because dashed borders still aren’t fully visually consistent from browser to browser, and people get cranky about those kinds of inconsistencies.  Background gradient tricks give you more control in exchange for you writing more declarations.  Still, either choice is completely defensible.</p>
+
+<p>Second, you might be wondering if that <code>&lt;div&gt;</code> was even necessary.  Not technically, no.  At first, I kept using it because it was already there, and removing it seemed like it would require refactoring a bunch of other code not directly related to this post.  So I didn’t.</p>
+
+<p>But it tasked me.  It <em>tasked</em> me.  So I decided to take it out after all, and see what I’d have to do to make it work.  Once I realized doing this illuminated an important restriction on what you can do with anchor positioning, I decided to explore it here.</p>
+
+<p>As a reminder, here’s the HTML as it stood before I started removing bits:</p>
+
+<pre class="html">
+<code>&lt;nav class="global"&gt;
+	&lt;div&gt;
+		&lt;a href="…"&gt;&lt;img src="…" alt="WPE"&gt;&lt;/a&gt;
+		&lt;ul&gt;…&lt;/ul&gt;
+	&lt;/div&gt;
+&lt;/nav&gt;</code>
+</pre>
+
+<p>Originally, the <code>&lt;div&gt;</code> was put there to provide a layout container for the logo and navbar links, so they’d be laid out to line up with the right and left sides of the page content.  The <code>&lt;nav&gt;</code> was allowed to span the entire page, and the <code>&lt;div&gt;</code> was set to the same width as the content, with <code>auto</code> side margins to center it.</p>
+
+<p>So, after pulling out the <code>&lt;div&gt;</code>, I needed an anchor for the navbar to size itself against.  I couldn’t use the <code>&lt;main&gt;</code> element that follows the <code>&lt;nav&gt;</code> and contains the page content, because it’s a page-spanning Grid container.  Just inside it, though, are <code>&lt;section&gt;</code> elements, and some (not all!) of them are the requisite width.  So I added:</p>
+
+<pre class="css">
+<code>main > section:not(.full-width) {
+	anchor-name: --mainCol;
+}</code>
+</pre>
+
+<p>The <code>full-width</code> class makes some sections page-spanning, so I needed to avoid those; thus the negative selection there.  Now I could reference the <code>&lt;nav&gt;</code>’s edges against the named anchor I just defined.  (Which is probably actually multiple anchors, but they all have the same width, so it comes to the same thing.)  So I dropped those anchor references into the CSS:</p>
+
+<pre class="css">
+<code>nav.global {
+	display: flex;
+	justify-content: space-between;
+	height: 5rem;
+	gap: 1em;
+	position: fixed;
+	top: 0;
+<ins>	inset-inline-start: anchor(--mainCol left);
+	inset-inline-end: anchor(--mainCol right);</ins>
+	z-index: 12345;
+	backdrop-filter: blur(10px);
+	background: hsla(0deg,0%,100%,0.9);
+}</code>
+</pre>
+
+<p>And that worked!  The inline start and end edges, which in this case are the left and right edges, lined up with the edges of the content column.</p>
+
+<figure class="standalone">
+<a href="https://meyerweb.com/eric/thoughts/wp-content/uploads/anchor-05.png"><img decoding="async" src="https://meyerweb.com/eric/thoughts/wp-content/uploads/anchor-05.png" alt="" /></a>
+<figcaption>Positioning the <code>&lt;nav&gt;</code> with respect to the anchoring section(s).</figcaption>
+</figure>
+
+<p>…except it <em>didn’t</em> work on any page that had any content that overflowed the main column, which is most of them.</p>
+
+<figure class="standalone">
+<a href="https://meyerweb.com/eric/thoughts/wp-content/uploads/anchor-05.png"><img decoding="async" src="https://meyerweb.com/eric/thoughts/wp-content/uploads/anchor-06.png" alt="" /></a>
+<figcaption>See, this is why I embedded a <code>&lt;div&gt;</code> inside the <code>&lt;nav&gt;</code> in the first place.</figcaption>
+</figure>
+
+<p>But wait.  Why couldn’t I just position the logo and list of navigation links against the <code>--mainCol</code> anchor?  Because in anchored positioning, just like nearly every other form of positioning, containing blocks are barriers.  Recall that the <code>&lt;nav&gt;</code> is a fixed-position box, so it can stick to the top of the viewport.  That means any elements inside it can only be positioned with respect to anchors that also have the <code>&lt;nav&gt;</code> as their containing block.</p>
+
+<p>That’s fine for the generated decorator, since it and the <code>currentPageLink</code> anchor both have the <code>&lt;nav&gt;</code> as their containing block.  To try to align the logo and navlinks, though, I can’t look outside the <code>&lt;nav&gt;</code> at anything else, and that includes the sections inside the <code>&lt;main&gt;</code> element, because the <code>&lt;nav&gt;</code> is not their containing block.  The <code>&lt;nav&gt;</code> element itself, on the other hand, shares a containing block with those sections: the initial containing block.  So I can anchor the <code>&lt;nav&gt;</code> itself to <code>--mainCol</code>.</p>
+
+<p>I fiddled with various hacks to extend the background of the <code>&lt;nav&gt;</code> without shifting its content edges, padding and negative margins and stuff like that, but in end, I fell back on a border-image hack, which required I remove the background.</p>
+
+<pre class="css">
+<code>nav.global {
+	display: flex;
+	justify-content: space-between;
+	height: 5rem;
+	gap: 1em;
+	position: fixed;
+	top: 0;
+	inset-inline-start: anchor(--mainCol left);
+	inset-inline-end: anchor(--mainCol right)
+	z-index: 12345;
+	backdrop-filter: blur(10px);
+<del>	background: hsla(0deg,0%,100%,0.9);</del>
+<ins>	border-image-outset: 0 100vw;
+	border-image-slice: 0 fill;
+	border-image-width: 0;
+	border-image-repeat: stretch;
+	border-image-source: linear-gradient(0deg,hsla(0deg,0%,100%,0.9),hsla(0deg,0%,100%,0.9));</ins>
+}</code>
+</pre>
+
+<p>And that solved the visual problem.</p>
+
+<figure class="standalone">
+<a href="https://meyerweb.com/eric/thoughts/wp-content/uploads/anchor-05.png"><img decoding="async" src="https://meyerweb.com/eric/thoughts/wp-content/uploads/anchor-07.png" alt="" /></a>
+<figcaption>The appearance of a full-width navbar, although it’s mostly border image fakery.</figcaption>
+</figure>
+
+<p>Was it worth it?  I have mixed feelings about that.  On the one hand, putting all of the layout hackery into the CSS and removing it all from the HTML feels like the proper approach.  On the other hand, it’s one measly <code>&lt;div&gt;</code>, and taking that approach means better support for older browsers.  On the gripping hand, if I’m going to use anchor positioning, older browsers are already being left out of the fun.  So I probably wouldn’t have even gone down this road, except it was a useful example of how anchor positioning can be stifled.</p>
+
+<p>At any rate, there you have it, another way to use anchor positioning to create previously difficult design effects with relative ease.  Just remember that all this is still in the realm of experiments, and production use will be limited to progressive enhancements until this comes out from behind the developer flags and more browsers add support.  That makes now a good time to play around, get familiar with the technology, that sort of thing.  Have fun with it!</p>
+<ul class="meta">
+<li class="date"><a href="https://meyerweb.com/eric/thoughts/2023/10/05/an-anchored-navbar-solution/"><cite>An Anchored Navbar Solution</cite></a> was published on <time>Thursday, October 5th, 2023</time>.</li>
+<li class="cat">It was assigned to the <a href="https://meyerweb.com/eric/thoughts/category/tech/css/" rel="category tag">CSS</a> category.</li>
+<li class="cmt">There has been <a href="https://meyerweb.com/eric/thoughts/2023/10/05/an-anchored-navbar-solution/#comments">one reply</a>.</li>
+</ul>
+</div>
+<hr class="fallback">
+</article>
+
+
+<article role="article" class="entry">
+<header>
+<h2 class="title"><a href="https://meyerweb.com/eric/thoughts/2023/09/12/nuclear-anchored-sidenotes/" rel="bookmark" title="Permanent Link: Nuclear Anchored Sidenotes">Nuclear Anchored Sidenotes</a></h2>
+<em class="pubtime">Published  2 months, 1 week past</em>
+</header>
+
+<div class="text">
+<p>Exactly one year ago today, which I swear is a coincidence I only noticed as I prepared to publish this, I posted <a href="https://meyerweb.com/eric/thoughts/2022/09/12/nuclear-footnotes/">an article on how I coded the footnotes</a> for <a href="https://atomicarchive.com/resources/documents/effects/glasstone-dolan/"><cite>The Effects of Nuclear Weapons</cite></a>.  In that piece, I mentioned that the footnotes I ended up using weren’t what I had hoped to create when the project first started.  As I said in the original post:</p>
+
+<blockquote>
+<p>Originally I had thought about putting footnotes off to one side in desktop views, such as in the right-hand grid gutter.  After playing with some rough prototypes, I realized this wasn’t going to go the way I wanted it to…</p>
+</blockquote>
+
+<p>I came back to this in my post “CSS Wish List 2023”, when I <a href="https://meyerweb.com/eric/thoughts/2023/02/08/css-wish-list-2023/#anchored-positioning">talked about anchor(ed) positioning</a>.  The ideal, which wasn’t really possible a year ago without a bunch of scripting, was to have the footnotes arranged structurally as endnotes, which we did, but in a way that I could place the notes as sidenotes, next to the footnote reference, when there was enough space to show them.</p>
+
+<p>As it happens, that’s still not really possible without a lot of scripting today, unless you have:</p>
+
+<ol type="1">
+<li>A recent (as of late 2023) version of Chrome</li>
+<li>With the “Experimental web features”&#160;flag enabled</li>
+</ol>
+
+<p>With those things in place, you get experimental support for <a href="https://www.w3.org/TR/css-anchor-position-1/">CSS anchor positioning</a>, which lets you absolutely position an element in relation to any other element, anywhere in the DOM, essentially regardless of their markup relationship to each other, as long as they <a href="https://www.w3.org/TR/2023/WD-css-anchor-position-1-20230629/#acceptable-anchor-element">conform to a short set of constraints</a> related to their containing blocks.  You could reveal an embedded stylesheet and then position it next to the bit of markup it styles!</p>
+
+<h3 id="anchoring-sidenotes">Anchoring Sidenotes</h3>
+
+<p>More relevantly to <cite>The Effects of Nuclear Weapons</cite>, I can enhance the desktop browsing experience by turning the popup footnotes into <a href="https://edwardtufte.github.io/tufte-css/#sidenotes"> Tufte-style static sidenotes</a>.  So, for example, I can style the list items that contain the footnotes like this:</p>
+
+<pre class="css">
+<code>.endnotes li {
+	position: absolute;
+	top: anchor(top);
+	bottom: auto;
+	left: calc(anchor(--main right) + 0.5em);
+	max-width: 23em;
+}</code>
+</pre>
+
+<figure class="standalone">
+<a href="https://meyerweb.com/eric/thoughts/wp-content/uploads/anchored-sidenotes-01.png"><img decoding="async" src="https://meyerweb.com/eric/thoughts/wp-content/uploads/anchored-sidenotes-01.png" alt="" /></a>
+<figcaption>A sidenote next to the main text column, with its number aligned with the referencing number found in the main text column.</figcaption>
+</figure>
+
+<p>Let me break that down.  The <code>position</code> is <code>absolute</code>, and <code> bottom</code> is set to <code>auto</code> to override a previous bit of styling that’s needed in cases where a footnote isn’t being anchored.  I also decided to restrain the maximum width of a sidenote to <code>23em</code>, for no other reason than it looked right to me.</p>
+
+<p>(A brief side note, <a href="https://meyerweb.com/bkkt/intend-your-puns.jpg">pun absolutely intended</a>: I’m using the physical-direction property <code>top</code> because the logical-direction equivalent in this context, <code>inset-block-start</code>, only gained full desktop cross-browser support a couple of years ago, and that’s only true if you ignore IE11’s existence, plus it arrived in several mobile browsers only this year, and I still fret about those kinds of things.  Since this is desktop-centric styling, I should probably set a calendar reminder to fix these at some point in the future.  Anyway, see <a href="https://developer.mozilla.org/en-US/docs/Web/CSS/inset-block-start">MDN’s entry</a> for more.)</p>
+
+<p>Now for the new and unfamiliar parts.</p>
+
+<pre class="css">
+<code> top: anchor(top);</code>
+</pre>
+
+<p>This sets the position of the top edge of the list item to be aligned with the top edge of its anchor’s box.  What is a footnote’s anchor?  It’s the corresponding superscripted footnote mark embedded in the text.  How does the CSS know that?  Well, the way I set things up&#160;&#x202F;—&#x2009; and this is not the only option for defining an anchor, but it’s the option that worked in this use case&#160;&#x202F;—&#x2009; the anchor is defined in the markup itself.  Here’s what a footnote mark and its associated footnote look like, markup-wise.</p>
+
+<pre class="html">
+<code>explosion,&lt;sup&gt;&lt;a href="#fnote01" id="fn01"&gt;1&lt;/a&gt;&lt;/sup&gt; although</code>
+</pre>
+
+<pre class="html">
+<code>&lt;li id="fnote01" anchor="fn01"&gt;&lt;sup&gt;1&lt;/sup&gt; … &lt;/li&gt;</code>
+</pre>
+
+<p>The important bits for anchor positioning are the <code>id="fn01"</code> on the superscripted link, and the <code>anchor="fn01"</code> on the list item: the latter establishes the element with an <code>id</code> of <code>fn01</code> as the anchor for the list item.  Any element can have an <code>anchor</code> attribute, thus creating what the CSS Anchor Positioning specification <a href="https://www.w3.org/TR/css-anchor-position-1/#implicit">calls an implicit anchor</a>.  It’s explicit in the HTML, yes, but that makes it implicit to CSS, I guess.  There’s even an <code>implicit</code> keyword, so I could have written this in my CSS instead:</p>
+
+<pre class="css">
+<code> top: anchor(implicit top);</code>
+</pre>
+
+<p>(There are ways to mark an element as an anchor and associate other elements with that anchor, without the need for any HTML.  You don’t even need to have IDs in the HTML.  I’ll get to that in a bit.)</p>
+
+<p>Note that the superscripted link and the list item are just barely related, structurally speaking.  Their closest ancestor element is the page’s single <code>&lt;main&gt;</code> element, which is the link’s fourth-great-grandparent, and the list item’s third-great-grandparent.  That’s okay!  Much as a <code>&lt;label&gt;</code> can be associated with an input element across DOM structures via its <code>for</code> attribute, any element can be associated with an anchoring element via its <code>anchor</code> attribute.  In both cases, the value is an ID.</p>
+
+<p>So anyway, that means the top edge of the endnote will be absolutely positioned to line up with the top edge of its anchor.  Had I wanted the top of the endnote to line up with the bottom edge of the anchor, I would have said:</p>
+
+<pre class="css">
+<code> top: anchor(bottom);</code>
+</pre>
+
+<p>But I didn’t.  With the top edges aligned, I now needed to drop the endnote into the space outside the main content column, off to its right.  At first, I did it like this:</p>
+
+<pre class="css">
+<code> left: anchor(--main right);</code>
+</pre>
+
+<p>Wait.  Before you think you can just automatically use HTML element names as anchor references, well, you can’t.  That <code>--main</code> is what CSS calls a <em>dashed-ident</em>, as in a dashed identifier, and I declared it elsewhere in my CSS.  To wit:</p>
+
+<pre class="css">
+<code>main {
+	anchor-name: --main;
+}</code>
+</pre>
+
+<p>That assigns the anchor name <code>--main</code> to the <code>&lt;main&gt;</code> element in the CSS, no HTML attributes required.  Using the name <code>--main</code> to identify the <code>&lt;main&gt;</code> element was me following the common practice of naming things for what they are.  I <em>could</em> have called it <code>--mainElement</code> or <code>--elMain</code> or <code>--main-column</code> or <code>--content</code> or <code>--josephine</code> or <code>--📕😉</code> or whatever I wanted.  It made the most sense to <em>me</em> to call it <code>--main</code>, so that’s what I picked.</p>
+
+<p>Having done that, I can use the edges of the <code>&lt;main&gt;</code> element as positioning referents for any absolutely (or fixed) positioned element.  Since I wanted the left side of sidenotes to be placed with respect to the right edge of the <code>&lt;main&gt;</code>, I set their <code> left</code> to be <code>anchor(--main right)</code>.</p>
+
+<p>Thus, taking these two declarations together, the top edge of a sidenote is positioned with respect to the top edge of its implicit anchor, and its left edge is positioned with respect to the right edge of the anchor named <code>--main</code>.</p>
+
+<pre class="css">
+<code>	top: anchor(top);
+	left: anchor(--main right);</code>
+</pre>
+
+<p>Yes, I’m anchoring the sidenotes with respect to two completely different anchors, one of which is a descendant of the other.  That’s okay!  You can do that!  Literally, you could position each edge of an anchored element to a separate anchor, regardless of how they relate to each other structurally.</p>
+
+<p>Once I previewed the result of those declarations, I saw I the sidenotes were too close to the main content, which makes sense: I had made the edges adjacent to each other.</p>
+
+<figure class="standalone">
+<a href="https://meyerweb.com/eric/thoughts/wp-content/uploads/anchored-sidenotes-04.png"><img decoding="async" src="https://meyerweb.com/eric/thoughts/wp-content/uploads/anchored-sidenotes-04.png" alt=""  /></a>
+<figcaption>Red borders showing the edges of the sidenote and the main column touching.</figcaption>
+</figure>
+
+<p>I thought about using a left margin on the sidenotes to push them over, and that would work fine, but I figured what the heck, CSS has calculation functions and anchor functions can go inside them, and any engine supporting anchor positioning will also support <code>calc()</code>, so why not?  Thus:</p>
+
+<pre class="css">
+<code> left: calc(anchor(--main right) + 0.5em);</code>
+</pre>
+
+<p>I wrapped those in a media query that only turned the footnotes into sidenotes at or above a certain viewport width, and wrapped that in a feature query so as to keep the styles away from non-anchor-position-understanding browsers, and I had the solution I’d envisioned at the beginning of the project!</p>
+
+<p>Except I didn’t.</p>
+
+<h3 id="fixing-proximate-overlap">Fixing Proximate Overlap</h3>
+
+<p>What I’d done was fine as long as the footnotes were well separated.  Remember, these are absolutely positioned elements, so they’re out of the document flow.  Since we <em>still</em> don’t have <a href="https://www.w3.org/TR/css3-exclusions/">CSS Exclusions</a>, there needs to be a way to deal with situations where there are two footnotes close to each other.  Without it, you get this sort of thing.</p>
+
+<figure class="standalone">
+<a href="https://meyerweb.com/eric/thoughts/wp-content/uploads/anchored-sidenotes-02.png"><img decoding="async" src="https://meyerweb.com/eric/thoughts/wp-content/uploads/anchored-sidenotes-02.png" alt=""  /></a>
+<figcaption>Two sidenotes completely overlapping with each other.  This will not do.</figcaption>
+</figure>
+
+<p>I couldn’t figure out how to fix this problem, so I did what you do these days, which is I posted my problem to social media.  Pretty quickly, I got a reply from the brilliant <a href="https://kizu.dev/">Roman Komarov</a>, pointing me at <a href="https://codepen.io/kizu/pen/abRRavB">a Codepen that showed how to do what I needed</a>, plus some very cool highlighting techniques.  I <a href="https://codepen.io/meyerweb/pen/JjwdBWY"> forked it so I could strip it down</a> to the essentials, which is all I really needed for my use case, and also have some hope of understanding it.</p>
+
+<p>Once I’d worked through it all and applied the results to <cite>TEoNW</cite>, I got exactly what I was after.</p>
+
+<figure class="standalone">
+<a href="https://meyerweb.com/eric/thoughts/wp-content/uploads/anchored-sidenotes-03.png"><img decoding="async" src="https://meyerweb.com/eric/thoughts/wp-content/uploads/anchored-sidenotes-03.png" alt="" /></a>
+<figcaption>The same two sidenotes, except now there is no overlap.</figcaption>
+</figure>
+
+<p>But how?  It goes like this:</p>
+
+<pre class="css">
+<code>.endnotes li {
+	position: absolute;
+	anchor-name: --sidenote;
+	top: max(anchor(top) , calc(anchor(--sidenote bottom) + 0.67em));
+	bottom: auto;
+	left: calc(anchor(--main right) + 0.5em);
+	max-width: 23em;
+}</code>
+</pre>
+
+<p>Whoa.  That’s a lot of functions working together there in the <code>top</code> value.  (CSS is becoming more and more functional, which I feel some kind of way about.)  It can all be verbalized as, “the position of the top edge of the list item is either the same as the top edge of its anchor, or two-thirds of an em below the bottom edge of the previous sidenote, whichever is further down”.</p>
+
+<p>The browser knows how to do this because the list items have all been given an <code>anchor-name</code> of <code>--sidenote</code> (again, that could be anything, I just picked what made sense to me).  That means every one of the endnote list items will have that anchor name, and other things can be positioned against them.</p>
+
+<p>Those styles mean that I have multiple elements bearing the same anchor name, though.  When any sidenote is positioned with respect to that anchor name, it has to pick just one of the anchors.  The specification says the named anchor that occurs most recently before the thing you’re positioning is what wins.  Given my setup, this means an anchored sidenote will use the previous sidenote as the anchor for its top edge.</p>
+
+<p>At least, it will use the previous sidenote as its anchor <em>if</em> the bottom of the previous sidenote (plus two-thirds of an em) is lower than the top edge of its implicit anchor.  In a sense, every sidenote’s top edge has <em>two</em> anchors, and the <code>max()</code> function picks which one is actually used in every case.</p>
+
+<p>CSS, man.</p>
+
+<p>Remember that all this is experimental, and the specification (and thus how anchor positioning works) could change.  The best practices for accessibility are also not clear yet, from what I’ve been able to find.  As such, this may not be something you want to deploy in production, even as a progressive enhancement.  I’m holding off myself for the time being, which means none of the above is currently used in the published version of <cite>The Effects of Nuclear Weapons</cite>.  If people are interested, I can create a Codepen to illustrate.</p>
+
+<p>I do know this is something the CSS Working Group is working on pretty hard right now, so I have hopes that things will finalize soon and support will spread.</p>
+
+<p class="note">My thanks to <a href="https://kizu.dev/">Roman Komarov</a> for his review of and feedback on this article.  For more use cases of anchor positioning, see his lengthy (and quite lovely) article “<a href="https://kizu.dev/anchor-positioning-experiments/">Future CSS: Anchor Positioning</a>”.</p><ul class="meta">
+<li class="date"><a href="https://meyerweb.com/eric/thoughts/2023/09/12/nuclear-anchored-sidenotes/"><cite>Nuclear Anchored Sidenotes</cite></a> was published on <time>Tuesday, September 12th, 2023</time>.</li>
+<li class="cat">It was assigned to the <a href="https://meyerweb.com/eric/thoughts/category/tech/css/" rel="category tag">CSS</a> category.</li>
+<li class="cmt">There have been <a href="https://meyerweb.com/eric/thoughts/2023/09/12/nuclear-anchored-sidenotes/#comments">three replies</a>.</li>
+</ul>
+</div>
+<hr class="fallback">
+</article>
+
+
+<article role="article" class="entry">
+<header>
+<h2 class="title"><a href="https://meyerweb.com/eric/thoughts/2023/09/06/memories-of-molly/" rel="bookmark" title="Permanent Link: Memories of Molly">Memories of Molly</a></h2>
+<em class="pubtime">Published  2 months, 2 weeks past</em>
+</header>
+
+<div class="text">
+<p>The Web is a little bit darker today, a fair bit poorer: <a href="https://www.tucsonsentinel.com/local/report/090523_molly_holzschlag/tucsons-molly-holzschlag-known-as-the-fairy-godmother-web-dead-60/">Molly Holzschlag is dead</a>.  She lived hard, but I hope she died easy.  I am more sparing than most with my use of the word “friend”, and she was absolutely one.  To everyone.</p>
+
+<p>If you don’t know her name, I’m sorry.  Too many didn’t.  She was one of the first web gurus, a title she adamantly rejected&#160;&#x202F;—&#x2009; “We’re all just <em>people</em>, people!”&#160;&#x202F;—&#x2009; but it fit nevertheless.  She was a groundbreaker, expanding and explaining the Web at its infancy.  So many people, on hearing the mournful news, have described her as a force of nature, and that’s a title she would have accepted with pride.  She was raucous, rambunctious, open-hearted, never ever close-mouthed, blazing with fire, and laughed (as she did everything) with her entire chest, constantly.  She was giving and took and she hurt and she wanted to heal everyone, all the time.  She was messily imperfect, would tell you so loudly and repeatedly, and gonzo in all the senses of that word.  Hunter S. Thompson should have written her obituary.</p>
+
+<p>I could tell so many stories.  The time we were waiting to check into a hotel, talking about who knows what, and realized Little Richard was a few spots ahead of us in line.  Once he’d finished checking in, Molly walked right over to introduce herself and spend a few minutes talking with him.  An evening a group of us had dinner one the top floor of a building in Chiba City and I got the unexpectedly fresh shrimp hibachi.  The time she and I were chatting online about a talk or training gig, somehow got onto the subject of <a href="https://en.wikipedia.org/wiki/Nick_Drake">Nick Drake</a>, and coordinated a playing of “<a href="https://www.youtube.com/watch?v=VfSWWScqH5M"> Three Hours</a>” just to savor it together.  A night in San Francisco where the two of us went out for dinner before some conference or other, stopped at a bar just off Union Square so she could have a couple of drinks, and she got propositioned by the impressively drunk couple seated next to her after they’d failed to talk the two of us into hooking up.  The bartender couldn’t stop laughing.</p>
+
+<div class="gallery">
+<figure>
+<a href="https://meyerweb.com/eric/thoughts/wp-content/uploads/IMG_6394.jpg"><img decoding="async" src="https://meyerweb.com/eric/thoughts/wp-content/uploads/IMG_6394.jpg" alt="" /></a>
+<figcaption>At SXSW 2005 with Dave Shea, her co-author on <cite>The Zen of CSS</cite>, and wearing an <a href="http://gmpg.org/xfn/">XFN</a> shirt.</figcaption>
+</figure>
+<figure>
+<a href="https://meyerweb.com/eric/thoughts/wp-content/uploads/IMG_0985.jpg"><img decoding="async" src="https://meyerweb.com/eric/thoughts/wp-content/uploads/IMG_0985.jpg" alt="" /></a>
+<figcaption>Standing outside Moscone Center in San Francisco with Cia Romano.  I think this is that time we all got evacuated due to a fire alarm.</figcaption>
+</figure>
+</div>
+
+<p>Or the time a bunch of us were gathered in New Orleans (again, some conference or other) and went to dinner at a jazz club, where we ended up seated next to the live jazz trio and she sang along with some of the songs.  She had a voice like a blues singer in a cabaret, brassy and smoky and full of hard-won joys, and she used it to great effect standing in front of Bill Gates to harangue him about Internet Explorer.  She raised it to fight like hell for the Web and its users, for the foundational principles of universal access and accessible development.  She put her voice on paper in some three dozen books, and was working on yet another when she died.  In one book, she managed to sneak past the editors an example that used a stick-figure <cite>Kama Sutra</cite> custom font face.  She could never resist a prank, particularly a bawdy one, as long as it didn’t hurt anyone.</p>
+
+<div class="gallery">
+<figure>
+<a href="https://meyerweb.com/eric/thoughts/wp-content/uploads/IMG_6293.jpg"><img decoding="async" src="https://meyerweb.com/eric/thoughts/wp-content/uploads/IMG_6293.jpg" alt="" /></a>
+<figcaption>Holding court in somebody’s hotel suite, with a baby <a href="https://ma.tt" class="acquaintance colleague met">Matt Mullenweg</a> in attendance.</figcaption>
+</figure>
+<figure>
+<a href="https://meyerweb.com/eric/thoughts/wp-content/uploads/IMG_0426.jpg"><img decoding="async" src="https://meyerweb.com/eric/thoughts/wp-content/uploads/IMG_0426.jpg" alt="" /></a>
+<figcaption>Once again holding court, this time at a bar with <a href="https://jasonsantamaria.com/" class="acquaintance colleague met">Jason Santa Maria</a>.</figcaption>
+</figure>
+</div>
+
+<p>She made the trek to Cleveland at least once to attend and be part of the crew for one of our <a href="https://meyerweb.com/eric/thoughts/2005/12/29/bread-soup-and-love/">Bread and Soup</a> parties.  We put her to work rolling tiny matzoh balls and she immediately made ribald jokes about it, laughing harder at our one-up jokes than she had at her own.  She stopped by the house a couple of other times over the years, when she was in town for consulting work, “Auntie Molly” to our eldest and one of my few colleagues to have spent any time with Rebecca.  Those pictures were lost, and I still keenly regret that.</p>
+
+<div class="gallery">
+<figure>
+<a href="https://meyerweb.com/eric/thoughts/wp-content/uploads/IMG_7851.jpg"><img decoding="async" src="https://meyerweb.com/eric/thoughts/wp-content/uploads/IMG_7851.jpg" alt="" /></a>
+<figcaption>Rolling matzoh balls in our kitchen, <em>still</em> holding court.</figcaption>
+</figure>
+<figure>
+<a href="https://meyerweb.com/eric/thoughts/wp-content/uploads/IMG_6842.jpg"><img decoding="async" src="https://meyerweb.com/eric/thoughts/wp-content/uploads/IMG_6842.jpg" alt="" /></a>
+<figcaption>On top of a bus somewhere in the world, probably London, with my partner Kat.</figcaption>
+</figure>
+</div>
+
+<p>There were so many things about what the Web became that she hated, that she’d spent so much time and energy fighting to avert, but she still loved it for what it could be and what it had been originally designed to be.  She took more than one fledgling web designer under her wing, boosted their skills and careers, and beamed with pride at their accomplishments.  She told a great story about one, I think it was Dunstan Orchard but I could be wrong, and his afternoon walk through a dry Arizona arroyo.</p>
+
+<p>I could go on for pages, but I won’t; if this were a toast and she were here, she would have long ago heckled me (affectionately) into shutting up.  But if you have treasured memories of Molly, I’d love to hear them in the comments below, or on your own blog or social media or podcasts or anywhere.  She loved stories.  Tell hers.</p>
+<ul class="meta">
+<li class="date"><a href="https://meyerweb.com/eric/thoughts/2023/09/06/memories-of-molly/"><cite>Memories of Molly</cite></a> was published on <time>Wednesday, September 6th, 2023</time>.</li>
+<li class="cat">It was assigned to the <a href="https://meyerweb.com/eric/thoughts/category/personal/" rel="category tag">Personal</a> and <a href="https://meyerweb.com/eric/thoughts/category/tech/web/" rel="category tag">Web</a> categories.</li>
+<li class="cmt">There have been <a href="https://meyerweb.com/eric/thoughts/2023/09/06/memories-of-molly/#comments">thirty-six replies</a>.</li>
+</ul>
+</div>
+<hr class="fallback">
+</article>
+
+
+<article role="article" class="entry">
+<header>
+<h2 class="title"><a href="https://meyerweb.com/eric/thoughts/2023/08/22/igalia-chats-logo/" rel="bookmark" title="Permanent Link: Designing the Igalia Chats Logo">Designing the Igalia Chats Logo</a></h2>
+<em class="pubtime">Published  3 months past</em>
+</header>
+
+<div class="text">
+<p>One of the things I’ve been doing at <a href="https://igalia.com">Igalia</a> of late is podcasting with Brian Kardell.  It’s called “<a href="https://www.igalia.com/24-7/chats">Igalia Chats</a>”, and last week, I designed it a logo.  I tried out a number of different ideas, ran them past the Communication team for feedback, and settled on this one.</p>
+
+<figure>
+<a href="https://meyerweb.com/eric/thoughts/wp-content/uploads/igalia-chats-logo.jpg"><img decoding="async" src="https://meyerweb.com/eric/thoughts/wp-content/uploads/igalia-chats-logo.jpg" alt="The Igalia Chats logo, which combines the official full Igalia logo of a many-colored circle and the name of the company with the word “Chats” below the logo in a slightly larger font size than that used for the name of the company.  Next to them is a large stylized icon of a microphone." /></a>
+  <figcaption>D&amp;AD Awards committee, you know where to find me.</figcaption>
+</figure>
+
+<p>And there you have it, the first logo I’ve designed in… well, in quite a while.  My work this time around was informed by a few things.</p>
+
+<ul>
+<li>Podcast apps, sites, etc.  expect a square image for the podcast’s logo.  This doesn’t mean you have to make the visible part of it square, exactly, but it does mean any wide-and-short logo will simultaneously feel cramped and lost in a vast void.  Or maybe just very far away.  The version shown in this post is <em>not</em> the square version, because this is not a podcast app and because I could.  The square version just adds more empty whitespace at the top and bottom, anyway.</li>
+<li>I couldn’t really alter the official logo in any major way: the brand guidelines are pretty strong and shouldn’t be broken without collective approval.  Given the time that would take, I decided to just work with the logo as-is, and think about possible variants (say, the microphone icon in the blank diamond of the logo) in a later stage.  I did think about just not using the official logo at all, but that felt like it would end up looking too generic.  Besides, we hav e a pretty nifty logo there, so why not use it?</li>
+<li>A typeface for the word “Chats” that works well with Igalia’s official logo.  I used <a href="https://www.stormtype.com/families/etelka">Etelka</a>, which is a font we already use on the web site, and I think is the basis of the semi-serifed letters in the official logo anyway.  Though I could be wrong about that; while I definitely have opinions about typefaces these days, I’m not very good at identifying them, or being able to distinguish between two similar fonts.  Call it typeface blindness.</li>
+<li>Using open-source resources where possible; thus, the microphone icon came from <a href="https://thenounproject.com/">The Noun Project</a>.  I then modified it a bit (rounded the linecaps, shortened the pickup’s brace) to balance its visual weight with the rest of the design, and not crowd the letters too much.  I also added a subtle vertical gradient to the icon, which helped the word “Chats” to stand out a little more.  Gotta make the logo pop, donchaknow?</li>
+</ul>
+
+<p>There are probably some adjustments I’ll make after a bit of time, but I was determined not to let perfect be the enemy of shipping.  As for how I came to create the logo, you’re probably thinking fancy CSS Grid layout and custom fonts and all that jazz, but no, I just dumped everything into <a href="https://www.apple.com/keynote/">Keynote</a> and fiddled with ideas until I had some I liked.  It’s not a fantastic environment for this sort of work, I expect, but it’s Good Enough For Me™.</p>
+
+<p>So, if you’re subscribed to <a href="https://www.igalia.com/24-7/chats">Igalia Chats</a> via your listening channel of choice, you should be seeing a new logo.  If you <em>aren’t</em> subscribed… try us, won’t you?  Brian and I talk about a lot of web-related stuff with a lot of really interesting people &#x202F;—&#x2009;&#160;most recently, with <a href="https://www.igalia.com/chats/polypane">Kilian Valkhof about the web development application Polypane</a>, with <a href="https://www.igalia.com/chats/undersea"> Stephen Shankland about undersea data cables</a>, with <a href="https://www.igalia.com/chats/zach"> Zach Leatherman about open-source work and funding</a>, and many more.  Plus sometimes we just talk with each other about what’s new in Web land, things <a href="https://www.igalia.com/chats/baseline"> like Google Baseline</a> or <a href="https://www.igalia.com/chats/safari-16">huge WebKit updates</a>.  And, yes, sometimes we talk about what Igalia is up to, like <a href="https://www.igalia.com/chats/servo"> our work on the Servo engine</a> or <a href="https://www.igalia.com/chats/steam-powered-open-source">the Steam Deck</a>.</p>
+
+<p>This is one of the things I quite enjoy about working for Igalia&#160;&#x202F;—&#x2009;&#160;the way I can draw upon all the things I’ve learned over my many (many) years to create different things.  A logo last week, a thumbnail-building tool the week before, writing news posts, recording podcasts, doing audio production, figuring out transcription technology, and on and on and on.  It can sometimes be frustrating in the way all work can be, but it rarely gets boring. (And if that sounds good to you, <a href="https://www.igalia.com/jobs/open/">we are hiring</a> for a number of roles!)</p>
+<ul class="meta">
+<li class="date"><a href="https://meyerweb.com/eric/thoughts/2023/08/22/igalia-chats-logo/"><cite>Designing the Igalia Chats Logo</cite></a> was published on <time>Tuesday, August 22nd, 2023</time>.</li>
+<li class="cat">It was assigned to the <a href="https://meyerweb.com/eric/thoughts/category/design/" rel="category tag">Design</a> and <a href="https://meyerweb.com/eric/thoughts/category/personal/work/" rel="category tag">Work</a> categories.</li>
+<li class="cmt">There have been <a href="https://meyerweb.com/eric/thoughts/2023/08/22/igalia-chats-logo/#respond">no replies</a>.</li>
+</ul>
+</div>
+<hr class="fallback">
+</article>
+
+
+<article role="article" class="entry">
+<header>
+<h2 class="title"><a href="https://meyerweb.com/eric/thoughts/2023/06/20/first-person-scrollers/" rel="bookmark" title="Permanent Link: First-Person Scrollers">First-Person Scrollers</a></h2>
+<em class="pubtime">Published  5 months, 2 days past</em>
+</header>
+
+<div class="text">
+<p>I’ve played a lot of video games over the years, and the thing that just utterly blows my mind about them is how every frame is painted from scratch.  So in a game running at 30 frames per second, everything in the scene has to be calculated and drawn every 33 milliseconds, no matter how little or much has changed from one frame to the next.  In modern games, users generally demand 60 frames per second.  So everything you see on-screen gets calculated, placed, colored, textured, shaded, and what-have-you in 16 milliseconds (or less).  And then, in the next 16 milliseconds (or less), it has to be done <em>all over again</em>.  And there are games that render the entire scene in single-digits numbers of milliseconds!</p>
+
+<p>I mean, I’ve done some simple 3D render coding in my day.  I’ve done hobbyist video game development; see <a href="https://gravitywars.meyerweb.com/">Gravity Wars</a>, for example (which I really do need to get back to and make less user-hostile).  So you’d think I’d be used to this concept, but somehow, I just never get there.  My pre-DOS-era brain rebels at the idea that everything has to be recalculated from scratch every frame, and doubly so that such a thing can be done in such infinitesimal slivers of time.</p>
+
+<p>So you can imagine how I feel about the fact that <em>web browsers</em> operate in exactly the same way, and with the same performance requirements.</p>
+
+<p>Maybe this shouldn’t come as a surprise.  After all, we have user interactions and embedded videos and resizable windows and page scrolling and stuff like that, never mind CSS animations and DOM manipulation, so the viewport often needs to be re-rendered to reflect the current state of things.  And to make all that feel smooth like butter, browser engines have to be able to display web pages at a minimum of 60 frames per second.</p>
+
+<figure>
+<a href="https://meyerweb.com/eric/thoughts/wp-content/uploads/‎fps.jpg"><img decoding="async" src="https://meyerweb.com/eric/thoughts/wp-content/uploads/‎fps.jpg" alt="" /></a>
+<figcaption>Admittedly, this would be a popular UI for browsing social media.</figcaption>
+</figure>
+
+<p>This demand touches absolutely <em>everything</em>, and shapes the evolution of web technologies in ways I don’t think we fully appreciate.  You want to add a new selector type?  It has to be performant.  This is what blocked <code>:has()</code> (and similar proposals) for such a long time.  It wasn’t difficult to figure out how to select ancestor elements&#x202F;—&#x2009;it was very difficult to figure out how to do it really, really fast, so as not to lower typical rendering speed below that magic 60fps.  The same logic applies to new features like view transitions, or new filter functions, or element exclusions, or whatever you might dream up.  No matter how cool the idea, if it bogs rendering down too much, it’s a non-starter.</p>
+
+<p>I should note that none of this is to say it’s impossible to get a browser below 60fps: pile on enough computationally expensive operations and you’ll still jank like crazy.  It’s more that the goal is to keep any new feature from dragging rendering performance down too far in reasonable situations, both alone and in combination with already-existing features.  What constitutes “down too far” and “reasonable situations” is honestly a little opaque, but that’s a conversation slash vigorous debate for another time.</p>
+
+<p>I’m sure the people who’ve worked on browser engines have fascinating stories about what they do internally to safeguard rendering speed, and ideas they’ve had to spike because they were performance killers.  I would love to hear those stories, if any BigCo devrel teams are looking for podcast ideas, or would like to guest on <a href="https://igalia.com/24-7/chats">Igalia Chats</a>. (We’d love to have you on!)</p>
+
+<p>Anyway, the point I’m making is that performance isn’t just a matter of low asset sizes and script tuning and server efficiency.  It’s also a question of the engine’s ability to redraw the contents of the viewport, no matter what changes for whatever reason, with reasonable anticipation of things that might affect the rendering, every 15 milliseconds, over and over and over and over and over again, just so we can scroll our web pages smoothly.  It’s kind of bananas, and yet, it also makes sense.  Welcome to the web.</p>
+<ul class="meta">
+<li class="date"><a href="https://meyerweb.com/eric/thoughts/2023/06/20/first-person-scrollers/"><cite>First-Person Scrollers</cite></a> was published on <time>Tuesday, June 20th, 2023</time>.</li>
+<li class="cat">It was assigned to the <a href="https://meyerweb.com/eric/thoughts/category/tech/browsers/" rel="category tag">Browsers</a> and <a href="https://meyerweb.com/eric/thoughts/category/tech/web/" rel="category tag">Web</a> categories.</li>
+<li class="cmt">There has been <a href="https://meyerweb.com/eric/thoughts/2023/06/20/first-person-scrollers/#comments">one reply</a>.</li>
+</ul>
+</div>
+<hr class="fallback">
+</article>
+
+
+</main>
+
+<div class="prev-next book" id="posts-pn">
+<h4>Browse <a href="/eric/thoughts/">the Archive</a></h4>
+<p class="prev"><a href="https://meyerweb.com/eric/thoughts/page/2/" >Earlier Entries</a></p>
+<p class="next"></p>
+</div>
+
+</div>
+
+<footer id="global">
+
+<div>
+
+<div id="archipelago">
+<h4>Identity Archipelago</h4>
+<ul>
+<li><a rel="me" href="https://twitter.com/meyerweb"><img src="/pix/icons/twitter.png" alt="Twitter"></a></li>
+<li><a rel="me" href="https://mastodon.social/@meyerweb"><img src="/pix/icons/mastodon.svg" alt="Mastodon"></a></li>
+<li><a rel="me" href="https://github.com/meyerweb"><img src="/pix/icons/github.png" alt="GitHub"></a></li>
+<li><a rel="me" href="https://flickr.com/photos/meyerweb/"><img src="/pix/icons/flickr.png" alt="Flickr"></a></li>
+<li><a rel="me" href="https://dribbble.com/meyerweb"><img src="/pix/icons/dribbble.png" alt="Dribbble"></a></li>
+<li><a rel="me" href="https://facebook.com/meyerweb"><img src="/pix/icons/facebook.png" alt="Facebook"></a></li>
+<li><a rel="me" href="https://www.linkedin.com/in/meyerweb"><img src="/pix/icons/linkedin.png" alt="LinkedIn"></a></li>
+</ul>
+</div>
+
+<div id="excuse">
+<div class="panel" id="excuse">
+<h4>The <a href="/feeds/excuse/">excuse of the day</a> is</h4>
+<p>tsunamis in the wave-division multiplexer</p>
+</div>
+<!--#include virtual="/feeds/excuse/current.html" -->
+</div>
+
+<div class="sosumi">
+All contents of this site, unless otherwise noted, are &copy;1993-2023<!--#config timefmt="%Y" --><!--#echo var="DATE_LOCAL" --> <strong>Eric A. and Kathryn S. Meyer</strong>.  All Rights Reserved.</div>
+
+<div id="wordpress" class="credits">"<a href="/eric/thoughts/">Thoughts From Eric</a>" is powered by <a href="http://wordpress.org/">WordPress</a>.  Most of the rest of the site is hand-authored.</div>
+
+<div id="design" class="credits">The ink-sketch images used in this site’s design are adapted from <a href="https://archive.org/search.php?query=creator%3A%22Mori%2C+Yu%CC%84zan%2C+-1917%22">Yūzan Mori’s <cite><dfn title="In English: Wave Forms">Hamonshū</dfn></cite>, Volumes 1-3</a>, published in 1903 and made available for public use by the <a href="https://library.si.edu/">Smithsonian Libraries</a> and the <a href="https://archive.org/">Internet Archive</a>.</div>
+
+</div>
+
+</footer>
+
+</body>
+</html>
+
+<!-- Dynamic page generated in 0.095 seconds. -->
+<!-- Cached page generated by WP-Super-Cache on 2023-11-21 17:45:45 -->
+
+<!-- Compression = gzip -->

@@ -1,0 +1,1267 @@
+<!doctype html>
+<html lang="zh-cmn-Hans">
+
+<head>
+	<meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+	<meta name="renderer" content="webkit" />
+	<meta name="apple-itunes-app" content="app-id=458270120" />
+	<meta name="Keywords" content="快递100,在线寄件,寄快递,快递查询,快递单号查询,快递API,寄件API,快递查询API,快递接口,商家寄件,快递打印,快递面单" />
+	<meta name="Description"
+		content=" 一站式查快递、寄快递信息服务平台。支持全球1500+快递公司单号查询、价格查询、时效查询；支持商家寄件、寄快递，国际快递、同城快递、大件物流；提供企业级快递查询API接口、电子面单API接口、寄件API接口" />
+	<meta name="mobile-agent" content="format=html5;url=https://m.kuaidi100.com/" />
+	<title>快递100-查快递,寄快递,上快递100</title>
+	<link rel="canonical" href="https://www.kuaidi100.com/" />
+	<link rel="shortcut icon" href="https://cdn.kuaidi100.com/favicon.ico" />
+	<link rel="icon" type="image/gif" href="https://cdn.kuaidi100.com/images/favicon.gif" />
+	<link rel="stylesheet" href="https://cdn.kuaidi100.com/css/www/normalize.css" />
+<link rel="stylesheet" href="https://cdn.kuaidi100.com/css/www/common.css?v=20230525" />
+	<link rel="stylesheet" href="https://cdn.kuaidi100.com/css/www/home.css?version=2023101918001" />
+  <script>
+    var date = new Date();
+    var year = date.getFullYear(), month = date.getMonth(), day = date.getDate()
+    var cssStr = 'html,body {-webkit-filter: grayscale(100%);-moz-filter: grayscale(100%);-ms-filter: grayscale(100%);-o-filter: grayscale(100%);filter:grayscale(100%);filter:progid:DXImageTransform.Microsoft.BasicImage(grayscale=1);}'
+    if(year === 2023 && month === 9 && day >=27 && day <=30) {
+      var doc = document;
+      var style = doc.createElement("style"),cssText = doc.createTextNode(cssStr), heads = doc.getElementsByTagName("head");
+      style.setAttribute("type", "text/css");
+      style.appendChild(cssText);
+      if(heads.length){
+        heads[0].appendChild(style);
+      } else{
+        doc.documentElement.appendChild(style);
+      }
+    }
+  </script>
+</head>
+
+<body>
+	<div class="kd-app">
+		<div class="kd-header">
+  <div class="kd-content">
+    <a class="kd-header__logo" href="https://www.kuaidi100.com" title="查快递，寄快递，上快递100">
+      <img class="kd-header__logoimg" src="https://cdn.kuaidi100.com/images/www/index/kd100_logo_white.png" alt="logo"/>
+    </a>
+    <div class="kd-header__userinfo kd-header__userinfo--hide">
+      <!-- <a href="https://sso.kuaidi100.com/pcweb/view/registerpage?putId=10700000&source=17291739" class="kd-header__btn kd-header__btn--bd" role="logout">注册</a> -->
+      <a href="https://sso.kuaidi100.com/pcweb/view/registerpage" class="kd-header__btn kd-header__btn--bd" role="logout">注册</a>
+      <a href="https://www.kuaidi100.com/user/" class="kd-header__btn kd-header__btn--bg" role="logout">登录</a>
+      <a class="kd-header__avatar" role="login" href="https://sso.kuaidi100.com/usercenter/account.jsp"></a>
+      <a class="kd-header__username" role="login" href="https://sso.kuaidi100.com/usercenter/account.jsp"></a>
+      <div class="kd-header__menu" style="top: 50px">
+        <a href="https://buyer.kuaidi100.com/" class="kd-header__menuitem">我的查件记录</a>
+        <a href="https://www.kuaidi100.com/sent.shtml?page=history" class="kd-header__menuitem">我的寄件订单</a>
+        <a href="https://sso.kuaidi100.com/usercenter/indexpage" class="kd-header__menuitem">用户中心</a>
+        <a class="kd-header__menuitem" role="logout-handler">退出</a>
+      </div>
+    </div>
+    <ul class="kd-header__navs">
+      <li class="kd-header__nav" role="home"><a href="/">首页</a></li>
+      <li class="kd-header__nav kd-header-nav--toggle" role="user">
+        个人用户
+        <div class="kd-header__menu">
+          <a href="https://www.kuaidi100.com/introduce.shtml" class="kd-header__menuitem">产品介绍</a>
+          <a href="https://www.kuaidi100.com/courier/" class="kd-header__menuitem" target="_blank">寄快递</a>
+          <a href="https://www.kuaidi100.com/courier/global.jsp" class="kd-header__menuitem" target="_blank">国际快递</a>
+          <a href="https://www.kuaidi100.com/all/" class="kd-header__menuitem">快递大全</a>
+          <a href="https://www.kuaidi100.com/openapi/api_jump.shtml" class="kd-header__menuitem" target="_blank">开放服务</a>
+        </div>
+      </li>
+      <li class="kd-header__nav kd-header-nav--toggle" role="enterprise">
+        企业用户
+        <div class="kd-header__menu">
+          <a href="https://www.kuaidi100.com/service" class="kd-header__menuitem" target="_blank">电商快递管家SaaS</a>
+          <a href="https://api.kuaidi100.com/" class="kd-header__menuitem" target="_blank">API开放平台</a>
+          <a href="https://www.kuaidi100.com/enterprise/index.shtml" class="kd-header__menuitem" target="_blank">企业快递管理SaaS</a>
+        </div>
+      </li>
+      <li class="kd-header__nav kd-header-nav--toggle" role="service">
+        物流服务商
+        <div class="kd-header__menu">
+          <a href="https://www.kuaidi100.com/courier_site/pages/index.shtml" class="kd-header__menuitem" target="_blank">快递员收件端</a>
+          <!-- <a href="https://www.kuaidi100.com/cloud/cloud/cloud_print.shtml" class="kd-header__menuitem" target="_blank">云打印硬件</a> -->
+          <a href="https://api.kuaidi100.com/join" class="kd-header__menuitem" target="_blank">快递公司入驻</a>
+        </div>
+      </li>
+      <li class="kd-header__nav kd-header-nav--toggle" role="api">
+        接口（API）
+        <div class="kd-header__menu">
+          <a class="kd-header__menuitem" href="https://api.kuaidi100.com/home" target="_blank">产品介绍</a>
+          <a class="kd-header__menuitem" href="https://api.kuaidi100.com/register/diff" target="_blank">接口申请</a>
+          <a href="https://api.kuaidi100.com/document/" class="kd-header__menuitem" target="_blank">技术文档</a>
+          <!-- <a href="https://www.kuaidi100.com/cloud/print/cloudapi.shtml" class="kd-header__menuitem">云打印API</a> -->
+          <a href="https://cloud.kuaidi100.com/" class="kd-header__menuitem" target="_blank">云平台</a>
+          <!-- <a href="https://www.kuaidi100.com/openapi/api_jump.shtml" class="kd-header__menuitem">页面嵌入</a> -->
+        </div>
+      </li>
+      <li class="kd-header__nav" role="buyer">
+        <a href="/ecommerce/businesssend/index.shtml">商家寄件</a>
+      </li>
+    </ul>
+  </div>
+</div>
+
+		<div class="kd-footer">
+  <div class="kd-content">
+    <div class="kd-footer__link">
+      <dl>
+        <dt>了解我们</dt>
+        <dd><a href="https://www.kuaidi100.com/about/" target="_blank">关于快递100</a></dd>
+        <dd><a href="https://www.kuaidi100.com/news/" target="_blank">新闻资讯</a></dd>
+        <dd><a href="https://www.kuaidi100.com/about/private.shtml" target="_blank">隐私政策</a></dd>
+        <dd><a href="https://api.kuaidi100.com/blogroll/" target="_blank">博客文章</a></dd>
+      </dl>
+      <dl>
+        <dt>关注我们</dt>
+        <dd><a href="https://m.kuaidi100.com/help/weixin.jsp">微信公众号</a></dd>
+        <dd><a href="https://weibo.com/kuaidi100">新浪微博</a></dd>
+      </dl>
+      <dl>
+        <dt>联系我们</dt>
+        <dd><a href="https://www.kuaidi100.com/about/contact.shtml" target="_blank">联系方式</a></dd>
+        <dd><a href="https://www.kuaidi100.com/about/join.shtml" target="_blank">加入我们</a></dd>
+        <dd><a href="https://www.kuaidi100.com/help/">帮助文档</a></dd>
+      </dl>
+      <dl>
+        <dt>快速通道</dt>
+        <dd><a href="##" id="viewH5">手机HTML5站</a></dd>
+        <dd><a href="https://c.kuaidi100.com/register.shtml">快递网点入驻/加盟</a></dd>
+        <dd><a href="https://c.kuaidi100.com/">快递网点维护/更新</a></dd>
+      </dl>
+    </div>
+    <ul class="kd-footer__qrcode">
+      <li class="kd-footer__code">
+        <img src="https://cdn.kuaidi100.com/images/www/qrcode-app.png" alt="快递100APP">
+        <p>快递100APP</p>
+      </li>
+      <li class="kd-footer__code">
+        <img src="https://cdn.kuaidi100.com/images/www/qrcode-courier.png" alt="快递员端">
+        <p>快递100收件端</p>
+      </li>
+      <li class="kd-footer__code">
+        <img src="https://cdn.kuaidi100.com/images/www/qrcode-public.png" alt="关注公众号">
+        <p>快递100</p>
+      </li>
+    </ul>
+    <div class="kd-clearfix"></div>
+    <div class="kd-footer__copyright">
+      深圳前海百递网络有限公司 版权所有&copy;2010-<span id="copyrightYear">2021</span>&nbsp;&nbsp;<a href="http://beian.miit.gov.cn/" target="_blank">粤ICP备14085002号</a>&nbsp;&nbsp;<a href="https://www.kuaidi100.com/about/licence.shtml" target="_blank">粤B2-20150010</a>
+    </div>
+    <script>document.getElementById("copyrightYear").innerHTML = (new Date()).getFullYear();</script>
+    <ul class="kd-footer__industry">
+      <li><a target="_blank" href="http://szcert.ebs.org.cn/C8900EF4-041B-4E72-96CC-EDCEF5A444C0" title="深圳市市场监督管理局企业主体身份公示" style="background-position: -287px -206px;width: 16px;height: 17px;" rel="nofollow"></a></li>
+      <li><a target="_blank"  title="可信任网站" href="https://ss.knet.cn/verifyseal.dll?sn=e17090744030068817gc1i000000&amp;pa=111332" style="background-position: -262px -259px;width: 42px;height: 15px;" rel="nofollow"></a></li>
+    </ul>
+  </div>
+</div>
+<!-- <div class="kd-float">
+  <a href="javascript:void(0)" class="kd-float__service" id="uDeskTarget" title="在线客服"></a>
+  <a href="javascript:void(0)" class="kd-float__qq" id="floatQQ" title="">
+    <ul class="qq-float" id="qqPannel">
+      <li>API接口QQ咨询<span class="mark" data-type="person" data-key="2850515747">2850515747</span></li>
+      <li>快递管家企业版QQ咨询群<span class="mark" data-type="group" data-key="K4Hs8uctCwtRi810NGuwkyWpZi-GBBpl">855754120</span></li>
+    </ul>
+  </a>
+  <a href="javascript:void(0)" class="kd-float__h5" id="floatH5" title="移动端"></a>
+</div> -->
+		<div class="kd-body">
+			<div class="mask" id="mask"></div>
+			<div class="banners" id="banner">
+				<!-- <div class="banner">
+					<img src="https://cdn.kuaidi100.com/images/www/home/banner1.png"  class="img">
+					<img src="https://cdn.kuaidi100.com/images/www/home/banner2.png"  class="img">
+				</div>
+				<div class="banner">
+					<img src="https://cdn.kuaidi100.com/images/www/home/banner1.png"  class="img">
+					<img src="https://cdn.kuaidi100.com/images/www/home/banner2.png"  class="img">
+				</div> -->
+				<!-- <div class="indicator">
+					<span></span>
+					<span class="active"></span>
+					<span></span>
+					<span></span>
+				</div> -->
+			</div>
+			<div class="query-wrap kd-content">
+				<div class="official" id="official">
+					寄<span id="officialText">快递</span>，免费预约上门取件<span class="official-btn">立即寄件</span>
+					<div class="official-code-wrap">
+						<div class="code-text-wrap">
+							<div class="code-flex-wrap">
+								<div class="code-flex-wrap-item">
+									<img class="code" src="	https://cdn.kuaidi100.com/images/www/home/wx-scan-code.png" alt="weixin">
+									<span>快递100公众号</span>
+								</div>
+								<div class="code-flex-wrap-item">
+									<img class="code" src="	https://cdn.kuaidi100.com/images/www/home/app-code-new.png" alt="downloadApp"/>
+									<span>快递100APP</span>
+								</div>
+							</div>
+							<div class="code-text"><img src="https://cdn.kuaidi100.com/images/icons/wechat.png" class="ico">微信扫一扫
+							</div>
+						</div>
+						<!-- <div class="desc">
+							快递100官方提供“丢必赔”服务，<br>快递就要“安心寄”
+						</div> -->
+					</div>
+				</div>
+				<div class="kd-clearfix">
+					<div class="input-wrap">
+						<div class="icon" id="comIcon">
+							<!-- IE9以下不支持背景，此处必须使用img -->
+							<img src="https://cdn.kuaidi100.com/images/www/home/default-com.png">
+						</div>
+						<input type="text" placeholder="输入单号，在1500+国内外快递公司中为您智能查询" id="input" autocomplete="off">
+						<div class="history" id="historyWrap">
+							<ul id="history">
+								<!-- <li>235235235235235235 京东物流<span class="del" title="删除"></span></li> -->
+							</ul>
+							<div class="tips" id="historyTips">
+								最近十条查询记录，
+								<span id="logoutTips">需要永久保存？<a href="http://sso.kuaidi100.com/" class="mark">马上登录试试</a></span>
+								<a id="loginTips" href="//buyer.kuaidi100.com/" class="mark">查看更多&gt;&gt;</a>
+								<a class="fr link" href id="delAll">全部删除</a>
+							</div>
+							<div class="tips" id="bigDataTips">
+								&nbsp;
+								<a class="fr">快递100大数据为您提供智能识别</a>
+							</div>
+						</div>
+					</div>
+					<!-- <a baidu-event="www_to_snt" data-baidu-tag="station_batchquery" class="button batch"
+						href="https://www.kuaidi100.com/courier/">寄快递</a> -->
+					<a baidu-event="www_to_snt" data-baidu-tag="station_batchquery" class="button batch"
+						href="https://b.kuaidi100.com/page/addNewTracking/batch?source=wwwStation_batch">批量查询</a>
+					<div class="button search" id="query">查快递</div>
+				</div>
+				<div class="demo" id="demoWrap">例如：<a href id="demo">SF2323523526</a>
+					<!-- <a class="import" href="https://b.kuaidi100.com/page/addNewTracking/batch?from=www">批量导入查询&gt;&gt;</a> -->
+				</div>
+				<div class="com-list" id="comlist">
+  <div class="common suggest" id="suggestList" style="display: none">
+    <span class="li-title">推荐</span>
+  </div>
+  <ul class="common">
+    <li>
+      <span class="li-title">常用</span>
+      <a data-code="">智能识别</a>
+      <a data-code="yuantong">圆通</a>
+      <a data-code="yunda">韵达</a>
+      <a data-code="zhongtong">中通</a>
+      <a data-code="jtexpress">极兔</a>
+      <a data-code="shentong">申通</a>
+      <a data-code="youzhengguonei">邮政包裹</a>
+      <a data-code="shunfeng">顺丰</a>
+      <a data-code="jd">京东</a>
+      <a data-code="debangwuliu">德邦</a>
+      <a data-code="fengwang">丰网速运</a>
+      <a data-code="zhongtongkuaiyun">中通快运</a>
+      <a data-code="kuayue">跨越速运</a>
+      <a data-code="annengwuliu">安能物流</a>
+    </li>
+  </ul>
+  <ul class="all-list fl">
+    <li>
+      <span class="li-title">A</span>
+      <a data-code="annengwuliu">安能物流</a>
+      <a data-code="annto">安得</a>
+      <!-- <a data-code="aramex">Aramex</a> -->
+    </li>
+    <li class="dl-bg">
+      <span class="li-title">B</span>
+      <a data-code="huitongkuaidi">百世快递</a>
+      <a data-code="baishiwuliu">百世快运</a>
+      <a data-code="baishiguoji">百世国际</a>
+    </li>
+    <li>
+      <span class="li-title">C</span>
+      <a data-code="coe">COE</a>
+      <a data-code="flyway">程光快递</a>
+      <!-- <a data-code="chuanxiwuliu">传喜物流</a> -->
+    </li>
+    <li class="dl-bg">
+      <span class="li-title">D</span>
+      <a data-code="debangwuliu">德邦快递</a>
+      <a data-code="dhl">DHL</a>
+      <a data-code="disifang">递四方</a>
+    </li>
+    <li>
+      <span class="li-title">E</span>
+      <a data-code="ems">EMS</a>
+      <a data-code="ewe">EWE全球快递</a>
+    </li>
+    <li class="dl-bg">
+      <span class="li-title">F</span>
+      <a data-code="fengwang">丰网速运</a>
+      <a data-code="fedex">FedEx</a>
+      <a data-code="arkexpress">方舟速递</a>
+    </li>
+    <li>
+      <span class="li-title">G</span>
+      <!-- <a data-code="youzhengguonei">挂号信</a> -->
+      <a data-code="guotongkuaidi">国通快递</a>
+    </li>
+    <li class="dl-bg">
+      <span class="li-title">H</span>
+      <a data-code="huisenky">汇森速运</a>
+      <a data-code="huolalawuliu">货拉拉物流</a>
+      <a data-code="tcat">黑猫宅急便</a>
+    </li>
+  </ul>
+  <ul class="all-list fl">
+    <li>
+      <span class="li-title">J</span>
+      <a data-code="jd">京东物流</a>
+      <a data-code="jtexpress">极兔速递</a>
+      <a data-code="jinguangsudikuaijian">京广快递</a>
+    </li>
+    <li class="dl-bg">
+      <span class="li-title">K</span>
+      <a data-code="kuayue">跨越速运</a>
+      <a data-code="xlair">快弟来了</a>
+    </li>
+    <li>
+      <span class="li-title">L</span>
+      <a data-code="lianhaowuliu">联昊通</a>
+    </li>
+    <li class="dl-bg">
+      <span class="li-title">M</span>
+      <a data-code="mexico">墨西哥邮政</a>
+      <!-- <a data-code="minghangkuaidi">民航快递</a> -->
+      <a data-code="meiquick">美快国际物流</a>
+    </li>
+    <li>
+      <span class="li-title">N</span>
+      <!-- <a data-code="ganzhongnengda">能达速递</a> -->
+      <a data-code="postennorge">挪威邮政</a>
+      <a data-code="southafrican">南非邮政</a>
+    </li>
+    <li class="dl-bg">
+      <span class="li-title">O</span>
+      <a data-code="ocs">OCS</a>
+      <a data-code="euasia">欧亚专线</a>
+      </li>
+    <li>
+      <span class="li-title">P</span>
+      <a data-code="pingandatengfei">平安达腾飞</a>
+      <a data-code="portugalctt">葡萄牙邮政</a>
+      <!-- <a data-code="swisspost">瑞士邮政</a> -->
+    </li>
+    <li class="dl-bg">
+      <span class="li-title">Q</span>
+      <a data-code="quanfengkuaidi">全峰快递</a>
+      <a data-code="quanyikuaidi">全一快递</a>
+    </li>
+  </ul>
+  <ul class="all-list fl">
+    <li>
+      <span class="li-title">R</span>
+      <a data-code="rrs">日日顺物流</a>
+      <a data-code="japanposten">日本邮政</a>
+    </li>
+    <li class="dl-bg">
+      <span class="li-title">S</span>
+      <a data-code="sxjdfreight">顺心捷达</a>
+      <a data-code="subida">速必达</a>
+      <a data-code="suer">速尔快递</a>
+    </li>
+    <li>
+      <span class="li-title">T</span>
+      <a data-code="lntjs">特急送</a>
+      <a data-code="tiantian">天天快递</a>
+      <a data-code="tnt">TNT</a>
+    </li>
+    <li class="dl-bg">
+      <span class="li-title">U</span>
+      <a data-code="ups">UPS</a>
+      <a data-code="usps">USPS</a>
+    </li>
+    <li>
+      <span class="li-title">W</span>
+      <a data-code="wherexpess">威盛快递</a>
+      <a data-code="ukrpost">乌克兰邮政</a>
+    </li>
+    <li class="dl-bg">
+      <span class="li-title">X</span>
+      <a data-code="xyb2b">行云物流</a>
+      <a data-code="xinfengwuliu">信丰物流</a>
+    </li>
+    <li>
+      <span class="li-title">Y</span>
+      <a data-code="youzhengguonei">邮政包裹</a>
+      <a data-code="yuantong">圆通速递</a>
+      <a data-code="yuntrack">YunExpress</a>
+    </li>
+    <li class="dl-bg">
+      <span class="li-title">Z</span>
+      <a data-code="zhongtong">中通快递</a>
+      <a data-code="zhongtongguoji">中通国际</a>
+      <a data-code="zhaijisong">宅急送</a>
+    </li>
+  </ul>
+  <div class="kd-clearfix"></div>
+  <div class="other"><a href="https://www.kuaidi100.com/all/">查看更多快递公司&gt;&gt;</a>
+</div>
+</div>
+				<div class="result-wrap" id="result">
+					<div class="close kd-hover" role="close"></div>
+					<!-- 国际段 -->
+					<div id="national" style="display: none;" role="result">
+						<div class="head kd-clearfix">
+							<div class="info">
+								<span class="info-item" role="address">
+									<span class="text"></span>
+									<b></b>
+									<img>
+									<div class="com"></div>
+								</span>
+								<span class="info-item" role="comname"></span>
+								<span class="info-item oldtips" role="oldcompanytips">(原百世快递)</span>
+								<span class="info-item site"><a href="###" rel="nofollow" target="_blank" role="site">官网</a></span>
+								<span class="info-item phone" role="phone"></span>
+								<span class="info-item phone" role="online"><a href="###" target="_blank" rel="nofollow">在线客服</a></span>
+							</div>
+							<div class="ctrl">
+								<span class="rss">订阅</span>
+								<span class="share">分享</span>
+								<span class="print">打印查询结果</span>
+								<span class="bind">手机绑定</span>
+							</div>
+						</div>
+						<div class="result-body kd-clearfix">
+							<div class="result">
+								<div class="title">
+									<div class="sort" title="切换排序" role="sort">时间</div>
+									<div class="text">地点和跟踪进度</div>
+								</div>
+								<ul class="content"></ul>
+							</div>
+							<div class="scene">
+								<div class="scene-item query-code">
+									<!-- <img alt="小程序二维码" role="querycode" /> -->
+									<img alt="快递100app下载码" src=" https://cdn.kuaidi100.com/images/www/home/qs-success-app.png" />
+								</div>
+							</div>
+						</div>
+					</div>
+					<!-- 国内段 -->
+					<div id="internal" style="display: none;" role="result">
+						<div class="head kd-clearfix" style="border-bottom: 1px solid #d8d8d8;">
+							<div class="info">
+								<span class="info-item" role="address">
+									<span class="text"></span>
+									<b></b>
+									<img>
+									<div class="com"></div>
+								</span>
+								<span class="info-item comname" role="comname"></span>
+								<span class="info-item oldtips" role="oldcompanytips">(原百世快递)</span>
+								<span class="info-item site"><a href="###" rel="nofollow" target="_blank" role="site">官网</a></span>
+								<span class="info-item phone" role="phone"></span>
+								<span class="info-item phone" role="online"><a href="###">在线客服</a></span>
+							</div>
+							<div class="ctrl">
+								<span class="rss">订阅</span>
+								<span class="share">分享</span>
+								<span class="print">打印查询结果</span>
+								<span class="bind">手机绑定</span>
+							</div>
+						</div>
+						<div class="result-body kd-clearfix">
+							<div class="result">
+								<div class="title">
+									<div class="sort" title="切换排序" role="sort">时间</div>
+									<div class="text">地点和跟踪进度</div>
+								</div>
+								<ul class="content">
+									<!-- <li class="step start">
+										<div class="datetime">2020.08.27<br />22:14 星期四</div>
+										<div class="step-icon"></div>
+										<div class="text">这里是一提哦啊快递和新阿萨德刚</div>
+									</li> -->
+								</ul>
+							</div>
+							<div class="scene">
+								<div class="scene-item query-code">
+									<!-- <img alt="小程序二维码" role="querycode" /> -->
+									<img alt="快递100app下载码" src=" https://cdn.kuaidi100.com/images/www/home/qs-success-app.png" />
+								</div>
+							</div>
+							<div class="scene-fixed-bottom">
+								<div role-slot="index_result_first" class="scene-item"></div>
+								<div role-slot="index_result_second" class="scene-item"></div>
+								<!-- 百度广告--无直投广告时展示 -->
+								<div id="www_query_result_bdpos" style="margin-top: 10px;">
+									<script type="text/javascript" src="//a.baidinet.com/common/gb-aak-xq/common/j/resource/h.js">
+									</script>
+								</div>
+							</div>
+						</div>
+					</div>
+
+					<!-- 中通/韵达 -->
+					<div class="query-limit" id="queryLimit" style="display: none;">
+						<div class="limit-content">
+							<h3 class="h3">温馨提示</h3>
+							<p class="p">为响应快递隐私安全保护，部分快递需前往微信小程序或快递100APP查询</p>
+							<div class="qrcode-wrap">
+								<div class="qrcode-box">
+								<img id="qrcode" class="qrcode" src="" />
+									<div class="name">快递100小程序</div>
+							</div>
+								<div class="qrcode-box">
+									<img id="app-qrcode" class="qrcode" src="https://cdn.kuaidi100.com/images/www/home/app-code.png"/>
+									<div class="name">快递100APP</div>
+						</div>
+					</div>
+							<!-- <div class="footer">打开微信扫一扫查询，或者微信搜「快递100」小程序</div> -->
+						</div>
+					</div>
+					<div class="result-footer" style="display: none;">
+						<div class="tips">快递有问题？您可拨打<a href="https://www.kuaidi100.com/network/plist.shtml" class="mark kd-hover"
+								target="_blank">快递公司客服电话</a>协商解决</div>
+						<div class="result-btn kd-hover" role="close">关闭查询结果</div>
+					</div>
+				</div>
+				<!-- 查询错误 -->
+				<div class="query-panel" id="queryPanel">
+					<img src="https://cdn.kuaidi100.com/images/loading_new.gif" class="loading" style="display: none;">
+					<div class="error-wrap" id="errorWrap" style="display: none;">
+						<div class="placeholer">
+							<img src="https://cdn.kuaidi100.com/images/www/home/errors.png" class="error-img">
+							<div class="error-text">查无结果，请检查单号和快递公司是否有误</div>
+						</div>
+						<div class="error-desc">
+							<p>1. 单号错了？请重新输入单号</p>
+							<p>2. 快递公司错了？请在上方搜索框手动选择快递公司重新查询</p>
+							<p>3. 单号和公司都正确？<span class="mark"><a href="https://bbs.kuaidi100.com/article/1568284261279?r=pcresult"
+										target="_blank">点此查看解决方案</a></span> <span id="linksWrap">，或者前往<span class="link mark"
+										id="links"></span>查询试试</span></p>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="products kd-content justify">
+				<!-- <a href="https://www.kuaidi100.com/courier" class="justify-item item courier"><img
+						src="https://cdn.kuaidi100.com/images/www/home/courier.gif" alt="">寄快递</a> -->
+				<a href="https://www.kuaidi100.com/courier/batch.jsp" class="justify-item item courier batch-entry"><img
+					src="https://cdn.kuaidi100.com/images/www/home/courier.gif" alt="">批量寄件</a>
+				<a href="https://b.kuaidi100.com/page/optimizationOrder?source=wwwStation_icon" class="justify-item item service">商家寄件</a>
+				<a href="https://www.kuaidi100.com/all" class="justify-item item all">快递大全</a>
+				<a href="https://www.kuaidi100.com/time" class="justify-item item time">时效查询</a>
+				<a href="https://www.kuaidi100.com/network" class="justify-item item network">快递网点</a>
+				<!-- <a href="https://www.kuaidi100.com/stop/stop.jsp" class="justify-item item stop">快递停发查询</a> -->
+			</div>
+			<div class="section">
+				<div class="kd-content">
+					<div class="h1"><span>2.5亿用户的共同选择</span></div>
+					<div class="kd-clearfix" style="margin-top: 81px;">
+						<img src="https://cdn.kuaidi100.com/images/www/home/section1.png?version=20230922094711" style="margin-top: 37px;" class="fl"
+							width="606">
+						<div class="fr">
+							<div class="title orange">个人用户</div>
+							<div class="subtitle">查快递 寄快递 上快递100</div>
+							<div class="text">
+								<p>支持寄快递、寄大件、同城急送、国际件、快递柜寄件</p>
+								<p>手机查快递，随时掌握包裹动态</p>
+							</div>
+							<div class="codes kd-clearfix">
+								<div class="code fl">
+									<img src="https://cdn.kuaidi100.com/images/www/home/app-code.png">
+									<p class="code-txt">扫码下载APP</p>
+								</div>
+								<div class="code fr">
+									<img src="https://cdn.kuaidi100.com/images/www/home/miniprogram-code.png">
+									<p class="code-txt">微信扫码体验小程序</p>
+								</div>
+							</div>
+						</div>
+					</div>
+
+					<div class="kd-clearfix" style="margin-top: 81px;">
+						<img src="https://cdn.kuaidi100.com/images/www/home/section1-1.png" style="margin-top: 37px;" class="fr"
+							width="606">
+						<div class="fl">
+							<div class="title blue">商家用户</div>
+							<div class="subtitle">商家寄件—5.5元起寄全国，多品牌可选</div>
+							<div class="text">
+								<p><span class="strong">初期无单量限制，无需议价</span> 单量小的商家也可享受优惠发货价格</p>
+								<p><span class="strong">多家快递品牌</span> 自主灵活选择运力发货</p>
+								<p><span class="strong">免充单号，一键打印</span> 下单无需提前购买单号，自动生成</p>
+								<p><span class="strong">定制价格</span> 量大可享受更优惠价格</p>
+							</div>
+							<div class="codes kd-clearfix">
+								<div class="code fl">
+									<img src="https://cdn.kuaidi100.com/images/www/home/app-code-busi.png">
+									<p class="code-txt">微信扫码体验小程序</p>
+								</div>
+								<!-- <div class="code fr">
+									<img src="https://cdn.kuaidi100.com/images/www/home/app-code-busi-price.png">
+									<p class="code-txt">微信扫码了解价格</p>
+								</div> -->
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="section section-bg">
+        <div class="section-bg-item1"></div>
+        <div class="section-bg-item2"></div>
+        <div class="section-bg-item3"></div>
+				<div class="kd-content kd-clearfix" style="padding-top: 69px;">
+					<div class="fl">
+						<div class="title blue">企业用户</div>
+						<div class="subtitle" style="margin-bottom: 54px;">快递管家-企业、微商及商务人士的“快递管家”</div>
+						<div class="h4">百递云·电商快递管家</div>
+						<div class="text">
+							<p>支持1500+快递公司包裹订单批量导入打印和轨迹跟踪</p>
+							<p>自动化追踪包裹状态，支持自定义条件设置包裹信息提醒</p>
+							<p>支持输入收件人手机查快递包裹，解决1v1分享快递单号难题</p>
+							<p><a class="link" href="https://www.kuaidi100.com/service/" target="_blank">了解更多</a></p>
+						</div>
+						<a class="btn" href="https://www.kuaidi100.com/service/" target="_blank">立即体验</a>
+					</div>
+					<img src="https://cdn.kuaidi100.com/images/www/home/section2.png?version=20230922094711" width="565" style="margin-top: 127px;"
+						class="fr">
+				</div>
+				<div class="kd-content kd-clearfix" style="margin-top: 20px;">
+					<img src="https://cdn.kuaidi100.com/images/www/home/section2-1.png?version=20230922094711" width="499px" style="margin-top:-22px;"
+						class="fl">
+					<div class="fr">
+						<div class="h4">百递云·企业快递管理SaaS</div>
+						<div class="text">
+							<p>多快递公司聚合，可实现折扣寄件</p>
+							<p>寄件管理，支持企业组织架构管理，部门账单管理，审核管理等</p>
+							<p>到件管理，支持前台到件扫码录入，到件消息通知</p>
+							<p>支持在企业微信、飞书等内直接订阅</p>
+							<p  style="line-height: 25px;">适用于有寄件需求及快递收发管理的企业及智慧园区、写字楼、企<br>业服务等场景；</p>
+							<p><a class="link" href="https://www.kuaidi100.com/enterprise/" target="_blank">了解更多</a></p>
+						</div>
+						<a class="btn" href="https://www.kuaidi100.com/enterprise/" target="_blank">立即申请</a>
+					</div>
+				</div>
+				<div class="divide kd-content"></div>
+				<div class="kd-content kd-clearfix" style="padding-top: 20px;">
+					<div class="fl">
+						<div class="subtitle" style="margin-bottom: 54px;">百递云·API开放平台-帮助您的网站、<br>系统和APP集成快递100服务</div>
+						<div class="h4">企业查询API</div>
+            <div class="text">
+							<p>企业级查询接口API，累计提供超过百亿次的专业查询服务</p>
+							<p>助力上万家企业、电商提升物流环节的用户体验与服务质量</p>
+							<p>专业团队维护，稳定可靠，值得信赖</p>
+							<div class="api">
+								<span class="rss">快递信息订阅推送接口</span>
+								<span class="cloud">智能判断快递接口</span>
+								<span class="intime">实时快递查询接口</span>
+							</div>
+							<p><a class="link" href="https://api.kuaidi100.com/home/" target="_blank">了解更多</a></p>
+						</div>
+						<a class="btn" href="https://api.kuaidi100.com/register/enterprise/" target="_blank">立即申请</a>
+					</div>
+					<img src="https://cdn.kuaidi100.com/images/www/home/section3.png?version=20230922094711" width="636px" style="margin-top:-22px;"
+						class="fr">
+				</div>
+				<div class="kd-content kd-clearfix" style="margin-top: 100px;">
+					<img src="https://cdn.kuaidi100.com/images/www/home/section4-api.png" width="636px" class="fl">
+					<div class="fr" style="padding-right: 126px;">
+						<div class="h4">企业寄件API</div>
+						<div class="text">
+							<p style="line-height: 25px;">通过API提交寄件请求，下单至各快递公司，实现<br>快递员上门取件</p>
+							<p>无需发货账号，线上对账结算，运费可享超低折扣</p>
+							<div class="apinew">
+								<span class="shop">商城退换货</span>
+								<span class="shops">多门店寄件</span>
+								<span class="recycle">回收业务</span>
+							</div>
+							<p><a class="link" href="https://mp.weixin.qq.com/s/oVwgTctuc1_dyqB78O81xQ" target="_blank">了解更多</a></p>
+						</div>
+						<a class="act-btn" href="https://mp.weixin.qq.com/s/oVwgTctuc1_dyqB78O81xQ" target="_blank">立即申请</a>
+					</div>
+				</div>
+			</div>
+			<div class="section service-swiper-wrap kd-content">
+				<ul class="service-swiper  kd-clearfix" id="serviceSwiper">
+					<li class="swiper-item">
+						<div class="fl">
+							<div class="title orange">物流服务商</div>
+							<div class="subtitle">快递100收件端 - 快递员的收件、打单神器</div>
+							<div class="text">
+								<p>全国超130万快递员/网点经营者在使用</p>
+								<p>用户扫码下单，免去客户手写面单的麻烦</p>
+								<p>场景化收件、打单、线上收款、对账一体化服务</p>
+								<p>派件、驿站代收、收件打单一个软件就能搞定</p>
+								<p><a class="link" href="https://www.kuaidi100.com/courier_site/pages/index.shtml"
+										target="_blank">了解更多</a></p>
+							</div>
+							<div class="courier-code">
+								<img src="https://cdn.kuaidi100.com/images/courier_site/img_qrcode_download_courier_site_1.png" alt="">
+								<div class="code-text">扫码下载体验</div>
+							</div>
+						</div>
+						<img src="https://cdn.kuaidi100.com/images/www/home/section4-2.png?version=202309121353" width="668px"
+							style="margin-left: -120px;" class="fr">
+					</li>
+					<li class="swiper-item">
+						<div class="fl">
+							<div class="title orange">物流服务商</div>
+							<div class="subtitle">想怎么打就怎么打<br>想打什么就打什么的云打印API</div>
+							<div class="text">
+								<p>支持国内主流快递公司电子面单</p>
+								<p>支持主流硬件厂商便携式、台式电子面单打印机</p>
+								<p>内置标准打印模板，也可定制打印模板</p>
+								<p>更多快递公司和硬件设备持续接入，可免费更新</p>
+								<p><a class="link" href="https://api.kuaidi100.com/product/sheet" target="_blank">了解更多</a></p>
+							</div>
+							<a href="https://api.kuaidi100.com/register/enterprise/" class="btn" target="_blank">立即申请</a>
+						</div>
+						<img src="https://cdn.kuaidi100.com/images/www/home/section4-1.png" width="668px"
+							style="margin-left: -120px;" class="fr">
+					</li>
+					<!-- <li class="swiper-item">
+						<div class="fl">
+							<div class="title orange">物流服务商</div>
+							<div class="subtitle">一个不需要电脑就能打印快递单的神器</div>
+							<div class="text">
+								<p>直接连接打印机，即插即用，无需安装驱动</p>
+								<p>手机便捷设置，扫码下单自动打印</p>
+								<p>智能适配多种打印机</p>
+								<p>支持多人共享使用</p>
+								<p><a class="link" href="https://www.kuaidi100.com/cloud/print/cloudprinterSecond.shtml"
+										target="_blank">了解更多</a></p>
+							</div>
+							<a href="https://www.kuaidi100.com/cloud/cloud_act/index.shtml" class="btn" target="_blank">联系体验</a>
+						</div>
+						<img src="https://cdn.kuaidi100.com/images/www/home/section4-3.png" width="668px"
+							style="margin-left: -120px;" class="fr">
+					</li> -->
+				</ul>
+				<!-- span不能移除，否则IE9以下会显示不正常 -->
+				<div id="serviceIndicator" class="swiper-indicator"><span></span></div>
+			</div>
+			<div class="section section-gray">
+				<div class="kd-content">
+					<div class="h1"><span>客户评价</span></div>
+					<ul class="justify customers">
+						<li class="justify-item">
+							<img src="https://cdn.kuaidi100.com/images/www/home/customer-1.png">
+							<div class="name">金蝶车商悦CEO @曾新华</div>
+							<div class="desc">我们的快递量比较大，除了日常收寄快递，还需要寄合同/发票/产品等，单一的快递公司比较难满足所有需求。快递100上面有十几家快递公司，还打通了我们的ERP系统，管理更方便了！
+							</div>
+						</li>
+						<li class="justify-item">
+							<img src="https://cdn.kuaidi100.com/images/www/home/customer-4.png">
+							<div class="name">小红书电商技术负责人 @林殊</div>
+							<div class="desc">
+								我们是快递100API的老用户了。在我们的电商订单管理系统中，快递100API接口帮助我们解决了快递实时查询、订阅推送等问题，节省了很多开发资源。快递100API给我最大的感受就是稳定、专业、靠谱！
+							</div>
+						</li>
+						<li class="justify-item">
+							<img src="https://cdn.kuaidi100.com/images/www/home/customer-2.png">
+							<div class="name">电商创业者 @萱萱</div>
+							<div class="desc">我是麦斯凯尔的创始人，今年我们开始用快递管家管理店铺订单，从订单导入、物流跟踪到签收、退换货，管家贯穿了我们整个快递物流环节，更为我们节约了一大笔开发费用！</div>
+						</li>
+						<li class="justify-item">
+							<img src="https://cdn.kuaidi100.com/images/www/home/customer-3.png">
+							<div class="name">快递员 @小余</div>
+							<div class="desc">用快递100收件端有3年多了，我每天都用它来打单和派件，非常方便。现在我还是收件端的优选快递员，只要我在的片区有人下单寄件，平台就会推送给我，收入也增加了！</div>
+						</li>
+					</ul>
+					<div class="h3">典型用户<a href="https://api.kuaidi100.com/home" class="fr link">API合作</a></div>
+					<img src="https://cdn.kuaidi100.com/images/www/home/brand-1.png" class="brand">
+				</div>
+			</div>
+			<div class="section map-bg">
+				<div class="kd-content">
+					<div class="kd-clearfix dashboard-wrap">
+						<div class="h2">中国快递物流信息云服务领导品牌</div>
+						<div class="fl dashboard">
+							<div class="item">
+								<p class="count">2.5<sub>亿</sub></p>
+								<p>个人注册用户</p>
+							</div>
+							<div class="item">
+								<p class="count">250<sub>万</sub></p>
+								<p>企业客户</p>
+							</div>
+							<div class="item">
+								<p class="count">130<sub>万</sub></p>
+								<p>快递员</p>
+							</div>
+							<div class="item">
+								<p class="count">4<sub>亿</sub></p>
+								<p>日均查询量</p>
+							</div>
+							<div class="item">
+								<p class="count">8<sub>亿</sub></p>
+								<p>年均寄件量</p>
+							</div>
+						</div>
+						<img src="https://cdn.kuaidi100.com/images/www/home/map.png?version=2023101918001" width="514px" style="margin-top: -50px;"
+							class="fr">
+					</div>
+					<div class="h3">快递物流合作伙伴<a href="https://api.kuaidi100.com/join" class="fr link">快递公司入驻</a></div>
+					<img src="https://cdn.kuaidi100.com/images/www/index/kuaidicom_list_v2.png" class="brand">
+				</div>
+			</div>
+			<div class="section">
+				<div class="kd-content">
+					<div class="h1"><span>新闻动态</span></div>
+					<div class="news kd-clearfix" id="news">
+						<a class="poster fl" target="_blank">
+							<img alt="">
+							<!-- <div class="news-item">
+								<div class="date">
+									<div class="year">2020</div>
+									<div class="day">06-18</div>
+								</div>
+								<div class="brief">
+									<div class="t">快递100助理618大促 黑科技让快递行业进击宇宙第一</div>
+									<div class="p">阿萨德噶阿萨德刚阿萨德刚阿萨德刚阿萨德刚啊是的噶十多个按适当的阿萨德刚阿萨德刚... </div>
+								</div>
+							</div> -->
+						</a>
+						<div class="fr news-list">
+							<a class="more" href="https://www.kuaidi100.com/news/" target="_blank">查看全部</a>
+						</div>
+					</div>
+				</div>
+			</div>
+      <!-- 侧边栏立即试用弹窗 -->
+      <div id="liuziEmbedded"></div>
+			<!-- <div class="section cooperation">
+				<div class="kd-content">
+					<div class="h1"><span>商务合作</span></div>
+					<div class="form" id="cooperationType">
+						<div class="form-item">
+							<input type="text" placeholder="姓名" class="small" name="name">
+							<input type="text" placeholder="请输入您的手机号码" class="big" name="phone">
+							<input type="text" placeholder="请输入公司名称" class="big" name="company">
+							<input type="text" placeholder="职位" class="small" name="job">
+						</div>
+						<div class="form-item">
+							<div class="select">
+								<span class="val" style="display: none;"></span>
+								<span class="placeholder">需求</span>
+								<ul class="types"></ul>
+							</div>
+							<div class="submit-btn">提交</div>
+						</div>
+					</div>
+					<div class="service-phone">咨询热线：400-000-0387</div>
+				</div>
+			</div> -->
+		</div>
+	</div>
+	<!-- 分享 -->
+	<div class="mask fixed" id="shareMask"></div>
+	<div class="share-box" id="shareBox">
+		<a class="share-close" title="关闭提示" id="shareClose"></a>
+		<div class="share-title">分享查询结果给微信好友</div>
+		<img id="shareCode"
+			src="https://www.kuaidi100.com/twoCode.do?method=global&amp;&amp;qrcodesize=240&amp;&amp;content=https%3A%2F%2Fm.kuaidi100.com%2Fresult.jsp%3Fcom%3Dems%26nu%3D1194013259653%26ordersource%3Dpc_result%26w%3D190%26h%3D190"
+			alt="">
+		<span>扫码分享微信好友，跟踪物流信息</span>
+	</div>
+	<!-- 切换国际物流公司 -->
+	<div id="expressMap" class="map-wrap hidden" style="display: none;">
+		<div class="mask fixed" style="display: block;"></div>
+		<div class="express-map">
+			<div class="express-header">
+				<input id="search-express" class="header-search" placeholder="搜索">
+				<input id="select-express" type="hidden" value="start-com">
+				<i class="header-close"></i>
+			</div>
+			<ul id="expressList" class="express-list scrollbar"></ul>
+		</div>
+	</div>
+	<!-- 顺丰 -->
+	<div id="checkCode" class="mask-wrap">
+		<div class="mask fixed" style="display: block;"></div>
+		<div class="check-code-box">
+			<a class="check-code-close" title="关闭提示"></a>
+			<div class="content">
+				<p>为保护客户的隐私安全，请输入</p>
+				<p>快递预留的收/寄件人联系方式的</p>
+				<p>后四位进行验证</p>
+			</div>
+			<div class="input-wrap">
+				<input type="text">
+				<input type="text">
+				<input type="text">
+				<input type="text">
+			</div>
+			<div class="btn">验证</div>
+		</div>
+	</div>
+	<div class="mask-wrap" id="sntGuide">
+		<div class="mask" style="display: block;opacity: .4;"></div>
+		<div class="snt-dialog">
+			<img src="https://cdn.kuaidi100.com/images/www/home/query-modal.png" alt="">
+			<i class="snt-close"></i>
+			<div></div>
+			<!-- <a baidu-event="www_to_snt" data-baidu-tag="station_pop"
+				href="https://b.kuaidi100.com/page/addNewTracking/batch?source=wwwStation_pop" class="go-snt">立即前往</a> -->
+		</div>
+	</div>
+	<script>
+		window.showAdCallback = function (res, sets) {
+			if (!sets) return
+			if (sets.indexOf('index_result_first') > -1 || sets.indexOf('index_result_second') > -1) {
+				$('#www_query_result_bdpos').remove()
+			}
+		}
+	</script>
+	<script src="https://cdn.kuaidi100.com/js/util/jquery-1.12.1.min.js"></script>
+<script src="https://cdn.kuaidi100.com/js/util/jquery-migrate-1.4.1.min.js"></script>
+<script src="https://cdn.kuaidi100.com/js/openapi/route-record.min.js?v=20230426"></script>
+<script src="https://cdn.kuaidi100.com/js/lz/clue.js?version=2023511"></script>
+<script src="https://cdn.kuaidi100.com/js/www/common.js?version=202309072000"></script>
+<script src="https://cdn.kuaidi100.com/js/share/count.js?version=201707191039"></script>
+<script>
+    // 百度事件统计
+    $(function(){
+        $("[baidu-event]").on('mousedown', function(event) {
+            var event = $(this).attr("baidu-event")
+            var tag = $(this).data("baidu-tag")
+            _hmt.push(['_trackEvent', event, "click", tag]);
+        })
+    })
+</script>
+	<!-- 该组件依赖jq，请先引入jq后的位置使用 -->
+<style>  
+  /* 侧边栏 */
+  .kd-float {
+    position: fixed;
+    right: 8px;
+    bottom: 50px;
+    z-index: 8;
+    font-size: 12px;
+    text-align: center;
+    display: none;
+  }
+  .kd-float a {
+    position: relative;
+    display: block;
+    cursor: pointer;
+    color: #fff;
+    -webkit-transition: all .3s;
+    -o-transition: all .3s;
+    -moz-transition: all .3s;
+    transition: all .3s;
+  }
+  .kd-float a:hover > img, .kd-float a:hover > span {
+    color: #fff;
+    opacity: 0.7;
+  }
+  
+  .kd-float img {
+    display: block;
+    margin: 0 auto;
+  }
+  
+  .kd-float__service {
+    margin-bottom: 20px;
+    color: #fff;
+  }
+  
+  .kd-float__service > img {
+    width: 60px;
+    border: 10px solid rgba(155, 207, 255, 0.3);
+    border-radius: 50%;
+    margin-bottom: 4px;
+  }
+  
+  .kd-float__service > span {
+    display: block;
+    width: 64px;
+    height: 24px;
+    border: solid 1px #2B71FF;
+    border-radius: 4px;
+    margin: 0 auto 4px auto;
+    line-height: 24px;
+    background: #2B71FF;
+    color: #fff;
+  }
+  
+  .kd-float__list {
+    width: 60px;
+    padding-top: 10px;
+    margin: 0 auto;
+    border-radius: 38px;
+    background-color: #2B71FF;
+    background: -webkit-gradient(linear, left top, left bottom, color-stop(-4%, #2B71FF), color-stop(104%, #5476FF));
+    background: -webkit-linear-gradient(top, #2B71FF -4%, #5476FF 104%);
+    background: -moz-linear-gradient(top, #2B71FF -4%, #5476FF 104%);
+    background: -o-linear-gradient(top, #2B71FF -4%, #5476FF 104%);
+    background: linear-gradient(180deg, #2B71FF -4%, #5476FF 104%);
+    -webkit-box-shadow: 0px 10px 28px 0px rgba(0, 45, 156, 0.15);
+            box-shadow: 0px 10px 28px 0px rgba(0, 45, 156, 0.15);
+  }
+  
+  .kd-float__list img {
+    width: 24px;
+    margin: 16px auto 10px auto;
+  }
+  
+  .kd-float__list span {
+    display: block;
+    padding-bottom: 16px;
+  }
+  
+  .kd-float__try span, .kd-float__contact span, .kd-float__scan span{
+    margin: 0 6px;
+    border-bottom: 1px solid rgba(216, 216, 216, 0.3);
+  }
+  
+  .kd-float__scan span,
+  .kd-float__app span {
+    position: relative;
+    padding-bottom: 24px;
+  }
+
+  
+  .kd-float__dropdown {
+    display: none;
+    position: absolute;
+    right: 80px;
+    bottom: 10px;
+    z-index: 11;
+    width: 152px;
+    border-radius: 8px;
+    padding: 10px 0 20px 20px;
+    background: #FFFFFF;
+    -webkit-box-shadow: 0px 10px 28px 0px rgba(0, 45, 156, 0.15);
+            box-shadow: 0px 10px 28px 0px rgba(0, 45, 156, 0.15);
+    opacity: 1 !important;
+  }
+  
+  .kd-float__dropdown::after {
+    content: "";
+    position: absolute;
+    right: -20px;
+    top: 42px;
+    width: 0;
+    height: 0;
+    border: solid 10px transparent;
+    border-left-color: #fff;
+  }
+  
+  .kd-float__contact .kd-float__dropdown  {
+    width: 152px;
+    bottom: -100px;
+  }
+  
+  .kd-float__contact .kd-float__dropdown::after {
+    top: 70px;
+  }
+  
+  .kd-float__scan .kd-float__dropdown::after {
+    top: initial;
+    bottom: 36px;
+  }
+
+  .kd-float__app .kd-float__dropdown::after {
+    top: initial;
+    bottom: 36px;
+  }
+  
+  .kd-float__scan:hover .kd-float__dropdown,
+  .kd-float__app:hover .kd-float__dropdown, 
+  .kd-float__contact:hover .kd-float__dropdown  {
+    display: block;
+  }
+  
+  
+  .kd-float__dropdownitem {
+    float: left;
+  }
+  
+  .kd-float .kd-float__scan:hover .kd-float__dropdown {
+    opacity: 1;
+  }
+
+  .kd-float .kd-float__app:hover .kd-float__dropdown {
+    opacity: 1;
+  }
+  
+  .kd-float__dropdownitem + .kd-float__dropdownitem {
+    margin-left: 10px;
+  }
+  
+  .kd-float__dropdownitem > img {
+    width: 132px;
+    height: 132px;
+    display: block;
+    margin-bottom: 14px;
+  }
+  
+  .kd-float__dropdownitem > p {
+    font-size: 14px;
+    line-height: 22px;
+    color: #4E5969;
+    margin: 0;
+  }
+  
+</style>
+
+<div class="kd-float" id="kdSlide">
+  <a href="javascript:void(0)" class="kd-float__service" id="uDeskTarget" title="在线客服一对一咨询" data-reportid="kuaidi100_page_czixun_click">
+    <img src="//cdn.kuaidi100.com/images/www/index/icon_service_avatar.png?v=2" />
+    <span>一对一咨询</span>
+  </a>
+  <div class="kd-float__list js-couriersite-hide">
+    <a href="javascript:void(0)" class="kd-float__try liuzi-dialog-btn" id="liuziDialogBtnSlide" title="立即试用" data-reportid="kuaidi100_page_cshiyong_click" data-clueid="10101005" data-putid="10808010">
+      <img src="//cdn.kuaidi100.com/images/www/index/icon_try2.png" />
+      <span>申请试用</span>
+    </a>
+    <a href="javascript:void(0)" class="kd-float__contact" title="联系商务" data-reportid="kuaidi100_page_clianxishangwu_click">
+      <img src="//cdn.kuaidi100.com/images/www/index/icon_contact.png" />
+      <span>联系商务</span>
+      <div class="kd-float__dropdown">
+        <div class="kd-float__dropdownitem">
+          <img src="https://cdn.kuaidi100.com/images/www/index/img_footer_qiwei.png" />
+          <p>快递100企业微信</p>
+        </div>
+      </div>
+    </a>
+    <a href="javascript:void(0)" class="kd-float__scan mouseenter-report" data-reportid="kuaidi100_page_csaomaguanzhu_click" title="扫码关注">
+      <img src="//cdn.kuaidi100.com/images/www/index/icon_scan.png" />
+      <span>扫码关注</span>
+      <div class="kd-float__dropdown">
+        <div class="kd-float__dropdownitem">
+          <img src="https://cdn.kuaidi100.com/images/www/index/img_footer_gzh.png" />
+          <p>快递100公众号</p>
+        </div>
+      </div>
+    </a>
+
+    <a href="javascript:void(0)" class="kd-float__app" title="下载APP">
+      <img src="//cdn.kuaidi100.com/images/www/index/icon_app.png" />
+      <span>下载APP</span>
+      <div class="kd-float__dropdown">
+        <div class="kd-float__dropdownitem">
+          <img src="https://cdn.kuaidi100.com/images/www/home/app-code.png" />
+          <p>快递100APP</p>
+        </div>
+      </div>
+    </a>
+  </div>
+</div>
+
+<script>
+  var isIndexPage = location.pathname === '/' || location.pathname === '/index.shtml'
+  var isNetwork = location.href.indexOf('www.kuaidi100.com/network/') > -1
+  var isCourier = location.href.indexOf('www.kuaidi100.com/courier/') > -1
+  var isCourierSite = location.href.indexOf('www.kuaidi100.com/courier_site') > -1
+  function initUdesk() {
+    (function(a, h, c, b, f, g) {
+      a['UdeskApiObject'] = f;
+      a[f] =
+        a[f] ||
+        function() {
+          (a[f].d = a[f].d || []).push(arguments);
+        };
+      g = h.createElement(c);
+      g.async = 1;
+      g.charset = 'utf-8';
+      g.src = b;
+      c = h.getElementsByTagName(c)[0];
+      c.parentNode.insertBefore(g, c);
+    })(window, document, 'script', '//assets-cli.udesk.cn/im_client/js/udeskApi.js', 'ud');
+    // 配置文档 https://www.udesk.cn/doc/thirdparty/webim/#-_1
+    if (isIndexPage || isNetwork || isCourier) {
+      ud({
+        code: '298f17ga',
+        panel: {
+          css: {
+            right: '92px'
+          }
+        },
+        link: 'https://kuaidi100.udesk.cn/im_client/?web_plugin_id=48851',
+        targetSelector: '#uDeskTarget',
+        selector: '#kdAskTryBtn'
+      });
+    } else if (isCourierSite) {
+      ud({
+        "code": "298f17ga",
+        panel: {
+          css: {
+            right: '92px'
+          }
+        },
+        "link": "https://kuaidi100.udesk.cn/im_client/?web_plugin_id=66788",
+        targetSelector: "#uDeskTarget"
+      });
+    }
+  }
+
+  $(function () {
+    $('.liuzi-dialog-btn').on("click", function (e) {
+      liuziInterceptor(e)
+    });
+    $(window).scroll(function(e) {
+      showSidebar()
+    })
+
+    function getEleId ($ele, attr, depth) {
+      var targetId = $ele.attr(attr)
+      // 防止往上找父节点层级过多，目前只找5层
+      var maxDepth = 5
+      var count = 0
+      depth = depth || maxDepth
+      while (!targetId && count < depth) {
+        count++
+        if (!targetId) {
+          $ele = $ele.parent()
+          targetId = $ele.attr(attr)
+        }
+      }
+      return targetId
+    }
+
+    function liuziInterceptor (e) {
+      var putid = getEleId($(e.target), 'data-putid', 5)
+      new window.Clue({
+        eleId: '', // 容器的DOM Id
+        type: 'dialog', // embedded：嵌⼊式 dialog:弹窗 dialogHaveNum:弹窗（有⽉均发货量(单)）
+        putId: putid //投放ID(A站⾃动⽣成)
+      })
+    }
+
+    function showSidebar() {
+      var kdSlide = $("#kdSlide")
+      if (isIndexPage) {
+        var bEndHeight = 500
+        var top = $(window).scrollTop();
+        if (top > bEndHeight) {
+          // 展示侧边栏
+          kdSlide.fadeIn(800)
+        } else {
+          kdSlide.fadeOut(800)
+        }
+      } else {
+        kdSlide.show()
+        $('.js-couriersite-hide').hide()
+      }
+    }
+
+    initUdesk()
+    showSidebar()
+  })
+</script>
+	<script src="https://www.kuaidi100.com/company.do?method=js&t=201701051440"></script>
+	<script src="https://cdn.kuaidi100.com/js/www/home.js?version=202309121601"></script>
+	<!--[if lt IE 10]>
+<script src="https://cdn.kuaidi100.com/js/share/jquery.placeholder.min.js"></script>
+<script>
+  $(function(){
+    $('input').placeholder().blur();
+	})
+</script>
+<![endif]-->
+	<script>
+		var allpos = ["index_result_second", "index_result_first"];
+	</script>
+	<script src="https://cdn.kuaidi100.com/js/share/adshow_pc.js?version=20210826"></script>
+</body>
+
+</html>

@@ -1,0 +1,413 @@
+
+<!DOCTYPE html>
+<html lang="da">
+<head>
+    
+
+<meta charset="UTF-8" />
+<link rel="icon" type="image/svg+xml" href="/media/1dufojmi/e_rgb.svg" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>e-Boks er Danmarks mest anvendte digitale postkasse.</title>
+<meta name="description" content="e-Boks er Danmarks mest anvendte digitale postkasse. G&#xF8;r som 5,2 mio. andre brugere, log p&#xE5; eller opret en e-Boks i dag. S&#xE5; har du alt samlet &#xE9;t sikkert sted.">
+<meta name="keywords" content="Digital postkasse">
+<meta property="og:title" content="Danmarks st&#xF8;rste og mest popul&#xE6;re postkasse" />
+<meta property="og:description" content="F&#xE5; nem adgang til din post fra det offentlige, din bank, forsikringsselskab m.m. &#x2013; benyt muligheden for at betale din regning p&#xE5; en let og overskuelig m&#xE5;de." />
+<meta property="og:image" content="/media/5mjhyfhn/logo.svg" />
+<meta property="og:url" content="https://private.e-boks.com/danmark/da" />
+<meta property="og:type" content="website" />
+
+
+    <script id="Cookiebot" data-cbid="fb33fd08-f245-49c7-9acb-ae0d9cf5ed49" data-blockingmode="auto" type="text/javascript" src="https://consent.cookiebot.com/uc.js"></script>
+
+    <script type="module" crossorigin src="/assets/main.js?v2.0.0"></script>
+    <link rel="stylesheet" href="/assets/app.css?v2.0.0">
+
+</head>
+<body>
+<dialog class="eboks-web-status status-bar js-status-bar">
+    <div class="container">
+        <p><strong>Driftsstatus:</strong> Du kan i øjeblikket opleve problemer med at logge på e-Boks</p>
+    </div>
+</dialog>
+<script integrity="sha256-2Pmvv0kuTBOenSvLm6bvfBSSHrUJ+3A7x6P5Ebd07/g=" crossorigin="anonymous" src="https://code.jquery.com/jquery-3.7.0.min.js"></script>
+<script type="text/javascript">
+$(document).ready(function() {
+    var status_url = 'https://7d1n8m3wvdxf.statuspage.io/api/v2/components.json';
+
+    var app_client_id = 'p3zmh66knzfk';
+    var ngdp_api_id = '04t9b285vkm0';
+    var ngdp_nemlogin_id = 'w1b8q8q444zl';
+    var web_client_id = 'wkdsv8h0vwwv';
+
+    var app_client = null;
+    var ngdp_api = null;
+    var ngdp_nemlogin = null;
+    var web_client = null;
+
+    (function getstatus() {
+        var jqxhr = $.get(status_url, function(data) {
+            if (!data.components) return;
+
+            for (var i=0;i<data.components.length;i++) {
+                switch(data.components[i].id) {
+                    case app_client_id:
+                        app_client = data.components[i];
+                        break;
+                    case ngdp_api_id:
+                        ngdp_api = data.components[i];
+                        break;
+                    case ngdp_nemlogin_id:
+                        ngdp_nemlogin = data.components[i];
+                        break;
+                    case web_client_id:
+                        web_client = data.components[i];
+                        break;
+                }
+            }
+
+            var status = '';
+            if(web_client && web_client.status == 'under_maintenance') {
+                if(app_client && app_client.status == 'under_maintenance') {
+                    status = 'e-Boks er i gang med en opdatering. Det betyder, at det i &#248;jeblikket ikke er muligt at logge p&#229;. Du kan i mellemtiden f&#229; vist din post fra det offentlige p&#229; Borger.dk og Virk.dk. Vi beklager ulejligheden.';
+                }
+                else {
+                    status = 'e-Boks er i gang med en opdatering. Det betyder, at det i &#248;jeblikket ikke er muligt at logge p&#229; vores webl&#248;sning. Du kan i mellemtiden logge p&#229; e-Boks&#39; app og her f&#229; vist din post. Vi beklager ulejligheden.';
+                }
+            }
+            else if(web_client && web_client.status != 'operational') {
+                if(app_client && app_client.status != 'operational') {
+                    if(web_client.status == 'major_outage') {
+                        status = 'Vi oplever i &#248;jeblikket tekniske problemer, som kan medf&#248;re, at du ikke kan logge p&#229;. Du kan i mellemtiden f&#229; vist din post fra det offentlige p&#229; Borger.dk og Virk.dk. Vi arbejder p&#229; en l&#248;sning og beklager ulejligheden.';
+                        status = 'Vores underleverand&#248;r oplever i &#248;jeblikket tekniske problemer, som kan medf&#248;re, at du ikke kan logge p&#229;. Du kan i mellemtiden f&#229; vist din post fra det offentlige p&#229; Borger.dk og Virk.dk. Vores underleverand&#248;r arbejder p&#229; at f&#229; l&#248;st fejlen. Vi beklager ulejligheden.';
+                        status = 'Vores driftsleverand&#248;r KMD oplever i &#248;jeblikket tekniske problemer, som kan medf&#248;re, at du ikke kan logge p&#229;. Du kan i mellemtiden f&#229; vist din post fra det offentlige p&#229; Borger.dk og Virk.dk. KMD arbejder p&#229; at f&#229; l&#248;st fejlen. Vi beklager ulejligheden.';
+                    }
+                    else {
+                        status = 'Vi oplever i &#248;jeblikket tekniske problemer, som kan give l&#230;ngere svartider, n&#229;r du logger p&#229; eller vil se din post. Vi arbejder p&#229; en l&#248;sning og beklager ulejligheden.';
+                    }
+                }
+                else {
+                    if(web_client.status == 'major_outage') {
+                        status = 'Vi oplever i &#248;jeblikket tekniske problemer p&#229; vores webl&#248;sning, som kan medf&#248;re, at du ikke kan logge p&#229;. Du kan i mellemtiden logge p&#229; e-Boks&#39; app og her f&#229; vist din post fra private virksomheder. Vi arbejder p&#229; en l&#248;sning og beklager ulejligheden.';
+                    }
+                    else {
+                        status = 'Vi oplever i &#248;jeblikket tekniske problemer p&#229; vores webl&#248;sning, som kan give l&#230;ngere svartider, n&#229;r du logger p&#229; eller vil se din post. Vi arbejder p&#229; en l&#248;sning og beklager ulejligheden.';
+                    }
+                }
+            }
+            else if(ngdp_api && ngdp_api.status != 'operational') {
+                status = 'Udbyderen af Digital Post fra det offentlige oplever i &#248;jeblikket tekniske problemer, som kan medf&#248;re, at du ikke kan logge p&#229; e-Boks. Fejlen er rapporteret til Digitaliseringsstyrelsen og afventer deres fejlrettelse. Du kan i mellemtiden logge p&#229; e-Boks&#39; app og her f&#229; vist din post fra private virksomheder.';
+                status = 'Udbyderen af Digital Post fra det offentlige oplever i &#248;jeblikket tekniske problemer, som kan medf&#248;re, at du ikke kan logge p&#229; e-Boks eller se din post fra offentlige myndigheder. Fejlen er rapporteret til Digitaliseringsstyrelsen og afventer deres fejlrettelse.';
+            }
+            else if(ngdp_nemlogin && ngdp_nemlogin.status != 'operational') {
+                status = 'Der opleves tekniske problemer med den offentlige NemLog-In l&#248;sning, som kan medf&#248;re, at du ikke kan logge p&#229; e-Boks med MitID eller NemID. Fejlen er rapporteret til Digitaliseringsstyrelsen og vi afventer deres fejlrettelse. Du kan i mellemtiden logge p&#229; e-Boks&#39; app og her f&#229; vist din post.';
+                status += '<br /><br />Brug for at læse post fra en privat virksomhed? <a href="https://www.e-boks.dk/privat?logontype=appcode">Log på med din e-Boks app</a>'
+            }
+            else {
+                    $('.eboks-web-status').removeClass('status-bar--active');
+                    $('.eboks-web-status .container').empty();
+            }
+            if(status != '') {
+                    $('.eboks-web-status').addClass('status-bar--active');
+                    $('.eboks-web-status .container').html('<p>' + status + '</p>');
+            }
+        });
+    })();
+});
+</script>    <header class="header is-visible js-header">
+
+    <div class="container header__container">
+        <a href="/" class="header__logo">
+            <img src="/media/5mjhyfhn/logo.svg" alt="e-Boks" />
+        </a>
+        <nav class="header__nav js-nav">
+            <ul class="header__nav-main">
+                        <li class="header__nav-main-item">
+                            <a class="header__nav-main-link" href="/danmark/da/kom-i-gang/">Kom i gang</a>
+                        </li>
+                        <li class="header__nav-main-item">
+                            <a class="header__nav-main-link" href="https://brugersupport.e-boks.dk/hc/da">Brug for hj&#xE6;lp</a>
+                        </li>
+                        <li class="header__nav-main-item">
+                            <a class="header__nav-main-link" href="https://corporate.e-boks.com/da">Se erhvervsl&#xF8;sninger</a>
+                        </li>
+            </ul>
+            <ul class="header__nav-lang">
+                        <li class="header__nav-lang-item">
+                            <a class="header__nav-lang-link header__nav-lang-link--active" href="/danmark/da">Da</a>
+                        </li>
+                        <li class="header__nav-lang-item">
+                            <a class="header__nav-lang-link " href="/danmark/en">En</a>
+                        </li>
+            </ul>
+        </nav>
+            <div class="header__profile">
+
+                    <button type="button" data-toggle="#header__profile" class="btn btn--primary header__profile-btn js-login-btn">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16">
+                            <path fill="currentColor" d="M8 1C5.797 1 4 2.797 4 5v1h-.5C2.676 6 2 6.676 2 7.5v5c0 .824.676 1.5 1.5 1.5h9c.824 0 1.5-.676 1.5-1.5v-5c0-.824-.676-1.5-1.5-1.5H12V5c0-2.203-1.797-4-4-4Zm0 1c1.664 0 3 1.336 3 3v1H5V5c0-1.664 1.336-3 3-3ZM3.5 7h9c.281 0 .5.219.5.5v5c0 .281-.219.5-.5.5h-9a.494.494 0 0 1-.5-.5v-5c0-.281.219-.5.5-.5Z" />
+                        </svg>
+                        Log p&#xE5;
+                    </button>
+
+
+
+
+                <div class="header__profile-modal js-profile-modal">
+                    <ul class="header__profile-list">                    
+                        <li class="header__profile-item">
+                            <p class="header__profile-type">Privat</p>
+                            <a class="header__profile-link" href="https://www.e-boks.dk/privat">Log p&#xE5; med MitID</a>
+                        </li>
+                        <li class="header__profile-item">
+                            <p class="header__profile-type">Erhverv</p>
+                            <a class="header__profile-link" href="https://www.e-boks.dk/erhverv">Log p&#xE5; med MitID</a>
+                        </li>
+                    </ul>
+                </div>
+            </div> 
+        <button class="header__nav-toggle js-nav-btn">
+            <div class="header__nav-toggle-bar"></div>
+            <div class="header__nav-toggle-bar"></div>
+            <div class="header__nav-toggle-bar"></div>
+        </button>
+    </div>
+</header>
+    <main class="main">
+        
+<div class="umb-block-list">
+
+<div class="module module--pb-0 module--bg-grey">
+    <div class="container">
+        <section class="hero hero--carousel">
+            <div class="row">
+                <div class="col col--6 col--12-md">
+                    <ul class="hero-carousel js-hero-carousel">
+                            <li class="hero-carousel__item">
+                                <h1 class="hero__headline">
+                                    <p>Brug Danmarks største og
+                                        <br />
+                                        <span class="hero__headline-hightlight m-0 p-0"> mest populære postkasse</span>
+                                    </p>
+      
+                                </h1>
+ 
+                                <div class="hero__description">
+                                    F&#xE5; nem adgang til din post fra det offentlige, din bank, forsikringsselskab og mange flere &#x2013; og benyt muligheden for at betale din regning p&#xE5; en let og overskuelig m&#xE5;de.
+                                </div>
+                                    <div class="hero__cta">
+                                        <a href="https://www.e-boks.dk/privat" target="_blank" class="btn btn--primary hero__btn">Ny bruger</a>
+                                    </div>
+                            </li>
+                            <li class="hero-carousel__item">
+                                <h1 class="hero__headline">
+                                    <p>Få al din vigtige post
+                                        <br />
+                                        <span class="hero__headline-hightlight m-0 p-0"> samlet ét sted</span>
+                                    </p>
+      
+                                </h1>
+ 
+                                <div class="hero__description">
+                                    Hvorfor v&#xE6;lger de fleste virksomheder e-Boks, n&#xE5;r de skriver til dig? Fordi de ved, at du trygt kan svare, underskrive aftaler og f&#xE5; det bedste overblik, n&#xE5;r al din vigtige post er samlet &#xE9;t sted.
+                                </div>
+                                    <div class="hero__cta">
+                                        <a href="https://www.e-boks.dk/privat" target="_blank" class="btn btn--primary hero__btn">Ny bruger</a>
+                                    </div>
+                            </li>
+                    </ul>
+                </div>
+                    <div class="col col--6 col--12-md u-align-self-end">
+                            <div class="hero__media hero__desktop">
+                                <video src="/media/ma4kmflz/e-boks_animation_2mb.mp4" type="video/mp4" autoplay muted loop></video>
+                            </div>
+
+                            <picture class="hero__media hero__mobile">
+                                <img src="/media/fbtbj0hp/image_front.png" alt="">
+                            </picture>
+                    </div>
+            </div>
+        </section>
+    </div>
+</div>
+<div class="module">
+    <div class="container">
+        <section class="help-links">
+            <h2 class="help-links__headline">Brug for hj&#xE6;lp?</h2>
+            <ul class="help-links__list">
+                    <li class="help-links__item">
+                        <a class="help-links__item-link" target="_blank" href="https://brugersupport.e-boks.dk/hc/da/articles/13364512727314-S%C3%A5dan-sikrer-du-dit-barns-digitale-fremtid-">
+                            <h3 class="h4 help-links__item-headline">B&#xF8;rn</h3>
+                            <p class="help-links__item-text">Til dig, som vil hj&#xE6;lpe dit barn over 13 &#xE5;r med at komme godt i gang med e-Boks.</p>
+                        </a>
+                    </li>
+                    <li class="help-links__item">
+                        <a class="help-links__item-link" target="_blank" href="https://brugersupport.e-boks.dk/hc/da/articles/206788770-S%C3%A5dan-giver-du-andre-adgang-til-din-post">
+                            <h3 class="h4 help-links__item-headline">Giv adgang</h3>
+                            <p class="help-links__item-text">Til dig, der &#xF8;nsker at give andre adgang til din e-Boks.</p>
+                        </a>
+                    </li>
+                    <li class="help-links__item">
+                        <a class="help-links__item-link" target="_blank" href="https://brugersupport.e-boks.dk/hc/da/articles/13361837377170-MitID-Privat-og-Erhverv">
+                            <h3 class="h4 help-links__item-headline">MitID</h3>
+                            <p class="help-links__item-text">Til dig, der skal godt i gang med MitID.</p>
+                        </a>
+                    </li>
+                    <li class="help-links__item">
+                        <a class="help-links__item-link" target="_blank" href="https://brugersupport.e-boks.dk/hc/da/articles/10247350513554-Oprettelse-af-nye-medarbejdere-med-MitID-Erhverv">
+                            <h3 class="h4 help-links__item-headline">Erhverv</h3>
+                            <p class="help-links__item-text">Til dig, der vil give dine medarbejdere adgang til virksomhedens digitale post.</p>
+                        </a>
+                    </li>
+            </ul>
+        </section>
+    </div>
+</div>
+
+
+<div class="module module--pb-0 module--bg-dark">
+    <div class="container">
+        <section class="promo row">
+            <div class="col col--5 col--12-md u-align-self-end">
+                    <div class="promo__media promo__desktop">
+                        <video src="/media/g5zmqtcs/final-e-boks-plus-animation.mp4" type="video/mp4" autoplay muted loop></video>
+                    </div>
+
+                <picture class="promo__media promo__mobile" >
+                        <img src="/media/is2n4ef4/image_plus_services.png" alt="" style="width:60vw">
+                </picture>
+            </div>
+            <div class="col col--6 col--12-md offset--1 offset--0-md">
+                <h2 class="promo__headline">e-Boks er dit Plus i hverdagen</h2>
+                <div class="promo__description">Hent e-Boks-appen og f&#xE5; let adgang til din post og en r&#xE6;kke smarte services i Plus, som g&#xF8;r din hverdag meget nemmere.</div>
+                <div class="promo__cta">
+                        <a href="https://play.google.com/store/apps/details?id=com.eboks.activities&amp;hl=da&amp;pli=1" class="promo__cta-download" target="_blank" title="Download from Google Play">
+                            <svg xmlns="http://www.w3.org/2000/svg" xml:space="preserve" version="1.0" viewBox="70 235 460 145">
+                            <style>
+                                .st2 {
+                                    fill: #ffffff
+                                }</style>
+                            <path d="M143 237.5h314c38.8 0 70.2 31.4 70.2 70.2 0 38.8-31.4 70.2-70.2 70.2H143c-38.8 0-70.2-31.4-70.2-70.2 0-38.7 31.4-70.2 70.2-70.2z" style="fill:none;stroke:#F2F5F7;stroke-width:2;stroke-opacity:1" />
+                            <path d="m188.7 306.3-34.1-31.9c-.3.8-.6 1.6-.6 2.7v58.7c0 1.1.3 1.9.6 2.7l34.1-32.2zM192.7 306.3l11.4 10.6 12.5-6.6c4-2.1 4-5.6 0-7.7l-12.8-6.9-11.1 10.6zM190.7 304.4l10.5-10.1-40.1-21.2c-1.7-.8-3.4-1.1-4.5-.5l34.1 31.8zM190.7 308.1l-34.1 32.1c1.1.5 2.8.3 4.8-.5l40.3-21.2-11-10.4zM244.9 276.6c-2.3 0-4.3.8-5.9 2.4-1.6 1.6-2.4 3.6-2.4 6s.8 4.4 2.4 6c1.6 1.6 3.6 2.4 5.9 2.4 3.2 0 5.9-1.7 7.3-4.3v-4.6h-7.4v2.3h4.8v1.8c-1.1 1.7-2.6 2.5-4.7 2.5-1.7 0-3.1-.6-4.2-1.7-1.1-1.2-1.6-2.6-1.6-4.4 0-1.7.5-3.2 1.6-4.3 1-1.1 2.4-1.7 4.1-1.7 2 0 3.5.9 4.7 2.6l1.8-1.6c-1.4-2.2-3.6-3.4-6.4-3.4zM255.4 276.9v16.3H266v-2.3h-8.1v-5.2h5.9v-2.3h-5.9v-4.2h7.8v-2.3h-10.3zM267.3 276.9v2.3h5.3v14h2.5v-14h5.3v-2.3h-13.1zM288.3 276.9v16.3h2.5v-16.3h-2.5zM293.2 276.9v2.3h5.3v14h2.5v-14h5.3v-2.3h-13.1zM321.4 276.6c-2.3 0-4.3.8-5.9 2.4-1.6 1.6-2.4 3.6-2.4 6s.8 4.4 2.4 6c1.6 1.6 3.5 2.4 5.9 2.4 2.3 0 4.2-.8 5.8-2.4 1.6-1.6 2.4-3.6 2.4-6s-.8-4.4-2.4-6c-1.5-1.6-3.5-2.4-5.8-2.4zm0 2.4c1.6 0 3 .6 4 1.7 1.1 1.1 1.6 2.6 1.6 4.3 0 1.8-.5 3.2-1.6 4.3-1.1 1.1-2.4 1.7-4 1.7s-3-.6-4-1.7c-1.1-1.2-1.6-2.6-1.6-4.3 0-1.7.5-3.2 1.6-4.3 1.1-1.1 2.4-1.7 4-1.7zM343.1 287.9l-9.5-11.3h-.9v16.6h2.5v-11l9.6 11.3h.9v-16.6h-2.5v11zM251.1 305.3c-4.1 0-7.5 1.4-10.3 4.3-2.8 2.8-4.2 6.3-4.2 10.5s1.4 7.7 4.2 10.5c2.8 2.8 6.2 4.2 10.3 4.2 5.5 0 10.4-3 12.8-7.5v-8H251v4.1h8.5v3.1c-1.9 2.9-4.6 4.3-8.2 4.3-3 0-5.4-1-7.3-3s-2.8-4.6-2.8-7.7c0-3 .9-5.5 2.7-7.5 1.8-2 4.2-3 7.1-3 3.4 0 6.2 1.5 8.2 4.5l3.2-2.7c-2.6-4.1-6.4-6.1-11.3-6.1zM276.5 312.6c-3 0-5.6 1.1-7.7 3.2-2.1 2.1-3.1 4.8-3.1 7.9 0 3.1 1 5.8 3.1 7.9 2.1 2.1 4.6 3.2 7.7 3.2 3 0 5.5-1.1 7.7-3.2 2.1-2.2 3.2-4.8 3.2-7.9 0-3.1-1.1-5.8-3.2-7.9-2.1-2.1-4.7-3.2-7.7-3.2zm.1 4.2c1.8 0 3.3.7 4.5 2 1.2 1.3 1.8 2.9 1.8 4.9 0 1.9-.6 3.6-1.8 4.9-1.2 1.3-2.7 1.9-4.5 1.9-1.8 0-3.3-.6-4.5-1.9-1.2-1.3-1.8-3-1.8-4.9 0-2 .6-3.6 1.8-4.9 1.1-1.4 2.6-2 4.5-2zM299.8 312.6c-3 0-5.6 1.1-7.7 3.2-2.1 2.1-3.1 4.8-3.1 7.9 0 3.1 1 5.8 3.1 7.9 2.1 2.1 4.6 3.2 7.7 3.2 3 0 5.5-1.1 7.7-3.2 2.1-2.2 3.2-4.8 3.2-7.9 0-3.1-1.1-5.8-3.2-7.9-2.1-2.1-4.7-3.2-7.7-3.2zm.1 4.2c1.8 0 3.3.7 4.5 2 1.2 1.3 1.8 2.9 1.8 4.9 0 1.9-.6 3.6-1.8 4.9-1.2 1.3-2.7 1.9-4.5 1.9-1.8 0-3.3-.6-4.5-1.9-1.2-1.3-1.8-3-1.8-4.9 0-2 .6-3.6 1.8-4.9 1.1-1.4 2.6-2 4.5-2zM329.7 316.1c-1.6-2.3-4-3.5-7.2-3.5-2.9 0-5.2 1-7.1 3-1.9 2-2.8 4.5-2.8 7.7 0 3.1 1 5.7 2.8 7.7 1.9 2 4.2 3 7.1 3 3 0 5.2-1 6.9-3v1.5c0 4-2.4 6.1-6.1 6.1-2.4 0-4.8-1-7.2-3l-2.4 3.2c2.7 2.7 6 4 9.8 4 6.2 0 10.2-3.8 10.2-10.5v-19h-4v2.8zm-6.5 13.8c-1.8 0-3.2-.6-4.5-1.8-1.2-1.3-1.8-2.9-1.8-4.8s.6-3.5 1.8-4.8c1.2-1.2 2.7-1.8 4.5-1.8 3.4 0 6.2 2.2 6.2 6.5 0 2.2-.6 3.8-1.8 5-1.3 1.1-2.7 1.7-4.4 1.7zM337.9 301.9v32.4h4.4v-32.4h-4.4zM365.3 322.3c0-2.8-.9-5.1-2.7-7-1.8-1.9-4-2.8-6.7-2.8-3 0-5.5 1.1-7.5 3.2s-3 4.8-3 7.9c0 3.2 1 5.8 3.1 7.9 2.1 2.1 4.7 3.2 7.9 3.2 3.1 0 5.8-1.1 8.2-3.4l-2.1-3.1c-1.8 1.7-3.8 2.5-6 2.5-3.5 0-6.1-2.1-6.7-5.6H365c.2-.9.3-1.9.3-2.8zm-9.6-5.8c3 0 5.2 2 5.2 5.2h-11.1c.7-3.2 3-5.2 5.9-5.2zM378.1 305.8v28.5h4.4v-11h5.6c2.8 0 5-.8 6.8-2.4 1.7-1.6 2.6-3.8 2.6-6.4s-.9-4.7-2.6-6.3c-1.7-1.6-4-2.4-6.8-2.4h-10zm10 4c3.1 0 4.9 1.9 4.9 4.7 0 2.8-1.8 4.7-4.9 4.7h-5.5v-9.4h5.5zM400 301.9v32.4h4.4v-32.4H400zM416.5 312.6c-3.7 0-6.6 1.5-8.6 4.5l2.5 2.7c1.7-2.1 3.6-3.2 5.7-3.2 2.8 0 4.4 1.6 4.4 4.5v1.4h-5.8c-4.6 0-7.5 2.4-7.5 6.1 0 3.7 2.8 6.1 7.1 6.1 2.8 0 5-1 6.5-2.9v2.4h4.1v-12.8c0-5.6-3.3-8.8-8.4-8.8zm-1.3 18.7c-2.1 0-3.6-1-3.6-2.8 0-1.7 1.2-2.6 3.6-2.6h5.2v.4c.1 2.9-2.3 5-5.2 5zM437.1 328.6l-5.9-15.5h-4.7l8.2 20.3-.8 2c-1 2.4-2.4 3.1-4.5 3.1-.3 0-1.1 0-2.4-.2v3.8c1.1.3 2.3.4 3.4.4 3.5 0 5.8-1.8 7.5-5.8l10-23.6h-4.7l-6.1 15.5z" class="st2" />
+                            </svg>
+                        </a>
+
+                        <a href="https://apps.apple.com/dk/app/e-boks-dk/id482926022?l=da" class="promo__cta-download" target="_blank" title="Download from App Store">
+                            <svg xmlns="http://www.w3.org/2000/svg" xml:space="preserve" version="1.0" viewBox="70 70 460 150">
+                            <style>
+                                .st2 {
+                                    fill: #ffffff
+                                }</style>
+                            <path d="M143 72h314c38.8 0 70.2 31.4 70.2 70.2 0 38.8-31.4 70.2-70.2 70.2H143c-38.8 0-70.2-31.4-70.2-70.2 0-38.8 31.4-70.2 70.2-70.2z" style="fill:none;stroke:#F2F5F7;stroke-width:2;stroke-opacity:1" />
+                            <path d="M237.7 108.8v16.3h4.9c2.6 0 4.6-.8 6.2-2.3 1.6-1.5 2.3-3.5 2.3-5.9 0-2.4-.8-4.4-2.3-5.9-1.5-1.5-3.6-2.2-6.2-2.2h-4.9zm4.9 2.4c1.8 0 3.3.5 4.3 1.6 1.1 1 1.6 2.4 1.6 4.2 0 1.7-.5 3.1-1.6 4.2s-2.5 1.6-4.3 1.6h-2.4v-11.6h2.4zM259.4 112.7c-1.7 0-3.2.6-4.4 1.8-1.2 1.2-1.8 2.7-1.8 4.5 0 1.8.6 3.3 1.8 4.5 1.2 1.2 2.6 1.8 4.4 1.9 1.7 0 3.2-.6 4.4-1.8 1.2-1.2 1.8-2.7 1.8-4.5 0-1.8-.6-3.3-1.8-4.5-1.3-1.3-2.7-1.9-4.4-1.9zm0 2.4c1 0 1.9.4 2.6 1.2.7.7 1 1.7 1 2.8 0 1.1-.4 2.1-1 2.8-.7.7-1.6 1.1-2.6 1.1s-1.9-.4-2.6-1.1c-.7-.8-1-1.7-1-2.8 0-1.1.3-2.1 1-2.8.7-.8 1.6-1.2 2.6-1.2zM280.3 120.8l-3.6-8.1h-.9l-3.5 8.2-3.1-7.9h-2.7l5.2 12.4h.9l3.7-8.1 3.7 8.1h.9L286 113h-2.7l-3 7.8zM294 112.7c-1.4 0-2.6.5-3.5 1.5V113h-2.3v12.1h2.5v-7.2c0-1.7 1.1-2.8 2.7-2.8 1.5 0 2.5 1.1 2.5 2.8v7.2h2.5v-7.6c0-2.9-1.7-4.8-4.4-4.8zM301.8 106.6v18.5h2.5v-18.5h-2.5zM313.3 112.7c-1.7 0-3.2.6-4.4 1.8-1.2 1.2-1.8 2.7-1.8 4.5 0 1.8.6 3.3 1.8 4.5 1.2 1.2 2.6 1.8 4.4 1.9 1.7 0 3.2-.6 4.4-1.8 1.2-1.2 1.8-2.7 1.8-4.5 0-1.8-.6-3.3-1.8-4.5-1.2-1.3-2.7-1.9-4.4-1.9zm.1 2.4c1 0 1.9.4 2.6 1.2.7.7 1 1.7 1 2.8 0 1.1-.4 2.1-1 2.8-.7.7-1.6 1.1-2.6 1.1s-1.9-.4-2.6-1.1c-.7-.8-1-1.7-1-2.8 0-1.1.3-2.1 1-2.8.6-.8 1.5-1.2 2.6-1.2zM326.9 112.7c-2.1 0-3.7.9-4.9 2.6l1.4 1.5c1-1.2 2.1-1.8 3.2-1.8 1.6 0 2.5.9 2.5 2.6v.8h-3.3c-2.6 0-4.3 1.4-4.3 3.5s1.6 3.5 4.1 3.5c1.6 0 2.8-.5 3.7-1.6v1.4h2.3v-7.3c0-3.4-1.9-5.2-4.7-5.2zm-.8 10.7c-1.2 0-2-.6-2-1.6s.7-1.5 2.1-1.5h3v.2c-.1 1.7-1.4 2.9-3.1 2.9zM343.9 114.5c-.9-1.2-2.2-1.8-3.9-1.8-1.6 0-3 .6-4.1 1.8-1.1 1.2-1.6 2.7-1.6 4.5 0 1.8.5 3.3 1.6 4.5 1.1 1.2 2.4 1.8 4.1 1.8 1.8 0 3.2-.7 4.1-2v1.7h2.3v-18.5h-2.5v8zm-3.4 8.5c-1 0-1.9-.4-2.6-1.1-.7-.7-1-1.7-1-2.9s.3-2.1 1-2.8c.7-.7 1.5-1.1 2.6-1.1.9 0 1.8.3 2.5 1s1 1.7 1 2.9c0 2.7-1.6 4-3.5 4zM362.1 112.7c-1.7 0-3.2.6-4.4 1.8-1.2 1.2-1.8 2.7-1.8 4.5 0 1.8.6 3.3 1.8 4.5 1.2 1.2 2.6 1.8 4.4 1.9 1.7 0 3.2-.6 4.4-1.8 1.2-1.2 1.8-2.7 1.8-4.5 0-1.8-.6-3.3-1.8-4.5-1.3-1.3-2.7-1.9-4.4-1.9zm0 2.4c1 0 1.9.4 2.6 1.2.7.7 1 1.7 1 2.8 0 1.1-.4 2.1-1 2.8-.7.7-1.6 1.1-2.6 1.1s-1.9-.4-2.6-1.1c-.7-.8-1-1.7-1-2.8 0-1.1.3-2.1 1-2.8.7-.8 1.6-1.2 2.6-1.2zM376.9 112.7c-1.4 0-2.6.5-3.5 1.5V113h-2.3v12.1h2.5v-7.2c0-1.7 1.1-2.8 2.7-2.8 1.5 0 2.5 1.1 2.5 2.8v7.2h2.5v-7.6c0-2.9-1.6-4.8-4.4-4.8zM396.8 123c-1.5 0-2.3-.5-2.3-2.1v-5.7h3.5V113h-3.5v-3.2H392v3.2h-1.9v2.2h1.9v5.9c0 2.8 1.6 4.2 4.3 4.2.6 0 1.3-.1 2.1-.3v-2.2c-.8.2-1.3.2-1.6.2zM406.7 112.7c-1.4 0-2.5.5-3.4 1.5v-7.6h-2.5v18.5h2.5v-7.2c0-1.7 1.1-2.8 2.7-2.8 1.5 0 2.5 1.1 2.5 2.8v7.2h2.5v-7.6c0-2.8-1.6-4.8-4.3-4.8zM425.2 118.3c0-1.6-.5-2.9-1.5-4s-2.3-1.6-3.8-1.6c-1.7 0-3.1.6-4.3 1.9-1.2 1.2-1.7 2.7-1.7 4.5 0 1.8.6 3.3 1.8 4.5 1.2 1.2 2.7 1.8 4.5 1.8 1.8 0 3.3-.6 4.6-2l-1.2-1.8c-1 1-2.2 1.4-3.4 1.4-2 0-3.5-1.2-3.8-3.2h8.7c0-.5.1-1 .1-1.5zm-5.5-3.4c1.7 0 3 1.2 3 3h-6.3c.3-1.8 1.6-3 3.3-3zM264 168.6l-13-31.1h-1.6l-12.9 31.1h5l2.1-5.1h13.2l2.1 5.1h5.1zm-18.7-9.3 4.9-12.7 4.8 12.7h-9.7zM279.4 145.3c-3.2 0-6 1.4-7.6 3.8v-3.2h-4.4V177h4.7v-11.1c1.7 2.2 4.2 3.2 7.3 3.2 3.1 0 5.7-1.1 7.7-3.4s3-5.1 3-8.5c0-3.4-1-6.2-3-8.5s-4.6-3.4-7.7-3.4zm-.8 19.3c-1.8 0-3.4-.6-4.7-1.9-1.3-1.3-1.9-3.1-1.9-5.6 0-4.9 3-7.4 6.6-7.4 1.9 0 3.5.7 4.8 2.1 1.3 1.4 1.9 3.2 1.9 5.4s-.6 3.9-1.9 5.3c-1.3 1.4-2.9 2.1-4.8 2.1zM306.5 145.3c-3.2 0-6 1.4-7.6 3.8v-3.2h-4.4V177h4.7v-11.1c1.7 2.2 4.2 3.2 7.3 3.2 3.1 0 5.7-1.1 7.7-3.4s3-5.1 3-8.5c0-3.4-1-6.2-3-8.5s-4.6-3.4-7.7-3.4zm-.7 19.3c-1.8 0-3.4-.6-4.7-1.9-1.3-1.3-1.9-3.1-1.9-5.6 0-4.9 3-7.4 6.6-7.4 1.9 0 3.5.7 4.8 2.1 1.3 1.4 1.9 3.2 1.9 5.4s-.6 3.9-1.9 5.3c-1.4 1.4-2.9 2.1-4.8 2.1zM342.5 137.5c-2.6 0-4.8.8-6.6 2.3-1.8 1.5-2.7 3.5-2.7 6 0 3.9 2.5 6.4 6.8 8.5l3.2 1.6c3.1 1.5 4.3 2.4 4.3 4.6 0 2.6-2 4.3-5.1 4.3-3 0-5.5-1.6-7.7-4.9l-3.3 2.6c2.3 4.1 6.3 6.6 11.1 6.6 2.8 0 5.2-.8 7-2.4 1.9-1.6 2.8-3.8 2.8-6.4 0-4-2.3-6.4-7-8.7L342 150c-3-1.5-4.1-2.3-4.1-4.4 0-2.4 2-3.7 4.4-3.7 2.5 0 4.6 1.3 6.2 3.7l3.3-2.6c-1.7-3.3-5.2-5.5-9.3-5.5zM367.1 164.7c-2.8 0-4.3-1-4.3-3.9V150h6.5v-4.2h-6.5v-6h-4.7v6h-3.6v4.2h3.6v11.1c0 5.3 3 7.9 8 7.9 1.1 0 2.4-.2 3.9-.5v-4.1c-1.3.2-2.2.3-2.9.3zM383.5 145.3c-3.2 0-6 1.2-8.2 3.4-2.2 2.3-3.3 5.1-3.3 8.4 0 3.3 1.1 6.2 3.3 8.4 2.2 2.3 4.9 3.4 8.2 3.5 3.2 0 5.9-1.2 8.2-3.4 2.3-2.3 3.4-5.1 3.4-8.5 0-3.3-1.2-6.2-3.4-8.4s-5-3.4-8.2-3.4zm.1 4.5c1.9 0 3.5.7 4.8 2.2 1.3 1.4 2 3.1 2 5.3 0 2.1-.7 3.8-2 5.3-1.3 1.4-2.9 2.1-4.8 2.1-2 0-3.6-.7-4.8-2.1-1.3-1.4-1.9-3.2-1.9-5.3 0-2.1.6-3.9 1.9-5.3 1.2-1.5 2.8-2.2 4.8-2.2zM410.3 145.6c-2.7 0-4.8 1.1-6.4 3.2v-3h-4.4v22.7h4.7v-12.1c0-4 2.7-6.3 6.4-6.3h1.4v-4.3c-.4-.1-1-.2-1.7-.2zM435 155.7c0-3-1-5.5-2.9-7.5s-4.3-3-7.2-3c-3.2 0-5.9 1.2-8 3.5-2.2 2.3-3.2 5.1-3.2 8.4 0 3.4 1.1 6.2 3.3 8.5 2.2 2.3 5 3.4 8.4 3.4 3.3 0 6.2-1.2 8.7-3.7l-2.2-3.3c-2 1.8-4.1 2.7-6.4 2.7-3.8 0-6.5-2.2-7.1-6h16.3c.1-1 .3-2 .3-3zm-10.3-6.3c3.2 0 5.6 2.2 5.6 5.6h-11.9c.7-3.4 3.2-5.6 6.3-5.6zM214.8 140.2c-.1-8.7 7.6-12.9 7.9-13.1-4.3-5.9-11.1-6.7-13.4-6.8-5.6-.6-11.1 3.2-14 3.2-2.9 0-7.4-3.1-12.1-3-6.1.1-11.9 3.4-15 8.6-6.5 10.5-1.7 26 4.6 34.5 3.1 4.2 6.7 8.8 11.5 8.7 4.7-.2 6.4-2.8 12-2.8s7.2 2.8 12.1 2.7c5-.1 8.2-4.2 11.2-8.4 3.6-4.8 5-9.5 5.1-9.7-.2-.1-9.8-3.5-9.9-13.9zm-9.2-25.4c2.5-2.9 4.2-6.9 3.7-11-3.6.1-8.2 2.3-10.8 5.2-2.3 2.5-4.4 6.7-3.8 10.6 4.1.3 8.3-2 10.9-4.8z" class="st2" />
+                            </svg>
+                        </a>
+                </div>
+            </div>
+        </section>
+    </div>
+</div>
+<div class="module module--bg-grey">
+    <div class="container">
+        <section class="news">
+            <h2 class="news__headline">Nyheder fra e-Boks</h2>
+            <ul class="news__list">
+                        <li class="news__item">
+
+                                <a href="https://blog.e-boks.com/da/nyheder/s%C3%A5dan-hj%C3%A6lper-du-dit-barn-i-gang-med-e-boks" target="_blank" class="news__item-link">
+                                        <picture class="news__item-media">
+                                            <img src="/media/isqiuijq/boy-and-father.jpg" alt="">
+                                        </picture>
+                                    <p class="news__item-tag"></p>
+                                    <h3 class="h4 news__item-headline">S&#xE5;dan hj&#xE6;lper du dit barn i gang med e-Boks</h3>
+                                    <p class="news__item-tag"></p>
+                                </a>
+                        </li>
+                        <li class="news__item">
+
+                                <a href="https://blog.e-boks.com/da/nyheder/flest-foretr%C3%A6kker-stadig-login-via-e-boks" target="_blank" class="news__item-link">
+                                        <picture class="news__item-media">
+                                            <img src="/media/qxgprvbc/woman-looking-at-e-boks.jpg" alt="">
+                                        </picture>
+                                    <p class="news__item-tag"></p>
+                                    <h3 class="h4 news__item-headline">Flest foretr&#xE6;kker stadig at logge ind via e-Boks</h3>
+                                    <p class="news__item-tag"></p>
+                                </a>
+                        </li>
+                        <li class="news__item">
+
+                                <a href="https://blog.e-boks.com/da/nyheder/e-boks-trykpr%C3%B8ver-fremtidens-l%C3%B8sninger-p%C3%A5-danskerne" target="_blank" class="news__item-link">
+                                        <picture class="news__item-media">
+                                            <img src="/media/4btjaghh/woman-with-phone-outdoor.jpg" alt="">
+                                        </picture>
+                                    <p class="news__item-tag"></p>
+                                    <h3 class="h4 news__item-headline">e-Boks trykpr&#xF8;ver fremtidens l&#xF8;sninger p&#xE5; danskerne</h3>
+                                    <p class="news__item-tag"></p>
+                                </a>
+                        </li>
+
+
+
+            </ul>
+            <div class="news__more">
+                    <a href="https://blog.e-boks.com/da/nyheder" target="_blank" class="btn btn--primary">Se mere</a>
+            </div>
+        </section>
+    </div>
+</div></div>
+
+
+    </main>
+    <div class="overlay js-overlay"></div>
+    
+<footer class="footer">
+    <div class="container">
+        <div class="footer__main">
+            <h4 class="footer__title">Danskernes foretrukne</h4>
+            <div class="row">
+                    <div class="col col--6 col--12-md">
+                        <div class="footer__description u-text-small">
+                            <p>e-Boks har siden 2001 været den foretrukne og sikre platform, når danskerne skal læse og svare på digital post og opbevare vigtige dokumenter.</p>
+<p>5,2 mio. danskere er i dag på e-Boks, og hver måned har vi 35 mio. besøg af brugere, der vil tjekke post, betale regninger og underskrive papirer digitalt.</p>
+<p>Hvert år sender 30.000 private og offentlige virksomheder mere end 546 millioner dokumenter gennem e-Boks - som modtagerne kan læse via e-Boks' app eller website.</p>
+<p>e-Boks er ejet af Nets og PostNord.</p>
+                        </div>
+                    </div>
+                    <div class="col col--3 col--6-md">
+                        <ul class="footer__links">
+                                <li><a target="_self" href="/danmark/da/kom-i-gang/">Kom i gang</a></li>
+                                <li><a target="_blank" href="https://brugersupport.e-boks.dk/hc/da">Brug for hj&#xE6;lp</a></li>
+                                <li><a target="_self" href="/danmark/da/kontakt/">Kontakt</a></li>
+                        </ul>
+                    </div>
+                    <div class="col col--3 col--6-md">
+                        <ul class="footer__links">
+                                <li><a href="https://brugersupport.e-boks.dk/hc/da">Driftstatus</a></li>
+                                <li><a href="https://panels.preely.com/r/9sWrr7UH_Borgerpanel">Borgerpanel</a></li>
+                                <li><a href="https://corporate.e-boks.com/da/om-e-boks/">Om e-Boks</a></li>
+                        </ul>
+                    </div>
+            </div>
+        </div>
+        <div class="footer__bottom">
+            <div class="row u-align-end">
+                <div class="col col--6 col--12-md u-order-1--md">
+                        <ul class="footer__service-nav">
+                                <li><a href="/danmark/da/brugervilkaar/">Brugervilk&#xE5;r</a></li>
+                                <li><a href="/danmark/da/privatlivspolitik/">Privatlivspolitik</a></li>
+                                <li><a href="/danmark/da/cookies-da/">Cookies</a></li>
+                        </ul>
+                    <small class="footer__copyright">Copyright &#xA9; 2023 e-Boks Group. Alle rettigheder forbeholdes. e-Boks er et registreret varem&#xE6;rke.</small>
+                </div>
+                <div class="col col--6 col--12-md">
+                    <div class="footer__logotext">Vi st&#xF8;tter</div>
+                    <div class="footer__icon">
+                            <img src="/media/o4ficlvz/trees-logo-white.png" alt="Vi st&#xF8;tter" />
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</footer>
+
+</body>
+</html>

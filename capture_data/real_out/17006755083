@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=EUC-KR">
+<meta name="viewport" content="initial-scale=1, maximum-scale=1">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<title>ÇÑ°ÔÀÓ - ´ëÇÑ¹Î±¹ °¡Àå Å« ÆÇ, ÇÑ°ÔÀÓ</title>
+<link rel="stylesheet" type="text/css" href="https://hangame-images.toastoven.net/hangame/inspection/page/2020/css/inspection_2020.css">
+<!--[if gt IE 9]><!--><link rel="stylesheet" href="https://hangame-images.toastoven.net/hangame/inspection/page/2020/video_js/css/video-js.min.css" /><!--<![endif]-->
+<script type="text/javascript" src="https://hangame-images.toastoven.net/hangame/inspection/page/2020/js/jquery-1.12.4.min.js" charset="UTF-8"></script>
+<!--[if lte IE 8]> <script type="text/javascript" src="https://hangame-images.toastoven.net/hangame/inspection/page/2020/js/platform-1.3.6.js" charset="UTF-8"></script> <![endif]-->
+<!--[if gt IE 8]><!--> <script src="https://hangame-images.toastoven.net/hangame/inspection/page/2020/js/platform-1.3.6.min.js" charset="UTF-8"></script> <!--<![endif]-->
+<!--[if gt IE 9]><!--> <script src="https://hangame-images.toastoven.net/hangame/inspection/page/2020/video_js/js/video.min.js" charset="UTF-8"></script> <!--<![endif]-->
+	<script type="text/javascript">	
+		$(document).ready(function () {
+			function maintenanceDataLoader () {
+				this.getDataFileLocation = function () {
+					var dataFile = "regular_maintenance_data.js";
+					if ((location.host.indexOf('local-') >= 0) || (location.host.indexOf('dev-') >= 0) || (location.host.indexOf('alpha-') >= 0)) {
+						return "https://alpha-hangame-images.toastoven.net/hangame/inspection/page/" + dataFile;
+					} else {
+						return "https://hangame-images.toastoven.net/hangame/inspection/page/" + dataFile;
+					}
+				};
+				this.loadData = function () {
+					var tag = document.createElement('script');
+					tag.charset = 'UTF-8';
+					tag.src = this.getPath() + '?' + this.getTimeStamp();
+					var scriptsTags = document.getElementsByTagName('script');
+					var lastScriptTag = scriptsTags[scriptsTags.length - 1];
+					lastScriptTag.parentNode.insertBefore(tag, lastScriptTag);
+				};
+				this.getPath = function () {
+					return this.getDataFileLocation();
+				};
+				this.getTimeStamp = function () {
+					return Math.floor(new Date().getTime() / 1000 / (60 * 1));
+				};
+			};
+			new maintenanceDataLoader().loadData();
+		});
+	</script>
+</head>
+<body>
+	<div class="header">
+		<h1 class="header_logo" style="height: 18px;"><a href="https://www.hangame.com"><img src="https://hangame-images.toastoven.net/hangame/inspection/page/2020/img/logo_hangame@2x.png" width="119" height="18" alt="HANGAME"></a></h1>
+	</div>
+	<div id="inspection">
+		<h2 class="h_tit">ÇÑ°ÔÀÓ<br class="is_block"><strong class="point_txt"> Á¤±âÁ¡°Ë</strong> ¾È³»</h2>
+		<p class="h_dsc">¾ÈÁ¤ÀûÀÎ ¼­ºñ½º¸¦ À§ÇØ <br class="is_block">Á¤±âÁ¡°ËÀ» ½Ç½ÃÇÕ´Ï´Ù</p>
+		<div class="inspection_info">
+			<dl class="term">
+				<dt><em class="sp ico_noti"></em>Á¡°Ë½Ã°£ ¾È³»</dt>
+				<dd id="endDateString"></dd>
+				<dd id="contentString" class="point_txt"></dd>
+			</dl>
+		</div>
+		<div class="content">
+			<div class="section_view">
+				<h3 class="sec_tit">Àá±ñ¸¸, º¸°í°¡¼¼¿ä!</h3>
+				<div class="player"> 
+					<video
+						id="maint-video-player"
+						class="video-js vjs-default-skin vjs-big-play-centered"
+						width="800"
+						height="450"
+						controls="true"
+						autoplay="true"
+						preload="auto"
+						muted="true"
+						data-setup="{}"
+					>
+						<a id="current_video_link_url" href="#" target="_blank" class="lnk"><img src="" width="800px" height="450px"  alt=""></a> 
+					</video>
+					<strong id="current_video_title" class="game_tit"></strong>
+					
+				</div>
+				<p id="current_video_content" class="game_dsc"></p>
+				<div class="lst_select">
+					<div id="_open_movie_selectbox" class="btn_other"><button>´Ù¸¥ µ¿¿µ»ó º¸±â</button><em class="sp ico_btn"></em></div>
+					<strong class="blind">µ¿¿µ»ó ¸ñ·Ïº¸±â</strong>
+					<ul id="_movie_selectbox" class="movie_lst">
+					</ul>
+				</div>
+			</div>
+
+			<div class="join_game has_scroll">
+				<h3 class="sec_tit">Àá±ñ¸¸, Áñ°Üº¸¼¼¿ä!</h3>
+				<ul id="_on_game_list" class="lst_join">
+				</ul>
+				<div class="lst_select">
+					<div id="_open_on_game_selectbox" class="btn_other"><button>Áö±Ý Á¢¼Ó °¡´ÉÇÑ °ÔÀÓ</button><em class="sp ico_btn"></em></div>
+					<strong class="blind">°ÔÀÓ ¸ñ·Ïº¸±â</strong>
+					<ul id="_on_game_selectbox" class="movie_lst">
+					</ul>
+				</div>
+			</div>
+		</div>
+		<div class="footer">
+			<a href="https://www.nhn.com">¨Ï NHN Corp. All rights reserved</a>
+		</div>
+	</div>
+</body>
+</html>

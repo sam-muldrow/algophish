@@ -1,0 +1,1576 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  <title>ä¸­å½éè·¯12306ç½ç«</title>
+  <script>
+    window.startTime = new Date().getTime(); //"window.onloadå¤å¼å§æ¶é´:",window.startTime
+  </script>
+  <link rel="shortcut icon" href="images/favicon.ico" type="image/x-icon" />
+  <!-- <link href="./css/index.css" rel="stylesheet">
+  <link href="./css/global.css" rel="stylesheet">
+  <link href="./css/public.css" rel="stylesheet"> -->
+  <link href="./fonts/iconfont.css" rel="stylesheet">
+  <!-- æ¥æåå¸æ§ä»¶ -->
+  <!-- <link href="./css/common/calendarNew.css" rel="stylesheet">
+  <link href="./css/common/table.css" rel="stylesheet">
+  <link href="./css/common/station.css" rel="stylesheet">
+  <link href="./css/common/station_new.css" rel="stylesheet">
+  <link rel="stylesheet" href="./css/main.css"> -->
+  <link rel="stylesheet" href="./css/index_y_v50002.css">
+</head>
+<style>
+  .typeahead li {
+    width: 265px;
+    padding-left: 10px;
+  }
+
+  a:hover {
+    color: #000;
+  }
+</style>
+
+<body role="main">
+  <!-- é¡µé¢å è½½è¿åº¦ -->
+  <div id="page-loading" class="page-loading"></div>
+  <!-- å¤´é¨ -->
+  <div class="header" role="banner">
+    <div class="wrapper">
+      <!-- å¤´é¨åå®¹ -->
+      <div class="header-con">
+        <h1 class="logo">
+          <a name="g_href" data-type="1" data-href="index.html" data-redirect="Y" href="javascript:;">ä¸­å½éè·¯12306</a>
+        </h1>
+        <div class="header-right">
+          <!-- æç´¢æ¡ -->
+          <div class="header-search" style="width: 380px">
+            <div class="search-bd" style="width: 350px">
+              <input type="password" value="" style="display: none" />
+              <input type="text" class="search-input" id="search-input" aria-label="æç´¢è½¦ç¥¨ãé¤é¥®ãå¸¸æå®¢ãç¸å³è§ç« " value=""
+                auto-complete="new-password" placeholder="æç´¢è½¦ç¥¨ãé¤é¥®ãå¸¸æå®¢ãç¸å³è§ç« " aria-haspopup="true" />
+              <!-- æç´¢æç¤º -->
+              <div class="search-down">
+                <a href="javascript:;" class="close">å³é­</a>
+                <ul class="search-down-list" role="listbox" aria-expanded="true"></ul>
+              </div>
+              <!-- æç´¢åå² -->
+              <div class="search-history">
+                <a href="javascript:;" class="history-clear">æ¸é¤</a>
+                <h3 class="search-history-tit">æç´¢åå²</h3>
+                <ul class="search-history-list" role="listbox" aria-expanded="true"></ul>
+              </div>
+            </div>
+            <a class="search-btn" href="javascript:;" aria-label="ç¹å»æç´¢ï¼æç´¢ç»æé¡µé¢å¯è½è¶åºæ éç¢æå¡èå´">
+              <i class="icon icon-search"></i>
+            </a>
+          </div>
+          <!-- å³ä¾§èå -->
+          <ul class="header-menu" role="menubar" id="topMenu">
+            <li class="menu-item">
+              <a id="toolbarSwitch" href="javascript:;" class="menu-nav-hd">æ éç¢
+              </a>
+            </li>
+            <li class="menu-item menu-line">|</li>
+            <li class="menu-item">
+              <a id="caringEdition" href="javascript:;" class="menu-nav-hd">ç±å¿ç</a>
+            </li>
+            <li class="menu-item menu-line">|</li>
+            <li class="menu-item menu-nav" role="menuitem">
+              <a href="https://www.12306.cn/en/index.html" class="menu-nav-hd item" title="English"
+                aria-controls="megamenu-1" aria-expanded="true" aria-haspopup="true">
+                English
+                <i class="caret"></i>
+              </a>
+              <ul class="menu-nav-bd" style="width: 90px" role="menu" aria-hidden="true" id="megamenu-1">
+                <li>
+                  <a name="g_href" data-type="1" data-href="index.html" data-redirect="Y" href="javascript:;"
+                    title="ç®ä½ä¸­æ">ç®ä½ä¸­æ</a>
+                </li>
+                <li>
+                  <a href="https://www.12306.cn/en/index.html" title="English">English</a>
+                </li>
+              </ul>
+            </li>
+            <li class="menu-item menu-line">|</li>
+            <li class="menu-item menu-nav" role="menuitem">
+              <a data-href="view/index.html" name="g_href" data-type="2" data-redirect="Y" aria-expanded="true"
+                aria-haspopup="true" aria-controls="megamenu-2" href="javascript:;" class="menu-nav-hd item"
+                id="my12306">æç12306
+                <i class="caret"></i>
+              </a>
+              <ul class="menu-nav-bd" role="menu" aria-hidden="true" id="megamenu-2">
+                <li>
+                  <a name="g_href" data-type="2" data-href="view/train_order.html" data-redirect="Y"
+                    href="javascript:;">ç«è½¦ç¥¨è®¢å</a>
+                </li>
+                <li>
+                  <a name="g_href" data-type="2" data-href="view/lineUp_order.html" data-redirect="Y"
+                    href="javascript:;">åè¡¥è®¢å</a>
+                </li>
+                <li>
+                  <a name="g_href" data-type="2" data-href="view/commutation_order.html" data-redirect="Y"
+                    href="javascript:;">è®¡æ¬¡â¢å®æç¥¨è®¢å</a>
+                </li>
+                <li>
+                  <a name="g_href" data-type="2" data-href="view/commutation_ticket_order.html" data-redirect="Y"
+                    href="javascript:;">çº¦å·è®¢å</a>
+                </li>
+                <li>
+                  <a name="g_href" data-type="2" data-href="view/personal_travel.html" data-redirect="Y"
+                    href="javascript:;">æ¬äººè½¦ç¥¨</a>
+                </li>
+                <li class="nav-line"></li>
+                <li>
+                  <a name="g_href" data-type="10" data-href="queryMyOrder.html" data-redirect="Y"
+                    href="javascript:;">æçé¤é¥®â¢ç¹äº§</a>
+                </li>
+                <li>
+                  <a name="g_href" data-type="2" data-href="view/my_insurance.html" data-redirect="Y"
+                    href="javascript:;">æçä¿é©</a>
+                </li>
+                <li>
+                  <a name="g_href" data-type="3" data-href="welcome.html" data-redirect="Y" href="javascript:;">æçä¼å</a>
+                </li>
+                <li class="nav-line"></li>
+                <li>
+                  <a name="g_href" data-type="2" data-href="view/information.html" data-redirect="Y"
+                    href="javascript:;">æ¥çä¸ªäººä¿¡æ¯</a>
+                </li>
+                <li>
+                  <a name="g_href" data-type="2" data-href="view/userSecurity.html" data-redirect="Y"
+                    href="javascript:;">è´¦æ·å®å¨</a>
+                </li>
+                <li class="nav-line"></li>
+                <li>
+                  <a name="g_href" data-type="2" data-href="view/passengers.html" data-redirect="Y"
+                    href="javascript:;">ä¹è½¦äºº</a>
+                </li>
+                <li>
+                  <a name="g_href" data-type="2" data-href="view/address_init.html" data-redirect="Y"
+                    href="javascript:;">å°åç®¡ç</a>
+                </li>
+                <li class="nav-line"></li>
+                <li>
+                  <a name="g_href" data-type="2" data-href="view/icentre_serviceQuery.html" data-redirect="Y"
+                    href="javascript:;">æ¸©é¦¨æå¡æ¥è¯¢</a>
+                </li>
+              </ul>
+            </li>
+            <li class="menu-item menu-line">|</li>
+            <li id="J-header-login" class="menu-item menu-login" role="menuitem">
+              <a id="J-btn-login" href="javascript:;" name="g_href" data-type="2" data-href="resources/login.html"
+                data-redirect="Y">ç»å½</a><a name="g_href" data-type="2" data-href="regist/init" data-redirect="Y"
+                href="javascript:;" class="ml">æ³¨å</a>
+            </li>
+            <li id="J-header-logout" style="display: none" class="menu-item menu-nav menu-login" role="menuitem">
+              æ¨å¥½ï¼<a name="g_href" data-type="2" data-href="view/index.html" data-redirect="Y" href="javascript:;"
+                class="txt-primary menu-nav-my-hd">
+              </a>&nbsp;|&nbsp;<a id="regist_out" class="logout" href="javascript:;">éåº</a>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </div>
+    <!-- å¯¼èª -->
+    <div class="nav-box" role="navigation">
+      <ul class="nav" role="menubar" id="member">
+        <li role="menuitem" id="J-index" class="nav-item nav-item-w1">
+          <a name="g_href" data-type="1" data-href="index.html" data-redirect="Y" href="javascript:;"
+            class="nav-hd">é¦é¡µ</a>
+        </li>
+        <li role="menuitem" id="J-chepiao" class="nav-item nav-item-w1">
+          <a href="javascript:void(0)" class="nav-hd item" aria-expanded="true" aria-haspopup="true"
+            aria-controls="megamenu-3">è½¦ç¥¨
+            <i class="icon icon-down"></i>
+          </a>
+          <div class="nav-bd" id="megamenu-3">
+            <div class="nav-bd-item nav-col2">
+              <h3 class="nav-tit">è´­ä¹°</h3>
+              <ul class="nav-con" role="menu" aria-hidden="true">
+                <li class="nav_dan" role="menuitemradio">
+                  <a name="g_href" data-type="2" data-href="leftTicket/init?linktypeid=dc" data-redirect="Y"
+                    href="javascript:;">åç¨</a>
+                </li>
+                <li class="nav_wang" role="menuitemradio">
+                  <a name="g_href" data-type="2" data-href="leftTicket/init?linktypeid=wf" data-redirect="Y"
+                    href="javascript:;">å¾è¿</a>
+                </li>
+                <li role="menuitemradio">
+                  <a name="g_href" data-type="2" data-href="lcQuery/init" data-redirect="Y" href="javascript:;">ä¸­è½¬æ¢ä¹</a>
+                </li>
+                <li role="menuitemradio">
+                  <a name="g_href" data-type="2" data-href="view/commutation_index.html" data-redirect="Y"
+                    href="javascript:;">è®¡æ¬¡â¢å®æç¥¨</a>
+                </li>
+                <!-- <li role="menuitemradio">
+                  <a
+                  name="g_href"
+                  data-type="2"
+                  data-href="view/olympic_login.html"
+                  data-redirect="Y"
+                  href="javascript:;"
+                  >å¬å¥¥ä¸åº</a
+                  >
+              </li> -->
+              </ul>
+            </div>
+            <div class="nav-bd-item nav-col2">
+              <h3 class="nav-tit">åæ´</h3>
+              <ul class="nav-con" role="menu" aria-hidden="true">
+                <li class="nav_ref item" role="menuitemradio">
+                  <a name="g_href" data-type="2" data-href="view/train_order.html?type=2&typefilt=4" data-redirect="Y"
+                    href="javascript:;">éç¥¨</a>
+                </li>
+                <li class="nav_res item" role="menuitemradio">
+                  <a name="g_href" data-type="2" data-href="view/train_order.html?type=2&typefilt=2" data-redirect="Y"
+                    href="javascript:;">æ¹ç­¾</a>
+                </li>
+                <li class="nav_chg item" role="menuitemradio">
+                  <a name="g_href" data-type="2" data-href="view/train_order.html?type=2&typefilt=3" data-redirect="Y"
+                    href="javascript:;">åæ´å°ç«</a>
+                </li>
+                <li></li>
+              </ul>
+            </div>
+            <div class="nav-bd-item nav-col2">
+              <h3 class="nav-tit border-none">æ´å¤</h3>
+              <ul class="nav-con" role="menu" aria-hidden="true">
+                <li role="menuitemradio">
+                  <a name="g_href" data-type="1" data-href="view/ticket/zt_card.html" data-redirect="Y"
+                    href="javascript:;">ä¸­éé¶éå¡</a>
+                </li>
+                <li class="border-none item" role="menuitemradio">
+                  <a name="g_href" data-type="1" data-href="view/ticket/through_train.html" data-redirect="Y"
+                    href="javascript:;">å¹¿ä¹ç´éè½¦</a>
+                </li>
+                <!-- <li role="menuitemradio">
+                  <a name="g_href" data-type="1" data-href="view/ticket/railway.html" data-redirect="Y"
+                    href="javascript:;">å¸éå¿«ééè·¯</a>
+                </li> -->
+                <li role="menuitemradio">
+                  <a name="g_href" data-type="1" data-href="view/ticket/international_train.html" data-redirect="Y"
+                    href="javascript:;">å½éåè½¦</a>
+                </li>
+              </ul>
+            </div>
+          </div>
+        </li>
+        <li role="menuitem" id="J-tuangoufuwu" class="nav-item">
+          <a href="javascript:void(0) " class="nav-hd item" aria-expanded="true" aria-haspopup="true"
+            aria-controls="megamenu-4">å¢è´­æå¡
+            <i class="icon icon-down"></i>
+          </a>
+          <div class="nav-bd" id="megamenu-4">
+            <div class="nav-bd-item nav-col6">
+              <ul class="nav-con" role="menu" aria-hidden="true">
+                <li role="menuitemradio">
+                  <a name="g_href" data-type="1" data-href="view/group/group_management.html?type=1" data-redirect="Y"
+                    href="javascript:;">å¡å·¥äººå</a>
+                </li>
+
+                <li role="menuitemradio">
+                  <a name="g_href" data-type="1" data-href="view/group/group_management.html?type=2" data-redirect="Y"
+                    href="javascript:;">å­¦çå¢ä½</a>
+                </li>
+              </ul>
+            </div>
+          </div>
+        </li>
+        <li role="menuitem" id="J-huiyuanfuwu" class="nav-item">
+          <a href="javascript:void(0) " class="nav-hd item" aria-expanded="true" aria-haspopup="true"
+            aria-controls="megamenu-5">ä¼åæå¡
+            <i class="icon icon-down"></i>
+          </a>
+          <div class="nav-bd" id="megamenu-5">
+            <div class="nav-bd-item nav-col6">
+              <ul class="nav-con" role="menu" aria-hidden="true">
+                <li role="menuitemradio">
+                  <a name="g_href" data-type="3" data-href="index.html" data-redirect="Y" href="javascript:;">ä¼åç®¡ç</a>
+                </li>
+                <li role="menuitemradio">
+                  <a name="g_href" data-type="3" data-href="index.html" data-redirect="Y" href="javascript:;">ç§¯åè´¦æ·</a>
+                </li>
+                <li role="menuitemradio">
+                  <a name="g_href" data-type="3" data-href="index.html" data-redirect="Y" href="javascript:;">ç§¯ååæ¢</a>
+                </li>
+
+                <li role="menuitemradio">
+                  <a name="g_href" data-type="3" data-href="index.html" data-redirect="Y" href="javascript:;">ä¼åä¸äº«</a>
+                </li>
+                <li class="border-none item" role="menuitemradio">
+                  <a name="g_href" data-type="3" data-href="welcome.html" data-redirect="Y" href="javascript:;">ä¼åä¸­å¿</a>
+                </li>
+              </ul>
+            </div>
+          </div>
+        </li>
+        <li role="menuitem" id="J-zhanchefuwu" class="nav-item">
+          <a href="javascript:void(0) " class="nav-hd item" aria-expanded="true" aria-haspopup="true"
+            aria-controls="megamenu-6">ç«è½¦æå¡
+            <i class="icon icon-down"></i>
+          </a>
+          <div class="nav-bd" id="megamenu-6">
+            <div class="nav-bd-item nav-col4">
+              <ul class="nav-con" role="menu" aria-hidden="true">
+                <li role="menuitemradio">
+                  <a name="g_href" data-type="2" data-href="view/icentre_qxyyInfo.html" data-redirect="Y"
+                    href="javascript:;">éç¹æå®¢é¢çº¦</a>
+                </li>
+                <li role="menuitemradio">
+                  <a name="g_href" data-type="1" data-href="view/station/hand.html" data-redirect="Y"
+                    href="javascript:;">ä¾¿æ°æè¿</a>
+                </li>
+                <li role="menuitemradio">
+                  <a name="g_href" data-type="1" data-href="view/station/shared_Car.html" data-redirect="Y"
+                    href="javascript:;">çº¦è½¦æå¡</a>
+                </li>
+                <li role="menuitemradio">
+                  <a name="g_href" data-type="4" data-href="czyd_2143/" data-redirect="Y" href="javascript:;">è½¦ç«å¼å¯¼</a>
+                </li>
+                <li role="menuitemradio">
+                  <a name="g_href" data-type="2" data-href="view/icentre_lostInfo.html" data-redirect="Y"
+                    href="javascript:;">éå¤±ç©åæ¥æ¾</a>
+                </li>
+                <li role="menuitemradio">
+                  <a name="g_href" data-type="1" data-href="view/station/train_intro.html" data-redirect="Y"
+                    href="javascript:;">å¨è½¦ç»ä»ç»</a>
+                </li>
+                <li role="menuitemradio">
+                  <a name="g_href" data-type="1" data-href="view/station/custom_PickUp.html" data-redirect="Y"
+                    href="javascript:;">å®å¶æ¥é</a>
+                </li>
+                <li role="menuitemradio">
+                  <a name="g_href" data-type="4" data-href="zcfc_2548/" data-redirect="Y" href="javascript:;">ç«è½¦é£é</a>
+                </li>
+              </ul>
+            </div>
+            <!-- <div class="nav-bd-item ">
+          <ul class="nav-con ">
+            <li>
+              <a name="g_href" data-type="4" data-href="czyd_2143/" data-redirect="Y" href="javascript:;">è½¦ç«å¼å¯¼</a>
+            </li>
+            <li>
+              <a name="g_href" data-type="4" data-href="zcfc_2548/" data-redirect="Y" href="javascript:;">ç«è½¦é£é</a>
+            </li>
+          </ul>
+        </div> -->
+          </div>
+        </li>
+        <li role="menuitem" id="J-shanlvfuwu" class="nav-item">
+          <a href="javascript:void(0) " class="nav-hd item" aria-expanded="true" aria-haspopup="true"
+            aria-controls="megamenu-7">åææå¡
+            <i class="icon icon-down"></i>
+          </a>
+          <div class="nav-bd" id="megamenu-7">
+            <div class="nav-bd-item nav-col6">
+              <ul class="nav-con" role="menu" aria-hidden="true">
+                <li role="menuitemradio">
+                  <a name="g_href" data-type="10" data-href="index.html" data-redirect="Y" href="javascript:;">é¤é¥®â¢ç¹äº§</a>
+                </li>
+                <li role="menuitemradio">
+                  <a name="g_href" data-type="5" data-href="" data-redirect="Y" href="javascript:;">ææ¸¸</a>
+                </li>
+                <li role="menuitemradio">
+                  <a name="g_href" data-type="2" data-href="view/my_insurance.html" data-redirect="Y"
+                    href="javascript:;">ä¿é©</a>
+                </li>
+                <li class="border-none" role="menuitemradio">
+                  <a
+                  name="g_href"
+                  data-type="2"
+                  data-href="view/snow_checkedBaggage.html"
+                  data-redirect="Y"
+                  href="javascript:;"
+                  >éªå·å¿«è¿</a
+                  >
+              </li>
+              </ul>
+            </div>
+          </div>
+        </li>
+        <li role="menuitem" id="J-chuxingzhinan" class="nav-item">
+          <a href="javascript:void(0) " class="nav-hd item" aria-expanded="true" aria-haspopup="true"
+            aria-controls="megamenu-8">åºè¡æå
+            <i class="icon icon-down"></i>
+          </a>
+          <div class="nav-bd" aria-hidden="true" id="megamenu-8">
+            <div class="nav-bd-item nav-col2">
+              <h3 class="nav-tit">å¸¸è§é®é¢</h3>
+              <ul class="nav-con" role="menu">
+                <li role="menuitemradio">
+                  <a name="g_href" data-type="2" data-href="gonggao/ticketType.html" data-redirect="Y"
+                    href="javascript:;">è½¦ç¥¨</a>
+                </li>
+                <li role="menuitemradio">
+                  <a name="g_href" data-type="2" data-href="gonggao/ticketWindow.html" data-redirect="Y"
+                    href="javascript:;">è´­ç¥¨</a>
+                </li>
+                <li role="menuitemradio">
+                  <a name="g_href" data-type="2" data-href="gonggao/windowEndorse.html" data-redirect="Y"
+                    href="javascript:;">æ¹ç­¾</a>
+                </li>
+                <li role="menuitemradio">
+                  <a name="g_href" data-type="2" data-href="gonggao/windowRefund.html" data-redirect="Y"
+                    href="javascript:;">éç¥¨</a>
+                </li>
+                <li role="menuitemradio">
+                  <a name="g_href" data-type="2" data-href="gonggao/help.html" data-redirect="Y" href="javascript:;"
+                    class="txt-lighter" title="å¸¸è§é®é¢">æ´å¤>></a>
+                </li>
+                <li></li>
+              </ul>
+            </div>
+            <div class="nav-bd-item nav-col2">
+              <h3 class="nav-tit">æå®¢é¡»ç¥</h3>
+              <ul class="nav-con" role="menu" aria-hidden="true">
+                <li role="menuitemradio">
+                  <a name="g_href" data-type="2" data-href="gonggao/saleTicketMeans.html?linktypeid=means5"
+                    data-redirect="Y" href="javascript:;">èº«ä»½æ ¸éª</a>
+                </li>
+                <li role="menuitemradio">
+                  <a name="g_href" data-type="2" data-href="gonggao/help.html" data-redirect="Y" href="javascript:;"
+                    class="txt-lighter">æ´å¤>></a>
+                </li>
+                <li></li>
+              </ul>
+            </div>
+            <div class="nav-bd-item nav-col2">
+              <h3 class="nav-tit border-none">ç¸å³ç« ç¨</h3>
+              <ul class="nav-con" role="menu" aria-hidden="true">
+                <li role="menuitemradio">
+                  <a name="g_href" data-type="2" data-href="gonggao/saleTicketMeans.html?linktypeid=means2"
+                    data-redirect="Y" href="javascript:;">éè·¯æå®¢è¿è¾è§ç¨</a>
+                </li>
+                <li class="border-none item" role="menuitemradio">
+                  <a name="g_href" data-type="2" data-href="gonggao/saleTicketMeans.html?linktypeid=means7"
+                    data-redirect="Y" href="javascript:;">å¹¿æ·±æ¸¯é«ééè·¯è·¨å¢æå®¢è¿è¾ç»ç»è§å</a>
+                </li>
+                <li style="text-overflow: ellipsis; white-space: nowrap" role="menuitemradio">
+                  <a name="g_href" data-type="2" data-href="gonggao/saleTicketMeans.html?linktypeid=means6"
+                    data-redirect="Y" href="javascript:;">éè·¯æå®¢ç¦æ­¢ãéå¶æºå¸¦åæè¿ç©åç®å½</a>
+                </li>
+                <li role="menuitemradio">
+                  <a name="g_href" data-type="2" data-href="gonggao/help.html" data-redirect="Y" href="javascript:;"
+                    class="txt-lighter">æ´å¤>></a>
+                </li>
+                <li></li>
+              </ul>
+            </div>
+          </div>
+        </li>
+        <li role="menuitem" id="J-xinxichaxun" class="nav-item last">
+          <a href="javascript:void(0) " class="nav-hd item" aria-expanded="true" aria-haspopup="true"
+            aria-controls="megamenu-9">ä¿¡æ¯æ¥è¯¢
+            <i class="icon icon-down"></i>
+          </a>
+          <div class="nav-bd" id="megamenu-9">
+            <div class="nav-bd-item nav-col5">
+              <h3 class="nav-tit border-none">å¸¸ç¨æ¥è¯¢</h3>
+              <ul class="nav-con" role="menu" aria-hidden="true">
+                <li role="menuitemradio">
+                  <a name="g_href" data-type="2" data-href="zwdch/init" data-redirect="Y" href="javascript:;">æ­£æç¹</a>
+                </li>
+                <li role="menuitemradio">
+                  <a name="g_href" data-type="2" data-href="queryTrainInfo/init" data-redirect="Y"
+                    href="javascript:;">æ¶å»è¡¨</a>
+                </li>
+                <li role="menuitemradio">
+                  <a name="g_href" data-type="2" data-href="leftTicketPrice/initPublicPrice" data-redirect="Y"
+                    href="javascript:;">å¬å¸ç¥¨ä»·</a>
+                </li>
+                <li role="menuitemradio">
+                  <a name="g_href" data-type="1" data-href="view/infos/ticket_check.html" data-redirect="Y"
+                    href="javascript:;">æ£ç¥¨å£</a>
+                </li>
+                <li role="menuitemradio">
+                  <a name="g_href" data-type="1" data-href="view/infos/sale_time.html" data-redirect="Y"
+                    href="javascript:;">èµ·å®æ¶é´</a>
+                </li>
+                <li role="menuitemradio">
+                  <a name="g_href" data-href="https://12306.weather.com.cn/pc.html" data-redirect="N"
+                    href="javascript:;" data-target="_blank">å¤©æ°</a>
+                </li>
+                <li role="menuitemradio">
+                  <a name="g_href" data-type="1" data-href="view/infos/jiaotong.html" data-redirect="Y"
+                    href="javascript:;">äº¤éæ¥è¯¢</a>
+                </li>
+                <li role="menuitemradio">
+                  <a name="g_href" data-type="2" data-href="queryAgencySellTicket/init" data-redirect="Y"
+                    href="javascript:;">ä»£å®ç¹</a>
+                </li>
+                <li role="menuitemradio">
+                  <a name="g_href" data-type="1" data-href="view/infos/service_number.html" data-redirect="Y"
+                    href="javascript:;">å®¢æçµè¯</a>
+                </li>
+                <li role="menuitemradio">
+                  <a name="g_href" data-type="1" data-href="view/infos/train-query-status.html" data-redirect="Y"
+                    href="javascript:;">åè½¦ç¶æ
+                  </a>
+                </li>
+              </ul>
+            </div>
+            <div class="nav-bd-item">
+              <ul class="nav-con nav-con-pt" role="menu" aria-hidden="true">
+                <li class="border-none item" role="menuitemradio">
+                  <a name="g_href" data-type="1" data-href="index.html#index_ads" data-redirect="Y"
+                    href="javascript:;">ææ°åå¸</a>
+                </li>
+                <li class="border-none item" role="menuitemradio">
+                  <a name="g_href" data-type="6" data-href="queryDishonest/init" data-redirect="Y"
+                    href="javascript:;">ä¿¡ç¨ä¿¡æ¯</a>
+                </li>
+              </ul>
+            </div>
+          </div>
+        </li>
+      </ul>
+    </div>
+  </div>
+  <!-- æç´¢è½®æ­å¾ -->
+  <div class="section-first">
+    <!-- è½®æ­å¾ -->
+    <div class="fullSlide">
+      <div class="bd">
+        <ul class="sowingMap">
+        </ul>
+      </div>
+      <div class="hd">
+        <ul></ul>
+      </div>
+    </div>
+    <!-- æ¥è¯¢æ¡ -->
+    <div class="search-index">
+      <!-- å·¦ä¾§èå -->
+      <ul class="search-side">
+        <li class="active">
+          <a href="javascript:void(0)">
+            <i class="icon icon-huochepiao"></i>è½¦ç¥¨</a>
+        </li>
+        <li>
+          <a href="javascript:void(0)">
+            <i class="icon icon-cycx"></i>å¸¸ç¨æ¥è¯¢</a>
+        </li>
+        <li>
+          <a href="javascript:void(0)">
+            <i class="icon icon-dingcan"></i>è®¢é¤</a>
+        </li>
+      </ul>
+      <!-- å³ä¾§åå®¹ -->
+      <div class="search-main">
+        <!-- è½¦ç¥¨æ¥è¯¢ -->
+        <div class="search-main-item" style="display: block">
+          <div class="search-main-tab">
+            <div class="search-tab-hd">
+              <ul>
+                <li class="active">
+                  <a href="javascript:void(0)">
+                    <i class="icon icon-dancheng"></i>åç¨</a>
+                </li>
+                <li>
+                  <a href="javascript:void(0)">
+                    <i class="icon icon-wangfan"></i>å¾è¿</a>
+                </li>
+                <li>
+                  <a href="javascript:void(0)">
+                    <i class="icon icon-huancheng"></i>ä¸­è½¬æ¢ä¹</a>
+                </li>
+                <li>
+                  <a href="javascript:void(0)">
+                    <i class="icon icon-chepiao"></i>éæ¹ç­¾</a>
+                </li>
+              </ul>
+            </div>
+            <div class="search-tab-bd">
+              <!-- åç¨ -->
+              <div class="search-tab-item" style="display: block;">
+                <div class="search-form">
+                  <div class="form-item-group">
+                    <div class="form-item">
+                      <label for="fromStationText" class="form-label">åºåå°</label>
+                      <div class="form-bd">
+                        <div class="input-box input-city">
+                          <input id="fromStation" type="hidden" value="" name="from_station" />
+                          <input type="text" class="input " value="" id="fromStationText"
+                            aria-label="è¯·è¾å¥æéæ©åºåå°ï¼æé®çä¸ä¸é®è¿è¡éæ©ï¼æåè½¦é®éä¸­" autocomplete="off">
+                          <i class="icon icon-place" data-click='fromStationText'></i>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="form-item">
+                      <label for="toStationText" class="form-label">å°è¾¾å°</label>
+                      <div class="form-bd">
+                        <div class="input-box input-city">
+                          <input id="toStation" type="hidden" value="" name="to_station" />
+                          <input type="text" class="input" value="" id="toStationText"
+                            aria-label="è¯·è¾å¥æéæ©å°è¾¾å°ï¼æé®çä¸ä¸é®è¿è¡éæ©ï¼æåè½¦é®éä¸­" autocomplete="off">
+                          <i class="icon icon-place" data-click='toStationText'></i>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="city-change">
+                      <i class="icon icon-qiehuan" title="åæ¢" id="danChange"></i>
+                    </div>
+                  </div>
+                  <div class="form-item">
+                    <label for="train_date" class="form-label">åºåæ¥æ</label>
+                    <div class="form-bd">
+                      <div class="input-box input-data">
+                        <input type="text" class="input" id="train_date"
+                          aria-label="è¯·è¾å¥æ¥æï¼ä¾å¦2021æ 01æ 01" autocomplete="off">
+                        <i class="icon icon-date" data-click='train_date'></i>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="form-item form-item-check">
+                    <div class="form-bd">
+                      <ul class="check-list check-list-right">
+                        <li id="isStudentDan">å­¦ç
+                          <i></i>
+                        </li>
+                        <li id="isHighDan">é«é/å¨è½¦
+                          <i></i>
+                        </li>
+                      </ul>
+                    </div>
+                  </div>
+                  <div class="form-item form-item-btn">
+                    <a href="javascript:void(0)" class="btn btn-primary form-block"
+                      id="search_one">æ¥&nbsp;&nbsp;&nbsp;&nbsp;è¯¢</a>
+                  </div>
+                </div>
+                <style>
+                  .history-list-wrap {
+                    white-space: nowrap;
+                    margin: 0 auto;
+                    overflow: hidden;
+                    white-space: nowrap;
+                  }
+
+                  .history-list {
+                    display: inline;
+                  }
+
+                  .history-list li {
+                    display: inline;
+                  }
+                </style>
+                <div id="search-history">
+                  <div class="search-history-bd">
+                    <i id="iconLeftHos" class="history-prev icon icon-caret-left"></i>
+                    <i id="iconRightHos" class="history-next icon icon-caret-right"></i>
+                    <div class="history-list-wrap">
+
+                      <ul class="history-list" id="history_ul" style="position: relative;">
+
+                      </ul>
+
+
+                    </div>
+                  </div>
+                  <div class="search-history-btn">
+                    <a href="javascript:void(0)">å é¤åå²</a>
+                  </div>
+                </div>
+              </div>
+              <!-- å¾è¿ -->
+              <div class="search-tab-item">
+                <div class="search-form">
+                  <div class="form-item-group">
+                    <div class="form-item">
+                      <label for="fromStationFanText" class="form-label">åºåå°</label>
+                      <div class="form-bd">
+                        <div class="input-box input-city">
+                          <input id="fromStationFan" type="hidden" value="" name="from_station_fan" />
+                          <input type="text" class="input" value="" id="fromStationFanText" autocomplete="off"
+                            aria-label="è¯·è¾å¥æéæ©åºåå°ï¼æé®çä¸ä¸é®è¿è¡éæ©ï¼æåè½¦é®éä¸­">
+                          <i class="icon icon-place" data-click='fromStationFanText'></i>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="form-item">
+                      <label for="toStationFanText" class="form-label">å°è¾¾å°</label>
+                      <div class="form-bd">
+                        <div class="input-box input-city">
+                          <input id="toStationFan" type="hidden" value="" name="to_station_fan" />
+                          <input type="text" class="input" value="" id="toStationFanText" autocomplete="off"
+                            aria-label="è¯·è¾å¥æéæ©å°è¾¾å°ï¼æé®çä¸ä¸é®è¿è¡éæ©ï¼æåè½¦é®éä¸­">
+                          <i class="icon icon-place" data-click='toStationFanText'></i>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="city-change">
+                      <i class="icon icon-qiehuan" title="åæ¢" id="returnChange"></i>
+                    </div>
+                  </div>
+                  <div class="form-item">
+                    <label for="go_date" class="form-label">åºåæ¥æ</label>
+                    <div class="form-bd">
+                      <div class="input-box input-data">
+                        <input type="text" class="input" value="" id="go_date" aria-label="è¯·è¾å¥æ¥æï¼ä¾å¦2021æ 01æ 01">
+                        <i class="icon icon-date" data-click='go_date'></i>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="form-item">
+                    <label for="from_date" class="form-label">è¿ç¨æ¥æ</label>
+                    <div class="form-bd">
+                      <div class="input-box input-data">
+                        <input type="text" class="input" value="" id="from_date" aria-label="è¯·è¾å¥æ¥æï¼ä¾å¦2021æ 01æ 01">
+                        <i class="icon icon-date" data-click='from_date'></i>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="form-item form-item-check">
+                    <div class="form-bd">
+                      <ul class="check-list check-list-right">
+                        <li id="isStudent">å­¦ç
+                          <i></i>
+                        </li>
+                        <li id="isHigh">é«é/å¨è½¦
+                          <i></i>
+                        </li>
+                      </ul>
+                    </div>
+                  </div>
+                  <div class="form-item form-item-btn">
+                    <a href="javascript:void(0)" class="btn btn-primary form-block"
+                      id="search_two">æ¥&nbsp;&nbsp;&nbsp;&nbsp;è¯¢</a>
+                  </div>
+                </div>
+              </div>
+              <!-- æ¥ç»­æ¢ä¹ -->
+              <div class="search-tab-item">
+                <div class="search-form">
+                  <div class="form-item-group">
+                    <div class="form-item">
+                      <label for="fromStationSerialText" class="form-label">
+                        <b class="required">*</b>åºåå°</label>
+                      <div class="form-bd">
+                        <div class="input-box input-city">
+                          <input id="fromStationSerial" type="hidden" value="" name="from_station_serial" />
+                          <input type="text" class="input" value="" id="fromStationSerialText" autocomplete="off"
+                            aria-label="è¯·è¾å¥æéæ©åºåå°ï¼æé®çä¸ä¸é®è¿è¡éæ©ï¼æåè½¦é®éä¸­">
+                          <i class="icon icon-place" data-click='fromStationSerialText'></i>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="form-item">
+                      <label for="toStationSerialText" class="form-label">
+                        <b class="required">*</b>å°è¾¾å°</label>
+                      <div class="form-bd">
+                        <div class="input-box input-city">
+                          <input id="toStationSerial" type="hidden" value="" name="to_station_serial" />
+                          <input type="text" class="input" value="" id="toStationSerialText" autocomplete="off"
+                            aria-label="è¯·è¾å¥æéæ©å°è¾¾å°ï¼æé®çä¸ä¸é®è¿è¡éæ©ï¼æåè½¦é®éä¸­">
+                          <i class="icon icon-place" data-click='toStationSerialText'></i>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="city-change">
+                      <i class="icon icon-qiehuan" title="åæ¢" id="serialChange"></i>
+                    </div>
+                  </div>
+                  <div class="form-item">
+                    <label for="serial_date" class="form-label">
+                      <b class="required">*</b>ä¹è½¦æ¥æ</label>
+                    <div class="form-bd">
+                      <div class="input-box input-data">
+                        <input type="text" class="input" id="serial_date"
+                          aria-label="è¯·è¾å¥æ¥æï¼ä¾å¦2021æ 01æ 01">
+                        <i class="icon icon-date" data-click='serial_date'></i>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="form-item form-item-check">
+                    <div class="form-bd">
+                      <ul class="check-list check-list-right">
+                        <li id="isStudentLian">å­¦ç
+                          <i></i>
+                        </li>
+                      </ul>
+                    </div>
+                  </div>
+                  <div class="form-item form-item-btn">
+                    <a href="javascript:void(0)" class="btn btn-primary form-block"
+                      id="search_three">æ¥&nbsp;&nbsp;&nbsp;&nbsp;è¯¢</a>
+                  </div>
+                </div>
+              </div>
+              <!-- éæ¹ç­¾ -->
+              <div class="search-tab-item">
+                <div class="search-form">
+                  <div class="form-item">
+                    <span class="form-label">æ¥è¯¢ç±»å</span>
+                    <div class="form-bd">
+                      <ul class="radio-list radio-list-ding">
+                        <li class="active" id="dingqiaoID">
+                          <i></i>è®¢ç¥¨æ¥æ
+                        </li>
+                        <li>
+                          <i></i>ä¹è½¦æ¥æ
+                        </li>
+                      </ul>
+                    </div>
+                  </div>
+                  <div class="form-item">
+                    <label for="refund_start" class="form-label">
+                      <b class="required">*</b>å¼å§æ¥æ</label>
+                    <div class="form-bd">
+                      <div class="input-box input-data">
+                        <input type="text" class="input" value="" id="refund_start" aria-label="è¯·è¾å¥æ¥æï¼ä¾å¦2021æ 01æ 01">
+                        <i class="icon icon-date" data-click='refund_start'></i>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="form-item">
+                    <label for="" class="form-label">
+                      <b class="required">*</b>ç»ææ¥æ</label>
+                    <div class="form-bd">
+                      <div class="input-box input-data">
+                        <input type="text" class="input" value="" id="refund_end" aria-label="è¯·è¾å¥æ¥æï¼ä¾å¦2021æ 01æ 01">
+                        <i class="icon icon-date" data-click='refund_end'></i>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="form-item">
+                    <label for="refund_code" class="form-label">
+                      <b class="required"></b>å³é®å­</label>
+                    <div class="form-bd">
+                      <div class="input-box">
+                        <input type="text" class="input search-input" placeholder="è®¢åå·/è½¦æ¬¡/ä¹å®¢å§å" id="refund_code">
+                      </div>
+                    </div>
+                  </div>
+                  <div class="form-item form-item-btn mt-mlg">
+                    <a href="javascript:;" class="btn btn-primary form-block"
+                      id="refund_button">æ¥&nbsp;&nbsp;&nbsp;&nbsp;è¯¢</a>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <!-- å¸¸ç¨æ¥è¯¢ -->
+        <div class="search-main-item">
+          <div class="search-main-tab">
+            <div class="search-tab-hd">
+              <ul>
+                <li class="active">
+                  <a href="javascript:void(0)">
+                    <i class="icon icon-shijian"></i>æ­£æç¹</a>
+                </li>
+                <li>
+                  <a href="javascript:void(0)">
+                    <i class="icon icon-jianpiaokou"></i>æ£ç¥¨å£</a>
+                </li>
+                <li>
+                  <a href="javascript:void(0)">
+                    <i class="icon icon-qishou"></i>èµ·å®æ¶é´</a>
+                </li>
+                <li>
+                  <a href="javascript:void(0)">
+                    <i class="icon icon-tianqi"></i>å¤©æ°æ¥è¯¢</a>
+                </li>
+              </ul>
+            </div>
+            <div class="search-tab-bd">
+              <!-- æ­£æç¹ -->
+              <div class="search-tab-item" style="display: block;">
+                <div class="search-form">
+                  <div class="form-item">
+                    <span class="form-label">æ¥è¯¢ç±»å</span>
+                    <div class="form-bd">
+                      <ul class="radio-list radio-list-station">
+                        <li zwd="0" name="zwd_type" class="active" id="destination_station">
+                          <i></i>å°è¾¾ç«
+                        </li>
+                        <li zwd="1" name="zwd_type">
+                          <i></i>åºåç«
+                        </li>
+                      </ul>
+                    </div>
+                  </div>
+                  <div class="form-item">
+                    <label for="stationValue" class="form-label">è½¦ç«</label>
+                    <div class="form-bd">
+                      <div class="input-box">
+                        <input id="stationValue" type="hidden" value="" name="stationValue" />
+                        <input type="text" class="input" value="" placeholder="ç®æ¼ï¼å¨æ¼ï¼æ±å­" id="stationValueText"
+                          autocomplete="off" aria-label="è¯·è¾å¥æéæ©è½¦ç«ï¼æé®çä¸ä¸é®è¿è¡éæ©ï¼æåè½¦é®éä¸­">
+                      </div>
+                    </div>
+                  </div>
+                  <div class="form-item">
+                    <label for="numberValue" class="form-label">è½¦æ¬¡</label>
+                    <div class="form-bd">
+                      <div class="input-box late_poit">
+                        <input type="text" class="input" placeholder="è¯·è¾å¥è½¦æ¬¡" id="numberValue" value=""
+                          autocomplete="off">
+                        <ul class="active" name="makeupCoSe" id="train_hide" style="width:270px;z-index: 1;">
+                        </ul>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="form-item form-item-btn mt-mlg">
+                    <a href="javascript:void(0)" class="btn btn-primary form-block"
+                      id="bie_button">æ¥&nbsp;&nbsp;&nbsp;&nbsp;è¯¢</a>
+                  </div>
+                </div>
+              </div>
+              <!-- æ£ç¥¨å£ -->
+              <div class="search-tab-item">
+                <div class="search-form">
+                  <div class="form-item">
+                    <label for="check_in" class="form-label">
+                      <b class="required">*</b>ä¹è½¦æ¥æ</label>
+                    <div class="form-bd">
+                      <div class="input-box input-data">
+                        <input type="text" class="input" id="check_in"
+                          aria-label="è¯·è¾å¥æ¥æï¼ä¾å¦2021æ 01æ 01">
+                        <i class="icon icon-date" data-click='check_in'></i>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="form-item">
+                    <label for="train_num" class="form-label">
+                      <b class="required">*</b>è½¦æ¬¡</label>
+                    <div class="form-bd">
+                      <div class="input-box">
+                        <input type="text" class="input search-input" data-provide="typeahead" placeholder="è¯·è¾å¥è½¦æ¬¡"
+                          data-items="4" autocomplete="off" id="train_num" style="text-transform:uppercase;">
+                        <input class="input" type="hidden" id="topicId">
+                      </div>
+                    </div>
+                  </div>
+                  <div class="form-item">
+                    <label for="ticketEntranceSel" class="form-label">
+                      <b class="required">*</b>ä¹è½¦ç«</label>
+
+                    <div class="form-bd">
+                      <div class="input-box">
+                        <div class="model-select-box">
+                          <div class="model-select-text " data-value="" id="ticketEntranceSel" tabindex="0">è¯·éæ©è½¦ç«
+                          </div>
+                          <div class="station-loading" id="station_loading" style="display: none">
+                            <img src="images/loading.gif" alt="">
+                          </div>
+                          <ul class="model-select-option train_hide" id="check_model_select" style="display: none">
+                          </ul>
+                          <input type="hidden" class="selected-input" data-value="" name="cityID" value=""
+                            id="selected_input">
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="form-item form-item-btn mt-mlg">
+                    <a href="javascript:;" class="btn btn-primary form-block"
+                      id="check_button">æ¥&nbsp;&nbsp;&nbsp;&nbsp;è¯¢</a>
+                  </div>
+                </div>
+              </div>
+              <!-- èµ·å®æ¶é´ -->
+              <div class="search-tab-item">
+                <div class="search-form">
+                  <div class="form-item">
+                    <label for="sale_time" class="form-label">
+                      <b class="required">*</b>èµ·å®æ¥æ</label>
+                    <div class="form-bd">
+                      <div class="input-box input-data">
+                        <input type="text" class="input" value="" id="sale_time" aria-label="è¯·è¾å¥æ¥æï¼ä¾å¦2021æ 01æ 01">
+                        <i class="icon icon-date" data-click='sale_time'></i>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="form-item">
+                    <label for="start_sell" class="form-label">
+                      <b class="required">*</b>èµ·å®è½¦ç«</label>
+                    <div class="form-bd">
+                      <div class="input-box">
+                        <input id="start_sell" type="hidden" value="" name="start_sell" />
+                        <input type="text" class="input" value="" id="start_sellText" autocomplete="off"
+                          aria-label="è¯·è¾å¥æéæ©èµ·å®è½¦ç«ï¼æé®çä¸ä¸é®è¿è¡éæ©ï¼æåè½¦é®éä¸­">
+                      </div>
+                    </div>
+                  </div>
+                  <div class="form-item form-item-btn mt-mlg">
+                    <a href="javascript:void(0)" class="btn btn-primary form-block"
+                      id="sell_button">æ¥&nbsp;&nbsp;&nbsp;&nbsp;è¯¢</a>
+                  </div>
+                </div>
+              </div>
+              <!-- å¤©æ°æ¥è¯¢ -->
+              <div class="search-tab-item">
+                <div class="search-form">
+                  <div class="form-item">
+                    <label for="destinationText" class="form-label">
+                      <b class="required">*</b>ç®çå°</label>
+                    <div class="form-bd">
+                      <div class="input-box">
+                        <input id="destination" type="hidden" value="" name="destination" />
+                        <input type="text" class="input" value="" id="destinationText" placeholder="ç®æ¼ï¼å¨æ¼ï¼æ±å­"
+                          autocomplete="off" aria-label="è¯·è¾å¥æéæ©æ¥è¯¢å¤©æ°çç®çå°ï¼æé®çä¸ä¸é®è¿è¡éæ©ï¼æåè½¦é®éä¸­">
+                      </div>
+                    </div>
+                  </div>
+                  <div class="form-item form-item-btn mt-mlg">
+                    <a href="javascript:void(0)" class="btn btn-primary form-block"
+                      id="weather_button">æ¥&nbsp;&nbsp;&nbsp;&nbsp;è¯¢</a>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <!-- è®¢é¤ -->
+        <div class="search-main-item">
+          <div class="search-main-tab">
+            <div class="search-tab-hd">
+              <ul>
+                <li class="active" style="width: 50%">
+                  <a href="javascript:;">
+                    <i class="icon icon-shijian"></i>é¢è®¢</a>
+                </li>
+                <li style="width: 50%">
+                  <a name="g_href" data-type="10" data-href="queryMyOrder.html" data-redirect="Y" href="javascript:;"><i
+                      class="icon icon-jianpiaokou"></i>é¤é¥®è®¢å</a>
+                </li>
+              </ul>
+            </div>
+            <div class="search-tab-bd">
+              <!-- è®¢é¤ -->
+              <div class="search-tab-item dinner-yuding" style="display: block;">
+                <div class="search-form">
+                  <div class="form-item">
+                    <label for="dinner_date" class="form-label">åºåæ¥æ</label>
+                    <div class="form-bd">
+                      <div class="input-box input-data">
+                        <input type="text" class="input" id="dinner_date"
+                          aria-label="è¯·è¾å¥æ¥æï¼ä¾å¦2021æ 01æ 01">
+                        <i class="icon icon-date" data-click='dinner_date'></i>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="form-item">
+                    <label for="dinner_sub_mun" class="form-label">åºåè½¦æ¬¡</label>
+                    <div class="form-bd">
+                      <div class="input-box">
+                        <input type="text" class="input search-input" data-provide="typeahead"
+                          placeholder="ä»æ¯æGãDå­å¤´çå¨è½¦ç»åè½¦" data-items="4" autocomplete="off" id="dinner_sub_mun"
+                          style="text-transform:uppercase;">
+                        <input class="input" type="hidden" id="dinner_sub_code">
+                      </div>
+                    </div>
+                  </div>
+                  <div class="form-item form-item-btn mt-mlg dinner-search">
+                    <a href="javascript:void(0)" class="btn btn-primary form-block"
+                      id="search_four">æ¥&nbsp;&nbsp;&nbsp;&nbsp;è¯¢</a>
+                  </div>
+                </div>
+              </div>
+              <!-- <div class="search-tab-item"></div> -->
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="wrapper">
+    <!-- æå¡ -->
+    <ul class="service-list">
+      <li style="display: none">
+        <a name="g_href" data-type="1" data-href="view/station/custom_PickUp.html" data-redirect="Y"
+          href="javascript:;">
+          <i class="service-icon ico-s1"></i>
+          <div>æ¥éç«</div>
+        </a>
+      </li>
+      <li>
+        <a name="g_href" data-type="2" data-href="view/icentre_qxyyInfo.html" data-redirect="Y" href="javascript:;">
+          <i class="service-icon ico-s2"></i>
+          <div>éç¹æå®¢é¢çº¦</div>
+        </a>
+      </li>
+      <li>
+        <a name="g_href" data-type="2" data-href="view/icentre_lostInfo.html" data-redirect="Y" href="javascript:;">
+          <i class="service-icon ico-s6"></i>
+          <div>éå¤±ç©åæ¥æ¾</div>
+        </a>
+      </li>
+      <li>
+        <a name="g_href" data-type="1" data-href="view/station/shared_Car.html" data-redirect="Y" href="javascript:;">
+          <i class="service-icon ico-s4"></i>
+          <div>çº¦è½¦æå¡</div>
+        </a>
+      </li>
+      <li>
+        <a name="g_href" data-type="1" data-href="view/station/hand.html" data-redirect="Y" href="javascript:;">
+          <i class="service-icon ico-s5"></i>
+          <div>ä¾¿æ°æè¿</div>
+        </a>
+      </li>
+      <li>
+        <a name="g_href" data-type="4" data-href="czyd_2143/" data-redirect="Y" href="javascript:;">
+          <i class="service-icon ico-s3"></i>
+          <div>è½¦ç«å¼å¯¼</div>
+        </a>
+      </li>
+      <li>
+        <a name="g_href" data-type="4" data-href="zcfc_2548/" data-redirect="Y" href="javascript:;">
+          <i class="service-icon ico-s7"></i>
+          <div>ç«è½¦é£é</div>
+        </a>
+      </li>
+      <li class="last">
+        <a name="g_href" data-type="2" data-href="view/advice_adviceInfo.html" data-redirect="Y" href="javascript:;">
+          <i class="service-icon ico-s9"></i>
+          <div>ç¨æ·åé¦</div>
+        </a>
+      </li>
+    </ul>
+    <!-- æå¡åè¡¨-å¤§å¾ -->
+    <div class="service-lg">
+      <ul id="g-service-lg-list" class="service-lg-list">
+
+      </ul>
+    </div>
+    <!-- æå¡åè¡¨-å°å¾ -->
+    <div class="service-sm" style="display: none;">
+      <ul class="service-sm-list">
+      </ul>
+    </div>
+    <!-- ææ¸¸ -->
+    <div class="section">
+      <div class="section-hd">
+        <h3 class="section-tit">éè·¯ææ¸¸</h3>
+        <a name="g_href" data-type="5" data-href="" data-redirect="Y" href="javascript:;" class="more">æ´å¤></a>
+      </div>
+      <div class="travel-train">
+        <div class="box-loading" style="height: 508px;">
+          <img src="images/loading4.gif">
+        </div>
+        <ul class="travel-train-list" style="display: none;">
+        </ul>
+      </div>
+    </div>
+    <!-- æ°é» -->
+    <div class="news-tab">
+      <div class="tab-hd">
+        <ul class="lists">
+          <li class="active">
+            <a id="index_ads" name="index_ads" href="javascript:void(0)">ææ°åå¸</a>
+          </li>
+          <li>
+            <a href="javascript:void(0)">å¸¸è§é®é¢</a>
+          </li>
+          <li>
+            <a href="javascript:void(0)">ä¿¡ç¨ä¿¡æ¯</a>
+          </li>
+        </ul>
+      </div>
+      <div class="tab-bd">
+        <!-- å¬å -->
+        <div class="tab-item" style="display: block;">
+          <div class="news-index">
+            <ul class="news-index-list state">
+            </ul>
+            <div class="news-more">
+              <a name="g_href" data-type="4" data-href="zxdt/index_zxdt.html" data-redirect="Y" href="javascript:;"
+                data-target="_blank">æ´å¤></a>
+            </div>
+          </div>
+        </div>
+        <!-- å¸¸è§é®é¢ -->
+        <div class="tab-item">
+          <div class="news-index">
+            <ul class="news-index-list question">
+              <li>
+                <a name="g_href" data-type="2" data-href="gonggao/realNameTicket.html" data-redirect="Y"
+                  data-target="_blank" href="javascript:;" class="news-tit">å®åå¶è½¦ç¥¨</a>
+              </li>
+              <li>
+                <a name="g_href" data-type="2" data-href="gonggao/ticketWindow.html" data-redirect="Y"
+                  data-target="_blank" href="javascript:;" class="news-tit">å®ç¥¨çªå£è´­ç¥¨</a>
+              </li>
+              <li>
+                <a name="g_href" data-type="2" data-href="gonggao/onlineBooking.html" data-redirect="Y"
+                  data-target="_blank" href="javascript:;" class="news-tit">äºèç½è´­ç¥¨</a>
+              </li>
+              <li>
+                <a name="g_href" data-type="2" data-href="gonggao/onlineRefund.html" data-redirect="Y"
+                  data-target="_blank" href="javascript:;" class="news-tit">äºèç½éç¥¨</a>
+              </li>
+              <li>
+                <a name="g_href" data-type="2" data-href="gonggao/luggage.html" data-redirect="Y" data-target="_blank"
+                  href="javascript:;" class="news-tit">éèº«æºå¸¦å</a>
+              </li>
+              <li>
+                <a name="g_href" data-type="2" data-href="gonggao/enterAndExit.html" data-redirect="Y"
+                  data-target="_blank" href="javascript:;" class="news-tit">è¿åºç«</a>
+              </li>
+              <li>
+                <a name="g_href" data-type="2" data-href="gonggao/ticketLost.html" data-redirect="Y"
+                  data-target="_blank" href="javascript:;" class="news-tit">ä¸¢å¤±è´­ç¥¨æ¶ä½¿ç¨çææèº«ä»½è¯ä»¶</a>
+              </li>
+              <li>
+                <a name="g_href" data-type="2" data-href="gonggao/sgc.html" data-redirect="Y" data-target="_blank"
+                  href="javascript:;" class="news-tit">ä½¿ç¨å±æ°èº«ä»½è¯ç´æ¥æ£ç¥¨ä¹è½¦</a>
+              </li>
+              <li>
+                <a name="g_href" data-type="2" data-href="gonggao/gsgcp.html" data-redirect="Y" data-target="_blank"
+                  href="javascript:;" class="news-tit">å¹¿æ·±æ¸¯è·¨å¢åè½¦</a>
+              </li>
+            </ul>
+            <div class="news-more">
+              <a name="g_href" data-type="2" data-href="gonggao/help.html" data-redirect="Y" href="javascript:;">æ´å¤></a>
+            </div>
+          </div>
+        </div>
+        <!-- ä¿¡ç¨ä¿¡æ¯ -->
+        <div class="tab-item">
+          <div class="discredit-list-box">
+            <dl class="discredit-list pull-left">
+              <dt>
+                <i class="icon icon-shixin01"></i>å¤±ä¿¡è¢«æ§è¡äºº(èªç¶äºº)å¬ç¤º
+              </dt>
+              <div style="height: 128px;overflow: hidden" class="demo">
+                <div class="dd_left"></div>
+              </div>
+              <dd class="more">
+                <a name="g_href" data-type="6" data-href="queryDishonest/init" data-redirect="Y" data-target="_blank"
+                  href="javascript:;">æ´å¤></a>
+              </dd>
+            </dl>
+            <dl class="discredit-list pull-right">
+              <dt>
+                <i class="icon icon-shixin02"></i>å¤±ä¿¡å·²æ§è¡äºº(èªç¶äºº)å¬å¸
+              </dt>
+              <div style="height: 128px;overflow: hidden" class="demo1">
+                <div class="dd_right"></div>
+              </div>
+              <dd class="more">
+                <a name="g_href" data-type="6" data-href="queryDishonest/init" data-redirect="Y" data-target="_blank"
+                  href="javascript:;">æ´å¤></a>
+              </dd>
+            </dl>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!-- åºé¨ -->
+
+  <div class="footer">
+    <div class="footer-con wrapper">
+      <div class="foot-links" style="margin-right: 20px">
+        <h2 class="foot-con-tit">åæé¾æ¥</h2>
+        <ul class="foot-links-list" role="menubar">
+          <li role="menuitem">
+            <a name="g_href" title="ä¸­å½å½å®¶éè·¯éå¢æéå¬å¸" data-href="http://www.china-railway.com.cn/" data-redirect="N"
+              href="javascript:;" data-target="_blank">
+              <img src="./images/link05.png" alt="ä¸­å½å½å®¶éè·¯éå¢æéå¬å¸" />
+            </a>
+          </li>
+          <li role="menuitem">
+            <a name="g_href" title="ä¸­å½éè·¯è´¢äº§ä¿é©èªä¿æéå¬å¸" data-href="http://www.china-ric.com/" data-redirect="N"
+              href="javascript:;" data-target="_blank">
+              <img src="./images/link02.png" alt="ä¸­å½éè·¯è´¢äº§ä¿é©èªä¿æéå¬å¸" />
+            </a>
+          </li>
+          <li role="menuitem">
+            <a name="g_href" title="ä¸­å½éè·¯95306ç½" data-href="http://www.95306.cn/" data-redirect="N" href="javascript:;"
+              data-target="_blank">
+              <img src="./images/link03.png" alt="ä¸­å½éè·¯95306ç½" />
+            </a>
+          </li>
+          <li role="menuitem">
+            <a name="g_href" title="ä¸­éå¿«è¿è¡ä»½æéå¬å¸" data-href="http://www.95572.com/" data-redirect="N" href="javascript:;"
+              data-target="_blank">
+              <img src="./images/link04.png" alt="ä¸­éå¿«è¿è¡ä»½æéå¬å¸" />
+            </a>
+          </li>
+        </ul>
+      </div>
+      <ul class="foot-code">
+        <li style="width: 140px">
+          <h2 class="foot-con-tit">ä¸­å½éè·¯å®æ¹å¾®ä¿¡</h2>
+          <div class="code-pic">
+            <img src="./images/zgtlwb.png" alt="ä¸­å½éè·¯å®æ¹å¾®ä¿¡" />
+          </div>
+        </li>
+        <li style="width: 140px">
+          <h2 class="foot-con-tit">ä¸­å½éè·¯å®æ¹å¾®å</h2>
+          <div class="code-pic">
+            <img src="./images/zgtlwx.png" alt="ä¸­å½éè·¯å®æ¹å¾®å" />
+          </div>
+        </li>
+        <li style="width: 110px">
+          <h2 class="foot-con-tit">12306 å¬ä¼å·</h2>
+          <div class="code-pic">
+            <img src="./images/public.png" alt="12306 å¬ä¼å·" />
+          </div>
+        </li>
+        <li style="width: 110px">
+          <h2 class="foot-con-tit">éè·¯12306</h2>
+          <div class="code-pic">
+            <img src="./images/download.png" alt="éè·¯12306" />
+            <div class="code-tips">
+              å®æ¹APPä¸è½½ï¼ç®åéè·¯æªææå¶ä»ç½ç«æAPPå¼å±ç±»ä¼¼æå¡åå®¹ï¼æ¬è¯·å¹¿å¤§ç¨æ·æ³¨æã
+            </div>
+          </div>
+        </li>
+      </ul>
+    </div>
+    <div class="footer-txt" style="position: relative;">
+      <p>
+        <span class="mr">çæææÂ©2008-2023</span>
+        <span class="mr">ä¸­å½ééç§å­¦ç ç©¶é¢éå¢æéå¬å¸</span>
+        <span>ææ¯æ¯æï¼éæç§ææéå¬å¸</span>
+      </p>
+      <p>
+        <span class="mr">
+          <img src="https://www.12306.cn/index/images/gongan.png" alt="å¬å®" style="width:13px">
+          <a target="blank" href="http://www.beian.gov.cn/portal/registerSystemInfo?recordcode=11010802038392" style="color:#c1c1c1">äº¬å¬ç½å®å¤ 11010802038392å·</a>
+        </span>
+        <span class="mr">|</span>
+        <span class="mr">äº¬ICPå¤05020493å·-4</span>
+        <span class="mr">|</span>
+        <span>ICPè¯ï¼äº¬B2-20202537</span>
+      </p>
+      <div style="position: absolute;top: 17px;left: 50%;margin-left: 465px;">
+        <img src="./images/footer-slh.jpg" style="display: block;width: 130px;height: 46px;" alt="éèåæ éç¢æå¡">
+      </div>
+    </div>
+  </div>
+  <!-- è¿åé¡¶é¨ -->
+  <div class="gototop js-top">
+    <a href="javascript:void(0)" class="js-gotop" title="è¿åé¡¶é¨">
+      <i class="icon icon-gotop"></i>
+    </a>
+  </div>
+  <!-- å³ä¾§æ¬æµ®èå -->
+  <div class="fixed-right">
+    <ul class="fixed-right-menu">
+      <li class="menu-item">
+        <a href="javascript:;" class="menu-hd goGonggao">
+          <i class="icon icon-notice"></i>
+          <h4 class="menu-name">ææ°åå¸</h4>
+        </a>
+      </li>
+      <li class="menu-item">
+        <a name="g_href" data-type="1" data-href="view/infos/service_number.html" data-redirect="Y" href="javascript:;"
+          class="menu-hd">
+          <i class="icon icon-phone"></i>
+          <h4 class="menu-name">èç³»å®¢æ</h4>
+        </a>
+      </li>
+      <li class="menu-item">
+        <a href="javascript:;" class="menu-hd">
+          <i class="icon icon-code"></i>
+          <h4 class="menu-name">APPä¸è½½</h4>
+        </a>
+        <div class="menu-bd menu-code">
+          <h4 class="menu-code-name">éè·¯12306</h4>
+          <div class="menu-code-pic">
+            <img src="images/download.png">
+            <div class="code-tips">å®æ¹APPä¸è½½ï¼ç®åéè·¯æªææå¶ä»ç½ç«æAPPå¼å±ç±»ä¼¼æå¡åå®¹ï¼æ¬è¯·å¹¿å¤§ç¨æ·æ³¨æã</div>
+          </div>
+        </div>
+      </li>
+      <li class="menu-item" id="close-right">
+        <a href="javascript:;" class="menu-hd">
+          <i class="icon icon-close"></i>
+          <h4 class="menu-name">å³é­</h4>
+        </a>
+      </li>
+    </ul>
+  </div>
+
+  <!-- æ£ç´¢è½¦ç«ä¸ææ¡ -->
+  <div id="search_div" style="z-index: 1000; position: absolute">
+    <div id="form_cities">
+      <div id="top_cities">æä½æç¤º</div>
+      <div id="panel_cities"></div>
+      <div id="flip_cities">ç¿»é¡µæ§å¶åº</div>
+    </div>
+  </div>
+  <!-- éæ©è½¦ç«ä¸ææ¡ -->
+  <div id="choice_div" style="z-index: 2000; position: absolute">
+    <div id="form_cities2">
+      <div id="panel_cities2">
+        <div class="results-menu stationTab">
+          <div class="results-menu-item is-active" data-station="1">å½åç«ç¹</div>
+          <div class="results-menu-item" data-station="2">å½éç«ç¹</div>
+        </div>
+        <div id="internalBox">
+            
+        </div>
+        <div id="externalBox" style="display: none;">
+            
+        </div>
+      </div>
+    </div>
+  </div>
+  <script id="bannerList" type="text/x-handlebars-template">
+  {{#each index_banner_url}}
+  <li style="background: url('{{url}}') center center no-repeat;">
+    {{#if src}} {{#if target}}
+    <a href="{{src}}" target="_blank"></a>
+    {{else}}
+    <a href="{{src}}" target="_self"></a>
+    {{/if}} {{else}}
+    <a></a>
+    {{/if}} {{/each}}
+</script>
+  <script id="temp1" type="text/x-handlebars-template">
+  {{#each serviceDatas}}
+  <li style="margin-bottom: 10px;">
+    {{#if src}} {{#if target}}
+    <a href="{{src}}" title="{{title}}" target="_blank">
+      <img src="{{img}}">
+    </a>
+    {{else}}
+    <a href="{{src}}" title="{{title}}" target="_self">
+      <img src="{{img}}">
+    </a>
+    {{/if}} {{else}}
+    <a>
+      <img src="{{img}}">
+    </a>
+    {{/if}}
+  </li>
+  {{/each}}
+</script>
+  <script id="temp2" type="text/x-handlebars-template">
+  {{#each service1}}
+  <li>
+    {{#if src}} {{#if target}}
+    <a href="{{src}}" target="_blank">
+      <div class="service-pic">
+        <img src="{{img}}">
+      </div>
+      <div class="service-info">
+        <h3 class="service-name">{{title}}</h3>
+        <p class="service-txt">{{notice}}</p>
+        <i class="icon icon-more"></i>
+      </div>
+    </a>
+    {{else}}
+    <a href="{{src}}" target="_self">
+      <div class="service-pic">
+        <img src="{{img}}">
+      </div>
+      <div class="service-info">
+        <h3 class="service-name">{{title}}</h3>
+        <p class="service-txt">{{notice}}</p>
+        <i class="icon icon-more"></i>
+      </div>
+    </a>
+    {{/if}} {{else}}
+    <a>
+      <div class="service-pic">
+        <img src="{{img}}">
+      </div>
+      <div class="service-info">
+        <h3 class="service-name">{{title}}</h3>
+        <p class="service-txt">{{notice}}</p>
+        <i class="icon icon-more"></i>
+      </div>
+    </a>
+    {{/if}}
+  </li>
+  {{/each}}
+</script>
+  <script id="travel" type="text/x-handlebars-template">
+  {{#each index_travel_url}}
+  <li>
+    {{#if src}} {{#if target}}
+    <a href="{{src}}" target="_blank">
+      <div class="travel-pic">
+        <img src="{{img}}">
+      </div>
+      <div class="travel-info">
+        <h3 class="travel-name">{{title}}</h3>
+        <div class="txt-price">
+          <i class="rmb">Â¥</i>{{price}}
+        </div>
+      </div>
+    </a>
+    {{else}}
+    <a href="{{src}}" target="_self">
+      <div class="travel-pic">
+        <img src="{{img}}">
+      </div>
+      <div class="travel-info">
+        <h3 class="travel-name">{{title}}</h3>
+        <div class="txt-price">
+          <i class="rmb">Â¥</i>{{price}}
+        </div>
+      </div>
+    </a>
+    {{/if}} {{else}}
+    <a>
+      <div class="travel-pic">
+        <img src="{{img}}">
+      </div>
+      <div class="travel-info">
+        <h3 class="travel-name">{{title}}</h3>
+        <div class="txt-price">
+          <i class="rmb">Â¥</i>{{price}}
+        </div>
+      </div>
+    </a>
+    {{/if}}
+  </li>
+  {{/each}}
+</script>
+  <script id="news" type="text/x-handlebars-template">
+  {{#each index_news_list}}
+  <li>
+    {{#if src}} {{#if target}}
+    <a target="_blank" style="max-width: 70%;overflow: hidden;text-overflow: ellipsis;white-space: nowrap"
+       href="{{src}}" class="news-tit" title="{{title}}">{{title}}</a>
+    {{else}}
+    <a target="_self" style="max-width: 70%;overflow: hidden;text-overflow: ellipsis;white-space: nowrap" href="{{src}}"
+       class="news-tit" title="{{title}}">{{title}}</a>
+    {{/if}} {{else}}
+    <a style="max-width: 70%;overflow: hidden;text-overflow: ellipsis;white-space: nowrap" class="news-tit"
+       title="{{title}}">{{title}}</a>
+    {{/if}}
+    <span class="news-time">{{date}}</span>
+  </li>
+  {{/each}}
+</script>
+  <script id="left" type="text/x-handlebars-template">
+  {{#each left}}
+  <dd class="dis-item">
+    <span class="person-name">{{passenger_name}}</span>
+    <span class="person-card">{{passenger_id_no}}</span>
+  </dd>
+  {{/each}}
+</script>
+  <script id="right" type="text/x-handlebars-template">
+  {{#each right}}
+  <dd class="dis-item">
+    <span class="person-name">{{passenger_name}}</span>
+    <span class="person-card">{{passenger_id_no}}</span>
+  </dd>
+  {{/each}}
+</script>
+  <script>
+    window.onload = function () {
+      window.pageStart = new Date().getTime();
+    }
+  </script>
+  <!-- <script src="script/core/lib/jquery.min.js"></script> -->
+  <script src="./script/core/common/qss.js"></script>
+  <script src="./script/core/common/station_name_new_v10018.js"></script>
+  <script async="async" src="https://kyfw.12306.cn/otn/logsdk/handleIframeInner.js"></script>
+  <script data-main="./script/dist/index/main_v60005" src="./script/core/lib/require.js"></script>
+  <!-- <script data-main="./script/index/main" src="./script/core/lib/require.js"></script> -->
+  <script type="text/javascript" src="https://kyfw.12306.cn/otn/resources/route/www.12306.cn/route.js"></script>
+  <!-- <script type="text/javascript" src="http://passport.12306.cn/otnyt/resources/route/passport.12306.cn/route.js"></script> -->
+</body>
+
+</html>

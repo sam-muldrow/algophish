@@ -1,0 +1,71 @@
+
+
+
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>Bank of China (Hong Kong) Limited</title>
+<script type="text/javascript">
+var detectMobile = true;
+</script>
+<script type="text/javascript" src="/etc/designs/bochk_web/clientlibs.js?v=0e22ffdffca4bc37a5c9af8c6a00d33e"></script>
+<script type="text/javascript" src="/apps/bochk_web/components/page/clientlibs.js?v=6d9659ef63f8d92f48d904fee6f2069b"></script>
+
+<link rel="stylesheet" href="/etc/designs/bochk_web/clientlibs_desktop1.css?v=4c307b7f1bac76efecfe136411e2b606" type="text/css">
+<script type="text/javascript" src="/etc/designs/bochk_web/clientlibs_desktop1.js?v=594e37298895b73c5223cc8e5d7006dc"></script>
+
+
+
+<script type="text/javascript">
+var passSubdomainChecking = true;
+
+if (!isSubsidaryDomain()) {
+    if (top.location != self.location) {
+        window.location="about:blank";
+    	passSubdomainChecking = false;
+    }
+}
+
+
+if(document.referrer && document.referrer.indexOf("bochkltd")>0 ) {
+    window.location="about:blank";
+    passSubdomainChecking = false;
+}
+
+if(passSubdomainChecking){
+
+    if (navigator.appName == 'Netscape'){
+        var language = navigator.language || navigator.userLanguage; 
+    }else{
+        var language = navigator.userLanguage;
+    }   
+    
+    language = language.toLowerCase();
+    
+    var homeTC = "/tc/home.html";
+    var homeSC = "/sc/home.html";
+    var homeEN = "/en/home.html";
+    
+	if (typeof CheckMobile === "function" && CheckMobile()) {        
+        homeTC = "/m" + homeTC;
+        homeSC = "/m" + homeSC;
+        homeEN = "/m" + homeEN;
+    }
+    
+    var origin = document.location.protocol + '//' + document.location.host;
+    
+    if(language.indexOf('zh-tw') > -1 || language.indexOf('zh-hk') > -1 || language.indexOf('zh-sg') > -1){
+        document.location.href = origin + homeTC;
+    }else if(language.indexOf('zh-cn') > -1){
+        document.location.href = origin + homeSC;
+    }else{
+        document.location.href = origin + homeEN;
+    }
+}
+</script>
+</head>
+<body>
+</body>
+</html>

@@ -1,0 +1,234 @@
+<!DOCTYPE html>
+<html lang="{{ html.lang }}" ng-app="sreality" ng-controller="MainCtrl">
+	<head>
+		<meta charset="utf-8" />
+		<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+		<meta
+			name="viewport"
+			content="width=device-width,initial-scale=1,maximum-scale=1.0,minimal-ui"
+		/>
+
+		<!--- Nastaveni meta pres JS a ne pres Angular, aby byla nastavena default hodnota pro agenty co nezvladaji PhantomJS --->
+		<title ng:bind-template="{{metaSeo.title}}">
+			Sreality.cz â¢ reality a nemovitosti z celÃ© ÄR
+		</title>
+		<meta
+			name="description"
+			content="NejvÄtÅ¡Ã­ nabÃ­dka nemovitostÃ­ v ÄR. NabÃ­zÃ­me byty, domy, novostavby, nebytovÃ© prostory, pozemky a dalÅ¡Ã­ reality k prodeji i pronÃ¡jmu. Sreality.cz"
+		/>
+		<meta
+			property="og:title"
+			content="Sreality.cz â¢ reality a nemovitosti z celÃ© ÄR"
+		/>
+		<meta property="og:type" content="website" />
+		<meta
+			property="og:image"
+			content="https://www.sreality.cz/img/sreality-logo-og.png"
+		/>
+		<meta
+			property="og:description"
+			content="NejvÄtÅ¡Ã­ nabÃ­dka nemovitostÃ­ v ÄR. NabÃ­zÃ­me byty, domy, novostavby, nebytovÃ© prostory, pozemky a dalÅ¡Ã­ reality k prodeji i pronÃ¡jmu. Sreality.cz"
+		/>
+		<meta property="og:url" content="https://www.sreality.cz/" />
+
+		<meta
+			ng-if="metaStatus.value"
+			name="szn:status"
+			content="{{metaStatus.value}}"
+		/>
+
+		<meta http-equiv="imagetoolbar" content="no" />
+
+		<link
+			rel="icon"
+			sizes="16x16 32x32 48x48 64x64"
+			href="/img/icons/favicon.ico"
+		/>
+		<link
+			rel="apple-touch-icon"
+			sizes="57x57"
+			href="/img/icons/apple-touch-icon-57x57.png?3"
+		/>
+		<link
+			rel="apple-touch-icon"
+			sizes="60x60"
+			href="/img/icons/apple-touch-icon-60x60.png?3"
+		/>
+		<link
+			rel="apple-touch-icon"
+			sizes="72x72"
+			href="/img/icons/apple-touch-icon-72x72.png?3"
+		/>
+		<link
+			rel="apple-touch-icon"
+			sizes="76x76"
+			href="/img/icons/apple-touch-icon-76x76.png?3"
+		/>
+		<link
+			rel="apple-touch-icon"
+			sizes="114x114"
+			href="/img/icons/apple-touch-icon-114x114.png?3"
+		/>
+		<link
+			rel="apple-touch-icon"
+			sizes="120x120"
+			href="/img/icons/apple-touch-icon-120x120.png?3"
+		/>
+		<link
+			rel="apple-touch-icon"
+			sizes="144x144"
+			href="/img/icons/apple-touch-icon-144x144.png?3"
+		/>
+		<link
+			rel="apple-touch-icon"
+			sizes="152x152"
+			href="/img/icons/apple-touch-icon-152x152.png?3"
+		/>
+		<link
+			rel="apple-touch-icon"
+			sizes="180x180"
+			href="/img/icons/apple-touch-icon-180x180.png?3"
+		/>
+		<link
+			rel="icon"
+			type="image/png"
+			sizes="192x192"
+			href="/img/icons/android-chrome-192x192.png"
+		/>
+		<link
+			rel="icon"
+			type="image/png"
+			sizes="32x32"
+			href="/img/icons/favicon-32x32.png"
+		/>
+		<link
+			rel="icon"
+			type="image/png"
+			sizes="96x96"
+			href="/img/icons/favicon-96x96.png"
+		/>
+		<link
+			rel="icon"
+			type="image/png"
+			sizes="16x16"
+			href="/img/icons/favicon-16x16.png"
+		/>
+		<link rel="manifest" href="/img/icons/android-chrome-manifest.json" />
+		<meta name="msapplication-TileColor" content="#2b5797" />
+		<meta
+			name="msapplication-TileImage"
+			content="/img/icons/ms-icon-144x144.png"
+		/>
+		<meta
+			name="msapplication-config"
+			content="/img/icons/browserconfig.xml"
+		/>
+
+		<link
+			rel="alternate"
+			type="application/rss+xml"
+			ng-href="{{ rss.url }}"
+			ng-if="rss.url"
+		/>
+		<link
+			ng-repeat="lang in metaSeo.languages"
+			rel="alternate"
+			hreflang="{{lang.code}}"
+			ng-href="{{lang.url}}"
+		/>
+
+		<link rel="stylesheet" href="/css/all.css?512fde4" />
+
+		<!--- TODO - fix pro Ribbon, odstranit az si nacitani seno.js poresi reibbon --->
+		<script src="https://notifikace.seznam.cz/seno.js"></script>
+
+		<!--[if lte IE 8]>
+			<script>
+				document.createElement("popover");
+				document.createElement("mortgage");
+				document.createElement("hp-signpost");
+				document.createElement("category-switcher");
+				document.createElement("feedback");
+				document.createElement("bottom");
+				document.createElement("graph");
+				document.createElement("panorama");
+				document.createElement("panorama-prev");
+				document.createElement("sphere-viewer");
+				document.createElement("sphere-viewer-prev");
+				document.createElement("save-filter");
+			</script>
+		<![endif]-->
+
+		<!-- CMP stub skript je jenom vybuildeny npm balicek @iabtcf/stub -->
+		<script
+			src="https://h.seznam.cz/js/cmp2/cmp_stub.js"
+			type="text/javascript"
+		></script>
+
+		<!-- Statistiky -->
+		<script
+			src="https://h.seznam.cz/js/dot-small.js"
+			type="text/javascript"
+		></script>
+		<script type="text/javascript">
+			if (window.DOT) {
+				var dotCfg = {
+					service: "sreality",
+					lazyLoadingEnabled: true
+				};
+				DOT.cfg(dotCfg);
+			}
+		</script>
+
+		<script
+			src="https://h.seznam.cz/js/cmp2/scmp.js"
+			type="text/javascript"
+		></script>
+
+		<!-- SSP Reklama -->
+		<script
+			src="https://ssp.seznam.cz/static/js/ssp.js"
+			type="text/javascript"
+		></script>
+		<!-- Sklik retargeting -->
+		<script
+			type="text/javascript"
+			src="https://c.seznam.cz/js/rc.js"
+		></script>
+
+		<script src="https://download.seznam.cz/prohlizec/sbrowser-promo/promo.js"></script>
+
+		<!-- Seznam player-->
+		<script src="//d53-a.sdn.cz/d_53/sl/13/loader.js"></script>
+
+		<!-- Seznam geo lokace -->
+		<script src="https://geo.seznam.cz/static/js/geo.js"></script>
+
+		<!-- Fetch polyfill	-->
+		<script nomodule src="/js/fetch.umd.js"></script>
+
+		<!-- KONFIGURACE -->
+		<script src="/js/conf/config.js?512fde4"></script>
+
+		<script src="/js/maps.js?1"></script>
+		<script src="/js/new-src.js?512fde4"></script>
+		<script src="/js/all.js?512fde4"></script>
+
+		<noscript>
+			<meta http-equiv="refresh" content="0;url=?_escaped_fragment_=" />
+		</noscript>
+		<meta name="fragment" content="!" ng-if="metaSeo.showMetaFragment" />
+	</head>
+	<!--[if IE 8]>    <body class="ie8"> <![endif]-->
+	<!--[if IE 9]>    <body class="notie8 ie9"> <![endif]-->
+	<!--[if gt IE 9]><!-->
+	<body class="notie8 notie9 lang-{{html.lang}}">
+		<!--<![endif]-->
+
+		<div loading-line></div>
+
+		<div page-layout>
+			<div ng-view></div>
+		</div>
+	</body>
+</html>

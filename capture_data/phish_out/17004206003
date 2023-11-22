@@ -1,0 +1,932 @@
+
+<script language='javascript'>
+
+
+
+/*
+    This function will check 24-hour format time 
+  */
+  function isValidTime(timestring)
+  {
+    try
+    {
+      timeval=timestring.split(":");
+      if(timeval.length<'2'||timeval.length>'3')
+        return false;
+      for(i=0;i<timeval.length;i++)
+      {
+        switch(i)
+        {
+          case 0:
+            if(isNaN(timeval[i]))
+              return false;
+            if(!timeval[i]||(timeval[i]<0||timeval[i]>23))
+              return false;
+            break;
+          case 1:
+          case 2:
+            if(isNaN(timeval[i]))
+              return false;
+            if(!timeval[i]||timeval[i]<0||timeval[i]>59)
+              return false;
+            break;
+        }
+      }
+      return true;
+    }
+    catch(e)
+    {
+      return true;
+    }
+  }
+  // This function will return extansion of given file name.
+  function getExt(t)
+  {
+    var ext,len,index;
+    len = t.length - 1;
+    index=t.indexOf('.');
+    if(index>=1)
+      ext=t.substring(index+1,t.length);
+    else
+      ext='';
+    return ext;
+  }
+  // This function will check whether it is correct image file extansion or not.
+  function checkExt(t)
+  {
+    if(!t)
+      return false;
+    t=t.toUpperCase();
+    if (t=='JPG' || t=='JPEG' || t=='GIF')
+      return true;
+    else
+      return false;
+  }
+/*This function will check/uncheck all check boxes present in the form*/
+/*the function takes two parameter 1.formelement & 2. formname*/
+/*formelement--this is the main checkbox present in your form for checking and unchecking all check boxes*/
+/*formname-----the name of form .*/
+  function ToggleCheckAll(formelement,formname)
+  {
+    var obj=document.forms[formname].elements;
+    var type;
+    var len;
+    var value;
+    try
+    {
+      if(formelement.checked)
+        value=true;
+      else
+        value=false;
+      len=obj.length;
+      if(len)
+      {
+        for(var i=0;i<len;i++)
+        {
+          type=obj[i].type;
+          type=type.toLowerCase();
+          if(type=="checkbox")
+          {
+            obj[i].checked=value;
+          }
+        }
+      }
+    }
+    catch(e)
+    {
+      return false;
+    }
+  }
+  /*this function checks ,wether the supplied value is blank or not*/
+  /*this function will work properly for textboxes values*/
+  function IsTextEmpty(value)
+  {
+    if(CutSpaces(value)=="")
+      return true
+    else
+      return false
+  }
+  /*this function is used for triming the extra blank space present in the value */
+  function CutSpaces(field)
+  {
+    var strlen=field.length
+    var stringchar=""
+    var newstring=""
+    
+    for(i=0;i<strlen;i++)
+    {
+        stringchar=field.charAt(i);
+        if(stringchar!=" ")
+          newstring+=stringchar
+    }
+    return newstring;
+  }
+  /*this function will be usefull when you want to edit your form .*/
+  /*the string is contaning values wrt their form elements ,sperated by '=>' character and '|' is for grouping the elements*/
+  
+  function EditFunction(string)
+  {
+    var id_val;
+    var db_string=string.split("|");
+    for(var i=0;i<db_string.length;i++)
+    {
+      id_val=db_string[i].split("=>");
+      document.getElementById(id_val[0]).value=id_val[1];
+    }
+  }
+  
+  //please specify the function GetClock(id); in your script;
+  //the function takes form object Id  in which u want to show time
+  //The object can be table cell,or span or div
+  
+    day = new Date();
+    miVisit = day.getTime();
+    var objTime; // source object where the clock you want to show
+  function GetClock(myid)
+  {
+    objTime=document.getElementById(myid);;
+    clock();
+  }
+  function clock() 
+  {
+    dayTwo = new Date();
+    hrNow = dayTwo.getHours();
+    mnNow = dayTwo.getMinutes();	
+    scNow = dayTwo.getSeconds();
+    miNow = dayTwo.getTime();
+    if (hrNow == 0) 
+    {
+      hour = 12;
+      ap = " AM";
+    } 
+    else if(hrNow <= 11) 
+    {
+      ap = " AM";
+      hour = hrNow;
+    } 
+    else if(hrNow == 12)
+    {
+      ap = " PM";
+      hour = 12;
+    } 
+    else if (hrNow >= 13) 
+    {
+      hour = (hrNow - 12);
+      ap = " PM";
+    }
+    if (hrNow >= 13) 
+    {
+      hour = hrNow - 12;
+    }
+    if (mnNow <= 9) 
+    {
+      min = "0" + mnNow;
+    }
+    else (min = mnNow)
+    if (scNow <= 9) 
+    {
+      secs = "0" + scNow;
+    } 
+    else 
+    {
+      secs = scNow;
+    }
+    time = hour + ":" + min + ":" + secs + ap;
+    objTime.innerHTML=time;
+    setTimeout('clock()', 1000);
+  }
+  /*function for showing the loading process in your script*/
+  function showLayers()
+  {
+      loadingProcess();
+      document.all.crtid.style.display = "block";
+      window.onload=function hideLayers(){document.all.crtid.style.display = "none"};
+  }
+  function loadingProcess()
+  {
+    with (document)
+    {
+      write("<div id='crtid' align='center' style='position: absolute; top: 20;'>");
+      write("<img src='loadingprocess.gif'");
+      write("</img>");
+      write("</div>");
+    }
+  }
+  /*function for validating the date field*/
+  /*This function will check date in dd/mm/yyyy or yyyy/mm/dd format*/
+  function isDate(dtStr)
+  {
+    var seprator;
+    var dateArray;
+    dtStr=CutSpaces(dtStr);
+    
+    if(dtStr.length>10 || dtStr.length<8)
+      return false;
+    if(dtStr.indexOf("/")!=-1 )
+      dateArray=dtStr.split("/");
+    else if(dtStr.indexOf("-")!=-1 )
+      dateArray=dtStr.split("-");
+    else
+      return false;
+    
+    if(dateArray[0].length==4)
+    {
+      year = parseInt(dateArray[0],10);
+      month = parseInt(dateArray[1],10);
+      day = parseInt(dateArray[2],10);
+    }
+    else if(dateArray[2].length==4)
+    {
+      year = parseInt(dateArray[2],10);
+      month = parseInt(dateArray[1],10);
+      day = parseInt(dateArray[0],10);
+    }
+    else
+      return false;
+    
+    if(year==0 || month==0 || day==0)
+      return false;
+    if(isNaN(year) || isNaN(month) || isNaN(day))
+      return false;
+    
+    if(month>12)
+      return false;
+    if(day>31)
+      return false;
+    
+    return true
+  }
+  /*Function for counting no of days between two days*/
+  /*Note:The dateStr1 should be less than or equal to dateStr2*/
+  /*The dates should be in format dd/mm/yyyy only*/
+  function countDays(dateStr1,dateStr2)
+  {
+    var str=dateStr1.split("/");
+    var newDate=new Date(str[1]+"-"+str[0]+"-"+str[2]);
+    var newT1=newDate.getTime();
+    str=dateStr2.split("/");
+    newDate=new Date(str[1]+"-"+str[0]+"-"+str[2]);
+    var newT2=newDate.getTime();
+  
+    var millisec_in_day=60*60*24*1000;
+    noofdays=(newT2-newT1)/millisec_in_day;
+    
+    return noofdays;
+  }
+  
+  function isDate_one_greater(dateStr1,dateStr2)
+  {
+    var noofdays=countDays(dateStr1,dateStr2);
+    if(noofdays>0)
+      return false;
+    else
+      return true;
+  }
+  
+  /*this function will force user to enter only the numeric value in the textbox*/
+  function allowonlynumeric(currentctl, notallowdotflag)
+  {
+    var dotexist=0; 
+    var val=currentctl.value;
+    
+    if(notallowdotflag==1) 
+    {
+        dotcnt=1;
+    }
+    else
+    {
+      // Checking whether a dot (.) is present or not
+      for(i=0; i<val.length; i++)
+      {
+        if(val.charCodeAt(i)==46)
+        { 
+          dotexist=1;
+          break ;
+        } 
+      }
+    
+      if(dotexist!=1) 
+        dotcnt=0;
+      else
+        dotcnt=1;
+    }
+    
+    // Capturing keyCode of the pressed key
+    var whichCode = (window.Event) ? event.which : event.keyCode;
+
+    // removing second instance of dot (.) here since we have one dot already.
+    if (dotcnt==1 && (event.keyCode==46) )  // DOT 
+    {
+      event.keyCode=0;
+      return false;
+    }
+
+		if( (whichCode<48 || whichCode>57) && whichCode!=46 && whichCode!=13)
+		{
+      event.keyCode=0;
+      return false;
+		}
+		else if(whichCode==46)
+		{		
+			dotcnt=1;		
+		}
+  }
+  function getHTTPObject() 
+  {
+      var xmlhttp;
+      /*@cc_on
+      @if (@_jscript_version >= 5)
+      try {
+      xmlhttp = new ActiveXObject("Msxml2.XMLHTTP");
+      } catch (e) {
+      try {
+      xmlhttp = new ActiveXObject("Microsoft.XMLHTTP");
+      } catch (E) {
+      xmlhttp = false;
+      }
+      }
+      @else
+      xmlhttp = false;
+      @end @*/
+      if (!xmlhttp && typeof XMLHttpRequest != 'undefined')
+      {
+        try
+        {
+          xmlhttp = new XMLHttpRequest();
+          xmlhttp.overrideMimeType("text/xml");
+        }
+        catch (e)
+        {
+          xmlhttp = false;
+        }
+      }
+      return xmlhttp;
+  }
+
+  function handleHttpResponse()
+  {
+    if (http.readyState == 4)
+      {
+        AjaxReturnValue = http.responseText;
+        if(divID)
+          document.getElementById(divID).innerHTML = AjaxReturnValue;
+        return false;
+      }
+  }
+
+  /*===============================================================================================
+   There will be two purpose for which GetAjax() function will be called, so depending on these two
+   specific purposes passing of parameters is different and second parameter will be passed or 
+   dropped depending on the need :-
+   
+   GetAjax('1 = URL with parameters separated by & if multiple', '2 = DivID')
+   
+   1. URL or script which is interacting from the database or doing some other calculations.
+      Parameters should be provided as a query string. 
+      
+   2. DivID parameter is optional and if provided fills the DivID with ResponseText returned by
+      AJAX handler. IF left blank or dropped the function will return the ResponseText to 
+      be used and manipulated by user in their script.
+      
+    e.g. GetAjax('GetStudentListing.as?transid=4&sessid=4', 'StudentDiv')  
+         calling function in above manner will fill the ResponseText calculated through
+         script name mentioned on the document's div whose id is StudentDiv.
+         
+    e.g. var returnValue = GetAjax('GetStudentListing.as?transid=4&sessid=4')       
+         calling the function in abover manner will return the ResponseText calculated 
+         by script to variable returnValue.   
+  ===============================================================================================*/
+  http = getHTTPObject(); //Creating the http Object
+  
+  function GetAjax(url, divID)
+  {
+    if(url)  //checking wether a valid url passed or not
+    {
+      window["divID"] = divID; //creating the global variable divID 
+      window["AjaxReturnValue"] = ''; //creating the global variable 
+      if (http)
+      {
+        http.open("POST", url, true);
+        http.onreadystatechange = handleHttpResponse; //calling the respnose function on the change of ready state
+        http.send(null);
+      }
+    }
+    if(!divID) //if divID is blank or undefined
+    {
+      if(http.readyState != 4)
+      {
+        window.setTimeout("GetAjax()", 100); //making busy the function while the response is gettings
+      } 
+      else
+      {
+        return AjaxReturnValue;
+      }        
+    }   
+  }
+  //--------------------chkval =0 //then checked else unchecked---
+  //-checkuncheckall("form's name","ctrl's name without array sign means if ctrl'name is stuarray[] 
+  //then u pass only stuarray",0/1)
+  function checkuncheckall(frmctrl,chkctrlname,chkval)
+  {
+    frmctrl=document.forms[frmctrl].elements;
+    
+    for(var i=0;i<frmctrl.length;++i)
+     {
+     	if(frmctrl[i].type == 'checkbox')
+     	{
+        var frmstr =frmctrl[i].name;
+        var pos =frmstr.indexOf('[');
+        var frmchkname = frmstr.substring(0,pos);
+//			alert(typeof(frmctrl[i].name));
+//			if(typeof(frmstr) == 'object')
+//			{
+	     	if(frmchkname == chkctrlname)
+	        {
+	          if(chkval == 0)
+	            frmctrl[i].checked = true;
+	          else
+	            frmctrl[i].checked = false;
+	
+	        }
+     	}
+     }
+  }
+  
+  function isDateBetween(dt,date1,date2)
+  {
+        if(isDate(dt)==false)
+        {
+            return false;
+        }
+        
+        var cal = new Array(); 
+        cal[1] = "January"; 
+        cal[2]="February"; 
+        cal[3] = "March"; 
+        cal[4]= "April"; 
+        cal[5]= "May"; 
+        cal[6]= "June"; 
+        cal[7] = "July"; 
+        cal[8] = "August"; 
+        cal[9] = "September"; 
+        cal[10] = "October"; 
+        cal[11] = "November"; 
+        cal[12] = "December";
+        
+        // Spliting Date into Day, Month, Year and assigning to tmpArray
+        var tmpArray = dt.split("/"); 
+        
+        // Getting Month Name from cal Array
+        var mMonth = cal[parseInt(tmpArray[1])]; 
+        var mDay = tmpArray[0]; 
+        var mYear = tmpArray[2]; 
+        var mDate = new Date(mMonth+" "+ mDay + ", "+mYear); 
+      
+      
+     /* if (date1==undefined && date2==undefined)
+      {
+          tmpdate1="<?echo "$sessionstartday/$sessionstartmonth/$sessionstartyear"?>";
+          tmpdate2="<?echo "$sessionendday/$sessionendmonth/$sessionendyear"?>";
+             
+          day1=<?echo $sessionstartday?>;
+          month1=cal[parseInt(<?echo $sessionstartmonth?>)];
+          year1=<?echo $sessionstartyear?>;
+       
+          date1=new Date(month1+" "+ day1 + ", "+year1); 
+          
+          day2=<?echo $sessionendday?>;
+          month2=cal[parseInt(<?echo $sessionendmonth?>)];
+          year2=<?echo $sessionendyear?>;
+        
+          date2=new Date(month2+" "+ day2 + ", "+year2); 
+      }
+      else
+      {*/
+          tmpdate1=date1;
+          tmpdate2=date2;
+          
+          var tmpArray = date1.split("/"); 
+        
+          var month1 = cal[parseInt(tmpArray[1])]; 
+          var day1= tmpArray[0]; 
+          var year1= tmpArray[2]; 
+          var date1 = new Date(month1+" "+ day1+ ", "+year1);
+          
+          var tmpArray = date2.split("/"); 
+          
+          var month2 = cal[parseInt(tmpArray[1])]; 
+          var day2= tmpArray[0]; 
+          var year2= tmpArray[2]; 
+          var date2 = new Date(month2+" "+ day2+ ", "+year2);
+     // }
+      
+      if(date2<date1)
+      {
+          alert("Valid Date!!!!!");
+          return false;
+      }
+      
+      if(mDate<date1)
+      {
+          alert("Valid Date!!!!! "+tmpdate1);
+          return false;
+      }
+      
+      if(mDate>date2)
+      {
+          alert("Valid Date!!!!! "+tmpdate2);
+          return false;
+      }
+  }
+  function UserRights(RightId,FormId,USERID)
+  {
+    var script="../functions/userrightfunction.php?RightId="+RightId+"&FormId="+FormId+"&USERID="+USERID;
+    var isRight = showModalDialog(script,"","dialogHeight: 300px; dialogWidth: 230px; dialogTop: 200px; dialogLeft: 150px; edge: Sunken; center: Yes; help: No; resizable: No; status: No;");	
+    if(isRight)
+      return true
+    else
+    {
+      alert("Valid Date!!!!!");
+      return false
+    }
+  }
+  
+  
+  /*this function will give a moving effect in your div*/
+  /*
+    the divId contains the Id of the dic which contains the table
+    speed is optional parameter,by default its value os set to 5.
+    Giving a higher value will increase the speed and a lower value will dcrease the speed 
+  */
+  function ScrollDiv(divId,speed)
+	{
+		
+    var divObj = document.getElementById(divId);
+		var divHeight = divObj.offsetHeight;
+		if(isNaN(speed) || speed==0)
+			speed=5;
+		
+		window["divSpeed"]=speed;
+		ShowScrollDiv(divObj)
+		var tabHeight=document.getElementById("T_"+divId).offsetHeight;
+		if(divHeight==0)
+		{
+			HideScrollDiv(divObj);
+		}
+		
+		window["divObj"]=divObj;
+		window["tabHeight"]=tabHeight;
+		divObj.style.overflow = "hidden";
+		
+		if(parseInt(divHeight,10)>=parseInt(tabHeight,10))
+			divScrollUp();
+		else
+		{
+			divScrollDown();
+			ShowScrollDiv(divObj);
+		}
+	}
+	
+	function divScrollUp()
+	{
+    
+		if(divObj.offsetHeight>divSpeed)
+		{
+			divObj.style.height =divObj.offsetHeight-divSpeed;
+			setTimeout("divScrollUp()",1); 
+		}
+		else
+		{
+			divObj.style.visibility="hidden";
+			divObj.style.display="none";
+			return false
+		}
+	}
+  
+  function divScrollUpById(divId,newdivspeed_1)
+	{
+    var divObjnew = document.getElementById(divId);
+		if(parseInt(divObjnew.style.height)>newdivspeed_1)
+		{
+      
+      var newHeight=parseInt(divObjnew.style.height,10)-parseInt(newdivspeed_1);
+			divObjnew.style.height = newHeight;
+			setTimeout("divScrollUpById('"+divId+"',"+newdivspeed_1+")",1); 
+		}
+		else
+		{
+			divObjnew.style.visibility="hidden";
+			divObjnew.style.display="none";
+			return false
+		}
+	}
+  
+  function divScrollDownById(divId,newdivspeed,tabHeightNew)
+	{
+    var divObjnew = document.getElementById(divId);
+    if(divObjnew.style.visibility=="hidden")
+    {
+      divObjnew.style.height=0;
+    }
+    divObjnew.style.visibility="visible";
+    divObjnew.style.display="inline";
+		if(parseInt(divObjnew.style.height,10)<tabHeightNew)
+		{
+			divObjnew.style.height = parseInt(newdivspeed,10)+ parseInt(divObjnew.style.height,10);
+			setTimeout("divScrollDownById('"+divId+"','"+newdivspeed+"','"+tabHeightNew+"')",1); 
+		}
+		else
+    {
+      
+      divObjnew.style.overflow="auto";
+			return false
+    }
+	}
+  
+	function divScrollDown()
+	{
+		if(divObj.offsetHeight<tabHeight)
+		{
+			divObj.style.height =divSpeed+ divObj.offsetHeight;
+			setTimeout("divScrollDown()",1); 
+		}
+		else
+			return false
+	}
+  
+	function ShowScrollDiv(CurrentDiv)
+	{
+			CurrentDiv.style.visibility="visible";
+			CurrentDiv.style.display = "block";
+	}
+  
+	function HideScrollDiv(CurrentDiv)
+	{
+		CurrentDiv.style.visibility="hidden";
+		CurrentDiv.style.display = "none";
+	}
+  
+  
+  
+</script>
+
+
+   
+
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>Welcome to Shri Amarnath Yatri Sewa Samiti (Reg.) Meerut</title>
+<style type="text/css">
+body {
+	margin-left: 0px;
+	margin-top: 10px;
+	margin-right: 0px;
+	margin-bottom: 0px;
+	background:url(images/bgbody.png) center top;
+	background-color:#B33502;
+	background-repeat:no-repeat;
+}
+a:link {
+	text-decoration: none;
+}
+a:visited {
+	text-decoration: none;
+}
+a:hover {
+	text-decoration: none;
+}
+a:active {
+	text-decoration: none;
+}
+</style>
+<link href="style.css" rel="stylesheet" type="text/css" />
+
+<script type="text/javascript" src="crawler.js"></script>
+
+<script type="text/javascript">
+marqueeInit({
+uniqueid: 'mycrawler2',
+style: {
+'padding': '0',
+'width': '870px',
+'height': '156px'
+},
+inc: 3, //speed - pixel increment for each iteration of this marquee's movement
+mouse: 'cursor driven', //mouseover behavior ('pause' 'cursor driven' or false)
+moveatleast: 2,
+neutral: 150,
+savedirection: true
+});
+</script>
+
+
+<link rel="stylesheet" href="css2/superfish.css" media="screen">
+		<script src="js3/jquery.js"></script>
+		<script src="js3/hoverIntent.js"></script>
+		<script src="js3/superfish.js"></script>
+        
+        <script>
+
+		(function($){ //create closure so we can safely use $ as alias for jQuery
+
+			$(document).ready(function(){
+
+				// initialise plugin
+				var example = $('#example').superfish({
+					//add options here if required
+				});
+
+				// buttons to demonstrate Superfish's public methods
+				$('.destroy').on('click', function(){
+					example.superfish('destroy');
+				});
+
+				$('.init').on('click', function(){
+					example.superfish();
+				});
+
+				$('.open').on('click', function(){
+					example.children('li:first').superfish('show');
+				});
+
+				$('.close').on('click', function(){
+					example.children('li:first').superfish('hide');
+				});
+			});
+
+		})(jQuery);
+
+
+		</script>
+
+</head>
+
+<body>
+<table width="1002" border="0" align="center" cellpadding="0" cellspacing="0">
+  <tr>
+    <td class="bgmid"><table width="980" border="0" cellspacing="0" cellpadding="0">
+      <tr>
+        <td height="184" align="left" valign="top"><div class="toppanel">
+        <div class="tbtn"><a href="http://amarnathsewasamitimeerut.com/NoticeImages/CHC Updated 1.1 _2_.pdf" target="_blank"><img src="images/b11.png" border="0" /></a><br />
+          <br />
+
+            <a href="http://amarnathsewasamitimeerut.com/NoticeImages/healthCert.pdf" target="_blank"><img src="images/b12.png" border="0" /></a></div>
+        
+        <div class="gi"><img src="images/gif.gif" width="100" height="100" align="right" style="border:1px solid
+         #AD564B; padding:1px; border-bottom-color:#333; border-right-color:#333;"/></div>
+         <div class="tlinks">
+         <div class="dmenu2">
+              <ul class="sf-menu" id="example">
+                <li><a href="index.php" class="menulink">HOME</a></li>
+                <li><a href="aboutus.php" class="menulink">ABOUT US</a></li>
+                <li> <a href="committeelist.php" class="menulink">Committee</a></li>
+                <li><a href="members.php" class="menulink">Members</a></li>
+                <li><a href="donation.php" class="menulink">Donation</a></li>
+                <li><a href="#" class="menulink">Gallery</a>
+                <ul>
+                <li><a href="photogallery.php" class="menulink">Image Gallery</a></li>
+                <li><a href="videogallery.php" class="menulink">Video Gallery</a></li>
+                </ul>
+                </li>
+                <li><a href="#" class="menulink" onClick="OnlineRegistation();">Free Registration</a></li>
+                <li><a href="enquiry.php" class="menulink">Enquiry</a></li>
+                <li><a href="contactus.php" class="menulink">Contact us</a></li>
+              </ul>
+            </div>
+         </div>
+<script language="javascript">
+    function OnlineRegistation()
+    {
+       //alert("Admission Recently Closed");
+			//return false;
+      var Url="registration1.php";
+      window.open(Url,"","alwaysRaised=1,dependent=0,height=400,width=500,top=0,left=0,location=0,menubar=0,personalbar=0,scrollbars=1,status=0,toolbar=0,resizable=1");
+    }
+  </script>
+        <img src="images/toppanel.png" width="1032" height="184" /></div></td>
+      </tr>
+      <tr>
+        <td align="left" valign="top" style="padding:10px 0 0 0;"><table width="980" border="0" cellspacing="0" cellpadding="0">
+          <tr>
+            <td width="303" align="left" valign="top"><table width="279" border="0" cellspacing="0" cellpadding="0">
+              <tr>
+                <td align="left" valign="top">
+                <div style="width:279px; position:absolute; margin:10px 0 0 0; float:left;"><table width="250" border="0" align="center" cellpadding="0" cellspacing="0">
+  <tr>
+    <td height="35" class="nw">News &amp; Events</td>
+  </tr>
+  <tr>
+    <td align="left" valign="top">
+        <marquee direction="up" width="250" height="220" scrollamount="1" scrolldelay="35" truespeed="truespeed" c="c" onmouseover="this.stop()" onmouseout="this.start()" class="mar2">
+      </marquee>
+  
+
+    </td>
+  </tr>
+</table>
+</div>
+                <img src="images/bgn.png" width="279" height="278" /></td>
+                </tr>
+              </table></td>
+            <td align="left" valign="top"><table width="677" border="0" cellspacing="0" cellpadding="0">
+              <tr>
+                <td height="278" align="left" valign="top" style="border:1px solid #DD4907;">
+                <iframe src="banner.php" width="677" height="278" scrolling="no" frameborder="0"></iframe>
+                 <div class="g"><img src="images/god.png" width="291" height="487" /></div></td>
+                </tr>
+              <tr>
+                <td align="left" valign="top"><img src="images/sh.png" width="677" height="30" /></td>
+                </tr>
+              </table></td>
+            </tr>
+          </table></td>
+      </tr>
+      <tr>
+        <td align="left" valign="top"><table width="963" border="0" align="right" cellpadding="0" cellspacing="0">
+          <tr>
+            <td align="left" valign="top"><div class="bgsh">
+            <div class="bgshtxt">Image Gallery</div>
+            <img src="images/bgsh.png" width="980" height="43" /></div></td>
+            </tr>
+          <tr>
+            <td align="center" class="bgs"><table width="940" border="0" cellspacing="0" cellpadding="0">
+              <tr>
+                <td width="40" align="left"><img src="images/a1.png" width="30" height="30" /></td>
+                <td align="left" valign="top">
+                  
+  <div align="center" id="mycrawler2">
+                    <img src="IGTImages/11.jpg" width="184" height="152" class="imgslide" style="border:1px solid #C0110E; margin:0 10px 0 0; padding:1px;"/>
+                  <img src="IGTImages/22.jpg" width="184" height="152" class="imgslide" style="border:1px solid #C0110E; margin:0 10px 0 0; padding:1px;"/>
+                  <img src="IGTImages/33.jpg" width="184" height="152" class="imgslide" style="border:1px solid #C0110E; margin:0 10px 0 0; padding:1px;"/>
+                  <img src="IGTImages/44.jpg" width="184" height="152" class="imgslide" style="border:1px solid #C0110E; margin:0 10px 0 0; padding:1px;"/>
+                  <img src="IGTImages/55.jpg" width="184" height="152" class="imgslide" style="border:1px solid #C0110E; margin:0 10px 0 0; padding:1px;"/>
+                   
+                  
+  </div>
+                </td>
+                <td width="40" align="right"><img src="images/a2.png" width="30" height="30" /></td>
+                </tr>
+              </table></td>
+          </tr>
+          <tr>
+            <td>&nbsp;</td>
+          </tr>
+          </table></td>
+      </tr>
+      <tr>
+        <td align="left" valign="top"><table width="980" border="0" cellspacing="0" cellpadding="0">
+          <tr>
+            <td width="295" align="left" valign="top" style="border-right:1px dotted #666;"><table width="273" border="0" cellspacing="0" cellpadding="0">
+              <tr>
+                <td align="left" valign="top"><a href="donation.php"><img src="images/b1.png" width="273" height="63" border="0" /></a></td>
+                </tr>
+              <tr>
+                <td align="left" valign="top">&nbsp;</td>
+                </tr>
+              <tr>
+                <td align="left" valign="top"><a href="photogallery.php"><img src="images/b2.png" width="273" height="63" border="0" /></a></td>
+                </tr>
+              <tr>
+                <td align="left" valign="top">&nbsp;</td>
+                </tr>
+              <tr>
+                <td align="left" valign="top"><a href="#"><img src="images/b3.png" width="273" height="63" border="0" /></a></td>
+              </tr>
+              </table></td>
+            <td align="left" valign="top"><table width="670" border="0" align="right" cellpadding="0" cellspacing="0">
+              <tr>
+                <td class="hdw">Welcome To Shri Amarnath Yatri Sewa Samiti (Reg.) Meerut</td>
+              </tr>
+              <tr>
+                <td class="hdt">
+                   श्री अमरनाथ यात्री सेवा समिति (रजि ० ) मेरठ पिछले 26 वर्षो से चन्दनवाडी व शेष नाग पर भंडारा लगते आ रहे है जिसमे यात्रियों के खाने पिने व विश्राम करने के साथ साथ दवाइयों की सुविधो भी उपलब्ध करायी जाती है |<br><br>
+
+हर साल अरबों तीर्थयात्री हिमलिंग  के दर्शन के लिए पवित्र गुफा मे  आते हैं और हम "श्री अमरनाथ सेवा समिति - मेरठ " मुफ्त भोजन सुविधा (नाश्ता, लंच, डिनर) प्रदान करने, और सहित निवास गद्दे, कंबल से तीर्थयात्रियों की सेवा के लिए प्रतिबद्ध हैं और अमरनाथ यात्रा के दौरान गर्म पानी से स्नान।<br><br>
+हमारे शिव भक्त टीम के सदस्यों को हमेशा अमरनाथ यात्रा के दौरान किसी भी अवांछित घटना और अमरनाथ यात्रियों व स्थानीय प्रशासन के लिए मदद के खिलाफ कार्रवाई करने के लिए तैयार हैं।                  <a href="aboutus.php"><img src="images/rdm.png" width="128" height="40" class="rdm" /></a></td>
+              </tr>
+              </table></td>
+            </tr>
+          </table></td>
+      </tr>
+      <tr>
+        <td align="left" valign="top">&nbsp;</td>
+      </tr>
+      <tr>
+        <td align="left" valign="top">&nbsp;</td>
+      </tr>
+      <tr>
+        <td align="left" valign="top">&nbsp;</td>
+      </tr>
+      <tr>
+        <td align="left" valign="top"><div class="bottompanel">
+        <div class="footer">Design & Development by <a href="http://www.webtopsolutions.org" target="_blank">Web Top Solutions</a></div>
+        <img src="images/bottompanel.png" width="1052" height="47" /></div></td>
+      </tr>
+    </table></td>
+  </tr>
+</table>
+</body>
+</html>

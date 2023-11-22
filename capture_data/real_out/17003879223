@@ -1,0 +1,195 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"  xmlns:fb="http://www.facebook.com/2008/fbml" itemscope itemtype="http://schema.org/">
+<head>
+    <title>ZergNet - Discover Interesting Articles</title>
+
+    
+  <link rel="stylesheet" href="https://static.zergnet.com/0_assets/css/index_mobile_v1.css" />
+    <link rel="shortcut icon" href="https://www.zergnet.com/favicon.ico" />
+    <link rel="canonical" href="https://www.zergnet.com/" />
+
+    <meta http-equiv="Content-Language" content="en" />
+    <meta http-equiv="Language" content="en" />
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <meta property="fb:admins" content="100003356974192"/>
+    <meta property="fb:app_id" content="286024868122055"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1"/>
+	<meta name="referer" content="origin-when-crossorigin">
+
+  <link href='https://fonts.googleapis.com/css?family=Francois+One' rel='stylesheet' type='text/css'/>
+
+</head>
+
+<body>
+
+  <header>
+    <a href="https://www.zergnet.com/" class="logo">
+      <img border="0" src="//img1.zergnet.com/0_assets/images/zerg_logo.png">
+    </a>
+    <nav>
+      <span id="nav-trigger">Categories <span class="nav-chevron">&#9660;</span></span>
+      <ul>
+          <li class=""><a href="/v/celeb">Entertainment</a></li>
+          <li class=""><a href="/v/food">Food</a></li>
+          <li class=""><a href="/v/home">Home & Garden</a></li>
+          <li class=""><a href="/v/movies">Movies</a></li>
+          <li class=""><a href="/v/news">News</a></li>
+          <li class=""><a href="/v/womenslife">Women's Lifestyle</a></li>
+          <li class=""><a href="/v/gaming">Gaming</a></li>
+          <li class=""><a href="/v/tech">Tech</a></li>
+          <li class=""><a href="/v/health">Health</a></li>
+          <li class=""><a href="/v/sports">Sports</a></li>
+      </ul>
+    </nav>
+  </header>
+  <main>
+                <article class="item first">
+          <a class="mainbox-link" href="https://www.zergnet.com/o/8072574/1/0/0" data-destination-hash="d440712acda7305ed867cf3b5573ff0f" rel="nofollow" target="_blank">
+        <div class="img-holder"><img border="0" height="140" width="140" src="//img2.zergnet.com/8072574_140.jpg" title="Valve Releases Big 25th Anniversary Update For Half-Life" alt="Valve Releases Big 25th Anniversary Update For Half-Life" /></div>
+            <div class="text">Valve Releases Big 25th Anniversary Update For Half-Life</div>
+            <div class="chevron"><img src="//static.zergnet.com/0_assets/images/right_chevron.png" alt="" width="16"></div>
+          </a>
+        </article>
+        <div class="divider">Your Top 10 Articles of the Day</div>
+  </main>
+
+<div id="bottomdiv" class="clear">&nbsp;</div>
+<div id="fb-root"></div>
+
+<div style="height: 25px;"></div>
+
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>
+<script language="javascript" type="text/javascript">
+    var ajaxworking = 0;
+    var countdown = 0;
+    var $container = $('main');
+    var nextpage = "#/0/2/0";
+
+    if ( window.location != window.parent.location ) {
+        $("body").width(window.screen.width);
+    }
+
+    ajaxScroll(1);
+    resetscroll();
+
+    var foundUrls = {};
+    $(".item a").each(function(){
+        var hash = $(this).attr("data-destination-hash");
+        if ( hash ) {
+            foundUrls[hash] = 1;
+        }
+    });
+
+    $("#nav-trigger").click(function(){
+      $("nav ul").toggleClass("visible");
+    });
+
+    function ajaxScroll(first) {
+        if (ajaxworking < 1) {
+            ajaxworking = 1;
+            var runTest = false;
+
+            if (nextpage != "none"){
+
+                $.ajax({
+                    url: '/ajax/load_results.php',
+                    dataType: 'jsonp',
+                    data: {
+                        queryString: nextpage,
+                        runTest: runTest
+                    },
+                    success: function(data) {
+                        ajaxworking = 0;
+                        nextpage = data.nexturl;
+                        var $boxes = data.boxes;
+                        var $finalBoxes = [];
+	                    for ( var b = 0; b < $boxes.length; b++ ) {
+		                    var match = $boxes[b].match(/data-destination-hash="[^\"]+"/)
+		                    if (match) {
+			                    var url = match[0].replace('data-destination-hash=', '').replace(/"/g, '')
+			                    if (typeof( foundUrls[url] ) === "undefined") {
+				                    foundUrls[url] = 1;
+				                    var els = $.parseHTML($boxes[b]);
+				                    for ( var i = 0; i < els.length; i++ ) {
+					                    if ( els[i].nodeType == 1 ) {
+						                    $finalBoxes.push(els[1]);
+					                    }
+				                    }
+			                    }
+		                    }
+	                    }
+
+            if ( countdown > 0 ) {
+              for ( var i = 0; i < $finalBoxes.length; i++ ) {
+                if ( countdown > 0 ) {
+                  $($finalBoxes[i]).addClass("countdown");
+                  $("a", $finalBoxes[i]).append("<div class='counter'>"+countdown+"</div>");
+                  countdown--;
+                }
+              }
+              $container.append($finalBoxes);
+
+              $(".countdown").last().after("<div class='divider'>You May Also Like</div>");
+            } else {
+              $container.append($finalBoxes);
+            }
+
+
+                        var docHeight = $(document).height();
+                        var docScroll = $(window).height() + $(window).scrollTop();
+                        if (docHeight == docScroll) {
+                            ajaxScroll(0);
+                        }
+                    }
+                });
+            }
+        }
+    }
+
+    function getbottom(){
+        var el = $('#bottomdiv');
+        if (!el.length) return 0;
+        var bottom = el.offset().top + (el.height());
+        return bottom-1200;
+    }
+
+
+    function resetscroll(){
+        $(window).scroll(scroll_handler);
+    }
+
+
+    function scroll_handler(){
+        if (($(window).scrollTop() + $(window).height()) >= getbottom()) {
+            ajaxScroll(0);
+        }
+    }
+</script>
+
+<script>
+// Google Analytics
+var _gaq = _gaq || [];
+_gaq.push(['_setAccount', 'UA-27989123-1']);
+_gaq.push(['_trackPageview']);
+(function() {
+var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+})();
+
+
+
+// AdBlock Event
+var test = document.createElement('div');
+test.innerHTML = '&nbsp;';
+test.className = 'adsbox';
+document.body.appendChild(test);
+window.setTimeout(function() {
+	if (test.offsetHeight === 0) {
+		_gaq.push(['_trackEvent','AdBlock','1']);
+	}
+}, 100);
+</script>
+</body>
+</html>

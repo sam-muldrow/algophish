@@ -1,0 +1,211 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <title>11번가</title>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="title" content="11번가">
+    <meta name="keywords" content="11번가">
+    <meta name="description" content="전 국민이 이용하는 대한민국 대표 쇼핑몰 | 오늘주문 내일도착 - 슈팅배송. 편리한 해외쇼핑 - 11번가 아마존. 산지에서 당일발송 - 신선밥상. 특별한 혜택의 시작 - 우주패스">
+<script>
+    (function () { var HOST = window.location.host; var PARAM = window.location.search; var REFERRER = document.referrer; var IS_SECURE = /^https/.test(window.location.protocol); function isExceptionProtocol() { try { var browserAgent = navigator.userAgent.toLowerCase(); return browserAgent.indexOf('msie 8') !== -1 || browserAgent.indexOf('msie 7') !== -1 || browserAgent.indexOf('msie 6') !== -1; } catch (e) { return false; } } function getHomeUrl() { var default_url = "//www.11st.co.kr/main"; var default_protocol = "https:"; if (isExceptionProtocol()) { default_protocol = "http:"; } return default_protocol + default_url; } function checkHomeRedirect(redirectUrl) { return getDomain(redirectUrl) === getDomain(HOME_URL); } function isNavigateType() { if (window.performance) { var performanceNavigationEntries = window.performance.getEntriesByType("navigation"); if (performanceNavigationEntries && performanceNavigationEntries.length > 0) { var currentType = performanceNavigationEntries[0].type; return "reload" !== currentType && "back_forward" !== currentType; } if (window.performance.navigation) { var currentType = window.performance.navigation.type; var reloadType = window.performance.navigation.TYPE_RELOAD || 1; var historyType = window.performance.navigation.TYPE_BACK_FORWARD || 2; return reloadType !== currentType && historyType !== currentType; } } return true; } function checkDirect() { if (REFERRER !== '') { return false; } return isNavigateType(); } var HOME_URL = getHomeUrl(); var TMCookieUtil = function () { var COOKIE_ID_ARR = ["TP", "TD", "TT", "TM", "TW"]; /* !DO NOT CHANGE SORT ORDER */ var CK_SP = "#"; /* seperator for each sub cookies */ var VL_SP = "|"; /* seperator for bewteen name of cookies and there value */ /* strip sharp(#) on begining of string and end of string, also trim white */ /* space */ String.prototype.stripSharp = function () { return this.replace(/^[#\s]+|[#\s]+$/g, ""); }; /* trim white space */ String.prototype.trim = function () { return this.replace(/^\s+|\s+$/g, ""); }; /** * Estimate whether the param value is empty or not */ function isEmpty(param) { if (!isNaN(param)) { param = param.toString(); } return param === null || param.trim() === "" || param.trim() === "undefined" || (typeof param === "undefined"); } /** * get matched value from arr with specified seperator */ function getMatchedStr(strArr, searchStr, seperator) { if (strArr != null && strArr.length > 0 && !isEmpty(searchStr)) { for (var index = 0, len = strArr.length; index < len; index++) { var tempArr = strArr[index].trim().split(seperator); if (tempArr[0] === searchStr) { return decodeURIComponent(tempArr[1].trim()); } } } return ""; } return { getSubCookie: function (ckIdIndex, cookieName) { /* get value of sub cookie */ if (isEmpty(cookieName)) { return false; } var classCookies = TMCookieUtil.getCookie(COOKIE_ID_ARR[ckIdIndex]); var subCookies = classCookies.split(CK_SP); var subCookieValue = ""; if (subCookies != null && subCookies.length > 0) { for (var index = 0, len = subCookies.length; index < len; index++) { if (subCookies[index].split(VL_SP)[0] === cookieName) { var subCookie = subCookies[index].split(VL_SP); if (subCookie.length > 1) { subCookieValue = subCookie[1]; return subCookieValue; } } } } return subCookieValue; }, getCookie: function (ckId) { /* get string of sub cookies name,value pair */ if (!isNaN(ckId)) { ckId = COOKIE_ID_ARR[ckId]; } var cookieString = ""; if (!isEmpty(ckId)) { var cookieArr = document.cookie.split(";"); cookieString = getMatchedStr(cookieArr, ckId, "=").stripSharp(); } return cookieString; } }; }(); /* general cookie manager */ var Cookies = { setCookie: function (key, value, expires) { var _domain = /^localhost/.test(HOST) ? ' ' : '; domain=.11st.co.kr'; var _path = '; path=/'; var _expires = ''; if (expires != null) { var date = new Date(); date.setTime(date.getTime() + (expires * 24 * 60 * 60 * 1000)); _expires = '; expires=' + date.toUTCString(); } document.cookie = key + '=' + value + _expires + _domain + _path; }, getCookie: function (key) { var keyString = key + '='; var cookieArray = document.cookie.split(';'); for (var i = 0, len = cookieArray.length; i < len; i++) { var cookie = cookieArray[i]; while (cookie.charAt(0) === ' ') { cookie = cookie.substring(1, cookie.length); } if (cookie.indexOf(keyString) === 0) { return cookie.substring(keyString.length, cookie.length); } } return null; }, erase: function (key) { Cookies.setCookie(key, '', -1); } }; function forcePc() { var param = location.search; if (param === '') { return false; } var params = param.substr(param.indexOf("?") + 1).split("&"); for (var i = 0, len = params.length; i < len; i++) { var eachParams = params[i].split("="); if (eachParams.length === 2) { return eachParams[0] === 'fua' && eachParams[1] === 'p'; } } return false; } /* 모바일 브라우저 확인 */ function checkFromMobile() { if(forcePc()) { return false; } try { var _userAgent = navigator.userAgent; var _arrPassHeaders = [ 'SAMSUNG-', 'SHW-', 'SCH-', 'SPH-', 'SGH-', 'LG-', 'CANU', 'IM-', 'EV-' , 'iPhone', 'Nokia', 'BlackBerry', 'lgtelecom', 'NATEBrowser', 'SonyEricsson' , 'Mobile', 'Server_KO_SKT', 'POLARIS', 'Sony', 'Android' ]; for (var idx = 0, len = _arrPassHeaders.length; idx < len; idx++) { if (_userAgent.indexOf(_arrPassHeaders[idx]) !== -1) { return true; } } return false; } catch (ex) { return false; } } function getDomain(url) { var matches = url.match(/^https?:\/\/([^\/?#]+)(?:[\/?#]|$)/i); var domain = matches && matches[1]; return domain == null ? '' : domain; } /* 모바일 쿼리스트링 추출 */ function getForwardQueryString() { var _referrer = document.referrer; if (_referrer.indexOf('11st.co.kr') < 0) { return '?referrer=' + getDomain(_referrer); } return ''; } /* get parameter */ function getParameter(key) { try { var _param = PARAM; if (typeof _param !== 'undefined' && _param !== '') { _param = _param.substr(1); var _chkKey = key + '='; var _arrParam = _param.split('&'); for (var idx = 0, len = _arrParam.length; idx < len; idx++) { if (_arrParam[idx].indexOf(_chkKey) === 0) { return _arrParam[idx].replace(_chkKey, ''); } } } else { return ''; } } catch (ex) { return ''; } } /* 시작페이지 설정 (국문 or 영문) */ function getStartPage(sendUrl) { try { var _cookieName = '11ST_ENTERANCE'; var _cookieVal = TMCookieUtil.getSubCookie(2, _cookieName).toUpperCase(); var _home = getParameter('home'); if (_home === 'EN' || _cookieVal === 'EN') { return '//global.11st.co.kr/GlobalIndex.tmall'; } if (_home === 'KR' || _cookieVal === "KR" || _cookieVal === "") { return HOME_URL; } return sendUrl; } catch (e) { return sendUrl; } } function setSessionId() { try { var currentTimeMillis = new Date().getTime(); var key = ''; for (var i = 0; i < 10; i++) { var randomNumber = Math.ceil(Math.random() * 10) - 1; key += randomNumber; } var sessionId = currentTimeMillis + '' + key; var expires = 30; var date = new Date(); date.setTime(date.getTime() + (expires * 60 * 1000)); Cookies.setCookie("RAKE_SID_XSITE", sessionId, date); } catch (e) { } } /* redirect */ function gotoMain() { if (HOST == null) { return; } var _redirectUrl = ''; switch (HOST) { case 'www.11st.co.kr' : case '11st.co.kr' : _redirectUrl = getStartPage(HOME_URL); break; } /* mobile check */ if (checkFromMobile()) { _redirectUrl = 'http://m.11st.co.kr/MW/' + getForwardQueryString(); } if (_redirectUrl === '') { _redirectUrl = HOME_URL; } if (PARAM !== '') { if (_redirectUrl.indexOf('?') > -1) { _redirectUrl += PARAM.replace('?', '&'); } else { _redirectUrl += PARAM; } } try { if (checkHomeRedirect(_redirectUrl)) { if (checkDirect()) { Cookies.erase('XSITE'); Cookies.erase('PARTNER_CD'); Cookies.setCookie('XSITE', '1000966141'); Cookies.setCookie('PARTNER_CD', '1561'); setSessionId(); } if (!IS_SECURE && /^https:/.test(_redirectUrl)) { document.location.replace(_redirectUrl); } } else { document.location.replace(_redirectUrl); } } catch (ex) { } } gotoMain(); }) ();</script>
+    <link rel="canonical" href="//www.11st.co.kr/">
+    <link rel="alternate" media="only screen and (max-width: 640px)" href="//m.11st.co.kr/">
+    <link rel="shortcut icon" href="//s.011st.com/img/common/icon/favicon.ico">
+    <link href="//c.011st.com/css/main/main.css" rel="stylesheet" type="text/css" />
+    <script src="//c.011st.com/js/common/ui.js"></script>
+    <script src='//c.011st.com/js/lib/jquery/jquery-3.1.1.min.js'></script>
+    <!-- Global site tag (gtag.js) - Google Ads: 876562370 -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=AW-876562370"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag() {dataLayer.push(arguments);}
+        gtag('js', new Date());
+        gtag('config', 'AW-876562370');
+        gtag('config', 'G-6VBF5N51X2');
+        gtag('config', 'AW-11308550307');
+        gtag('config', 'AW-11311593958');
+    </script>
+    <!-- Kakao Pixel -->
+    <script type="text/javascript" charset="UTF-8" src="//t1.daumcdn.net/kas/static/kp.js"></script>
+    <script type="text/javascript">
+        kakaoPixel('1159821660645313681').pageView('web');
+    </script>
+</head>
+
+<body class="l_body">
+<div id="root">
+    <script type="application/json">
+        {
+"apiPath": "//apis.11st.co.kr/display-api","puiPath": {"path":"//apis.11st.co.kr/pui/v2/page", "params":"pageId=PCHOMEHOME"},"billboardPuiPath": {"path":"//apis.11st.co.kr/pui/v2/page", "params":"pageId=PCHOMEBILLBOARD"}        }
+    </script>
+</div>
+<!-- Main Script -->
+<script src="//v.011st.com/latest/pc.polyfills.js" nomodule charset="UTF-8"></script>
+<script src="//v.011st.com/latest/pc.util_l.js" charset="UTF-8"></script>
+<script src="//v.011st.com/latest/pc.main.js" charset="UTF-8"></script>
+<script src="//c.011st.com/js/rake/shuttle/Log11stClientSentinelShuttle-2.0.6-94.js"></script>
+<script>
+    var rakeLog = (function(rakeLog){
+        var empty = function() {};
+
+        rakeLog.refresh = empty;
+        rakeLog.pageView = empty;
+        rakeLog.sendRakeLog = empty;
+        rakeLog.setEnableLog = empty;
+        rakeLog.scrollHandler = empty;
+        rakeLog.getShuttle = function() {
+            if (LogClientSentinelShuttle) {
+                return new LogClientSentinelShuttle();
+            }
+            return {};
+        };
+
+        return rakeLog;
+    }(window.rakeLog || {}));
+
+    var rakeLogPageInfo = {"PageInfo":{"page_id":"/main/home"},"DataMerge":false,"AppSessionId":"","AppSessionIdXsite":"","DeviceId":"","_$RAKE_ENV":"LIVE","_$RAKE_TOKEN":"871e1b1427359b4f70af57f1b03b1b89becc23d8","_$RAKE_TOKEN_NPI":"19df1ef211ac21741c82322a9ffe739b4f5a1519","Switch":{"ImpMW":true,"ImpPC":true,"LogDisable":false,"LogDisablePageshow":false}};
+    var RakeLoadScript = function() {
+        if (true) {
+            var path = '//c.011st.com/js/rake/rakeLog-pc-1.1.0.js';
+            var heads = document.getElementsByTagName('head');
+
+            if (heads.length > 0) {
+                var script = document.createElement('script');
+                script.src = path;
+                script.charset = 'euc-kr';
+                heads[0].appendChild(script);
+            }
+        }
+    };
+</script>
+<script>
+    if (document.addEventListener) {
+        document.addEventListener('DOMContentLoaded', function () {
+            RakeLoadScript();
+        });
+    } else {
+        document.attachEvent("onreadystatechange", function() {
+            if (document.readyState !== "loading") {
+                RakeLoadScript();
+            }
+        });
+    }
+</script>
+<!-- Google Tag Manager -->
+<noscript>
+    <iframe src="//www.googletagmanager.com/ns.html?id=GTM-P3PMQD" height="0" width="0"
+            style="display:none;visibility:hidden"></iframe>
+</noscript>
+<script>
+    (function (w, d, s, l, i) {
+        w[l] = w[l] || [];
+        w[l].push({
+            'gtm.start':
+                new Date().getTime(), event: 'gtm.js'
+        });
+        var f = d.getElementsByTagName(s)[0],
+            j = d.createElement(s), dl = l != 'dataLayer' ? '&l=' + l : '';
+        j.async = true;
+        j.src =
+            '//www.googletagmanager.com/gtm.js?id=' + i + dl;
+        f.parentNode.insertBefore(j, f);
+    })(window, document, 'script', 'GA_dataLayer', 'GTM-P3PMQD');
+</script>
+<!-- End Google Tag Manager -->
+<!-- 글로벌 11번가 안내 팝업 스크립트 -->
+<script type="text/javascript">
+    jQuery(document).ready(function () {
+        try{
+            // 접속아이피 지역 정보
+            var cookieValKeepKoreaSite=TMCookieUtil.getSubCookie(2, 'KEEP_KOREA_SITE').toUpperCase();
+            var cookieValConnIpLoc=TMCookieUtil.getSubCookie(2, 'CONN_IP_LOC').toUpperCase();
+
+            if(cookieValConnIpLoc !== 'DOM' && cookieValKeepKoreaSite !== 'Y'){
+                jQuery.ajax({
+                    url          :"//www.11st.co.kr/browsing/Main.tmall?method=getDomesticAccessYnAjax",
+                    type         :"post",
+                    dataType     :"jsonp",
+                    scriptCharset:"UTF-8",
+                    crossDomain  :true,
+                    success      :function (data){
+                        if(data.result==="N"){
+                            //해외 접속 IP
+                            jQuery('html').addClass('dimmest11_set');
+                            jQuery('#globalInfoLayerPopUp').addClass('dimmest11_on');
+
+                            jQuery('#globalInfoLayerPopUp .btn_close').click(function () {
+                                jQuery('#globalInfoLayerPopUp').removeClass('dimmest11_on');
+                                jQuery('html').removeClass('dimmest11_set');
+                                TMCookieUtil.add(2, 'KEEP_KOREA_SITE', 'Y');
+                            });
+
+                            jQuery('#keepKoreaSite').click(function () {
+                                jQuery('#globalInfoLayerPopUp').removeClass('dimmest11_on');
+                                jQuery('html').removeClass('dimmest11_set');
+                                TMCookieUtil.add(2, 'KEEP_KOREA_SITE', 'Y');
+                            });
+
+                            dimedLayerFunc();
+                            jQuery(window).resize(function () {
+                                dimedLayerFunc();
+                            });
+                            function dimedLayerFunc() {//dimed layer 위치 자동포지션 func
+                                var ele = jQuery('#globalInfoLayerPopUp .dim_layer');
+                                var dimH = ele.outerHeight();
+                                var dimW = ele.outerWidth();
+                                var h = jQuery(window).height();
+                                var w = jQuery(window).width();
+                                if (dimH > h) {
+                                    ele.css({ 'marginTop': 0 + 'px', 'top': 0 });
+                                }
+                                else {
+                                    ele.css({ 'marginTop': -(dimH / 2) + 'px', 'top': '50%' });
+                                }
+                                if (dimW > w) {
+                                    ele.css({ 'marginLeft': 0 + 'px', 'left': 0 });
+                                }
+                                else {
+                                    ele.css({ 'marginLeft': -(dimW / 2) + 'px', 'left': '50%' });
+                                }
+                            }
+                        }
+                    },
+                    error :function (xhr, status, error){
+                    }
+                });
+            }
+        }catch(e){}
+    });
+</script>
+<!-- //글로벌 11번가 안내 팝업 스크립트 -->
+
+<!-- 글로벌 11번가 안내 팝업 -->
+<div class="dimmest11" id="globalInfoLayerPopUp">
+    <!-- 활성화시 dimmest11_on 클래스 및 html에 dimmest11_set 클래스 추가 -->
+    <div class="dim_layer global_layer" style="margin-top: -251.5px; top: 50%; margin-left: -340px; left: 50%;">
+        <div class="global_layer_inner">
+            <strong class="tit">WELCOME TO 11STREET!</strong>
+            <div class="layer_box">
+                <p class="txt">Thank you for shopping at 11st.co.kr! <br>Visit our global website for more customized shopping experience.</p>
+                <ul class="list_info">
+                    <li>- International shipping available</li>
+                    <li>- English and 中文 supported</li>
+                </ul>
+            </div>
+            <div class="btn_area">
+                <a href="//global.11st.co.kr/html/en/main_en.html?trlang=en" class="btn_en">Go to the English Websites</a>
+                <a href="//global.11st.co.kr/html/en/main_zh.html?trlang=zh" class="btn_cn">跳?到中文站</a>           <!-- TODO (woojin) 한자 깨지는거 확인 -->
+            </div>
+            <p class="txt_keep" id="keepKoreaSite">
+                <a href="#">Keep staying in the Korean site.</a>
+            </p>
+            <button type="button" class="btn_close">
+                <span class="skip">Layer popup close</span>
+            </button>
+        </div>
+    </div>
+</div>
+<!-- //글로벌 11번가 안내 팝업 -->
+</body>
+</html>

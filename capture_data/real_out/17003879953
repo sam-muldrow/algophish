@@ -1,0 +1,5262 @@
+
+
+<!DOCTYPE html>
+<html lang="en" dir="ltr" wf-loading>
+    <head>
+        
+    
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<link rel="shortcut icon" type="image/png" href="/assets/images/favicon.png">
+
+
+    <script>
+        window.newrelicAttributes = {
+            accountId: "1796917",
+            trustKey: "1796917",
+            agentId: "149134891",
+            licenseKey: "f701a6c63c",
+            applicationId: "149134891"
+        };
+    </script>
+    <script src="/newrelic.js"></script>
+
+
+
+<!-- Compliant Google Optimize -->
+<script>
+        (() => {
+            const getPrivacyCookie = () => {
+                const privacyCookie = document.cookie.match('(^|;)\\s*cmapi_cookie_privacy\\s*=\\s*([^;]+)');
+
+                return privacyCookie ? privacyCookie.pop() : null;
+            };
+
+            const getBehaviorCookie = () => {
+                const behaviorCookie = document.cookie.match('(^|;)\\s*notice_behavior\\s*=\\s*([^;]+)');
+
+                return behaviorCookie ? behaviorCookie.pop() : null;
+            };
+
+            const hasOptedIn = () => {
+                const behaviorCookie = getBehaviorCookie();
+                const privacyCookie = getPrivacyCookie();
+
+                return behaviorCookie && behaviorCookie.match(/^none$/) || privacyCookie && privacyCookie.match(/2|3/);
+            }
+
+            const appendOptimize = () => {
+                const head = document.getElementsByTagName('head')[0];
+
+                if (head) {
+                    const script = document.createElement('script');
+
+                    script.src = 'https://www.googleoptimize.com/optimize.js?id=GTM-M6BQF2W';
+                    script.id = "google-optimize"
+                    head.append(script);
+                }
+            };
+
+            const removeOptimize = () => {
+                const head = document.getElementsByTagName('head')[0];
+                const optimizeScript = document.getElementById('google-optimize');
+
+                if (head && optimizeScript) {
+                    head.removeChild(optimizeScript);
+                }
+            }
+
+            /**
+             * Append or remove Google Optimize script to head,
+             * depending on whether user's cookie preferences
+             * have opted in and Google Optimize script already
+             * exists in head.
+             */
+            const handleConsentDecision = () => {
+                const googleOptimizeScript = document.getElementById('google-optimize');
+                if (hasOptedIn() && !googleOptimizeScript) {
+                    appendOptimize();
+                } else if (!hasOptedIn() && googleOptimizeScript) {
+                    removeOptimize();
+                }
+            }
+
+            /**
+             * Callbacks will occur in the form of a PostMessage event. This code listens for the
+             * appropriately formatted PostMessage event, gets the new consent decision, and then sets
+             * the new cookie preferences.
+             */
+            const handlePreferencesUpdated = (e) => {
+                try {
+                    const { capabilities, action } = JSON.parse(e.data).PrivacyManagerAPI || {};
+                    if (capabilities && action === 'getConsentDecision') {
+                        handleConsentDecision();
+                    }
+                } catch (error) {
+                    console.error(error);
+                }
+            }
+
+            /**
+             * Registers with the TrustArc Content Manager (CM) API to receive callbacks when
+             * a preference update occurs, and initialized dispatched preferences array to
+             * the user's current preferences. You must wait for the CM API (PrivacyManagerAPI object)
+             * to exist on the page before registering.
+             */
+            const CMICallbackRegister = () => {
+                const interval = setInterval(() => {
+                    if (window.PrivacyManagerAPI && interval) {
+                        const apiObject = {
+                            PrivacyManagerAPI: {
+                                action: 'getConsentDecision',
+                                timestamp: new Date().getTime(),
+                                self: window.location.host
+                            }
+                        };
+                        window.top.postMessage(JSON.stringify(apiObject), '*');
+                        clearInterval(interval);
+                    }
+                }, 50);
+            }
+
+            /**
+             * Listener registers a message callback on the TrustArc Content Manager when
+             * user's cookie preferences are updated and adds an event listener
+             * on the message events that occur when said preference updates occur.
+             */
+            const trustArcScriptLoadListener = () => {
+                if (typeof window.truste === 'object') {
+                    CMICallbackRegister();
+                    window.addEventListener('message', handlePreferencesUpdated);
+                }
+            }
+
+            window.addEventListener('load', trustArcScriptLoadListener);
+            const behaviorCookie = getBehaviorCookie();
+
+            if (behaviorCookie === null) {
+                // wait for TrustArc script to load before checking cookies
+                let numIntervals = 0;
+                const scriptLoadInterval = setInterval( () => {
+                    if(getBehaviorCookie()) {
+                        handleConsentDecision();
+                        clearInterval(scriptLoadInterval);
+                    }
+                    // Stop running interval after 8 times (8x the documented 500ms it
+                    // should take to load the TrustArc script on the BE) to prevent running forever
+                    if (++numIntervals >= 10) {
+                        clearInterval(scriptLoadInterval);
+                    }
+                } , 500);
+            } else {
+                handleConsentDecision();
+            }
+        })();
+</script>
+    <!-- End Compliant Google Optimize -->
+
+
+<!-- Google Tag Manager -->
+<script>
+    (function(w, d, s, l) {
+        w[l] = w[l] || [];
+        w[l].push({
+            'gtm.start': new Date().getTime(),
+            event: 'gtm.js'
+        });
+
+        var f = d.getElementsByTagName(s)[0];
+        var j = d.createElement(s);
+        var dl = l !== 'dataLayer' ? '&l=' + l : '';
+
+        j.async = true;
+        j.src = 'https://www.googletagmanager.com/gtm.js?id=GTM-TG32RCX' + dl;
+        f.parentNode.insertBefore(j, f);
+    })(window, document, 'script', 'dataLayer');
+</script>
+<!-- End Google Tag Manager -->
+
+
+
+<style>
+    [unresolved] {
+        visibility: hidden !important;
+    }
+</style>
+
+
+<noscript>
+    <style>
+        [unresolved] {
+            visibility: visible !important;
+        }
+    </style>
+</noscript>
+
+<style>
+    body {
+        margin: 0;
+    }
+
+    .image img {
+        max-width: 100%;
+    }
+</style>
+
+
+<script>
+    
+    if (!CSS.supports('width', 'calc((var(--test))')) {
+        window.ShadyCSS = {
+            shimcssproperties: true
+        };
+    }
+
+    document.addEventListener('nds.typeKit.active', function() {
+        document.querySelector('html').removeAttribute('wf-loading');
+    });
+</script>
+
+<script src="//unpkg.com/@webcomponents/webcomponentsjs@2.2.7/webcomponents-loader.js"
+    integrity="sha384-3HK5hxQbkFqOIxMbpROlRmRtYl2LBZ52t+tqcjzsmr9NJuOWQxl8RgQSyFvq2lhy"
+    crossorigin="anonymous"></script>
+<script src="//cdnjs.cloudflare.com/ajax/libs/masonry/4.2.2/masonry.pkgd.min.js"
+    integrity="sha384-GNFwBvfVxBkLMJpYMOABq3c+d3KnQxudP/mGPkzpZSTYykLBNsZEnG2D9G/X/+7D"
+    crossorigin="anonymous"></script>
+<script src="//w.soundcloud.com/player/api.js"></script>
+
+
+
+
+
+
+<script>
+    window.nds = window.nds || {};
+    window.nds.componentUrlPrefix = '//pl.ea.com/release/4.63.3/elements/ea-elements.min.js'.substring(0, '//pl.ea.com/release/4.63.3/elements/ea-elements.min.js'.lastIndexOf('/') + 1);
+    window.nds.contentfulUrl = 'https://contentful-proxy.juno.ea.com/graphql';
+    window.nds.salUrl = 'https://service-aggregation-layer.juno.ea.com/graphql';
+    window.nds.useApq = true;
+    window.nds.salClientId = 'eacom-fe';
+    window.nds.xGameDistMethod = 'eacom';
+    window.nds.lockboxGameId = 'eacom';
+    window.nds.lockboxInvoiceSource = 'EACOM-STORE-WEB-%countryCode%';
+    window.nds.lockboxExternalPaymentPath = '/lockbox-external-payment';
+</script>
+
+
+
+<script type="module" src="//pl.ea.com/release/4.63.3/elements/ea-elements.min.js"></script>
+<script nomodule defer src="//pl.ea.com/release/4.63.3/elements/ea-elements.min.js"></script>
+
+
+
+    
+        
+            
+                <style> @font-face {font-family: BFHead; font-weight: 400; src: url(/assets/fonts/battlefield/BFHead-Regular.otf) format("opentype");} @font-face {font-family: BFText; font-weight: 400; src: url(/assets/fonts/battlefield/BFText-Regular.otf) format("opentype");} </style>
+            
+        
+    
+
+<style>
+    @font-face {
+    font-family: 'ElectronicArtsDisplay';
+    src: url(/assets/fonts/display/ElectronicArtsDisplay-Regular.woff2) format('woff');
+    font-weight: 400;
+    font-style: normal;
+}
+@font-face {
+    font-family: 'ElectronicArtsDisplay';
+    src: url(/assets/fonts/display/ElectronicArtsDisplay-Bold.woff2) format('woff');
+    font-weight: 600;
+    font-style: normal;
+}
+@font-face {
+    font-family: 'ElectronicArtsText';
+    src: url(/assets/fonts/text/ElectronicArtsText-Light.woff2) format('woff');
+    font-weight: 300;
+    font-style: normal;
+}
+@font-face {
+    font-family: 'ElectronicArtsText';
+    src: url(/assets/fonts/text/ElectronicArtsText-LightItalic.woff2) format('woff');
+    font-weight: 300;
+    font-style: italic;
+}
+@font-face {
+    font-family: 'ElectronicArtsText';
+    src: url(/assets/fonts/text/ElectronicArtsText-Regular.woff2) format('woff');
+    font-weight: 400;
+    font-style: normal;
+}
+@font-face {
+    font-family: 'ElectronicArtsText';
+    src: url(/assets/fonts/text/ElectronicArtsText-Italic.woff2) format('woff');
+    font-weight: 400;
+    font-style: italic;
+}
+@font-face {
+    font-family: 'ElectronicArtsText';
+    src: url(/assets/fonts/text/ElectronicArtsText-Bold.woff2) format('woff');
+    font-weight: 600;
+    font-style: normal;
+}
+@font-face {
+    font-family: 'ElectronicArtsText';
+    src: url(/assets/fonts/text/ElectronicArtsText-BoldItalic.woff2) format('woff');
+    font-weight: 600;
+    font-style: italic;
+}
+
+</style>
+
+
+
+
+
+
+    <title>Battlefield - Award Winning First Person Shooter by EA and DICE  - Official Site</title>
+    
+
+
+<meta property="og:type" content="article">
+<meta property="og:title" content="Battlefield - Award Winning First Person Shooter by EA and DICE  - Official Site">
+<meta property="og:description" content="The latest news and updates for all things Battlefield, the EA and DICE video game franchise.
+">
+
+    <meta property="og:url" content="https://www.ea.com/games/battlefield">
+
+<meta property="og:site_name" content="Electronic Arts Inc.">
+
+    <meta property="og:image" content="https://media.contentapi.ea.com/content/dam/bf/common/battlefield-franchise-featured-image.jpg.adapt.crop191x100.1200w.jpg">
+
+
+    <meta property="og:image:width" content="1200">
+    <meta property="og:image:height" content="628">
+
+
+<meta name="description" content="The latest news and updates for all things Battlefield, the EA and DICE video game franchise.
+">
+<meta name="author" content="Electronic Arts">
+<meta property="article:modified_time" content="2023-10-13T06:59:29Z">
+<meta property="article:published_time" content="2023-10-13T06:59:29Z">
+
+
+
+
+
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:site" content="@ea">
+<meta name="twitter:title" content="Battlefield - Award Winning First Person Shooter by EA and DICE  - Official Site">
+<meta name="twitter:description" content="The latest news and updates for all things Battlefield, the EA and DICE video game franchise.
+">
+
+    <meta name="twitter:image" content="https://media.contentapi.ea.com/content/dam/bf/common/battlefield-franchise-featured-image.jpg.adapt.crop16x9.1023w.jpg">
+
+<meta name="twitter:creator" content="@ea">
+
+<script type="application/ld+json">
+{
+    "@context": "http://schema.org",
+    "@type": "Article",
+     
+"image": {
+    "@type": "ImageObject",
+    "url": "https://media.contentapi.ea.com/content/dam/bf/common/battlefield-franchise-featured-image.jpg.adapt.crop191x100.1200w.jpg"
+},
+ 
+    "author": {
+      "@type": "Organization",
+      "name": "Electronic Arts",
+      "sameAs": "https://en.wikipedia.org/wiki/Electronic_Arts"
+    },
+    "publisher": {
+        "@type": "Organization",
+        "name": "Electronic Arts",
+        "sameAs": "https://en.wikipedia.org/wiki/Electronic_Arts",
+        "logo": {
+            "@type": "ImageObject",
+            "url": "https://media.contentapi.ea.com/content/dam/ea/EA_logo.png",
+            "width": 60,
+            "height": 60
+        }
+    },
+    "inLanguage": "en",
+    "description": "The latest news and updates for all things Battlefield, the EA and DICE video game franchise.
+",
+    "datePublished": "2023-10-13T06:59:29Z",
+    "dateModified": "2023-10-13T06:59:29Z",
+    "headline": "Battlefield - Award Winning First Person Shooter by EA and DICE  - Official Site",
+    "url": "https://www.ea.com/games/battlefield"
+}
+</script>
+
+
+
+    </head>
+    <body unresolved>
+        
+    
+
+
+<custom-style><style include="ea-shared-styles-base-common"></style></custom-style>
+<custom-style><style include="ea-shared-styles-base-headings"></style></custom-style>
+<custom-style><style include="ea-shared-styles-base-lists"></style></custom-style>
+<custom-style><style include="ea-shared-styles-base-links"></style></custom-style>
+<custom-style><style include="ea-shared-styles-base-images"></style></custom-style>
+<custom-style><style include="ea-shared-styles-typography-headings"></style></custom-style>
+<custom-style><style include="ea-shared-styles-typography-paragraphs"></style></custom-style>
+<custom-style><style include="ea-shared-styles-typography-labels"></style></custom-style>
+
+
+    
+        
+            <custom-style>
+                <style>
+                    html {
+                        
+                            --origin-brand-color: #07F468;
+                        
+                            --eaCorporate-landingSection-spacerTop-XS: 32px;
+                        
+                            --eaCorporate-landingSection-spacerTop-SM: 32px;
+                        
+                            --eaCorporate-landingSection-spacerTop-MD: 80px;
+                        
+                            --eaCorporate-landingSection-spacerTop-LG: 104px;
+                        
+                            --eaCorporate-landingSection-spacerTop-XL: 128px;
+                        
+                            --eaCorporate-landingSection-spacerBottom-XS: 32px;
+                        
+                            --eaCorporate-landingSection-spacerBottom-SM: 32px;
+                        
+                            --eaCorporate-landingSection-spacerBottom-MD: 40px;
+                        
+                            --eaCorporate-landingSection-spacerBottom-LG: 48px;
+                        
+                            --eaCorporate-landingSection-spacerBottom-XL: 56px;
+                        
+                            --eaCorporate-standardSection-spacerTop-XS: 48px;
+                        
+                            --eaCorporate-standardSection-spacerTop-SM: 48px;
+                        
+                            --eaCorporate-standardSection-spacerTop-MD: 80px;
+                        
+                            --eaCorporate-standardSection-spacerTop-LG: 80px;
+                        
+                            --eaCorporate-standardSection-spacerTop-XL: 80px;
+                        
+                            --eaCorporate-standardSection-spacerBottom-XS: 48px;
+                        
+                            --eaCorporate-standardSection-spacerBottom-SM: 48px;
+                        
+                            --eaCorporate-standardSection-spacerBottom-MD: 80px;
+                        
+                            --eaCorporate-standardSection-spacerBottom-LG: 80px;
+                        
+                            --eaCorporate-standardSection-spacerBottom-XL: 80px;
+                        
+                            --ea-theme-stream-ui-paddle-default: #ffffff;
+                        
+                            --ea-theme-stream-ui-paddle-disabled: rgba(191, 191, 191, 0.5);
+                        
+                            --ea-theme-stream-ui-progress-indicator-default: rgb(255,255,255);
+                        
+                            --ea-theme-stream-ui-progress-indicator-hover: rgb(255,255,255);
+                        
+                            --ea-theme-stream-ui-progress-bar-stroke-default: rgba(191, 191, 191, 0.5);
+                        
+                            --ea-theme-stream-ui-progress-bar-stroke-hover: rgba(191, 191, 191, 1);
+                        
+                            --ea-theme-stream-ui-progress-bar-fill-hover: rgba(191, 191, 191, 1);
+                        
+                            --ea-theme-toaster-eyebrow-font-size-mobile: 16px;
+                        
+                            --ea-theme-toaster-eyebrow-font-size-tablet: 18px;
+                        
+                            --ea-theme-toaster-eyebrow-font-size-desktop: 20px;
+                        
+                            --ea-theme-toaster-copy-font-size-tablet: 16px;
+                        
+                            --ea-theme-toaster-copy-font-size-desktop: 18px;
+                        
+                            --ea-theme-tabs-background-color: rgba(0, 0, 0, 0.05);
+                        
+                            --ea-theme-tabs-indicator-color: #f17f1a;
+                        
+                            --ea-theme-tabs-interface-color: #FFFFFF;
+                        
+                            --ea-theme-tabs-unselected-type: #F3F3F3;
+                        
+                            --ea-theme-tabs-selected-type: #000000;
+                        
+                            --ea-theme-tabs-selected-state: #283269;
+                        
+                             --ea-theme-tabs-accent-elements: rgba(0, 0, 0, 0.08);
+                        
+                            --ea-theme-tabs-inactive-interface-color: rgba(255, 255, 255, 0.1);
+                        
+                            --ea-theme-tabs-tab-text-transform: capitalize;
+                        
+                            --ea-theme-h5-font-size-tablet-landscape: 22px;
+                        
+                            --ea-theme-l2-font-size-desktop: 16px;
+                        
+                            --ea-theme-l2-font-size-tablet-landscape: 14px;
+                        
+                            --ea-theme-l2-font-size-mobile: 14px;
+                        
+                            --ea-theme-d4-font-size-desktop: 48px;
+                        
+                            --ea-theme-d4-line-height-desktop: 50px;
+                        
+                            --ea-theme-d4-font-size-tablet-landscape: 42px;
+                        
+                            --ea-theme-d4-line-height-tablet-landscape: 44px;
+                        
+                            --ea-theme-h4-font-size-desktop: 18px;
+                        
+                            --ea-theme-h4-font-size-mobile: 16px;
+                        
+                            --ea-theme-h4-line-height-desktop: 24px;
+                        
+                            --ea-theme-h4-font-size-tablet-landscape: 16px;
+                        
+                            --ea-theme-h4-line-height-mobile: 24px;
+                        
+                            --ea-theme-h4-line-height-tablet-landscape: 22px;
+                        
+                            --ea-brand-color: #f17f1a;
+                        
+                            --ea-theme-color: #f17f1a;
+                        
+                            --ea-theme-dark-gradient: #F17F1A;
+                        
+                            --ea-theme-light-gradient: #F1BC1A;
+                        
+                            --ea-theme-typographic-headings-font-family: bfhead;
+                        
+                            --ea-theme-secondary-font-family: bfhead;
+                        
+                            --ea-theme-primary-font-family: bftext;
+                        
+                            --ea-theme-d3-font-size-desktop: 48px;
+                        
+                            --ea-theme-d3-line-height-desktop: 48px;
+                        
+                            --ea-theme-d3-font-size-tablet-portrait: 26px;
+                        
+                            --ea-theme-d3-line-height-tablet-portrait: 28px;
+                        
+                            --ea-theme-d1-font-weight: 400;
+                        
+                            --ea-theme-d2-font-weight: 400;
+                        
+                            --ea-theme-d3-font-weight: 400;
+                        
+                            --ea-theme-d4-font-weight: 400;
+                        
+                            --ea-theme-l1-font-weight: 400;
+                        
+                            --ea-theme-l2-font-weight: 400;
+                        
+                            --ea-theme-d3-font-size-tablet-landscape: 36px;
+                        
+                            --ea-theme-d3-line-height-tablet-landscape: 40px;
+                        
+                            --ea-theme-d3-font-size-mobile: 28px;
+                        
+                            --ea-theme-d3-line-height-mobile: 30px;
+                        
+                            --ea-theme-tabs-accent-elements: rgba(0, 0, 0, 0.08);
+                        
+                            --ea-theme-local-nav-shelf-header-font-size-tablet-landscape: 12px;
+                        
+                            --ea-theme-local-nav-cta-dropdown-font-size-tablet-landscape: 14px;
+                        
+                            --ea-theme-d4-line-height-mobile: 32px;
+                        
+                            --ea-theme-d4-font-size-mobile: 28px;
+                        
+                    }
+                </style>
+            </custom-style>
+        
+    
+
+
+
+<ea-elements-loader elements="ea-network-nav, ea-player, ea-type-kit">
+</ea-elements-loader>
+
+
+    <ea-network-nav
+        unresolved
+        userData="/user-data"
+        content="//nds-network-nav.ea.com//en-us/network-nav"
+        login-url="/login"
+        logout-url="/logout"
+            
+                
+                    
+                        hide-logo
+                    
+                
+            
+    ></ea-network-nav>
+
+
+
+
+
+
+
+    
+        
+            
+                
+
+    
+<ea-elements-loader elements="ea-local-nav-advanced, ea-link">
+</ea-elements-loader>
+<ea-local-nav-advanced
+    
+    
+        home-text = "Battlefield "
+        home-tooltip = "Battlefield "
+        home-link = "/games/battlefield"
+    
+    
+        logo-image="https://media.contentapi.ea.com/content/dam/bf/common/redesign-2018/bf-nav-logo.svg"
+        
+            logo-tooltip=""
+        
+    
+    
+        theme = "light"
+    
+    
+        shelf-type = "band"
+    
+    
+        open-drawer-text = "Menu"
+    
+    
+        close-drawer-text = "Close"
+    
+    
+        mini
+    
+    
+
+    
+        show-franchise-nav
+    
+
+    
+
+    
+        game-link-text = "Battlefield V"
+    
+
+    
+        game-link-url = "/games/battlefield/battlefield-5"
+    
+
+    
+        franchise-link-text = "Battlefield "
+    
+
+    
+        franchise-link-url = "/games/battlefield"
+    
+    unresolved
+>
+    
+        
+            
+<ea-elements-loader elements="ea-game-box">
+</ea-elements-loader>
+<ea-container
+    
+        filter-key="All"
+    
+    
+        slot="franchise-game-box"
+    
+>
+    <ea-game-box
+        slot="game-box"
+        
+            background-image="https://media.contentapi.ea.com/content/dam/bf/common/casablanca-game-box-key-art-1x1.jpg.adapt.crop1x1.767w.jpg"
+            
+                background-image-alt-text=""
+            
+
+        
+        
+            logo-url="https://media.contentapi.ea.com/content/dam/casablanca/common/logoimage-v2.png"
+            logo-alt=""
+        
+        
+            main-link-url="/games/battlefield/battlefield-5"
+        
+        
+            main-link-title="Official Site"
+        
+        
+        
+            type="simple"
+        
+        
+        show-back-alt="Battlefield V"
+        show-front-alt="Battlefield V"
+        title="Battlefield V"
+        sale-text=""
+        unresolved
+    >
+        
+        
+        
+
+        
+        <!-- Output Main Link as an anchor tag for SEO -->
+        <a
+            
+                href="/games/battlefield/battlefield-5"
+            
+            
+                title="Official Site"
+            
+            
+        >Battlefield V</a>
+    </ea-game-box>
+</ea-container>
+
+        
+            
+<ea-elements-loader elements="ea-game-box">
+</ea-elements-loader>
+<ea-container
+    
+        filter-key="All"
+    
+    
+        slot="franchise-game-box"
+    
+>
+    <ea-game-box
+        slot="game-box"
+        
+            background-image="https://media.contentapi.ea.com/content/dam/bf/images/2018/04/battlefield-1-keyart-5452x3859.jpg.adapt.crop1x1.767w.jpg"
+            
+                background-image-alt-text=""
+            
+
+        
+        
+            logo-url="https://media.contentapi.ea.com/content/dam/bf/common/battlefield1-logo-smallbox.svg"
+            logo-alt=""
+        
+        
+            main-link-url="/games/battlefield/battlefield-1"
+        
+        
+            main-link-title="Official Site"
+        
+        
+        
+            type="simple"
+        
+        
+        show-back-alt="Battlefield 1"
+        show-front-alt="Battlefield 1"
+        title="Battlefield 1"
+        sale-text=""
+        unresolved
+    >
+        
+        
+        
+
+        
+        <!-- Output Main Link as an anchor tag for SEO -->
+        <a
+            
+                href="/games/battlefield/battlefield-1"
+            
+            
+                title="Official Site"
+            
+            
+        >Battlefield 1</a>
+    </ea-game-box>
+</ea-container>
+
+        
+            
+<ea-elements-loader elements="ea-game-box">
+</ea-elements-loader>
+<ea-container
+    
+        filter-key="All"
+    
+    
+        slot="franchise-game-box"
+    
+>
+    <ea-game-box
+        slot="game-box"
+        
+            background-image="https://media.contentapi.ea.com/content/dam/bf/common/bf4-keyart.jpg.adapt.crop1x1.767w.jpg"
+            
+                background-image-alt-text=""
+            
+
+        
+        
+            logo-url="https://media.contentapi.ea.com/content/dam/bf/common/battlefield-4-svg-logo-v3.svg"
+            logo-alt=""
+        
+        
+            main-link-url="/games/battlefield/battlefield-4"
+        
+        
+            main-link-title="Official Site"
+        
+        
+        
+            type="simple"
+        
+        
+        show-back-alt="Battlefield 4"
+        show-front-alt="Battlefield 4"
+        title="Battlefield 4"
+        sale-text=""
+        unresolved
+    >
+        
+        
+        
+
+        
+        <!-- Output Main Link as an anchor tag for SEO -->
+        <a
+            
+                href="/games/battlefield/battlefield-4"
+            
+            
+                title="Official Site"
+            
+            
+        >Battlefield 4</a>
+    </ea-game-box>
+</ea-container>
+
+        
+    
+
+    
+        
+            
+
+    <ea-elements-loader elements="ea-link">
+    </ea-elements-loader>
+    <ea-link
+        
+            slot="franchise-drawer-link"
+        
+        class="eapl-local-nav__drawer-link"
+        link-href="/games/battlefield/all-battlefield"
+        link-title="All Battlefield Games"
+        link-text="All Battlefield Games"
+        text-color="dark"
+
+        
+        
+        
+        unresolved
+    >
+        <a href="/games/battlefield/all-battlefield">All Battlefield Games</a>
+    </ea-link>
+
+
+        
+    
+
+    
+        <a title="Battlefield " href="/games/battlefield">
+            Battlefield 
+            
+                <img
+                    src="https://media.contentapi.ea.com/content/dam/bf/common/redesign-2018/bf-nav-logo.svg"
+                    
+                />
+            
+        </a>
+    
+
+    
+        
+            
+<ea-elements-loader elements="ea-local-nav-shelf-sub-nav">
+</ea-elements-loader>
+<ea-local-nav-shelf-sub-nav
+    slot="local-nav-shelf-link"
+    toggle-text="Games"
+    theme="light"
+    type="narrow"
+    unresolved
+>
+    
+<ea-elements-loader elements="ea-local-nav-shelf-sub-nav-section">
+</ea-elements-loader>
+<ea-local-nav-shelf-sub-nav-section
+    title-text="Games"
+    slot="sub-nav-section"
+    unresolved
+>
+    
+<ea-elements-loader elements="ea-local-nav-shelf-sub-nav-section-link">
+</ea-elements-loader>
+<ea-local-nav-shelf-sub-nav-section-link
+    slot="sub-nav-section-link"
+    link-text="BATTLEFIELD™ 2042"
+    link-href="/games/battlefield/battlefield-2042"
+    link-target="_self"
+    
+    unresolved
+>
+    <a href="/games/battlefield/battlefield-2042">BATTLEFIELD™ 2042</a>
+</ea-local-nav-shelf-sub-nav-section-link>
+
+<ea-elements-loader elements="ea-local-nav-shelf-sub-nav-section-link">
+</ea-elements-loader>
+<ea-local-nav-shelf-sub-nav-section-link
+    slot="sub-nav-section-link"
+    link-text="BATTLEFIELD™ V"
+    link-href="/games/battlefield/battlefield-5/"
+    link-target="_self"
+    
+    unresolved
+>
+    <a href="/games/battlefield/battlefield-5/">BATTLEFIELD™ V</a>
+</ea-local-nav-shelf-sub-nav-section-link>
+
+<ea-elements-loader elements="ea-local-nav-shelf-sub-nav-section-link">
+</ea-elements-loader>
+<ea-local-nav-shelf-sub-nav-section-link
+    slot="sub-nav-section-link"
+    link-text="BATTLEFIELD™ 1"
+    link-href="/games/battlefield/battlefield-1/"
+    link-target="_self"
+    
+    unresolved
+>
+    <a href="/games/battlefield/battlefield-1/">BATTLEFIELD™ 1</a>
+</ea-local-nav-shelf-sub-nav-section-link>
+
+<ea-elements-loader elements="ea-local-nav-shelf-sub-nav-section-link">
+</ea-elements-loader>
+<ea-local-nav-shelf-sub-nav-section-link
+    slot="sub-nav-section-link"
+    link-text="BATTLEFIELD™ 4"
+    link-href="/games/battlefield/battlefield-4/"
+    link-target="_self"
+    
+    unresolved
+>
+    <a href="/games/battlefield/battlefield-4/">BATTLEFIELD™ 4</a>
+</ea-local-nav-shelf-sub-nav-section-link>
+
+<ea-elements-loader elements="ea-local-nav-shelf-sub-nav-section-link">
+</ea-elements-loader>
+<ea-local-nav-shelf-sub-nav-section-link
+    slot="sub-nav-section-link"
+    link-text="ALL BATTLEFIELD GAMES"
+    link-href="/games/battlefield/all-battlefield"
+    link-target="_self"
+    
+    unresolved
+>
+    <a href="/games/battlefield/all-battlefield">ALL BATTLEFIELD GAMES</a>
+</ea-local-nav-shelf-sub-nav-section-link>
+
+</ea-local-nav-shelf-sub-nav-section>
+
+</ea-local-nav-shelf-sub-nav>
+
+        
+    
+        
+            
+                <ea-link
+                    slot="local-nav-shelf-link"
+                    class="eapl-local-nav__shelf-link"
+                    text-color="dark"
+                    link-href="/games/battlefield/battlefield-2042/news"
+                    link-title="News"
+                    link-text="News"
+                    unresolved
+                >
+                    <a href="/games/battlefield/battlefield-2042/news">News</a>
+                </ea-link>
+            
+        
+    
+        
+            
+                <ea-link
+                    slot="local-nav-shelf-link"
+                    class="eapl-local-nav__shelf-link"
+                    text-color="dark"
+                    link-href="https://answers.ea.com/t5/Battlefield/ct-p/battlefield"
+                    link-title="Forums"
+                    link-text="Forums"
+                    unresolved
+                >
+                    <a href="https://answers.ea.com/t5/Battlefield/ct-p/battlefield">Forums</a>
+                </ea-link>
+            
+        
+    
+        
+            
+                <ea-link
+                    slot="local-nav-shelf-link"
+                    class="eapl-local-nav__shelf-link"
+                    text-color="dark"
+                    link-href="/games/battlefield/from-the-battlefield"
+                    link-title="From the Battlefield"
+                    link-text="From the Battlefield"
+                    unresolved
+                >
+                    <a href="/games/battlefield/from-the-battlefield">From the Battlefield</a>
+                </ea-link>
+            
+        
+    
+
+    
+        
+            
+
+    <ea-elements-loader elements="ea-local-nav-drawer-sub-nav-advanced">
+    </ea-elements-loader>
+    <ea-local-nav-drawer-sub-nav-advanced
+        
+            slot="local-nav-drawer-link"
+        
+        toggle-text="Games"
+        toggle-tooltip=""
+        theme="light"
+        
+            type="narrow"
+        
+        unresolved
+    >
+        
+        
+            
+
+    <ea-elements-loader elements="ea-local-nav-drawer-sub-nav-section, ea-link">
+    </ea-elements-loader>
+    <ea-local-nav-drawer-sub-nav-section
+        slot="local-nav-drawer-sub-nav-section"
+        title-text="Games"
+        unresolved
+    >
+    
+        <ea-link
+            slot="local-nav-drawer-sub-nav-section-link"
+            link-href="/games/battlefield/battlefield-2042"
+            link-title=""
+            link-text="BATTLEFIELD™ 2042"
+            unresolved
+        >
+            <a href="/games/battlefield/battlefield-2042">BATTLEFIELD™ 2042</a>
+        </ea-link>
+    
+        <ea-link
+            slot="local-nav-drawer-sub-nav-section-link"
+            link-href="/games/battlefield/battlefield-5/"
+            link-title=""
+            link-text="BATTLEFIELD™ V"
+            unresolved
+        >
+            <a href="/games/battlefield/battlefield-5/">BATTLEFIELD™ V</a>
+        </ea-link>
+    
+        <ea-link
+            slot="local-nav-drawer-sub-nav-section-link"
+            link-href="/games/battlefield/battlefield-1/"
+            link-title=""
+            link-text="BATTLEFIELD™ 1"
+            unresolved
+        >
+            <a href="/games/battlefield/battlefield-1/">BATTLEFIELD™ 1</a>
+        </ea-link>
+    
+        <ea-link
+            slot="local-nav-drawer-sub-nav-section-link"
+            link-href="/games/battlefield/battlefield-4/"
+            link-title=""
+            link-text="BATTLEFIELD™ 4"
+            unresolved
+        >
+            <a href="/games/battlefield/battlefield-4/">BATTLEFIELD™ 4</a>
+        </ea-link>
+    
+        <ea-link
+            slot="local-nav-drawer-sub-nav-section-link"
+            link-href="/games/battlefield/all-battlefield"
+            link-title=""
+            link-text="ALL BATTLEFIELD GAMES"
+            unresolved
+        >
+            <a href="/games/battlefield/all-battlefield">ALL BATTLEFIELD GAMES</a>
+        </ea-link>
+    
+    </ea-local-nav-drawer-sub-nav-section>
+
+
+        
+    </ea-local-nav-drawer-sub-nav-advanced>
+
+
+        
+            
+
+    <ea-elements-loader elements="ea-link">
+    </ea-elements-loader>
+    <ea-link
+        
+            slot="local-nav-drawer-link"
+        
+        class="eapl-local-nav__drawer-link"
+        link-href="/games/battlefield/battlefield-2042/news"
+        link-title="News"
+        link-text="News"
+        text-color="dark"
+        unresolved
+    >
+        <a href="/games/battlefield/battlefield-2042/news">News</a>
+    </ea-link>
+
+
+        
+            
+
+    <ea-elements-loader elements="ea-link">
+    </ea-elements-loader>
+    <ea-link
+        
+            slot="local-nav-drawer-link"
+        
+        class="eapl-local-nav__drawer-link"
+        link-href="https://answers.ea.com/t5/Battlefield/ct-p/battlefield"
+        link-title="Forums"
+        link-text="Forums"
+        text-color="dark"
+        unresolved
+    >
+        <a href="https://answers.ea.com/t5/Battlefield/ct-p/battlefield">Forums</a>
+    </ea-link>
+
+
+        
+            
+
+    <ea-elements-loader elements="ea-link">
+    </ea-elements-loader>
+    <ea-link
+        
+            slot="local-nav-drawer-link"
+        
+        class="eapl-local-nav__drawer-link"
+        link-href="/games/battlefield/from-the-battlefield"
+        link-title="From the Battlefield"
+        link-text="From the Battlefield"
+        text-color="dark"
+        unresolved
+    >
+        <a href="/games/battlefield/from-the-battlefield">From the Battlefield</a>
+    </ea-link>
+
+
+        
+    
+
+    
+</ea-local-nav-advanced>
+
+
+
+            
+        
+    
+
+
+
+
+    
+        
+            
+                
+<ea-elements-loader elements="ea-spacer">
+</ea-elements-loader>
+<ea-spacer
+    unresolved
+    
+        smallest="100px"
+    
+    
+        small="100px"
+    
+    
+        medium="100px"
+    
+    
+        large="100px"
+    
+    
+        largest="100px"
+    
+>
+</ea-spacer>
+
+            
+        
+    
+
+
+<main>
+    
+
+
+<ea-elements-loader elements="ea-page-background">
+</ea-elements-loader>
+<ea-page-background
+    unresolved
+    layout="fixed"
+    background-color=""
+    
+>
+    
+
+
+    <ea-elements-loader elements="ea-image">
+    </ea-elements-loader>
+    <ea-image
+        unresolved
+        tooltip=""
+        smallest="https://media.contentapi.ea.com/content/dam/bf/common/redesign-2018/bf-page-bg-franchise-black-xl.jpg.adapt.crop16x9.320w.jpg"
+        small="https://media.contentapi.ea.com/content/dam/bf/common/redesign-2018/bf-page-bg-franchise-black-xl.jpg.adapt.crop16x9.767w.jpg"
+        medium="https://media.contentapi.ea.com/content/dam/bf/common/redesign-2018/bf-page-bg-franchise-black-xl.jpg.adapt.crop16x9.1023w.jpg"
+        large="https://media.contentapi.ea.com/content/dam/bf/common/redesign-2018/bf-page-bg-franchise-black-xl.jpg.adapt.crop16x9.1455w.jpg"
+        largest="https://media.contentapi.ea.com/content/dam/bf/common/redesign-2018/bf-page-bg-franchise-black-xl.jpg.adapt.crop16x9.1920w.jpg"
+        
+        
+        
+        
+            slot="image"
+        
+        
+    >
+        <img
+            src="https://media.contentapi.ea.com/content/dam/bf/common/redesign-2018/bf-page-bg-franchise-black-xl.jpg.adapt.crop16x9.320w.jpg"
+            alt=""
+            srcset="https://media.contentapi.ea.com/content/dam/bf/common/redesign-2018/bf-page-bg-franchise-black-xl.jpg.adapt.crop16x9.320w.jpg 320w, https://media.contentapi.ea.com/content/dam/bf/common/redesign-2018/bf-page-bg-franchise-black-xl.jpg.adapt.crop16x9.767w.jpg 768w, https://media.contentapi.ea.com/content/dam/bf/common/redesign-2018/bf-page-bg-franchise-black-xl.jpg.adapt.crop16x9.1023w.jpg 1024w, https://media.contentapi.ea.com/content/dam/bf/common/redesign-2018/bf-page-bg-franchise-black-xl.jpg.adapt.crop16x9.1455w.jpg 1320w, https://media.contentapi.ea.com/content/dam/bf/common/redesign-2018/bf-page-bg-franchise-black-xl.jpg.adapt.crop16x9.1920w.jpg 1456w" />
+    </ea-image>
+
+
+
+</ea-page-background>
+
+
+    
+
+    
+<ea-elements-loader elements="ea-section">
+</ea-elements-loader>
+<ea-section
+    unresolved
+    slot="section"
+    
+    
+        type="railed"
+    
+    
+        layout="100"
+    
+    
+    
+        background-color="brand"
+    
+    
+    
+        background-overflow="hidden"
+    
+    
+        spacing-top="none"
+    
+    
+        spacing-bottom="none"
+    
+    
+    
+    
+    
+>
+    
+    
+
+
+<ea-section-column
+    slot="section-column"
+    
+    
+    
+        text-align="center"
+    
+    
+    
+        mobile-order="0"
+    
+    
+>
+    
+
+    
+
+
+    
+
+
+
+
+    
+
+
+
+
+</ea-section-column>
+
+    
+</ea-section>
+
+
+
+<ea-elements-loader elements="ea-section">
+</ea-elements-loader>
+<ea-section
+    unresolved
+    slot="section"
+    
+    
+        type="full-bleed"
+    
+    
+        layout="100"
+    
+    
+    
+        background-color="dark"
+    
+    
+    
+        background-overflow="hidden"
+    
+    
+        spacing-top="none"
+    
+    
+        spacing-bottom="none"
+    
+    
+    
+    
+        background-image-smallest="https://media.contentapi.ea.com/content/dam/battlefield/battlefield-2042/homepage/common/bf-2042-section-bg-homepage-hero-keyart-xl.jpg.adapt.320w.jpg"
+        background-image-small="https://media.contentapi.ea.com/content/dam/battlefield/battlefield-2042/homepage/common/bf-2042-section-bg-homepage-hero-keyart-xl.jpg.adapt.768w.jpg"
+        background-image-medium="https://media.contentapi.ea.com/content/dam/battlefield/battlefield-2042/homepage/common/bf-2042-section-bg-homepage-hero-keyart-xl.jpg.adapt.1024w.jpg"
+        background-image-large="https://media.contentapi.ea.com/content/dam/battlefield/battlefield-2042/homepage/common/bf-2042-section-bg-homepage-hero-keyart-xl.jpg.adapt.1456w.jpg"
+        background-image-largest="https://media.contentapi.ea.com/content/dam/battlefield/battlefield-2042/homepage/common/bf-2042-section-bg-homepage-hero-keyart-xl.jpg.adapt.1920w.jpg"
+        image-tooltip=""
+    
+    
+>
+    
+        <img
+            src="https://media.contentapi.ea.com/content/dam/battlefield/battlefield-2042/homepage/common/bf-2042-section-bg-homepage-hero-keyart-xl.jpg.adapt.320w.jpg"
+            alt=""
+            srcset="https://media.contentapi.ea.com/content/dam/battlefield/battlefield-2042/homepage/common/bf-2042-section-bg-homepage-hero-keyart-xl.jpg.adapt.320w.jpg 320w, https://media.contentapi.ea.com/content/dam/battlefield/battlefield-2042/homepage/common/bf-2042-section-bg-homepage-hero-keyart-xl.jpg.adapt.768w.jpg 768w, https://media.contentapi.ea.com/content/dam/battlefield/battlefield-2042/homepage/common/bf-2042-section-bg-homepage-hero-keyart-xl.jpg.adapt.1024w.jpg 1024w, https://media.contentapi.ea.com/content/dam/battlefield/battlefield-2042/homepage/common/bf-2042-section-bg-homepage-hero-keyart-xl.jpg.adapt.1456w.jpg 1320w, https://media.contentapi.ea.com/content/dam/battlefield/battlefield-2042/homepage/common/bf-2042-section-bg-homepage-hero-keyart-xl.jpg.adapt.1920w.jpg 1456w"
+        />
+    
+    
+
+
+<ea-section-column
+    slot="section-column"
+    
+        indent-left=""
+    
+    
+        indent-right=""
+    
+    
+        text-align="left"
+    
+    
+    
+        mobile-order="0"
+    
+    
+>
+    
+<ea-elements-loader elements="ea-spacer">
+</ea-elements-loader>
+<ea-spacer
+    unresolved
+    
+        smallest="48px"
+    
+    
+        small="48px"
+    
+    
+        medium="64px"
+    
+    
+        large="90px"
+    
+    
+        largest="90px"
+    
+>
+</ea-spacer>
+
+<ea-elements-loader elements="ea-hero">
+</ea-elements-loader>
+<ea-hero
+    
+        layout="medium"
+    
+    
+        text-position="left"
+    
+    
+        text-align="center"
+    
+    
+        text-color="light"
+    
+    
+        stacked
+    
+    
+    
+    
+    
+    
+        background-color="none"
+    
+    
+    
+    
+    
+    
+        copy-text="Adapt and overcome in a near-future world transformed by disorder."
+    
+    
+    
+    
+    
+    
+    
+    
+    
+        logo-image-smallest="https://media.contentapi.ea.com/content/dam/battlefield/battlefield-2042/homepage/images/2021/06/bf-2042-adaptive-hero-logo-7x2-xl.png.adapt.crop16x9.320w.png"
+        logo-image-small="https://media.contentapi.ea.com/content/dam/battlefield/battlefield-2042/homepage/images/2021/06/bf-2042-adaptive-hero-logo-7x2-xl.png.adapt.crop16x9.767w.png"
+        logo-image-medium="https://media.contentapi.ea.com/content/dam/battlefield/battlefield-2042/homepage/images/2021/06/bf-2042-adaptive-hero-logo-7x2-xl.png.adapt.crop2x1.1023w.png"
+        logo-image-large="https://media.contentapi.ea.com/content/dam/battlefield/battlefield-2042/homepage/images/2021/06/bf-2042-adaptive-hero-logo-7x2-xl.png.adapt.crop5x2.1455w.png"
+        logo-image-largest="https://media.contentapi.ea.com/content/dam/battlefield/battlefield-2042/homepage/images/2021/06/bf-2042-adaptive-hero-logo-7x2-xl.png.adapt.crop7x2.1920w.png"
+        logo-image-tooltip=""
+    
+    
+    
+    
+    
+    
+        transition
+    
+    
+        spacing-bottom="none"
+    
+    
+        spacing-top="none"
+    
+    
+        scrim-color="none"
+    
+    
+        scrim-opacity="medium"
+    
+    
+
+    animatable
+    
+    
+    
+        animation-on-load
+    
+    
+    
+    
+        animation-margin="0px"
+    
+    
+        animation-overrides="{}"
+    
+
+
+    unresolved
+    
+        custom-styles="{&quot;xl&quot;:{&quot;paddingLeft&quot;:&quot;10%&quot;,&quot;paddingRight&quot;:&quot;60%&quot;},&quot;l&quot;:{&quot;paddingLeft&quot;:&quot;10%&quot;,&quot;paddingRight&quot;:&quot;55%&quot;},&quot;m&quot;:{&quot;paddingLeft&quot;:&quot;6%&quot;,&quot;paddingRight&quot;:&quot;50%&quot;}}"
+    
+    
+    
+    
+>
+    
+    
+    
+        <p>Adapt and overcome in a near-future world transformed by disorder.</p>
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+        <img
+            src="https://media.contentapi.ea.com/content/dam/battlefield/battlefield-2042/homepage/images/2021/06/bf-2042-adaptive-hero-logo-7x2-xl.png.adapt.crop16x9.320w.png"
+            alt=""
+            srcset="https://media.contentapi.ea.com/content/dam/battlefield/battlefield-2042/homepage/images/2021/06/bf-2042-adaptive-hero-logo-7x2-xl.png.adapt.crop16x9.320w.png 320w, https://media.contentapi.ea.com/content/dam/battlefield/battlefield-2042/homepage/images/2021/06/bf-2042-adaptive-hero-logo-7x2-xl.png.adapt.crop16x9.767w.png 768w, https://media.contentapi.ea.com/content/dam/battlefield/battlefield-2042/homepage/images/2021/06/bf-2042-adaptive-hero-logo-7x2-xl.png.adapt.crop2x1.1023w.png 1024w, https://media.contentapi.ea.com/content/dam/battlefield/battlefield-2042/homepage/images/2021/06/bf-2042-adaptive-hero-logo-7x2-xl.png.adapt.crop5x2.1455w.png 1320w, https://media.contentapi.ea.com/content/dam/battlefield/battlefield-2042/homepage/images/2021/06/bf-2042-adaptive-hero-logo-7x2-xl.png.adapt.crop7x2.1920w.png 1456w"
+        />
+    
+    
+    
+    
+    
+<ea-elements-loader elements="ea-cta">
+</ea-elements-loader>
+<ea-cta
+    
+        slot="cta"
+    
+    
+        type="standard"
+    
+    
+        link-url="/games/battlefield/battlefield-2042"
+    
+    
+    
+        link-text="Explore Battlefield 2042"
+    
+    
+        icon="none"
+    
+    
+    
+        fill-color="brand"
+    
+    
+        text-color="dark"
+    
+    
+        stroke-color="none"
+    
+    
+        target="_self"
+    
+    
+    
+    
+        intent="navigation"
+    
+    
+    
+    
+        emphasis="primary"
+    
+    
+    
+    
+    
+    unresolved
+>
+    <a
+        
+            href="/games/battlefield/battlefield-2042"
+        
+        
+    >
+        
+            Explore Battlefield 2042
+        
+    </a>
+</ea-cta>
+
+    
+</ea-hero>
+
+<ea-elements-loader elements="ea-spacer">
+</ea-elements-loader>
+<ea-spacer
+    unresolved
+    
+        smallest="48px"
+    
+    
+        small="48px"
+    
+    
+        medium="64px"
+    
+    
+        large="90px"
+    
+    
+        largest="90px"
+    
+>
+</ea-spacer>
+
+</ea-section-column>
+
+    
+</ea-section>
+
+
+
+
+    
+<ea-elements-loader elements="ea-section">
+</ea-elements-loader>
+<ea-section
+    unresolved
+    slot="section"
+    
+    
+        type="full-bleed"
+    
+    
+        layout="100"
+    
+    
+    
+        background-color="none"
+    
+    
+    
+        background-overflow="hidden"
+    
+    
+        spacing-top="none"
+    
+    
+        spacing-bottom="none"
+    
+    
+    
+    
+        background-image-smallest="https://media.contentapi.ea.com/content/dam/eacom/subscription/component-assets/common/ea-play-product-conversion-gradient-jpg-2020-xl.jpg.adapt.320w.jpg"
+        background-image-small="https://media.contentapi.ea.com/content/dam/eacom/subscription/component-assets/common/ea-play-product-conversion-gradient-jpg-2020-xl.jpg.adapt.768w.jpg"
+        background-image-medium="https://media.contentapi.ea.com/content/dam/eacom/subscription/component-assets/common/ea-play-product-conversion-gradient-jpg-2020-xl.jpg.adapt.1024w.jpg"
+        background-image-large="https://media.contentapi.ea.com/content/dam/eacom/subscription/component-assets/common/ea-play-product-conversion-gradient-jpg-2020-xl.jpg.adapt.1456w.jpg"
+        background-image-largest="https://media.contentapi.ea.com/content/dam/eacom/subscription/component-assets/common/ea-play-product-conversion-gradient-jpg-2020-xl.jpg.adapt.1920w.jpg"
+        image-tooltip=""
+    
+    
+>
+    
+        <img
+            src="https://media.contentapi.ea.com/content/dam/eacom/subscription/component-assets/common/ea-play-product-conversion-gradient-jpg-2020-xl.jpg.adapt.320w.jpg"
+            alt=""
+            srcset="https://media.contentapi.ea.com/content/dam/eacom/subscription/component-assets/common/ea-play-product-conversion-gradient-jpg-2020-xl.jpg.adapt.320w.jpg 320w, https://media.contentapi.ea.com/content/dam/eacom/subscription/component-assets/common/ea-play-product-conversion-gradient-jpg-2020-xl.jpg.adapt.768w.jpg 768w, https://media.contentapi.ea.com/content/dam/eacom/subscription/component-assets/common/ea-play-product-conversion-gradient-jpg-2020-xl.jpg.adapt.1024w.jpg 1024w, https://media.contentapi.ea.com/content/dam/eacom/subscription/component-assets/common/ea-play-product-conversion-gradient-jpg-2020-xl.jpg.adapt.1456w.jpg 1320w, https://media.contentapi.ea.com/content/dam/eacom/subscription/component-assets/common/ea-play-product-conversion-gradient-jpg-2020-xl.jpg.adapt.1920w.jpg 1456w"
+        />
+    
+    
+
+
+<ea-section-column
+    slot="section-column"
+    
+        indent-left=""
+    
+    
+        indent-right=""
+    
+    
+        text-align="left"
+    
+    
+    
+        mobile-order="0"
+    
+    
+>
+    
+<ea-elements-loader elements="ea-product-conversion">
+</ea-elements-loader>
+<ea-product-conversion
+    unresolved
+    
+        text-color="light"
+    
+    
+        background-color="none"
+    
+    
+        title-text="GET MORE GAME"
+    
+    
+        spacing-top="none"
+    
+    
+        spacing-bottom="none"
+    
+>
+    
+        
+<ea-elements-loader elements="ea-cta">
+</ea-elements-loader>
+<ea-cta
+    
+        slot="cta"
+    
+    
+        type="image"
+    
+    
+        link-url="/ea-play"
+    
+    
+    
+        link-text="Join Now"
+    
+    
+        icon="none"
+    
+    
+    
+        fill-color="none"
+    
+    
+        text-color="light"
+    
+    
+        stroke-color="light"
+    
+    
+        target="_self"
+    
+    
+    
+        image="https://media.contentapi.ea.com/content/dam/eacom/subscription/ea-play/common/cta-logos/light/ea-play-logo-white-cta-type-image.svg"
+        
+            alt=""
+        
+    
+    
+        intent="misc"
+    
+    
+    
+    
+        emphasis="primary"
+    
+    
+    
+    
+    
+    unresolved
+>
+    <a
+        
+            href="/ea-play"
+        
+        
+    >
+        
+            Join Now
+        
+    </a>
+</ea-cta>
+
+<ea-elements-loader elements="ea-cta">
+</ea-elements-loader>
+<ea-cta
+    
+        slot="cta"
+    
+    
+        type="standard"
+    
+    
+        link-url="/ea-play"
+    
+    
+    
+        link-text="Join Now"
+    
+    
+        icon="none"
+    
+    
+    
+        fill-color="none"
+    
+    
+        text-color="light"
+    
+    
+        stroke-color="light"
+    
+    
+        target="_self"
+    
+    
+    
+    
+        intent="misc"
+    
+    
+    
+    
+        emphasis="primary"
+    
+    
+    
+    
+    
+    unresolved
+>
+    <a
+        
+            href="/ea-play"
+        
+        
+    >
+        
+            Join Now
+        
+    </a>
+</ea-cta>
+
+    
+</ea-product-conversion>
+
+<ea-elements-loader elements="ea-spacer">
+</ea-elements-loader>
+<ea-spacer
+    unresolved
+    
+        smallest="22px"
+    
+    
+        small="18px"
+    
+    
+        medium="0px"
+    
+    
+        large="0px"
+    
+    
+        largest="0px"
+    
+>
+</ea-spacer>
+
+</ea-section-column>
+
+    
+</ea-section>
+
+
+
+
+    
+<ea-elements-loader elements="ea-section">
+</ea-elements-loader>
+<ea-section
+    unresolved
+    slot="section"
+    
+    
+        type="railed"
+    
+    
+        layout="100"
+    
+    
+    
+        background-color="dark"
+    
+    
+    
+        background-overflow="hidden"
+    
+    
+        spacing-top="none"
+    
+    
+        spacing-bottom="medium"
+    
+    
+    
+    
+        background-image-smallest="https://media.contentapi.ea.com/content/dam/bf/common/redesign-2018/bf-page-bg-franchise-black-xl.jpg.adapt.320w.jpg"
+        background-image-small="https://media.contentapi.ea.com/content/dam/bf/common/redesign-2018/bf-page-bg-franchise-black-xl.jpg.adapt.768w.jpg"
+        background-image-medium="https://media.contentapi.ea.com/content/dam/bf/common/redesign-2018/bf-page-bg-franchise-black-xl.jpg.adapt.1024w.jpg"
+        background-image-large="https://media.contentapi.ea.com/content/dam/bf/common/redesign-2018/bf-page-bg-franchise-black-xl.jpg.adapt.1456w.jpg"
+        background-image-largest="https://media.contentapi.ea.com/content/dam/bf/common/redesign-2018/bf-page-bg-franchise-black-xl.jpg.adapt.1920w.jpg"
+        image-tooltip=""
+    
+    
+>
+    
+        <img
+            src="https://media.contentapi.ea.com/content/dam/bf/common/redesign-2018/bf-page-bg-franchise-black-xl.jpg.adapt.320w.jpg"
+            alt=""
+            srcset="https://media.contentapi.ea.com/content/dam/bf/common/redesign-2018/bf-page-bg-franchise-black-xl.jpg.adapt.320w.jpg 320w, https://media.contentapi.ea.com/content/dam/bf/common/redesign-2018/bf-page-bg-franchise-black-xl.jpg.adapt.768w.jpg 768w, https://media.contentapi.ea.com/content/dam/bf/common/redesign-2018/bf-page-bg-franchise-black-xl.jpg.adapt.1024w.jpg 1024w, https://media.contentapi.ea.com/content/dam/bf/common/redesign-2018/bf-page-bg-franchise-black-xl.jpg.adapt.1456w.jpg 1320w, https://media.contentapi.ea.com/content/dam/bf/common/redesign-2018/bf-page-bg-franchise-black-xl.jpg.adapt.1920w.jpg 1456w"
+        />
+    
+    
+
+
+<ea-section-column
+    slot="section-column"
+    
+        indent-left=""
+    
+    
+        indent-right=""
+    
+    
+        text-align="left"
+    
+    
+    
+        mobile-order="0"
+    
+    
+>
+    
+<ea-elements-loader elements="ea-subheading">
+</ea-elements-loader>
+<ea-subheading
+    unresolved
+    
+        type="ordered"
+    
+    
+        layout="large"
+    
+    
+        text-align="left"
+    
+    
+        text-color="dark"
+    
+    
+    
+    
+    
+        spacing-top="medium"
+    
+    
+        spacing-bottom="medium"
+    
+>
+    
+    
+    
+</ea-subheading>
+
+<ea-elements-loader elements="ea-subheading">
+</ea-elements-loader>
+<ea-subheading
+    unresolved
+    
+        type="ordered"
+    
+    
+        layout="small"
+    
+    
+        text-align="center"
+    
+    
+        text-color="light"
+    
+    
+    
+        title-text="BATTLEFIELD GAMES"
+    
+    
+    
+        spacing-top="medium"
+    
+    
+        spacing-bottom="small"
+    
+>
+    
+    
+        <h3>BATTLEFIELD GAMES</h3>
+    
+    
+</ea-subheading>
+
+<ea-elements-loader elements="ea-box-set">
+</ea-elements-loader>
+<ea-box-set
+    unresolved
+    
+        layout="3up"
+    
+    
+        spacing-top="medium"
+    
+    
+        spacing-bottom="medium"
+    
+    
+        game-box-scrim-color="none"
+    
+    
+        game-box-scrim-opacity="low"
+    
+    
+    
+>
+    
+<ea-elements-loader elements="ea-game-box">
+</ea-elements-loader>
+<ea-container
+    
+        filter-key="All"
+    
+    
+        slot="container"
+    
+>
+    <ea-game-box
+        slot="game-box"
+        
+            background-image="https://media.contentapi.ea.com/content/dam/gin/images/2021/06/battlefield-2042-key-art.jpg.adapt.crop1x1.767w.jpg"
+            
+                background-image-alt-text=""
+            
+
+        
+        
+            logo-url="https://media.contentapi.ea.com/content/dam/gin/common/logos/battlefield-2042-mono-logo-svg.svg"
+            logo-alt=""
+        
+        
+            main-link-url="/en-us/games/battlefield/battlefield-2042"
+        
+        
+            main-link-title="Official Site"
+        
+        
+        
+            type="standard"
+        
+        
+        show-back-alt="Battlefield 2042"
+        show-front-alt="Battlefield 2042"
+        title="Battlefield 2042"
+        sale-text=""
+        unresolved
+    >
+        
+        
+        
+
+        
+        <!-- Output Main Link as an anchor tag for SEO -->
+        <a
+            
+                href="/en-us/games/battlefield/battlefield-2042"
+            
+            
+                title="Official Site"
+            
+            
+        >Battlefield 2042</a>
+    </ea-game-box>
+</ea-container>
+
+<ea-elements-loader elements="ea-game-box">
+</ea-elements-loader>
+<ea-container
+    
+        filter-key="All"
+    
+    
+        slot="container"
+    
+>
+    <ea-game-box
+        slot="game-box"
+        
+            background-image="https://media.contentapi.ea.com/content/dam/bf/common/casablanca-game-box-key-art-1x1.jpg.adapt.crop1x1.767w.jpg"
+            
+                background-image-alt-text=""
+            
+
+        
+        
+            logo-url="https://media.contentapi.ea.com/content/dam/casablanca/common/logoimage-v2.png"
+            logo-alt=""
+        
+        
+            main-link-url="/en-us/games/battlefield/battlefield-5"
+        
+        
+            main-link-title="Official Site"
+        
+        
+        
+            type="standard"
+        
+        
+        show-back-alt=" Battlefield V"
+        show-front-alt=" Battlefield V"
+        title="Battlefield V"
+        sale-text=""
+        unresolved
+    >
+        
+        
+        
+
+        
+        <!-- Output Main Link as an anchor tag for SEO -->
+        <a
+            
+                href="/en-us/games/battlefield/battlefield-5"
+            
+            
+                title="Official Site"
+            
+            
+        >Battlefield V</a>
+    </ea-game-box>
+</ea-container>
+
+<ea-elements-loader elements="ea-game-box">
+</ea-elements-loader>
+<ea-container
+    
+        filter-key="All"
+    
+    
+        slot="container"
+    
+>
+    <ea-game-box
+        slot="game-box"
+        
+            background-image="https://media.contentapi.ea.com/content/dam/bf/common/battlefield-1-keyart-5452x3859.jpg.adapt.crop1x1.767w.jpg"
+            
+                background-image-alt-text=""
+            
+
+        
+        
+            logo-url="https://media.contentapi.ea.com/content/dam/bf/common/battlefield1-logo-smallbox.svg"
+            logo-alt=""
+        
+        
+            main-link-url="/en-us/games/battlefield/battlefield-1"
+        
+        
+            main-link-title="Official Site"
+        
+        
+        
+            type="standard"
+        
+        
+        show-back-alt="Battlefield 1"
+        show-front-alt="Battlefield 1"
+        title="Battlefield 1"
+        sale-text=""
+        unresolved
+    >
+        
+        
+        
+
+        
+        <!-- Output Main Link as an anchor tag for SEO -->
+        <a
+            
+                href="/en-us/games/battlefield/battlefield-1"
+            
+            
+                title="Official Site"
+            
+            
+        >Battlefield 1</a>
+    </ea-game-box>
+</ea-container>
+
+    
+
+
+</ea-box-set>
+
+</ea-section-column>
+
+    
+</ea-section>
+
+
+
+
+    
+<ea-elements-loader elements="ea-section">
+</ea-elements-loader>
+<ea-section
+    unresolved
+    slot="section"
+    
+    
+        type="railed"
+    
+    
+        layout="100"
+    
+    
+    
+        background-color="none"
+    
+    
+    
+        background-overflow="visible"
+    
+    
+        spacing-top="medium"
+    
+    
+        spacing-bottom="medium"
+    
+    
+    
+    
+    
+>
+    
+    
+
+
+<ea-section-column
+    slot="section-column"
+    
+    
+    
+        text-align="center"
+    
+    
+    
+        mobile-order="0"
+    
+    
+>
+    
+<ea-elements-loader elements="ea-cta">
+</ea-elements-loader>
+<ea-cta
+    
+        slot="cta"
+    
+    
+        type="standard"
+    
+    
+        link-url="/games/battlefield/all-battlefield"
+    
+    
+    
+        link-text="ALL BATTLEFIELD GAMES"
+    
+    
+        icon="none"
+    
+    
+    
+        fill-color="none"
+    
+    
+        text-color="light"
+    
+    
+        stroke-color="light"
+    
+    
+    
+    
+    
+        intent="navigation"
+    
+    
+    
+    
+        emphasis="primary"
+    
+    
+    
+    
+    
+    unresolved
+>
+    <a
+        
+            href="/games/battlefield/all-battlefield"
+        
+        
+    >
+        
+            ALL BATTLEFIELD GAMES
+        
+    </a>
+</ea-cta>
+
+</ea-section-column>
+
+    
+</ea-section>
+
+
+
+
+    
+<ea-elements-loader elements="ea-section">
+</ea-elements-loader>
+<ea-section
+    unresolved
+    slot="section"
+    
+    
+        type="railed"
+    
+    
+        layout="100"
+    
+    
+    
+        background-color="none"
+    
+    
+    
+        background-overflow="visible"
+    
+    
+        spacing-top="none"
+    
+    
+        spacing-bottom="medium"
+    
+    
+    
+    
+        background-image-smallest="https://media.contentapi.ea.com/content/dam/bf/common/redesign-2018/bf-page-bg-franchise-black-xl.jpg.adapt.320w.jpg"
+        background-image-small="https://media.contentapi.ea.com/content/dam/bf/common/redesign-2018/bf-page-bg-franchise-black-xl.jpg.adapt.768w.jpg"
+        background-image-medium="https://media.contentapi.ea.com/content/dam/bf/common/redesign-2018/bf-page-bg-franchise-black-xl.jpg.adapt.1024w.jpg"
+        background-image-large="https://media.contentapi.ea.com/content/dam/bf/common/redesign-2018/bf-page-bg-franchise-black-xl.jpg.adapt.1456w.jpg"
+        background-image-largest="https://media.contentapi.ea.com/content/dam/bf/common/redesign-2018/bf-page-bg-franchise-black-xl.jpg.adapt.1920w.jpg"
+        image-tooltip=""
+    
+    
+>
+    
+        <img
+            src="https://media.contentapi.ea.com/content/dam/bf/common/redesign-2018/bf-page-bg-franchise-black-xl.jpg.adapt.320w.jpg"
+            alt=""
+            srcset="https://media.contentapi.ea.com/content/dam/bf/common/redesign-2018/bf-page-bg-franchise-black-xl.jpg.adapt.320w.jpg 320w, https://media.contentapi.ea.com/content/dam/bf/common/redesign-2018/bf-page-bg-franchise-black-xl.jpg.adapt.768w.jpg 768w, https://media.contentapi.ea.com/content/dam/bf/common/redesign-2018/bf-page-bg-franchise-black-xl.jpg.adapt.1024w.jpg 1024w, https://media.contentapi.ea.com/content/dam/bf/common/redesign-2018/bf-page-bg-franchise-black-xl.jpg.adapt.1456w.jpg 1320w, https://media.contentapi.ea.com/content/dam/bf/common/redesign-2018/bf-page-bg-franchise-black-xl.jpg.adapt.1920w.jpg 1456w"
+        />
+    
+    
+
+
+<ea-section-column
+    slot="section-column"
+    
+        indent-left=""
+    
+    
+        indent-right=""
+    
+    
+        text-align="left"
+    
+    
+    
+        mobile-order="0"
+    
+    
+>
+    
+<ea-elements-loader elements="ea-subheading">
+</ea-elements-loader>
+<ea-subheading
+    unresolved
+    
+        type="ordered"
+    
+    
+        layout="large"
+    
+    
+        text-align="left"
+    
+    
+        text-color="dark"
+    
+    
+    
+    
+    
+        spacing-top="medium"
+    
+    
+        spacing-bottom="medium"
+    
+>
+    
+    
+    
+</ea-subheading>
+
+<ea-elements-loader elements="ea-subheading">
+</ea-elements-loader>
+<ea-subheading
+    unresolved
+    
+        type="ordered"
+    
+    
+        layout="small"
+    
+    
+        text-align="center"
+    
+    
+        text-color="light"
+    
+    
+    
+        title-text="LATEST NEWS"
+    
+    
+    
+        spacing-top="medium"
+    
+    
+        spacing-bottom="small"
+    
+>
+    
+    
+        <h3>LATEST NEWS</h3>
+    
+    
+</ea-subheading>
+
+<ea-elements-loader elements="ea-grid">
+</ea-elements-loader>
+<ea-grid
+    
+
+    type="ordered"
+
+
+    tile-media-shape="rectangle"
+
+
+
+    layout="3up"
+
+
+    tile-type="vertical"
+
+
+    tile-text-align="left"
+
+
+    tile-text-color="dark"
+
+
+    tile-color="light"
+
+
+
+
+
+
+
+    hide-ctas
+
+
+    hide-brand-stroke
+
+
+    hide-byline
+
+
+    spacing-top="small"
+
+
+    spacing-bottom="medium"
+
+
+
+
+    
+    
+    
+        tile-scrim-color="none"
+    
+    
+        tile-scrim-opacity="medium"
+    
+    tile-align="center"
+    
+    
+        cards=""
+    
+    
+    
+    
+    
+        ajax-url="/pagination/2-apUlBwMpMvqeQ3pwyAnbh0HeKifoQEpDEBzhCx1RrX%2BewFX4r22yrS0BrQGBuvVF%2By%2FXb1dJKoFpG0zUGkSdvMgr4ycDCkocJuCQ6TWnppDSfdTU4Xwlnyj8nM200lhpO33NYgm9KZzGAwDIDQT1QAI5B1dwJr5Ia%2FiBa20uddFq%2F5X44CTyf1Y3MypEYlE53AceZ0yEN%2FYPH3OhfH2F%2FpFMK5YODtGQz8n%2F11wY7D4%2FtpcPJF4Q7IH3aSsUpHpH6cWubq8s81toNjqAvTwg"
+    
+    
+        total-count="254"
+    
+    animate-in-order=""
+    animate-out-order=""
+    
+    unresolved
+>
+    
+    
+
+    
+<ea-elements-loader elements="ea-tile">
+</ea-elements-loader>
+<ea-container
+    slot="container"
+    
+        filter-key="All"
+    
+    >
+    <ea-tile
+        unresolved
+        slot="tile"
+        style="--ea-animation-index:0"
+        
+        
+        
+        
+            media="https://media.contentapi.ea.com/content/dam/battlefield/battlefield-2042/news/images/2023/10/kin-com-u610.jpg.adapt.crop16x9.431p.jpg"
+        
+        
+        
+            eyebrow-text="Battlefield 2042"
+        
+        
+            eyebrow-secondary-text="Oct 27, 2023"
+        
+        
+            title-text="BATTLEFIELD 2042 UPDATE #6.1.0"
+        
+        
+        
+        
+        
+        
+        
+        
+
+        
+
+        
+
+        
+
+        tooltip="BATTLEFIELD 2042 UPDATE #6.1.0"
+
+        
+
+        
+    >
+        
+            <h3>BATTLEFIELD 2042 UPDATE #6.1.0</h3>
+        
+        
+            <div>Battlefield 2042</div>
+            
+                <div>Oct 27, 2023</div>
+            
+        
+        
+        
+        <ea-tile-copy slot="copy">
+        
+            Battlefield 2042 Update #6.1.0 introduces further Quality of Life Improvements alongside our Limited Time Event, Dark Protocol.
+        
+        </ea-tile-copy>
+        
+        
+            
+<ea-elements-loader elements="ea-cta">
+</ea-elements-loader>
+<ea-cta
+    
+        slot="cta"
+    
+    
+        type="standard"
+    
+    
+        link-url="https://www.ea.com/games/battlefield/battlefield-2042/news/battlefield-2042-update-notes-6-1"
+    
+    
+    
+        link-text="Read More"
+    
+    
+        icon="none"
+    
+    
+    
+        fill-color="none"
+    
+    
+        text-color="dark"
+    
+    
+    
+        target="_self"
+    
+    
+    
+    
+        intent="navigation"
+    
+    
+    
+    
+    
+    
+    
+    
+    unresolved
+>
+    <a
+        
+            href="https://www.ea.com/games/battlefield/battlefield-2042/news/battlefield-2042-update-notes-6-1"
+        
+        
+    >
+        
+            Read More
+        
+    </a>
+</ea-cta>
+
+        
+        
+        
+    </ea-tile>
+</ea-container>
+
+<ea-elements-loader elements="ea-tile">
+</ea-elements-loader>
+<ea-container
+    slot="container"
+    
+        filter-key="All"
+    
+    >
+    <ea-tile
+        unresolved
+        slot="tile"
+        style="--ea-animation-index:1"
+        
+        
+        
+        
+            media="https://media.contentapi.ea.com/content/dam/battlefield/battlefield-2042/news/s6-mse-dark-protocol/images/2023/10/s6-mse-featuredimage-1920x1080.jpg.adapt.crop16x9.431p.jpg"
+        
+        
+        
+            eyebrow-text="Battlefield 2042"
+        
+        
+            eyebrow-secondary-text="Oct 26, 2023"
+        
+        
+            title-text="Battlefield Briefing – Dark Protocol"
+        
+        
+        
+        
+        
+        
+        
+        
+
+        
+
+        
+
+        
+
+        tooltip="Battlefield Briefing – Dark Protocol"
+
+        
+
+        
+    >
+        
+            <h3>Battlefield Briefing – Dark Protocol</h3>
+        
+        
+            <div>Battlefield 2042</div>
+            
+                <div>Oct 26, 2023</div>
+            
+        
+        
+        
+        <ea-tile-copy slot="copy">
+        
+            Dark Protocol Event, limited-time Killswitch game mode
+        
+        </ea-tile-copy>
+        
+        
+            
+<ea-elements-loader elements="ea-cta">
+</ea-elements-loader>
+<ea-cta
+    
+        slot="cta"
+    
+    
+        type="standard"
+    
+    
+        link-url="https://www.ea.com/games/battlefield/battlefield-2042/news/battlefield-briefing-dark-protocol"
+    
+    
+    
+        link-text="Read More"
+    
+    
+        icon="none"
+    
+    
+    
+        fill-color="none"
+    
+    
+        text-color="dark"
+    
+    
+    
+        target="_self"
+    
+    
+    
+    
+        intent="navigation"
+    
+    
+    
+    
+    
+    
+    
+    
+    unresolved
+>
+    <a
+        
+            href="https://www.ea.com/games/battlefield/battlefield-2042/news/battlefield-briefing-dark-protocol"
+        
+        
+    >
+        
+            Read More
+        
+    </a>
+</ea-cta>
+
+        
+        
+        
+    </ea-tile>
+</ea-container>
+
+<ea-elements-loader elements="ea-tile">
+</ea-elements-loader>
+<ea-container
+    slot="container"
+    
+        filter-key="All"
+    
+    >
+    <ea-tile
+        unresolved
+        slot="tile"
+        style="--ea-animation-index:2"
+        
+        
+        
+        
+            media="https://media.contentapi.ea.com/content/dam/battlefield/battlefield-2042/news/update-6-0-0/images/2023/10/kin-com-u60-t.jpg.adapt.crop16x9.431p.jpg"
+        
+        
+        
+            eyebrow-text="Battlefield 2042"
+        
+        
+            eyebrow-secondary-text="Oct 6, 2023"
+        
+        
+            title-text="BATTLEFIELD 2042 UPDATE #6.0.0"
+        
+        
+        
+        
+        
+        
+        
+        
+
+        
+
+        
+
+        
+
+        tooltip="BATTLEFIELD 2042 UPDATE #6.0.0"
+
+        
+
+        
+    >
+        
+            <h3>BATTLEFIELD 2042 UPDATE #6.0.0</h3>
+        
+        
+            <div>Battlefield 2042</div>
+            
+                <div>Oct 6, 2023</div>
+            
+        
+        
+        
+        <ea-tile-copy slot="copy">
+        
+            What’s new in Battlefield 2042’s Season 6: Dark Creations 
+        
+        </ea-tile-copy>
+        
+        
+            
+<ea-elements-loader elements="ea-cta">
+</ea-elements-loader>
+<ea-cta
+    
+        slot="cta"
+    
+    
+        type="standard"
+    
+    
+        link-url="https://www.ea.com/games/battlefield/battlefield-2042/news/battlefield-2042-update-notes-6-0"
+    
+    
+    
+        link-text="Read More"
+    
+    
+        icon="none"
+    
+    
+    
+        fill-color="none"
+    
+    
+        text-color="dark"
+    
+    
+    
+        target="_self"
+    
+    
+    
+    
+        intent="navigation"
+    
+    
+    
+    
+    
+    
+    
+    
+    unresolved
+>
+    <a
+        
+            href="https://www.ea.com/games/battlefield/battlefield-2042/news/battlefield-2042-update-notes-6-0"
+        
+        
+    >
+        
+            Read More
+        
+    </a>
+</ea-cta>
+
+        
+        
+        
+    </ea-tile>
+</ea-container>
+
+
+
+    
+
+<ea-elements-loader elements="ea-load-more">
+</ea-elements-loader>
+<ea-load-more
+    label-text="Load More"
+    quantity="9"
+    slot="load-more"
+    title=""
+    theme="light"
+    unresolved
+>
+    Load More
+</ea-load-more>
+
+
+</ea-grid>
+
+</ea-section-column>
+
+    
+</ea-section>
+
+
+
+
+    
+<ea-elements-loader elements="ea-page-background">
+</ea-elements-loader>
+<ea-page-background
+    unresolved
+    layout="fixed"
+    background-color=""
+    
+>
+    
+
+
+    <ea-elements-loader elements="ea-image">
+    </ea-elements-loader>
+    <ea-image
+        unresolved
+        tooltip=""
+        smallest="https://media.contentapi.ea.com/content/dam/bf/common/redesign-2018/bf-page-bg-franchise-black-xl.jpg.adapt.320w.jpg"
+        small="https://media.contentapi.ea.com/content/dam/bf/common/redesign-2018/bf-page-bg-franchise-black-xl.jpg.adapt.768w.jpg"
+        medium="https://media.contentapi.ea.com/content/dam/bf/common/redesign-2018/bf-page-bg-franchise-black-xl.jpg.adapt.1024w.jpg"
+        large="https://media.contentapi.ea.com/content/dam/bf/common/redesign-2018/bf-page-bg-franchise-black-xl.jpg.adapt.1456w.jpg"
+        largest="https://media.contentapi.ea.com/content/dam/bf/common/redesign-2018/bf-page-bg-franchise-black-xl.jpg.adapt.1920w.jpg"
+        
+        
+        
+        
+            slot="image"
+        
+        
+    >
+        <img
+            src="https://media.contentapi.ea.com/content/dam/bf/common/redesign-2018/bf-page-bg-franchise-black-xl.jpg.adapt.320w.jpg"
+            alt=""
+            srcset="https://media.contentapi.ea.com/content/dam/bf/common/redesign-2018/bf-page-bg-franchise-black-xl.jpg.adapt.320w.jpg 320w, https://media.contentapi.ea.com/content/dam/bf/common/redesign-2018/bf-page-bg-franchise-black-xl.jpg.adapt.768w.jpg 768w, https://media.contentapi.ea.com/content/dam/bf/common/redesign-2018/bf-page-bg-franchise-black-xl.jpg.adapt.1024w.jpg 1024w, https://media.contentapi.ea.com/content/dam/bf/common/redesign-2018/bf-page-bg-franchise-black-xl.jpg.adapt.1456w.jpg 1320w, https://media.contentapi.ea.com/content/dam/bf/common/redesign-2018/bf-page-bg-franchise-black-xl.jpg.adapt.1920w.jpg 1456w" />
+    </ea-image>
+
+
+
+</ea-page-background>
+
+<ea-elements-loader elements="ea-section">
+</ea-elements-loader>
+<ea-section
+    unresolved
+    slot="section"
+    
+    
+        type="full-bleed"
+    
+    
+        layout="100"
+    
+    
+    
+        background-color="none"
+    
+    
+    
+        background-overflow="visible"
+    
+    
+        spacing-top="none"
+    
+    
+        spacing-bottom="none"
+    
+    
+    
+    
+    
+>
+    
+    
+
+
+<ea-section-column
+    slot="section-column"
+    
+        indent-left=""
+    
+    
+        indent-right=""
+    
+    
+        text-align="left"
+    
+    
+    
+        mobile-order="0"
+    
+    
+>
+    
+<ea-elements-loader elements="ea-subheading">
+</ea-elements-loader>
+<ea-subheading
+    unresolved
+    
+        type="ordered"
+    
+    
+        layout="large"
+    
+    
+        text-align="left"
+    
+    
+        text-color="dark"
+    
+    
+    
+    
+    
+        spacing-top="medium"
+    
+    
+        spacing-bottom="medium"
+    
+>
+    
+    
+    
+</ea-subheading>
+
+<ea-elements-loader elements="ea-newsletter-opt-in">
+</ea-elements-loader>
+<ea-newsletter-opt-in
+    api-newsletter-status="/api/newsletter/status"
+    api-newsletter-signup="/api/newsletter/signup"
+    
+        token="yT5id4KaIreoMmYx8eXrJPUnE03HdxBPv2nGqqXptLfbf4CwzNX6a6RN2BVgcC_6oe5pRShrSqnHGNCbBwuAcHbOSnIMJKX1ldHivwjKpXoLKDgAB8rkqwooLYSQGV0AvHK5ya2LCt1onhvOd0Y"
+    
+    
+    
+    
+        proposition-title-text="SIGN UP FOR BATTLEFIELD™ NEWS"
+    
+    
+        email-label-text="Email"
+    
+    
+        email-error-text="Invalid email address"
+    
+    
+        birthdate-label-Text="Birthdate"
+    
+    
+        birthdate-error-Text="Invalid birthdate"
+    
+    
+        birthdate-month-placeholder-text="MM"
+    
+    
+        birthdate-day-placeholder-text="DD"
+    
+    
+        birthdate-year-placeholder-text="YYYY"
+    
+    
+        birthdate-format = "mm-dd-yyyy"
+    
+    
+        country-label-text="Country"
+    
+    
+        countries="[{&#34;value&#34;:&#34;US&#34;,&#34;text&#34;:&#34;United States&#34;},{&#34;value&#34;:&#34;AR&#34;,&#34;text&#34;:&#34;Argentina&#34;},{&#34;value&#34;:&#34;AU&#34;,&#34;text&#34;:&#34;Australia&#34;},{&#34;value&#34;:&#34;AT&#34;,&#34;text&#34;:&#34;Austria&#34;},{&#34;value&#34;:&#34;BE&#34;,&#34;text&#34;:&#34;Belgium&#34;},{&#34;value&#34;:&#34;BR&#34;,&#34;text&#34;:&#34;Brazil&#34;},{&#34;value&#34;:&#34;CA&#34;,&#34;text&#34;:&#34;Canada&#34;},{&#34;value&#34;:&#34;CL&#34;,&#34;text&#34;:&#34;Chile&#34;},{&#34;value&#34;:&#34;CN&#34;,&#34;text&#34;:&#34;China&#34;},{&#34;value&#34;:&#34;CO&#34;,&#34;text&#34;:&#34;Colombia&#34;},{&#34;value&#34;:&#34;CZ&#34;,&#34;text&#34;:&#34;Czech Republic&#34;},{&#34;value&#34;:&#34;DK&#34;,&#34;text&#34;:&#34;Denmark&#34;},{&#34;value&#34;:&#34;FI&#34;,&#34;text&#34;:&#34;Finland&#34;},{&#34;value&#34;:&#34;FR&#34;,&#34;text&#34;:&#34;France&#34;},{&#34;value&#34;:&#34;DE&#34;,&#34;text&#34;:&#34;Germany&#34;},{&#34;value&#34;:&#34;GR&#34;,&#34;text&#34;:&#34;Greece&#34;},{&#34;value&#34;:&#34;HK&#34;,&#34;text&#34;:&#34;Hong Kong&#34;},{&#34;value&#34;:&#34;HU&#34;,&#34;text&#34;:&#34;Hungary&#34;},{&#34;value&#34;:&#34;IN&#34;,&#34;text&#34;:&#34;India&#34;},{&#34;value&#34;:&#34;IE&#34;,&#34;text&#34;:&#34;Ireland&#34;},{&#34;value&#34;:&#34;IL&#34;,&#34;text&#34;:&#34;Israel&#34;},{&#34;value&#34;:&#34;IT&#34;,&#34;text&#34;:&#34;Italy&#34;},{&#34;value&#34;:&#34;JP&#34;,&#34;text&#34;:&#34;Japan&#34;},{&#34;value&#34;:&#34;KR&#34;,&#34;text&#34;:&#34;Korea&#34;},{&#34;value&#34;:&#34;MX&#34;,&#34;text&#34;:&#34;Mexico&#34;},{&#34;value&#34;:&#34;NL&#34;,&#34;text&#34;:&#34;Netherlands&#34;},{&#34;value&#34;:&#34;NZ&#34;,&#34;text&#34;:&#34;New Zealand&#34;},{&#34;value&#34;:&#34;NO&#34;,&#34;text&#34;:&#34;Norway&#34;},{&#34;value&#34;:&#34;PL&#34;,&#34;text&#34;:&#34;Poland&#34;},{&#34;value&#34;:&#34;PT&#34;,&#34;text&#34;:&#34;Portugal&#34;},{&#34;value&#34;:&#34;RO&#34;,&#34;text&#34;:&#34;Romania&#34;},{&#34;value&#34;:&#34;RU&#34;,&#34;text&#34;:&#34;Russia&#34;},{&#34;value&#34;:&#34;SA&#34;,&#34;text&#34;:&#34;Saudi Arabia&#34;},{&#34;value&#34;:&#34;SG&#34;,&#34;text&#34;:&#34;Singapore&#34;},{&#34;value&#34;:&#34;SK&#34;,&#34;text&#34;:&#34;Slovakia&#34;},{&#34;value&#34;:&#34;ZA&#34;,&#34;text&#34;:&#34;South Africa&#34;},{&#34;value&#34;:&#34;ES&#34;,&#34;text&#34;:&#34;Spain&#34;},{&#34;value&#34;:&#34;SE&#34;,&#34;text&#34;:&#34;Sweden&#34;},{&#34;value&#34;:&#34;CH&#34;,&#34;text&#34;:&#34;Switzerland&#34;},{&#34;value&#34;:&#34;TW&#34;,&#34;text&#34;:&#34;Taiwan&#34;},{&#34;value&#34;:&#34;TH&#34;,&#34;text&#34;:&#34;Thailand&#34;},{&#34;value&#34;:&#34;TR&#34;,&#34;text&#34;:&#34;Turkey&#34;},{&#34;value&#34;:&#34;UA&#34;,&#34;text&#34;:&#34;Ukraine&#34;},{&#34;value&#34;:&#34;AE&#34;,&#34;text&#34;:&#34;United Arab Emirates&#34;},{&#34;value&#34;:&#34;GB&#34;,&#34;text&#34;:&#34;United Kingdom&#34;}]"
+    
+    
+        edit-profile-text="edit"
+    
+    
+        edit-profile-link="https://myaccount.ea.com/cp-ui/aboutme/index?locale=en_US"
+    
+    
+        connected-platforms-title-text="Your Connected Platforms."
+    
+    
+        connected-platforms-more-text="See Connected Platforms"
+    
+    
+        connected-platforms-more-link="https://myaccount.ea.com/cp-ui/aboutme/index?locale=en_US"
+    
+    
+        connected-platforms-help-text="How do I add accounts?"
+    
+    
+        connected-platforms-help-link="https://help.ea.com/en-ca/help/account/linking-your-origin-account-with-your-psn-id-and-gamertag/"
+    
+    
+        submit-text="SIGN UP"
+    
+    
+        sign-in-cta-text="SIGN UP"
+    
+    
+        sign-in-cta-link="/login"
+    
+    
+        sign-up-cta-text="SIGN UP"
+    
+    
+        success-title-text="You&#x27;re signed up!"
+    
+    
+    
+    
+    
+    
+    
+        already-title-text="You&#x27;ve already signed up"
+    
+    
+    
+    
+        ineligible-title-text="Ineligible"
+    
+    
+    
+    
+        error-title-text="Error"
+    
+    
+        error-cta-text="Refresh Page"
+    
+    
+        error-cta-link="."
+    
+    
+        type="contextual"
+    
+    
+        theme="light"
+    
+    
+        input-background-color="none"
+    
+    
+        background-color="none"
+    
+    
+        submit-text-color="light"
+    
+    
+        spacing-bottom="none"
+    
+    
+        spacing-top="none"
+    
+    
+        preferences
+    
+    
+    unresolved
+>
+    
+        
+<ea-elements-loader elements="ea-connected-accounts">
+</ea-elements-loader>
+<ea-connected-accounts
+    
+        slot="context-connected-accounts"
+    
+    
+        cta-text="See Connected Platforms"
+    
+    
+        cta-link="https://myaccount.ea.com/cp-ui/aboutme/index?locale=en_US"
+    
+    
+        text-color="light"
+    
+    
+        spacing-bottom="none"
+    
+    
+        spacing-top="none"
+    
+    unresolved
+></ea-connected-accounts>
+
+    
+    
+        
+<ea-elements-loader elements="ea-connected-accounts">
+</ea-elements-loader>
+<ea-connected-accounts
+    
+        slot="already-signed-up-connected-accounts"
+    
+    
+        cta-text="See Connected Platforms"
+    
+    
+        cta-link="https://myaccount.ea.com/cp-ui/aboutme/index?locale=en_US"
+    
+    
+        text-color="light"
+    
+    
+        spacing-bottom="none"
+    
+    
+        spacing-top="none"
+    
+    unresolved
+></ea-connected-accounts>
+
+    
+    
+        
+<ea-elements-loader elements="ea-input">
+</ea-elements-loader>
+<ea-input
+    
+        slot="email-field"
+    
+    
+        id="Email"
+    
+    
+        type="email"
+    
+    
+        name="email"
+    
+    
+        required
+    
+    
+        background-color="none"
+    
+    
+        text-color="light"
+    
+    
+        theme="light"
+    
+    
+        label-text="Email"
+    
+    
+        error-text="Invalid email address"
+    
+    
+    
+    
+    unresolved
+></ea-input>
+
+    
+    
+        
+<ea-elements-loader elements="ea-date-field">
+</ea-elements-loader>
+<ea-date-field
+    
+        slot="birthdate-field"
+    
+    
+    
+        id="DateOfBirth"
+    
+    
+        name="birthdate"
+    
+    
+        error-text="Invalid birthdate"
+    
+    
+    
+        text-color="light"
+    
+    
+        background-color="none"
+    
+    
+        month-placeholder="MM"
+    
+    
+        day-placeholder="DD"
+    
+    
+        year-placeholder="YYYY"
+    
+    
+    
+        label-text="Birthdate"
+    
+    
+    
+        required
+    
+    
+    unresolved
+>
+</ea-date-field>
+
+    
+    
+        
+<ea-elements-loader elements="ea-select">
+</ea-elements-loader>
+<ea-select
+    unresolved
+    
+        slot="country-field"
+    
+    
+        id="Country"
+    
+    
+        theme="light"
+    
+    
+        background-color="none"
+    
+    
+        label-text="Country"
+    
+    
+        value="US"
+    
+    
+>
+    
+        
+            <ea-select-option
+            slot="select-option"
+            value="US"
+            >
+            United States
+            </ea-select-option>
+        
+            <ea-select-option
+            slot="select-option"
+            value="AR"
+            >
+            Argentina
+            </ea-select-option>
+        
+            <ea-select-option
+            slot="select-option"
+            value="AU"
+            >
+            Australia
+            </ea-select-option>
+        
+            <ea-select-option
+            slot="select-option"
+            value="AT"
+            >
+            Austria
+            </ea-select-option>
+        
+            <ea-select-option
+            slot="select-option"
+            value="BE"
+            >
+            Belgium
+            </ea-select-option>
+        
+            <ea-select-option
+            slot="select-option"
+            value="BR"
+            >
+            Brazil
+            </ea-select-option>
+        
+            <ea-select-option
+            slot="select-option"
+            value="CA"
+            >
+            Canada
+            </ea-select-option>
+        
+            <ea-select-option
+            slot="select-option"
+            value="CL"
+            >
+            Chile
+            </ea-select-option>
+        
+            <ea-select-option
+            slot="select-option"
+            value="CN"
+            >
+            China
+            </ea-select-option>
+        
+            <ea-select-option
+            slot="select-option"
+            value="CO"
+            >
+            Colombia
+            </ea-select-option>
+        
+            <ea-select-option
+            slot="select-option"
+            value="CZ"
+            >
+            Czech Republic
+            </ea-select-option>
+        
+            <ea-select-option
+            slot="select-option"
+            value="DK"
+            >
+            Denmark
+            </ea-select-option>
+        
+            <ea-select-option
+            slot="select-option"
+            value="FI"
+            >
+            Finland
+            </ea-select-option>
+        
+            <ea-select-option
+            slot="select-option"
+            value="FR"
+            >
+            France
+            </ea-select-option>
+        
+            <ea-select-option
+            slot="select-option"
+            value="DE"
+            >
+            Germany
+            </ea-select-option>
+        
+            <ea-select-option
+            slot="select-option"
+            value="GR"
+            >
+            Greece
+            </ea-select-option>
+        
+            <ea-select-option
+            slot="select-option"
+            value="HK"
+            >
+            Hong Kong
+            </ea-select-option>
+        
+            <ea-select-option
+            slot="select-option"
+            value="HU"
+            >
+            Hungary
+            </ea-select-option>
+        
+            <ea-select-option
+            slot="select-option"
+            value="IN"
+            >
+            India
+            </ea-select-option>
+        
+            <ea-select-option
+            slot="select-option"
+            value="IE"
+            >
+            Ireland
+            </ea-select-option>
+        
+            <ea-select-option
+            slot="select-option"
+            value="IL"
+            >
+            Israel
+            </ea-select-option>
+        
+            <ea-select-option
+            slot="select-option"
+            value="IT"
+            >
+            Italy
+            </ea-select-option>
+        
+            <ea-select-option
+            slot="select-option"
+            value="JP"
+            >
+            Japan
+            </ea-select-option>
+        
+            <ea-select-option
+            slot="select-option"
+            value="KR"
+            >
+            Korea
+            </ea-select-option>
+        
+            <ea-select-option
+            slot="select-option"
+            value="MX"
+            >
+            Mexico
+            </ea-select-option>
+        
+            <ea-select-option
+            slot="select-option"
+            value="NL"
+            >
+            Netherlands
+            </ea-select-option>
+        
+            <ea-select-option
+            slot="select-option"
+            value="NZ"
+            >
+            New Zealand
+            </ea-select-option>
+        
+            <ea-select-option
+            slot="select-option"
+            value="NO"
+            >
+            Norway
+            </ea-select-option>
+        
+            <ea-select-option
+            slot="select-option"
+            value="PL"
+            >
+            Poland
+            </ea-select-option>
+        
+            <ea-select-option
+            slot="select-option"
+            value="PT"
+            >
+            Portugal
+            </ea-select-option>
+        
+            <ea-select-option
+            slot="select-option"
+            value="RO"
+            >
+            Romania
+            </ea-select-option>
+        
+            <ea-select-option
+            slot="select-option"
+            value="RU"
+            >
+            Russia
+            </ea-select-option>
+        
+            <ea-select-option
+            slot="select-option"
+            value="SA"
+            >
+            Saudi Arabia
+            </ea-select-option>
+        
+            <ea-select-option
+            slot="select-option"
+            value="SG"
+            >
+            Singapore
+            </ea-select-option>
+        
+            <ea-select-option
+            slot="select-option"
+            value="SK"
+            >
+            Slovakia
+            </ea-select-option>
+        
+            <ea-select-option
+            slot="select-option"
+            value="ZA"
+            >
+            South Africa
+            </ea-select-option>
+        
+            <ea-select-option
+            slot="select-option"
+            value="ES"
+            >
+            Spain
+            </ea-select-option>
+        
+            <ea-select-option
+            slot="select-option"
+            value="SE"
+            >
+            Sweden
+            </ea-select-option>
+        
+            <ea-select-option
+            slot="select-option"
+            value="CH"
+            >
+            Switzerland
+            </ea-select-option>
+        
+            <ea-select-option
+            slot="select-option"
+            value="TW"
+            >
+            Taiwan
+            </ea-select-option>
+        
+            <ea-select-option
+            slot="select-option"
+            value="TH"
+            >
+            Thailand
+            </ea-select-option>
+        
+            <ea-select-option
+            slot="select-option"
+            value="TR"
+            >
+            Turkey
+            </ea-select-option>
+        
+            <ea-select-option
+            slot="select-option"
+            value="UA"
+            >
+            Ukraine
+            </ea-select-option>
+        
+            <ea-select-option
+            slot="select-option"
+            value="AE"
+            >
+            United Arab Emirates
+            </ea-select-option>
+        
+            <ea-select-option
+            slot="select-option"
+            value="GB"
+            >
+            United Kingdom
+            </ea-select-option>
+        
+    
+
+</ea-select>
+
+    
+    
+    
+        
+<ea-elements-loader elements="ea-checkbox">
+</ea-elements-loader>
+<ea-checkbox
+    
+        slot="opt-in-field"
+    
+    
+        id="LegalOptIn"
+    
+    
+        name="legalOptin"
+    
+    
+        required
+    
+    
+    
+        text-color="light"
+    
+    unresolved
+>
+    
+        Yes! Send me EA news, product, events and promotions by email consistent with <a href="https://tos.ea.com/legalapp/WEBPRIVACY/US/en/PC/">EA’s Privacy &amp; Cookie Policy</a>. I can unsubscribe at any time by changing my <a href="https://myaccount.ea.com/cp-ui/aboutme/index?locale=en_US">email preferences</a>, emailing privacy_policy@ea.com, or writing to Electronic Arts Inc., ATTN: Email Opt-Out, 209 Redwood Shores Pkwy, Redwood City, CA, 94065, USA.
+
+    
+</ea-checkbox>
+
+    
+    
+        
+<ea-elements-loader elements="ea-cta">
+</ea-elements-loader>
+<ea-cta
+    
+        slot="sign-in-cta"
+    
+    
+    
+        link-url="/login"
+    
+    
+    
+        link-text="SIGN UP"
+    
+    
+    
+    
+        fill-color="brand"
+    
+    
+        text-color="light"
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    unresolved
+>
+    <a
+        
+            href="/login"
+        
+        
+    >
+        
+            SIGN UP
+        
+    </a>
+</ea-cta>
+
+    
+    
+        
+<ea-elements-loader elements="ea-cta">
+</ea-elements-loader>
+<ea-cta
+    
+        slot="sign-up-cta"
+    
+    
+    
+    
+    
+        link-text="SIGN UP"
+    
+    
+    
+    
+        fill-color="brand"
+    
+    
+        text-color="light"
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    unresolved
+>
+    <a
+        
+        
+    >
+        
+            SIGN UP
+        
+    </a>
+</ea-cta>
+
+    
+    
+        
+<ea-elements-loader elements="ea-cta">
+</ea-elements-loader>
+<ea-cta
+    
+        slot="success-cta"
+    
+    
+    
+    
+    
+    
+    
+    
+        fill-color="brand"
+    
+    
+        text-color="light"
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    unresolved
+>
+    <a
+        
+        
+    >
+        
+    </a>
+</ea-cta>
+
+    
+    
+        
+<ea-elements-loader elements="ea-form-errors">
+</ea-elements-loader>
+<ea-form-errors
+    
+        slot="form-errors"
+    
+    unresolved
+>
+</ea-form-errors>
+
+
+    
+    
+        
+<ea-elements-loader elements="ea-cta">
+</ea-elements-loader>
+<ea-cta
+    
+        slot="double-opt-in-cta"
+    
+    
+    
+    
+    
+    
+    
+    
+        fill-color="brand"
+    
+    
+        text-color="light"
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    unresolved
+>
+    <a
+        
+        
+    >
+        
+    </a>
+</ea-cta>
+
+    
+    
+        
+<ea-elements-loader elements="ea-cta">
+</ea-elements-loader>
+<ea-cta
+    
+        slot="already-cta"
+    
+    
+    
+    
+    
+    
+    
+    
+        fill-color="brand"
+    
+    
+        text-color="light"
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    unresolved
+>
+    <a
+        
+        
+    >
+        
+    </a>
+</ea-cta>
+
+    
+    
+        
+<ea-elements-loader elements="ea-cta">
+</ea-elements-loader>
+<ea-cta
+    
+        slot="ineligible-cta"
+    
+    
+    
+    
+    
+    
+    
+    
+        fill-color="brand"
+    
+    
+        text-color="light"
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    unresolved
+>
+    <a
+        
+        
+    >
+        
+    </a>
+</ea-cta>
+
+    
+    
+        
+<ea-elements-loader elements="ea-cta">
+</ea-elements-loader>
+<ea-cta
+    
+        slot="error-cta"
+    
+    
+    
+        link-url="."
+    
+    
+    
+        link-text="Refresh Page"
+    
+    
+    
+    
+        fill-color="brand"
+    
+    
+        text-color="light"
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    unresolved
+>
+    <a
+        
+            href="."
+        
+        
+    >
+        
+            Refresh Page
+        
+    </a>
+</ea-cta>
+
+    
+    
+        
+<ea-elements-loader elements="ea-submit">
+</ea-elements-loader>
+<ea-submit
+    unresolved
+    
+        slot="sign-up-submit"
+    
+    
+        value-text="SIGN UP"
+    
+    
+        text-color="light"
+    
+    
+    
+    
+    
+></ea-submit>
+
+    
+    
+        <newsletter-opt-in-proposition-copy-text
+            slot="newsletter-opt-in-proposition-copy-text"
+        >
+            <p>Sign up today to receive the latest Battlefield news, videos, offers, and more via email (including other EA news, products, events, and promotions).</p>
+
+        </newsletter-opt-in-proposition-copy-text>
+    
+    
+        <newsletter-opt-in-sign-in-copy-text
+            slot="newsletter-opt-in-sign-in-copy-text"
+        >
+            <p>You must sign in and sign up for&nbsp;Battlefield and EA emails before you can redeem your [IN-GAME ITEM].</p>
+
+        </newsletter-opt-in-sign-in-copy-text>
+    
+    
+        <newsletter-opt-in-sign-up-copy-text
+            slot="newsletter-opt-in-sign-up-copy-text"
+        >
+            <p>You must sign up for the&nbsp;Battlefield newsletter before you can redeem your item.</p>
+
+        </newsletter-opt-in-sign-up-copy-text>
+    
+    
+    
+        <newsletter-opt-in-success-copy-text
+            slot="newsletter-opt-in-success-copy-text"
+        >
+            <p>You've successfully signed up to receive emails about&nbsp;Battlefield and other EA news, products, events and promotions. Unsubscribe at any time by changing your <a href="https://myaccount.ea.com/cp-ui/aboutme/index?locale=en_US">email preferences</a>.</p>
+
+        </newsletter-opt-in-success-copy-text>
+    
+    
+    
+        <newsletter-opt-in-already-copy-text
+            slot="newsletter-opt-in-already-copy-text"
+        >
+            <p>You’ve already signed up for&nbsp;Battlefield newsletters with the above email. Please check your spam folder for the above email. If you still have troubles receiving the emails, please <a href="https://help.ea.com/contact-us/">contact EA</a>.</p>
+
+        </newsletter-opt-in-already-copy-text>
+    
+    
+        <newsletter-opt-in-ineligible-copy-text
+            slot="newsletter-opt-in-ineligible-copy-text"
+        >
+            <p>Sorry, you are ineligible to sign up for this newsletter.</p>
+
+        </newsletter-opt-in-ineligible-copy-text>
+    
+    
+        <newsletter-opt-in-error-copy-text
+            slot="newsletter-opt-in-error-copy-text"
+        >
+            <p>Sorry, something has gone wrong. Please try again later.</p>
+
+        </newsletter-opt-in-error-copy-text>
+    
+</ea-newsletter-opt-in>
+
+</ea-section-column>
+
+    
+</ea-section>
+
+
+
+
+    
+<ea-elements-loader elements="ea-section">
+</ea-elements-loader>
+<ea-section
+    unresolved
+    slot="section"
+    
+    
+        type="railed"
+    
+    
+        layout="100"
+    
+    
+    
+        background-color="none"
+    
+    
+    
+        background-overflow="visible"
+    
+    
+        spacing-top="none"
+    
+    
+        spacing-bottom="none"
+    
+    
+        mp4-src=""
+    
+    
+        webm-src=""
+    
+    
+    
+>
+    
+    
+
+
+<ea-section-column
+    slot="section-column"
+    
+        indent-left=""
+    
+    
+        indent-right=""
+    
+    
+        text-align="left"
+    
+    
+    
+        mobile-order="0"
+    
+    
+>
+    
+<ea-elements-loader elements="ea-text">
+</ea-elements-loader>
+<ea-text
+    unresolved
+    slot="text"
+    
+        text-color="light"
+    
+>
+    <p>INTERNET CONNECTION; EA ACCOUNT; ACCEPTANCE OF EA USER AGREEMENT (<a href="http://terms.ea.com/" target="_blank">terms.ea.com</a>) AND ORIGIN END USER LICENSE AGREEMENT (<a href="http://ea.com/legal">ea.com/legal</a>); INSTALLATION OF THE ORIGIN CLIENT SOFTWARE (<a href="http://origin.com/download" target="_blank">origin.com/download</a>); ACKNOWLEDGEMENT OF EA’S PRIVACY AND COOKIE POLICY (<a href="http://privacy.ea.com/" target="_blank">privacy.ea.com</a>) AND REGISTRATION WITH SINGLE-USE PRODUCT CODE REQUIRED TO PLAY. PRODUCT CODE REGISTRATION IS LIMITED TO ONE EA ACCOUNT PER CODE. PRODUCT CODES ARE NON-TRANSFERABLE ONCE USED AND SHALL BE VALID, AT A MINIMUM, SO LONG AS ONLINE FEATURES ARE AVAILABLE. YOU MAY NEED TO BE 16+ (13+ IN THE UK) TO ACCESS ONLINE FEATURES (AGE MAY VARY, SEE&nbsp;<a href="http://o.ea.com/ea/child-access" target="_blank">http://o.ea.com/ea/child-access</a>&nbsp;FOR DETAILS). EA MAY PROVIDE CERTAIN FREE INCREMENTAL CONTENT AND/OR UPDATES, IF AND WHEN AVAILABLE. EA MAY RETIRE ONLINE FEATURES AFTER 30 DAYS NOTICE POSTED ON&nbsp;<a href="http://ea.com/service-updates">ea.com/service-updates</a>.</p>
+<p>&nbsp;</p>
+
+    
+</ea-text>
+
+</ea-section-column>
+
+    
+</ea-section>
+
+
+
+
+
+
+    
+        
+            
+                
+
+    
+
+
+    
+
+
+
+
+            
+        
+    
+
+
+
+    
+    <div style="display: none;"></div>
+</main>
+<footer role="contentinfo">
+    
+
+    
+        
+            
+                
+
+    
+<ea-elements-loader elements="ea-local-footer, ea-local-links, ea-local-link, ea-social-links, ea-social-link, ea-hybrid-regional-rating">
+</ea-elements-loader>
+<ea-local-footer
+    theme="light"
+    sal-game-slug="battlefield"
+    rating-lang="en"
+    unresolved
+>
+    <ea-local-links
+        slot="local-links"
+        title-text="Battlefield"
+        text-color="light"
+        unresolved
+    >
+    
+        <ea-local-link
+            slot="local-link"
+            link-url="/games/battlefield/all-battlefield"
+            link-title="Games"
+            link-text="Games"
+            text-color="light"
+            unresolved
+        >
+            <a
+                href="/games/battlefield/all-battlefield"
+                title="Games"
+            >Games</a>
+        </ea-local-link>
+    
+        <ea-local-link
+            slot="local-link"
+            link-url="/games/battlefield/event-calendar"
+            link-title="Calendar"
+            link-text="Calendar"
+            text-color="light"
+            unresolved
+        >
+            <a
+                href="/games/battlefield/event-calendar"
+                title="Calendar"
+            >Calendar</a>
+        </ea-local-link>
+    
+        <ea-local-link
+            slot="local-link"
+            link-url="/games/battlefield/news"
+            link-title="News"
+            link-text="News"
+            text-color="light"
+            unresolved
+        >
+            <a
+                href="/games/battlefield/news"
+                title="News"
+            >News</a>
+        </ea-local-link>
+    
+        <ea-local-link
+            slot="local-link"
+            link-url="https://answers.ea.com/t5/Battlefield/ct-p/battlefield"
+            link-title="Forums"
+            link-text="Forums"
+            text-color="light"
+            unresolved
+        >
+            <a
+                href="https://answers.ea.com/t5/Battlefield/ct-p/battlefield"
+                title="Forums"
+            >Forums</a>
+        </ea-local-link>
+    
+    </ea-local-links>
+
+    <ea-social-links
+        slot="social-links"
+        text-color="light"
+        title-text="Join The Conversation"
+        unresolved
+    >
+    
+        <ea-social-link
+            slot="social-link"
+            link-url="https://www.facebook.com/battlefield"
+            link-title="Facebook"
+            link-target="_blank"
+            text-color="light"
+            social-network="facebook"
+            unresolved
+        >
+            <a
+                href="https://www.facebook.com/battlefield"
+                title="Facebook"
+            >facebook</a>
+        </ea-social-link>
+    
+        <ea-social-link
+            slot="social-link"
+            link-url="https://twitter.com/Battlefield"
+            link-title="Twitter"
+            link-target="_blank"
+            text-color="light"
+            social-network="twitter"
+            unresolved
+        >
+            <a
+                href="https://twitter.com/Battlefield"
+                title="Twitter"
+            >twitter</a>
+        </ea-social-link>
+    
+        <ea-social-link
+            slot="social-link"
+            link-url="https://www.youtube.com/Battlefield"
+            link-title="YouTube"
+            link-target="_blank"
+            text-color="light"
+            social-network="youtube"
+            unresolved
+        >
+            <a
+                href="https://www.youtube.com/Battlefield"
+                title="YouTube"
+            >youtube</a>
+        </ea-social-link>
+    
+        <ea-social-link
+            slot="social-link"
+            link-url="https://www.instagram.com/battlefield/"
+            link-title="Instagram"
+            link-target="_blank"
+            text-color="light"
+            social-network="instagram"
+            unresolved
+        >
+            <a
+                href="https://www.instagram.com/battlefield/"
+                title="Instagram"
+            >instagram</a>
+        </ea-social-link>
+    
+        <ea-social-link
+            slot="social-link"
+            link-url="https://www.twitch.tv/battlefield"
+            link-title="Twitch"
+            link-target="_blank"
+            text-color="light"
+            social-network="twitch"
+            unresolved
+        >
+            <a
+                href="https://www.twitch.tv/battlefield"
+                title="Twitch"
+            >twitch</a>
+        </ea-social-link>
+    
+    </ea-social-links>
+
+    
+        
+<ea-elements-loader elements="ea-studio-link">
+</ea-elements-loader>
+<ea-studio-link
+    unresolved
+    slot="studio-link"
+    link-url="http://www.dice.se/"
+    link-title="DICE"
+    
+    
+        image-smallest="https://media.contentapi.ea.com/content/dam/bf/en-us/common/homepage-logo-dice.png"
+        image-small="https://media.contentapi.ea.com/content/dam/bf/en-us/common/homepage-logo-dice.png"
+        image-medium="https://media.contentapi.ea.com/content/dam/bf/en-us/common/homepage-logo-dice.png"
+        image-large="https://media.contentapi.ea.com/content/dam/bf/en-us/common/homepage-logo-dice.png"
+        image-largest="https://media.contentapi.ea.com/content/dam/bf/en-us/common/homepage-logo-dice.png"
+        image-alt=""
+        
+        
+    
+>
+    <a
+        href="http://www.dice.se/"
+        title="DICE"
+    ></a>
+</ea-studio-link>
+
+<ea-elements-loader elements="ea-studio-link">
+</ea-elements-loader>
+<ea-studio-link
+    unresolved
+    slot="studio-link"
+    link-url="http://uprise.se/"
+    link-title="UPRISE"
+    
+    
+        image-smallest="https://media.contentapi.ea.com/content/dam/bf/en-us/common/nav-uprise.png"
+        image-small="https://media.contentapi.ea.com/content/dam/bf/en-us/common/nav-uprise.png"
+        image-medium="https://media.contentapi.ea.com/content/dam/bf/en-us/common/nav-uprise.png"
+        image-large="https://media.contentapi.ea.com/content/dam/bf/en-us/common/nav-uprise.png"
+        image-largest="https://media.contentapi.ea.com/content/dam/bf/en-us/common/nav-uprise.png"
+        image-alt=""
+        
+        
+    
+>
+    <a
+        href="http://uprise.se/"
+        title="UPRISE"
+    ></a>
+</ea-studio-link>
+
+<ea-elements-loader elements="ea-studio-link">
+</ea-elements-loader>
+<ea-studio-link
+    unresolved
+    slot="studio-link"
+    link-url="http://www.frostbite.com/"
+    link-title="Frostbite"
+    
+    
+        image-smallest="https://media.contentapi.ea.com/content/dam/bf/en-us/common/footer-frostbite.png"
+        image-small="https://media.contentapi.ea.com/content/dam/bf/en-us/common/footer-frostbite.png"
+        image-medium="https://media.contentapi.ea.com/content/dam/bf/en-us/common/footer-frostbite.png"
+        image-large="https://media.contentapi.ea.com/content/dam/bf/en-us/common/footer-frostbite.png"
+        image-largest="https://media.contentapi.ea.com/content/dam/bf/en-us/common/footer-frostbite.png"
+        image-alt=""
+        
+        
+    
+>
+    <a
+        href="http://www.frostbite.com/"
+        title="Frostbite"
+    ></a>
+</ea-studio-link>
+
+    
+
+    
+        
+<ea-elements-loader elements="ea-rating-link">
+</ea-elements-loader>
+<ea-rating-link
+    unresolved
+    slot="rating-link"
+    link-url="http://www.esrb.org"
+    link-title="ESRB"
+    
+    
+        image-smallest="https://media.contentapi.ea.com/content/dam/bf/en-us/common/esrb-battlefieldv.svg"
+        image-small="https://media.contentapi.ea.com/content/dam/bf/en-us/common/esrb-battlefieldv.svg"
+        image-medium="https://media.contentapi.ea.com/content/dam/bf/en-us/common/esrb-battlefieldv.svg"
+        image-large="https://media.contentapi.ea.com/content/dam/bf/en-us/common/esrb-battlefieldv.svg"
+        image-largest="https://media.contentapi.ea.com/content/dam/bf/en-us/common/esrb-battlefieldv.svg"
+        image-alt=""
+        
+        
+    
+>
+    <a
+        href="http://www.esrb.org"
+        title="ESRB"
+    ></a>
+</ea-rating-link>
+
+    
+
+    
+<ea-elements-loader elements="ea-hybrid-regional-rating"></ea-elements-loader>
+
+<ea-hybrid-regional-rating
+    
+    
+        slug="battlefield"
+    
+    
+        slot="regional-rating"
+    
+    
+        lang="en"
+    
+>
+</ea-hybrid-regional-rating>
+
+
+    
+        <ea-legal-disclaimer-text slot="legal-disclaimer-text">
+            <p style="font-family: tahoma, arial, helvetica, sans-serif; font-size: 12px;">REFERENCE TO A PARTICULAR MAKE, MODEL, MANUFACTURER, AND/OR VERSION OF WEAPON, GEAR OR VEHICLE IS FOR HISTORICAL ACCURACY ONLY AND DOES NOT INDICATE ANY SPONSORSHIP OR ENDORSEMENT OF ANY TRADEMARK OWNER.</p>
+
+        </ea-legal-disclaimer-text>
+    
+</ea-local-footer>
+
+
+
+            
+        
+    
+
+
+    
+
+    
+        
+            
+                
+<ea-elements-loader elements="ea-network-footer, ea-network-legal, ea-link, ea-content-loader">
+</ea-elements-loader>
+<ea-network-footer
+    theme="light"
+    
+    
+        logo-image="https://media.contentapi.ea.com/content/dam/bf/en-us/common/www-commandandconquer-ea-logo.png"
+        logo-tooltip=""
+    
+    
+        logo-link-url="https://www.ea.com"
+        logo-link-text="EA"
+        logo-link-tooltip="EA"
+    
+    unresolved
+>
+    
+        <img
+            src="https://media.contentapi.ea.com/content/dam/bf/en-us/common/www-commandandconquer-ea-logo.png"
+            alt=""
+        />
+    
+    
+        
+            <ea-link
+                slot="link"
+                link-href="https://www.ea.com/games"
+                link-title="Browse Games"
+                link-text="Browse Games"
+                text-color="light"
+                unresolved
+            >
+                <a
+                    href="https://www.ea.com/games"
+                    title="Browse Games"
+                >Browse Games</a>
+            </ea-link>
+        
+            <ea-link
+                slot="link"
+                link-href="https://www.ea.com/news"
+                link-title="Latest News"
+                link-text="Latest News"
+                text-color="light"
+                unresolved
+            >
+                <a
+                    href="https://www.ea.com/news"
+                    title="Latest News"
+                >Latest News</a>
+            </ea-link>
+        
+            <ea-link
+                slot="link"
+                link-href="https://help.ea.com"
+                link-title="Help Center"
+                link-text="Help Center"
+                text-color="light"
+                unresolved
+            >
+                <a
+                    href="https://help.ea.com"
+                    title="Help Center"
+                >Help Center</a>
+            </ea-link>
+        
+            <ea-link
+                slot="link"
+                link-href="https://www.ea.com/about"
+                link-title="About Us"
+                link-text="About Us"
+                text-color="light"
+                unresolved
+            >
+                <a
+                    href="https://www.ea.com/about"
+                    title="About Us"
+                >About Us</a>
+            </ea-link>
+        
+    
+    <ea-elements-loader elements="ea-regional-pricing-selector">
+</ea-elements-loader>
+<ea-regional-pricing-selector
+slot="regional-pricing-selector"
+theme="light"
+label-text="Regional Pricing"
+
+unresolved
+    >
+
+    <ea-regional-pricing-selector-option
+    slot="regional-pricing-selector-option"
+    value="AT"
+    >Austria</ea-regional-pricing-selector-option>
+
+    <ea-regional-pricing-selector-option
+    slot="regional-pricing-selector-option"
+    value="BE"
+    >Belgium</ea-regional-pricing-selector-option>
+
+    <ea-regional-pricing-selector-option
+    slot="regional-pricing-selector-option"
+    value="BG"
+    >Bulgaria</ea-regional-pricing-selector-option>
+
+    <ea-regional-pricing-selector-option
+    slot="regional-pricing-selector-option"
+    value="HR"
+    >Croatia</ea-regional-pricing-selector-option>
+
+    <ea-regional-pricing-selector-option
+    slot="regional-pricing-selector-option"
+    value="CY"
+    >Cyprus</ea-regional-pricing-selector-option>
+
+    <ea-regional-pricing-selector-option
+    slot="regional-pricing-selector-option"
+    value="CZ"
+    >Czech Republic</ea-regional-pricing-selector-option>
+
+    <ea-regional-pricing-selector-option
+    slot="regional-pricing-selector-option"
+    value="DK"
+    >Denmark</ea-regional-pricing-selector-option>
+
+    <ea-regional-pricing-selector-option
+    slot="regional-pricing-selector-option"
+    value="EE"
+    >Estonia</ea-regional-pricing-selector-option>
+
+    <ea-regional-pricing-selector-option
+    slot="regional-pricing-selector-option"
+    value="FI"
+    >Finland</ea-regional-pricing-selector-option>
+
+    <ea-regional-pricing-selector-option
+    slot="regional-pricing-selector-option"
+    value="FR"
+    >France</ea-regional-pricing-selector-option>
+
+    <ea-regional-pricing-selector-option
+    slot="regional-pricing-selector-option"
+    value="DE"
+    >Germany</ea-regional-pricing-selector-option>
+
+    <ea-regional-pricing-selector-option
+    slot="regional-pricing-selector-option"
+    value="GR"
+    >Greece</ea-regional-pricing-selector-option>
+
+    <ea-regional-pricing-selector-option
+    slot="regional-pricing-selector-option"
+    value="HU"
+    >Hungary</ea-regional-pricing-selector-option>
+
+    <ea-regional-pricing-selector-option
+    slot="regional-pricing-selector-option"
+    value="IS"
+    >Iceland</ea-regional-pricing-selector-option>
+
+    <ea-regional-pricing-selector-option
+    slot="regional-pricing-selector-option"
+    value="IE"
+    >Ireland</ea-regional-pricing-selector-option>
+
+    <ea-regional-pricing-selector-option
+    slot="regional-pricing-selector-option"
+    value="IT"
+    >Italy</ea-regional-pricing-selector-option>
+
+    <ea-regional-pricing-selector-option
+    slot="regional-pricing-selector-option"
+    value="LV"
+    >Latvia</ea-regional-pricing-selector-option>
+
+    <ea-regional-pricing-selector-option
+    slot="regional-pricing-selector-option"
+    value="LI"
+    >Liechtenstein</ea-regional-pricing-selector-option>
+
+    <ea-regional-pricing-selector-option
+    slot="regional-pricing-selector-option"
+    value="LT"
+    >Lithuania</ea-regional-pricing-selector-option>
+
+    <ea-regional-pricing-selector-option
+    slot="regional-pricing-selector-option"
+    value="LU"
+    >Luxembourg</ea-regional-pricing-selector-option>
+
+    <ea-regional-pricing-selector-option
+    slot="regional-pricing-selector-option"
+    value="MT"
+    >Malta</ea-regional-pricing-selector-option>
+
+    <ea-regional-pricing-selector-option
+    slot="regional-pricing-selector-option"
+    value="NL"
+    >Netherlands</ea-regional-pricing-selector-option>
+
+    <ea-regional-pricing-selector-option
+    slot="regional-pricing-selector-option"
+    value="NO"
+    >Norway</ea-regional-pricing-selector-option>
+
+    <ea-regional-pricing-selector-option
+    slot="regional-pricing-selector-option"
+    value="PL"
+    >Poland</ea-regional-pricing-selector-option>
+
+    <ea-regional-pricing-selector-option
+    slot="regional-pricing-selector-option"
+    value="PT"
+    >Portugal</ea-regional-pricing-selector-option>
+
+    <ea-regional-pricing-selector-option
+    slot="regional-pricing-selector-option"
+    value="RO"
+    >Romania</ea-regional-pricing-selector-option>
+
+    <ea-regional-pricing-selector-option
+    slot="regional-pricing-selector-option"
+    value="SK"
+    >Slovakia</ea-regional-pricing-selector-option>
+
+    <ea-regional-pricing-selector-option
+    slot="regional-pricing-selector-option"
+    value="SL"
+    >Slovenia</ea-regional-pricing-selector-option>
+
+    <ea-regional-pricing-selector-option
+    slot="regional-pricing-selector-option"
+    value="ES"
+    >Spain</ea-regional-pricing-selector-option>
+
+    <ea-regional-pricing-selector-option
+    slot="regional-pricing-selector-option"
+    value="SE"
+    >Sweden</ea-regional-pricing-selector-option>
+
+    <ea-regional-pricing-selector-option
+    slot="regional-pricing-selector-option"
+    value="CH"
+    >Switzerland</ea-regional-pricing-selector-option>
+
+</ea-regional-pricing-selector>
+    
+<ea-elements-loader elements="ea-locale-selector">
+</ea-elements-loader>
+<ea-locale-selector
+    slot="locale-selector"
+    theme="light"
+    value="en-us"
+    label-text="Language"
+    
+    unresolved
+    >
+    
+        <ea-locale-selector-option
+            slot="locale-selector-option"
+            value="en-us"
+        >UNITED STATES</ea-locale-selector-option>
+    
+        <ea-locale-selector-option
+            slot="locale-selector-option"
+            value="de-de"
+        >DEUTSCHLAND</ea-locale-selector-option>
+    
+        <ea-locale-selector-option
+            slot="locale-selector-option"
+            value="en-gb"
+        >UNITED KINGDOM</ea-locale-selector-option>
+    
+        <ea-locale-selector-option
+            slot="locale-selector-option"
+            value="en-au"
+        >AUSTRALIA</ea-locale-selector-option>
+    
+        <ea-locale-selector-option
+            slot="locale-selector-option"
+            value="fr-fr"
+        >FRANCE</ea-locale-selector-option>
+    
+        <ea-locale-selector-option
+            slot="locale-selector-option"
+            value="cs-cz"
+        >ČESKÁ REPUBLIKA</ea-locale-selector-option>
+    
+        <ea-locale-selector-option
+            slot="locale-selector-option"
+            value="nl-nl"
+        >Nederland</ea-locale-selector-option>
+    
+        <ea-locale-selector-option
+            slot="locale-selector-option"
+            value="pl-pl"
+        >POLSKA</ea-locale-selector-option>
+    
+        <ea-locale-selector-option
+            slot="locale-selector-option"
+            value="es-es"
+        >ESPAÑA</ea-locale-selector-option>
+    
+        <ea-locale-selector-option
+            slot="locale-selector-option"
+            value="ru-ru"
+        >РОССИЯ</ea-locale-selector-option>
+    
+        <ea-locale-selector-option
+            slot="locale-selector-option"
+            value="ja-jp"
+        >日本</ea-locale-selector-option>
+    
+        <ea-locale-selector-option
+            slot="locale-selector-option"
+            value="ko-kr"
+        >대한민국</ea-locale-selector-option>
+    
+        <ea-locale-selector-option
+            slot="locale-selector-option"
+            value="pt-br"
+        >BRASIL</ea-locale-selector-option>
+    
+        <ea-locale-selector-option
+            slot="locale-selector-option"
+            value="es-mx"
+        >MÉXICO</ea-locale-selector-option>
+    
+        <ea-locale-selector-option
+            slot="locale-selector-option"
+            value="it-it"
+        >ITALIA</ea-locale-selector-option>
+    
+        <ea-locale-selector-option
+            slot="locale-selector-option"
+            value="zh-tw"
+        >繁體中文</ea-locale-selector-option>
+    
+        <ea-locale-selector-option
+            slot="locale-selector-option"
+            value="tr-tr"
+        >TÜRKİYE</ea-locale-selector-option>
+    
+</ea-locale-selector>
+
+    <ea-network-legal
+        slot="network-legal"
+        copyright-text="© 2023 Electronic Arts Inc."
+        text-color="light"
+        unresolved
+    >
+        
+            <ea-link
+                slot="link"
+                link-href="https://www.ea.com/legal"
+                link-title="Legal &amp; Privacy"
+                link-text="Legal &amp; Privacy"
+                text-color="light"
+                unresolved
+            >
+                <a
+                    href="https://www.ea.com/legal"
+                    title="Legal &amp; Privacy"
+                >Legal &amp; Privacy</a>
+            </ea-link>
+        
+            <ea-link
+                slot="link"
+                link-href="https://www.ea.com/1/service-updates"
+                link-title="Online Service Updates"
+                link-text="Online Service Updates"
+                text-color="light"
+                unresolved
+            >
+                <a
+                    href="https://www.ea.com/1/service-updates"
+                    title="Online Service Updates"
+                >Online Service Updates</a>
+            </ea-link>
+        
+            <ea-link
+                slot="link"
+                link-href="https://www.ea.com/legal/user-agreement"
+                link-title="User Agreement - NEW"
+                link-text="User Agreement - NEW"
+                text-color="light"
+                unresolved
+            >
+                <a
+                    href="https://www.ea.com/legal/user-agreement"
+                    title="User Agreement - NEW"
+                >User Agreement - NEW</a>
+            </ea-link>
+        
+            <ea-link
+                slot="link"
+                link-href="https://www.ea.com/legal/privacy-and-cookie-policy"
+                link-title="NEW Privacy &amp; Cookie Policy - NEW"
+                link-text="Privacy &amp; Cookie Policy - NEW"
+                text-color="light"
+                unresolved
+            >
+                <a
+                    href="https://www.ea.com/legal/privacy-and-cookie-policy"
+                    title="NEW Privacy &amp; Cookie Policy - NEW"
+                >Privacy &amp; Cookie Policy - NEW</a>
+            </ea-link>
+        
+        <ea-content-loader
+            slot="link"
+            content-url="https://www.ea.com/ccpa/footer-link"
+        >
+        </ea-content-loader>
+        
+    </ea-network-legal>
+    
+<ea-elements-loader elements="ea-truste">
+</ea-elements-loader>
+
+
+<script async>
+
+        function createElement(id, hidden) {
+            const element = document.createElement("div");
+
+            element.id = id;
+            element.hidden = hidden;
+
+            return element;
+        }
+
+        function createScriptTag() {
+            const script = document.createElement("script");
+            let src = `//consent.trustarc.com/notice?` +
+                `domain=ea.com&c=teconsent&js=nj&noticeType=bb&text=true&gtm=1&pn=1`;
+
+            if (shouldAutoShowCookiePreferences()) {
+                src = src + "&behavior=expressed";
+            }
+
+            script.src = src;
+            script.setAttribute("crossorigin", "");
+
+            return script;
+        }
+
+        function shouldAutoShowCookiePreferences() {
+            const showCookiePreferencesParam = "show=cookiePreferences";
+            const urlSearchParams = window.location.search.slice(1).split("&");
+
+            return urlSearchParams.includes(showCookiePreferencesParam);
+        }
+
+        function isLocalNDS(componentUrlPrefix) {
+            return componentUrlPrefix && componentUrlPrefix.includes('local');
+        }
+
+        function isNDSBranch(componentUrlPrefix) {
+            return componentUrlPrefix && componentUrlPrefix.includes('branch');
+        }
+
+        function isNDSVersionGreaterOrEqual(componentUrlPrefix) {
+            let ndsVersion = componentUrlPrefix && componentUrlPrefix.match('/release\/([^\/]*)/')[1];
+            let isGreaterOrEqual = ndsVersion && ndsVersion.localeCompare("4.40.5", undefined, { numeric: true, sensitivity: 'base' });
+
+            return isGreaterOrEqual >= 0;
+        }
+
+        const componentUrlPrefix = window.nds.componentUrlPrefix;
+
+        /**
+         * Check for backwards compatibility with NDS version greater or equal to when TrustArc was integrated
+         */
+        if (
+            isLocalNDS(componentUrlPrefix) ||
+            isNDSBranch(componentUrlPrefix) ||
+            isNDSVersionGreaterOrEqual(componentUrlPrefix)
+        )
+        {
+            const trustArcScript = createScriptTag();
+            const elements = document.createDocumentFragment();
+
+            elements.appendChild(createElement("consent_blackbar", false));
+            elements.appendChild(createElement("teconsent", true));
+            elements.appendChild(trustArcScript);
+
+            document.body.appendChild(elements);
+        }
+
+</script>
+<ea-truste
+    unresolved
+    slot="truste"
+    
+        domain="ea.com"
+    
+>
+    <div>
+        
+            <a href="//privacy.truste.com/privacy-seal/validation?rid=f1a11c5d-0232-4077-8498-2e69a38c1335" target="_blank">
+                <img style="border: none" src="//privacy-policy.truste.com/privacy-seal/seal?rid=f1a11c5d-0232-4077-8498-2e69a38c1335" alt="TRUSTe"/>
+            </a>
+        
+    </div>
+</ea-truste>
+
+</ea-network-footer>
+
+            
+        
+    
+
+
+</footer>
+<ea-player player-endpoint="/user-data"></ea-player>
+
+
+    
+        
+            
+                
+<ea-elements-loader elements="ea-modal">
+</ea-elements-loader>
+<ea-modal
+    modal
+    unresolved
+    
+        id="battlefieldagegate"
+    
+    
+        theme="dark"
+    
+    
+>
+    
+<ea-elements-loader elements="ea-age-gate">
+</ea-elements-loader>
+<ea-age-gate
+    unresolved
+    slot="age-gate"
+    age-gate-id="battlefieldagegate"
+    
+        age="18"
+    
+    
+        error="You Are Not Eligible To Participate"
+    
+    
+    
+        message="Want To Join The Battle? We Need Some Info First."
+    
+>
+    
+        
+<ea-elements-loader elements="ea-date-field">
+</ea-elements-loader>
+<ea-date-field
+    
+        slot="date-field"
+    
+    
+        type="date"
+    
+    
+    
+        name="Enter Your Birthdate"
+    
+    
+        error-text="Please enter a valid birthdate"
+    
+    
+    
+        text-color="light"
+    
+    
+    
+        month-placeholder="MM"
+    
+    
+        day-placeholder="DD"
+    
+    
+        year-placeholder="YYYY"
+    
+    
+    
+        label-text="Enter Your Birthdate"
+    
+    
+    
+        required
+    
+    
+    unresolved
+>
+</ea-date-field>
+
+    
+    
+        
+<ea-elements-loader elements="ea-submit">
+</ea-elements-loader>
+<ea-submit
+    unresolved
+    
+        slot="submit"
+    
+    
+        value-text="Submit"
+    
+    
+        text-color="light"
+    
+    
+    
+    
+    
+></ea-submit>
+
+    
+</ea-age-gate>
+
+</ea-modal>
+
+            
+        
+    
+
+
+
+
+    
+        
+            
+                <script src="//pl.ea.com/release/4.63.3/elements/browser-support.min.js"></script>
+<script>
+    eaBrowserSupport.requiredFeatures = 'picture';
+    eaBrowserSupport.requiredHeading = 'Sorry, this browser is not supported';
+    eaBrowserSupport.requiredText = 'Please download a supported browser to view this webpage.';
+    eaBrowserSupport.recommendedFeatures = 'cssgrid';
+    eaBrowserSupport.recommendedText = 'This browser is not recommended and the webpage may not display properly.';
+    eaBrowserSupport.ctas = [{"text":"Download Chrome","url":"https://www.google.com/chrome/"},{"text":"Download Firefox","url":"https://www.mozilla.org/firefox/new/"},{"text":"Download Edge","url":"https://www.microsoft.com/edge/"}];
+    eaBrowserSupport.dismissText = 'Dismiss';
+    eaBrowserSupport.svgLogo = '';
+    eaBrowserSupport.init();
+</script>
+
+            
+        
+    
+
+
+
+
+    <ea-type-kit kit-url="//use.typekit.net/txn1klh.js"></ea-type-kit>
+
+
+    </body>
+</html>
+

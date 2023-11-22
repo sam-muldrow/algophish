@@ -1,0 +1,999 @@
+﻿
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1, maximum-scale=1">
+	<meta name="description" content="모든 쇼핑몰의 상품 가격비교, 최저가확인, 주문/배송/상품구매까지 한번에 가능!">
+
+    <link rel="stylesheet" href="/static/css/bootstrap.min.css">
+    <link rel="stylesheet" href="/static/css/style.css?ver=20220503">
+    <link rel="stylesheet" href="/static/css/animate.css">
+    <link rel="stylesheet" href="/static/css/responsive.css?ver=20220921">
+    <link rel="stylesheet" href="/static/css/swiper.css">
+    <link rel="stylesheet" href="/static/css/jquery-ui.css">
+
+    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+	  <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+	  <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+	<![endif]-->
+
+    <meta name="keywords" content="쇼핑몰 배송조회 자동조회 통합조회 11번가 G마켓 옥션 위메프 티몬 쿠팡 SSG" />
+    <meta property="og:type" content="website">
+    <meta property="og:title" content="샵계부">
+    <meta property="og:description" content="모든 쇼핑몰의 상품 가격비교, 최저가확인, 주문/배송/상품구매까지 한번에 가능!">
+    <meta property="og:url" content="http://sgboo.com">
+    <meta property="og:image" content="http://sgboo.com/apple-touch-icon-180x180.png">
+    <meta name="twitter:image:src" content="http://sgboo.com/apple-touch-icon-180x180.png"/>
+    <link rel="canonical" href="http://sgboo.com/">
+
+
+    <meta property="og:site_name" content="샵계부" />
+    <meta property="al:ios:url" content="sgboo://">
+    <meta property="al:ios:app_store_id" content="948090271">
+    <meta property="al:ios:app_name" content="샵계부">
+    <meta property="al:android:url" content="sgboo://">
+    <meta property="al:android:app_name" content="샵계부">
+    <meta property="al:android:package" content="com.makeshop.sgboo">
+    <title>샵계부, 가격비교 끝판왕</title>
+
+	<link rel="shortcut icon" type="image/x-icon" href="/static/web/img/common/sgb.ico" />
+    <link rel="manifest" href="/static/manifest.json" />
+
+    <script src="/static/js/jquery.min.js"></script>
+    <script src="/static/js/common.js?v=201801012"></script>
+    <script src="/static/js/underscore-min.js"></script>
+
+    <script>
+        (function (i, s, o, g, r, a, m) {
+            i['GoogleAnalyticsObject'] = r; i[r] = i[r] || function () {
+                (i[r].q = i[r].q || []).push(arguments)
+            }, i[r].l = 1 * new Date(); a = s.createElement(o),
+            m = s.getElementsByTagName(o)[0]; a.async = 1; a.src = g; m.parentNode.insertBefore(a, m)
+        })(window, document, 'script', 'https://www.google-analytics.com/analytics.js', 'ga');
+        ga('create', 'UA-56206020-1', 'auto');
+        ga('send', 'pageview');
+    </script>
+
+
+	<!-- Facebook Pixel Code -->
+	<script>
+	  !function(f,b,e,v,n,t,s)
+	  {if(f.fbq)return;n=f.fbq=function(){n.callMethod?
+	  n.callMethod.apply(n,arguments):n.queue.push(arguments)};
+	  if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';
+	  n.queue=[];t=b.createElement(e);t.async=!0;
+	  t.src=v;s=b.getElementsByTagName(e)[0];
+	  s.parentNode.insertBefore(t,s)}(window, document,'script',
+	  'https://connect.facebook.net/en_US/fbevents.js');
+	  fbq('init', '684340311958293');
+	  fbq('track', 'PageView');
+	</script>
+	<noscript><img height="1" width="1" style="display:none"
+	  src="https://www.facebook.com/tr?id=684340311958293&ev=PageView&noscript=1"
+	/></noscript>
+	<!-- End Facebook Pixel Code -->
+
+
+	<!-- 개인정보 이전 -->
+	<script>
+
+		function pop_getCookie(name) {
+			var nameOfCookie = name + "=";
+			var x = 0;
+			while (x <= document.cookie.length) {
+			var y = (x + nameOfCookie.length);
+			if (document.cookie.substring(x, y) == nameOfCookie) {
+				if ((endOfCookie = document.cookie.indexOf(";", y)) == -1)
+				endOfCookie = document.cookie.length;
+				return unescape(document.cookie.substring(y, endOfCookie));
+			}
+			x = document.cookie.indexOf(" ", x) + 1;
+			if (x == 0)
+				break;
+			}
+			return "";
+		}
+		function pop_setCookie(name, value, expiredays) {
+			var todayDate = new Date();
+			todayDate.setDate(todayDate.getDate() + expiredays);
+			document.cookie = name + "=" + escape(value) + "; path=/; expires=" + todayDate.toGMTString() + ";"
+		}
+
+		window.addEventListener("message", function(event) {
+			if(event.data == "nopopup")
+			{
+				pop_setCookie("nopopup", 1, 1);
+			}
+		});
+
+		var nopopup=pop_getCookie("nopopup");
+		if(!nopopup) {
+			var start_day = new Date(2022, 09, 20, 00, 00, 00); // yyyy, mm-1, dd, hh, mm, ss
+			var end_day =  new Date(2022, 10, 31, 00, 00, 00);// yyyy, mm-1, dd, hh, mm, ss
+			var now = new Date();
+			if (start_day < now && now < end_day) {
+				var options = 'top=10, left=10, width=700, height=700, status=no, menubar=no, toolbar=no, resizable=no';
+				window.open("https://stampang.com/info_move.html", "infomove", options);
+			}
+		}
+
+	</script>
+	<!-- 개인정보 이전 끝-->
+
+
+	
+	
+</head>
+
+<body>
+
+
+    <!-- PRELOADER -->
+    <div class="spn_hol">
+        <div class="spinner">
+            <div class="bounce1"></div>
+            <div class="bounce2"></div>
+            <div class="bounce3"></div>
+        </div>
+    </div>
+    <!-- END PRELOADER -->
+
+
+ <!-- =========================
+     START TOP SCROLL SECTION
+============================== -->
+	
+
+    <section class="r-area">
+		<div class="cart">
+			<a href="/goods/latest">
+				<p><img src="" alt="상품 이미지" onerror="this.src='/static/web/img/noimg.jpg'" /></p>
+				<span>0</span>
+			</a>
+		</div>
+		<p id="back-top">
+			<a href="#top"><span></span></a>
+		</p>
+	</section>
+ <!-- END TOP SCROLL -->
+
+
+
+<!-- =========================
+     START TOP BANNER SECTION
+============================== -->
+	<section class="top page" id="banner_app">
+        <div class="bar-t wow">
+			<div class="cont relative">
+				<!-- PC -->
+				<div class="pc">
+					<a href="#" class="btn-close" onclick="setCookie('banner_app', '1', 30);"><img src="/static/images/btn_close.png" alt="닫기" /></a>
+					<ul class="clearfix ">
+						<li class="ml0"><span class="txt-cyan">샵계부앱</span> 깔아보면 빠져들걸? </li>
+						<li>
+							<a href="https://play.google.com/store/apps/details?id=com.makeshop.sgboo" target="_blank">
+								<span><img src="/static/images/ico_and.png" alt="구글플레이" /></span>
+							</a>
+						</li>
+						<li>
+							<a href="https://itunes.apple.com/us/app/syabgyebu-syopingmol-jumunnaeyeog/id948090271?l=ko&ls=1&mt=8" target="_blank">
+								<span><img src="/static/images/ico_ios.png" alt="앱스토어" /></span>
+							</a>
+						</li>
+					</ul>
+				</div>
+
+				<!-- 모바일 -->
+				<div class="mobile">
+					<a href="#" class="btn-close" onclick="setCookie('banner_app', '1', 30);"><img src="/static/images/btn_close_m.png" alt="닫기" /></a>
+					<ul class="clearfix ">
+						<li>
+							<a href="#this">
+								<span><img src="/static/images/ico_and_m.png" alt="구글플레이" /></span>
+							</a>
+						</li>
+						<li>
+							<a href="#this">
+								<span><img src="/static/images/ico_ios_m.png" alt="앱스토어" /></span>
+							</a>
+						</li>
+					</ul>
+				</div>
+			</div>
+        </div><!-- // .bar-t -->
+    </section>
+<script>
+    var cook_banner = getCookie('banner_app');
+    if (cook_banner != "") {
+        $('#banner_app').hide();
+    }
+</script>
+
+    <!-- END TOP BANNER SECTION -->
+
+    <!-- =========================
+     START HEADER SECTION
+============================== -->
+	<section class="top top2 page">
+		<div id="layer-mobile" class="layer-mobile">
+			<div class="inner">
+				<p><img src="/static/images/btn_sgboo.png" alt="샵계부 로고 이미지" /></p>
+				<p>샵계부 앱을 사용해서 휴대폰에서<br /> 간편하게 검색하세요!</p>
+				<p class="btn-area clearfix">
+					<a href="#this">아니오</a>
+					<a href="#this">예</a>
+				</p>
+			</div>
+		</div>
+		<div class="white-top">
+			<div class="sch wow">
+                <form action="/search/image" enctype="multipart/form-data" id="sfrm_img" method="post">
+                    <input type="file" name="img_file" value="" style="position: absolute; right: -9999px;"  onchange="doImgSearch()" />
+                </form>
+				<form action="/search" id="sfrm" method="get">
+					<div class="relative ">
+                        
+						<input type="text" id="search_text" name="q" value=""/>
+						<div class="r-cont">
+							<div class="element">
+								<a href="#layer-mobile" class="btn-pic"><img src="/static/images/ico_cam.png" alt="검색 아이콘이미지" /></a>
+								<a href="#this" class="btn-sch" onclick="$('#sfrm').submit()"><img src="/static/images/ico_sch.png" alt="검색 아이콘이미지" /></a>
+							</div>
+							<div class="layer-sch" style="display:block;" id="imgsearch_layer">
+								<div class="relative">
+									<p>
+										<span>포토검색 beta, 이미지로 검색할 수 있어요!</span>
+										<span><img src="/static/images/speech_b_arr.png" alt="검색 아이콘이미지" /></span>
+									</p>
+									<a href="#close" class="close" onclick="setCookie('banner_imgsearch', '1', 30);"><img src="/static/images/btn_close_w.png" alt="닫기" /></a>
+								</div>
+							</div>
+						</div>
+					</div>
+				</form>
+			</div>
+<script>
+    var cook_img = getCookie('banner_imgsearch');
+    if (cook_img != "") {
+        $('#imgsearch_layer').hide();
+    }
+</script>
+
+			<!-- PC -->
+			<div class="pc">
+				<h1><a href="/"><img src="/static/images/logo.png" alt="SGBOO SHOPPING" /></a></h1>
+				<div class="r-cont">
+					<div class="user-stats">
+
+
+								
+<ul>
+	<li class="clearfix">
+		<span class="fl-l"><img src="/static/images/ico_human_m.png" alt="유저" /></span>
+
+		
+			<div class="fl-l">
+				<span class="off">OFF</span>
+				<span><a href="/mypage/login">login</a></span>
+				<a href="/mypage/join" class="divide">Join</a>
+			</div>
+		
+
+	</li>
+</ul>
+
+<p class="stats trunk">
+	<a href="/mypage/order">
+		<span><img src="/static/images/ico_truck_m.png" alt="배송" /></span>
+		<span>0</span>
+	</a>
+</p>
+<p class="stats goods">
+	<a href="/mypage/zzim">
+		<span><img src="/static/images/ico_heart_m.png" alt="즐겨찾기" /></span>
+		<span>0</span>
+	</a>
+</p>
+
+
+
+
+
+
+
+
+					</div>
+					<p class="btn-sch-t" style="display:none;"><a href="#this">버튼</a></p>
+				</div><!-- // .r-cont -->
+			</div><!-- // .pc -->
+		</div><!-- // .white-top -->
+		<div class="white-top2">
+			<!-- Mobile -->
+			<div class="mobile">
+				<h1><a href="/"><img src="/static/images/logo_m.png" alt="샵계부 쇼핑" /></a></h1>
+
+				<p class="btn-sch-m"><a href="#this" class="off">검색</a></p>
+
+
+				
+<p class="btn-my"><a href="/mypage/login" class="off">LOGIN</a></p>
+
+<script type="text/javascript">
+$(function(){
+	$(".btn-my a").click(function(e){
+		e.preventDefault();
+		var url = $(this).attr('href');
+		location.href = url;
+	});
+});
+</script>
+
+
+				<!-- MY 레이어 -->
+			</div>
+		</div>
+	</section>
+	<!-- END TOP BANNER SECTION -->
+
+<!-- =========================
+     START HEADER SECTION
+============================== -->
+    <section class="header page" id="HOME">
+        <div class="">
+            <nav class="navbar navbar-default " role="navigation">
+				<div class="inner-cont clearfix">
+					<div class="navbar-header">
+						<a class="navbar-brand" href="/">
+							<img src="/static/images/logo_w.png" alt="샵계부 쇼핑" />
+						</a>
+					</div>
+					<div class="container">
+						<div class="swiper-container5">
+							<div class="swiper-wrapper">
+
+								
+
+
+
+
+<!---->
+
+<a href="/" class="swiper-slide now"><span>홈</span></a>
+<a href="/search" class="swiper-slide"><span>실시간 상품</span></a>
+<a href="/search/men" class="swiper-slide"><span>men's</span></a>
+<a href="/search/women" class="swiper-slide"><span>women's</span></a>
+
+<a href="/search/preshoot" class="swiper-slide"><span>취향저격</span></a>
+
+<!--
+<a href="" class="swiper-slide now"><span>패션zone</span></a> -->
+
+
+							</div>
+						</div>
+					</div>
+				</div>
+                <!-- /.container- -->
+            </nav>
+        </div>
+    </section>
+
+    <!-- END HEADER SECTION -->
+
+
+<!-- //퀵메뉴 -->
+
+
+<!-- 본문 컨텐츠 -->
+
+
+<!-- =========================
+    START Visual SECTION
+============================== -->
+
+<section class="about page" id="visual">
+    <div class="container">
+		<!-- Swiper -->
+		<div class="swiper-container swiper-container1">
+			<div class="swiper-wrapper">
+				
+					<div class="swiper-slide" style='cursor:pointer'>
+						<p style='background: url(/files/banner/201902/null-1188489_1920.jpg) no-repeat center top; background-size:cover' class='banner' data-url-type='2' data-url='https://sgboo.com/search?q=%EC%84%B8%EC%9D%BC'>비주얼이미지</p>
+						<dl>
+							<dt class='banner' data-url-type='2' data-url='https://sgboo.com/search?q=%EC%84%B8%EC%9D%BC'>SALE! 세일! SALE!</dt>
+							<dd class='banner' data-url-type='2' data-url='https://sgboo.com/search?q=%EC%84%B8%EC%9D%BC'>여러 말은 필요없다! &#39;세일&#39;이라는 단어로 끝.</dd>
+						</dl>
+					</div>
+				
+					<div class="swiper-slide" style='cursor:pointer'>
+						<p style='background: url(/files/banner/201902/living-room-2569325_1920.jpg) no-repeat center top; background-size:cover' class='banner' data-url-type='2' data-url='https://sgboo.com/search?q=%EC%9D%B8%ED%85%8C%EB%A6%AC%EC%96%B4'>비주얼이미지</p>
+						<dl>
+							<dt class='banner' data-url-type='2' data-url='https://sgboo.com/search?q=%EC%9D%B8%ED%85%8C%EB%A6%AC%EC%96%B4'>인테리어 전문가 나야 나!</dt>
+							<dd class='banner' data-url-type='2' data-url='https://sgboo.com/search?q=%EC%9D%B8%ED%85%8C%EB%A6%AC%EC%96%B4'>인테리어 전문가되는, 느낌있는 아이템만 모았어요!</dd>
+						</dl>
+					</div>
+				
+					<div class="swiper-slide" style='cursor:pointer'>
+						<p style='background: url(/files/banner/201902/people-2581913_1920.jpg) no-repeat center top; background-size:cover' class='banner' data-url-type='2' data-url='https://sgboo.com/search?q=%EB%B4%84'>비주얼이미지</p>
+						<dl>
+							<dt class='banner' data-url-type='2' data-url='https://sgboo.com/search?q=%EB%B4%84'>봄이 발가락 근처까지 왔어요.</dt>
+							<dd class='banner' data-url-type='2' data-url='https://sgboo.com/search?q=%EB%B4%84'>지금 구매해야 봄되면 바로 개시! 지금이 쇼핑할 때!</dd>
+						</dl>
+					</div>
+				
+					<div class="swiper-slide" style='cursor:pointer'>
+						<p style='background: url(/files/banner/201809/box-2953722_bEZhFOP.jpg) no-repeat center top; background-size:cover' class='banner' data-url-type='2' data-url='https://sgboo.com/search?q=%EC%84%A0%EB%AC%BC'>비주얼이미지</p>
+						<dl>
+							<dt class='banner' data-url-type='2' data-url='https://sgboo.com/search?q=%EC%84%A0%EB%AC%BC'>고마워! 사랑해! 감사합니다!</dt>
+							<dd class='banner' data-url-type='2' data-url='https://sgboo.com/search?q=%EC%84%A0%EB%AC%BC'>사랑하는 사람에게 고마움을 표현해보세요!</dd>
+						</dl>
+					</div>
+				
+					<div class="swiper-slide" style='cursor:pointer'>
+						<p style='background: url(/files/banner/201806/visual_main.jpg) no-repeat center top; background-size:cover' class='banner' data-url-type='2' data-url='https://sgboo.com/search?q=%EC%A7%91%EC%88%9C%EC%9D%B4'>비주얼이미지</p>
+						<dl>
+							<dt class='banner' data-url-type='2' data-url='https://sgboo.com/search?q=%EC%A7%91%EC%88%9C%EC%9D%B4'>이불밖은 위험해.</dt>
+							<dd class='banner' data-url-type='2' data-url='https://sgboo.com/search?q=%EC%A7%91%EC%88%9C%EC%9D%B4'>집돌이 집순이를 위한 it아이템.</dd>
+						</dl>
+					</div>
+				
+			</div>
+			<!-- Add Pagination -->
+			<div class="swiper-pagination"></div>
+			<div class="btn-align">
+				<!-- Add Arrows -->
+				<div class="swiper-button-next"></div>
+				<div class="swiper-button-prev"></div>
+			</div>
+		</div><!-- // .swiper-container -->
+    </div>
+</section>
+
+<!-- End Visual -->
+
+<!-- =========================
+    START REAL-TIME PRODUCT
+============================== -->
+
+<section id="" class="pro-realtime parallax">
+    <div class="section_overlay">
+        <div class="container">
+			<div class="tit-area">
+				<h2>실 시 간 상 품<span>.</span></h2>
+			</div>
+			<a href="/search" class="btn-more"><img src="/static/images/btn_more.gif" alt="버튼 이미지" /></a>
+            <!-- Swiper -->
+			<div class="swiper-container2">
+
+				<div class="swiper-wrapper">
+
+
+				</div>
+			</div>
+
+        </div>
+    </div>
+</section>
+
+<!-- END REAL-TIME PRODUCT SECTION -->
+
+<!-- =========================
+    START RANKING 20
+============================== -->
+
+<!-- =========================
+    START NEW PRODUCT
+============================== -->
+
+
+
+<!-- =========================
+    START ITEMS
+============================== -->
+
+<section id="" class="pro-items parallax">
+	<div class="container">
+		<!-- 구글 배너 -->
+		<!--<p class="banner-m"><a href="#this"><img src="/static/images/banner_m.jpg" alt="썸네일 이미지" /></a></p>-->
+
+		<ul class="items-area clearfix">
+			<li>
+                
+				<article class="no-data" >
+					<a href="/search" class="btn-more"><img src="/static/images/btn_more.gif" alt="버튼 이미지" /></a>
+					<dl>
+						<dt>Favorite Items</dt>
+						<dd>이 상품은 어때요?</dd>
+					</dl>
+					<ul class="inner-pro clearfix">
+                        
+					</ul>
+					<a href="/search" class="btn-go">추천상품 더보러 가기 <span>&gt;</span></a>
+				</article>
+                
+			</li>
+
+			<li>
+				<!-- 최근에 본상품이 있을때 -->
+				<article>
+					<a href="/goods/latest" class="btn-more"><img src="/static/images/btn_more.gif" alt="버튼 이미지" /></a>
+					<dl>
+						<dt>Viewed Items</dt>
+						<dd>최 근 본 상 품</dd>
+					</dl>
+                    
+				</article>
+                
+				<!-- 최근에 본상품이 없을때 -->
+				<article>
+					<div class="latest-pro">
+						<p>;-(</p>
+						<p>최근에 본 상품이 없어요</p>
+					</div>
+				</article>
+                
+
+			</li>
+		</ul>
+	</div>
+</section>
+
+<!-- END ITEMS SECTION -->
+
+
+<!-- //본문 컨텐츠 -->
+
+
+
+
+
+<!-- =========================
+     FOOTER
+============================== -->
+
+    <section class="copyright">
+
+		<!-- 문의하기 레이어 -->
+		<div id="layer-inquiry" class="layer-inquiry layer-inquiry2">
+			<div class="inner">
+				<a href="#" class="btn-close"><img src="/static/images/btn_close_blk.png" alt="닫기" /></a>
+				<p class="tit">문 의 하 기</p>
+
+					<div class="write">
+						<dl>
+							<dt>답변 받을 이메일 주소</dt>
+							<dd><input type="text" id='qna_email' name='email' placeholder="이메일 주소를 입력하세요" maxlength='50'/></dd>
+						</dl>
+						<dl>
+							<dt>문의내용</dt>
+							<dd><textarea id='qna_content' name='content' maxlength='500' rows="7" placeholder="문의 내용을 작성해주세요. (500자 이내)" style="resize: none; wrap:hard;" ></textarea></dd>
+						</dl>
+					</div>
+					<dl>
+						<dt>개인정보 수집이용 동의</dt>
+						<dd>
+							<div>
+								<table class="tb-style tb-style2 mt10">
+									<colgroup>
+										<col width="15%" />
+										<col width="15%" />
+										<col width="" />
+									</colgroup>
+									<tr>
+										<th>목적</th>
+										<th>항목</th>
+										<th>보유기간</th>
+									</tr>
+									<tr>
+										<td>문의 응대 및 답변</td>
+										<td>이메일</td>
+										<td class="txt-l">
+											개인정보 수집 및 이용목적이 달성된 후에는 해당 정보를 지체없이 파기합니다. <br />
+											단, 관계법령의 규정에 의하여 보존할 필요가 있는 경우 아래와 같이 관계법령에서 정한 일정 기간동안 개인정보를 보관할 수 있습니다.<br />
+											- 소비자의 불만 또는 분쟁처리에 관한 기록 : 3년 (전자상거래등에서의 소비자보호에 관한 법률)<br />
+										</td>
+									</tr>
+								</table>
+							</div>
+						</dd>
+					</dl>
+					<div class="chk-lst">
+						<ul>
+							<li>
+								<input type="checkbox" id="term_agree">
+								<label for="term_agree" class="txt">개인정보 제공에 대한 내용을 확인하고 이에 동의합니다.</label>
+							</li>
+
+						</ul>
+					</div>
+					<a href="#" class="btn-confirm" id='btn_send_qna'>확인</a>
+
+			</div>
+		</div>
+
+        <ul class="clearfix">
+			<li class="l-con">
+				<ul class="menu clearfix">
+					<li><a href="https://smallbiz.notion.site/_-0fe3da0e07c74359b6a3aefaddbd314f" target='_blank'>이용약관</a></li>
+					<li><a href="#" onclick="alert('사이트에 게시된 메일 주소를 무단으로 수집되는 것을 거부합니다.\n이를 위반 시 정보통신망법에 의해 형사처벌됨을 알려드립니다.'); return false;">이메일 무단수집 거부</a></li>
+					<li><a href="https://smallbiz.notion.site/_-dad4bb6c23e0465abe2d6a650fefc7f5" target='_blank'>개인정보 처리방침</a></li>
+					<li><a href="#layer-inquiry" class="btn-inquiry">문의하기</a></li>
+				</ul>
+				<ul class="info clearfix">
+					<li>(주)커넥트웨이브 대표 : 이건수</li>
+					<li>개인정보보호책임자 : 김태상</li>
+					<li>사업자번호 <span>117-81-40065</span></li>
+					<li>서울특별시 양천구 목동동로 233-1, 5층 501호(목동, 현대드림타워)</li>
+				</ul>
+				<p>copyright(c) sgboo.com all rights reserved.</p>
+			</li>
+			<li class="btn-area clearfix">
+				<a href="https://play.google.com/store/apps/details?id=com.makeshop.sgboo" target='_blank'>
+					<span><img src="/static/images/btn_footer_1s.png" alt="Google Play" /></span>
+					<span>Google Play</span>
+				</a>
+				<a href="https://itunes.apple.com/us/app/syabgyebu-syopingmol-jumunnaeyeog/id948090271?l=ko&ls=1&mt=8" target='_blank'>
+					<span><img src="/static/images/btn_footer_2s.png" alt="App Store" /></span>
+					<span>App Store</span>
+				</a>
+				<a href="https://api.sgboo.com/main/#sgboo-1" target='_blank'>
+					<span><img src="/static/images/btn_footer_3s.png" alt="About Sgboo" /></span>
+					<span>About SGBOO</span>
+				</a>
+			</li>
+		</ul>
+    </section>
+    <!-- END FOOTER -->
+
+	<div id="mask"></div>
+    <div id="overlay"></div>
+
+<!-- =========================
+     SCRIPTS
+============================== -->
+    <script src="/static/js/icheck.js"></script>
+	<script src="/static/js/jquery-ui.js"></script>
+	<script src="/static/js/jquery.ui.touch-punch.min.js"></script>
+
+    <script src="/static/js/bootstrap.min.js"></script>
+    <script src="/static/js/jquery.fitvids.js"></script>
+    <script src="/static/js/jquery.parallax-1.1.3.js"></script>
+    <script src="/static/js/wow.min.js"></script>
+    <script src="/static/js/swiper.min.js"></script>
+	<script src="/static/js/script.js"></script>
+
+
+    <script src="/static/js/foot2.js?v=20180617"></script>
+
+
+<script>
+//상품찜하기
+function do_zzim(obj)
+{
+	
+	location.href='/mypage/login';
+	return;
+	
+
+    var goods_id=$(obj).data('id');
+
+	if ($(obj).hasClass('off')) {
+		$(obj).addClass('on').removeClass('off');
+
+        url =  "/zzim/add/"+goods_id+'/';
+        ga('send', 'event', {
+            eventCategory: 'Zzim',
+            eventAction: 'add',
+            eventLabel: goods_id
+        });
+        if($('#zzim_count').length > 0) $('#zzim_count').text(parseInt($('#zzim_count').text())+1);
+	} else {
+		$(obj).addClass('off').removeClass('on');
+
+        url =  "/zzim/del/"+goods_id+'/';
+        ga('send', 'event', {
+            eventCategory: 'Zzim',
+            eventAction: 'remove',
+            eventLabel: goods_id
+        });
+        if($('#zzim_count').length > 0) $('#zzim_count').text(parseInt($('#zzim_count').text())-1);
+	}
+
+    $.ajax({
+		data: {},
+		url: url,
+		dataType: 'json',
+		success: function (res) {
+			if (!res.result)
+			{
+				alert('찜하기에 실패하였습니다.');
+			}
+
+		}
+
+	});
+}
+
+//쇼핑몰 찜하기
+function DoShopZzim(obj)
+{
+	//미로그인시 로그인페이지로 이동
+	
+		location.href='/mypage/login';
+		return;
+	
+
+	_this = $(obj);
+	var shop_id = _this.attr('data-id');
+	var url = "/zzim/shop/add/"+shop_id;
+
+	//찜해제
+	if (_this.hasClass('on'))
+	{
+		var url = "/zzim/shop/del/"+shop_id;
+	}
+
+	$.ajax({
+		data: {},
+		url: url,
+		dataType: 'json',
+		success: function (res){
+			if (res.result)
+			{
+				if (_this.hasClass('on'))
+				{
+					_this.removeClass('on');
+				}
+				else
+				{
+					_this.addClass('on');
+				}
+			}
+		}
+	});
+}
+
+//쇼핑몰찜
+$(".good.shop a").on('click', function(e) {
+	e.preventDefault();
+    DoShopZzim(this);
+});
+
+//문의하기
+$("#btn_send_qna").click(function(e){
+	e.preventDefault();
+
+	var email = $("#qna_email").val();
+	var content = $("#qna_content").val();
+	//var term_agree("#term_agree");
+
+	if ($.trim(email) == "")
+	{
+		alert("이메일을 입력하세요.");
+		$("#qna_email").focus();
+		return false;
+	}
+	if (!ck_email(email))
+	{
+		alert("이메일을 정확하게 입력하세요.");
+		$("#qna_email").focus();
+		return false;
+	}
+	if($.trim(content) == "")
+	{
+		alert("내용을 입력하세요.");
+		$("#qna_content").focus();
+		return false;
+	}
+	if (!$("#term_agree").is(":checked"))
+	{
+		alert("개인정보 수집에 동의해 주세요.");
+		return false;
+	}
+
+	$.ajax({
+		data: {'email':email, 'content':content},
+		url: '/qna/send',
+		dataType: 'json',
+		success: function (res) {
+			if (res.result) {
+				alert(res.msg);
+				$("#layer-inquiry .btn-close").click();
+				window.location.reload();
+			}
+
+		}
+	});
+
+
+});
+
+// 체크박스
+$('.chk-lst input').iCheck({
+	checkboxClass: 'icheckbox_square-orange',
+	increaseArea: '0%'
+});
+</script>
+
+
+
+<script type="text/javascript">
+
+
+
+	// 메인슬라이드
+	var swiper1 = new Swiper('.swiper-container, .swiper-container1', {
+		pagination: '.swiper-pagination',
+		paginationClickable: true,
+		nextButton: '.swiper-button-next',
+		prevButton: '.swiper-button-prev'
+	});
+
+	// 실시간 상품
+	var swiper2 = new Swiper('.swiper-container2', {
+		slidesPerView: 4,
+		slidesPerColumn: 2,
+		simulateTouch: false,
+		paginationClickable: true,
+		slidesPerColumnFill: 'column',
+		breakpoints: {
+			1024: {
+				slidesPerView: 4,
+				slidesPerColumn: 2
+			},
+			768: {
+				slidesPerView: 3,
+				slidesPerColumn: 2,
+				simulateTouch: false
+			},
+			767: {
+				slidesPerView: 3,
+				freeMode: true,
+				slidesPerColumn: 1,
+				simulateTouch: true,
+				width:500
+			},
+			414: {
+				slidesPerView: 2,
+				freeMode: true,
+				slidesPerColumn: 1,
+				simulateTouch: true
+			}
+		}
+    });
+
+	// 패션몰 랭킹
+	var swiper3 = new Swiper('.swiper-container3', {
+		slidesPerView: 2,
+		slidesPerColumn: 1,
+		SlidesPerGroup: 1,
+		SlidesPerColumnFill: 'column',
+		spaceBetween: 80,
+		/*freeMode: true,*/
+		paginationClickable: true,
+		nextButton: '.swiper-button-next',
+		prevButton: '.swiper-button-prev',
+		breakpoints: {
+			1280: {
+                slidesPerView: 2,
+				width:'100%'
+            },
+			1024: {
+                slidesPerView: 1,
+				width:500
+            },
+			768: {
+                slidesPerView: 1,
+				width:420
+            },
+            767: {
+                slidesPerView: 1,
+				width:500
+            },
+			414: {
+                slidesPerView: 1,
+				spaceBetween: 40,
+				width:310
+            }
+        }
+
+	});
+
+	// 관심 태그 / 카테고리 신규상품
+	var swiper4 = new Swiper('.swiper-container4', {
+		slidesPerView: 4,
+		slidesPerColumn: 2,
+		spaceBetween: 50,
+		simulateTouch: false,
+		paginationClickable: true,
+		breakpoints: {
+			1024: {
+				slidesPerView: 4,
+				slidesPerColumn: 2,
+			},
+			768: {
+				slidesPerView: 3,
+				slidesPerColumn: 2,
+				simulateTouch: false
+			},
+			767: {
+				slidesPerView: 3,
+				freeMode: true,
+				slidesPerColumn: 1,
+				simulateTouch: true
+			},
+			414: {
+				slidesPerView: 2,
+				freeMode: true,
+				slidesPerColumn: 1,
+				simulateTouch: true
+			}
+		}
+	});
+
+	$(function(){
+		$(".banner").click(function(e){
+			e.preventDefault();
+			var url = $(this).attr('data-url');
+			var url_type = $(this).attr('data-url-type');
+
+			if (url)
+			{
+				if (url_type==2)
+				{
+					window.open(url,'_blank');
+				}
+				else
+				{
+					location.href = url;
+				}
+			}
+		});
+
+    });
+
+    $(".recommend_tag").click(function(e){
+		e.preventDefault();
+
+		var tag = $.trim($("#tag").val());
+
+		is_recommend = $(this).hasClass('recommend_tag')
+		if (is_recommend)
+		{
+			tag = $(this).text().replace('#', '');
+		}
+
+		$.ajax({
+			data: { 'tag': tag },
+			url: "/member/tag/add",
+			dataType: 'json',
+			success: function (res) {
+				if (res.result)
+				{
+					location.href="/#tag";
+                    location.reload();
+				}
+			}
+		});
+	});
+
+
+
+</script>
+
+
+
+<script type="text/javascript" src="//wcs.naver.net/wcslog.js"></script>
+<script type="text/javascript">
+if(!wcs_add) var wcs_add = {};
+wcs_add["wa"] = "c3eceb4b64e4d8";
+wcs_do();
+</script>
+
+</body>
+</html>

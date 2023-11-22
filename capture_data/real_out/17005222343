@@ -1,0 +1,42 @@
+<script src="/logic/js/lib/wl6.js"></script>
+<script type="text/javascript">
+_n_sid = '';
+_n_uid_cookie='mbw_wlog';
+_n_c_field1 = '';
+var agent = navigator.userAgent.toLowerCase();
+
+// PC ì¼ë
+if (agent.indexOf('windows nt') !=-1 || agent.indexOf('macintosh') !=-1) {
+	_n_sid = 'pcw_shcard';
+}else {
+	if (agent.indexOf("shcardapp") != -1) {		// ì íì¹´ë ì±ì¼ë
+    	_n_sid = 'app_shcard';
+	} else if (agent.indexOf("shfanapp") != -1){	// íì´í ì±ì¼ë
+
+		if (agent.indexOf("pemver") != -1) {		// Newíë«í¼(newplatform) -> pemverë¡ ë³ê²½
+			_n_sid = 'shp_shcard';
+		}else if (agent.indexOf("newp") != -1) {	// Newíë«í¼
+			_n_sid = 'np_shcard';
+		}else {
+			_n_sid = 'fa_shcard';
+		}
+
+		_n_c_field1 = 'sno';
+	} else {	// ëª¨ë°ì¼ ì¹ì¼ë
+		_n_sid = 'mow_shcard';
+	}
+}
+
+try{
+	n_logging()
+}catch(e){
+	console.log('ìì´ì¦ë¡ê·¸ ë¡ë ì¤í¨');
+}
+setTimeout(function(){
+	//location.href="/conts/html/main.html?_refer="+document.referrer;
+	location.href="/pconts/html/main.html?_refer="+document.referrer;
+	//location.href="/index.jsp";
+},100);
+//location.href="/mob/MOBFM001N/MOBFM001C01.shc";.
+</script>
+             

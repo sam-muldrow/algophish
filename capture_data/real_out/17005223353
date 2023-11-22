@@ -1,0 +1,46 @@
+<!DOCTYPE html><html><head><meta charset="utf-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="user-scalable=no,initial-scale=1,maximum-scale=1,minimum-scale=1,width=device-width"><link rel="apple-touch-icon" sizes="180x180" href="/assets/images/favicons/apple-touch-icon.png"><link rel="icon" type="image/png" sizes="32x32" href="/assets/images/favicons/favicon-32x32.png"><link rel="icon" type="image/png" sizes="16x16" href="/assets/images/favicons/favicon-16x16.png"><link rel="shortcut icon" href="/assets/images/favicons/favicon.ico"><title>USTravelDocs</title><base id="base"><script>(() => {
+      const pathList = location.pathname.split('/').filter(v => v);
+      console.log(pathList)
+      const base = document.querySelector("#base");
+      base.href = '/' + pathList[0] + '/' + pathList[1] + '/';
+      if (pathList.length === 2) pathList.push("index-page");
+      const html = document.querySelector("html");
+      let redirectPath = "";
+      if (pathList[0] == "sg" && (pathList[1] == 'ZT' || pathList[1] == 'zt')) {
+        redirectPath = "/"+pathList[0]+"/zh/";
+      }
+      if(pathList[0]?.length == 5) {
+        let countryCode = pathList[0].split("_");
+        if (countryCode[1] =='jp') {
+          redirectPath = "/"+countryCode[0]+"/ja/";
+        }
+        else if (countryCode[1] =='kr') {
+          redirectPath = "/"+countryCode[0]+"/ko/";
+        }
+        else if (countryCode[0] =='sg' && countryCode[1] =='zt') {
+          redirectPath = "/"+countryCode[0]+"/zh/";
+        }
+        else {
+          if(countryCode[1].length == 2) {
+            redirectPath = "/"+countryCode[0]+"/"+countryCode[1]+"/";
+          }
+          else {
+            redirectPath = "/"+countryCode[0]+"/en/";
+          }
+        }
+      }
+      if(pathList[0]?.length == 2 && pathList[1]?.length != 2) {
+        redirectPath = "/"+pathList[0]+"/en/";
+      }
+      if(pathList[0]?.length == 2 && (!pathList[1] || pathList[1] == "")) {
+        redirectPath = "/"+pathList[0]+"/en/";
+      }
+      if(redirectPath != "") {
+        window.location.href = redirectPath;
+      }
+      
+      pathList[1] = pathList[1]?pathList[1]:'en';
+      html.lang = pathList[1];
+
+      html.classList.add(...pathList);
+    })();</script><link href="/css/chunk-18821782.f7b9e7d6.css" rel="prefetch"><link href="/css/chunk-28486744.0a24888a.css" rel="prefetch"><link href="/css/chunk-6529fdad.318e9b02.css" rel="prefetch"><link href="/css/chunk-71c9f3ce.27eadb38.css" rel="prefetch"><link href="/css/chunk-7db66302.6587aac7.css" rel="prefetch"><link href="/js/chunk-18821782.aa20edc9.js" rel="prefetch"><link href="/js/chunk-28486744.084a10fd.js" rel="prefetch"><link href="/js/chunk-6529fdad.ba655301.js" rel="prefetch"><link href="/js/chunk-71c9f3ce.ac868225.js" rel="prefetch"><link href="/js/chunk-7db66302.5d63aa96.js" rel="prefetch"><link href="/css/app.dec83d52.css" rel="preload" as="style"><link href="/js/app.015b6f4a.js" rel="preload" as="script"><link href="/js/chunk-vendors.d07272c8.js" rel="preload" as="script"><link href="/css/app.dec83d52.css" rel="stylesheet"></head><body><noscript><strong>We're sorry but ustraveldocs doesn't work properly without JavaScript enabled. Please enable it to continue.</strong></noscript><div id="app"></div><script src="/js/chunk-vendors.d07272c8.js"></script><script src="/js/app.015b6f4a.js"></script></body></html>

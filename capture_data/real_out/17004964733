@@ -1,0 +1,515 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en" dir="ltr">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Launchpad</title>
+    <link rel="apple-touch-icon" sizes="180x180" href="/@@/apple-touch-icon.png?v=2022" />
+    <link rel="icon" type="image/png" sizes="32x32" href="/@@/favicon-32x32.png?v=2022" />
+    <link rel="icon" type="image/png" sizes="16x16" href="/@@/favicon-16x16.png?v=2022" />
+    <link rel="manifest" href="/@@/site.webmanifest?v=2022" />
+    <link rel="mask-icon" href="/@@/safari-pinned-tab.svg?v=2022" color="#e9531f" />
+    <link rel="shortcut icon" href="/@@/favicon.ico?v=2022" />
+    <meta name="msapplication-TileColor" content="#da532c" />
+    <meta name="msapplication-config" content="/@@/browserconfig.xml?v=2022" />
+    <meta name="theme-color" content="#ffffff" />
+    
+    
+      <link rel="alternate" type="application/atom+xml" href="http://feeds.launchpad.net/announcements.atom" title="All Announcements" />
+    
+
+    
+  
+  <link type="text/css" rel="stylesheet" media="screen, print" href="/+icing/revc6808f5758ddf584f68a8725ce7a8cf1dd356f81/combo.css" />
+
+
+    
+
+    
+      
+      
+    
+
+    
+    
+      <meta property="og:title" content="Launchpad" />
+      <meta property="og:type" content="website" />
+      <meta property="og:image" content="/@@/launchpad-og-image.png" />
+      <meta property="og:url" content="https://launchpad.net/index.html" />
+      <meta property="og:site_name" content="Launchpad" />
+    
+
+    
+
+    
+  
+
+  
+  
+  <script type="text/javascript">
+    var LP = {
+        cache: {},
+        links: {}
+    };
+  </script>
+
+  
+
+  <script type="text/javascript">var cookie_scope = '; Path=/; Secure; Domain=.launchpad.net';</script>
+
+   <script type="text/javascript" src="/+combo/revc6808f5758ddf584f68a8725ce7a8cf1dd356f81/?yui/yui/yui-min.js&amp;lp/meta.js&amp;yui/loader/loader-min.js"></script>
+   <script type="text/javascript">
+        var raw = null;
+        if (LP.devmode) {
+           raw = 'raw';
+        }
+        YUI.GlobalConfig = {
+            combine: true,
+            comboBase: '/+combo/revc6808f5758ddf584f68a8725ce7a8cf1dd356f81/?',
+            root: 'yui/',
+            filter: raw,
+            debug: false,
+            fetchCSS: false,
+            maxURLLength: 2000,
+            groups: {
+                lp: {
+                    combine: true,
+                    base: '/+combo/revc6808f5758ddf584f68a8725ce7a8cf1dd356f81/?lp/',
+                    comboBase: '/+combo/revc6808f5758ddf584f68a8725ce7a8cf1dd356f81/?',
+                    root: 'lp/',
+                    // comes from including lp/meta.js
+                    modules: LP_MODULES,
+                    fetchCSS: false
+                }
+            }
+        }</script>
+
+  <script type="text/javascript">
+      // we need this to create a single YUI instance all events and code
+      // talks across. All instances of YUI().use should be based off of
+      // LPJS instead.
+      var LPJS = new YUI();
+  </script>
+
+
+
+    <script id="base-layout-load-scripts" type="text/javascript">
+        //<![CDATA[
+        LPJS.use('base', 'node', 'console', 'event',
+            'oop', 'lp', 'lp.app.foldables','lp.app.sorttable',
+            'lp.app.inlinehelp', 'lp.app.links',
+            'lp.bugs.bugtask_index', 'lp.bugs.subscribers',
+            'lp.app.ellipsis', 'lp.code.branchmergeproposal.diff',
+            'lp.views.global',
+             function(Y) {
+
+            Y.on("domready", function () {
+                var global_view = new Y.lp.views.Global();
+                global_view.render();
+
+                Y.lp.app.sorttable.SortTable.init();
+                Y.lp.app.inlinehelp.init_help();
+                Y.lp.activate_collapsibles();
+                Y.lp.app.foldables.activate();
+                Y.lp.app.links.check_valid_lp_links();
+            });
+
+            Y.on('lp:context:web_link:changed', function(e) {
+                  window.location = e.new_value;
+            });
+        });
+        //]]>
+    </script>
+    <script id="base-helper-functions" type="text/javascript">
+         //<![CDATA[
+        // This code is pulled from lp.js that needs to be available on every
+        // request. Pulling here to get it outside the scope of the YUI block.
+        function setFocusByName(name) {
+            // Focus the first element matching the given name which can be focused.
+            var nodes = document.getElementsByName(name);
+            var i, node;
+            for (i = 0; i < nodes.length; i++) {
+                node = nodes[i];
+                if (node.focus) {
+                    try {
+                        // Trying to focus a hidden element throws an error in IE8.
+                        if (node.offsetHeight !== 0) {
+                            node.focus();
+                        }
+                    } catch (e) {
+                        LPJS.use('console', function(Y) {
+                            Y.log('In setFocusByName(<' +
+                                node.tagName + ' type=' + node.type + '>): ' + e);
+                        });
+                    }
+                    break;
+                }
+            }
+        }
+
+        function selectWidget(widget_name, event) {
+          if (event && (event.keyCode === 9 || event.keyCode === 13)) {
+              // Avoid firing if user is tabbing through or simply pressing
+              // enter to submit the form.
+              return;
+          }
+          document.getElementById(widget_name).checked = true;
+        }
+        //]]>
+    </script>
+
+    
+      
+    <style>
+      .homepage {
+          margin: auto;
+          width: 90%;
+          max-width: 80em;
+      }
+      #homepage-whatslaunchpad ul {
+          margin-left: 1em;
+          margin-bottom: 0.5em;
+      }
+      #homepage-whatslaunchpad ul,
+      #homepage-whatslaunchpad-tour {
+          font-weight: bold;
+      }
+      #homepage-stats {
+          max-width: 50em;
+          margin: auto;
+          padding-top: 0.5em;
+          color: gray;
+      }
+      #homepage-blogposts {
+          padding-right: 4em;
+      }
+      #homepage-getstarted ul {
+          padding-top: 0.5em;
+          }
+      .featured-project-top h3 {
+          font-weight: bold;
+          }
+      .featured-project-top h3 img {
+          vertical-align: middle;
+          }
+      .featured-project-top p {
+          margin-top: 0.5em;
+          margin-bottom: 1em;
+          padding-bottom: .5em;
+          border-bottom: 1px dotted #999;
+          }
+      #launchpad-logo-and-name {
+          width: 250px;
+          }
+    </style>
+  
+    
+  </head>
+
+  <body id="document" itemscope="" itemtype="http://schema.org/WebPage" class="tab-unknown
+      main_only
+      public
+      yui3-skin-sam">
+          
+          
+    <div class="yui-d0">
+      <div id="locationbar" class="login-logout">
+        
+
+<div id="logincontrol"><a href="https://launchpad.net/+login">Log in / Register</a></div>
+
+
+
+      </div><!--id="locationbar"-->
+
+      
+
+      
+        <div id="maincontent" class="yui-main">
+          <div class="yui-b" dir="ltr">
+            <div class="context-publication">
+              
+              
+
+              <div id="registration" class="registering">
+                
+              </div>
+            </div>
+
+            
+            <div id="request-notifications">
+              
+            </div>
+
+            
+              <div>
+
+      
+      <!-- Is your project registered yet? -->
+
+      <div id="homepage" class="homepage">
+
+        <div class="top-portlet" style="border-bottom: 1px dotted #999;">
+          <img src="/@@/launchpad-logo-and-name.png" id="launchpad-logo-and-name" alt="Launchpad logo and name" style="margin: 0 9em 1em 0" />
+        </div>
+
+        <div class="yui-g">
+          <div class="yui-u first" style="margin-top: 1.5em;">
+            <div class="homepage-whatslaunchpad">
+              <h2><span class="launchpad-gold">Launchpad</span> is a software collaboration platform that provides:</h2>
+              <ul>
+              <li>
+                <a class="sprite bug" href="https://bugs.launchpad.net/">Bug tracking</a>
+              </li>
+              <li>
+                <a class="sprite branch" href="https://code.launchpad.net/">Code hosting</a>
+                using <a href="http://bazaar.canonical.com/">Bazaar</a>
+                and <a href="https://git-scm.com/">Git</a>
+              </li>
+              <li>
+                <a class="sprite yes" href="https://help.launchpad.net/Code/Review">Code reviews</a>
+              </li>
+              <li>
+                <a class="sprite ubuntu-logo" href="https://launchpad.net/ubuntu">Ubuntu package building and hosting</a>
+              </li>
+              <li>
+                <a class="sprite translate-icon" href="https://translations.launchpad.net/">Translations</a>
+              </li>
+              <li>
+                <a class="sprite mail" href="https://help.launchpad.net/Teams/MailingLists">Mailing lists</a>
+              </li>
+              <li>
+                <a class="sprite question" href="https://answers.launchpad.net/">Answer tracking and FAQs</a>
+              </li>
+              <li>
+                <a class="sprite blueprint" href="https://blueprints.launchpad.net/">Specification tracking</a>
+              </li>
+              </ul>
+              <div id="homepage-whatslaunchpad-tour">
+                 <a class="sprite tour" href="/+tour">Take the tour!</a>
+               </div>
+            </div>
+
+            <div id="homepage-blogposts" class="homepage-portlet">
+              <h2>Recent Launchpad blog posts</h2>
+              <ul>
+                <li class="news">
+                    <a href="https://blog.launchpad.net/ppa/new-domain-names-for-ppas">New domain names for PPAs</a><span class="registered">
+                      &ndash; 16 Feb 2022</span><br />
+                Since they were introduced in 2007, Launchpad&#8217;s Personal Package Archives (PPAs) have always been hosted on ppa.launchpad.net. This has generally worked well, but one significant snag became clear later on: it was difficult to add HTTPS support for PPAs due to the way that cookies work on the web. Launchpad uses a cookie for your [&#8230;]
+                </li>
+                <li class="news">
+                    <a href="https://blog.launchpad.net/notifications/bug-emails-now-use-the-bugs-address-in-the-from-header">Bug emails now use the bug’s address in the From: header</a><span class="registered">
+                      &ndash; 20 May 2020</span><br />
+                The From: addresses used by Launchpad&#8217;s bug notifications have changed, to improve the chances of our messages being delivered over modern internet email. Launchpad sends a lot of email, most of which is the result of Launchpad users performing some kind of action. For example, when somebody adds a comment to a bug, Launchpad sends [&#8230;]
+                </li>
+                <li class="news">
+                    <a href="https://blog.launchpad.net/general/launchpad-news-march-2019-july-2019">Launchpad news, March 2019 – July 2019</a><span class="registered">
+                      &ndash; 06 Aug 2019</span><br />
+                Here&#8217;s a brief changelog of what we&#8217;ve been up to since our last general update. Bugs Add basic GitLab bug linking (#1603679) Expect the upstream bug ID in the &#8220;number&#8221; field of GitHub issue objects, not the &#8220;id&#8221; field (#1824728) Include metadata-only bug changes in Person:+commentedbugs Build farm Filter ASCII NUL characters out of build [&#8230;]
+                </li>
+                <li class="news">
+                    <a href="https://blog.launchpad.net/general/launchpad-news-february-2019">Launchpad news, February 2019</a><span class="registered">
+                      &ndash; 07 Mar 2019</span><br />
+                Here&#8217;s a brief changelog for this month. Build farm Allow dispatching builds with base images selected based on the pocket and/or using LXD images instead of chroot tarballs where appropriate (#1811677) Code Store bzr-svn&#8216;s cache in the import data store Allow project owners to use the Bazaar branch rescan view Canonicalise expected rule ordering in [&#8230;]
+                </li>
+                <li class="news">
+                    <a href="https://blog.launchpad.net/general/launchpad-news-july-2018-january-2019">Launchpad news, July 2018 – January 2019</a><span class="registered">
+                      &ndash; 21 Feb 2019</span><br />
+                Here&#8217;s a brief changelog of what we&#8217;ve been up to since our last general update. Bugs Parse a few more possible Savane URL formats (#197250) Compare Bugzilla versions properly when checking whether they support the Bugzilla API (part of #1802798) Build farm Configure snap proxy settings for Subversion (#1668358) Support passing IMAGE_TARGETS, REPO_SNAPSHOT_STAMP, and COHORT_KEY [&#8230;]
+                </li>
+                <li class="news">
+                    <a href="https://blog.launchpad.net/general/launchpad-news-june-2018">Launchpad news, June 2018</a><span class="registered">
+                      &ndash; 06 Jul 2018</span><br />
+                Here&#8217;s a brief changelog for this month. Bugs Handle Bugzilla.time() changes in Bugzilla 5.1.1 (#1774838) Cope with the comment author field being renamed to creator in recent Bugzilla versions (#1774838) Build farm Set the hostname and FQDN of LXD containers to match the host system, though with an IP address pointing to the container (#1747015) [&#8230;]
+                </li>
+                <li class="news">
+                  <a href="http://blog.launchpad.net/general/launchpad-is-now-open-source">
+                    Launchpad now open source</a><span class="registered"> &ndash; 21 Jul 2009</span><br />
+                    Get the code to Launchpad and join our development community.
+                </li>
+              </ul>
+              <ul class="horizontal">
+                <li>
+                  <strong><a href="http://blog.launchpad.net">Read the blog</a></strong>
+                </li>
+              </ul>
+            </div>
+          </div>
+
+          <div class="yui-u">
+            <form id="homepage-searchform" xml:lang="en" lang="en" dir="ltr" method="get" accept-charset="UTF-8" action="https://launchpad.net/+search">
+              <input id="text" type="text" name="field.text" size="25" />
+              <input id="search" type="submit" value="Search Launchpad" />
+            </form>
+            <script type="text/javascript">
+                LPJS.use('lp', function () {
+                    setFocusByName('field.text');
+                });
+            </script>
+            <div id="homepage-stats">
+              <strong>46,233</strong>&nbsp;projects,
+              <strong>1,991,474</strong>&nbsp;bugs,
+              <strong>1,009,205</strong>&nbsp;branches,
+              <strong>72,678</strong>&nbsp;Git repositories,
+              <strong>3,120,392</strong>&nbsp;translations,
+              <strong>706,247</strong>&nbsp;answers,
+              <strong>76,012</strong>&nbsp;blueprints,
+              and&nbsp;counting...
+            </div>
+            <div id="homepage-getstarted" class="homepage-portlet">
+              <h2>Get started</h2>
+              
+                <a href="/+login">Creating an account</a> allows you to start
+                working within Launchpad.<br />
+              
+              <p>
+                Learn more about Launchpad in the
+                <a href="https://help.launchpad.net/">user guide</a>
+                or try it for yourself in our
+                <a href="https://qastaging.launchpad.net/">sandbox environment</a>.
+              </p>
+              
+            </div>
+
+            <div id="homepage-featured" class="homepage-portlet">
+              <h2>Featured projects</h2>
+
+              <div class="featured-project-top">
+                <h3>
+                  <a href="/epics"><img alt="" width="64" height="64" src="https://launchpadlibrarian.net/386213170/EPICS_BB_Logo-64x64.png" /></a>
+                  <a href="/epics">The EPICS Collaboration</a>
+                </h3>
+                <p>EPICS is a set of Open Source software tools, libraries and applications developed collaboratively and used worldwide to create distributed soft real-time control systems for scientific instruments...</p>
+              </div>
+
+              <div class="two-column-list">
+                <ul class="featured-projects-list">
+                  <li>
+                    <a href="/apparmor" class="bg-image" style="background-image: url(https://launchpadlibrarian.net/378258638/apparmor-14x14.png)">AppArmor</a>
+                  </li>
+                  <li>
+                    <a href="/brz" class="sprite product">Breezy</a>
+                  </li>
+                  <li>
+                    <a href="/inkscape" class="bg-image" style="background-image: url(https://launchpadlibrarian.net/10371292/inkscape.logo.png)">Inkscape</a>
+                  </li>
+                  <li>
+                    <a href="/landscape" class="bg-image" style="background-image: url(https://launchpadlibrarian.net/600899464/Landscape-logo-square-14x14.png)">Landscape Server</a>
+                  </li>
+                  <li>
+                    <a href="/launchpad" class="bg-image" style="background-image: url(https://launchpadlibrarian.net/600817172/Canonical_Launchpad_icon_14px.png)">Launchpad itself</a>
+                  </li>
+                  <li>
+                    <a href="/openshot" class="bg-image" style="background-image: url(https://launchpadlibrarian.net/250357496/OpenShot-2-Logo-14.png)">OpenShot Video Editor</a>
+                  </li>
+                  <li>
+                    <a href="/openstack" class="bg-image" style="background-image: url(https://launchpadlibrarian.net/52042557/os14.png)">OpenStack</a>
+                  </li>
+                  <li>
+                    <a href="/qpdfview" class="bg-image" style="background-image: url(https://launchpadlibrarian.net/97720058/icon.png)">qpdfview</a>
+                  </li>
+                  <li>
+                    <a href="/shutter" class="bg-image" style="background-image: url(https://launchpadlibrarian.net/154784556/shutter.png)">Shutter</a>
+                  </li>
+                  <li>
+                    <a href="/snapstore-server" class="bg-image" style="background-image: url(https://launchpadlibrarian.net/450936115/logo.14.png)">Snap Store Server</a>
+                  </li>
+                  <li>
+                    <a href="/ubuntu" class="bg-image" style="background-image: url(https://launchpadlibrarian.net/606381978/CoF%2014px.png)">Ubuntu</a>
+                  </li>
+                  <li>
+                    <a href="/ubuntu-mate" class="bg-image" style="background-image: url(https://launchpadlibrarian.net/178429042/icon.png)">Ubuntu MATE</a>
+                  </li>
+                  <li>
+                    <a href="/yade" class="bg-image" style="background-image: url(https://launchpadlibrarian.net/30852156/fav.png)">Yade</a>
+                  </li>
+                </ul>
+              </div>
+
+              <ul class="horizontal">
+                <li>
+                  <strong><a href="/projects">Browse all
+                    46233
+                    projects</a>!</strong>
+                </li>
+                
+              </ul>
+            </div>
+          </div><!-- yui-u -->
+
+        </div><!-- yui-gc -->
+      </div><!-- homepage -->
+    </div>
+            
+            
+          </div><!-- yui-b -->
+        </div><!-- yui-main -->
+
+        
+          <!-- yui-b side -->
+        
+      <!-- yui-t4 -->
+
+      
+  <div id="footer" class="footer">
+    
+
+    <div class="colophon">
+      &copy; 2004-2023
+      <a href="http://canonical.com/">Canonical&nbsp;Ltd.</a>
+      &nbsp;&bull;&nbsp;
+      <a href="https://launchpad.net/legal">Terms of use</a>
+      &nbsp;&bull;&nbsp;
+      <a href="https://www.ubuntu.com/legal/dataprivacy">Data privacy</a>
+      &nbsp;&bull;&nbsp;
+      <a href="/feedback">Contact Launchpad Support</a>
+      
+      &nbsp;&bull;&nbsp;
+      <a href="http://blog.launchpad.net/">Blog</a>
+      
+	&nbsp;&bull;&nbsp;
+	<a href="https://canonical.com/careers">Careers</a>
+      
+      &nbsp;&bull;&nbsp;
+      <a href="https://ubuntu.social/@launchpadstatus">System status</a>
+      <span id="lp-version">
+      &nbsp;&bull;&nbsp;
+        c6808f5
+        
+        
+        (<a href="https://dev.launchpad.net/">Get the code!</a>)
+      </span>
+    </div>
+  </div>
+
+    </div><!-- yui-d0-->
+
+    
+  
+  
+  <script id="json-cache-script">LP.cache = {"related_features": {}};</script>
+
+    
+  
+
+    
+  </body>
+
+
+  <!--
+    Facet name: unknown
+    Page type: main_only
+    Has global search: True
+    Has application tabs: True
+    Has side portlets: False
+
+    At least 19 queries/external actions issued in 0.09 seconds
+
+    Features: {'profiling.enabled': None, 'hard_timeout': '5000', 'js.yui_version': None, 'app.maintenance_message': None, 'app.mainsite_only.canonical_url': None, 'app.root_blog.enabled': 'true', 'memcache': None, 'baselayout.careers_link.disabled': None, 'visible_render_time': None}
+
+    rc6808f5
+
+    -->
+
+</html>
+

@@ -1,0 +1,322 @@
+<!doctype html><html lang="en"><head><meta charset="utf-8"/><meta name="viewport" content="width=device-width,initial-scale=1"/><meta name="apple-mobile-web-app-capable" content="yes"/><meta name="mobile-web-app-capable" content="yes"/><meta name="msapplication-config" content="/img/icons/browserconfig.xml"/><link rel="manifest" href="/manifest.json"/><link rel="stylesheet" href="/css/font/icomoon/style.css?ts=1700084708701" media="print" onload='this.media="all"'/><link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:400,500,700&display=swap" media="print" onload='this.media="all"'/><title>Pinnacle</title><style>body,html{margin:0}.loadingSpinner{border:4px solid #f3f3f3;border-top:4px solid #f50;border-radius:50%;width:40px;height:40px;position:absolute;top:calc(50% - 20px);left:calc(50% - 20px);animation:spin 1s linear infinite}.loadingSpinner.spin{animation:spin 2s linear infinite}@keyframes fadeColor{0%{border-top:4px solid #f3f3f3;transform:rotate(-20deg)}100%{border-top:4px solid #f50;transform:rotate(0)}}@keyframes spin{0%{transform:rotate(0)}100%{transform:rotate(360deg)}}.overflowHidden{overflow:hidden;height:100vh;width:100vw;display:block;position:absolute;top:0}#root{display:none}#loadingOverlay{position:absolute;background:#f1f3f7;height:100%;width:100%;z-index:999;transition:all .5s;-webkit-transition:all .5s;-moz-transition:all .5s}</style><script>!function(t,e){"object"==typeof exports&&"undefined"!=typeof module?module.exports=e():"function"==typeof define&&define.amd?define(e):t.ResizeObserver=e()}(this,function(){"use strict";var i=function(){if("undefined"!=typeof Map)return Map;function i(t,n){var i=-1;return t.some(function(t,e){return t[0]===n&&(i=e,!0)}),i}return function(){function t(){this.__entries__=[]}return Object.defineProperty(t.prototype,"size",{get:function(){return this.__entries__.length},enumerable:!0,configurable:!0}),t.prototype.get=function(t){var e=i(this.__entries__,t),n=this.__entries__[e];return n&&n[1]},t.prototype.set=function(t,e){var n=i(this.__entries__,t);~n?this.__entries__[n][1]=e:this.__entries__.push([t,e])},t.prototype.delete=function(t){var e=this.__entries__,n=i(e,t);~n&&e.splice(n,1)},t.prototype.has=function(t){return!!~i(this.__entries__,t)},t.prototype.clear=function(){this.__entries__.splice(0)},t.prototype.forEach=function(t,e){void 0===e&&(e=null);for(var n=0,i=this.__entries__;n<i.length;n++){var r=i[n];t.call(e,r[1],r[0])}},t}()}(),n="undefined"!=typeof window&&"undefined"!=typeof document&&window.document===document,e="undefined"!=typeof global&&global.Math===Math?global:"undefined"!=typeof self&&self.Math===Math?self:"undefined"!=typeof window&&window.Math===Math?window:Function("return this")(),a="function"==typeof requestAnimationFrame?requestAnimationFrame.bind(e):function(t){return setTimeout(function(){return t(Date.now())},1e3/60)},r=["top","right","bottom","left","width","height","size","weight"],o="undefined"!=typeof MutationObserver,s=function(){function t(){this.connected_=!1,this.mutationEventsAdded_=!1,this.mutationsObserver_=null,this.observers_=[],this.onTransitionEnd_=this.onTransitionEnd_.bind(this),this.refresh=function(t,e){var n=!1,i=!1,r=0;function o(){n&&(n=!1,t()),i&&c()}function s(){a(o)}function c(){var t=Date.now();if(n){if(t-r<2)return;i=!0}else i=!(n=!0),setTimeout(s,e);r=t}return c}(this.refresh.bind(this),20)}return t.prototype.addObserver=function(t){~this.observers_.indexOf(t)||this.observers_.push(t),this.connected_||this.connect_()},t.prototype.removeObserver=function(t){var e=this.observers_,n=e.indexOf(t);~n&&e.splice(n,1),!e.length&&this.connected_&&this.disconnect_()},t.prototype.refresh=function(){this.updateObservers_()&&this.refresh()},t.prototype.updateObservers_=function(){var t=this.observers_.filter(function(t){return t.gatherActive(),t.hasActive()});return t.forEach(function(t){return t.broadcastActive()}),0<t.length},t.prototype.connect_=function(){n&&!this.connected_&&(document.addEventListener("transitionend",this.onTransitionEnd_),window.addEventListener("resize",this.refresh),o?(this.mutationsObserver_=new MutationObserver(this.refresh),this.mutationsObserver_.observe(document,{attributes:!0,childList:!0,characterData:!0,subtree:!0})):(document.addEventListener("DOMSubtreeModified",this.refresh),this.mutationEventsAdded_=!0),this.connected_=!0)},t.prototype.disconnect_=function(){n&&this.connected_&&(document.removeEventListener("transitionend",this.onTransitionEnd_),window.removeEventListener("resize",this.refresh),this.mutationsObserver_&&this.mutationsObserver_.disconnect(),this.mutationEventsAdded_&&document.removeEventListener("DOMSubtreeModified",this.refresh),this.mutationsObserver_=null,this.mutationEventsAdded_=!1,this.connected_=!1)},t.prototype.onTransitionEnd_=function(t){var e=t.propertyName,n=void 0===e?"":e;r.some(function(t){return!!~n.indexOf(t)})&&this.refresh()},t.getInstance=function(){return this.instance_||(this.instance_=new t),this.instance_},t.instance_=null,t}(),u=function(t,e){for(var n=0,i=Object.keys(e);n<i.length;n++){var r=i[n];Object.defineProperty(t,r,{value:e[r],enumerable:!1,writable:!1,configurable:!0})}return t},d=function(t){return t&&t.ownerDocument&&t.ownerDocument.defaultView||e},p=_(0,0,0,0);function v(t){return parseFloat(t)||0}function l(n){for(var t=[],e=1;e<arguments.length;e++)t[e-1]=arguments[e];return t.reduce(function(t,e){return t+v(n["border-"+e+"-width"])},0)}var c="undefined"!=typeof SVGGraphicsElement?function(t){return t instanceof d(t).SVGGraphicsElement}:function(t){return t instanceof d(t).SVGElement&&"function"==typeof t.getBBox};function h(t){return n?c(t)?_(0,0,(e=t.getBBox()).width,e.height):function(t){var e=t.clientWidth,n=t.clientHeight;if(!e&&!n)return p;var i,r=d(t).getComputedStyle(t),o=function(t){for(var e={},n=0,i=["top","right","bottom","left"];n<i.length;n++){var r=i[n],o=t["padding-"+r];e[r]=v(o)}return e}(r),s=o.left+o.right,c=o.top+o.bottom,a=v(r.width),h=v(r.height);if("border-box"===r.boxSizing&&(Math.round(a+s)!==e&&(a-=l(r,"left","right")+s),Math.round(h+c)!==n&&(h-=l(r,"top","bottom")+c)),(i=t)!==d(i).document.documentElement){var u=Math.round(a+s)-e,f=Math.round(h+c)-n;1!==Math.abs(u)&&(a-=u),1!==Math.abs(f)&&(h-=f)}return _(o.left,o.top,a,h)}(t):p;var e}function _(t,e,n,i){return{x:t,y:e,width:n,height:i}}var f=function(){function t(t){this.broadcastWidth=0,this.broadcastHeight=0,this.contentRect_=_(0,0,0,0),this.target=t}return t.prototype.isActive=function(){var t=h(this.target);return(this.contentRect_=t).width!==this.broadcastWidth||t.height!==this.broadcastHeight},t.prototype.broadcastRect=function(){var t=this.contentRect_;return this.broadcastWidth=t.width,this.broadcastHeight=t.height,t},t}(),b=function(t,e){var n,i,r,o,s,c,a,h=(i=(n=e).x,r=n.y,o=n.width,s=n.height,c="undefined"!=typeof DOMRectReadOnly?DOMRectReadOnly:Object,a=Object.create(c.prototype),u(a,{x:i,y:r,width:o,height:s,top:r,right:i+o,bottom:s+r,left:i}),a);u(this,{target:t,contentRect:h})},m=function(){function t(t,e,n){if(this.activeObservations_=[],this.observations_=new i,"function"!=typeof t)throw new TypeError("The callback provided as parameter 1 is not a function.");this.callback_=t,this.controller_=e,this.callbackCtx_=n}return t.prototype.observe=function(t){if(!arguments.length)throw new TypeError("1 argument required, but only 0 present.");if("undefined"!=typeof Element&&Element instanceof Object){if(!(t instanceof d(t).Element))throw new TypeError('parameter 1 is not of type "Element".');var e=this.observations_;e.has(t)||(e.set(t,new f(t)),this.controller_.addObserver(this),this.controller_.refresh())}},t.prototype.unobserve=function(t){if(!arguments.length)throw new TypeError("1 argument required, but only 0 present.");if("undefined"!=typeof Element&&Element instanceof Object){if(!(t instanceof d(t).Element))throw new TypeError('parameter 1 is not of type "Element".');var e=this.observations_;e.has(t)&&(e.delete(t),e.size||this.controller_.removeObserver(this))}},t.prototype.disconnect=function(){this.clearActive(),this.observations_.clear(),this.controller_.removeObserver(this)},t.prototype.gatherActive=function(){var e=this;this.clearActive(),this.observations_.forEach(function(t){t.isActive()&&e.activeObservations_.push(t)})},t.prototype.broadcastActive=function(){if(this.hasActive()){var t=this.callbackCtx_,e=this.activeObservations_.map(function(t){return new b(t.target,t.broadcastRect())});this.callback_.call(t,e,t),this.clearActive()}},t.prototype.clearActive=function(){this.activeObservations_.splice(0)},t.prototype.hasActive=function(){return 0<this.activeObservations_.length},t}(),y="undefined"!=typeof WeakMap?new WeakMap:new i,t=function t(e){if(!(this instanceof t))throw new TypeError("Cannot call a class as a function.");if(!arguments.length)throw new TypeError("1 argument required, but only 0 present.");var n=s.getInstance(),i=new m(e,n,this);y.set(this,i)};return["observe","unobserve","disconnect"].forEach(function(e){t.prototype[e]=function(){var t;return(t=y.get(this))[e].apply(t,arguments)}}),void 0!==e.ResizeObserver?e.ResizeObserver:t})</script><link href="/static/css/styles.7f443bd9.chunk.css" rel="stylesheet"></head><body class="overflowHidden"><noscript><iframe title="Google Tag Manager" src="https://www.googletagmanager.com/ns.html?id=GTM-KXLFXC7" height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript><div id="loadingOverlay"><div class="loadingSpinner"></div></div><div id="root"></div><div id="modal"></div><script>// -------------------------
+      // Redirects & locale setup
+      // -------------------------
+
+      const locales = [
+        'cs','de','en','es','fi','fr','hi','hy','id','il','it','ja','ka','km',
+        'ko','no','pl','pt','ru','sv','th','tr','vi','zh-CN','zh-TW'
+      ]
+
+      const sanitizeLocale = (locale => {
+        locale = locale.toLowerCase()
+        const aliases = {
+          'zh-cn': 'zh-CN',
+          'zh-tw': 'zh-TW',
+          'pt-br': 'pt'
+        }
+        return aliases[locale] || locale
+      })
+
+      const DEFAULT_BROWSER_LOCALE = (() => {
+        const tld = document.location.hostname.split(".").reverse()[0]
+        if (tld === "se") return "sv"
+        const browserLang = window.navigator.userLanguage || window.navigator.language
+        const languages =
+          window.navigator.languages ||
+          (browserLang.length === 5
+            ? [browserLang.slice(0, 2), browserLang]
+            : ["en", "en-GB"])
+
+        // some browsers include the region so we need to slice it unless for chinese
+        const cultureCountry = languages.find(str => str.length === 5) || ""
+        const lang = browserLang.slice(0, 2) === "zh"
+          ? cultureCountry.toLowerCase() // eg: zh-tw, zh-cn
+          : browserLang.slice(0, 2)
+
+        const match = locales.find(l => l.toLowerCase() === lang)
+
+        // fallback to english if locale is unsupported
+        return match || 'en'
+      })()
+
+      // recall user language
+      const prefs = window.localStorage && localStorage.getItem("Main:Preferences")
+      const userPrefs = prefs && JSON.parse(prefs)
+      const userLangCode = userPrefs && userPrefs.Language && userPrefs.Language.culture
+
+      // contruct new url
+      const parsed = new URL(window.location.href);
+      const pathname = parsed.pathname.replace(/(\/)$/g,'');
+      const segments = pathname.split('/').filter(_=>_);
+
+      // first get locale from the uri as a "source of truth".
+      // if not present, check localStorage, otherwise fallback to browser
+      const matchInLocales = segments.length >= 1 && locales.some(l => l.toLowerCase() === segments[0].toLowerCase())
+      const locale = matchInLocales
+        ? sanitizeLocale(segments[0])
+        : userLangCode && (
+            ["zh-cn", "zh-tw", "zh-CN", "zh-TW"].includes(userLangCode)
+              ? sanitizeLocale(userLangCode)
+              : sanitizeLocale(userLangCode.substr(0,2))
+          ) || DEFAULT_BROWSER_LOCALE
+
+      // segs = segments without the language code if pressent in pathname
+      let segs = segments;
+      if (segments.length > 1 && matchInLocales)
+        [, ...segs] = segments
+
+      // construct new urls, append any query strings if present
+      const decorate = (locale, queryString = parsed.search) =>
+        path => `${locale}/${path}${queryString}`
+      const build = decorate(locale)
+      const ensureFwdSlash = url => {
+        if (url.startsWith('http')) return url
+        return url.startsWith('/') ? url : `/${url}`
+      }
+
+      // surmize where the user came from. direct url type in (aka no referrer)
+      // means that they probably came from a live stream, otherwise it was
+      // from an external banner link
+      const referrer = document.referrer && new URL(document.referrer)
+      const utmMedium = (referrer && referrer.hostname !== parsed.hostname)
+        ? "banner_link" : "live_stream";
+
+      // redirects
+      const langRegex = "^(\/(" + locales.join('|') + "))?"
+      const redirects = {
+        // legacy routes -------------
+
+        // /:language?/payment-options -> /:language/future/legal-payments
+        [`${langRegex}\/payment-options$`]: build('future/legal-payments'),
+
+        // /:language?/odds/match/:sport/:country/:league -> /:language/:sport/:league/matchups
+        [`${langRegex}\/odds/match/[a-zA-Z0-9-_]+/[a-zA-Z0-9-_]+/[a-zA-Z0-9-_]+$`]: build(`${segs[2]}/${segs[4]}/matchups`),
+
+        // /:language?/odds/specials/:sport/:league -> /:language/:sport/:league/matchups
+        [`${langRegex}\/odds/specials/[a-zA-Z0-9-_]+/[a-zA-Z0-9-_]+$`]: build(`${segs[2]}/${segs[3]}`),
+
+        // /:language?/odds-list/countries/:sport -> /:language/:sport/leagues
+        [`${langRegex}\/odds-list/countries/[a-zA-Z0-9-_]+$`]: build(`${segs[2]}/leagues`),
+
+        // /signup/desktop/:culture -> /:language/account/signup/step1
+        [`${langRegex}\/signup/desktop(.*)`]: build(`account/signup/step1`),
+
+        // /signup/mobile/:culture -> /:language/account/signup/step1
+        [`${langRegex}\/signup/mobile(.*)`]: build(`account/signup/step1`),
+
+        // /:language?/odds/today/:sport -> /:language/:sport/matchups
+        [`${langRegex}\/odds/today/[a-zA-Z0-9-_]+$`]: build(`${segs[2]}/matchups`),
+
+        // /:language?/football/ncaa-c/matchups -> /:language/football/ncaa/matchups
+        [`${langRegex}\/football/ncaa-c/matchups$`]: build(`football/ncaa/matchups`),
+
+
+        // sports book routes --------
+
+        // /:language?/e-sports -> /:language/esports/matchups/highlights
+        [`${langRegex}\/e-sports$(\/)?`]: build(`esports/matchups/highlights`),
+
+        // /:language?/e-sports/matchups -> /:language/esports/matchups/highlights
+        [`${langRegex}\/e-sports/matchups$(\/)?`]: build(`esports/matchups/highlights`),
+
+        // /:language?/esports/matchups -> /:language/esports/matchups/highlights
+        [`${langRegex}\/esports/matchups$(\/)?`]: build(`esports/matchups/highlights`),
+
+        // /:language?/soccer/matchups -> /:language/soccer/matchups/highlights
+        [`${langRegex}\/soccer/matchups$(\/)?`]: build(`soccer/matchups/highlights`),
+
+        // /:language?/login/:param+ -> /:language/account/login
+        [`${langRegex}\/login(.*)`]: build(`account/login`),
+
+
+        // campaigns -----------------
+
+        [`${langRegex}\/Odds$(\/)?`]: decorate(
+          'en',
+          '?dvc=d&utm_source=en_twitch_tv&utm_medium=live_stream&utm_campaign=23_pc_csgo&utm_content=en_broadcast_odds&btag=pinn_en_broadcast_odds&refer=23pinnaclecupcsgospshp&fwd_search=1&bounce=1'
+        )(`esports-hub/csgo/pinnacle-cup-brasil`),
+
+        [`${langRegex}\/Banner-CSGO-Odds$(\/)?`]: decorate(
+          'en',
+          '?utm_source=EN_twitch_tv&utm_medium=live_stream&utm_campaign=22_q2_pinnaclecup_csgo&utm_content=en_banner_odds&btag=pinn_en_banner_odds&refer=Q2PinnacleCup22CSGOspshp&fwd_search=1&bounce=1'
+        )(`esports-hub/csgo/pinnacle-cup`),
+
+        [`${langRegex}\/CSGO-Odds$(\/)?`]: decorate(
+          'en',
+          '?dvc=d&utm_source=en_twitch_tv&utm_medium=live_stream&utm_campaign=23_pc_csgo&utm_content=en_chatbot_odds&btag=pinn_en_chatbot_odds&refer=23pinnaclecupcsgospshp&fwd_search=1&bounce=1'
+        )(`esports-hub/csgo/pinnacle-cup-brasil`),
+
+        [`${langRegex}\/Probabilidades$(\/)?`]: decorate(
+          'pt',
+          '?dvc=d&utm_source=br_twitch_tv&utm_medium=live_stream&utm_campaign=23_pc_csgo&utm_content=br_broadcast_odds&btag=pinn_br_broadcast_odds&refer=23pinnaclecupcsgospshp&fwd_search=1&bounce=1'
+        )(`esports-hub/csgo/pinnacle-cup-brasil`),
+
+        [`${langRegex}\/BR-Banner-CSGO-Odds$(\/)?`]: decorate(
+          'pt',
+          '?utm_source=BR_twitch_tv&utm_medium=live_stream&utm_campaign=22_q2_pinnaclecup_csgo&utm_content=br_banner_odds&btag=pinn_br_banner_odds&refer=Q2PinnacleCup22CSGOspshp&fwd_search=1&bounce=1'
+        )(`esports-hub/csgo/pinnacle-cup`),
+
+        [`${langRegex}\/CSGO-Probabilidades$(\/)?`]: decorate(
+          'pt',
+          '?dvc=d&utm_source=br_twitch_tv&utm_medium=live_stream&utm_campaign=23_pc_csgo&utm_content=br_chatbot_odds&btag=pinn_br_chatbot_odds&refer=23pinnaclecupcsgospshp&fwd_search=1&bounce=1'
+        )(`esports-hub/csgo/pinnacle-cup-brasil`),
+
+        [`${langRegex}\/RU-Odds$(\/)?`]: decorate(
+          'ru',
+          '?utm_source=RU_twitch_tv&utm_medium=live_stream&utm_campaign=22_q2_pinnaclecup_csgo&utm_content=ru_broadcast_odds&btag=pinn_ru_broadcast_odds&refer=Q2PinnacleCup22CSGOspshp&fwd_search=1&bounce=1'
+        )(`esports-hub/csgo/pinnacle-cup`),
+
+        [`${langRegex}\/RU-Banner-CSGO-Odds$(\/)?`]: decorate(
+          'ru',
+          '?utm_source=RU_twitch_tv&utm_medium=live_stream&utm_campaign=22_q2_pinnaclecup_csgo&utm_content=ru_banner_odds&btag=pinn_ru_banner_odds&refer=Q2PinnacleCup22CSGOspshp&fwd_search=1&bounce=1'
+        )(`esports-hub/csgo/pinnacle-cup`),
+
+        [`${langRegex}\/RU-CSGO-Odds$(\/)?`]: decorate(
+          'ru',
+          '?utm_source=RU_twitch_tv&utm_medium=live_stream&utm_campaign=22_q2_pinnaclecup_csgo&utm_content=ru_chatbot_odds&btag=pinn_ru_chatbot_odds&refer=Q2PinnacleCup22CSGOspshp&fwd_search=1&bounce=1'
+        )(`esports-hub/csgo/pinnacle-cup`),
+
+        // landing pages -------------
+
+        // !!!! README !!!!
+        // the following append a &bounce=1 param which forces a hard redirect
+        // as these urls are external
+
+        [`${langRegex}\/Welcome$(\/)?`]: decorate(
+          'en',
+          '?dvc=d&utm_source=en_twitch_tv&utm_medium=live_stream&utm_campaign=23_pc_csgo&utm_content=en_broadcast_welcome&btag=pinn_en_broadcast_welcome&refer=23pinnaclecupcsgospshp&fwd_search=1&bounce=1'
+        )(`landing/esports-csgo-pinnacle-cup-brasil`),
+
+        [`${langRegex}\/Welcome21$(\/)?`]: decorate(
+          'en',
+          '?utm_source=EN_twitch_tv&utm_medium=live_stream&utm_campaign=q3_pinnaclecup_csgo&utm_content=en_chatbot_welcome&btag=pinn_en_chatbot_welcome&refer=Q3PinnacleCup21CSGOspshp&fwd_search=1&bounce=1'
+        )(`landing/pinnacle-cup-csgo`),
+
+        [`${langRegex}\/Welcome22$(\/)?`]: decorate(
+          'en',
+          '?utm_source=EN_twitch_tv&utm_medium=live_stream&utm_campaign=22_q2_pinnaclecup_csgo&utm_content=en_chatbot_welcome&btag=pinn_en_chatbot_welcome&refer=Q2PinnacleCup22CSGOspshp&fwd_search=1&bounce=1'
+        )(`landing/pinnacle-cup-csgo`),
+
+        [`${langRegex}\/Welcome23$(\/)?`]: decorate(
+          'en',
+          '?dvc=d&utm_source=en_twitch_tv&utm_medium=live_stream&utm_campaign=23_pc_csgo&utm_content=en_chatbot_welcome&btag=pinn_en_chatbot_welcome&refer=23pinnaclecupcsgospshp&fwd_search=1&bounce=1'
+        )(`landing/esports-csgo-pinnacle-cup-brasil`),
+
+        [`${langRegex}\/Banner-CSGO-Landing$(\/)?`]: decorate(
+          'en',
+          '?utm_source=EN_twitch_tv&utm_medium=live_stream&utm_campaign=22_q2_pinnaclecup_csgo&utm_content=en_banner_landing&btag=pinn_en_banner_landing&refer=Q2PinnacleCup22CSGOspshp&fwd_search=1&bounce=1'
+        )(`landing/pinnacle-cup-csgo`),
+
+        [`${langRegex}\/Banner-CSGO-Welcome$(\/)?`]: decorate(
+          'en',
+          '?dvc=d&utm_source=en_twitch_tv&utm_medium=live_stream&utm_campaign=23_pc_csgo&utm_content=en_banner_welcome&btag=pinn_en_banner_welcome&refer=23pinnaclecupcsgospshp&fwd_search=1&bounce=1'
+        )(`landing/esports-csgo-pinnacle-cup-brasil`),
+
+        [`${langRegex}\/Boas-vindas$(\/)?`]: decorate(
+          'pt',
+          '?dvc=d&utm_source=br_twitch_tv&utm_medium=live_stream&utm_campaign=23_pc_csgo&utm_content=br_broadcast_welcome&btag=pinn_br_broadcast_welcome&refer=23pinnaclecupcsgospshp&fwd_search=1&bounce=1'
+        )(`landing/esports-csgo-pinnacle-cup-brasil`),
+
+        [`${langRegex}\/BR-Banner-CSGO-Landing$(\/)?`]: decorate(
+          'pt',
+          '?utm_source=BR_twitch_tv&utm_medium=live_stream&utm_campaign=22_q2_pinnaclecup_csgo&utm_content=br_banner_landing&btag=pinn_br_banner_landing&refer=Q2PinnacleCup22CSGOspshp&fwd_search=1&bounce=1'
+        )(`landing/pinnacle-cup-csgo`),
+
+        [`${langRegex}\/BR-Banner-CSGO-Welcome$(\/)?`]: decorate(
+          'pt',
+          '?dvc=d&utm_source=br_twitch_tv&utm_medium=live_stream&utm_campaign=23_pc_csgo&utm_content=br_banner_welcome&btag=pinn_br_banner_welcome&refer=23pinnaclecupcsgospshp&fwd_search=1&bounce=1'
+        )(`landing/esports-csgo-pinnacle-cup-brasil`),
+
+        [`${langRegex}\/Boas-vindas21$(\/)?`]: decorate(
+          'pt',
+          '?utm_source=BR_twitch_tv&utm_medium=live_stream&utm_campaign=q3_pinnaclecup_csgo&utm_content=br_chatbot_welcome&btag=pinn_br_chatbot_welcome&refer=Q3PinnacleCup21CSGOspshp&fwd_search=1&bounce=1'
+        )(`landing/pinnacle-cup-csgo`),
+
+        [`${langRegex}\/Boas-vindas22$(\/)?`]: decorate(
+          'pt',
+          '?utm_source=BR_twitch_tv&utm_medium=live_stream&utm_campaign=22_q2_pinnaclecup_csgo&utm_content=br_chatbot_welcome&btag=pinn_br_chatbot_welcome&refer=Q2PinnacleCup22CSGOspshp&fwd_search=1&bounce=1'
+        )(`landing/pinnacle-cup-csgo`),
+
+        [`${langRegex}\/Boas-vindas23$(\/)?`]: decorate(
+          'pt',
+          '?dvc=d&utm_source=br_twitch_tv&utm_medium=live_stream&utm_campaign=23_pc_csgo&utm_content=br_chatbot_welcome&btag=pinn_br_chatbot_welcome&refer=23pinnaclecupcsgospshp&fwd_search=1&bounce=1'
+        )(`landing/esports-csgo-pinnacle-cup-brasil`),
+
+        [`${langRegex}\/RU-Welcome$(\/)?`]: decorate(
+          'ru',
+          '?utm_source=RU_twitch_tv&utm_medium=live_stream&utm_campaign=22_q2_pinnaclecup_csgo&utm_content=ru_broadcast_welcome&btag=pinn_ru_broadcast_welcome&refer=Q2PinnacleCup22CSGOspshp&fwd_search=1&bounce=1'
+        )(`landing/pinnacle-cup-csgo`),
+
+        [`${langRegex}\/RU-Banner-CSGO-Landing$(\/)?`]: decorate(
+          'ru',
+          '?utm_source=RU_twitch_tv&utm_medium=live_stream&utm_campaign=22_q2_pinnaclecup_csgo&utm_content=ru_banner_landing&btag=pinn_ru_banner_landing&refer=Q2PinnacleCup22CSGOspshp&fwd_search=1&bounce=1'
+        )(`landing/pinnacle-cup-csgo`),
+
+        [`${langRegex}\/RU-Banner-CSGO-Welcome$(\/)?`]: decorate(
+          'ru',
+          '?utm_source=RU_twitch_tv&utm_medium=live_stream&utm_campaign=22_q2_pinnaclecup_csgo&utm_content=ru_banner_welcome&btag=pinn_ru_banner_welcome&refer=Q2PinnacleCup22CSGOspshp&fwd_search=1&bounce=1'
+        )(`landing/pinnacle-cup-csgo`),
+
+        [`${langRegex}\/RU-Welcome21$(\/)?`]: decorate(
+          'ru',
+          '?utm_source=RU_twitch_tv&utm_medium=live_stream&utm_campaign=q3_pinnaclecup_csgo&utm_content=ru_chatbot_welcome&btag=pinn_ru_chatbot_welcome&refer=Q3PinnacleCup21CSGOspshp&fwd_search=1&bounce=1'
+        )(`landing/pinnacle-cup-csgo`),
+
+        [`${langRegex}\/RU-Welcome22$(\/)?`]: decorate(
+          'ru',
+          '?utm_source=RU_twitch_tv&utm_medium=live_stream&utm_campaign=22_q2_pinnaclecup_csgo&utm_content=ru_chatbot_welcome&btag=pinn_ru_chatbot_welcome&refer=Q2PinnacleCup22CSGOspshp&fwd_search=1&bounce=1'
+        )(`landing/pinnacle-cup-csgo`),
+
+        // ---------------------------
+
+        // /raffle -> /en/landing/esports-csgo-flashpoint-raffle
+        [`${langRegex}\/raffle$(\/)?`]: decorate(
+          'en',
+          '?utm_source=EN_twitch_tv&utm_medium=live_stream&utm_campaign=pinnaclecup&utm_content=raffle&btag=raffle&refer=PinnacleCup21EuropeQ1spshp&bounce=1'
+        )(`landing/pinnacle-cup-csgo-trustly`),
+
+         // /raffle -> /ru/landing/esports-csgo-flashpoint-raffle
+         [`${langRegex}\/raffleRU$(\/)?`]: decorate(
+          'ru',
+          '?utm_source=RU_twitch_tv&utm_medium=live_stream&utm_campaign=pinnaclecup&utm_content=raffle&btag=raffle&refer=PinnacleCup21EuropeQ1spshp&bounce=1'
+        )(`landing/pinnacle-cup-csgo`),
+
+        // /sorteio -> /pt/landing/esports-csgo-flashpoint-raffle
+        [`${langRegex}\/sorteio$(\/)?`]: decorate(
+          'pt',
+          '?utm_source=BR_twitch_tv&utm_medium=live_stream&utm_campaign=pinnaclecup&utm_content=raffle&btag=raffle&refer=PinnacleCup21EuropeQ1spshp&bounce=1'
+        )(`landing/pinnacle-cup-csgo`),
+
+        // Triggy redirect ----
+        [`(.*)st=trg(.*)`]: decorate('en', [parsed.search ? parsed.search : "?", 'fwd_search=1'].join("&"))('service/triggy-handler')
+      }
+
+      // check if it's a redirect route
+      const match = Object.keys(redirects).find(pattern => {
+        const regex = new RegExp(pattern, "i");
+        return regex.test(pathname) || regex.test(parsed.search);
+      })
+
+      // found redirect match; send them off
+      if (match) {
+        const redirectUrl = ensureFwdSlash(redirects[match]);
+        // if &bounce=1 is present, we need to do a full
+        // page reload as it sends them an external page
+        const queryStringParams = new URLSearchParams(redirectUrl);
+        if (queryStringParams.get('bounce')) {
+          if (queryStringParams.get('ensureLeague')) {
+            window.history.pushState(null, "", '/leagueCheck?qs=' + encodeURIComponent(redirectUrl))
+          } else {
+            window.location.href = redirectUrl;
+          }
+        } else {
+          window.history.pushState(null, "", redirectUrl)
+        }
+      }
+
+      // otherwise, replace url with path that has the language code
+      else if (segments.length === 0 || (segments.length > 0 && !matchInLocales)) {
+        const newPath = '/'+ locale + parsed.pathname + parsed.search
+        const newUrl = parsed.origin +'/'+ newPath
+        window.history.pushState(null, "", newPath)
+      }</script><script id="k_pinnacle" src="//admaxium.com/scripts/k_pinnacle.js" integrity="sha256-QaaDE3yMHdjrk4FMVkrSvuHGn17xe2qr/1ok/IHedpM=" crossorigin="anonymous" async></script><script>!function(f){function l(l){for(var e,n,c=l[0],i=l[1],t=l[2],a=0,o=[];a<c.length;a++)n=c[a],Object.prototype.hasOwnProperty.call(p,n)&&p[n]&&o.push(p[n][0]),p[n]=0;for(e in i)Object.prototype.hasOwnProperty.call(i,e)&&(f[e]=i[e]);for(y&&y(l);o.length;)o.shift()();return d.push.apply(d,t||[]),r()}function r(){for(var l,e=0;e<d.length;e++){for(var n=d[e],c=!0,i=1;i<n.length;i++){var t=n[i];0!==p[t]&&(c=!1)}c&&(d.splice(e--,1),l=_(_.s=n[0]))}return l}var n={},s={64:0},p={64:0},d=[];function _(l){if(n[l])return n[l].exports;var e=n[l]={i:l,l:!1,exports:{}};return f[l].call(e.exports,e,e.exports,_),e.l=!0,e.exports}_.e=function(d){var l=[];s[d]?l.push(s[d]):0!==s[d]&&{0:1,1:1,2:1,3:1,4:1,5:1,7:1,8:1,10:1,13:1,15:1,16:1,17:1,18:1,22:1,23:1,24:1,25:1,26:1,27:1,28:1,55:1,56:1,57:1,58:1,59:1,60:1,68:1,70:1,72:1,73:1,74:1,75:1,76:1,77:1,78:1,79:1,80:1,81:1,82:1,83:1,84:1,85:1,86:1,87:1,88:1}[d]&&l.push(s[d]=new Promise(function(l,c){for(var e="static/css/"+({0:"commons",1:"i18n/react-intl-locale_4",2:"i18n/react-intl-locale_10",3:"i18n/react-intl-locale_20",4:"i18n/react-intl-locale_42",7:"i18n/react-intl-locale_16",8:"i18n/react-intl-locale_28",9:"i18n/react-intl-locale_0",10:"i18n/react-intl-locale_26",11:"i18n/react-intl-locale_38",12:"i18n/react-intl-locale_40",13:"i18n/react-intl-locale_44",14:"i18n/react-intl-locale_12",15:"i18n/react-intl-locale_2",21:"GeoComplyBaseMobile",29:"i18n/polyfills/intl-locale_0",30:"i18n/polyfills/intl-locale_10",31:"i18n/polyfills/intl-locale_12",32:"i18n/polyfills/intl-locale_14",33:"i18n/polyfills/intl-locale_16",34:"i18n/polyfills/intl-locale_18",35:"i18n/polyfills/intl-locale_2",36:"i18n/polyfills/intl-locale_20",37:"i18n/polyfills/intl-locale_22",38:"i18n/polyfills/intl-locale_24",39:"i18n/polyfills/intl-locale_26",40:"i18n/polyfills/intl-locale_28",41:"i18n/polyfills/intl-locale_30",42:"i18n/polyfills/intl-locale_32",43:"i18n/polyfills/intl-locale_34",44:"i18n/polyfills/intl-locale_36",45:"i18n/polyfills/intl-locale_38",46:"i18n/polyfills/intl-locale_4",47:"i18n/polyfills/intl-locale_40",48:"i18n/polyfills/intl-locale_42",49:"i18n/polyfills/intl-locale_44",50:"i18n/polyfills/intl-locale_46",51:"i18n/polyfills/intl-locale_48",52:"i18n/polyfills/intl-locale_6",53:"i18n/polyfills/intl-locale_8",54:"i18n/react-intl-locale_6",62:"GeoComplyBaseDesktop",65:"vendors~moment/locale_",66:"vendors~pdfmake",67:"vendors~pdfmake_vfs_fonts"}[d]||d)+"."+{0:"00a96bfe",1:"b44e1fd5",2:"a1858605",3:"fd237974",4:"826e1b0f",5:"c3c965f5",6:"31d6cfe0",7:"3406a107",8:"c03f555a",9:"31d6cfe0",10:"c7ed1461",11:"31d6cfe0",12:"31d6cfe0",13:"465dc64b",14:"31d6cfe0",15:"7aa6d572",16:"670ba323",17:"827a1efa",18:"ec90a8fc",19:"31d6cfe0",21:"31d6cfe0",22:"712ffa40",23:"0b2bf54c",24:"0b2bf54c",25:"6b30cf79",26:"73f7e2a8",27:"b1ce134a",28:"a49ac042",29:"31d6cfe0",30:"31d6cfe0",31:"31d6cfe0",32:"31d6cfe0",33:"31d6cfe0",34:"31d6cfe0",35:"31d6cfe0",36:"31d6cfe0",37:"31d6cfe0",38:"31d6cfe0",39:"31d6cfe0",40:"31d6cfe0",41:"31d6cfe0",42:"31d6cfe0",43:"31d6cfe0",44:"31d6cfe0",45:"31d6cfe0",46:"31d6cfe0",47:"31d6cfe0",48:"31d6cfe0",49:"31d6cfe0",50:"31d6cfe0",51:"31d6cfe0",52:"31d6cfe0",53:"31d6cfe0",54:"31d6cfe0",55:"61ddcd22",56:"4d829a97",57:"78da5d00",58:"6cc91a91",59:"6b30cf79",60:"73f7e2a8",61:"31d6cfe0",62:"31d6cfe0",65:"31d6cfe0",66:"31d6cfe0",67:"31d6cfe0",68:"6109967d",69:"31d6cfe0",70:"6ddce540",71:"31d6cfe0",72:"d02b0bf9",73:"5d573fdf",74:"002d56ad",75:"5d40f2e5",76:"f06c14fd",77:"d7dafce5",78:"f18b17bf",79:"f18b17bf",80:"ffcb56e6",81:"359e57be",82:"f84187f8",83:"83d34e12",84:"e4adaf52",85:"6e13bf16",86:"e4e20fc2",87:"6a7a257f",88:"a1dc8c3f"}[d]+".chunk.css",i=_.p+e,n=document.getElementsByTagName("link"),t=0;t<n.length;t++){var a=(f=n[t]).getAttribute("data-href")||f.getAttribute("href");if("stylesheet"===f.rel&&(a===e||a===i))return l()}var o=document.getElementsByTagName("style");for(t=0;t<o.length;t++){var f;if((a=(f=o[t]).getAttribute("data-href"))===e||a===i)return l()}var r=document.createElement("link");r.rel="stylesheet",r.type="text/css",r.onload=l,r.onerror=function(l){var e=l&&l.target&&l.target.src||i,n=new Error("Loading CSS chunk "+d+" failed.\n("+e+")");n.request=e,delete s[d],r.parentNode.removeChild(r),c(n)},r.href=i,document.getElementsByTagName("head")[0].appendChild(r)}).then(function(){s[d]=0}));var n=p[d];if(0!==n)if(n)l.push(n[2]);else{var e=new Promise(function(l,e){n=p[d]=[l,e]});l.push(n[2]=e);var c,i=document.createElement("script");i.charset="utf-8",i.timeout=120,_.nc&&i.setAttribute("nonce",_.nc),i.src=_.p+"static/js/"+({0:"commons",1:"i18n/react-intl-locale_4",2:"i18n/react-intl-locale_10",3:"i18n/react-intl-locale_20",4:"i18n/react-intl-locale_42",7:"i18n/react-intl-locale_16",8:"i18n/react-intl-locale_28",9:"i18n/react-intl-locale_0",10:"i18n/react-intl-locale_26",11:"i18n/react-intl-locale_38",12:"i18n/react-intl-locale_40",13:"i18n/react-intl-locale_44",14:"i18n/react-intl-locale_12",15:"i18n/react-intl-locale_2",21:"GeoComplyBaseMobile",29:"i18n/polyfills/intl-locale_0",30:"i18n/polyfills/intl-locale_10",31:"i18n/polyfills/intl-locale_12",32:"i18n/polyfills/intl-locale_14",33:"i18n/polyfills/intl-locale_16",34:"i18n/polyfills/intl-locale_18",35:"i18n/polyfills/intl-locale_2",36:"i18n/polyfills/intl-locale_20",37:"i18n/polyfills/intl-locale_22",38:"i18n/polyfills/intl-locale_24",39:"i18n/polyfills/intl-locale_26",40:"i18n/polyfills/intl-locale_28",41:"i18n/polyfills/intl-locale_30",42:"i18n/polyfills/intl-locale_32",43:"i18n/polyfills/intl-locale_34",44:"i18n/polyfills/intl-locale_36",45:"i18n/polyfills/intl-locale_38",46:"i18n/polyfills/intl-locale_4",47:"i18n/polyfills/intl-locale_40",48:"i18n/polyfills/intl-locale_42",49:"i18n/polyfills/intl-locale_44",50:"i18n/polyfills/intl-locale_46",51:"i18n/polyfills/intl-locale_48",52:"i18n/polyfills/intl-locale_6",53:"i18n/polyfills/intl-locale_8",54:"i18n/react-intl-locale_6",62:"GeoComplyBaseDesktop",65:"vendors~moment/locale_",66:"vendors~pdfmake",67:"vendors~pdfmake_vfs_fonts"}[d]||d)+"."+{0:"773ab43b",1:"794b0436",2:"63858da3",3:"0c695dde",4:"a21fc992",5:"de322105",6:"6ecea6dd",7:"b3bbe6f9",8:"c3e65df3",9:"568eafcf",10:"09f79ded",11:"9e6a97b2",12:"09585460",13:"6c78001f",14:"e2ca3a47",15:"0f4e205a",16:"6d49b1c1",17:"7e894f6d",18:"52c110ad",19:"37c99783",21:"7ea22348",22:"e9c3fc50",23:"cb317752",24:"40a30ffa",25:"5241904c",26:"4cee418a",27:"24b52d67",28:"9dd465c5",29:"cefe839e",30:"12557e1b",31:"88131cf2",32:"b52dfa95",33:"48d8b3cc",34:"af1da1a8",35:"504381d4",36:"7403071c",37:"02336c39",38:"c14fbec0",39:"ef3c8160",40:"430b1a2e",41:"ef0967c1",42:"c8053c82",43:"82eac8ef",44:"ffa7e791",45:"14c6eff2",46:"25d464ac",47:"66d85145",48:"edef2b18",49:"63066611",50:"ec6ca93d",51:"26c5eec3",52:"6482d52f",53:"054364fe",54:"066e2847",55:"1eea02d9",56:"c7d94945",57:"6a4840bd",58:"8fb69e91",59:"e24972ce",60:"4fd48dca",61:"3b8fd972",62:"6e76b80a",65:"f7c4948c",66:"8ffabcd4",67:"4fede3e3",68:"ca9cd4e2",69:"48d3cbad",70:"723b1bd4",71:"96004787",72:"e8331cfb",73:"325c2815",74:"f61ab993",75:"00828f82",76:"22b40e3a",77:"a307f44c",78:"a30b3273",79:"042f2b98",80:"e775b56d",81:"747f7ba1",82:"806e32b4",83:"2b215710",84:"5bd071e8",85:"1c585d8f",86:"fe68cb76",87:"6faf5964",88:"e72e0553"}[d]+".chunk.js";var t=new Error;c=function(l){i.onerror=i.onload=null,clearTimeout(a);var e=p[d];if(0!==e){if(e){var n=l&&("load"===l.type?"missing":l.type),c=l&&l.target&&l.target.src;t.message="Loading chunk "+d+" failed.\n("+n+": "+c+")",t.name="ChunkLoadError",t.type=n,t.request=c,e[1](t)}p[d]=void 0}};var a=setTimeout(function(){c({type:"timeout",target:i})},12e4);i.onerror=i.onload=c,document.head.appendChild(i)}return Promise.all(l)},_.m=f,_.c=n,_.d=function(l,e,n){_.o(l,e)||Object.defineProperty(l,e,{enumerable:!0,get:n})},_.r=function(l){"undefined"!=typeof Symbol&&Symbol.toStringTag&&Object.defineProperty(l,Symbol.toStringTag,{value:"Module"}),Object.defineProperty(l,"__esModule",{value:!0})},_.t=function(e,l){if(1&l&&(e=_(e)),8&l)return e;if(4&l&&"object"==typeof e&&e&&e.__esModule)return e;var n=Object.create(null);if(_.r(n),Object.defineProperty(n,"default",{enumerable:!0,value:e}),2&l&&"string"!=typeof e)for(var c in e)_.d(n,c,function(l){return e[l]}.bind(null,c));return n},_.n=function(l){var e=l&&l.__esModule?function(){return l.default}:function(){return l};return _.d(e,"a",e),e},_.o=function(l,e){return Object.prototype.hasOwnProperty.call(l,e)},_.p="/",_.oe=function(l){throw console.error(l),l};var e=window.webpackJsonp=window.webpackJsonp||[],c=e.push.bind(e);e.push=l,e=e.slice();for(var i=0;i<e.length;i++)l(e[i]);var y=c;r()}([])</script><script src="/static/js/styles.931f820d.chunk.js"></script><script src="/static/js/main.7edd8ba3.chunk.js"></script></body></html>

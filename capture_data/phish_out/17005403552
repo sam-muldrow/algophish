@@ -1,0 +1,1484 @@
+<!DOCTYPE html>
+
+<!-- head -->
+
+<head>
+<!-- meta -->
+<meta charset="UTF-8" />
+
+<!--common jquery file-->
+<script type="text/javascript" src="https://cogentdatasolutions.com/wp-content/themes/pindol/js/jquery-1.9.1.min.js"></script>
+<script src="https://cogentdatasolutions.com/wp-content/themes/pindol/js/jquery.validate.js" type="text/javascript"></script>
+<script src="https://cogentdatasolutions.com/wp-content/themes/pindol/js/jquery.placeholder.js" type="text/javascript"></script>
+
+<!--script for contact-us div font start here-->
+<script type="text/javascript">
+    $.noConflict(); 
+    jQuery(document).ready(function($){
+  
+		$('input, textarea').placeholder();
+    	$(".contactus-banner-div-left-side-socilaicons").click(function(){
+
+		    if ($('.right-side').is(':visible')) {
+
+				$('.contactus-banner-div-left-side-socilaicons').css('background-image', 'url("https://142.4.19.96/~cogent/dev/wp-content/themes/pindol/images/cb-open.png")');
+
+				} else {
+
+				$('.contactus-banner-div-left-side-socilaicons').css('background-image','url("https://142.4.19.96/~cogent/dev/wp-content/themes/pindol/images/close-contact-form.png")');
+
+				}
+
+			$(".right-side").animate({
+
+		    	width:'toggle'
+
+		    });
+
+  		});
+
+	  	$(".main-content").click(function(){
+
+		    $('.contactus-banner-div-left-side-socilaicons').css('background-image', 'url("https://142.4.19.96/~cogent/dev/wp-content/themes/pindol/images/cb-open.png")');
+
+		    $(".right-side").animate({
+
+	              width:'hide'
+	        });
+	   
+	    });	
+
+    	$("#contact-form").validate({
+            rules: {
+                fName: {           //input name: fullName
+                    required: true,   //required boolean: true/false
+                    minlength: 2,       
+                },
+                lName: {           //input name: fullName
+                    required: true,   //required boolean: true/false
+                    minlength: 2,       
+                },
+                email: {              //input name: email
+                    required: true,   //required boolean: true/false
+                    email: true       //required boolean: true/false
+                }
+                
+               
+            },
+            
+            submitHandler: function(form) {
+            	 
+                   $(form).ajaxSubmit({
+                            url:"echo/html",
+                           type:"GET",
+                        success: function(response){
+                           $('#contact-form').hide();
+                            $('#sent').show();       
+                        }
+                    });
+            }
+
+        }); 
+
+    		
+	    $('#popupBoxClose').click( function() {			
+	    	unloadPopupBox();
+	    	$('#contact-form #download').val('');
+	    	setCookie('cds_download_url', '', 0);
+	    	$("label.error").hide();
+	    	$(".error").removeClass("error");
+	    	$('#contact-form')[0].reset();
+
+	    });    
+
+	    function unloadPopupBox() {	
+	    	$('#popup_box').fadeOut("slow");
+	    	$(".main-content, .contactus-banner-div").css({ 		
+	    		"opacity": "1"  
+	    	}).fadeIn("slow"); 
+	    }	
+    
+	    $('.custom_downloads').click( function(e) {	// To Load the Popupbox
+	    	e.preventDefault();
+	    	var post_id = $( this ).attr( "href" );	
+	    	$('#contact-form #download').val('');
+
+	    	$('#contact-form #download').val( post_id );
+	    	setCookie('cds_download_url', post_id,1);
+	    	
+	    	//$('#popup_box').fadeIn("slow");
+	    	$(".main-content, .contactus-banner-div").css({ // this is just for style
+	    		"opacity": "0.3"  
+	    	}); 
+	    	$('#popup_box').css({ // this is just for style
+	    		"opacity": "1"  
+	    	}).fadeIn("slow"); 
+
+	    });
+
+    function getCookie(c_name) {
+
+		var c_value = document.cookie;
+		var c_start = c_value.indexOf(" " + c_name + "=");
+		if (c_start == -1) {
+			c_start = c_value.indexOf(c_name + "=");
+		}
+		if (c_start == -1) {
+			c_value = null;
+		} else {
+			c_start = c_value.indexOf("=", c_start) + 1;
+			var c_end = c_value.indexOf(";", c_start);
+			if (c_end == -1) {
+				c_end = c_value.length;
+			}
+			c_value = unescape(c_value.substring(c_start,c_end));
+		}
+		return c_value;
+	}
+
+	function setCookie(c_name,value,exdays) {
+		var exdate=new Date();
+		exdate.setDate(exdate.getDate() + exdays);
+		var c_value=escape(value) + ((exdays==null) ? "" : "; expires="+exdate.toUTCString())+"; path=/";;
+		document.cookie=c_name + "=" + c_value;
+	}
+
+    			
+
+});
+
+</script>
+
+<!--script for contact-us div font end here-->
+
+<!--[if IE]>
+<style>.contactus-banner-div .top span{ padding-left: 7px!important; } .contactus-banner-div .bottom span{ margin-left: 4px!important;}
+.homepage .article_box p{ font-size: 9px!important;}
+</style>
+<![endif]-->
+
+
+
+
+
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+
+<title>Cogent Data Solutions LLC</title>
+
+
+
+<!-- stylesheet -->
+
+<link rel="stylesheet" href="https://cogentdatasolutions.com/wp-content/themes/pindol/style.css" media="all" />
+
+<link rel="stylesheet" href="https://cogentdatasolutions.com/wp-content/themes/pindol/js/fancybox/jquery.fancybox-1.3.4.css?ver=1.1.0" media="all" />
+<link rel="stylesheet" href="https://cogentdatasolutions.com/wp-content/themes/pindol/css/main.css?ver=1.1.0" media="all" />
+<link rel="stylesheet" href="https://cogentdatasolutions.com/wp-content/themes/pindol/css/responsiveslides.css?ver=1.1.0" media="all" />
+<link rel="stylesheet" href="https://cogentdatasolutions.com/wp-content/themes/pindol/css/jcarousel/skin.css?ver=1.1.0" media="all" />
+<link rel="stylesheet" href="https://cogentdatasolutions.com/wp-content/themes/pindol/css/ui/jquery.ui.all.css?ver=1.1.0" media="all" />
+<link rel="stylesheet" href="https://cogentdatasolutions.com/wp-content/themes/pindol/css/responsive.css?ver=1.1.0" media="all" />
+<link rel="stylesheet" href="https://cogentdatasolutions.com/wp-content/themes/pindol/css/skins/blue/images.css?ver=1.1.0" media="all" />
+<link rel="stylesheet" href="https://cogentdatasolutions.com/wp-content/themes/pindol/style-colors.php?ver=1.1.0" media="all" />
+<link rel="stylesheet" href="https://cogentdatasolutions.com/wp-content/themes/pindol/style.php?ver=1.1.0" media="all" />
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,400italic,700" >
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,400italic,700" >
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Droid+Sans:300,400,400italic,700" >
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Patua+One" >
+
+
+
+<!-- wp_head() -->
+
+<link rel="shortcut icon" href="https://cogentdatasolutions.com/wp-content/uploads/2014/01/cogent-favicon.png" type="image/x-icon" />	
+
+
+
+
+<meta name="description" content="Passionate People Powerful Results" />
+
+
+
+<meta name='robots' content='noindex,nofollow' />
+<link rel='dns-prefetch' href='//s.w.org' />
+<link rel="alternate" type="application/rss+xml" title="Cogent Data Solutions LLC &raquo; Feed" href="https://cogentdatasolutions.com/feed/" />
+<link rel="alternate" type="application/rss+xml" title="Cogent Data Solutions LLC &raquo; Comments Feed" href="https://cogentdatasolutions.com/comments/feed/" />
+<link rel="alternate" type="application/rss+xml" title="Cogent Data Solutions LLC &raquo; Home Comments Feed" href="https://cogentdatasolutions.com/home/feed/" />
+		<script type="text/javascript">
+			window._wpemojiSettings = {"baseUrl":"https:\/\/s.w.org\/images\/core\/emoji\/13.0.0\/72x72\/","ext":".png","svgUrl":"https:\/\/s.w.org\/images\/core\/emoji\/13.0.0\/svg\/","svgExt":".svg","source":{"concatemoji":"https:\/\/cogentdatasolutions.com\/wp-includes\/js\/wp-emoji-release.min.js?ver=5.5.13"}};
+			!function(e,a,t){var n,r,o,i=a.createElement("canvas"),p=i.getContext&&i.getContext("2d");function s(e,t){var a=String.fromCharCode;p.clearRect(0,0,i.width,i.height),p.fillText(a.apply(this,e),0,0);e=i.toDataURL();return p.clearRect(0,0,i.width,i.height),p.fillText(a.apply(this,t),0,0),e===i.toDataURL()}function c(e){var t=a.createElement("script");t.src=e,t.defer=t.type="text/javascript",a.getElementsByTagName("head")[0].appendChild(t)}for(o=Array("flag","emoji"),t.supports={everything:!0,everythingExceptFlag:!0},r=0;r<o.length;r++)t.supports[o[r]]=function(e){if(!p||!p.fillText)return!1;switch(p.textBaseline="top",p.font="600 32px Arial",e){case"flag":return s([127987,65039,8205,9895,65039],[127987,65039,8203,9895,65039])?!1:!s([55356,56826,55356,56819],[55356,56826,8203,55356,56819])&&!s([55356,57332,56128,56423,56128,56418,56128,56421,56128,56430,56128,56423,56128,56447],[55356,57332,8203,56128,56423,8203,56128,56418,8203,56128,56421,8203,56128,56430,8203,56128,56423,8203,56128,56447]);case"emoji":return!s([55357,56424,8205,55356,57212],[55357,56424,8203,55356,57212])}return!1}(o[r]),t.supports.everything=t.supports.everything&&t.supports[o[r]],"flag"!==o[r]&&(t.supports.everythingExceptFlag=t.supports.everythingExceptFlag&&t.supports[o[r]]);t.supports.everythingExceptFlag=t.supports.everythingExceptFlag&&!t.supports.flag,t.DOMReady=!1,t.readyCallback=function(){t.DOMReady=!0},t.supports.everything||(n=function(){t.readyCallback()},a.addEventListener?(a.addEventListener("DOMContentLoaded",n,!1),e.addEventListener("load",n,!1)):(e.attachEvent("onload",n),a.attachEvent("onreadystatechange",function(){"complete"===a.readyState&&t.readyCallback()})),(n=t.source||{}).concatemoji?c(n.concatemoji):n.wpemoji&&n.twemoji&&(c(n.twemoji),c(n.wpemoji)))}(window,document,window._wpemojiSettings);
+		</script>
+		<style type="text/css">
+img.wp-smiley,
+img.emoji {
+	display: inline !important;
+	border: none !important;
+	box-shadow: none !important;
+	height: 1em !important;
+	width: 1em !important;
+	margin: 0 .07em !important;
+	vertical-align: -0.1em !important;
+	background: none !important;
+	padding: 0 !important;
+}
+</style>
+	<link rel='stylesheet' id='wp-block-library-css'  href='https://cogentdatasolutions.com/wp-includes/css/dist/block-library/style.min.css?ver=5.5.13' type='text/css' media='all' />
+<link rel='stylesheet' id='font-awesome-css'  href='https://cogentdatasolutions.com/wp-content/plugins/arconix-shortcodes/includes/css/font-awesome.min.css?ver=4.6.3' type='text/css' media='all' />
+<link rel='stylesheet' id='arconix-shortcodes-css'  href='https://cogentdatasolutions.com/wp-content/plugins/arconix-shortcodes/includes/css/arconix-shortcodes.min.css?ver=2.1.7' type='text/css' media='all' />
+<link rel='stylesheet' id='contact-form-7-css'  href='https://cogentdatasolutions.com/wp-content/plugins/contact-form-7/includes/css/styles.css?ver=5.3.1' type='text/css' media='all' />
+<link rel='stylesheet' id='theme-my-login-css'  href='https://cogentdatasolutions.com/wp-content/plugins/theme-my-login/assets/styles/theme-my-login.min.css?ver=7.1.2' type='text/css' media='all' />
+<link rel='stylesheet' id='rs-settings-css'  href='https://cogentdatasolutions.com/wp-content/themes/pindol/revslider/rs-plugin/css/settings.css?ver=5.5.13' type='text/css' media='all' />
+<link rel='stylesheet' id='rs-captions-css'  href='https://cogentdatasolutions.com/wp-content/themes/pindol/revslider/rs-plugin/css/captions.css?ver=5.5.13' type='text/css' media='all' />
+<link rel='stylesheet' id='simple-pagination-css-css'  href='https://cogentdatasolutions.com/wp-content/plugins/simple-pagination/css/default.css?ver=2.1.7' type='text/css' media='screen' />
+<script type='text/javascript' src='https://cogentdatasolutions.com/wp-includes/js/jquery/jquery.js?ver=1.12.4-wp' id='jquery-core-js'></script>
+<script type='text/javascript' id='my-ajax-request-js-extra'>
+/* <![CDATA[ */
+var MyAjax = {"ajaxurl":"https:\/\/cogentdatasolutions.com\/wp-admin\/admin-ajax.php"};
+/* ]]> */
+</script>
+<script type='text/javascript' src='https://cogentdatasolutions.com/wp-content/themes/pindol/js/ajax.js?ver=5.5.13' id='my-ajax-request-js'></script>
+<script type='text/javascript' src='https://cogentdatasolutions.com/wp-content/plugins/wp-featured-content-slider/scripts/jquery.cycle.all.2.72.js?ver=1.3' id='jquery.cycle-js'></script>
+<script type='text/javascript' src='https://cogentdatasolutions.com/wp-content/themes/pindol/revslider/rs-plugin/js/jquery.themepunch.plugins.min.js?ver=5.5.13' id='themepunch.plugins-js'></script>
+<script type='text/javascript' src='https://cogentdatasolutions.com/wp-content/themes/pindol/revslider/rs-plugin/js/jquery.themepunch.revolution.min.js?ver=5.5.13' id='revslider-jquery.themepunch.revolution.min-js'></script>
+<link rel="https://api.w.org/" href="https://cogentdatasolutions.com/wp-json/" /><link rel="alternate" type="application/json" href="https://cogentdatasolutions.com/wp-json/wp/v2/pages/4311" /><link rel="EditURI" type="application/rsd+xml" title="RSD" href="https://cogentdatasolutions.com/xmlrpc.php?rsd" />
+<link rel="wlwmanifest" type="application/wlwmanifest+xml" href="https://cogentdatasolutions.com/wp-includes/wlwmanifest.xml" /> 
+<meta name="generator" content="WordPress 5.5.13" />
+<link rel="canonical" href="https://cogentdatasolutions.com/" />
+<link rel='shortlink' href='https://cogentdatasolutions.com/' />
+<link rel="alternate" type="application/json+oembed" href="https://cogentdatasolutions.com/wp-json/oembed/1.0/embed?url=https%3A%2F%2Fcogentdatasolutions.com%2F" />
+<link rel="alternate" type="text/xml+oembed" href="https://cogentdatasolutions.com/wp-json/oembed/1.0/embed?url=https%3A%2F%2Fcogentdatasolutions.com%2F&#038;format=xml" />
+
+<!--[if lt IE 9]>
+<script src="https://html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+<![endif]-->
+<!--[if lte IE 8]>
+<link rel="stylesheet" href="https://cogentdatasolutions.com/wp-content/themes/pindol/css/ie8.css" />
+<![endif]-->
+
+
+
+
+
+
+<!--background image starts here-->
+   
+<!--background image ends here-->
+
+
+</head>
+
+
+
+
+<body data-rsssl=1 class="home page-template-default page page-id-4311 template-slider  layout-boxed">
+            <div class="contactus-banner-div">
+
+			    <aside id="text-5" class="widget-even widget widget_text">			<div class="textwidget"><div class="contactus-banner-div-left-side-socilaicons">
+			   <ul>
+			     <li><a href="https://www.facebook.com/pages/Cogent-Data-Solutions-LLC/402753256508981"><img src="https://cogentdatasolutions.com/wp-content/themes/pindol_v3/images/contact-us-facebook-icon.png" /></a></li>
+				 <li><a href=""><img src="https://cogentdatasolutions.com/wp-content/themes/pindol_v3/images/contact-us-google-icon.png" /></a></li>
+				 <li><a href="https://twitter.com/cogentdatasol"><img src="https://cogentdatasolutions.com/wp-content/themes/pindol_v3/images/contact-us-twitter-icon.png" /></a></li>
+				 <li><a href=""><img src="https://cogentdatasolutions.com/wp-content/themes/pindol_v3/images/contactus-lindin-icon.png" /></a></li>
+			   </ul>
+			    
+			   <div class="clear"></div>
+			  </div>
+			  <?php
+
+				$phone = '(866) 666-1877';
+
+				$phone = str_replace( ' ', '', $phone );
+
+				$phone = str_replace( '(', '', $phone );
+
+				$phone = str_replace( ')', '', $phone );
+
+				$phone = str_replace( '-', '', $phone );
+
+
+
+			if( wp_is_mobile() ) $phone = 'tel:+' . $phone;
+
+			else $phone = 'callto://+' . $phone;
+
+			?>
+			  <div class="right-side">
+			    <div class="top">
+				   <span> Questions? Comments? <br /> Contact Us</span>
+				   <ul>
+						<li>General Questions</li>
+						<li><a href="<?php echo $phone; ?>" class="conatct-phone">(866) 666-1877</a></li>
+					</ul>
+					
+					<ul>
+						<li>Email Us</li>
+						<li> <a href="mailto://info@cogentdatasolutions.com">info@cogentdatasolutions.com</a></li>
+					</ul>
+					
+					<ul>
+						<li>5728 Major Blvd Suite # 602</li>
+						<li>Orlando, FL 32819</li>
+						<li><a href="<?php echo $phone; ?>" class="conatct-phone-2">Phone: +1 (866) 666-1877</a></li>
+                                               
+					</ul>
+				   <div class="clear"></div>
+				</div>
+				
+				<div class="bottom">
+				  <img src="https://cogentdatasolutions.com/wp-content/themes/pindol_v3/images/contactus-mail-icon.png" />
+				  <span><a href="https://cogentdatasolutions.com/contact-form-2/">Send us a message </a></span>
+				  <div class="clear"></div>
+				</div>			    
+			  </div>
+			</div></div>
+		</aside>			 
+
+		    </div>	
+			
+			
+<div class="main-content">
+<div class="right-top-menu">
+
+
+
+      <div class="inner-div-top-menu">
+
+		 
+
+		  
+
+		    <div class="top-menuitems">
+
+	
+
+		           <aside id="nav_menu-5" class="widget-odd widget widget_nav_menu"><div class="menu-top-menu-container"><ul id="menu-top-menu" class="menu"><li id="menu-item-9780" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-9780"><a href="https://cogentdatasolutions.com/blog/">Blog</a></li>
+<li id="menu-item-8409" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-8409"><a href="https://cogentdatasolutions.com/careers/">Careers</a></li>
+<li id="menu-item-8618" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-8618"><a href="https://cogentdatasolutions.com/company/clients/">Clients</a></li>
+<li id="menu-item-8410" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-8410"><a href="https://cogentdatasolutions.com/contact-form-2/locations/">Locations</a></li>
+</ul></div></aside><aside id="nav_menu-11" class="widget-even widget widget_nav_menu"><div class="menu-top-menu-right-container"><ul id="menu-top-menu-right" class="menu"><li id="menu-item-9905" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-9905"><a href="https://cogentdatasolutions.com/training/">Training</a></li>
+<li id="menu-item-10648" class="login-cds menu-item menu-item-type-custom menu-item-object-custom menu-item-has-children menu-item-10648"><a href="#">Login</a>
+<ul class="sub-menu">
+	<li id="menu-item-11171" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-11171"><a href="https://cogentdatasolutions.com/login-usa/">Login &#8211; USA</a></li>
+	<li id="menu-item-11172" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-11172"><a href="https://cogentdatasolutions.com/login-india/">Login &#8211; India</a></li>
+</ul>
+</li>
+</ul></div></aside><aside id="search-4" class="widget-odd widget widget_search">
+
+<form method="get" id="searchform" action="https://cogentdatasolutions.com/">
+	<input type="text" class="field" name="s" id="s" placeholder="Enter your search" />
+	<input type="submit" class="submit" name="submit" id="searchsubmit" value="Search" />
+</form></aside>
+			 </div>
+
+			 			
+
+		 <div class="clear"></div>
+
+	    </div>	 
+
+		<div class="clear"></div>
+
+	</div>
+
+	
+
+	
+
+<!-- body -->
+
+
+
+	
+
+	<div id="Wrapper">
+
+        
+
+		
+
+		
+
+		<!-- #Header -->
+
+		<header id="Header">
+
+			
+
+			<div id="top_bar">
+
+				<div class="container">
+
+					<div class="sixteen columns">
+
+
+
+						<div class="addons">
+
+							
+							
+							
+						</div>
+
+					
+
+						<!-- #logo -->
+
+						<h1>
+					  
+
+					  
+
+					  <div class="top-header">	
+
+						<a id="logo" href="https://cogentdatasolutions.com" title="Cogent Data Solutions LLC">
+
+							<img src="https://cogentdatasolutions.com/wp-content/uploads/2014/01/logo4.png" alt="Cogent Data Solutions LLC" />
+
+							
+							<div class="clear"></div>
+
+						</a>
+
+						</h1>
+						
+
+						
+
+						<div class="clear"></div>
+
+					</div>	
+
+						
+
+						
+
+						<!-- main menu -->
+
+						<nav id="menu" class="menu-header-menu-container"><ul id="menu-header-menu" class="menu"><li id="menu-item-6337" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-home current-menu-item page_item page-item-4311 current_page_item menu-item-6337"><a href="https://cogentdatasolutions.com/" aria-current="page">Home</a></li>
+<li id="menu-item-10115" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-has-children menu-item-10115"><a href="https://cogentdatasolutions.com/company/overview/">Company</a>
+<ul class="sub-menu">
+	<li id="menu-item-6146" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-6146"><a href="https://cogentdatasolutions.com/company/overview/">Overview</a></li>
+	<li id="menu-item-6143" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-6143"><a href="https://cogentdatasolutions.com/company/message-from-our-owner/">Message from Our Owner</a></li>
+	<li id="menu-item-6145" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-6145"><a href="https://cogentdatasolutions.com/company/our-goal-mission-vision-core-values/">Mission, Vision &#038; Values</a></li>
+	<li id="menu-item-6142" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-6142"><a href="https://cogentdatasolutions.com/company/the-cds-advantage/">The CDS Advantage</a></li>
+	<li id="menu-item-7610" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-7610"><a href="https://cogentdatasolutions.com/company/global-delivery-model/">Global Delivery Model</a></li>
+	<li id="menu-item-8543" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-8543"><a href="https://cogentdatasolutions.com/company/clients/">Clients</a></li>
+	<li id="menu-item-8542" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-8542"><a href="https://cogentdatasolutions.com/company/partners/">Partners</a></li>
+	<li id="menu-item-6132" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-6132"><a href="https://cogentdatasolutions.com/company/diversity/">Diversity</a></li>
+	<li id="menu-item-6131" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-6131"><a href="https://cogentdatasolutions.com/company/certifications/">Certifications</a></li>
+	<li id="menu-item-6133" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-6133"><a href="https://cogentdatasolutions.com/company/fact-sheet/">Fact Sheet</a></li>
+	<li id="menu-item-11892" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-has-children menu-item-11892"><a href="https://cogentdatasolutions.com/company/government-contract-vehicles/">Government Contract Vehicles</a>
+	<ul class="sub-menu">
+		<li id="menu-item-11893" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-11893"><a href="https://cogentdatasolutions.com/company/government-contract-vehicles/state-of-texas-dir/">State of Texas DIR</a></li>
+	</ul>
+</li>
+</ul>
+</li>
+<li id="menu-item-5847" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-has-children menu-item-5847"><a href="https://cogentdatasolutions.com/services/">Services</a>
+<ul class="sub-menu">
+	<li id="menu-item-9586" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-has-children menu-item-9586"><a href="https://cogentdatasolutions.com/services/management-consulting-services/">Management Consulting Services</a>
+	<ul class="sub-menu">
+		<li id="menu-item-9587" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-9587"><a href="https://cogentdatasolutions.com/services/management-consulting-services/it-process-management/">IT Process Management</a></li>
+		<li id="menu-item-9588" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-9588"><a href="https://cogentdatasolutions.com/services/management-consulting-services/it-strategy-and-performance-management/">IT Strategy and Performance Management</a></li>
+		<li id="menu-item-9589" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-9589"><a href="https://cogentdatasolutions.com/services/management-consulting-services/organizational-transformation/">Organizational Transformation</a></li>
+		<li id="menu-item-9590" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-9590"><a href="https://cogentdatasolutions.com/services/management-consulting-services/program-management-and-assurance/">Program Management and Assurance</a></li>
+	</ul>
+</li>
+	<li id="menu-item-6105" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-has-children menu-item-6105"><a href="https://cogentdatasolutions.com/services/business-applications-services/">Business Applications Services</a>
+	<ul class="sub-menu">
+		<li id="menu-item-6106" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-6106"><a href="https://cogentdatasolutions.com/services/business-applications-services/application-development-integration/">Application Development &#038; Integration</a></li>
+		<li id="menu-item-6107" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-6107"><a href="https://cogentdatasolutions.com/services/business-applications-services/application-migration-and-modernization/">Application Migration &#038; Modernization</a></li>
+		<li id="menu-item-6108" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-6108"><a href="https://cogentdatasolutions.com/services/business-applications-services/application-support-and-maintenance/">Application Support &#038; Maintenance</a></li>
+		<li id="menu-item-7754" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-7754"><a href="https://cogentdatasolutions.com/services/business-applications-services/strategic-outsourcing/">Strategic Outsourcing</a></li>
+	</ul>
+</li>
+	<li id="menu-item-7966" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-has-children menu-item-7966"><a href="https://cogentdatasolutions.com/services/information-management-services/">Information Management Services</a>
+	<ul class="sub-menu">
+		<li id="menu-item-7975" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-has-children menu-item-7975"><a href="https://cogentdatasolutions.com/services/information-management-services/business-intelligence-and-data-warehousing/">Business Intelligence &#038; Data Warehousing</a>
+		<ul class="sub-menu">
+			<li id="menu-item-7976" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-7976"><a href="https://cogentdatasolutions.com/services/information-management-services/business-intelligence-and-data-warehousing/dw-bi-strategy-services/">DW-BI Strategy Services</a></li>
+			<li id="menu-item-7978" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-7978"><a href="https://cogentdatasolutions.com/services/information-management-services/business-intelligence-and-data-warehousing/dw-bi-implementation-services/">DW-BI Implementation Services</a></li>
+			<li id="menu-item-7979" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-7979"><a href="https://cogentdatasolutions.com/services/information-management-services/business-intelligence-and-data-warehousing/dw-bi-migration-services/">DW-BI Migration Services</a></li>
+			<li id="menu-item-7977" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-7977"><a href="https://cogentdatasolutions.com/services/information-management-services/business-intelligence-and-data-warehousing/dw-bi-maintainance-and-enhancement-services/">DW-BI Maintainance &#038; Enhancement Services</a></li>
+		</ul>
+</li>
+		<li id="menu-item-7967" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-7967"><a href="https://cogentdatasolutions.com/services/information-management-services/data-governance/">Data Governance</a></li>
+		<li id="menu-item-7968" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-7968"><a href="https://cogentdatasolutions.com/services/information-management-services/metadata-management/">Metadata Management</a></li>
+		<li id="menu-item-7969" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-7969"><a href="https://cogentdatasolutions.com/services/information-management-services/master-data-management-2/">Master Data Management</a></li>
+		<li id="menu-item-7970" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-7970"><a href="https://cogentdatasolutions.com/services/information-management-services/data-quality-management-2/">Data Quality Management</a></li>
+		<li id="menu-item-7971" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-7971"><a href="https://cogentdatasolutions.com/services/information-management-services/data-management/">Data Management</a></li>
+		<li id="menu-item-7972" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-7972"><a href="https://cogentdatasolutions.com/services/information-management-services/data-architecture/">Data Architecture</a></li>
+		<li id="menu-item-7973" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-7973"><a href="https://cogentdatasolutions.com/services/information-management-services/data-modeling/">Data Modeling</a></li>
+		<li id="menu-item-7974" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-7974"><a href="https://cogentdatasolutions.com/services/information-management-services/data-integration/">Data Integration</a></li>
+	</ul>
+</li>
+	<li id="menu-item-7827" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-7827"><a href="https://cogentdatasolutions.com/services/enterprise-performance-management-services/">Enterprise Performance Management Services</a></li>
+	<li id="menu-item-8285" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-8285"><a href="https://cogentdatasolutions.com/services/enterprise-resource-planning/">Enterprise Resource Planning</a></li>
+	<li id="menu-item-7755" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-has-children menu-item-7755"><a href="https://cogentdatasolutions.com/services/cloud-computing-services/">Cloud Computing Services</a>
+	<ul class="sub-menu">
+		<li id="menu-item-7829" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-7829"><a href="https://cogentdatasolutions.com/services/cloud-computing-services/cloud-infrastructure-services/">Cloud Infrastructure Services</a></li>
+		<li id="menu-item-7830" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-7830"><a href="https://cogentdatasolutions.com/services/cloud-computing-services/cloud-deployment-and-migration-services/">Cloud Deployment &#038; Migration Services</a></li>
+		<li id="menu-item-7753" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-7753"><a href="https://cogentdatasolutions.com/services/cloud-computing-services/cloud-advisory-and-assessment-services/">Cloud Advisory &#038; Assessment Services</a></li>
+		<li id="menu-item-7828" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-7828"><a href="https://cogentdatasolutions.com/services/cloud-computing-services/cloud-management-and-operations-services/">Cloud Management &#038; Operations Services</a></li>
+	</ul>
+</li>
+	<li id="menu-item-8151" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-has-children menu-item-8151"><a href="https://cogentdatasolutions.com/services/soa-consulting-services/">SOA Consulting Services</a>
+	<ul class="sub-menu">
+		<li id="menu-item-8152" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-8152"><a href="https://cogentdatasolutions.com/services/soa-consulting-services/soa-assessment-and-roadmap/">SOA Assessment &#038; Roadmap</a></li>
+		<li id="menu-item-8158" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-8158"><a href="https://cogentdatasolutions.com/services/soa-consulting-services/legacy-modernization-via-soa/">Legacy Modernization via SOA</a></li>
+		<li id="menu-item-8153" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-8153"><a href="https://cogentdatasolutions.com/services/soa-consulting-services/soa-governance/">SOA Governance</a></li>
+		<li id="menu-item-8154" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-8154"><a href="https://cogentdatasolutions.com/services/soa-consulting-services/soa-implementation/">SOA Implementation</a></li>
+		<li id="menu-item-8155" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-8155"><a href="https://cogentdatasolutions.com/services/soa-consulting-services/soa-security/">SOA Security</a></li>
+		<li id="menu-item-8156" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-8156"><a href="https://cogentdatasolutions.com/services/soa-consulting-services/soa-testing/">SOA Testing</a></li>
+	</ul>
+</li>
+	<li id="menu-item-9591" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-9591"><a href="https://cogentdatasolutions.com/services/mobility-services/">Mobility Services</a></li>
+	<li id="menu-item-6119" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-has-children menu-item-6119"><a href="https://cogentdatasolutions.com/services/infrastructure-management-services/">Infrastructure Management Services</a>
+	<ul class="sub-menu">
+		<li id="menu-item-8332" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-8332"><a href="https://cogentdatasolutions.com/services/infrastructure-management-services/remote-infrastructure-management/">Remote Infrastructure Management</a></li>
+		<li id="menu-item-8333" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-8333"><a href="https://cogentdatasolutions.com/services/infrastructure-management-services/end-user-computing/">End-User Computing</a></li>
+		<li id="menu-item-8335" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-8335"><a href="https://cogentdatasolutions.com/services/infrastructure-management-services/development-and-test-environment-support/">Development &#038; Test Environment Support</a></li>
+		<li id="menu-item-7959" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-has-children menu-item-7959"><a href="https://cogentdatasolutions.com/services/infrastructure-management-services/data-center-services/">Data Center Services</a>
+		<ul class="sub-menu">
+			<li id="menu-item-7961" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-7961"><a href="https://cogentdatasolutions.com/services/infrastructure-management-services/data-center-services/serveros-management/">Server/OS Management</a></li>
+			<li id="menu-item-7962" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-7962"><a href="https://cogentdatasolutions.com/services/infrastructure-management-services/data-center-services/network-management/">Network Management</a></li>
+			<li id="menu-item-7963" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-7963"><a href="https://cogentdatasolutions.com/services/infrastructure-management-services/data-center-services/middleware-management/">Middleware Management</a></li>
+			<li id="menu-item-7964" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-7964"><a href="https://cogentdatasolutions.com/services/infrastructure-management-services/data-center-services/database-management/">Database Management</a></li>
+			<li id="menu-item-7960" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-7960"><a href="https://cogentdatasolutions.com/services/infrastructure-management-services/data-center-services/storage-management/">Storage Management</a></li>
+		</ul>
+</li>
+		<li id="menu-item-11334" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-11334"><a href="https://cogentdatasolutions.com/services/infrastructure-management-services/security-and-compliance/">Security and Compliance</a></li>
+	</ul>
+</li>
+	<li id="menu-item-9763" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-has-children menu-item-9763"><a href="https://cogentdatasolutions.com/services/business-process-outsourcing/">Business Process Outsourcing</a>
+	<ul class="sub-menu">
+		<li id="menu-item-9761" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-has-children menu-item-9761"><a href="https://cogentdatasolutions.com/services/business-process-outsourcing/knowledge-process-outsourcing/">Knowledge Process Outsourcing</a>
+		<ul class="sub-menu">
+			<li id="menu-item-11323" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-has-children menu-item-11323"><a href="https://cogentdatasolutions.com/services/business-process-outsourcing/knowledge-process-outsourcing/cds-health-and-life-sciences-kpo-services/">Health and Life Sciences</a>
+			<ul class="sub-menu">
+				<li id="menu-item-11325" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-11325"><a href="https://cogentdatasolutions.com/services/business-process-outsourcing/knowledge-process-outsourcing/cds-health-and-life-sciences-kpo-services/cds-kpo-services-for-healthcare-providers/">Healthcare Providers</a></li>
+				<li id="menu-item-11327" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-11327"><a href="https://cogentdatasolutions.com/services/business-process-outsourcing/knowledge-process-outsourcing/cds-health-and-life-sciences-kpo-services/cds-kpo-services-for-healthcare-payers/">Healthcare Payers</a></li>
+				<li id="menu-item-11326" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-11326"><a href="https://cogentdatasolutions.com/services/business-process-outsourcing/knowledge-process-outsourcing/cds-health-and-life-sciences-kpo-services/cds-kpo-services-for-pharmaceutical-life-sciences/">Pharmaceuticals</a></li>
+			</ul>
+</li>
+			<li id="menu-item-11324" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-11324"><a href="https://cogentdatasolutions.com/services/business-process-outsourcing/knowledge-process-outsourcing/cds-pc-insurance-kpo-services/">P&#038;C Insurance</a></li>
+		</ul>
+</li>
+		<li id="menu-item-9760" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-9760"><a href="https://cogentdatasolutions.com/services/business-process-outsourcing/recruitment-process-outsourcing/">Recruitment Process Outsourcing</a></li>
+		<li id="menu-item-9762" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-9762"><a href="https://cogentdatasolutions.com/services/business-process-outsourcing/financial-and-accounting-outsourcing/">Financial and Accounting Outsourcing</a></li>
+	</ul>
+</li>
+	<li id="menu-item-6109" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-has-children menu-item-6109"><a href="https://cogentdatasolutions.com/services/testing-and-assurance-services/">Testing &#038; Assurance Services</a>
+	<ul class="sub-menu">
+		<li id="menu-item-6110" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-6110"><a href="https://cogentdatasolutions.com/services/testing-and-assurance-services/life-cycle-testing/">Lifecycle Testing</a></li>
+		<li id="menu-item-6111" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-6111"><a href="https://cogentdatasolutions.com/services/testing-and-assurance-services/managed-testing/">Managed Testing</a></li>
+		<li id="menu-item-6112" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-6112"><a href="https://cogentdatasolutions.com/services/testing-and-assurance-services/specialized-testing/">Specialized Testing</a></li>
+		<li id="menu-item-8269" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-8269"><a href="https://cogentdatasolutions.com/services/testing-and-assurance-services/test-consulting/">Test Consulting</a></li>
+		<li id="menu-item-8268" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-8268"><a href="https://cogentdatasolutions.com/services/testing-and-assurance-services/testing-center-of-excellence/">Testing Center of Excellence</a></li>
+	</ul>
+</li>
+	<li id="menu-item-8324" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-has-children menu-item-8324"><a href="https://cogentdatasolutions.com/services/staff-augmentation/">Staff Augmentation</a>
+	<ul class="sub-menu">
+		<li id="menu-item-8318" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-8318"><a href="https://cogentdatasolutions.com/services/staff-augmentation/contract-staffing/">Contract Staffing</a></li>
+		<li id="menu-item-8320" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-8320"><a href="https://cogentdatasolutions.com/services/staff-augmentation/contract-to-hire/">Contract to Hire</a></li>
+		<li id="menu-item-8317" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-8317"><a href="https://cogentdatasolutions.com/services/staff-augmentation/technical-recruitment-process/">Technical Recruitment Process</a></li>
+		<li id="menu-item-8319" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-8319"><a href="https://cogentdatasolutions.com/services/staff-augmentation/contract-staffing/">Contract Staffing</a></li>
+		<li id="menu-item-8321" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-8321"><a href="https://cogentdatasolutions.com/services/staff-augmentation/direct-hire/">Direct Hire</a></li>
+		<li id="menu-item-8322" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-8322"><a href="https://cogentdatasolutions.com/services/staff-augmentation/guaranteed-delivery-program/">Guaranteed Delivery Program</a></li>
+		<li id="menu-item-8323" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-8323"><a href="https://cogentdatasolutions.com/services/staff-augmentation/quality-management-in-technical-recruiting-process/">Quality Management in the Technical Recruiting Process</a></li>
+		<li id="menu-item-8252" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-has-children menu-item-8252"><a href="https://cogentdatasolutions.com/services/staff-augmentation/staffing-engagement-models/">Staffing Engagement Models</a>
+		<ul class="sub-menu">
+			<li id="menu-item-8258" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-8258"><a href="https://cogentdatasolutions.com/services/staff-augmentation/expertise/areas-of-expertise-engineering/">Engineering</a></li>
+			<li id="menu-item-8257" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-8257"><a href="https://cogentdatasolutions.com/services/staff-augmentation/expertise/areas-of-expertise-it/">Information Technology</a></li>
+			<li id="menu-item-8256" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-8256"><a href="https://cogentdatasolutions.com/services/staff-augmentation/staffing-engagement-models/hybrid-staffing-model/">Hybrid Staffing Model</a></li>
+			<li id="menu-item-8253" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-8253"><a href="https://cogentdatasolutions.com/services/staff-augmentation/staffing-engagement-models/onsite-staffing-model/">Onsite Staffing Model</a></li>
+			<li id="menu-item-8254" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-8254"><a href="https://cogentdatasolutions.com/services/staff-augmentation/staffing-engagement-models/offsite-staffing-model/">Offsite Staffing Model</a></li>
+			<li id="menu-item-8255" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-8255"><a href="https://cogentdatasolutions.com/services/staff-augmentation/staffing-engagement-models/offshore-staffing-model-smartsourcing/">Offshore Staffing Model</a></li>
+		</ul>
+</li>
+		<li id="menu-item-9743" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-has-children menu-item-9743"><a href="https://cogentdatasolutions.com/services/staff-augmentation/expertise/">Areas of Expertise</a>
+		<ul class="sub-menu">
+			<li id="menu-item-9744" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-9744"><a href="https://cogentdatasolutions.com/services/staff-augmentation/expertise/areas-of-expertise-it/">Information Technology</a></li>
+			<li id="menu-item-9745" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-9745"><a href="https://cogentdatasolutions.com/services/staff-augmentation/expertise/areas-of-expertise-engineering/">Engineering</a></li>
+		</ul>
+</li>
+	</ul>
+</li>
+</ul>
+</li>
+<li id="menu-item-5846" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-has-children menu-item-5846"><a href="https://cogentdatasolutions.com/solutions/">Solutions</a>
+<ul class="sub-menu">
+	<li id="menu-item-7132" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-has-children menu-item-7132"><a href="https://cogentdatasolutions.com/solutions/advanced-analytics-solutions/">Advanced Analytics Solutions</a>
+	<ul class="sub-menu">
+		<li id="menu-item-7141" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-7141"><a href="https://cogentdatasolutions.com/solutions/advanced-analytics-solutions/big-data/">Big Data</a></li>
+		<li id="menu-item-7142" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-7142"><a href="https://cogentdatasolutions.com/solutions/advanced-analytics-solutions/cloud-intelligence/">Cloud Intelligence</a></li>
+		<li id="menu-item-7143" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-7143"><a href="https://cogentdatasolutions.com/solutions/advanced-analytics-solutions/social-intelligence/">Social Intelligence</a></li>
+		<li id="menu-item-9853" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-9853"><a href="https://cogentdatasolutions.com/solutions/advanced-analytics-solutions/predictive-analytics/">Predictive Analytics</a></li>
+	</ul>
+</li>
+	<li id="menu-item-7137" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-has-children menu-item-7137"><a href="https://cogentdatasolutions.com/solutions/enterprise-solutions/">Enterprise Solutions</a>
+	<ul class="sub-menu">
+		<li id="menu-item-7158" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-has-children menu-item-7158"><a href="https://cogentdatasolutions.com/solutions/enterprise-solutions/sap/">SAP</a>
+		<ul class="sub-menu">
+			<li id="menu-item-7305" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-7305"><a href="https://cogentdatasolutions.com/solutions/enterprise-solutions/sap/sap-project-management-solutions/">SAP Project Management Solutions</a></li>
+			<li id="menu-item-7304" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-7304"><a href="https://cogentdatasolutions.com/solutions/enterprise-solutions/sap/sap-technical-solutions/">SAP Technical Solutions</a></li>
+			<li id="menu-item-7303" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-7303"><a href="https://cogentdatasolutions.com/solutions/enterprise-solutions/sap/sap-functional-solutions/">SAP Functional Solutions</a></li>
+			<li id="menu-item-7462" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-7462"><a href="https://cogentdatasolutions.com/solutions/enterprise-solutions/sap/sap-system-administration-and-support-solutions/">SAP System Administration &#038; Support Solutions</a></li>
+			<li id="menu-item-7464" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-7464"><a href="https://cogentdatasolutions.com/solutions/enterprise-solutions/sap/sap-data-migration/">SAP Data Migration</a></li>
+			<li id="menu-item-7463" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-7463"><a href="https://cogentdatasolutions.com/solutions/enterprise-solutions/sap/sap-implementation-upgrades-rollout-and-production-support-solutions/">SAP Implementation, Upgrades, Rollout &#038; Production Support Solutions</a></li>
+		</ul>
+</li>
+		<li id="menu-item-7161" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-has-children menu-item-7161"><a href="https://cogentdatasolutions.com/solutions/enterprise-solutions/oracleapps/">Oracle Apps</a>
+		<ul class="sub-menu">
+			<li id="menu-item-9084" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-9084"><a href="https://cogentdatasolutions.com/solutions/enterprise-solutions/oracleapps/oracle-solutions/">Oracle Solutions</a></li>
+			<li id="menu-item-9085" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-9085"><a href="https://cogentdatasolutions.com/solutions/enterprise-solutions/oracleapps/oracle-fusion-applications/">Oracle Fusion Applications</a></li>
+			<li id="menu-item-9083" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-9083"><a href="https://cogentdatasolutions.com/solutions/enterprise-solutions/oracleapps/oracle-hyperion-applications/">Oracle Hyperion Applications</a></li>
+		</ul>
+</li>
+		<li id="menu-item-7163" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-has-children menu-item-7163"><a href="https://cogentdatasolutions.com/solutions/enterprise-solutions/jdedwards/">JDEdwards</a>
+		<ul class="sub-menu">
+			<li id="menu-item-9137" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-9137"><a href="https://cogentdatasolutions.com/solutions/enterprise-solutions/jdedwards/jd-edwards-enterprise-one/">JD Edwards Enterprise One</a></li>
+			<li id="menu-item-9138" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-9138"><a href="https://cogentdatasolutions.com/solutions/enterprise-solutions/jdedwards/jd-edwards-test-factory/">JD Edwards Test Factory</a></li>
+		</ul>
+</li>
+		<li id="menu-item-7157" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-has-children menu-item-7157"><a href="https://cogentdatasolutions.com/solutions/enterprise-solutions/siebel/">Siebel</a>
+		<ul class="sub-menu">
+			<li id="menu-item-9081" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-9081"><a href="https://cogentdatasolutions.com/solutions/enterprise-solutions/siebel/siebel-implementation-technical-solutions/">Siebel Implementation &#038; Technical Solutions</a></li>
+			<li id="menu-item-9309" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-9309"><a href="https://cogentdatasolutions.com/solutions/enterprise-solutions/siebel/siebel-upgrade-solutions/">Siebel Upgrade Solutions</a></li>
+			<li id="menu-item-9079" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-9079"><a href="https://cogentdatasolutions.com/solutions/enterprise-solutions/siebel/siebel-testing-solutions/">Siebel Testing Solutions</a></li>
+			<li id="menu-item-9080" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-9080"><a href="https://cogentdatasolutions.com/solutions/enterprise-solutions/siebel/siebel-support-and-maintenance-solutions/">Siebel Support and Maintenance Solutions</a></li>
+		</ul>
+</li>
+		<li id="menu-item-7160" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-has-children menu-item-7160"><a href="https://cogentdatasolutions.com/solutions/enterprise-solutions/peoplesoft/">PeopleSoft</a>
+		<ul class="sub-menu">
+			<li id="menu-item-9046" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-9046"><a href="https://cogentdatasolutions.com/solutions/enterprise-solutions/peoplesoft/peoplesoft-practice/">PeopleSoft Practice</a></li>
+			<li id="menu-item-9054" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-9054"><a href="https://cogentdatasolutions.com/solutions/enterprise-solutions/peoplesoft/peoplesoft-consulting-service/">PeopleSoft Consulting</a></li>
+			<li id="menu-item-9048" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-9048"><a href="https://cogentdatasolutions.com/solutions/enterprise-solutions/peoplesoft/peoplesoft-solutions/">PeopleSoft Solutions</a></li>
+		</ul>
+</li>
+		<li id="menu-item-7162" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-has-children menu-item-7162"><a href="https://cogentdatasolutions.com/solutions/enterprise-solutions/msdynamics/">Microsoft Dynamics</a>
+		<ul class="sub-menu">
+			<li id="menu-item-8777" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-8777"><a href="https://cogentdatasolutions.com/solutions/enterprise-solutions/msdynamics/microsoft-dynamics-ax/">Microsoft Dynamics AX</a></li>
+			<li id="menu-item-8778" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-8778"><a href="https://cogentdatasolutions.com/solutions/enterprise-solutions/msdynamics/microsoft-dynamics-crm/">Microsoft Dynamics CRM</a></li>
+			<li id="menu-item-8779" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-8779"><a href="https://cogentdatasolutions.com/solutions/enterprise-solutions/msdynamics/microsoft-dynamics-gp/">Microsoft Dynamics GP</a></li>
+			<li id="menu-item-8780" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-8780"><a href="https://cogentdatasolutions.com/solutions/enterprise-solutions/msdynamics/microsoft-dynamics-nav/">Microsoft Dynamics NAV</a></li>
+			<li id="menu-item-8781" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-8781"><a href="https://cogentdatasolutions.com/solutions/enterprise-solutions/msdynamics/microsoft-dynamics-rms/">Microsoft Dynamics RMS</a></li>
+			<li id="menu-item-8782" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-8782"><a href="https://cogentdatasolutions.com/solutions/enterprise-solutions/msdynamics/microsoft-dynamics-sl/">Microsoft Dynamics SL</a></li>
+		</ul>
+</li>
+		<li id="menu-item-7159" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-7159"><a href="https://cogentdatasolutions.com/solutions/enterprise-solutions/salesforce/">Salesforce</a></li>
+	</ul>
+</li>
+	<li id="menu-item-7134" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-has-children menu-item-7134"><a href="https://cogentdatasolutions.com/solutions/bi-dw-vendor-solutions/">BI-DW Vendor Solutions</a>
+	<ul class="sub-menu">
+		<li id="menu-item-7145" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-7145"><a href="https://cogentdatasolutions.com/solutions/bi-dw-vendor-solutions/informatica/">Informatica</a></li>
+		<li id="menu-item-7149" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-7149"><a href="https://cogentdatasolutions.com/solutions/bi-dw-vendor-solutions/sas/">SAS</a></li>
+		<li id="menu-item-7148" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-7148"><a href="https://cogentdatasolutions.com/solutions/bi-dw-vendor-solutions/sap/">SAP</a></li>
+		<li id="menu-item-7144" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-7144"><a href="https://cogentdatasolutions.com/solutions/bi-dw-vendor-solutions/ibm/">IBM</a></li>
+		<li id="menu-item-7147" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-7147"><a href="https://cogentdatasolutions.com/solutions/bi-dw-vendor-solutions/oracle/">Oracle</a></li>
+		<li id="menu-item-7146" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-7146"><a href="https://cogentdatasolutions.com/solutions/bi-dw-vendor-solutions/microsoft/">Microsoft</a></li>
+	</ul>
+</li>
+	<li id="menu-item-7136" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-has-children menu-item-7136"><a href="https://cogentdatasolutions.com/solutions/emr-ehr-solutions/">EMR-EHR Solutions</a>
+	<ul class="sub-menu">
+		<li id="menu-item-7155" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-7155"><a href="https://cogentdatasolutions.com/solutions/emr-ehr-solutions/all-scripts/">Allscripts</a></li>
+		<li id="menu-item-7156" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-7156"><a href="https://cogentdatasolutions.com/solutions/emr-ehr-solutions/cerner/">Cerner</a></li>
+		<li id="menu-item-7154" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-7154"><a href="https://cogentdatasolutions.com/solutions/emr-ehr-solutions/epic/">EPIC</a></li>
+		<li id="menu-item-7153" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-7153"><a href="https://cogentdatasolutions.com/solutions/emr-ehr-solutions/ge-healthcare/">GE Healthcare</a></li>
+		<li id="menu-item-7152" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-7152"><a href="https://cogentdatasolutions.com/solutions/emr-ehr-solutions/mckesson/">McKesson</a></li>
+		<li id="menu-item-7151" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-7151"><a href="https://cogentdatasolutions.com/solutions/emr-ehr-solutions/meditech/">Meditech</a></li>
+		<li id="menu-item-7150" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-7150"><a href="https://cogentdatasolutions.com/solutions/emr-ehr-solutions/siemens/">Siemens</a></li>
+	</ul>
+</li>
+	<li id="menu-item-7138" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-has-children menu-item-7138"><a href="https://cogentdatasolutions.com/solutions/meaningful-use-solutions/">Meaningful Use Solutions</a>
+	<ul class="sub-menu">
+		<li id="menu-item-7164" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-7164"><a href="https://cogentdatasolutions.com/solutions/meaningful-use-solutions/stage-2-attestation/">Stage 2 Attestation</a></li>
+	</ul>
+</li>
+	<li id="menu-item-7133" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-7133"><a href="https://cogentdatasolutions.com/solutions/amdocs-solutions/">Amdocs Consulting Solutions</a></li>
+	<li id="menu-item-7135" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-7135"><a href="https://cogentdatasolutions.com/solutions/custom-development-solutions/">Custom Development Solutions</a></li>
+</ul>
+</li>
+<li id="menu-item-6121" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-has-children menu-item-6121"><a href="https://cogentdatasolutions.com/industries/">Industries</a>
+<ul class="sub-menu">
+	<li id="menu-item-6122" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-6122"><a href="https://cogentdatasolutions.com/industries/banking-financial-services/">Banking &#038; Financial Services</a></li>
+	<li id="menu-item-6123" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-6123"><a href="https://cogentdatasolutions.com/industries/education/">Education</a></li>
+	<li id="menu-item-6124" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-6124"><a href="https://cogentdatasolutions.com/industries/energy-utlilities/">Energy &#038; Utlilities</a></li>
+	<li id="menu-item-6125" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-6125"><a href="https://cogentdatasolutions.com/industries/healthcare/">Healthcare</a></li>
+	<li id="menu-item-6126" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-6126"><a href="https://cogentdatasolutions.com/industries/high-tech/">High-Tech</a></li>
+	<li id="menu-item-6136" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-6136"><a href="https://cogentdatasolutions.com/industries/insurance/">Insurance</a></li>
+	<li id="menu-item-6137" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-6137"><a href="https://cogentdatasolutions.com/industries/life-sciences/">Life Sciences</a></li>
+	<li id="menu-item-8521" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-8521"><a href="https://cogentdatasolutions.com/industries/manufacturing/">Manufacturing</a></li>
+	<li id="menu-item-6138" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-6138"><a href="https://cogentdatasolutions.com/industries/public-sector/">Public Sector</a></li>
+	<li id="menu-item-6139" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-6139"><a href="https://cogentdatasolutions.com/industries/retail-and-consumer-products/">Retail &#038; Consumer Products</a></li>
+	<li id="menu-item-6140" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-6140"><a href="https://cogentdatasolutions.com/industries/telecom/">Telecom</a></li>
+	<li id="menu-item-6141" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-6141"><a href="https://cogentdatasolutions.com/industries/travel/">Travel</a></li>
+</ul>
+</li>
+<li id="menu-item-7011" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-has-children menu-item-7011"><a href="https://cogentdatasolutions.com/contact-form-2/">Contact Us</a>
+<ul class="sub-menu">
+	<li id="menu-item-10225" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-10225"><a href="https://cogentdatasolutions.com/contact-form-2/">Contact Form</a></li>
+	<li id="menu-item-7009" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-7009"><a href="https://cogentdatasolutions.com/contact-form-2/website-feedback-form/">Website Feedback Form</a></li>
+	<li id="menu-item-7010" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-7010"><a href="https://cogentdatasolutions.com/contact-form-2/locations/">Locations</a></li>
+	<li id="menu-item-7601" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-7601"><a href="https://cogentdatasolutions.com/contact-form-2/email-us/">Email Us</a></li>
+</ul>
+</li>
+</ul></nav>
+						<nav id="menu_responsive" class="menu-header-menu-container"><select id="menu-header-menu-1" class="menu dropdown-menu"><option value="" class="blank">&#8211; &#8211; Main menu &#8211; &#8211;</option><option class="menu-item menu-item-type-post_type menu-item-object-page menu-item-home current-menu-item page_item page-item-4311 current_page_item menu-item-6337 menu-item-depth-0" value="https://cogentdatasolutions.com/" selected="selected">Home</option>
+<option class="menu-item menu-item-type-custom menu-item-object-custom menu-item-has-children menu-item-10115 menu-item-depth-0" value="https://cogentdatasolutions.com/company/overview/">Company</option>	<option class="menu-item menu-item-type-post_type menu-item-object-page menu-item-6146 menu-item-depth-1" value="https://cogentdatasolutions.com/company/overview/">- - Overview</option>
+	<option class="menu-item menu-item-type-post_type menu-item-object-page menu-item-6143 menu-item-depth-1" value="https://cogentdatasolutions.com/company/message-from-our-owner/">- - Message from Our Owner</option>
+	<option class="menu-item menu-item-type-post_type menu-item-object-page menu-item-6145 menu-item-depth-1" value="https://cogentdatasolutions.com/company/our-goal-mission-vision-core-values/">- - Mission, Vision &#038; Values</option>
+	<option class="menu-item menu-item-type-post_type menu-item-object-page menu-item-6142 menu-item-depth-1" value="https://cogentdatasolutions.com/company/the-cds-advantage/">- - The CDS Advantage</option>
+	<option class="menu-item menu-item-type-post_type menu-item-object-page menu-item-7610 menu-item-depth-1" value="https://cogentdatasolutions.com/company/global-delivery-model/">- - Global Delivery Model</option>
+	<option class="menu-item menu-item-type-post_type menu-item-object-page menu-item-8543 menu-item-depth-1" value="https://cogentdatasolutions.com/company/clients/">- - Clients</option>
+	<option class="menu-item menu-item-type-post_type menu-item-object-page menu-item-8542 menu-item-depth-1" value="https://cogentdatasolutions.com/company/partners/">- - Partners</option>
+	<option class="menu-item menu-item-type-post_type menu-item-object-page menu-item-6132 menu-item-depth-1" value="https://cogentdatasolutions.com/company/diversity/">- - Diversity</option>
+	<option class="menu-item menu-item-type-post_type menu-item-object-page menu-item-6131 menu-item-depth-1" value="https://cogentdatasolutions.com/company/certifications/">- - Certifications</option>
+	<option class="menu-item menu-item-type-post_type menu-item-object-page menu-item-6133 menu-item-depth-1" value="https://cogentdatasolutions.com/company/fact-sheet/">- - Fact Sheet</option>
+	<option class="menu-item menu-item-type-post_type menu-item-object-page menu-item-has-children menu-item-11892 menu-item-depth-1" value="https://cogentdatasolutions.com/company/government-contract-vehicles/">- - Government Contract Vehicles</option>		<option class="menu-item menu-item-type-post_type menu-item-object-page menu-item-11893 menu-item-depth-2" value="https://cogentdatasolutions.com/company/government-contract-vehicles/state-of-texas-dir/">- - - - State of Texas DIR</option>
+
+
+<option class="menu-item menu-item-type-post_type menu-item-object-page menu-item-has-children menu-item-5847 menu-item-depth-0" value="https://cogentdatasolutions.com/services/">Services</option>	<option class="menu-item menu-item-type-post_type menu-item-object-page menu-item-has-children menu-item-9586 menu-item-depth-1" value="https://cogentdatasolutions.com/services/management-consulting-services/">- - Management Consulting Services</option>		<option class="menu-item menu-item-type-post_type menu-item-object-page menu-item-9587 menu-item-depth-2" value="https://cogentdatasolutions.com/services/management-consulting-services/it-process-management/">- - - - IT Process Management</option>
+		<option class="menu-item menu-item-type-post_type menu-item-object-page menu-item-9588 menu-item-depth-2" value="https://cogentdatasolutions.com/services/management-consulting-services/it-strategy-and-performance-management/">- - - - IT Strategy and Performance Management</option>
+		<option class="menu-item menu-item-type-post_type menu-item-object-page menu-item-9589 menu-item-depth-2" value="https://cogentdatasolutions.com/services/management-consulting-services/organizational-transformation/">- - - - Organizational Transformation</option>
+		<option class="menu-item menu-item-type-post_type menu-item-object-page menu-item-9590 menu-item-depth-2" value="https://cogentdatasolutions.com/services/management-consulting-services/program-management-and-assurance/">- - - - Program Management and Assurance</option>
+
+	<option class="menu-item menu-item-type-post_type menu-item-object-page menu-item-has-children menu-item-6105 menu-item-depth-1" value="https://cogentdatasolutions.com/services/business-applications-services/">- - Business Applications Services</option>		<option class="menu-item menu-item-type-post_type menu-item-object-page menu-item-6106 menu-item-depth-2" value="https://cogentdatasolutions.com/services/business-applications-services/application-development-integration/">- - - - Application Development &#038; Integration</option>
+		<option class="menu-item menu-item-type-post_type menu-item-object-page menu-item-6107 menu-item-depth-2" value="https://cogentdatasolutions.com/services/business-applications-services/application-migration-and-modernization/">- - - - Application Migration &#038; Modernization</option>
+		<option class="menu-item menu-item-type-post_type menu-item-object-page menu-item-6108 menu-item-depth-2" value="https://cogentdatasolutions.com/services/business-applications-services/application-support-and-maintenance/">- - - - Application Support &#038; Maintenance</option>
+		<option class="menu-item menu-item-type-post_type menu-item-object-page menu-item-7754 menu-item-depth-2" value="https://cogentdatasolutions.com/services/business-applications-services/strategic-outsourcing/">- - - - Strategic Outsourcing</option>
+
+	<option class="menu-item menu-item-type-post_type menu-item-object-page menu-item-has-children menu-item-7966 menu-item-depth-1" value="https://cogentdatasolutions.com/services/information-management-services/">- - Information Management Services</option>		<option class="menu-item menu-item-type-post_type menu-item-object-page menu-item-has-children menu-item-7975 menu-item-depth-2" value="https://cogentdatasolutions.com/services/information-management-services/business-intelligence-and-data-warehousing/">- - - - Business Intelligence &#038; Data Warehousing</option>			<option class="menu-item menu-item-type-post_type menu-item-object-page menu-item-7976 menu-item-depth-3" value="https://cogentdatasolutions.com/services/information-management-services/business-intelligence-and-data-warehousing/dw-bi-strategy-services/">- - - - - - DW-BI Strategy Services</option>
+			<option class="menu-item menu-item-type-post_type menu-item-object-page menu-item-7978 menu-item-depth-3" value="https://cogentdatasolutions.com/services/information-management-services/business-intelligence-and-data-warehousing/dw-bi-implementation-services/">- - - - - - DW-BI Implementation Services</option>
+			<option class="menu-item menu-item-type-post_type menu-item-object-page menu-item-7979 menu-item-depth-3" value="https://cogentdatasolutions.com/services/information-management-services/business-intelligence-and-data-warehousing/dw-bi-migration-services/">- - - - - - DW-BI Migration Services</option>
+			<option class="menu-item menu-item-type-post_type menu-item-object-page menu-item-7977 menu-item-depth-3" value="https://cogentdatasolutions.com/services/information-management-services/business-intelligence-and-data-warehousing/dw-bi-maintainance-and-enhancement-services/">- - - - - - DW-BI Maintainance &#038; Enhancement Services</option>
+
+		<option class="menu-item menu-item-type-post_type menu-item-object-page menu-item-7967 menu-item-depth-2" value="https://cogentdatasolutions.com/services/information-management-services/data-governance/">- - - - Data Governance</option>
+		<option class="menu-item menu-item-type-post_type menu-item-object-page menu-item-7968 menu-item-depth-2" value="https://cogentdatasolutions.com/services/information-management-services/metadata-management/">- - - - Metadata Management</option>
+		<option class="menu-item menu-item-type-post_type menu-item-object-page menu-item-7969 menu-item-depth-2" value="https://cogentdatasolutions.com/services/information-management-services/master-data-management-2/">- - - - Master Data Management</option>
+		<option class="menu-item menu-item-type-post_type menu-item-object-page menu-item-7970 menu-item-depth-2" value="https://cogentdatasolutions.com/services/information-management-services/data-quality-management-2/">- - - - Data Quality Management</option>
+		<option class="menu-item menu-item-type-post_type menu-item-object-page menu-item-7971 menu-item-depth-2" value="https://cogentdatasolutions.com/services/information-management-services/data-management/">- - - - Data Management</option>
+		<option class="menu-item menu-item-type-post_type menu-item-object-page menu-item-7972 menu-item-depth-2" value="https://cogentdatasolutions.com/services/information-management-services/data-architecture/">- - - - Data Architecture</option>
+		<option class="menu-item menu-item-type-post_type menu-item-object-page menu-item-7973 menu-item-depth-2" value="https://cogentdatasolutions.com/services/information-management-services/data-modeling/">- - - - Data Modeling</option>
+		<option class="menu-item menu-item-type-post_type menu-item-object-page menu-item-7974 menu-item-depth-2" value="https://cogentdatasolutions.com/services/information-management-services/data-integration/">- - - - Data Integration</option>
+
+	<option class="menu-item menu-item-type-post_type menu-item-object-page menu-item-7827 menu-item-depth-1" value="https://cogentdatasolutions.com/services/enterprise-performance-management-services/">- - Enterprise Performance Management Services</option>
+	<option class="menu-item menu-item-type-post_type menu-item-object-page menu-item-8285 menu-item-depth-1" value="https://cogentdatasolutions.com/services/enterprise-resource-planning/">- - Enterprise Resource Planning</option>
+	<option class="menu-item menu-item-type-post_type menu-item-object-page menu-item-has-children menu-item-7755 menu-item-depth-1" value="https://cogentdatasolutions.com/services/cloud-computing-services/">- - Cloud Computing Services</option>		<option class="menu-item menu-item-type-post_type menu-item-object-page menu-item-7829 menu-item-depth-2" value="https://cogentdatasolutions.com/services/cloud-computing-services/cloud-infrastructure-services/">- - - - Cloud Infrastructure Services</option>
+		<option class="menu-item menu-item-type-post_type menu-item-object-page menu-item-7830 menu-item-depth-2" value="https://cogentdatasolutions.com/services/cloud-computing-services/cloud-deployment-and-migration-services/">- - - - Cloud Deployment &#038; Migration Services</option>
+		<option class="menu-item menu-item-type-post_type menu-item-object-page menu-item-7753 menu-item-depth-2" value="https://cogentdatasolutions.com/services/cloud-computing-services/cloud-advisory-and-assessment-services/">- - - - Cloud Advisory &#038; Assessment Services</option>
+		<option class="menu-item menu-item-type-post_type menu-item-object-page menu-item-7828 menu-item-depth-2" value="https://cogentdatasolutions.com/services/cloud-computing-services/cloud-management-and-operations-services/">- - - - Cloud Management &#038; Operations Services</option>
+
+	<option class="menu-item menu-item-type-post_type menu-item-object-page menu-item-has-children menu-item-8151 menu-item-depth-1" value="https://cogentdatasolutions.com/services/soa-consulting-services/">- - SOA Consulting Services</option>		<option class="menu-item menu-item-type-post_type menu-item-object-page menu-item-8152 menu-item-depth-2" value="https://cogentdatasolutions.com/services/soa-consulting-services/soa-assessment-and-roadmap/">- - - - SOA Assessment &#038; Roadmap</option>
+		<option class="menu-item menu-item-type-post_type menu-item-object-page menu-item-8158 menu-item-depth-2" value="https://cogentdatasolutions.com/services/soa-consulting-services/legacy-modernization-via-soa/">- - - - Legacy Modernization via SOA</option>
+		<option class="menu-item menu-item-type-post_type menu-item-object-page menu-item-8153 menu-item-depth-2" value="https://cogentdatasolutions.com/services/soa-consulting-services/soa-governance/">- - - - SOA Governance</option>
+		<option class="menu-item menu-item-type-post_type menu-item-object-page menu-item-8154 menu-item-depth-2" value="https://cogentdatasolutions.com/services/soa-consulting-services/soa-implementation/">- - - - SOA Implementation</option>
+		<option class="menu-item menu-item-type-post_type menu-item-object-page menu-item-8155 menu-item-depth-2" value="https://cogentdatasolutions.com/services/soa-consulting-services/soa-security/">- - - - SOA Security</option>
+		<option class="menu-item menu-item-type-post_type menu-item-object-page menu-item-8156 menu-item-depth-2" value="https://cogentdatasolutions.com/services/soa-consulting-services/soa-testing/">- - - - SOA Testing</option>
+
+	<option class="menu-item menu-item-type-post_type menu-item-object-page menu-item-9591 menu-item-depth-1" value="https://cogentdatasolutions.com/services/mobility-services/">- - Mobility Services</option>
+	<option class="menu-item menu-item-type-post_type menu-item-object-page menu-item-has-children menu-item-6119 menu-item-depth-1" value="https://cogentdatasolutions.com/services/infrastructure-management-services/">- - Infrastructure Management Services</option>		<option class="menu-item menu-item-type-post_type menu-item-object-page menu-item-8332 menu-item-depth-2" value="https://cogentdatasolutions.com/services/infrastructure-management-services/remote-infrastructure-management/">- - - - Remote Infrastructure Management</option>
+		<option class="menu-item menu-item-type-post_type menu-item-object-page menu-item-8333 menu-item-depth-2" value="https://cogentdatasolutions.com/services/infrastructure-management-services/end-user-computing/">- - - - End-User Computing</option>
+		<option class="menu-item menu-item-type-post_type menu-item-object-page menu-item-8335 menu-item-depth-2" value="https://cogentdatasolutions.com/services/infrastructure-management-services/development-and-test-environment-support/">- - - - Development &#038; Test Environment Support</option>
+		<option class="menu-item menu-item-type-post_type menu-item-object-page menu-item-has-children menu-item-7959 menu-item-depth-2" value="https://cogentdatasolutions.com/services/infrastructure-management-services/data-center-services/">- - - - Data Center Services</option>			<option class="menu-item menu-item-type-post_type menu-item-object-page menu-item-7961 menu-item-depth-3" value="https://cogentdatasolutions.com/services/infrastructure-management-services/data-center-services/serveros-management/">- - - - - - Server/OS Management</option>
+			<option class="menu-item menu-item-type-post_type menu-item-object-page menu-item-7962 menu-item-depth-3" value="https://cogentdatasolutions.com/services/infrastructure-management-services/data-center-services/network-management/">- - - - - - Network Management</option>
+			<option class="menu-item menu-item-type-post_type menu-item-object-page menu-item-7963 menu-item-depth-3" value="https://cogentdatasolutions.com/services/infrastructure-management-services/data-center-services/middleware-management/">- - - - - - Middleware Management</option>
+			<option class="menu-item menu-item-type-post_type menu-item-object-page menu-item-7964 menu-item-depth-3" value="https://cogentdatasolutions.com/services/infrastructure-management-services/data-center-services/database-management/">- - - - - - Database Management</option>
+			<option class="menu-item menu-item-type-post_type menu-item-object-page menu-item-7960 menu-item-depth-3" value="https://cogentdatasolutions.com/services/infrastructure-management-services/data-center-services/storage-management/">- - - - - - Storage Management</option>
+
+		<option class="menu-item menu-item-type-post_type menu-item-object-page menu-item-11334 menu-item-depth-2" value="https://cogentdatasolutions.com/services/infrastructure-management-services/security-and-compliance/">- - - - Security and Compliance</option>
+
+	<option class="menu-item menu-item-type-post_type menu-item-object-page menu-item-has-children menu-item-9763 menu-item-depth-1" value="https://cogentdatasolutions.com/services/business-process-outsourcing/">- - Business Process Outsourcing</option>		<option class="menu-item menu-item-type-post_type menu-item-object-page menu-item-has-children menu-item-9761 menu-item-depth-2" value="https://cogentdatasolutions.com/services/business-process-outsourcing/knowledge-process-outsourcing/">- - - - Knowledge Process Outsourcing</option>			<option class="menu-item menu-item-type-post_type menu-item-object-page menu-item-has-children menu-item-11323 menu-item-depth-3" value="https://cogentdatasolutions.com/services/business-process-outsourcing/knowledge-process-outsourcing/cds-health-and-life-sciences-kpo-services/">- - - - - - Health and Life Sciences</option>				<option class="menu-item menu-item-type-post_type menu-item-object-page menu-item-11325 menu-item-depth-4" value="https://cogentdatasolutions.com/services/business-process-outsourcing/knowledge-process-outsourcing/cds-health-and-life-sciences-kpo-services/cds-kpo-services-for-healthcare-providers/">- - - - - - - - Healthcare Providers</option>
+				<option class="menu-item menu-item-type-post_type menu-item-object-page menu-item-11327 menu-item-depth-4" value="https://cogentdatasolutions.com/services/business-process-outsourcing/knowledge-process-outsourcing/cds-health-and-life-sciences-kpo-services/cds-kpo-services-for-healthcare-payers/">- - - - - - - - Healthcare Payers</option>
+				<option class="menu-item menu-item-type-post_type menu-item-object-page menu-item-11326 menu-item-depth-4" value="https://cogentdatasolutions.com/services/business-process-outsourcing/knowledge-process-outsourcing/cds-health-and-life-sciences-kpo-services/cds-kpo-services-for-pharmaceutical-life-sciences/">- - - - - - - - Pharmaceuticals</option>
+
+			<option class="menu-item menu-item-type-post_type menu-item-object-page menu-item-11324 menu-item-depth-3" value="https://cogentdatasolutions.com/services/business-process-outsourcing/knowledge-process-outsourcing/cds-pc-insurance-kpo-services/">- - - - - - P&#038;C Insurance</option>
+
+		<option class="menu-item menu-item-type-post_type menu-item-object-page menu-item-9760 menu-item-depth-2" value="https://cogentdatasolutions.com/services/business-process-outsourcing/recruitment-process-outsourcing/">- - - - Recruitment Process Outsourcing</option>
+		<option class="menu-item menu-item-type-post_type menu-item-object-page menu-item-9762 menu-item-depth-2" value="https://cogentdatasolutions.com/services/business-process-outsourcing/financial-and-accounting-outsourcing/">- - - - Financial and Accounting Outsourcing</option>
+
+	<option class="menu-item menu-item-type-post_type menu-item-object-page menu-item-has-children menu-item-6109 menu-item-depth-1" value="https://cogentdatasolutions.com/services/testing-and-assurance-services/">- - Testing &#038; Assurance Services</option>		<option class="menu-item menu-item-type-post_type menu-item-object-page menu-item-6110 menu-item-depth-2" value="https://cogentdatasolutions.com/services/testing-and-assurance-services/life-cycle-testing/">- - - - Lifecycle Testing</option>
+		<option class="menu-item menu-item-type-post_type menu-item-object-page menu-item-6111 menu-item-depth-2" value="https://cogentdatasolutions.com/services/testing-and-assurance-services/managed-testing/">- - - - Managed Testing</option>
+		<option class="menu-item menu-item-type-post_type menu-item-object-page menu-item-6112 menu-item-depth-2" value="https://cogentdatasolutions.com/services/testing-and-assurance-services/specialized-testing/">- - - - Specialized Testing</option>
+		<option class="menu-item menu-item-type-post_type menu-item-object-page menu-item-8269 menu-item-depth-2" value="https://cogentdatasolutions.com/services/testing-and-assurance-services/test-consulting/">- - - - Test Consulting</option>
+		<option class="menu-item menu-item-type-post_type menu-item-object-page menu-item-8268 menu-item-depth-2" value="https://cogentdatasolutions.com/services/testing-and-assurance-services/testing-center-of-excellence/">- - - - Testing Center of Excellence</option>
+
+	<option class="menu-item menu-item-type-post_type menu-item-object-page menu-item-has-children menu-item-8324 menu-item-depth-1" value="https://cogentdatasolutions.com/services/staff-augmentation/">- - Staff Augmentation</option>		<option class="menu-item menu-item-type-post_type menu-item-object-page menu-item-8318 menu-item-depth-2" value="https://cogentdatasolutions.com/services/staff-augmentation/contract-staffing/">- - - - Contract Staffing</option>
+		<option class="menu-item menu-item-type-post_type menu-item-object-page menu-item-8320 menu-item-depth-2" value="https://cogentdatasolutions.com/services/staff-augmentation/contract-to-hire/">- - - - Contract to Hire</option>
+		<option class="menu-item menu-item-type-post_type menu-item-object-page menu-item-8317 menu-item-depth-2" value="https://cogentdatasolutions.com/services/staff-augmentation/technical-recruitment-process/">- - - - Technical Recruitment Process</option>
+		<option class="menu-item menu-item-type-post_type menu-item-object-page menu-item-8319 menu-item-depth-2" value="https://cogentdatasolutions.com/services/staff-augmentation/contract-staffing/">- - - - Contract Staffing</option>
+		<option class="menu-item menu-item-type-post_type menu-item-object-page menu-item-8321 menu-item-depth-2" value="https://cogentdatasolutions.com/services/staff-augmentation/direct-hire/">- - - - Direct Hire</option>
+		<option class="menu-item menu-item-type-post_type menu-item-object-page menu-item-8322 menu-item-depth-2" value="https://cogentdatasolutions.com/services/staff-augmentation/guaranteed-delivery-program/">- - - - Guaranteed Delivery Program</option>
+		<option class="menu-item menu-item-type-post_type menu-item-object-page menu-item-8323 menu-item-depth-2" value="https://cogentdatasolutions.com/services/staff-augmentation/quality-management-in-technical-recruiting-process/">- - - - Quality Management in the Technical Recruiting Process</option>
+		<option class="menu-item menu-item-type-post_type menu-item-object-page menu-item-has-children menu-item-8252 menu-item-depth-2" value="https://cogentdatasolutions.com/services/staff-augmentation/staffing-engagement-models/">- - - - Staffing Engagement Models</option>			<option class="menu-item menu-item-type-post_type menu-item-object-page menu-item-8258 menu-item-depth-3" value="https://cogentdatasolutions.com/services/staff-augmentation/expertise/areas-of-expertise-engineering/">- - - - - - Engineering</option>
+			<option class="menu-item menu-item-type-post_type menu-item-object-page menu-item-8257 menu-item-depth-3" value="https://cogentdatasolutions.com/services/staff-augmentation/expertise/areas-of-expertise-it/">- - - - - - Information Technology</option>
+			<option class="menu-item menu-item-type-post_type menu-item-object-page menu-item-8256 menu-item-depth-3" value="https://cogentdatasolutions.com/services/staff-augmentation/staffing-engagement-models/hybrid-staffing-model/">- - - - - - Hybrid Staffing Model</option>
+			<option class="menu-item menu-item-type-post_type menu-item-object-page menu-item-8253 menu-item-depth-3" value="https://cogentdatasolutions.com/services/staff-augmentation/staffing-engagement-models/onsite-staffing-model/">- - - - - - Onsite Staffing Model</option>
+			<option class="menu-item menu-item-type-post_type menu-item-object-page menu-item-8254 menu-item-depth-3" value="https://cogentdatasolutions.com/services/staff-augmentation/staffing-engagement-models/offsite-staffing-model/">- - - - - - Offsite Staffing Model</option>
+			<option class="menu-item menu-item-type-post_type menu-item-object-page menu-item-8255 menu-item-depth-3" value="https://cogentdatasolutions.com/services/staff-augmentation/staffing-engagement-models/offshore-staffing-model-smartsourcing/">- - - - - - Offshore Staffing Model</option>
+
+		<option class="menu-item menu-item-type-post_type menu-item-object-page menu-item-has-children menu-item-9743 menu-item-depth-2" value="https://cogentdatasolutions.com/services/staff-augmentation/expertise/">- - - - Areas of Expertise</option>			<option class="menu-item menu-item-type-post_type menu-item-object-page menu-item-9744 menu-item-depth-3" value="https://cogentdatasolutions.com/services/staff-augmentation/expertise/areas-of-expertise-it/">- - - - - - Information Technology</option>
+			<option class="menu-item menu-item-type-post_type menu-item-object-page menu-item-9745 menu-item-depth-3" value="https://cogentdatasolutions.com/services/staff-augmentation/expertise/areas-of-expertise-engineering/">- - - - - - Engineering</option>
+
+
+
+<option class="menu-item menu-item-type-post_type menu-item-object-page menu-item-has-children menu-item-5846 menu-item-depth-0" value="https://cogentdatasolutions.com/solutions/">Solutions</option>	<option class="menu-item menu-item-type-post_type menu-item-object-page menu-item-has-children menu-item-7132 menu-item-depth-1" value="https://cogentdatasolutions.com/solutions/advanced-analytics-solutions/">- - Advanced Analytics Solutions</option>		<option class="menu-item menu-item-type-post_type menu-item-object-page menu-item-7141 menu-item-depth-2" value="https://cogentdatasolutions.com/solutions/advanced-analytics-solutions/big-data/">- - - - Big Data</option>
+		<option class="menu-item menu-item-type-post_type menu-item-object-page menu-item-7142 menu-item-depth-2" value="https://cogentdatasolutions.com/solutions/advanced-analytics-solutions/cloud-intelligence/">- - - - Cloud Intelligence</option>
+		<option class="menu-item menu-item-type-post_type menu-item-object-page menu-item-7143 menu-item-depth-2" value="https://cogentdatasolutions.com/solutions/advanced-analytics-solutions/social-intelligence/">- - - - Social Intelligence</option>
+		<option class="menu-item menu-item-type-post_type menu-item-object-page menu-item-9853 menu-item-depth-2" value="https://cogentdatasolutions.com/solutions/advanced-analytics-solutions/predictive-analytics/">- - - - Predictive Analytics</option>
+
+	<option class="menu-item menu-item-type-post_type menu-item-object-page menu-item-has-children menu-item-7137 menu-item-depth-1" value="https://cogentdatasolutions.com/solutions/enterprise-solutions/">- - Enterprise Solutions</option>		<option class="menu-item menu-item-type-post_type menu-item-object-page menu-item-has-children menu-item-7158 menu-item-depth-2" value="https://cogentdatasolutions.com/solutions/enterprise-solutions/sap/">- - - - SAP</option>			<option class="menu-item menu-item-type-post_type menu-item-object-page menu-item-7305 menu-item-depth-3" value="https://cogentdatasolutions.com/solutions/enterprise-solutions/sap/sap-project-management-solutions/">- - - - - - SAP Project Management Solutions</option>
+			<option class="menu-item menu-item-type-post_type menu-item-object-page menu-item-7304 menu-item-depth-3" value="https://cogentdatasolutions.com/solutions/enterprise-solutions/sap/sap-technical-solutions/">- - - - - - SAP Technical Solutions</option>
+			<option class="menu-item menu-item-type-post_type menu-item-object-page menu-item-7303 menu-item-depth-3" value="https://cogentdatasolutions.com/solutions/enterprise-solutions/sap/sap-functional-solutions/">- - - - - - SAP Functional Solutions</option>
+			<option class="menu-item menu-item-type-post_type menu-item-object-page menu-item-7462 menu-item-depth-3" value="https://cogentdatasolutions.com/solutions/enterprise-solutions/sap/sap-system-administration-and-support-solutions/">- - - - - - SAP System Administration &#038; Support Solutions</option>
+			<option class="menu-item menu-item-type-post_type menu-item-object-page menu-item-7464 menu-item-depth-3" value="https://cogentdatasolutions.com/solutions/enterprise-solutions/sap/sap-data-migration/">- - - - - - SAP Data Migration</option>
+			<option class="menu-item menu-item-type-post_type menu-item-object-page menu-item-7463 menu-item-depth-3" value="https://cogentdatasolutions.com/solutions/enterprise-solutions/sap/sap-implementation-upgrades-rollout-and-production-support-solutions/">- - - - - - SAP Implementation, Upgrades, Rollout &#038; Production Support Solutions</option>
+
+		<option class="menu-item menu-item-type-post_type menu-item-object-page menu-item-has-children menu-item-7161 menu-item-depth-2" value="https://cogentdatasolutions.com/solutions/enterprise-solutions/oracleapps/">- - - - Oracle Apps</option>			<option class="menu-item menu-item-type-post_type menu-item-object-page menu-item-9084 menu-item-depth-3" value="https://cogentdatasolutions.com/solutions/enterprise-solutions/oracleapps/oracle-solutions/">- - - - - - Oracle Solutions</option>
+			<option class="menu-item menu-item-type-post_type menu-item-object-page menu-item-9085 menu-item-depth-3" value="https://cogentdatasolutions.com/solutions/enterprise-solutions/oracleapps/oracle-fusion-applications/">- - - - - - Oracle Fusion Applications</option>
+			<option class="menu-item menu-item-type-post_type menu-item-object-page menu-item-9083 menu-item-depth-3" value="https://cogentdatasolutions.com/solutions/enterprise-solutions/oracleapps/oracle-hyperion-applications/">- - - - - - Oracle Hyperion Applications</option>
+
+		<option class="menu-item menu-item-type-post_type menu-item-object-page menu-item-has-children menu-item-7163 menu-item-depth-2" value="https://cogentdatasolutions.com/solutions/enterprise-solutions/jdedwards/">- - - - JDEdwards</option>			<option class="menu-item menu-item-type-post_type menu-item-object-page menu-item-9137 menu-item-depth-3" value="https://cogentdatasolutions.com/solutions/enterprise-solutions/jdedwards/jd-edwards-enterprise-one/">- - - - - - JD Edwards Enterprise One</option>
+			<option class="menu-item menu-item-type-post_type menu-item-object-page menu-item-9138 menu-item-depth-3" value="https://cogentdatasolutions.com/solutions/enterprise-solutions/jdedwards/jd-edwards-test-factory/">- - - - - - JD Edwards Test Factory</option>
+
+		<option class="menu-item menu-item-type-post_type menu-item-object-page menu-item-has-children menu-item-7157 menu-item-depth-2" value="https://cogentdatasolutions.com/solutions/enterprise-solutions/siebel/">- - - - Siebel</option>			<option class="menu-item menu-item-type-post_type menu-item-object-page menu-item-9081 menu-item-depth-3" value="https://cogentdatasolutions.com/solutions/enterprise-solutions/siebel/siebel-implementation-technical-solutions/">- - - - - - Siebel Implementation &#038; Technical Solutions</option>
+			<option class="menu-item menu-item-type-post_type menu-item-object-page menu-item-9309 menu-item-depth-3" value="https://cogentdatasolutions.com/solutions/enterprise-solutions/siebel/siebel-upgrade-solutions/">- - - - - - Siebel Upgrade Solutions</option>
+			<option class="menu-item menu-item-type-post_type menu-item-object-page menu-item-9079 menu-item-depth-3" value="https://cogentdatasolutions.com/solutions/enterprise-solutions/siebel/siebel-testing-solutions/">- - - - - - Siebel Testing Solutions</option>
+			<option class="menu-item menu-item-type-post_type menu-item-object-page menu-item-9080 menu-item-depth-3" value="https://cogentdatasolutions.com/solutions/enterprise-solutions/siebel/siebel-support-and-maintenance-solutions/">- - - - - - Siebel Support and Maintenance Solutions</option>
+
+		<option class="menu-item menu-item-type-post_type menu-item-object-page menu-item-has-children menu-item-7160 menu-item-depth-2" value="https://cogentdatasolutions.com/solutions/enterprise-solutions/peoplesoft/">- - - - PeopleSoft</option>			<option class="menu-item menu-item-type-post_type menu-item-object-page menu-item-9046 menu-item-depth-3" value="https://cogentdatasolutions.com/solutions/enterprise-solutions/peoplesoft/peoplesoft-practice/">- - - - - - PeopleSoft Practice</option>
+			<option class="menu-item menu-item-type-post_type menu-item-object-page menu-item-9054 menu-item-depth-3" value="https://cogentdatasolutions.com/solutions/enterprise-solutions/peoplesoft/peoplesoft-consulting-service/">- - - - - - PeopleSoft Consulting</option>
+			<option class="menu-item menu-item-type-post_type menu-item-object-page menu-item-9048 menu-item-depth-3" value="https://cogentdatasolutions.com/solutions/enterprise-solutions/peoplesoft/peoplesoft-solutions/">- - - - - - PeopleSoft Solutions</option>
+
+		<option class="menu-item menu-item-type-post_type menu-item-object-page menu-item-has-children menu-item-7162 menu-item-depth-2" value="https://cogentdatasolutions.com/solutions/enterprise-solutions/msdynamics/">- - - - Microsoft Dynamics</option>			<option class="menu-item menu-item-type-post_type menu-item-object-page menu-item-8777 menu-item-depth-3" value="https://cogentdatasolutions.com/solutions/enterprise-solutions/msdynamics/microsoft-dynamics-ax/">- - - - - - Microsoft Dynamics AX</option>
+			<option class="menu-item menu-item-type-post_type menu-item-object-page menu-item-8778 menu-item-depth-3" value="https://cogentdatasolutions.com/solutions/enterprise-solutions/msdynamics/microsoft-dynamics-crm/">- - - - - - Microsoft Dynamics CRM</option>
+			<option class="menu-item menu-item-type-post_type menu-item-object-page menu-item-8779 menu-item-depth-3" value="https://cogentdatasolutions.com/solutions/enterprise-solutions/msdynamics/microsoft-dynamics-gp/">- - - - - - Microsoft Dynamics GP</option>
+			<option class="menu-item menu-item-type-post_type menu-item-object-page menu-item-8780 menu-item-depth-3" value="https://cogentdatasolutions.com/solutions/enterprise-solutions/msdynamics/microsoft-dynamics-nav/">- - - - - - Microsoft Dynamics NAV</option>
+			<option class="menu-item menu-item-type-post_type menu-item-object-page menu-item-8781 menu-item-depth-3" value="https://cogentdatasolutions.com/solutions/enterprise-solutions/msdynamics/microsoft-dynamics-rms/">- - - - - - Microsoft Dynamics RMS</option>
+			<option class="menu-item menu-item-type-post_type menu-item-object-page menu-item-8782 menu-item-depth-3" value="https://cogentdatasolutions.com/solutions/enterprise-solutions/msdynamics/microsoft-dynamics-sl/">- - - - - - Microsoft Dynamics SL</option>
+
+		<option class="menu-item menu-item-type-post_type menu-item-object-page menu-item-7159 menu-item-depth-2" value="https://cogentdatasolutions.com/solutions/enterprise-solutions/salesforce/">- - - - Salesforce</option>
+
+	<option class="menu-item menu-item-type-post_type menu-item-object-page menu-item-has-children menu-item-7134 menu-item-depth-1" value="https://cogentdatasolutions.com/solutions/bi-dw-vendor-solutions/">- - BI-DW Vendor Solutions</option>		<option class="menu-item menu-item-type-post_type menu-item-object-page menu-item-7145 menu-item-depth-2" value="https://cogentdatasolutions.com/solutions/bi-dw-vendor-solutions/informatica/">- - - - Informatica</option>
+		<option class="menu-item menu-item-type-post_type menu-item-object-page menu-item-7149 menu-item-depth-2" value="https://cogentdatasolutions.com/solutions/bi-dw-vendor-solutions/sas/">- - - - SAS</option>
+		<option class="menu-item menu-item-type-post_type menu-item-object-page menu-item-7148 menu-item-depth-2" value="https://cogentdatasolutions.com/solutions/bi-dw-vendor-solutions/sap/">- - - - SAP</option>
+		<option class="menu-item menu-item-type-post_type menu-item-object-page menu-item-7144 menu-item-depth-2" value="https://cogentdatasolutions.com/solutions/bi-dw-vendor-solutions/ibm/">- - - - IBM</option>
+		<option class="menu-item menu-item-type-post_type menu-item-object-page menu-item-7147 menu-item-depth-2" value="https://cogentdatasolutions.com/solutions/bi-dw-vendor-solutions/oracle/">- - - - Oracle</option>
+		<option class="menu-item menu-item-type-post_type menu-item-object-page menu-item-7146 menu-item-depth-2" value="https://cogentdatasolutions.com/solutions/bi-dw-vendor-solutions/microsoft/">- - - - Microsoft</option>
+
+	<option class="menu-item menu-item-type-post_type menu-item-object-page menu-item-has-children menu-item-7136 menu-item-depth-1" value="https://cogentdatasolutions.com/solutions/emr-ehr-solutions/">- - EMR-EHR Solutions</option>		<option class="menu-item menu-item-type-post_type menu-item-object-page menu-item-7155 menu-item-depth-2" value="https://cogentdatasolutions.com/solutions/emr-ehr-solutions/all-scripts/">- - - - Allscripts</option>
+		<option class="menu-item menu-item-type-post_type menu-item-object-page menu-item-7156 menu-item-depth-2" value="https://cogentdatasolutions.com/solutions/emr-ehr-solutions/cerner/">- - - - Cerner</option>
+		<option class="menu-item menu-item-type-post_type menu-item-object-page menu-item-7154 menu-item-depth-2" value="https://cogentdatasolutions.com/solutions/emr-ehr-solutions/epic/">- - - - EPIC</option>
+		<option class="menu-item menu-item-type-post_type menu-item-object-page menu-item-7153 menu-item-depth-2" value="https://cogentdatasolutions.com/solutions/emr-ehr-solutions/ge-healthcare/">- - - - GE Healthcare</option>
+		<option class="menu-item menu-item-type-post_type menu-item-object-page menu-item-7152 menu-item-depth-2" value="https://cogentdatasolutions.com/solutions/emr-ehr-solutions/mckesson/">- - - - McKesson</option>
+		<option class="menu-item menu-item-type-post_type menu-item-object-page menu-item-7151 menu-item-depth-2" value="https://cogentdatasolutions.com/solutions/emr-ehr-solutions/meditech/">- - - - Meditech</option>
+		<option class="menu-item menu-item-type-post_type menu-item-object-page menu-item-7150 menu-item-depth-2" value="https://cogentdatasolutions.com/solutions/emr-ehr-solutions/siemens/">- - - - Siemens</option>
+
+	<option class="menu-item menu-item-type-post_type menu-item-object-page menu-item-has-children menu-item-7138 menu-item-depth-1" value="https://cogentdatasolutions.com/solutions/meaningful-use-solutions/">- - Meaningful Use Solutions</option>		<option class="menu-item menu-item-type-post_type menu-item-object-page menu-item-7164 menu-item-depth-2" value="https://cogentdatasolutions.com/solutions/meaningful-use-solutions/stage-2-attestation/">- - - - Stage 2 Attestation</option>
+
+	<option class="menu-item menu-item-type-post_type menu-item-object-page menu-item-7133 menu-item-depth-1" value="https://cogentdatasolutions.com/solutions/amdocs-solutions/">- - Amdocs Consulting Solutions</option>
+	<option class="menu-item menu-item-type-post_type menu-item-object-page menu-item-7135 menu-item-depth-1" value="https://cogentdatasolutions.com/solutions/custom-development-solutions/">- - Custom Development Solutions</option>
+
+<option class="menu-item menu-item-type-post_type menu-item-object-page menu-item-has-children menu-item-6121 menu-item-depth-0" value="https://cogentdatasolutions.com/industries/">Industries</option>	<option class="menu-item menu-item-type-post_type menu-item-object-page menu-item-6122 menu-item-depth-1" value="https://cogentdatasolutions.com/industries/banking-financial-services/">- - Banking &#038; Financial Services</option>
+	<option class="menu-item menu-item-type-post_type menu-item-object-page menu-item-6123 menu-item-depth-1" value="https://cogentdatasolutions.com/industries/education/">- - Education</option>
+	<option class="menu-item menu-item-type-post_type menu-item-object-page menu-item-6124 menu-item-depth-1" value="https://cogentdatasolutions.com/industries/energy-utlilities/">- - Energy &#038; Utlilities</option>
+	<option class="menu-item menu-item-type-post_type menu-item-object-page menu-item-6125 menu-item-depth-1" value="https://cogentdatasolutions.com/industries/healthcare/">- - Healthcare</option>
+	<option class="menu-item menu-item-type-post_type menu-item-object-page menu-item-6126 menu-item-depth-1" value="https://cogentdatasolutions.com/industries/high-tech/">- - High-Tech</option>
+	<option class="menu-item menu-item-type-post_type menu-item-object-page menu-item-6136 menu-item-depth-1" value="https://cogentdatasolutions.com/industries/insurance/">- - Insurance</option>
+	<option class="menu-item menu-item-type-post_type menu-item-object-page menu-item-6137 menu-item-depth-1" value="https://cogentdatasolutions.com/industries/life-sciences/">- - Life Sciences</option>
+	<option class="menu-item menu-item-type-post_type menu-item-object-page menu-item-8521 menu-item-depth-1" value="https://cogentdatasolutions.com/industries/manufacturing/">- - Manufacturing</option>
+	<option class="menu-item menu-item-type-post_type menu-item-object-page menu-item-6138 menu-item-depth-1" value="https://cogentdatasolutions.com/industries/public-sector/">- - Public Sector</option>
+	<option class="menu-item menu-item-type-post_type menu-item-object-page menu-item-6139 menu-item-depth-1" value="https://cogentdatasolutions.com/industries/retail-and-consumer-products/">- - Retail &#038; Consumer Products</option>
+	<option class="menu-item menu-item-type-post_type menu-item-object-page menu-item-6140 menu-item-depth-1" value="https://cogentdatasolutions.com/industries/telecom/">- - Telecom</option>
+	<option class="menu-item menu-item-type-post_type menu-item-object-page menu-item-6141 menu-item-depth-1" value="https://cogentdatasolutions.com/industries/travel/">- - Travel</option>
+
+<option class="menu-item menu-item-type-post_type menu-item-object-page menu-item-has-children menu-item-7011 menu-item-depth-0" value="https://cogentdatasolutions.com/contact-form-2/">Contact Us</option>	<option class="menu-item menu-item-type-custom menu-item-object-custom menu-item-10225 menu-item-depth-1" value="https://cogentdatasolutions.com/contact-form-2/">- - Contact Form</option>
+	<option class="menu-item menu-item-type-post_type menu-item-object-page menu-item-7009 menu-item-depth-1" value="https://cogentdatasolutions.com/contact-form-2/website-feedback-form/">- - Website Feedback Form</option>
+	<option class="menu-item menu-item-type-post_type menu-item-object-page menu-item-7010 menu-item-depth-1" value="https://cogentdatasolutions.com/contact-form-2/locations/">- - Locations</option>
+	<option class="menu-item menu-item-type-post_type menu-item-object-page menu-item-7601 menu-item-depth-1" value="https://cogentdatasolutions.com/contact-form-2/email-us/">- - Email Us</option>
+
+</select></nav>		
+
+                         
+
+					</div>		
+
+				
+
+			
+
+			<div id="slider">				
+				<!-- START REVOLUTION SLIDER 2.3.9 -->
+				
+							<style type='text/css'>
+				#rev_slider_4_1, #rev_slider_4_1_wrapper { width:920px; height:235px;}
+						
+			   @media only screen and (min-width: 40px)  {
+			 		  #rev_slider_4_1, #rev_slider_4_1_wrapper { width:920px; height:235px;}	
+			   }
+			
+						
+			   @media only screen and (min-width: 0px) and (max-width: 39px) {
+			 		  #rev_slider_4_1, #rev_slider_4_1_wrapper { width:30px; height:7px;}	
+			   }
+			
+			</style>				
+								<div id="rev_slider_4_1_wrapper" class="rev_slider_wrapper" style="margin:0px auto;padding:px;margin-top:0px;margin-bottom:0px;">
+					<div id="rev_slider_4_1" class="rev_slider" style="display:none;">						
+										<ul>
+								<li data-transition="random" data-slotamount="7" >
+						<img src="https://cogentdatasolutions.com/wp-content/uploads/2014/12/Banner2.png"  alt="Banner2" >
+											</li>
+									<li data-transition="random" data-slotamount="7" >
+						<img src="https://cogentdatasolutions.com/wp-content/uploads/2014/12/Banner11.png"  alt="Banner11" >
+											</li>
+									<li data-transition="random" data-slotamount="7" >
+						<img src="https://cogentdatasolutions.com/wp-content/uploads/2014/12/Banner6.png"  alt="Banner6" >
+											</li>
+									<li data-transition="random" data-slotamount="7" >
+						<img src="https://cogentdatasolutions.com/wp-content/uploads/2014/12/Banner.png"  alt="Banner" >
+											</li>
+									<li data-transition="random" data-slotamount="7" >
+						<img src="https://cogentdatasolutions.com/wp-content/uploads/2014/12/Banner4.png"  alt="Banner4" >
+											</li>
+									<li data-transition="random" data-slotamount="7" >
+						<img src="https://cogentdatasolutions.com/wp-content/uploads/2014/12/Banner3.png"  alt="Banner3" >
+											</li>
+								</ul>
+														</div>
+				</div>				
+							
+			<script type="text/javascript">
+
+				var tpj=jQuery;
+				
+									tpj.noConflict();
+								
+				var revapi4;
+				
+				tpj(document).ready(function() {
+				
+				if (tpj.fn.cssOriginal != undefined)
+					tpj.fn.css = tpj.fn.cssOriginal;
+				
+				if(tpj('#rev_slider_4_1').revolution == undefined)
+					revslider_showDoubleJqueryError('#rev_slider_4_1');
+				else
+				   revapi4 = tpj('#rev_slider_4_1').show().revolution(
+					{
+						delay:9000,
+						startwidth:920,
+						startheight:235,
+						hideThumbs:0,
+						
+						thumbWidth:100,
+						thumbHeight:50,
+						thumbAmount:5,
+						
+						navigationType:"bullet",
+						navigationArrows:"none",
+						navigationStyle:"round",
+						
+						touchenabled:"on",
+						onHoverStop:"on",
+						
+						navigationHAlign:"right",
+						navigationVAlign:"bottom",
+						navigationHOffset:0,
+						navigationVOffset:20,
+
+						soloArrowLeftHalign:"left",
+						soloArrowLeftValign:"center",
+						soloArrowLeftHOffset:20,
+						soloArrowLeftVOffset:0,
+
+						soloArrowRightHalign:"right",
+						soloArrowRightValign:"center",
+						soloArrowRightHOffset:20,
+						soloArrowRightVOffset:0,
+								
+						shadow:0,
+						fullWidth:"off",
+
+						stopLoop:"off",
+						stopAfterLoops:-1,
+						stopAtSlide:-1,
+
+						shuffle:"off",
+						
+						hideSliderAtLimit:0,
+						hideCaptionAtLimit:769,
+						hideAllCaptionAtLilmit:0,
+						startWithSlide:0	
+					});
+				
+				});	//ready
+				
+			</script>
+			
+							<!-- END REVOLUTION SLIDER -->
+				</div>
+			
+
+			
+
+			
+
+		</header>
+<!--[if gte IE 8]>
+<style type="text/css">
+.homepage .article_box p{ font-size: 9px; }
+</style>
+<![endif]-->
+
+<!-- Content -->
+
+<div id="Content" style=" padding-top: 10px;">
+
+	<div class="container">
+
+
+
+		<!-- .content -->
+
+	 
+
+	 	
+        <div class="homepage">	
+                
+<div class="column one-third"><div class="article_box "><div class="photo"><img class="scale-with-grid" src="" alt="" /></div><p><div class="img-wrap alignleft">
+<img src="https://cogentdatasolutions.com/wp-content/uploads/2013/10/image-1.png" class="desc-bg" />
+</div>
+<div class="partner-wrap">
+	<span class="articlebox-title">
+		<a href="#">Partners</a>
+	</span>
+	<ul class="partners-logos">
+		<li>
+			<a href="https://cogentdatasolutions.com/solutions/bi-dw-vendor-solutions/ibm/"><img src="https://cogentdatasolutions.com/wp-content/uploads/2013/10/partner-logo1.png" /></a>	
+		</li>
+		<li>
+			<a href="https://cogentdatasolutions.com/solutions/bi-dw-vendor-solutions/oracle/"><img src="https://cogentdatasolutions.com/wp-content/uploads/2013/10/partner-logo2.png" /></a>		
+		</li>
+		<li>
+			<a href="https://cogentdatasolutions.com/solutions/bi-dw-vendor-solutions/informatica/"><img src="https://cogentdatasolutions.com/wp-content/uploads/2013/10/partner-logo3.png" /></a>		
+		</li>
+		<li>
+			<a href="https://cogentdatasolutions.com/solutions/bi-dw-vendor-solutions/sas/"><img src="https://cogentdatasolutions.com/wp-content/uploads/2013/10/partner-logo4.png" /></a>	
+		</li>
+	</ul> 
+	<a class="learn-more" href="https://cogentdatasolutions.com/company/partners/">Learn more</a>
+</div>
+</p></div>
+</div><div class="column one-third"><div class="article_box "><div class="photo"><img class="scale-with-grid" src="" alt="" /></div><p><div class="img-wrap alignleft">
+<img src="https://cogentdatasolutions.com/wp-content/uploads/2013/10/insight.png" class="desc-bg" />
+</div>
+<div class="insight-wrap">
+<span class="articlebox-title">
+	<a href="https://cogentdatasolutions.com/insights/">Insights</a>
+</span>
+<p>
+Technology is changing the way every organization does business, no matter what the industry. Those that avoid change, fall behind. Those with foresight, secure success and drive the future.
+</p>
+<a class="learn-more" href="https://cogentdatasolutions.com/insights">Learn more</a>
+</div></p></div>
+</div><div class="column one-third"><div class="article_box "><div class="photo"><img class="scale-with-grid" src="" alt="" /></div><p><div class="img-wrap alignleft">
+<img src="https://cogentdatasolutions.com/wp-content/uploads/2014/01/main-image-process.png" class="desc-bg" />
+</div>
+<div class="process-wrap">
+<span class="articlebox-title">
+  <a href="https://cogentdatasolutions.com/solutions/advanced-analytics-solutions/">Advanced Analytics</a>
+</span>
+<ul class="process-outsourcing">
+  <li>
+    <img src="https://cogentdatasolutions.com/wp-content/uploads/2014/01/elep-revised.png"  />    
+    <span><a href="https://cogentdatasolutions.com/solutions/advanced-analytics-solutions/big-data/">Big Data</a></span>
+  </li>
+  <li>
+    <img src="https://cogentdatasolutions.com/wp-content/uploads/2014/01/legal-1.png" />    
+    <span><a href="https://cogentdatasolutions.com/solutions/advanced-analytics-solutions/cloud-intelligence/">Cloud Intelligence</a></span>
+  </li>
+  <li>
+    <img src="https://cogentdatasolutions.com/wp-content/uploads/2014/01/recruitment1.png" />    
+    <span><a href="https://cogentdatasolutions.com/solutions/advanced-analytics-solutions/social-intelligence/">Social Intelligence</a></span>
+  </li>
+  <li>
+    <img src="https://cogentdatasolutions.com/wp-content/uploads/2014/01/finance1.png" />   
+    <span><a href="https://cogentdatasolutions.com/solutions/advanced-analytics-solutions/predictive-analytics/">Predictive Analytics</a></span>
+  </li>
+</ul> 
+<a class="learn-more process-more" href="https://cogentdatasolutions.com/solutions/advanced-analytics-solutions/">Learn more</a>
+</div></p></div>
+</div>
+			</div>
+
+	
+
+			  <div class="spotlight">
+
+				 <img class="spotlight-heading-image" src="https://cogentdatasolutions.com/wp-content/themes/pindol/images/spotlight.png" />
+
+				 <span><a href="">Spotlight</a></span>
+
+				 
+<script type="text/javascript">
+	jQuery('#featured_slider ul').cycle({ 
+		prev: '.feat_prev',
+		next: '.feat_next',
+		pager:  null
+	});
+</script>
+
+<style>
+
+#featured_slider {
+float: left;
+/*margin: 10px 0px;*/
+position: relative;
+background-color: #FFF;
+border: 1px solid #111;
+width: 290px;
+}
+
+#featured_slider ul, #featured_slider ul li {
+list-style: none !important;
+border: none !important;
+float: left;
+margin: 10px;
+width: 290px;
+height: 250px;
+}
+
+#featured_slider .img_right {
+float: left;
+width: 200px;
+height: 110px;
+margin-left: 20px;
+}
+
+#featured_slider .img_right img {
+width: 200px;
+height: 110px;
+}
+
+#featured_slider .content_left {
+float: left;
+font-size: 11px;
+margin-bottom: 5px;
+line-height: 16px;
+color: #111;
+width: 200px;
+}
+
+#featured_slider .content_left p {
+line-height: 22px !important;
+color: #111;
+}
+
+#featured_slider .content_left h2 {
+font-size: 20px !important;
+margin-bottom: 20px;
+}
+
+#featured_slider .feat_prev {
+/*background: transparent url(https://cogentdatasolutions.com/wp-content/plugins/wp-featured-content-slider/images/sprite.png) no-repeat;
+background-position: 0px 0px;*/
+z-index: 10;
+height: 16px;
+position: absolute;
+right: 40px!important;
+cursor: pointer;
+bottom: 5px;
+float: left;
+}
+
+#featured_slider .feat_prev:hover {
+background-position: 0px -16px;
+}
+
+#featured_slider .feat_next {
+/*background: transparent url(https://cogentdatasolutions.com/wp-content/plugins/wp-featured-content-slider/images/sprite.png) no-repeat;
+background-position: -17px 0px;*/
+z-index: 10;
+height: 16px;
+position: absolute;
+right: 10px!important;
+bottom: 5px;
+cursor: pointer;
+}
+
+#featured_slider .feat_next, #featured_slider .feat_prev{ color: #005b94; font-size: 12px; font-weight: bold; }
+
+#featured_slider .feat_next:hover {
+background-position: -18px -16px;
+}
+
+._slider {
+font-size: 10px;
+float: right;
+clear: both;
+position: relative;
+top: -10px;
+background-color: #111;
+padding: 3px 3px;
+line-height: 10px !important;
+}
+
+</style>
+
+<div id="featured_slider">
+	
+
+	<ul id="slider">
+
+						
+		<li><div class="content_left"><p>We as constantly seek to expand and enhance our operations with experienced professionals and new graduates, both adding immeasurable wealth and value through unique talent. Our business flourishes because of the expertise we acquire and nourish.<br />
+Grow with us  –  <a title="Search Jobs" href="https://cogentdatasolutions.com/careers/search-jobs/">Click here</a> to learn more.</p>
+</div><div class="img_right"><a href="https://cogentdatasolutions.com/spotlight-3/"><img src="https://cogentdatasolutions.com/wp-content/uploads/2014/01/Now-Hiring-101-200x110.png" /></a></div></li>
+		
+						
+		<li><div class="content_left"><p>Recognized by one of the most respected certifications for Women&#8217;s Business Enterprises, CDS effectively adds diversity to your supply chain with commitment to quality, helping you achieve excellence and distinction. Partner with CDS to secure Supplier Diversity that spells success today, and grows with you into the future.</p>
+<p><a href="https://cogentdatasolutions.com/company/certifications/">Click here to view our Certifications.</a></p>
+</div><div class="img_right"><a href="https://cogentdatasolutions.com/spotlight-2-2/"><img src="https://cogentdatasolutions.com/wp-content/uploads/2014/01/wbenc.png" /></a></div></li>
+		
+						
+		<li><div class="content_left"><p>We&#8217;ve joined ranks with high performance businesses on the INC 5000 list in 2013 and 2012, achieved through excellence in innovation and commitment to quality. Superior IT solutions and exceptional customer service are at the core of our success, helping us grow and deliver.</p>
+</div><div class="img_right"><a href="https://cogentdatasolutions.com/spotlight/"><img src="https://cogentdatasolutions.com/wp-content/uploads/2013/04/spotlight.png" /></a></div></li>
+		
+			
+	</ul>
+	
+	<div class="feat_next">&nbsp;Next</div><div class="feat_prev">Prev &nbsp;/</div>
+	
+</div>
+
+
+			  </div>
+
+		
+		
+
+		
+     
+
+	 
+	 
+
+	</div>
+
+</div>
+
+
+
+<div class="clear"></div>
+<!-- #Footer -->		
+		<footer id="Footer">
+		 		    
+			<div class="container widgets">
+			  
+			  <div class="footerwidgets">	
+					
+				<div class="footer-col column-1"></div><div class="footer-col column-2"><aside id="nav_menu-6" class="widget-even widget widget_nav_menu"><h4>Services</h4><div class="menu-services-container"><ul id="menu-services" class="menu"><li id="menu-item-10161" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-10161"><a href="https://cogentdatasolutions.com/services/management-consulting-services/">Management Consulting Services</a></li>
+<li id="menu-item-6446" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-6446"><a href="https://cogentdatasolutions.com/services/business-applications-services/">Business Applications Services</a></li>
+<li id="menu-item-8716" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-8716"><a href="https://cogentdatasolutions.com/services/information-management-services/">Information Management Services</a></li>
+<li id="menu-item-10162" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-10162"><a href="https://cogentdatasolutions.com/services/enterprise-performance-management-services/">Enterprise Performance Management Services</a></li>
+<li id="menu-item-6447" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-6447"><a href="https://cogentdatasolutions.com/services/enterprise-resource-planning/">Enterprise Resource Planning</a></li>
+<li id="menu-item-10164" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-10164"><a href="https://cogentdatasolutions.com/services/cloud-computing-services/">Cloud Computing Services</a></li>
+<li id="menu-item-10165" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-10165"><a href="https://cogentdatasolutions.com/services/soa-consulting-services/">SOA Consulting Services</a></li>
+<li id="menu-item-10166" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-10166"><a href="https://cogentdatasolutions.com/services/mobility-services/">Mobility Services</a></li>
+<li id="menu-item-6449" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-6449"><a href="https://cogentdatasolutions.com/services/infrastructure-management-services/">Infrastructure Management Services</a></li>
+<li id="menu-item-10167" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-10167"><a href="https://cogentdatasolutions.com/services/business-process-outsourcing/">Business Process Outsourcing Services</a></li>
+<li id="menu-item-6450" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-6450"><a href="https://cogentdatasolutions.com/services/testing-and-assurance-services/">Testing and Assurance Services</a></li>
+<li id="menu-item-6451" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-6451"><a href="https://cogentdatasolutions.com/services/staff-augmentation/">Staff Augmentation Services</a></li>
+</ul></div></aside></div><div class="footer-col column-3"><aside id="nav_menu-8" class="widget-odd widget widget_nav_menu"><h4>Industries</h4><div class="menu-industries-container"><ul id="menu-industries" class="menu"><li id="menu-item-6453" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-6453"><a href="https://cogentdatasolutions.com/industries/banking-financial-services/">Banking &#038; Financial Services</a></li>
+<li id="menu-item-6454" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-6454"><a href="https://cogentdatasolutions.com/industries/education/">Education</a></li>
+<li id="menu-item-6455" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-6455"><a href="https://cogentdatasolutions.com/industries/energy-utlilities/">Energy &#038; Utlilities</a></li>
+<li id="menu-item-6456" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-6456"><a href="https://cogentdatasolutions.com/industries/healthcare/">Healthcare</a></li>
+<li id="menu-item-6457" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-6457"><a href="https://cogentdatasolutions.com/industries/high-tech/">High-Tech</a></li>
+<li id="menu-item-6458" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-6458"><a href="https://cogentdatasolutions.com/industries/insurance/">Insurance</a></li>
+<li id="menu-item-6459" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-6459"><a href="https://cogentdatasolutions.com/industries/life-sciences/">Life Sciences</a></li>
+<li id="menu-item-10168" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-10168"><a href="https://cogentdatasolutions.com/industries/manufacturing/">Manufacturing</a></li>
+<li id="menu-item-6460" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-6460"><a href="https://cogentdatasolutions.com/industries/public-sector/">Public Sector</a></li>
+<li id="menu-item-6461" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-6461"><a href="https://cogentdatasolutions.com/industries/retail-and-consumer-products/">Retail &#038; Consumer Products</a></li>
+<li id="menu-item-6462" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-6462"><a href="https://cogentdatasolutions.com/industries/telecom/">Telecom</a></li>
+<li id="menu-item-6463" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-6463"><a href="https://cogentdatasolutions.com/industries/travel/">Travel</a></li>
+</ul></div></aside></div><div class="footer-col column-4"><aside id="nav_menu-9" class="widget-even widget widget_nav_menu"><h4>Insights</h4><div class="menu-insights-container"><ul id="menu-insights" class="menu"><li id="menu-item-8401" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-8401"><a href="https://cogentdatasolutions.com/insights/white-papers/">White Papers</a></li>
+<li id="menu-item-8402" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-8402"><a href="https://cogentdatasolutions.com/insights/case-studies/">Case Studies</a></li>
+<li id="menu-item-10127" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-10127"><a href="https://cogentdatasolutions.com/insights/resources/">Resources</a></li>
+<li id="menu-item-10128" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-10128"><a href="https://cogentdatasolutions.com/insights/testimonials/">Testimonials</a></li>
+<li id="menu-item-8403" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-8403"><a href="https://cogentdatasolutions.com/insights/news/">News</a></li>
+<li id="menu-item-8404" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-8404"><a href="https://cogentdatasolutions.com/insights/events/">Events</a></li>
+</ul></div></aside><aside id="nav_menu-10" class="widget-odd widget widget_nav_menu"><h4>Solutions</h4><div class="menu-solutions-container"><ul id="menu-solutions" class="menu"><li id="menu-item-10169" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-10169"><a href="https://cogentdatasolutions.com/solutions/advanced-analytics-solutions/">Advanced Analytics Solutions</a></li>
+<li id="menu-item-10174" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-10174"><a href="https://cogentdatasolutions.com/solutions/enterprise-solutions/">Enterprise Solutions</a></li>
+<li id="menu-item-10170" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-10170"><a href="https://cogentdatasolutions.com/solutions/bi-dw-vendor-solutions/">BI-DW Vendor Solutions</a></li>
+<li id="menu-item-10171" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-10171"><a href="https://cogentdatasolutions.com/solutions/emr-ehr-solutions/">EMR-EHR Solutions</a></li>
+<li id="menu-item-10172" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-10172"><a href="https://cogentdatasolutions.com/solutions/meaningful-use-solutions/">Meaningful Use Solutions</a></li>
+<li id="menu-item-10173" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-10173"><a href="https://cogentdatasolutions.com/solutions/amdocs-solutions/">Amdocs Consulting Solutions</a></li>
+<li id="menu-item-10175" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-10175"><a href="https://cogentdatasolutions.com/solutions/custom-development-solutions/">Custom Development Solutions</a></li>
+</ul></div></aside></div><div class="footer-col column-5"><aside id="text-15" class="widget-even widget widget_text"><h4>Connect With Us</h4>			<div class="textwidget"><div class="contactus">
+	<ul class="footer-heading-menu">
+
+		<ul class="footer-submenu-ul">
+		<li class="street-address">
+                    <span>
+                           Global Headquarters<br>
+                           Cogent Data Solutions LLC<br>
+                    </span>
+                      5728 Major Blvd<br>
+                     Suite # 602<br> 
+                    Orlando, FL 34786 USA
+                 </li>
+		<li class="phone">+1 (407) 476-0428</li>
+		<li class="fax">+1 (866) 650-4883</li>
+		<li class="toll-free">+1 (866) 666-1877</li>
+		<div class="clear"></div>
+		</ul>	
+		<ul class="footer-social-icons">
+		<?php if( mfn_opts_get('social-facebook') ): ?>
+			<li class="facebook">
+				<a href="<?php mfn_opts_show('social-facebook'); ?>" title="Facebook">
+					<img src="<?php echo get_template_directory_uri(); ?>/images/facebook-icon.png" />
+					<span>Facebook</span>
+				</a>
+			</li>
+		<?php endif; ?>
+		<?php if( mfn_opts_get('social-twitter') ): ?>
+			<li class="twitter">
+				<a href="<?php mfn_opts_show('social-twitter'); ?>" title="Twitter">
+					<img src="<?php echo get_template_directory_uri(); ?>/images/twitter-icon.png" />
+					<span>Twitter</span>
+				</a>
+			</li>
+		<?php endif; ?> 
+		<?php if( mfn_opts_get('social-linkedin') ): ?>
+			<li class="linked_in">
+				<a href="<?php mfn_opts_show('social-linkedin'); ?>" title="LinkedIn">
+					<img src="<?php echo get_template_directory_uri(); ?>/images/linkdin-icon.png" />
+					<span>LinkedIn</span>
+				</a>
+			</li>
+		<?php endif; ?>  
+		<?php if( mfn_opts_get('social-googleplus') ): ?>
+			<li class="googleplus">
+				<a href="<?php mfn_opts_show('social-googleplus'); ?>" title="Google+">
+					<img src="<?php echo get_template_directory_uri(); ?>/images/gplus-icon.png" />
+					<span>Google plus</span>
+				</a>
+			</li>
+		<?php endif; ?>		
+		</ul>
+
+	</ul>
+</div></div>
+		</aside></div>		      </div>
+			  <div class="clear"></div>
+			  <div class="copyright-wrap">
+			  <div class="container">
+			  	<div class="column one bottom_addons">
+			  		<div class="copyrights">
+			  			<p>
+			  				Copyright &copy; 2007 - 2023. Cogent Data Solutions LLC. All Rights Reserved.			  				
+			  			</p> 
+			  			
+			  		</div>
+			  		<div class="sitemap">
+			  		<a href=" https://cogentdatasolutions.com/privacy-policy/">Privacy Policy</a> | 
+			  		<a href="https://cogentdatasolutions.com/site-map/">Site Map</a>
+			  			</div>
+			  		<div id="toggle-footer" class="show-arrow-up">&raquo;</div>
+
+			  		
+			  	</div>
+			  </div>
+			  </div>
+			</div>
+			
+			
+		</footer>
+</div>
+
+		
+		<div class="clear"></div>
+	</div>
+	
+	
+<!-- wp_footer() -->
+	<script>
+		var getElementsByClassName=function(a,b,c){if(document.getElementsByClassName){getElementsByClassName=function(a,b,c){c=c||document;var d=c.getElementsByClassName(a),e=b?new RegExp("\\b"+b+"\\b","i"):null,f=[],g;for(var h=0,i=d.length;h<i;h+=1){g=d[h];if(!e||e.test(g.nodeName)){f.push(g)}}return f}}else if(document.evaluate){getElementsByClassName=function(a,b,c){b=b||"*";c=c||document;var d=a.split(" "),e="",f="http://www.w3.org/1999/xhtml",g=document.documentElement.namespaceURI===f?f:null,h=[],i,j;for(var k=0,l=d.length;k<l;k+=1){e+="[contains(concat(' ', @class, ' '), ' "+d[k]+" ')]"}try{i=document.evaluate(".//"+b+e,c,g,0,null)}catch(m){i=document.evaluate(".//"+b+e,c,null,0,null)}while(j=i.iterateNext()){h.push(j)}return h}}else{getElementsByClassName=function(a,b,c){b=b||"*";c=c||document;var d=a.split(" "),e=[],f=b==="*"&&c.all?c.all:c.getElementsByTagName(b),g,h=[],i;for(var j=0,k=d.length;j<k;j+=1){e.push(new RegExp("(^|\\s)"+d[j]+"(\\s|$)"))}for(var l=0,m=f.length;l<m;l+=1){g=f[l];i=false;for(var n=0,o=e.length;n<o;n+=1){i=e[n].test(g.className);if(!i){break}}if(i){h.push(g)}}return h}}return getElementsByClassName(a,b,c)},
+			dropdowns = getElementsByClassName( 'dropdown-menu' );
+		for ( i=0; i<dropdowns.length; i++ )
+			dropdowns[i].onchange = function(){ if ( this.value != '' ) window.location.href = this.value; }
+	</script>
+	<script type='text/javascript' id='contact-form-7-js-extra'>
+/* <![CDATA[ */
+var wpcf7 = {"apiSettings":{"root":"https:\/\/cogentdatasolutions.com\/wp-json\/contact-form-7\/v1","namespace":"contact-form-7\/v1"},"cached":"1"};
+/* ]]> */
+</script>
+<script type='text/javascript' src='https://cogentdatasolutions.com/wp-content/plugins/contact-form-7/includes/js/scripts.js?ver=5.3.1' id='contact-form-7-js'></script>
+<script type='text/javascript' id='theme-my-login-js-extra'>
+/* <![CDATA[ */
+var themeMyLogin = {"action":"","errors":[]};
+/* ]]> */
+</script>
+<script type='text/javascript' src='https://cogentdatasolutions.com/wp-content/plugins/theme-my-login/assets/scripts/theme-my-login.min.js?ver=7.1.2' id='theme-my-login-js'></script>
+<script type='text/javascript' src='https://cogentdatasolutions.com/wp-includes/js/jquery/ui/core.min.js?ver=1.11.4' id='jquery-ui-core-js'></script>
+<script type='text/javascript' src='https://cogentdatasolutions.com/wp-includes/js/jquery/ui/widget.min.js?ver=1.11.4' id='jquery-ui-widget-js'></script>
+<script type='text/javascript' src='https://cogentdatasolutions.com/wp-includes/js/jquery/ui/mouse.min.js?ver=1.11.4' id='jquery-ui-mouse-js'></script>
+<script type='text/javascript' src='https://cogentdatasolutions.com/wp-includes/js/jquery/ui/sortable.min.js?ver=1.11.4' id='jquery-ui-sortable-js'></script>
+<script type='text/javascript' src='https://cogentdatasolutions.com/wp-includes/js/jquery/ui/tabs.min.js?ver=1.11.4' id='jquery-ui-tabs-js'></script>
+<script type='text/javascript' src='https://cogentdatasolutions.com/wp-includes/js/jquery/ui/accordion.min.js?ver=1.11.4' id='jquery-ui-accordion-js'></script>
+<script type='text/javascript' src='https://cogentdatasolutions.com/wp-content/themes/pindol/js/fancybox/jquery.fancybox-1.3.4.js?ver=1.1.0' id='jquery-fancybox-js'></script>
+<script type='text/javascript' src='https://cogentdatasolutions.com/wp-content/themes/pindol/js/sliders/responsiveslides.js?ver=1.1.0' id='jquery-responsiveslides-js'></script>
+<script type='text/javascript' src='https://cogentdatasolutions.com/wp-content/themes/pindol/js/sliders/jquery.jcarousel.min.js?ver=1.1.0' id='jquery-jcarousel-min-js'></script>
+<script type='text/javascript' src='https://cogentdatasolutions.com/wp-content/themes/pindol/js/jquery.isotope.min.js?ver=1.1.0' id='jquery-isotope-min-js'></script>
+<script type='text/javascript' src='https://cogentdatasolutions.com/wp-content/themes/pindol/js/jquery.hoverdir.js?ver=1.1.0' id='jquery-hoverdir-js'></script>
+<script type='text/javascript' src='https://cogentdatasolutions.com/wp-content/themes/pindol/js/mfn-menu.js?ver=1.1.0' id='jquery-mfn-menu-js'></script>
+<script type='text/javascript' src='https://cogentdatasolutions.com/wp-includes/js/jquery/jquery.form.min.js?ver=4.2.1' id='jquery-form-js'></script>
+<script type='text/javascript' src='https://cogentdatasolutions.com/wp-content/themes/pindol/js/scripts.js?ver=1.1.0' id='jquery-scripts-js'></script>
+<script type='text/javascript' src='https://cogentdatasolutions.com/wp-content/themes/pindol/js/jquery.innerfade.js?ver=1.1.0' id='inner-fade-js'></script>
+<script type='text/javascript' src='https://cogentdatasolutions.com/wp-includes/js/comment-reply.min.js?ver=5.5.13' id='comment-reply-js'></script>
+<script type='text/javascript' src='https://cogentdatasolutions.com/wp-includes/js/wp-embed.min.js?ver=5.5.13' id='wp-embed-js'></script>
+<div class="clear"></div>
+</div><!--main content close here-->
+<div class="clear"></div>
+<div id="popup_box">
+<div class="popup_box-wrap">
+	<h2>Please Share Your Email</h2>		
+	 <form id="contact-form" name="insightly_web_to_contact" action="https://zx25wl2b.insight.ly/WebToContact/Create" method="post">
+	 	 <input type="hidden" name="download-link" id="download" value=""/>
+        <input type="hidden" name="formId" value="4pXb/ItK+pGvM3XgXjiOWA=="/>
+          <input class="input required" type="text" id="fName" value="" name="FirstName" placeholder="First Name"/>
+          <input class="input required" type="text" value="" id="lName" name="LastName" placeholder="Last Name"/>
+          
+
+          <input type="hidden" name="emails[0].Label" value="Work"/>
+          
+          <input class="input required email" id="email" value="" name="emails[0].Value" type="text" placeholder="E-mail"/>
+
+    
+          <input class="submit" type="submit" name="submit" value="submit"/>
+      </form>
+
+
+      <div id="sent">Sucess</div>
+	<a id="popupBoxClose">X</a>	
+	</div>
+</div>
+
+<script>
+	jQuery(function() {
+		jQuery('#toggle-footer').click(function() {
+			var current_class = jQuery(this).attr('class');
+
+			if( 'show-arrow-up' == current_class ) current_class = 'show-arrow-down';
+			else current_class = 'show-arrow-up';
+
+			jQuery('#Footer .footerwidgets').slideToggle();
+			jQuery(this).attr('class', current_class);
+
+		})
+	})
+</script>
+
+</body>
+</html>

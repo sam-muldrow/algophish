@@ -1,0 +1,177 @@
+<!DOCTYPE html> <html lang="en"> <head> <meta name="viewport" content="width=device-width,initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, user-scalable=no" /> <link rel="dns-prefetch preconnect" href="//static.naukimg.com" /> <link rel="dns-prefetch preconnect" href="//img.naukimg.com" /> <link rel="dns-prefetch preconnect" href="//logs.naukri.com" /> <link rel="dns-prefetch preconnect" href="//lg.naukri.com" /> <link rel="dns-prefetch" href="https://www.googletagmanager.com" /> <base href="//www.naukri.com" /> <meta http-equiv="X-UA-Compatible" content="IE=Edge" /> <link rel="manifest" href="./manifest.json" /> <link rel="preload" as="style" href="//static.naukimg.com/s/7/103/c/main.bbf0c253.min.css" /> <link rel="preload" as="script" href="//static.naukimg.com/s/7/103/j/main.12b660ec.min.js" crossorigin="anonymous" /> <link rel="preload" as="image" href="https://static.naukimg.com/s/4/100/i/naukri_Logo.png" /> <link rel="preload" as="font" href="https://fonts.gstatic.com/s/inter/v3/UcC73FwrK3iLTeHuS_fvQtMwCp50KnMa1ZL7W0Q5nw.woff2" crossOrigin="true" /> <link rel="preload" as="font" href="https://fonts.gstatic.com/s/robotoslab/v13/BngbUXZYTXPIvIBgJJSb6s3BzlRRfKOFbvjoa4Omb2Rj.woff2" crossOrigin="true" /> <script type="text/javascript" defer>
+            if (window.location.pathname === '/' && window.fetch && window.Promise) {
+                var foundSearchValue = false;
+
+                function getSearchParams() {
+                    var PARAMS_MAPPING = {
+                        utmTerm: ["utmTerm", "utm_term", "utm_Term"],
+                        utmContent: ["utmContent", "utm_content", "utm_Content"],
+                        utmSource: ["utmSource", "utm_source", "utm_Source"],
+                        utmMedium: ["utmMedium", "utm_medium", "utm_Medium"],
+                        utmCampaign: ["utmCampaign", "utm_campaign", "utm_Campaign"],
+                        utmAdGroup: ["utm_adgroup", "utm_ad_group", "utmAdGroup", "utmAdgroup", "utm_ad_Group", "utm_Ad_Group", "utm_AdGroup"]
+                    };
+
+                    var queryParams = {};
+                    var allParams = Object.keys(PARAMS_MAPPING);
+
+                    for (var k = 0; k < allParams.length; k++) {
+                        queryParams[allParams[k]] = null;
+                    }
+                    try {
+                        var currUrl = new URL(window.location.href);
+                        var searchParams = currUrl.searchParams;
+                        if (!currUrl.search) {
+                            return queryParams;
+                        }
+                        for (var i = 0; i < allParams.length; i++) {
+                            var paramKey = allParams[i];
+                            var paramAlias = PARAMS_MAPPING[paramKey];
+                            for (var j = 0; j < paramAlias.length; j++) {
+                                var param = paramAlias[j];
+                                var searchParamValue = searchParams.get(param);
+                                if (searchParamValue) {
+                                    foundSearchValue = true;
+                                    queryParams[paramKey] = searchParamValue;
+                                    break;
+                                }
+                            }
+                        }
+                    }
+                    catch (e) {
+                        console.log('Error in parsing url for prehomepage');
+                    }
+                    return queryParams;
+                }
+
+                var utmParams = getSearchParams();
+
+                if (foundSearchValue) {
+                    fetch("https://logs.naukri.com/uba", {
+                        mode: 'no-cors',
+                        cache: 'no-cache',
+                        method: 'POST',
+                        credentials: 'include',
+                        headers: {
+                            accept: 'application/json',
+                            'content-type': 'application/json'
+                        },
+                        body: JSON.stringify({
+                            appId: '103',
+                            eventName: 'prehomepage',
+                            tenantId: "1",
+                            subclientTenantId: "0",
+                            pageName: "homepage",
+                            deviceType: "WEB",
+                            ...utmParams
+                        })
+                    })
+                        .catch(function (e) { console.log('Error in tracking prehomepage', e) })
+                }
+            }
+        </script> <script>
+            var interFonts = '@font-face{font-family:Inter;font-style:normal;font-weight:400;font-display:swap;src:url(https://fonts.gstatic.com/s/inter/v3/UcC73FwrK3iLTeHuS_fvQtMwCp50KnMa25L7W0Q5n-wU.woff2) format("woff2");unicode-range:U+0100-024F,U+0259,U+1E00-1EFF,U+2020,U+20A0-20AB,U+20AD-20CF,U+2113,U+2C60-2C7F,U+A720-A7FF}@font-face{font-family:Inter;font-style:normal;font-weight:400;font-display:swap;src:url(https://fonts.gstatic.com/s/inter/v3/UcC73FwrK3iLTeHuS_fvQtMwCp50KnMa1ZL7W0Q5nw.woff2) format("woff2");unicode-range:U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,U+02DC,U+2000-206F,U+2074,U+20AC,U+2122,U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD}@font-face{font-family:Inter;font-style:normal;font-weight:500;font-display:swap;src:url(https://fonts.gstatic.com/s/inter/v3/UcC73FwrK3iLTeHuS_fvQtMwCp50KnMa25L7W0Q5n-wU.woff2) format("woff2");unicode-range:U+0100-024F,U+0259,U+1E00-1EFF,U+2020,U+20A0-20AB,U+20AD-20CF,U+2113,U+2C60-2C7F,U+A720-A7FF}@font-face{font-family:Inter;font-style:normal;font-weight:500;font-display:swap;src:url(https://fonts.gstatic.com/s/inter/v3/UcC73FwrK3iLTeHuS_fvQtMwCp50KnMa1ZL7W0Q5nw.woff2) format("woff2");unicode-range:U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,U+02DC,U+2000-206F,U+2074,U+20AC,U+2122,U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD}@font-face{font-family:Inter;font-style:normal;font-weight:600;font-display:swap;src:url(https://fonts.gstatic.com/s/inter/v3/UcC73FwrK3iLTeHuS_fvQtMwCp50KnMa25L7W0Q5n-wU.woff2) format("woff2");unicode-range:U+0100-024F,U+0259,U+1E00-1EFF,U+2020,U+20A0-20AB,U+20AD-20CF,U+2113,U+2C60-2C7F,U+A720-A7FF}@font-face{font-family:Inter;font-style:normal;font-weight:600;font-display:swap;src:url(https://fonts.gstatic.com/s/inter/v3/UcC73FwrK3iLTeHuS_fvQtMwCp50KnMa1ZL7W0Q5nw.woff2) format("woff2");unicode-range:U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,U+02DC,U+2000-206F,U+2074,U+20AC,U+2122,U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD}@font-face{font-family:Inter;font-style:normal;font-weight:700;font-display:swap;src:url(https://fonts.gstatic.com/s/inter/v3/UcC73FwrK3iLTeHuS_fvQtMwCp50KnMa25L7W0Q5n-wU.woff2) format("woff2");unicode-range:U+0100-024F,U+0259,U+1E00-1EFF,U+2020,U+20A0-20AB,U+20AD-20CF,U+2113,U+2C60-2C7F,U+A720-A7FF}@font-face{font-family:Inter;font-style:normal;font-weight:700;font-display:swap;src:url(https://fonts.gstatic.com/s/inter/v3/UcC73FwrK3iLTeHuS_fvQtMwCp50KnMa1ZL7W0Q5nw.woff2) format("woff2");unicode-range:U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,U+02DC,U+2000-206F,U+2074,U+20AC,U+2122,U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD}@font-face{font-family:Inter;font-style:normal;font-weight:800;font-display:swap;src:url(https://fonts.gstatic.com/s/inter/v3/UcC73FwrK3iLTeHuS_fvQtMwCp50KnMa25L7W0Q5n-wU.woff2) format("woff2");unicode-range:U+0100-024F,U+0259,U+1E00-1EFF,U+2020,U+20A0-20AB,U+20AD-20CF,U+2113,U+2C60-2C7F,U+A720-A7FF}@font-face{font-family:Inter;font-style:normal;font-weight:800;font-display:swap;src:url(https://fonts.gstatic.com/s/inter/v3/UcC73FwrK3iLTeHuS_fvQtMwCp50KnMa1ZL7W0Q5nw.woff2) format("woff2");unicode-range:U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,U+02DC,U+2000-206F,U+2074,U+20AC,U+2122,U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD}';
+            var robotoSlab700 = "@font-face{font-family:'Roboto Slab';font-style:normal;font-weight:700;font-display:swap;src:url(https://fonts.gstatic.com/s/robotoslab/v13/BngbUXZYTXPIvIBgJJSb6s3BzlRRfKOFbvjoa4OmYWRjRdE.woff2) format('woff2');unicode-range:U+0100-024F,U+0259,U+1E00-1EFF,U+2020,U+20A0-20AB,U+20AD-20CF,U+2113,U+2C60-2C7F,U+A720-A7FF}@font-face{font-family:'Roboto Slab';font-style:normal;font-weight:700;font-display:swap;src:url(https://fonts.gstatic.com/s/robotoslab/v13/BngbUXZYTXPIvIBgJJSb6s3BzlRRfKOFbvjoa4Omb2Rj.woff2) format('woff2');unicode-range:U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,U+02DC,U+2000-206F,U+2074,U+20AC,U+2122,U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD}";
+
+            var interFont = document.createElement("style");
+
+            interFont.type = 'text/css';
+            interFont.appendChild(document.createTextNode(interFonts));
+            document.head.appendChild(interFont);
+
+            var robotoSlabFont = document.createElement("style");
+
+            robotoSlabFont.type = 'text/css';
+            robotoSlabFont.appendChild(document.createTextNode(robotoSlab700));
+            document.head.appendChild(robotoSlabFont);
+        </script>  <script
+            async
+            src="https://www.googletagmanager.com/gtag/js?id=UA-182658-1"
+            crossorigin="anonymous"
+        ></script>  <script>
+            window.dataLayer = window.dataLayer || [];
+            function gtag() {
+                dataLayer.push(arguments);
+            }
+            gtag('js', new Date());
+            gtag('config', 'UA-182658-1');
+            gtag('config', 'G-K2YBNZVRLL');
+        </script> <script>
+            window.ipAddress = "www.naukri.com";
+            window.DEBUG = true;
+            window.appId = 135;
+                            var isCrawler = false;
+                                        var ucBrowser = false;
+                        var persona = "default";
+            var countryCode = "";
+        </script>   <style type="text/css"> .page-preloader div { position: absolute; left: 50%; top: 45%; transform: translate(-50%, -50%); width: 62px; height: 62px; border: 3px solid #4a90e2; border-top-color: transparent; border-radius: 50%; animation: page-loader 1s linear infinite; } @keyframes page-loader { 0% { transform: translate(-50%, -50%) rotate(0deg); } 100% { transform: translate(-50%, -50%) rotate(360deg); } } </style> </head> <body>  <noscript> <iframe src="https://www.googletagmanager.com/ns.html?id=GTM-NX744H" height="0" width="0" style="display:none;visibility:hidden" ></iframe> </noscript>  <div id="root"> <div class="page-preloader"> <div></div> </div> </div> <link rel="stylesheet" type="text/css" href="//static.naukimg.com/s/7/103/c/main.bbf0c253.min.css" media="all" />  <script id="ubScript"> (function() { var queuedSuperProps = []; var queuedEvents = []; window.ub = { track: function(eventName, eventProps) { queuedEvents.push([eventName, eventProps]) }, register: function(properties) { queuedSuperProps.push(properties); } };
+            var script = document.createElement("script"); script.async = true;script.trackTdsCookie=true,script.fingerprint=false,script.src = "//static.naukri.com/s/0/1/j/ub_v1.13.min.js";script.onload = function() { ub.init({
+                   trackTdsCookie : true, beaconUrl : "https://logs.naukri.com/uba", bulkBeaconUrl : "https://logs.naukri.com/collectorapi/v1/uba/bulk", queuedEvents:queuedEvents, queuedSuperProps:queuedSuperProps,  tenantId:'1' ,  subclientTenantId:'0' , autoTrack:false, blackList: 
+                []
+            }); };document.head.appendChild(script);}()); ub.register({ appId:103, pageName: "homepage",  tenantId:'1' ,  subclientTenantId:'0' , }); </script>   <script>
+            //hack of IE and safari bug : Super expression must either be null or a function, not undefined
+            if (typeof HTMLElement !== 'function') {
+                var _HTMLElement = function() {};
+                _HTMLElement.prototype = HTMLElement.prototype;
+                HTMLElement = _HTMLElement;
+            }
+        </script> <script
+            crossorigin="anonymous"
+            src="//static.naukimg.com/s/7/103/j/runtime-main.27885c1f.min.js"
+            type="text/javascript"
+            defer
+        ></script> <script
+            crossorigin="anonymous"
+            src="//static.naukimg.com/s/7/103/j/vendors~main.66b2e585.min.js"
+            type="text/javascript"
+            defer
+        ></script> <script
+            crossorigin="anonymous"
+            src="//static.naukimg.com/s/7/103/j/main.12b660ec.min.js"
+            type="text/javascript"
+            defer
+        ></script> <script
+            crossorigin="anonymous"
+            type="text/javascript"
+            src="//static.naukimg.com/s/0/0/j/nLoggerJB_v3.4.min.js"
+        ></script> <script type="text/javascript">
+            window.nLogger &&
+                nLogger.init({
+                    tag: 'revamped_newHomepage',
+                    nLogger: {
+                        beaconUrl: 'https:\/\/lg.naukri.com\/uba',
+                        eventName: 'newMonkError',
+                        deviceType: 'SERVER'
+                    },
+                    boomerang: {
+                        logBW: false,
+                        beaconUrl: 'https:\/\/lg.naukri.com\/uba',
+                        imageURL: '\/\/static.naukimg.com\/s\/0\/0\/i\/',
+                        eventName: 'newMonkPerformance',
+                        deviceType: 'SERVER'
+                    },
+                    tenantId: 1,
+                    appId: 103,
+                    userIP: '2045974146'
+                });
+        </script>  <script type="text/javascript">
+                (function(w, d, s, l, i) {
+                    w[l] = w[l] || [];
+                    w[l].push({
+                        'gtm.start': new Date().getTime(),
+                        event: 'gtm.js'
+                    });
+                    var f = d.getElementsByTagName(s)[0],
+                        j = d.createElement(s),
+                        dl = l != 'dataLayer' ? '&l=' + l : '';
+                    j.defer = 'defer';
+                    j.src = 'https://www.googletagmanager.com/gtm.js?id=' + i + dl;
+                    f.parentNode.insertBefore(j, f);
+                })(window, document, 'script', 'dataLayer', 'GTM-NX744H');
+            </script> <script
+                defer
+                src="https://www.googletagservices.com/tag/js/gpt.js"
+            ></script> <script>
+                var googletag = googletag || {};
+                googletag.cmd = googletag.cmd || [];
+            </script>  <script type="text/javascript"  src="/VI-espuoqqhgwD7oCrxJ/OmOJGLkNGVSa/XGwSAQ/PV1I/NBApQQwB"></script></body> </html>

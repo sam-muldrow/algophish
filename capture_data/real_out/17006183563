@@ -1,0 +1,3484 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="ko">
+<head>
+<title>±¹¹ÎÀÏº¸</title>
+<meta http-equiv="Content-Type" content="text/html; charset=euc-kr" />
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="description" content="±¹¹ÎÀÏº¸" />
+<meta name="keywords" content="±¹¹ÎÀÏº¸, kmib" />
+<meta name="viewport" content="width=1120px" />
+<meta property="fb:pages" content="118992638190529, 1775942896062495, 1501559116789940" />
+<link rel="shortcut icon" href="https://image.kmib.co.kr/images/www/cmn/favicon.ico" />
+<link rel="icon" href="https://image.kmib.co.kr/images/www/cmn/favicon.png" type="image/png" />
+<script src="https://image.kmib.co.kr/js/www/jquery1_11.js"></script>
+<script src="https://image.kmib.co.kr/js/www/common.js?v=220225"></script>
+<script type="text/javascript" src="https://image.kmib.co.kr/js/www/slick.min.js"></script>
+<link rel="stylesheet" href="https://image.kmib.co.kr/css/www/common.css?v=230125_1">
+<script type="text/javascript">
+
+function MM_openBrWindow(theURL,winName,features) { //v2.0
+  window.open(theURL,winName,features);
+}
+/* ¸ð¹ÙÀÏ ÆäÀÌÁö·Î ÀÌµ¿ */
+var mobileKeyWords = new Array('iPhone', 'Android');
+for (var word in mobileKeyWords)
+{
+	if (document.referrer.indexOf('m.kmib.co.kr') == -1 && navigator.userAgent.match(mobileKeyWords[word]) != null)
+	{
+		location.href = "https://m.kmib.co.kr";
+		break;
+	}
+}
+
+$(document).ready(function(){
+
+
+//¼Óº¸
+	var hotTimer;
+	var hotObj = $("div.hot_nws>div.hot_nws_lst>ul>li");
+	hotObj.bind("mouseover", function(){clearInterval(hotTimer);});
+	hotObj.bind("mouseout", function(){hotTimer = setInterval(function(){rollingHot()}, 3000);});
+	$("div.hot_nws>div.btn_area>a.up").click(function(){
+		$("div.hot_nws>div.hot_nws_lst>ul>li").eq(hotObj.length-1).prependTo($("div.hot_nws>div.hot_nws_lst>ul"));
+	});
+	$("div.hot_nws>div.btn_area>a.down").click(function(){
+		$("div.hot_nws>div.hot_nws_lst>ul>li").eq(0).appendTo($("div.hot_nws>div.hot_nws_lst>ul"));
+	});
+	if (hotObj.length>1)
+	{
+		hotTimer = setInterval(function(){rollingHot()}, 3000);
+	}
+	function rollingHot()
+	{
+		$("div.hot_nws>div.hot_nws_lst>ul>li").eq(0).slideUp( function () { $(this).appendTo($("div.hot_nws>div.hot_nws_lst>ul")).slideDown(); });
+	}
+
+
+
+//¿¬Àç½Ã¸®Áî
+	var serTimer, serCnt, serRolIdx;
+	var serObj = $("div.mn_series .s_bnr>ul>li");
+	serCnt = serObj.length;
+	serRolIdx = 0;
+	var serhtml = "";
+	for (var i=0;i<serCnt;i++)
+	{
+		serhtml = serhtml + "<a href=\"javascript:;;\"></a>"
+	}
+	$("div.mn_series p.dott_area").html(serhtml);
+	$("div.mn_series p.dott_area>a").eq(0).addClass("on");
+	$("div.mn_series .s_bnr>ul>li:gt(0)").hide();
+	$("div.mn_series p.dott_area>a").click(function(index){
+		clearInterval(serTimer);
+		serRolIdx = $(this).index();
+		$(this).addClass("on").siblings().removeClass("on");
+		$("div.mn_series .s_bnr>ul>li").eq($(this).index()).show().siblings().hide();
+		serTimer = setInterval(function(){rollingSer()}, 3000);
+	});
+	serObj.bind("mouseover", function(){clearInterval(serTimer);});
+	serObj.bind("mouseout", function(){serTimer = setInterval(function(){rollingSer()}, 3000);});
+	if (serCnt>1)
+	{
+		serTimer = setInterval(function(){rollingSer()}, 3000);
+	}
+	function rollingSer()
+	{
+		serRolIdx = serRolIdx + 1;
+		if (serRolIdx==serCnt)
+		{
+			serRolIdx = 0;
+		}
+		$("div.mn_series .s_bnr>ul>li").eq(serRolIdx).show().siblings().hide();
+		$("div.mn_series p.dott_area>a").eq(serRolIdx).addClass("on").siblings().removeClass("on");
+	}
+
+//¸¸Æò tab
+	$(".mn_cartoon .tab_mnu li").mouseover(function(){
+		$(".mn_cartoon .tab_mnu li a").removeClass("on");
+		$(this).children("a").addClass("on");
+		$(".mn_cartoon .mn_cartoon_inner div:eq("+$(this).index()+")").show().siblings().hide();
+	});
+
+// ¿µ»ó ½½¶óÀÌµå
+	$('.mn_tv_inner ul').slick({
+	  slidesToShow: 5,
+	  slidesToScroll: 1,
+	  autoplay: false
+
+	});
+
+	// ±âÈ¹±â»ç
+	$('.mn_plan').slick({
+	  dots: true,
+	  arrows: false,
+	  slidesToShow: 1,
+	  slidesToScroll: 1,
+	  autoplay: false
+	});
+
+	// ¹è³Ê01
+	$('.mn_kmbnr01 ul').slick({
+	  dots: false,
+	  arrows: true,
+	  autoplay: true
+	});
+
+	// ¹è³Ê02
+	$('.mn_kmbnr02').slick({
+	  dots: false,
+	  fade:true,
+	  infinite: true,
+	 speed: 500,
+	  arrows: false,
+	  autoplay: true
+	});
+
+	onScrollDirection();
+	onScrollAdjustEndLine('.scroll_start01',  '#topSc1',  '.scroll_start01_in');
+	onScrollAdjustEndLine('.scroll_start02',  '#topSc1',  '.scroll_start02_in');
+	onScrollAdjustEndLine('.scroll_start03',  '#topSc1',  '.scroll_start03_in');
+});
+
+var	top_last_scroll		= 0;
+var	diff_scroll			= 0;
+
+function	onScrollDirection(){
+	var	function_direction	= function(){
+	var	top_scroll	= $(document).scrollTop();
+	window.diff_scroll		= top_scroll - window.top_last_scroll;
+	window.top_last_scroll	= top_scroll;
+
+		$(window).trigger("onScrollAdjustEndLine");
+	};
+
+	$(window).scroll(function_direction);
+	$(window).resize(function_direction);
+
+	setTimeout(function(){window.diff_scroll=-1;$(window).trigger("onScrollAdjustEndLine");}, 200);
+};
+
+function	onScrollAdjustEndLine(query_start, query_end, query_in){
+	$(window).on("onScrollAdjustEndLine",function(){
+			var	obj_start	= $(query_start);
+			var	obj_end	= $(query_end);
+			var	obj_in		= $(query_in);
+
+			if ( obj_start && obj_end && obj_in ){
+				var	top_in		= obj_in.offset().top;
+				var	top_win		= $(document).scrollTop();
+				var	top_start		= obj_start.offset().top;
+				var	top_end		= obj_end.offset().top;
+				var	left_start		= obj_start.offset().left;
+				var	width_start	= obj_start.width();
+				var	height_win	= $(window).height();
+				var	height_end	= obj_end.height();
+				var	height_in		= obj_in.height();
+				var	bot_win		= top_win + height_win;
+				var	bot_end		= top_end + height_end;
+				var	bot_in		= top_in + height_in;
+				var	gap_max		= top_end + height_end - top_start - height_in;
+
+				obj_start.css({"height":height_in+"px"});
+				obj_in.css({"height":height_in+"px"});
+
+				if ( window.diff_scroll == 0 ){
+					if ( obj_in.css("position") == "fixed" ){
+						obj_in.css({"left":left_start+"px"});
+					}
+				}
+				if ( height_in >= bot_end - top_start ){
+					obj_in.css({"position":"relative","top":"0px","left":"0px","width":""});
+				}
+				else if ( height_win > top_end + height_end - top_start ){
+					obj_in.css({"position":"relative","top":"0px","left":"0px","width":""});
+				}
+				else if ( height_win > height_in ){
+					if ( top_start >= top_win ){
+						obj_in.css({"position":"relative","top":"0px","left":"0px","width":""});
+					}
+					else if ( top_start + gap_max <= top_win ){
+						obj_in.css({"position":"relative","top":gap_max+"px","left":"0px","width":""});
+					}
+					else{
+						obj_in.css({"position":"fixed","top":"0px","left":left_start+"px","width":width_start+"px"});
+					}
+				}
+				else{
+					if ( window.diff_scroll < 0 )	{
+						if ( top_start >= top_win ){
+							obj_in.css({"position":"relative","top":"0px","left":"0px","width":""});
+						}
+						else if ( top_in >= top_win ){
+							obj_in.css({"position":"fixed","top":"0px","left":left_start+"px","width":width_start+"px"});
+						}
+						else if ( obj_in.css("position") == "fixed" ){
+							obj_in.css({"position":"relative","top":(top_in-top_start-diff_scroll)+"px","left":"0px","width":""});
+						}
+					}
+					if ( window.diff_scroll > 0 )	{
+						if ( bot_end <= bot_win ){
+							obj_in.css({"position":"relative","top":gap_max+"px","left":"0px","width":""});
+						}
+						else if ( bot_in <= bot_win ){
+							obj_in.css({"position":"fixed","top":(height_win-height_in)+"px","left":left_start+"px","width":width_start+"px"});
+						}
+						else if ( obj_in.css("position") == "fixed" ){
+							obj_in.css({"position":"relative","top":(top_in-top_start-diff_scroll)+"px","left":"0px","width":""});
+						}
+					}
+				}
+			}
+		}
+	);
+};
+
+
+</script>
+<style>
+#main .mn_nws.headline01{margin-bottom: 15px;}
+#main .mn_nws.headline01 dl{display: block !important;}
+#main .mn_nws.headline01 dt.tit{width: 415px !important;text-align: center;margin-bottom: 18px;overflow: hidden;height: 90px;}
+#main .mn_nws.headline01 dt.tit a{display: block;padding:0 13px 0 8px;font-size: 35px;line-height: 44px;letter-spacing: -0.09em;}
+#main .mn_nws.headline01 p.thum{width: 413px !important;height: 288px !important;border:1px solid #aaa;display: block !important;margin-right:15px;}
+#main .mn_nws.headline01 p.thum img{width: 100% !important;height: 100% !important;border: none;}
+#main .mn_nws.headline01 dd.rel_lst{float: right;width: 325px;padding-top:0;margin-top: -5px;margin-right: 5px;}
+#main .mn_nws.headline01 dd.rel_lst a{display: block;line-height: 40px;font-size: 16px;letter-spacing: -0.09em;border-bottom: 1px solid #ddd;padding-left:5px;overflow: hidden;white-space:nowrap;text-overflow:ellipsis;font-weight: bold;color: #333;}
+#main .mn_nws.headline01 dd.rel_lst a:last-child{border: none;}
+#main .mn_nws.headline01 dd.rel_lst a:hover{text-decoration: none;}
+#main .mn_nws.headline01 dd.thum_area{width: 415px;}
+#main .mn_headline{margin-right: 0;padding-right:19px;}
+#main .mtop .mn_lft .mn_live{border-top:0;}
+#main .mtop .mn_lft .mn_opinion{border-bottom:1px solid #ccc;}
+#main .mn_plan{padding-left:15px !important;padding-right:15px !important;margin-left:20px;background: #f5e8e3;}
+#main .mn_plan h2.mn_tit strong{color: #b35400;}
+#main .mn_plan a{color: #5f4d45;}
+#main .mn_plan div{width: 269px;}
+#main .mn_plan .m_nws_p02 strong.tit{color: #404040;}
+#main .mn_plan .slick-dots li.slick-active button{background: #735244;border:1px solid #735244;}
+/*±¹Á¦Ãß°¡ 190930*/
+#main .mn_lft_lst_type02 h3.mn_tit a{color: #0b13c7 !important;font-size: 19px !important;letter-spacing: -0.0777em !important;}
+/*ÃÑ¼±*/
+#main .mn_choice21{background: #ecebea;border-top:1px solid #ccc;border-bottom:1px solid #ccc;text-align: center;padding:15px 20px 15px 19px;}
+#main .mn_choice21 h2{text-align:left;}
+#main .mn_choice21 .m_nws_p04 span.thum {border-color: #a0a0a0;width: 260px;height: 160px;}
+#main .mn_choice21 .m_nws_p04 span.thum img{height: 100%;}
+#main .mn_choice21 .m_nws_p04 strong.tit{text-align: center;font-size: 18px;line-height: 24px;letter-spacing: -0.07em;height: 52px;color: #292929;}
+.mn_nws_box > div.mn_nws:nth-child(n+3) p.thum{display: none !important;}
+.mn_nws_box > div.mn_nws:nth-child(n+3) a.txt{display:none !important;}
+.mn_nws_box > div.mn_nws:nth-child(n+3) dt.tit a {display: block;width: 470px;overflow: hidden;white-space: nowrap;text-overflow: ellipsis;}
+#main .mtop .mtop_lft_l{border-right:none !important;}
+.scroll_start01{border-right:1px solid #ccc;}
+/*.scroll_start02{border-left:1px solid #ccc;margin-left:-1px;}*/
+.scroll_start02_in{border-left:1px solid #ccc;margin-left:-1px;}
+.scroll_start03_in{border-left:1px solid #ccc;margin-left:-1px;}
+/*201231*/
+#main .mbtm .mn_info_lft .etc_mnu li{padding:0 10px;}
+#main .mbtm .mn_info_lft .etc_mnu li:first-child {width: 120px;}
+#main .mbtm .mn_info_lft .etc_mnu ul *:first-child+*+*, #main .mbtm .mn_info_lft .etc_mnu ul li:nth-child(3){width: 80px;}
+/*230313*/
+#main .mn_eco{background: #eef4f8;padding:20px;margin-bottom: 15px;}
+#main .mn_eco .m_nws_p01{width: 300px;height: 165px;margin-bottom: 8px;}
+#main .mn_eco .m_nws_p01 strong.tit{text-align: center;line-height: 24px;color: #fff;font-size: 19px;letter-spacing: -0.07666em;}
+#main .mn_eco .mn_lst_type01 li{background:url('https://image.kmib.co.kr/images/www/main/dott7x7_2.png') 2px 50% no-repeat;}
+ </style>
+ </head>
+ <body>
+
+	<div id="wrap">
+
+	<!-- header -->
+	<script src="https://image.kmib.co.kr/js/www/header.js?v=230321_1"></script>
+	<!-- //header -->
+	<!-- container -->
+	<div id="container">
+		<div id="content">
+			<!-- main -->
+			<div id="main">
+				<!-- mtop -->
+				<div class="mtop">
+					<div class="mn_inner" id="topSc1">
+						<div class="mn_lft">
+							<!-- headline -->
+							<div class="mn_headline">
+								<div class="mn_nws headline01">
+
+									<div class="con">
+									<dl>
+											<dd class="rel_lst">
+												
+
+
+<!-- ¿ìÃø ±â»ç¸®½ºÆ® 10°³ -->
+<a href="https://news.kmib.co.kr/article/view.asp?arcid=0018896526&code=61111111&sid1=pol" title="ëÅ, ±¹ºó¹æ¹® ¿µ±¹¼­ ¡®9&#8231;19 ±º»çÇÕÀÇ ÀÏºÎ È¿·ÂÁ¤Áö¡¯ ÃÖÁ¾ Àç°¡">ëÅ, ¿µ±¹¼­ ¡®9&#8231;19ÇÕÀÇ ÀÏºÎ È¿·ÂÁ¤Áö¡¯ Àç°¡</a>
+
+
+<!-- ¿ìÃø ±â»ç¸®½ºÆ® 10°³ -->
+<a href="https://news.kmib.co.kr/article/view.asp?arcid=0018895656&code=61111611&sid1=pol" title="ºÏÇÑ, 3Â÷ ½Ãµµ ¸¸¿¡ ¡°Á¤ÂûÀ§¼º ¹ß»ç ¼º°ø¡± ¼±¾ð">ºÏÇÑ ¡°±º»çÁ¤ÂûÀ§¼º ¹ß»ç ¼º°ø¡± ¼±¾ð</a>
+
+<!-- ¿ìÃø ±â»ç¸®½ºÆ® 10°³ -->
+<a href="https://news.kmib.co.kr/article/view.asp?arcid=0018895900&code=61131111&sid1=int" title="Ú¸, ÝÁ Á¤ÂûÀ§¼º ¹ß»ç °­·Â ±ÔÅº¡¦Àü¹®°¡ ¡°1¡¤2Â÷ ¶§º¸´Ù ÁøÀÏº¸¡±">Ú¸, ÝÁ °­·Â ±ÔÅº¡¦Àü¹®°¡ ¡°ÁøÀÏº¸¡±</a>
+
+
+<!-- ¿ìÃø ±â»ç¸®½ºÆ® 10°³ -->
+<a href="https://news.kmib.co.kr/article/view.asp?arcid=0018896189&code=61131111&sid1=int" title="¹ÙÀÌ³½½º, ´ëºÏÁ¦Àç À§¹Ý µî ÇøÀÇ ÀÎÁ¤¡¦Ú¸¼­ ÅðÃâ">¹ÙÀÌ³½½º, ´ëºÏÁ¦Àç À§¹ÝÇØ Ú¸¼­ ÅðÃâ</a>
+
+
+<!-- ¿ìÃø ±â»ç¸®½ºÆ® 10°³ -->
+<a href="https://news.kmib.co.kr/article/view.asp?arcid=0018895216&code=61161111&sid1=spo" title="Å¬¸°½º¸¸È£ Áß±¹ ¿øÁ¤¼­ 3´ë0 ¿Ï½Â¡¦¼ÕÈï¹Î 2°ñ 1µµ¿ò">Áß±¹¿¡ 3´ë0 ¿Ï½Â¡¦¼ÕÈï¹Î 2°ñ 1µµ¿ò</a>
+
+
+
+<!-- ¿ìÃø ±â»ç¸®½ºÆ® 10°³ -->
+<a href="https://news.kmib.co.kr/article/view.asp?arcid=0924331266&code=11141300&sid1=int" title="°¡ÀÚÁö±¸ º´¿ø¼­ ±¸Á¶µÈ ¹Ì¼÷¾Æµé Ä¡·á µ¹ÀÔ">°¡ÀÚÁö±¸¼­ ±¸Á¶µÈ ¹Ì¼÷¾Æµé Ä¡·á µ¹ÀÔ</a>
+
+<!-- ¿ìÃø ±â»ç¸®½ºÆ® 10°³ -->
+<a href="https://news.kmib.co.kr/article/view.asp?arcid=0924331361&code=11131800&sid1=soc" title="¼­¿ïÁöÇÏÃ¶ ÆÄ¾÷ ÇÏ·ç Àü ³ë»ç Çù»ó Å¸°á">¼­¿ïÁöÇÏÃ¶ ÆÄ¾÷ ÇÏ·ç Àü ³ë»ç Çù»ó Å¸°á</a>
+
+<!-- ¿ìÃø ±â»ç¸®½ºÆ® 10°³ -->
+<a href="https://news.kmib.co.kr/article/view.asp?arcid=0924331316&code=11131100&sid1=soc" title="ºÏÇÑ ÇØÅ·Á¶Á÷ ¡®±è¼öÅ°¡¯ ÀÏ¹ÝÀÎ ÄÚÀÎµµ ³ë·È´Ù">ÝÁÇØÅ·Á¶Á÷ ¡®±è¼öÅ°¡¯ ÀÏ¹ÝÀÎ ÄÚÀÎ ³ë·È´Ù</a>
+
+<!-- ¿ìÃø ±â»ç¸®½ºÆ® 10°³ -->
+<a href="https://news.kmib.co.kr/article/view.asp?arcid=0924331348&code=11131900&sid1=soc" title="¡®¿©½Åµµ ¼ºÆøÇà¡¯ JMS Á¤¸í¼® Â¡¿ª 30³â ±¸Çü">¡®¿©½Åµµ ¼ºÆøÇà¡¯ JMS Á¤¸í¼® 30³âÇü ±¸Çü</a>
+
+
+<!-- ¿ìÃø ±â»ç¸®½ºÆ® 10°³ -->
+<a href="https://news.kmib.co.kr/article/view.asp?arcid=0924331275&code=11151500&sid1=eco" title="Å« ¿À¸£³»¸² ¾øÀÌ °Ô°ÉÀ½¡¦ ³»³â Áý°ª ¡®ºÒÈ²Çü ¾ÈÁ¤¼¼¡¯">°Ô°ÉÀ½¡¦ ³»³â Áý°ª ¡®ºÒÈ²Çü ¾ÈÁ¤¼¼¡¯</a>
+
+
+											</dd>
+
+											<!-- Çìµå¶óÀÎ´º½º -->	
+<dt class="tit">
+<a href="https://news.kmib.co.kr/article/view.asp?arcid=0018896149&code=61111511&sid1=pol" title="¡®9¡¤19 ³²ºÏ±º»çÇÕÀÇ¡¯ È¿·Â ÀÏºÎ Á¤Áö¡¦¡°ÝÁÁØ¼öÀÇÁö ¾ø¾î¡±">¡®9¡¤19 ³²ºÏ±º»çÇÕÀÇ¡¯ È¿·Â ÀÏºÎ Á¤Áö¡¦¡°ÝÁÁØ¼öÀÇÁö ¾ø¾î¡±</a>
+</dt>
+<dd class="thum_area">
+<p class="thum">
+<!-- ÀÌ¹ÌÁö»çÀÌÁî 413x288 -->
+<a href="https://news.kmib.co.kr/article/view.asp?arcid=0018896149&code=61111511&sid1=pol"><img src="https://image.kmib.co.kr/online_image/2023/1122/2023112208222144354_1700608943_0018896149.jpg" /></a>
+</p>
+</dd>
+
+
+
+
+										</dl>
+									</div>
+								</div>
+
+							</div>
+							<!-- //headline -->
+							<!-- »ó´Ü ÁÂÃø -->
+							<div class="mtop_lft_l">
+			                    <div class='scroll_start01'>
+			                        <div class='scroll_start01_in'>
+										<!-- //ad_460_70 -->
+										<!--adiv class="mn_ad ad_460_70 " style="margin-top:15px;overflow: hidden;">
+										< href="https://media.naver.com/channel/promotion.nhn?oid=005" target="_blank"><img src="http://www.kmib.co.kr/images/main/bnr_nvchannel_460_70.jpg" alt="³×ÀÌ¹öÃ¤³Î±¸µ¶ÇÏ±â" /></a>
+										<a href="http://news.kmib.co.kr/article/list.asp?sid1=prj&sid2=0085"><img src="http://www.kmib.co.kr/images/main/bnr_kous2019_460_70.jpg" alt="ÇÑ¹ÌÁ¤»óÈ¸´ã" /></a>
+										<a href="http://news.kmib.co.kr/article/list.asp?sid1=prj&sid2=0085"><img src="http://www.kmib.co.kr/images/main/bnr_2019g20_460_70.jpg" alt="g20Á¤»óÈ¸´ã" /></a>
+
+										</div-->
+										<!-- //ad_460_70 -->
+
+
+										<!-- »ó´Ü ÁÂÃø Å¾±â»ç -->
+										<div class="mn_nws headline02">
+											<!-- ÁÖ¿ä±â»ç -->
+<p class="thum">
+<!-- ÀÌ¹ÌÁö»çÀÌÁî 202*124 -->
+<a href="https://news.kmib.co.kr/article/view.asp?arcid=0018896172&code=61111611&sid1=pol"><img src="https://image.kmib.co.kr/clipImage/2023/1122/20231122084119.jpg" /></a>
+</p>
+<div class="con">
+<dl>
+<dt class="tit">
+<a href="https://news.kmib.co.kr/article/view.asp?arcid=0018896172&code=61111611&sid1=pol" title="¡®»õÄ¡ Èñ²ý¡¯ ±èÁ¤Àº, Á¤ÂûÀ§¼º ¹ß»ç ¡®¼º°ø¡¯ ¸¸³£ [Æ÷Âø]">
+¡®»õÄ¡ Èñ²ý¡¯ ±èÁ¤Àº, Á¤ÂûÀ§¼º ¹ß»ç ¡®¼º°ø¡¯ ¸¸³£ [Æ÷Âø]
+</a>
+</dt>
+<dd>
+<a href="https://news.kmib.co.kr/article/view.asp?arcid=0018896172&code=61111611&sid1=pol" class="txt">
+
+ºÏÇÑÀÌ ¼º°øÇß´Ù°í ¹àÈù ±º»çÁ¤ÂûÀ§¼º ¡®¸¸¸®°æ-1È£¡¯ÀÇ ¹ß»ç Àå¸éÀ» 22ÀÏ °ø°³Çß´Ù. Æ¯È÷ ±èÁ¤Àº ±¹¹«À§¿ø
+</a>
+</dd>
+</dl>
+</div>
+
+										</div>
+										<!-- //»ó´Ü ÁÂÃø Å¾±â»ç -->
+										<div class="mn_nws_box">
+										<!-- ±â»ç -->
+<div class="mn_nws">
+<p class="thum">
+<!-- ÀÌ¹ÌÁö»çÀÌÁî 112*72 -->
+<a href="https://news.kmib.co.kr/article/view.asp?arcid=0018896786&code=61121111&sid1=soc"><img src="https://image.kmib.co.kr/online_image/2023/1122/2023112210460844504_1700617568_0018896786.jpg" /></a>
+</p>
+<div class="con">
+<dl>
+<dt class="tit">
+<a href="https://news.kmib.co.kr/article/view.asp?arcid=0018896786&code=61121111&sid1=soc" title="å¯, ¡®±âº»±³Åëºñ¹ý¡¯ ¹ßÀÇ¡¦ 1ÀÎ´ç 14¸¸¿ø ¹«»óÁö±Þ ÃßÁø">å¯, ¡®±âº»±³Åëºñ¹ý¡¯ ¹ßÀÇ¡¦ 1ÀÎ´ç 14¸¸¿ø ¹«»óÁö±Þ ÃßÁø</a>
+</dt>
+<dd>
+<a href="https://news.kmib.co.kr/article/view.asp?arcid=0018896786&code=61121111&sid1=soc" class="txt">
+
+¾ß´çÀÌ Àü±¹¹Î¿¡ ´ëÁß±³Åë ÀÌ¿ëºñ¿ëÀ» Áö±ÞÇÏ´Â ¡®±âº»±³Åëºñ¹ý¡¯À» ÃßÁøÇÑ´Ù. ÁöÇÏÃ¶ ±âº»¿ä±Ý ±âÁØ 1ÀÎ´ç ÃÖ
+</a>
+<!-- °ü·Ã±â»çs: 64¹ø ÆûÆÄÀÏ »ý¼º ÈÄ ºÙ¿©³Ö±â ¡é  -->
+
+
+</dd>
+</dl>
+</div>
+</div>
+
+
+<!-- ±â»ç -->
+<div class="mn_nws">
+<p class="thum">
+<!-- ÀÌ¹ÌÁö»çÀÌÁî 112*72 -->
+<a href="https://news.kmib.co.kr/article/view.asp?arcid=0018896409&code=61121111&sid1=soc"><img src="https://image.kmib.co.kr/online_image/2023/1122/2022060904355833034_1654716958_0018896409.jpg" /></a>
+</p>
+<div class="con">
+<dl>
+<dt class="tit">
+<a href="https://news.kmib.co.kr/article/view.asp?arcid=0018896409&code=61121111&sid1=soc" title="[¼Óº¸]Ëþ, ¡®µð½ºÄ¿¹ö¸® ÆÝµå »ç±â ÀÇÈ¤¡¯ ÀåÇÏ¿ø ±¸¼Ó¿µÀå ÀçÃ»±¸"><font color="#F80202">[¼Óº¸]</font>Ëþ, ¡®µð½ºÄ¿¹ö¸® ÆÝµå »ç±â ÀÇÈ¤¡¯ ÀåÇÏ¿ø ±¸¼Ó¿µÀå ÀçÃ»±¸</a>
+</dt>
+<dd>
+<a href="https://news.kmib.co.kr/article/view.asp?arcid=0018896409&code=61121111&sid1=soc" class="txt">
+
+
+°ËÂûÀÌ ÆÝµå ÀÚ±ÝÀ» ºÒ¹ý ¿î¿ëÇÑ ÇøÀÇ µîÀ» ¹Þ´Â ÀåÇÏ¿ø(64) µð½ºÄ¿¹ö¸®ÀÚ»ê¿î¿ë ´ëÇ¥¿¡ ´ëÇØ ÀçÂ÷ ½Å
+</a>
+<!-- °ü·Ã±â»çs: 64¹ø ÆûÆÄÀÏ »ý¼º ÈÄ ºÙ¿©³Ö±â ¡é  -->
+
+
+</dd>
+</dl>
+</div>
+</div>
+
+
+
+
+<!-- ±â»ç -->
+<div class="mn_nws">
+<p class="thum">
+<!-- ÀÌ¹ÌÁö»çÀÌÁî 112*72 -->
+<a href="https://news.kmib.co.kr/article/view.asp?arcid=0018895867&code=61111211&sid1=pol"><img src="https://image.kmib.co.kr/online_image/2023/1122/2023112206024944323_1700600569_0018895867.jpg" /></a>
+</p>
+<div class="con">
+<dl>
+<dt class="tit">
+<a href="https://news.kmib.co.kr/article/view.asp?arcid=0018895867&code=61111211&sid1=pol" title="ëÅ ¡°¿µ±¹¿£ ºñÆ²Áî¡¤º£ÄÄ, ÇÑ±¹¿£ BTS¡¤¼ÕÈï¹Î¡± çÈÀÇÈ¸ ¿¬¼³">ëÅ ¡°¿µ±¹¿£ ºñÆ²Áî¡¤º£ÄÄ, ÇÑ±¹¿£ BTS¡¤¼ÕÈï¹Î¡± çÈÀÇÈ¸ ¿¬¼³</a>
+</dt>
+<dd>
+<a href="https://news.kmib.co.kr/article/view.asp?arcid=0018895867&code=61111211&sid1=pol" class="txt">
+
+¡°¿µ±¹ÀÌ ºñÆ²½º¡¤Äý¡¤ÇØ¸®Æ÷ÅÍ ±×¸®°í µ¥ÀÌºñµå º£ÄÄÀÇ ¿À¸¥¹ßÀ» °®°í ÀÖ´Ù¸é, ÇÑ±¹¿£ BTS¡¤ºí·¢ÇÎÅ©¡¤¿ÀÂ¡¾î
+</a>
+<!-- °ü·Ã±â»çs: 64¹ø ÆûÆÄÀÏ »ý¼º ÈÄ ºÙ¿©³Ö±â ¡é  -->
+
+
+</dd>
+</dl>
+</div>
+</div>
+
+
+<!-- ±â»ç -->
+<div class="mn_nws">
+<p class="thum">
+<!-- ÀÌ¹ÌÁö»çÀÌÁî 112*72 -->
+<a href="https://news.kmib.co.kr/article/view.asp?arcid=0018895617&code=61111111&sid1=pol"><img src="https://image.kmib.co.kr/online_image/2023/1122/2023112203574144293_1700593061_0018895617.jpg" /></a>
+</p>
+<div class="con">
+<dl>
+<dt class="tit">
+<a href="https://news.kmib.co.kr/article/view.asp?arcid=0018895617&code=61111111&sid1=pol" title="ëÅ ¡°¼º´ëÇÑ ±¹ºóÀÏÁ¤ °¨»ç¡±¡¦ Âû½º 3¼¼ ¡°ÀÌ¹ø ¹æ¹®, ùÛ&#8231;çÈ »õ ÀÌÁ¤Ç¥ µÇ±æ¡±">ëÅ ¡°¼º´ëÇÑ ±¹ºóÀÏÁ¤ °¨»ç¡±¡¦ Âû½º 3¼¼ ¡°ÀÌ¹ø ¹æ¹®, ùÛ&#8231;çÈ »õ ÀÌÁ¤</a>
+</dt>
+<dd>
+<a href="https://news.kmib.co.kr/article/view.asp?arcid=0018895617&code=61111111&sid1=pol" class="txt">
+
+À±¼®¿­ ´ëÅë·ÉÀº 21ÀÏ(ÇöÁö½Ã°£) ¿µ±¹ ±¹ºó¹æ¹® °ø½ÄÈ¯¿µ½Ä¿¡¼­ Âû½º 3¼¼ ±¹¿ÕÀ» ¸¸³ª °¨»çÀÇ ÀÎ»ç¸¦ °Ç³Þ
+</a>
+<!-- °ü·Ã±â»çs: 64¹ø ÆûÆÄÀÏ »ý¼º ÈÄ ºÙ¿©³Ö±â ¡é  -->
+
+
+</dd>
+</dl>
+</div>
+</div>
+
+
+<!-- ±â»ç -->
+<div class="mn_nws">
+<p class="thum">
+<!-- ÀÌ¹ÌÁö»çÀÌÁî 112*72 -->
+<a href="https://news.kmib.co.kr/article/view.asp?arcid=0924331291&code=11131100&sid1=soc"><img src="https://image.kmib.co.kr/online_image/2023/1122/2023112121070644073_1700568426_0924331291.jpg" /></a>
+</p>
+<div class="con">
+<dl>
+<dt class="tit">
+<a href="https://news.kmib.co.kr/article/view.asp?arcid=0924331291&code=11131100&sid1=soc" title="ÇÑ ¡°5000¸¸ÀÇ ¾ð¾î ¾µ °Í¡±¡¦ ÀÕ´Ü Á¤Ä¡Àû È­¹ý, »ç½Ç»ó Ãâ»çÇ¥">ÇÑ ¡°5000¸¸ÀÇ ¾ð¾î ¾µ °Í¡±¡¦ ÀÕ´Ü Á¤Ä¡Àû È­¹ý, »ç½Ç»ó Ãâ»çÇ¥</a>
+</dt>
+<dd>
+<a href="https://news.kmib.co.kr/article/view.asp?arcid=0924331291&code=11131100&sid1=soc" class="txt">
+
+ÇÑµ¿ÈÆ ¹ý¹«ºÎ Àå°üÀÌ 21ÀÏ ´ëÀüÀ» Ã£¾Æ ¡°¿©ÀÇµµ¿¡¼­ 300¸í¸¸ ¾²´Â °íÀ¯ÀÇ ¹®¹ýÀÌ ÀÖ´Ù¸é ±×°Ç ¡®¿©ÀÇµµ
+</a>
+<!-- °ü·Ã±â»çs: 64¹ø ÆûÆÄÀÏ »ý¼º ÈÄ ºÙ¿©³Ö±â ¡é  -->
+
+
+</dd>
+</dl>
+</div>
+</div>
+
+
+<!-- ±â»ç -->
+<div class="mn_nws">
+<p class="thum">
+<!-- ÀÌ¹ÌÁö»çÀÌÁî 112*72 -->
+<a href="https://news.kmib.co.kr/article/view.asp?arcid=0924331282&code=11121100&sid1=pol"><img src="https://image.kmib.co.kr/online_image/2023/1122/2023112121050344062_1700568303_0924331282.jpg" /></a>
+</p>
+<div class="con">
+<dl>
+<dt class="tit">
+<a href="https://news.kmib.co.kr/article/view.asp?arcid=0924331282&code=11121100&sid1=pol" title="ÇÑ±¹¿¡ °¢º°ÇÑ çÈ¡¦ ¡°¹ÝµµÃ¼¡¤¹èÅÍ¸®¡¤¹æ»ê µî Çù·Â ¿øÇØ¡±">ÇÑ±¹¿¡ °¢º°ÇÑ çÈ¡¦ ¡°¹ÝµµÃ¼¡¤¹èÅÍ¸®¡¤¹æ»ê µî Çù·Â ¿øÇØ¡±</a>
+</dt>
+<dd>
+<a href="https://news.kmib.co.kr/article/view.asp?arcid=0924331282&code=11121100&sid1=pol" class="txt">
+
+ÇÑ±¹°ú ¿µ±¹Àº À±¼®¿­ ´ëÅë·ÉÀÇ ±¹ºó¹æ¹®À» °è±â·Î ¾Èº¸¡¤±¹¹æÀº ¹°·Ð °úÇÐ±â¼ú¡¤°ø±Þ¸Á µî °æÁ¦ ºÐ¾ß±îÁö Æ÷°ý
+</a>
+<!-- °ü·Ã±â»çs: 64¹ø ÆûÆÄÀÏ »ý¼º ÈÄ ºÙ¿©³Ö±â ¡é  -->
+
+
+</dd>
+</dl>
+</div>
+</div>
+
+
+<!-- ±â»ç -->
+<div class="mn_nws">
+<p class="thum">
+<!-- ÀÌ¹ÌÁö»çÀÌÁî 112*72 -->
+<a href="https://news.kmib.co.kr/article/view.asp?arcid=0018895202&code=61111111&sid1=pol"><img src="https://image.kmib.co.kr/online_image/2023/1122/2023111415124835591_1699942368_0018895202.jpg" /></a>
+</p>
+<div class="con">
+<dl>
+<dt class="tit">
+<a href="https://news.kmib.co.kr/article/view.asp?arcid=0018895202&code=61111111&sid1=pol" title="ÇØ¿Ü¼± ³»¿ª ºñ°ø°³½Ã ÅºÇÙµµ¡¦ ¡°±¹È¸, Æ¯È°ºñ °¨½Ã °­È­ÇØ¾ß¡±">ÇØ¿Ü¼± ³»¿ª ºñ°ø°³½Ã ÅºÇÙµµ¡¦ ¡°±¹È¸, Æ¯È°ºñ °¨½Ã °­È­ÇØ¾ß¡±</a>
+</dt>
+<dd>
+<a href="https://news.kmib.co.kr/article/view.asp?arcid=0018895202&code=61111111&sid1=pol" class="txt">
+
+³í¶õÀ» °ÅµìÇÏ´Â ¡®Æ¯¼öÈ°µ¿ºñ¡¯ ¹®Á¦´Â ÇÑ±¹¸¸ÀÇ ¹®Á¦ÀÏ±î. ¾î¶² Á¤ºÎ¿¡¼­³ª ±â¹Ð À¯Áö°¡ ¿ä±¸µÇ´Â Á¤º¸³ª °ø
+</a>
+<!-- °ü·Ã±â»çs: 64¹ø ÆûÆÄÀÏ »ý¼º ÈÄ ºÙ¿©³Ö±â ¡é  -->
+
+
+</dd>
+</dl>
+</div>
+</div>
+
+
+										</div>
+										<div class="mn_nws_box">
+										<!-- ±â»ç -->
+<div class="mn_nws">
+<p class="thum">
+<!-- ÀÌ¹ÌÁö»çÀÌÁî 112*72 -->
+<a href="https://news.kmib.co.kr/article/view.asp?arcid=0018896752&code=61111111&sid1=pol"><img src="https://image.kmib.co.kr/online_image/2023/1122/2023112209411544414_1700613677_0018896752.jpg" /></a>
+</p>
+<div class="con">
+<dl>
+<dt class="tit">
+<a href="https://news.kmib.co.kr/article/view.asp?arcid=0018896752&code=61111111&sid1=pol" title="¼Û¿µ±æ ¡°¼ÒÅë Áß¡±ÀÌ¶ó´Âµ¥¡¦ Á¶±¹ ¡°áä°ú ½Å´ç ÀÇ³íÇÑ Àû ¾ø´Ù¡±">¼Û¿µ±æ ¡°¼ÒÅë Áß¡±ÀÌ¶ó´Âµ¥¡¦ Á¶±¹ ¡°áä°ú ½Å´ç ÀÇ³íÇÑ Àû ¾ø´Ù¡±</a>
+</dt>
+<dd>
+<a href="https://news.kmib.co.kr/article/view.asp?arcid=0018896752&code=61111111&sid1=pol" class="txt" >
+
+Á¶±¹ Àü ¹ý¹«ºÎ Àå°üÀÌ ¼Û¿µ±æ Àü ´õºÒ¾î¹ÎÁÖ´ç ´ëÇ¥¿Í Ã¢´çÀ» ³íÀÇÇß´Ù´Â ÀÏ°¢ÀÇ ÁÖÀå¿¡ ´ëÇØ °ø°³ÀûÀ¸·Î ºÎ
+</a>
+<!-- °ü·Ã±â»çs: 64¹ø ÆûÆÄÀÏ »ý¼º ÈÄ ºÙ¿©³Ö±â ¡é  -->
+
+
+</dd>
+</dl>
+</div>
+</div>
+
+
+
+
+
+<!-- ±â»ç -->
+<div class="mn_nws">
+<p class="thum">
+<!-- ÀÌ¹ÌÁö»çÀÌÁî 112*72 -->
+<a href="https://news.kmib.co.kr/article/view.asp?arcid=0018895675&code=61121111&sid1=soc"><img src="https://image.kmib.co.kr/online_image/2023/1122/2023112204354044303_1700599634_0018895675.jpg" /></a>
+</p>
+<div class="con">
+<dl>
+<dt class="tit">
+<a href="https://news.kmib.co.kr/article/view.asp?arcid=0018895675&code=61121111&sid1=soc" title="¡°³²ÀÇ ±ÍÇÑ µþÇÑÅ×¡±¡¦±³»ç¿¡ ´ëµå´Â ¿©°í»ý ¿µ»ó ÆÄ¹®">¡°³²ÀÇ ±ÍÇÑ µþÇÑÅ×¡±¡¦±³»ç¿¡ ´ëµå´Â ¿©°í»ý ¿µ»ó ÆÄ¹®</a>
+</dt>
+<dd>
+<a href="https://news.kmib.co.kr/article/view.asp?arcid=0018895675&code=61121111&sid1=soc" class="txt" >
+
+±¹³» ÇÑ °íµîÇÐ±³¿¡¼­ ¿©ÇÐ»ýÀÌ Áß³â ³²±³»ç¿¡°Ô ´ëµé¸ç µûÁö´Â ¸ð½ÀÀÌ °ø°³µÅ ³í¶õÀÌ ÀÏ°í ÀÖ´Ù.
+
+21
+</a>
+<!-- °ü·Ã±â»çs: 64¹ø ÆûÆÄÀÏ »ý¼º ÈÄ ºÙ¿©³Ö±â ¡é  -->
+
+
+</dd>
+</dl>
+</div>
+</div>
+
+
+
+<!-- ±â»ç -->
+<div class="mn_nws">
+<p class="thum">
+<!-- ÀÌ¹ÌÁö»çÀÌÁî 112*72 -->
+<a href="https://news.kmib.co.kr/article/view.asp?arcid=0018896136&code=61111111&sid1=pol"><img src="https://image.kmib.co.kr/online_image/2023/1122/2023112208190844347_1700608748_0018896136.jpg" /></a>
+</p>
+<div class="con">
+<dl>
+<dt class="tit">
+<a href="https://news.kmib.co.kr/article/view.asp?arcid=0018896136&code=61111111&sid1=pol" title="ÁøÁß±Ç ¡°ÇÑµ¿ÈÆ °¡¸é ¡®ÆÒ´ý¡¯¡¦ÀÌ¹Ì ¼±°Å ÁÖµµÇÏ°í ÀÖ´Ù¡±">ÁøÁß±Ç ¡°ÇÑµ¿ÈÆ °¡¸é ¡®ÆÒ´ý¡¯¡¦ÀÌ¹Ì ¼±°Å ÁÖµµÇÏ°í ÀÖ´Ù¡±</a>
+</dt>
+<dd>
+<a href="https://news.kmib.co.kr/article/view.asp?arcid=0018896136&code=61111111&sid1=pol" class="txt" >
+
+ÁøÁß±Ç ±¤¿î´ë Æ¯ÀÓ±³¼ö°¡ ÇÑµ¿ÈÆ ¹ý¹«ºÎ Àå°üÀÇ Áö¹æ Çàº¸¸¦ µÎ°í ¡°(³»³â ÃÑ¼±¿¡) Ãâ¸¶ÇÒ °Í °°´Ù. (ÀÌ
+</a>
+<!-- °ü·Ã±â»çs: 64¹ø ÆûÆÄÀÏ »ý¼º ÈÄ ºÙ¿©³Ö±â ¡é  -->
+
+
+</dd>
+</dl>
+</div>
+</div>
+
+
+<!-- ±â»ç -->
+<div class="mn_nws">
+<p class="thum">
+<!-- ÀÌ¹ÌÁö»çÀÌÁî 112*72 -->
+<a href="https://news.kmib.co.kr/article/view.asp?arcid=0924331289&code=11131300&sid1=soc"><img src="https://image.kmib.co.kr/online_image/2023/1122/2023112121500644133_1700571006_0924331289.jpg" /></a>
+</p>
+<div class="con">
+<dl>
+<dt class="tit">
+<a href="https://news.kmib.co.kr/article/view.asp?arcid=0924331289&code=11131300&sid1=soc" title="¡®n¼ö»ý¡¯ ºÎ¸£´Â ÀÇ´ë Á¤¿ø È®´ë¡¦ ¡®ºÒ¼ö´É¡¯ ºÒ°¡ÇÇ Àü¸Á">¡®n¼ö»ý¡¯ ºÎ¸£´Â ÀÇ´ë Á¤¿ø È®´ë¡¦ ¡®ºÒ¼ö´É¡¯ ºÒ°¡ÇÇ Àü¸Á</a>
+</dt>
+<dd>
+<a href="https://news.kmib.co.kr/article/view.asp?arcid=0924331289&code=11131300&sid1=soc" class="txt" >
+
+Àü±¹ ÀÇ´ëµéÀÌ ÃÖ´ë 4000¸í¿¡ °¡±î¿î Á¤¿ø È®´ë¸¦ ¿ä±¸ÇÑ ¡®ÀÇ´ë Á¤¿ø È®´ë ¼ö¿äÁ¶»ç¡¯ °á°ú°¡ °ø°³µÇÀÚ 
+</a>
+<!-- °ü·Ã±â»çs: 64¹ø ÆûÆÄÀÏ »ý¼º ÈÄ ºÙ¿©³Ö±â ¡é  -->
+
+
+</dd>
+</dl>
+</div>
+</div>
+
+
+
+
+
+<!-- ±â»ç -->
+<div class="mn_nws">
+<p class="thum">
+<!-- ÀÌ¹ÌÁö»çÀÌÁî 112*72 -->
+<a href="https://news.kmib.co.kr/article/view.asp?arcid=0018894551&code=61141111&sid1=eco"><img src="https://image.kmib.co.kr/clipImage/2023/1121/20231121174417.JPG" /></a>
+</p>
+<div class="con">
+<dl>
+<dt class="tit">
+<a href="https://news.kmib.co.kr/article/view.asp?arcid=0018894551&code=61141111&sid1=eco" title="[´Üµ¶] ¡°ÇÑ±¹ ºÎµ¿»ê ¹Ì·¡ ¹àÁö ¾Ê´Ù¡±¡¦ OECD »ç¹«Â÷Àå °æ°í"><font color="#1B0BDF">[´Üµ¶]</font> ¡°ÇÑ±¹ ºÎµ¿»ê ¹Ì·¡ ¹àÁö ¾Ê´Ù¡±¡¦ OECD »ç¹«Â÷Àå °æ°í</a>
+</dt>
+<dd>
+<a href="https://news.kmib.co.kr/article/view.asp?arcid=0018894551&code=61141111&sid1=eco" class="txt" >
+
+¿ä½ÃÅ° ´ÙÄÉ¿ìÄ¡ °æÁ¦Çù·Â°³¹ß±â±¸(OECD) »ç¹«Â÷ÀåÀÌ ÇÑ±¹ ºÎµ¿»ê ½ÃÀå¿¡ ´ëÇØ ¡°Àå±âÀûÀ¸·Î ºÃÀ» ¶§ ¹àÁö
+</a>
+<!-- °ü·Ã±â»çs: 64¹ø ÆûÆÄÀÏ »ý¼º ÈÄ ºÙ¿©³Ö±â ¡é  -->
+
+
+</dd>
+</dl>
+</div>
+</div>
+
+
+<!-- ±â»ç -->
+<div class="mn_nws">
+<p class="thum">
+<!-- ÀÌ¹ÌÁö»çÀÌÁî 112*72 -->
+<a href="https://news.kmib.co.kr/article/view.asp?arcid=0018894448&code=61121211&sid1=soc"><img src="https://image.kmib.co.kr/online_image/2023/1121/2023112117001343526_1700553613_0018894448.jpg" /></a>
+</p>
+<div class="con">
+<dl>
+<dt class="tit">
+<a href="https://news.kmib.co.kr/article/view.asp?arcid=0018894448&code=61121211&sid1=soc" title="¡°ÈÞ´ëÆù ¹®ÀÚ È®ÀÎÇÏ´Ù°¡¡¦¡± 4¸í »ç¸Á ¼ö¸®Æ¼ÅÍ³Î »ç°í ¿øÀÎÀº">¡°¹®ÀÚ È®ÀÎÇÏ´Ù°¡¡¦¡± 4¸í »ç¸Á ¼ö¸®Æ¼ÅÍ³Î »ç°í ¿øÀÎÀº</a>
+</dt>
+<dd>
+<a href="https://news.kmib.co.kr/article/view.asp?arcid=0018894448&code=61121211&sid1=soc" class="txt" >
+
+Áö³­´Þ ÃæºÏ º¸Àº±º ¼ö¸®Æ¼ÅÍ³Î¿¡¼­ ³ªµéÀÌ °¡´ø µ¿Ã¢»ýµéÀÌ Åº ½ÂÇÕÂ÷¸¦ µéÀÌ¹Þ¾Æ 4¸íÀ» ¼ûÁö°Ô ÇÑ ´ëÇü ±³
+</a>
+<!-- °ü·Ã±â»çs: 64¹ø ÆûÆÄÀÏ »ý¼º ÈÄ ºÙ¿©³Ö±â ¡é  -->
+
+
+</dd>
+</dl>
+</div>
+</div>
+
+
+
+
+<!-- ±â»ç -->
+<div class="mn_nws">
+<p class="thum">
+<!-- ÀÌ¹ÌÁö»çÀÌÁî 112*72 -->
+<a href="https://news.kmib.co.kr/article/view.asp?arcid=0018893948&code=61121111&sid1=soc"><img src="https://image.kmib.co.kr/online_image/2023/1121/2023112114335943194_1700544839_0018893948.jpg" /></a>
+</p>
+<div class="con">
+<dl>
+<dt class="tit">
+<a href="https://news.kmib.co.kr/article/view.asp?arcid=0018893948&code=61121111&sid1=soc" title="¡°±³ÀåÀÌ ÇÑ ÀÏ, ÀÏ±âÀå¿¡ Àû¾îÁà¡±¡¦ ±³»çÀÇ ¿äÃ», ¾Æµ¿ ÇÐ´ëÀÎ°¡">¡°±³ÀåÀÌ ÇÑ ÀÏ, ÀÏ±âÀå¿¡ Àû¾îÁà¡±¡¦ ±³»çÀÇ ¿äÃ», ¾Æµ¿ ÇÐ´ëÀÎ°¡</a>
+</dt>
+<dd>
+<a href="https://news.kmib.co.kr/article/view.asp?arcid=0018893948&code=61121111&sid1=soc" class="txt" >
+
+
+°æ³²±³À°Ã»ÀÌ ÃÖ±Ù ºÒ°ÅÁø ÇÑ ÃÊµîÇÐ±³ ±³ÀåÀÇ °©Áú ÀÇÈ¤°ú °ü·ÃÇØ ¡®Á¤¼­Àû ¾Æµ¿ ÇÐ´ë ÀÇ½É¡¯À¸·Î ÇÇÇØ 
+</a>
+<!-- °ü·Ã±â»çs: 64¹ø ÆûÆÄÀÏ »ý¼º ÈÄ ºÙ¿©³Ö±â ¡é  -->
+
+
+</dd>
+</dl>
+</div>
+</div>
+										</div>
+										<!-- //ad_460_70 -->
+										<div class="mn_ad ad_460_70">
+										<iframe src="https://ads.kmib.co.kr/NetInsight/html/web/news/main@312" width="460" height="70" frameborder="0" scrolling="no" topmargin="0" leftmargin="0" marginwidth="0" marginheight="0" referrerpolicy="no-referrer-when-downgrade"></iframe>
+										</div>
+										<!-- //ad_460_70 -->
+										<div class="mn_nws_box">
+										<!-- ±â»ç -->
+<div class="mn_nws">
+<p class="thum">
+<!-- ÀÌ¹ÌÁö»çÀÌÁî 112*72 -->
+<a href="https://news.kmib.co.kr/article/view.asp?arcid=0018896545&code=61121211&sid1=soc"><img src="https://image.kmib.co.kr/online_image/2023/1122/2020052614022378705_1590469343_0018896545.jpg" /></a>
+</p>
+<div class="con">
+<dl>
+<dt class="tit">
+<a href="https://news.kmib.co.kr/article/view.asp?arcid=0018896545&code=61121211&sid1=soc" title="¿ä¾çº´¿ø »ìÀÎ »ç°Ç¡¦ ¡°º´½Ç¿£ 6¸í»Ó, Ä§ÀÔÀÚ´Â ¾ø´Ù¡±">¿ä¾çº´¿ø »ìÀÎ »ç°Ç¡¦ ¡°º´½Ç¿£ 6¸í»Ó, Ä§ÀÔÀÚ´Â ¾ø´Ù¡±</a>
+</dt>
+<dd>
+<a href="https://news.kmib.co.kr/article/view.asp?arcid=0018896545&code=61121211&sid1=soc" class="txt">
+
+Áö³­ 5¿ù °æ±âµµ ÀÇ¿Õ½ÃÀÇ ÇÑ ¿ä¾çº´¿ø º´½Ç¿¡¼­ 80´ë ¿©¼ºÀÌ »ç¸ÁÇÑ »ç°ÇÀÇ ¹üÀÎÀÌ °°Àº º´½ÇÀ» »ç¿ëÇÏ´ø
+</a>
+<!-- °ü·Ã±â»çs: 64¹ø ÆûÆÄÀÏ »ý¼º ÈÄ ºÙ¿©³Ö±â ¡é  -->
+
+
+</dd>
+</dl>
+</div>
+</div>
+
+
+<!-- ±â»ç -->
+<div class="mn_nws">
+<p class="thum">
+<!-- ÀÌ¹ÌÁö»çÀÌÁî 112*72 -->
+<a href="https://news.kmib.co.kr/article/view.asp?arcid=0018896785&code=61121311&sid1=soc"><img src="https://image.kmib.co.kr/online_image/2023/1122/2023111415014235545_1699941702_0018896785.jpg" /></a>
+</p>
+<div class="con">
+<dl>
+<dt class="tit">
+<a href="https://news.kmib.co.kr/article/view.asp?arcid=0018896785&code=61121311&sid1=soc" title="¾²·¹±â ÃµÁö ¹æ¾È¿¡ ¾Æ±â ¹æÄ¡ÇÑ Ä£¸ð¡¦Ç×¼Ò½É¼­ ¼±Ã³">¾²·¹±â ÃµÁö ¹æ¾È¿¡ ¾Æ±â ¹æÄ¡ÇÑ Ä£¸ð¡¦Ç×¼Ò½É¼­ ¼±Ã³</a>
+</dt>
+<dd>
+<a href="https://news.kmib.co.kr/article/view.asp?arcid=0018896785&code=61121311&sid1=soc" class="txt">
+
+
+¾²·¹±â·Î °¡µæÇÑ ¹æ¿¡ ÀÚ³à¸¦ ¹æÄ¡Çß´Ù°¡ 1½É¿¡¼­ ½ÇÇüÀ» ¼±°í¹ÞÀº 30´ë Ä£¸ð°¡ Ç×¼Ò½É¿¡¼­ ÁýÇàÀ¯¿¹·Î 
+</a>
+<!-- °ü·Ã±â»çs: 64¹ø ÆûÆÄÀÏ »ý¼º ÈÄ ºÙ¿©³Ö±â ¡é  -->
+
+
+</dd>
+</dl>
+</div>
+</div>
+
+
+<!-- ±â»ç -->
+<div class="mn_nws">
+<p class="thum">
+<!-- ÀÌ¹ÌÁö»çÀÌÁî 112*72 -->
+<a href="https://news.kmib.co.kr/article/view.asp?arcid=0018896687&code=61121111&sid1=soc"><img src="https://image.kmib.co.kr/online_image/2023/1122/2023112210123344457_1700615553_0018896687.jpg" /></a>
+</p>
+<div class="con">
+<dl>
+<dt class="tit">
+<a href="https://news.kmib.co.kr/article/view.asp?arcid=0018896687&code=61121111&sid1=soc" title="¡®36¸¸¸í Åõ¾à¡¯ ÇÊ·ÎÆù ´ë·®¹Ð¼ö ¸»·¹ÀÌÀÎ 3¸í ±â¼Ò">¡®36¸¸¸í Åõ¾à¡¯ ÇÊ·ÎÆù ´ë·®¹Ð¼ö ¸»·¹ÀÌÀÎ 3¸í ±â¼Ò</a>
+</dt>
+<dd>
+<a href="https://news.kmib.co.kr/article/view.asp?arcid=0018896687&code=61121111&sid1=soc" class="txt">
+
+36¸¸¸íÀÌ µ¿½Ã Åõ¾à °¡´ÉÇÑ ´ë·®ÀÇ ÇÊ·ÎÆùÀ» ±¹³»¿¡ ¸ô·¡ µé¿©¿Â ¸»·¹ÀÌ½Ã¾ÆÀÎ 3¸íÀÌ ±¸¼ÓµÈ »óÅÂ·Î ÀçÆÇ¿¡
+</a>
+<!-- °ü·Ã±â»çs: 64¹ø ÆûÆÄÀÏ »ý¼º ÈÄ ºÙ¿©³Ö±â ¡é  -->
+
+
+</dd>
+</dl>
+</div>
+</div>
+
+
+<!-- ±â»ç -->
+<div class="mn_nws">
+<p class="thum">
+<!-- ÀÌ¹ÌÁö»çÀÌÁî 112*72 -->
+<a href="https://news.kmib.co.kr/article/view.asp?arcid=0018896667&code=61121111&sid1=soc"><img src="https://image.kmib.co.kr/online_image/2023/1122/2020050610220150877_1588728121_0018896667.jpg" /></a>
+</p>
+<div class="con">
+<dl>
+<dt class="tit">
+<a href="https://news.kmib.co.kr/article/view.asp?arcid=0018896667&code=61121111&sid1=soc" title="¡®¼èÆÄÀÌÇÁ·Î Àü°øÀÇ ÆøÇà¡¯ Á¶¼±´ëº´¿ø ±³¼ö ¿Ü·¡¡¤¼ö¼úµµ ¹èÁ¦">¡®¼èÆÄÀÌÇÁ·Î Àü°øÀÇ ÆøÇà¡¯ Á¶¼±´ëº´¿ø ±³¼ö ¿Ü·¡¡¤¼ö¼úµµ ¹èÁ¦</a>
+</dt>
+<dd>
+<a href="https://news.kmib.co.kr/article/view.asp?arcid=0018896667&code=61121111&sid1=soc" class="txt">
+
+
+¼èÆÄÀÌÇÁ µîÀ¸·Î Àü°øÀÇ¸¦ »ó½À ÆøÇàÇß´Ù´Â ÀÇÈ¤À» ¹Þ´Â Á¶¼±´ëº´¿ø ±³¼ö¿¡°Ô º´¿ø ÃøÀÌ ÃÖ°í¼öÀ§ÀÇ ÀÓ½Ã 
+</a>
+<!-- °ü·Ã±â»çs: 64¹ø ÆûÆÄÀÏ »ý¼º ÈÄ ºÙ¿©³Ö±â ¡é  -->
+
+
+</dd>
+</dl>
+</div>
+</div>
+
+
+
+<!-- ±â»ç -->
+<div class="mn_nws">
+<p class="thum">
+<!-- ÀÌ¹ÌÁö»çÀÌÁî 112*72 -->
+<a href="https://news.kmib.co.kr/article/view.asp?arcid=0018896300&code=61121111&sid1=soc"><img src="https://image.kmib.co.kr/online_image/2023/1122/2023110613413526508_1699245695_0018896300.jpg" /></a>
+</p>
+<div class="con">
+<dl>
+<dt class="tit">
+<a href="https://news.kmib.co.kr/article/view.asp?arcid=0018896300&code=61121111&sid1=soc" title="Áöµå·¡°ï ¡°¾Ç¼º°Ô½Ã¹° °í¼Ò¡¦ ÇÕÀÇµµ ¼±Ã³µµ ¾ø´Ù¡±">Áöµå·¡°ï ¡°¾Ç¼º°Ô½Ã¹° °í¼Ò¡¦ ÇÕÀÇµµ ¼±Ã³µµ ¾ø´Ù¡±</a>
+</dt>
+<dd>
+<a href="https://news.kmib.co.kr/article/view.asp?arcid=0018896300&code=61121111&sid1=soc" class="txt">
+
+ÀÕµû¸¥ ¸¶¾à °Ë»ç¿¡¼­ À½¼º ÆÇÁ¤À» ¹ÞÀº °¡¼ö Áöµå·¡°ï(35¡¤º»¸í ±ÇÁö¿ë)ÀÌ ¾Ç¼º °Ô½Ã¹° ÀÛ¼ºÀÚ¸¦ »ó´ë·Î 
+</a>
+<!-- °ü·Ã±â»çs: 64¹ø ÆûÆÄÀÏ »ý¼º ÈÄ ºÙ¿©³Ö±â ¡é  -->
+
+
+</dd>
+</dl>
+</div>
+</div>
+
+
+
+
+<!-- ±â»ç -->
+<div class="mn_nws">
+<p class="thum">
+<!-- ÀÌ¹ÌÁö»çÀÌÁî 112*72 -->
+<a href="https://news.kmib.co.kr/article/view.asp?arcid=0018896157&code=61121211&sid1=soc"><img src="https://image.kmib.co.kr/online_image/2023/1122/2020112010310737346_1605835867_0018896157.jpg" /></a>
+</p>
+<div class="con">
+<dl>
+<dt class="tit">
+<a href="https://news.kmib.co.kr/article/view.asp?arcid=0018896157&code=61121211&sid1=soc" title="80´ë ¸ô´ø ½Â¿ëÂ÷, º¸ÇàÀÚ 3¸í µéÀÌ¹Þ¾Æ¡¦¡°½ÉÁ¤Áö ÀÌ¼Û¡±">80´ë ¸ô´ø ½Â¿ëÂ÷, º¸ÇàÀÚ 3¸í µéÀÌ¹Þ¾Æ¡¦¡°½ÉÁ¤Áö ÀÌ¼Û¡±</a>
+</dt>
+<dd>
+<a href="https://news.kmib.co.kr/article/view.asp?arcid=0018896157&code=61121211&sid1=soc" class="txt">
+
+°­¿øµµ ÃáÃµ½ÃÀÇ ÇÑ µµ·Î¿¡¼­ 80´ë ¿îÀüÀÚ°¡ ¸ô´ø ½Â¿ëÂ÷¿¡ º¸ÇàÀÚ 3¸íÀÌ Ä¡ÀÌ´Â »ç°í°¡ ¹ß»ýÇß´Ù.
+
+
+</a>
+<!-- °ü·Ã±â»çs: 64¹ø ÆûÆÄÀÏ »ý¼º ÈÄ ºÙ¿©³Ö±â ¡é  -->
+
+
+</dd>
+</dl>
+</div>
+</div>
+
+
+<!-- ±â»ç -->
+<div class="mn_nws">
+<p class="thum">
+<!-- ÀÌ¹ÌÁö»çÀÌÁî 112*72 -->
+<a href="https://news.kmib.co.kr/article/view.asp?arcid=0018896022&code=61121311&sid1=soc"><img src="https://image.kmib.co.kr/online_image/2023/1122/2023112207233444339_1700605414_0018896022.jpg" /></a>
+</p>
+<div class="con">
+<dl>
+<dt class="tit">
+<a href="https://news.kmib.co.kr/article/view.asp?arcid=0018896022&code=61121311&sid1=soc" title="¾Æµ¿ ¼ºÂøÃë¹° 1Ãµ°³ º» °æÂû ¡°¼ö»ç À§ÇØ¡± ÁÖÀå¡¦¡®¹«ÁË¡¯">¾Æµ¿ ¼ºÂøÃë¹° 1Ãµ°³ º» °æÂû ¡°¼ö»ç À§ÇØ¡± ÁÖÀå¡¦¡®¹«ÁË¡¯</a>
+</dt>
+<dd>
+<a href="https://news.kmib.co.kr/article/view.asp?arcid=0018896022&code=61121311&sid1=soc" class="txt">
+
+ÅÚ·¹±×·¥À» ÅëÇØ ¾Æµ¿ ¼º ÂøÃë¹° ¿©·¯ °ÇÀ» ³»·Á¹ÞÀº ÇøÀÇ·Î ±â¼ÒµÈ °æÂû¿¡ ´ëÇØ 2½Éµµ ¹«ÁË ÆÇ°áÀ» ³»·È´Ù
+</a>
+<!-- °ü·Ã±â»çs: 64¹ø ÆûÆÄÀÏ »ý¼º ÈÄ ºÙ¿©³Ö±â ¡é  -->
+
+
+</dd>
+</dl>
+</div>
+</div>
+
+										</div>
+										<div class="mn_nws_box">
+										<!-- ±â»ç -->
+<div class="mn_nws">
+<p class="thum">
+<!-- ÀÌ¹ÌÁö»çÀÌÁî 112*72 -->
+<a href="https://news.kmib.co.kr/article/view.asp?arcid=0018894580&code=61141111&sid1=eco"><img src="https://image.kmib.co.kr/online_image/2023/1122/2023112117381243648_1700555892_0018894580.jpg" /></a>
+</p>
+<div class="con">
+<dl>
+<dt class="tit">
+<a href="https://news.kmib.co.kr/article/view.asp?arcid=0018894580&code=61141111&sid1=eco" title="¡°´ó´óÀÌ¶û ½ºÅ¸¹÷½º °¡ÀÚ¡±¡¦´õºÏÇÑ°­RÁ¡, ¡®¿¹½ºÆêÁ¸¡¯ È®´ë">¡°´ó´óÀÌ¶û ½ºÅ¸¹÷½º °¡ÀÚ¡±¡¦´õºÏÇÑ°­RÁ¡, ¡®¿¹½ºÆêÁ¸¡¯ È®´ë</a>
+</dt>
+<dd>
+<a href="https://news.kmib.co.kr/article/view.asp?arcid=0018894580&code=61141111&sid1=eco" class="txt">
+
+
+¡®1000¸¸ ¹Ý·ÁÀÎ ½Ã´ë¡¯¸¦ ¸Â¾Æ ¹Ý·ÁÀÎ±¸ÀÇ ¡®°¥ °÷¡¯¿¡µµ ¼±ÅÃÁö°¡ ´Ù¾çÇØÁö°í ÀÖ´Ù. ÇÑ°Ü¿ï ÃßÀ§¿¡ 
+</a>
+<!-- °ü·Ã±â»çs: 64¹ø ÆûÆÄÀÏ »ý¼º ÈÄ ºÙ¿©³Ö±â ¡é  -->
+
+
+</dd>
+</dl>
+</div>
+</div>
+
+
+<!-- ±â»ç -->
+<div class="mn_nws">
+<p class="thum">
+<!-- ÀÌ¹ÌÁö»çÀÌÁî 112*72 -->
+<a href="https://news.kmib.co.kr/article/view.asp?arcid=0924331325&code=11131700&sid1=soc"><img src="https://image.kmib.co.kr/online_image/2023/1122/2023112121510444138_1700571064_0924331325.jpg" /></a>
+</p>
+<div class="con">
+<dl>
+<dt class="tit">
+<a href="https://news.kmib.co.kr/article/view.asp?arcid=0924331325&code=11131700&sid1=soc" title="¡°ÀÏÈ¸¿ëÇ° ±ÔÁ¦ Ã¶È¸¸¦ Ã¶È¸ÇÏ¶ó¡±¡¦ È¯°æ´ÜÃ¼ Àü±¹ µ¿½Ã´Ù¹ß ½ÃÀ§">¡°ÀÏÈ¸¿ëÇ° ±ÔÁ¦ Ã¶È¸¸¦ Ã¶È¸ÇÏ¶ó¡±¡¦ È¯°æ´ÜÃ¼ Àü±¹ µ¿½Ã´Ù¹ß ½ÃÀ§</a>
+</dt>
+<dd>
+<a href="https://news.kmib.co.kr/article/view.asp?arcid=0924331325&code=11131700&sid1=soc" class="txt">
+
+Á¤ºÎ°¡ ¸ÅÀå ³» ÀÏÈ¸¿ëÇ° ±ÔÁ¦¸¦ ¿ÏÈ­ÇÑ Áö 2ÁÖ°¡ Áö³µÁö¸¸ °©ÀÛ½º·¯¿î Á¤Ã¥ º¯°æ¿¡ µû¸¥ ÇöÀå È¥¶õÀÌ °¡¶ó
+</a>
+<!-- °ü·Ã±â»çs: 64¹ø ÆûÆÄÀÏ »ý¼º ÈÄ ºÙ¿©³Ö±â ¡é  -->
+
+
+</dd>
+</dl>
+</div>
+</div>
+
+
+<!-- ±â»ç -->
+<div class="mn_nws">
+<p class="thum">
+<!-- ÀÌ¹ÌÁö»çÀÌÁî 112*72 -->
+<a href="https://news.kmib.co.kr/article/view.asp?arcid=0924331285&code=12160000&sid1=spo"><img src="https://image.kmib.co.kr/online_image/2023/1122/2023112119460643856_1700563566_0924331285.jpg" /></a>
+</p>
+<div class="con">
+<dl>
+<dt class="tit">
+<a href="https://news.kmib.co.kr/article/view.asp?arcid=0924331285&code=12160000&sid1=spo" title="ºÒ¾¾ »ì¸° ¹ÚÁ¤È¯¡¦ ñé ·»»þ¿À¿¡ ¡®½Ã°£½Â¡¯ 4°­ ¾ÈÂø">ºÒ¾¾ »ì¸° ¹ÚÁ¤È¯¡¦ ñé ·»»þ¿À¿¡ ¡®½Ã°£½Â¡¯ 4°­ ¾ÈÂø</a>
+</dt>
+<dd>
+<a href="https://news.kmib.co.kr/article/view.asp?arcid=0924331285&code=12160000&sid1=spo" class="txt">
+
+ÇÑ±¹ ·©Å· 2À§ ¹ÚÁ¤È¯(»çÁø) 9´ÜÀÌ 2³â ¸¸¿¡ »ï¼ºÈ­Àç¹è ¿ùµå¹ÙµÏ¸¶½ºÅÍ½º ÁØ°á½Â¿¡ ¿Ã¶ú´Ù. ÀüÀû¿¡¼­ ¹Ð
+</a>
+<!-- °ü·Ã±â»çs: 64¹ø ÆûÆÄÀÏ »ý¼º ÈÄ ºÙ¿©³Ö±â ¡é  -->
+
+
+</dd>
+</dl>
+</div>
+</div>
+
+
+<!-- ±â»ç -->
+<div class="mn_nws">
+<p class="thum">
+<!-- ÀÌ¹ÌÁö»çÀÌÁî 112*72 -->
+<a href="https://news.kmib.co.kr/article/view.asp?arcid=0924331283&code=13180000&sid1=ent"><img src="https://image.kmib.co.kr/online_image/2023/1122/2023112119550443869_1700564104_0924331283.jpg" /></a>
+</p>
+<div class="con">
+<dl>
+<dt class="tit">
+<a href="https://news.kmib.co.kr/article/view.asp?arcid=0924331283&code=13180000&sid1=ent" title="´Ù±¹Àû ¼Ò³àµé ÃãÀ¸·Î ¹«½¼ ÀÌ¾ß±â µé·ÁÁÙ±î, ¿¥³Ý ¡®½º°ÉÆÄ2¡¯">´Ù±¹Àû ¼Ò³àµé ÃãÀ¸·Î ¹«½¼ ÀÌ¾ß±â µé·ÁÁÙ±î, ¿¥³Ý ¡®½º°ÉÆÄ2¡¯</a>
+</dt>
+<dd>
+<a href="https://news.kmib.co.kr/article/view.asp?arcid=0924331283&code=13180000&sid1=ent" class="txt">
+
+Áö³­´Þ Á¾¿µÇÑ ¡®½ºÆ®¸´ ¿ì¸Õ ÆÄÀÌÅÍ2¡¯(½º¿ìÆÄ2)ÀÇ ¿­±â°¡ ½Ä±âµµ Àü¿¡ ¡®½ºÆ®¸´´í½º °É½º ÆÄÀÌÅÍ2¡¯(½º°É
+</a>
+<!-- °ü·Ã±â»çs: 64¹ø ÆûÆÄÀÏ »ý¼º ÈÄ ºÙ¿©³Ö±â ¡é  -->
+
+
+</dd>
+</dl>
+</div>
+</div>
+
+
+
+
+
+<!-- ±â»ç -->
+<div class="mn_nws">
+<p class="thum">
+<!-- ÀÌ¹ÌÁö»çÀÌÁî 112*72 -->
+<a href="https://news.kmib.co.kr/article/view.asp?arcid=0018893798&code=61121111&sid1=soc"><img src="https://image.kmib.co.kr/online_image/2023/1122/2023112114123743151_1700543557_0018893798.jpg" /></a>
+</p>
+<div class="con">
+<dl>
+<dt class="tit">
+<a href="https://news.kmib.co.kr/article/view.asp?arcid=0018893798&code=61121111&sid1=soc" title="¡°ÀÌ·²°Å¸é »çÁ÷¼­ ³»¡±¡¦ÀÌ·± ´ÙÅù, ¡®ÇØ°í ºÐÀï¡¯¼­ °¡Àå ¸¹´Ù">¡°ÀÌ·²°Å¸é »çÁ÷¼­ ³»¡±¡¦ÀÌ·± ´ÙÅù, ¡®ÇØ°í ºÐÀï¡¯¼­ °¡Àå ¸¹´Ù</a>
+</dt>
+<dd>
+<a href="https://news.kmib.co.kr/article/view.asp?arcid=0018893798&code=61121111&sid1=soc" class="txt">
+
+
+¡°ÀÌ·²°Å¸é »çÁ÷¼­ ³»!¡± »ç¿ëÀÚ°¡ ³ëµ¿ÀÚ¿¡°Ô ÀÌ·¸°Ô ¸»Çß´Ù¸é Á¤½ÄÀ¸·Î ÇØ°í¸¦ Åëº¸ÇÑ °ÍÀ¸·Î º¼ ¼ö ÀÖ
+</a>
+<!-- °ü·Ã±â»çs: 64¹ø ÆûÆÄÀÏ »ý¼º ÈÄ ºÙ¿©³Ö±â ¡é  -->
+
+
+</dd>
+</dl>
+</div>
+</div>
+
+
+<!-- ±â»ç -->
+<div class="mn_nws">
+<p class="thum">
+<!-- ÀÌ¹ÌÁö»çÀÌÁî 112*72 -->
+<a href="https://news.kmib.co.kr/article/view.asp?arcid=0018894692&code=61131511&sid1=int"><img src="https://image.kmib.co.kr/online_image/2023/1121/2023112118045443707_1700557494_0018894692.jpg" /></a>
+</p>
+<div class="con">
+<dl>
+<dt class="tit">
+<a href="https://news.kmib.co.kr/article/view.asp?arcid=0018894692&code=61131511&sid1=int" title="¿ÀÇÂAI Á÷¿ø 90% ¡°¿ÃÆ®¸Õ º¹±Í ¾ÈÇÏ¸é ¿ì¸®µµ ¶°³­´Ù¡±">¿ÀÇÂAI Á÷¿ø 90% ¡°¿ÃÆ®¸Õ º¹±Í ¾ÈÇÏ¸é ¿ì¸®µµ ¶°³­´Ù¡±</a>
+</dt>
+<dd>
+<a href="https://news.kmib.co.kr/article/view.asp?arcid=0018894692&code=61131511&sid1=int" class="txt">
+
+
+»ý¼ºÇü ÀÎ°øÁö´É(AI) ÃªGPT °³¹ß»ç ¿ÀÇÂAI°¡ »ù ¿ÃÆ®¸Õ(38) ÃÖ°í°æ¿µÀÚ(CEO)¸¦ ÇØ°íÇÑ µÚ 
+</a>
+<!-- °ü·Ã±â»çs: 64¹ø ÆûÆÄÀÏ »ý¼º ÈÄ ºÙ¿©³Ö±â ¡é  -->
+
+
+</dd>
+</dl>
+</div>
+</div>
+
+
+<!-- ±â»ç -->
+<div class="mn_nws">
+<p class="thum">
+<!-- ÀÌ¹ÌÁö»çÀÌÁî 112*72 -->
+<a href="https://news.kmib.co.kr/article/view.asp?arcid=0018893244&code=61121111&sid1=soc"><img src="https://image.kmib.co.kr/online_image/2023/1121/2023112111013242965_1700532093_0018893244.jpg" /></a>
+</p>
+<div class="con">
+<dl>
+<dt class="tit">
+<a href="https://news.kmib.co.kr/article/view.asp?arcid=0018893244&code=61121111&sid1=soc" title="¿©±â°¡ ¿ï¸ªµµ ¾Õ¹Ù´Ù ¸Â¾Æ? ¿­´ë¾î ÆÄ¶ûµ¼ 10¹è ±ÞÁõ">¿©±â°¡ ¿ï¸ªµµ ¾Õ¹Ù´Ù ¸Â¾Æ? ¿­´ë¾î ÆÄ¶ûµ¼ 10¹è ±ÞÁõ</a>
+</dt>
+<dd>
+<a href="https://news.kmib.co.kr/article/view.asp?arcid=0018893244&code=61121111&sid1=soc" class="txt">
+
+¿ï¸ªµµ ÀÎ±Ù ¹Ù´Ù¿¡¼­ ¹ß°ßµÇ´Â ¹°°í±âÀÇ Àý¹Ý ÀÌ»óÀÌ ¿­´ë¡¤¾Æ¿­´ë¼º ¾î·ùÀÎ °ÍÀ¸·Î ³ªÅ¸³µ´Ù. ±âÈÄº¯È­¿¡ µû
+</a>
+<!-- °ü·Ã±â»çs: 64¹ø ÆûÆÄÀÏ »ý¼º ÈÄ ºÙ¿©³Ö±â ¡é  -->
+
+
+</dd>
+</dl>
+</div>
+</div>
+
+										</div>
+										<!-- //ad_460_70
+										<div class="mn_ad ad_460_70">
+										<a href="http://kukminfarm.com/" target="_blank"><img src="http://ad.kmib.co.kr/2019/bnr_2019farm_460_70.jpg" alt="2019 ¼º°ø±Í³óÇàº¹±Í¾î ¹Ú¶÷È¸" /></a>
+										</div>
+										 //ad_460_70 -->
+									</div>
+								</div>
+							</div>
+							<!-- //»ó´Ü ÁÂÃø -->
+							<!-- »ó´Ü Áß°£ -->
+							<div class="mtop_lft_c">
+			                    <div class='scroll_start02'>
+			                        <div class='scroll_start02_in'>
+										<!-- ÇöÀå¿¡¼­ -->
+										<div class="mn_live">
+											<h2 class="mn_tit"><strong>°Å´ëÇÑ »ç±âÆÇ ´ëÇÑ¹Î±¹</strong></h2>
+											<!-- ÇöÀå¿¡¼­ -->
+<div class="m_nws_p04">
+<!-- ÀÌ¹ÌÁö»çÀÌÁî 258*158 -->
+<a href="https://news.kmib.co.kr/article/view.asp?arcid=0924331276&code=11131100&sid1=soc" title="10¾ï »ç±â ÃÄµµ ¹ú±Ý °íÀÛ 2Ãµ¸¸¿ø¡¦ ¡®³°Àº Çü¹ý¡¯ÀÌ ¹®Á¦">
+<span class="thum"><img src="https://image.kmib.co.kr/online_image/2023/1122/2023112121580544157_1700571485_0924331276.jpg" /></span>
+<strong class="tit">
+10¾ï »ç±â ÃÄµµ ¹ú±Ý °íÀÛ 2Ãµ¸¸¿ø¡¦ ¡®³°Àº Çü¹ý¡¯ÀÌ ¹®Á¦
+</strong>
+</a>
+</div>
+
+
+											<div class="mn_lst_type01">
+												<ul>
+													
+												</ul>
+											</div>
+										</div>
+										 <!--//ÇöÀå¿¡¼­ -->
+										<!-- »ç¼³Ä®·³ -->
+										<div class="mn_opinion">
+											<h2 class="mn_tit"><strong>±¹¹ÎÀÏº¸ÀÇ '»ý°¢'</strong><a href="https://www.kmib.co.kr/opinion/index.asp" class="more">´õº¸±â</a></h2>
+											<div class="clm">
+												<ul>
+													<!-- Ä®·³ -->
+<li>
+<a href="https://news.kmib.co.kr/article/view.asp?arcid=0924331174&code=11171454&sid1=col" title="[°í½Â¿í Ä®·³] À§¼ºÁ¤´ç, Æ÷±âÇÒ ¼ö ¾ø´Â ¡®Ãµ¹ú ¹ÞÀ» Áþ¡¯">
+<span class="thum"><img src="https://image.kmib.co.kr/online_image/2023/1122/2023060621290350997_1686054543_0924331174.jpg" /></span>
+<span class="tit_area">
+<em class="cate">
+[°í½Â¿í Ä®·³]
+</em>
+<strong class="tit">
+À§¼ºÁ¤´ç, Æ÷±âÇÒ ¼ö ¾ø´Â ¡®Ãµ¹ú ¹ÞÀ» Áþ¡¯
+</strong>
+</span>
+</a>
+</li>
+
+<!-- Ä®·³ -->
+<li>
+<a href="https://news.kmib.co.kr/article/view.asp?arcid=0924331242&code=11171211&sid1=col" title="[ÇÑ¸¶´ç] ¿ÃÆ®¸Õ°ú Àâ½º, ÂÑ°Ü³­ Ã¢¾÷ÀÚ">
+<span class="thum"><img src="https://image.kmib.co.kr/online_image/2023/1122/2023112120190743916_1700565547_0924331242.jpg" /></span>
+<span class="tit_area">
+<em class="cate">
+[ÇÑ¸¶´ç]
+</em>
+<strong class="tit">
+¿ÃÆ®¸Õ°ú Àâ½º, ÂÑ°Ü³­ Ã¢¾÷ÀÚ
+</strong>
+</span>
+</a>
+</li>
+
+<!-- Ä®·³ -->
+<li>
+<a href="https://news.kmib.co.kr/article/view.asp?arcid=0924331165&code=11171222&sid1=col" title="[´º½º·ë¿¡¼­] µÎ·Á¿ö ÇÒ ¿ë±â">
+<span class="thum"><img src="https://image.kmib.co.kr/online_image/2023/1122/2023101719140596283_1697537645_0924331165.jpg" /></span>
+<span class="tit_area">
+<em class="cate">
+[´º½º·ë¿¡¼­]
+</em>
+<strong class="tit">
+µÎ·Á¿ö ÇÒ ¿ë±â
+</strong>
+</span>
+</a>
+</li>
+
+<!-- Ä®·³ -->
+<li>
+<a href="https://news.kmib.co.kr/article/view.asp?arcid=0924331167&code=11171362&sid1=col" title="[Ã»»çÃÊ·Õ] ¾î¸¥ÀÇ »ý°¢">
+<span class="thum"><img src="https://image.kmib.co.kr/online_image/2023/1122/2023112120180443912_1700565484_0924331167.jpg" /></span>
+<span class="tit_area">
+<em class="cate">
+[Ã»»çÃÊ·Õ]
+</em>
+<strong class="tit">
+¾î¸¥ÀÇ »ý°¢
+</strong>
+</span>
+</a>
+</li>
+
+<!-- Ä®·³ -->
+<li>
+<a href="https://news.kmib.co.kr/article/view.asp?arcid=0924331157&code=11171426&sid1=col" title="[³Ê¼¶ï×ÓÈ] 1³â¿¡ ÇÑ ¹ø ÇØ¾ß ÇÏ´Â ÀÏ">
+<span class="thum"><img src="https://image.kmib.co.kr/online_image/2023/1122/2023092620170478781_1695727024_0924331157.jpg" /></span>
+<span class="tit_area">
+<em class="cate">
+[³Ê¼¶ï×ÓÈ]
+</em>
+<strong class="tit">
+1³â¿¡ ÇÑ ¹ø ÇØ¾ß ÇÏ´Â ÀÏ
+</strong>
+</span>
+</a>
+</li>
+
+<!-- Ä®·³ -->
+<li>
+<a href="https://news.kmib.co.kr/article/view.asp?arcid=0924331158&code=11171315&sid1=col" title="[»ì¸ç »ç¶ûÇÏ¸ç] ³»°¡ »õÄ¡ ¼ö»ö²ÛÀÌ µÈ ÀÌÀ¯">
+<span class="thum"><img src="https://image.kmib.co.kr/online_image/2023/1122/2023112119400743849_1700563207_0924331158.jpg" /></span>
+<span class="tit_area">
+<em class="cate">
+[»ì¸ç »ç¶ûÇÏ¸ç]
+</em>
+<strong class="tit">
+³»°¡ »õÄ¡ ¼ö»ö²ÛÀÌ µÈ ÀÌÀ¯
+</strong>
+</span>
+</a>
+</li>
+
+
+												</ul>
+											</div>
+											<div class="edit">
+												<ul>
+													<li><em class="cate">»ç¼³</em><a href="https://news.kmib.co.kr/article/view.asp?arcid=0924331229&code=11171111&sid1=opi" class="tit" title="ÀÇ´ë Áõ¿ø ¿äÃ» 4000¸í¡¦ Á¤¿ø È®´ë °ú°¨ÇÏ°Ô ÃßÁøÇØ¾ß"> ÀÇ´ë Áõ¿ø ¿äÃ» 4000¸í¡¦ Á¤¿ø È®´ë °ú°¨ÇÏ°Ô ÃßÁøÇØ¾ß</a></li>
+<li><em class="cate">»ç¼³</em><a href="https://news.kmib.co.kr/article/view.asp?arcid=0924331230&code=11171111&sid1=opi" class="tit" title="¡®ëÅ ÅºÇÙ¡¯ ¡®¾ÏÄÆ¡¯¡¦¹ÎÁÖ´ç,¸·¸» Á¤Ä¡ÀÎ ±×³É ³öµÑ °Ç°¡"> ¡®ëÅ ÅºÇÙ¡¯ ¡®¾ÏÄÆ¡¯¡¦¹ÎÁÖ´ç,¸·¸» Á¤Ä¡ÀÎ ±×³É ³öµÑ °Ç°¡</a></li>
+<li><em class="cate">»ç¼³</em><a href="https://news.kmib.co.kr/article/view.asp?arcid=0924331262&code=11171111&sid1=opi" class="tit" title="Àå°üµé ÃÑ¼± ¾ÕµÎ°í ¡®Á¤Ä¡Àû Áß¸³¡¯ ½Ãºñ °æ°èÇØ¾ß"> Àå°üµé ÃÑ¼± ¾ÕµÎ°í ¡®Á¤Ä¡Àû Áß¸³¡¯ ½Ãºñ °æ°èÇØ¾ß</a></li>
+
+												</ul>
+											</div>
+										</div>
+										<!-- //»ç¼³ Ä®·³ -->
+										<!-- »ó´Ü Áß°£ ¸®½ºÆ® -->
+										<div class="mtop_lft_c_lst">
+											<ul>
+												<!-- »ó´Ü Áß°£±â»ç 3°³ -->
+<li>
+<div class="m_nws_p02">
+<a href="https://news.kmib.co.kr/article/view.asp?arcid=0018894685&code=61171811&sid1=lif" title="Å¸Áø¿ä ÀÌÀº ¡®±ÇÁø¿ä¡¯¡¦ ¸¶¾à À½¼º¿¡µµ ¹«Á¶°Ç Á¶·Õ¡¤ºÒ½Å">
+<!-- ÀÌ¹ÌÁö»çÀÌÁî 110*70 -->
+<!-- ÀÌ¹ÌÁös: »èÁ¦½Ã ¡é  -->
+<span class="thum"><img src="https://image.kmib.co.kr/online_image/2023/1122/2023110617564527139_1699261005_0018894685.jpg" /></span>
+<!--// ÀÌ¹ÌÁöe: »èÁ¦½Ã ¡è  -->
+
+<strong class="tit">
+Å¸Áø¿ä ÀÌÀº ¡®±ÇÁø¿ä¡¯¡¦ ¸¶¾à À½¼º¿¡µµ ¹«Á¶°Ç Á¶·Õ¡¤ºÒ½Å
+</strong>
+</a>
+</div>
+</li>
+
+<!-- »ó´Ü Áß°£±â»ç 3°³ -->
+<li>
+<div class="m_nws_p02">
+<a href="https://news.kmib.co.kr/article/view.asp?arcid=0018895799&code=61121211&sid1=soc" title="¡®¼º°ü°è ¿µ»ó¡¯ ³í¶õ È²ÀÇÁ¶ ±³Ã¼ÃâÀü¡¦ Å¬¸°½º¸¸ÀÇ º¯">
+<!-- ÀÌ¹ÌÁö»çÀÌÁî 110*70 -->
+<!-- ÀÌ¹ÌÁös: »èÁ¦½Ã ¡é  -->
+<span class="thum"><img src="https://image.kmib.co.kr/online_image/2023/1122/2023112205404244315_1700599242_0018895799.jpg" /></span>
+<!--// ÀÌ¹ÌÁöe: »èÁ¦½Ã ¡è  -->
+
+<strong class="tit">
+¡®¼º°ü°è ¿µ»ó¡¯ ³í¶õ È²ÀÇÁ¶ ±³Ã¼ÃâÀü¡¦ Å¬¸°½º¸¸ÀÇ º¯
+</strong>
+</a>
+</div>
+</li>
+
+<!-- »ó´Ü Áß°£±â»ç 3°³ -->
+<li>
+<div class="m_nws_p02">
+<a href="https://news.kmib.co.kr/article/view.asp?arcid=0018895876&code=61171811&sid1=lif" title="³²ÇöÈñ 3¾ï º¥Æ²¸® ¸ô¼öµÆ´Ù¡¦¡®ÀüÃ»Á¶ ¼±¹°¡¯ ½Ï ´Ù °¨Á¤">
+<!-- ÀÌ¹ÌÁö»çÀÌÁî 110*70 -->
+<!-- ÀÌ¹ÌÁös: »èÁ¦½Ã ¡é  -->
+<span class="thum"><img src="https://image.kmib.co.kr/online_image/2023/1122/2023111507282536660_1700000905_0018895876.jpg" /></span>
+<!--// ÀÌ¹ÌÁöe: »èÁ¦½Ã ¡è  -->
+
+<strong class="tit">
+³²ÇöÈñ 3¾ï º¥Æ²¸® ¸ô¼öµÆ´Ù¡¦¡®ÀüÃ»Á¶ ¼±¹°¡¯ ½Ï ´Ù °¨Á¤
+</strong>
+</a>
+</div>
+</li>
+
+<!-- »ó´Ü Áß°£±â»ç 3°³ -->
+<li>
+<div class="m_nws_p02">
+<a href="https://news.kmib.co.kr/article/view.asp?arcid=0018895698&code=61171811&sid1=lif" title="ºÐÀå½Ç Èä±â³­µ¿Ò³, ¹ÚÀºÅÂ ³ë·È´Ù¡¦¡°±ÔÇö, µ½´Ù°¡ ´ÙÃÄ¡±">
+<!-- ÀÌ¹ÌÁö»çÀÌÁî 110*70 -->
+<!-- ÀÌ¹ÌÁös: »èÁ¦½Ã ¡é  -->
+<span class="thum"><img src="https://image.kmib.co.kr/online_image/2023/1122/2023112204591644309_1700596756_0018895698.jpg" /></span>
+<!--// ÀÌ¹ÌÁöe: »èÁ¦½Ã ¡è  -->
+
+<strong class="tit">
+ºÐÀå½Ç Èä±â³­µ¿Ò³, ¹ÚÀºÅÂ ³ë·È´Ù¡¦¡°±ÔÇö, µ½´Ù°¡ ´ÙÃÄ¡±
+</strong>
+</a>
+</div>
+</li>
+
+
+
+<!-- »ó´Ü Áß°£±â»ç 3°³ -->
+<li>
+<div class="m_nws_p02">
+<a href="https://news.kmib.co.kr/article/view.asp?arcid=0018895703&code=61121211&sid1=soc" title="Áöµå·¡°ï ¡°¸¶¾à Àý´ë ¾ÈµÅ¡¦¼ö»ç °á°ú ½Å¼ÓÈ÷ ¹ßÇ¥¸¦¡±">
+<!-- ÀÌ¹ÌÁö»çÀÌÁî 110*70 -->
+<!-- ÀÌ¹ÌÁös: »èÁ¦½Ã ¡é  -->
+<span class="thum"><img src="https://image.kmib.co.kr/online_image/2023/1122/2023112204563144308_1700596591_0018895703.jpg" /></span>
+<!--// ÀÌ¹ÌÁöe: »èÁ¦½Ã ¡è  -->
+
+<strong class="tit">
+Áöµå·¡°ï ¡°¸¶¾à Àý´ë ¾ÈµÅ¡¦¼ö»ç °á°ú ½Å¼ÓÈ÷ ¹ßÇ¥¸¦¡±
+</strong>
+</a>
+</div>
+</li>
+
+
+
+<!-- »ó´Ü Áß°£±â»ç 3°³ -->
+<li>
+<div class="m_nws_p02">
+<a href="https://news.kmib.co.kr/article/view.asp?arcid=0018895961&code=61121211&sid1=soc" title="±«ÇÑ ÆøÇà ¸»¸®´Ù Ä®¸Â°í 50¹Ù´Ã¡¦¡°ÇÇÇØÀÚ ¹«»çÇØ ´ÙÇà¡±">
+<!-- ÀÌ¹ÌÁö»çÀÌÁî 110*70 -->
+<!-- ÀÌ¹ÌÁös: »èÁ¦½Ã ¡é  -->
+<span class="thum"><img src="https://image.kmib.co.kr/online_image/2023/1122/2023112206544344334_1700603684_0018895961.jpg" /></span>
+<!--// ÀÌ¹ÌÁöe: »èÁ¦½Ã ¡è  -->
+
+<strong class="tit">
+±«ÇÑ ÆøÇà ¸»¸®´Ù Ä®¸Â°í 50¹Ù´Ã¡¦¡°ÇÇÇØÀÚ ¹«»çÇØ ´ÙÇà¡±
+</strong>
+</a>
+</div>
+</li>
+
+
+
+
+<!-- »ó´Ü Áß°£±â»ç 3°³ -->
+<li>
+<div class="m_nws_p02">
+<a href="https://news.kmib.co.kr/article/view.asp?arcid=0018894842&code=61121111&sid1=soc" title="¡®¿ë»ê¿¡ 200¸¸¸¶¸® Ç®¾îºÁ?¡¯¡¦°³ ½Ä¿ë ±ÝÁö¹ý¿¡ À°°ßÇùÈ¸ ¹Ý¹ß">
+<!-- ÀÌ¹ÌÁö»çÀÌÁî 110*70 -->
+<!-- ÀÌ¹ÌÁös: »èÁ¦½Ã ¡é  -->
+<span class="thum"><img src="https://image.kmib.co.kr/online_image/2023/1121/2023112118283443780_1700558914_0018894842.jpg" /></span>
+<!--// ÀÌ¹ÌÁöe: »èÁ¦½Ã ¡è  -->
+
+<strong class="tit">
+¡®¿ë»ê¿¡ 200¸¸¸¶¸® Ç®¾îºÁ?¡¯¡¦°³ ½Ä¿ë ±ÝÁö¹ý¿¡ À°°ßÇùÈ¸ ¹Ý¹ß
+</strong>
+</a>
+</div>
+</li>
+
+<!-- »ó´Ü Áß°£±â»ç 3°³ -->
+<li>
+<div class="m_nws_p02">
+<a href="https://news.kmib.co.kr/article/view.asp?arcid=0018894683&code=61131111&sid1=int" title="À¯¿£ ¡°¼¼±â¸»±îÁö ±â¿Â ¾à 3µµ »ó½Â¡±¡¦¾Æ¸¶Á¸ ½£ »ç¶óÁø´Ù">
+<!-- ÀÌ¹ÌÁö»çÀÌÁî 110*70 -->
+<!-- ÀÌ¹ÌÁös: »èÁ¦½Ã ¡é  -->
+<span class="thum"><img src="https://image.kmib.co.kr/online_image/2023/1121/2023112118000543698_1700557205_0018894683.jpg" /></span>
+<!--// ÀÌ¹ÌÁöe: »èÁ¦½Ã ¡è  -->
+
+<strong class="tit">
+À¯¿£ ¡°¼¼±â¸»±îÁö ±â¿Â ¾à 3µµ »ó½Â¡±¡¦¾Æ¸¶Á¸ ½£ »ç¶óÁø´Ù
+</strong>
+</a>
+</div>
+</li>
+
+
+
+<!-- »ó´Ü Áß°£±â»ç 3°³ -->
+<li>
+<div class="m_nws_p02">
+<a href="https://news.kmib.co.kr/article/view.asp?arcid=0018894532&code=61131611&sid1=int" title="ì¥, º¡Ä¿¿¡¼­ ¡®¼¼±âÀÇ ¸¶ÇÇ¾Æ ÀçÆÇ¡¯¡¦207¸í¿¡°Ô 2200³âÇü ¼±°í">
+<!-- ÀÌ¹ÌÁö»çÀÌÁî 110*70 -->
+<!-- ÀÌ¹ÌÁös: »èÁ¦½Ã ¡é  -->
+<span class="thum"><img src="https://image.kmib.co.kr/online_image/2023/1121/2023112115404143359_1700548841_0018894532.jpg" /></span>
+<!--// ÀÌ¹ÌÁöe: »èÁ¦½Ã ¡è  -->
+
+<strong class="tit">
+ì¥, º¡Ä¿¿¡¼­ ¡®¼¼±âÀÇ ¸¶ÇÇ¾Æ ÀçÆÇ¡¯¡¦207¸í¿¡°Ô 2200³âÇü ¼±°í
+</strong>
+</a>
+</div>
+</li>
+
+<!-- »ó´Ü Áß°£±â»ç 3°³ -->
+<li>
+<div class="m_nws_p02">
+<a href="https://news.kmib.co.kr/article/view.asp?arcid=0018894303&code=61121211&sid1=soc" title="¡°¶ó¿îµù µµÁß À½¶õ¹° º¸¸ç Ä³µð ÃßÇà¡±¡¦80´ë îñÀºÇàÀå">
+<!-- ÀÌ¹ÌÁö»çÀÌÁî 110*70 -->
+<!-- ÀÌ¹ÌÁös: »èÁ¦½Ã ¡é  -->
+<span class="thum"><img src="https://image.kmib.co.kr/online_image/2023/1121/2021121409553239083_1639443333_0018894303.jpg" /></span>
+<!--// ÀÌ¹ÌÁöe: »èÁ¦½Ã ¡è  -->
+
+<strong class="tit">
+¡°¶ó¿îµù µµÁß À½¶õ¹° º¸¸ç Ä³µð ÃßÇà¡±¡¦80´ë îñÀºÇàÀå
+</strong>
+</a>
+</div>
+</li>
+
+
+
+
+<!-- »ó´Ü Áß°£±â»ç 3°³ -->
+<li>
+<div class="m_nws_p02">
+<a href="https://news.kmib.co.kr/article/view.asp?arcid=0018893783&code=61121211&sid1=soc" title="Ä£Çü »ìÇØÇÑ µ¿»ý 13³â ¸¸¿¡ ÀÚ¼ö¡¦¡°ÁËÃ¥°¨ °ßµô ¼ö ¾ø¾ú´Ù¡±">
+<!-- ÀÌ¹ÌÁö»çÀÌÁî 110*70 -->
+<!-- ÀÌ¹ÌÁös: »èÁ¦½Ã ¡é  -->
+<span class="thum"><img src="https://image.kmib.co.kr/online_image/2023/1121/2022122715470748737_1672123627_0018893783.jpg" /></span>
+<!--// ÀÌ¹ÌÁöe: »èÁ¦½Ã ¡è  -->
+
+<strong class="tit">
+Ä£Çü »ìÇØÇÑ µ¿»ý 13³â ¸¸¿¡ ÀÚ¼ö¡¦¡°ÁËÃ¥°¨ °ßµô ¼ö ¾ø¾ú´Ù¡±
+</strong>
+</a>
+</div>
+</li>
+
+<!-- »ó´Ü Áß°£±â»ç 3°³ -->
+<li>
+<div class="m_nws_p02">
+<a href="https://news.kmib.co.kr/article/view.asp?arcid=0018893752&code=61121111&sid1=soc" title="¡°°í¾çÀÌ ÁÖÀÇ¡± Ä«Æä¿¡ ½ñ¾ÆÁø ¾ÇÇÃÅ×·¯¡¦ °á±¹ »ç°ú¹® ¿Ã·È´Ù">
+<!-- ÀÌ¹ÌÁö»çÀÌÁî 110*70 -->
+<!-- ÀÌ¹ÌÁös: »èÁ¦½Ã ¡é  -->
+<span class="thum"><img src="https://image.kmib.co.kr/online_image/2023/1121/2023022714294095997_1677475780_0018893752.jpg" /></span>
+<!--// ÀÌ¹ÌÁöe: »èÁ¦½Ã ¡è  -->
+
+<strong class="tit">
+¡°°í¾çÀÌ ÁÖÀÇ¡± Ä«Æä¿¡ ½ñ¾ÆÁø ¾ÇÇÃÅ×·¯¡¦ °á±¹ »ç°ú¹® ¿Ã·È´Ù
+</strong>
+</a>
+</div>
+</li>
+
+<!-- »ó´Ü Áß°£±â»ç 3°³ -->
+<li>
+<div class="m_nws_p02">
+<a href="https://news.kmib.co.kr/article/view.asp?arcid=0018893296&code=61121111&sid1=soc" title="¡°¡®Æä¹Ì¡¯´Ï±î ¸ÂÀÚ¡± åü¾Ë¹Ù ÆøÇà¡¦´ë°Ë ¡°Çø¿À ¹üÁË ¾öÁ¤ ´ëÀÀ¡±">
+<!-- ÀÌ¹ÌÁö»çÀÌÁî 110*70 -->
+<!-- ÀÌ¹ÌÁös: »èÁ¦½Ã ¡é  -->
+<span class="thum"><img src="https://image.kmib.co.kr/online_image/2023/1121/2023090415425854303_1693809778_0018893296.jpg" /></span>
+<!--// ÀÌ¹ÌÁöe: »èÁ¦½Ã ¡è  -->
+
+<strong class="tit">
+¡°¡®Æä¹Ì¡¯´Ï±î ¸ÂÀÚ¡± åü¾Ë¹Ù ÆøÇà¡¦´ë°Ë ¡°Çø¿À ¹üÁË ¾öÁ¤ ´ëÀÀ¡±
+</strong>
+</a>
+</div>
+</li>
+
+<!-- »ó´Ü Áß°£±â»ç 3°³ -->
+<li>
+<div class="m_nws_p02">
+<a href="https://news.kmib.co.kr/article/view.asp?arcid=0018892821&code=61121411&sid1=soc" title="¼ö´É ¸¸Á¡ÀÚ 13³â ¸¸¿¡ ¡®0¸í¡¯ °üÃø¡¦¡°Å³·¯ ¾ø¾îµµ ºÒ¼ö´É¡±">
+<!-- ÀÌ¹ÌÁö»çÀÌÁî 110*70 -->
+<!-- ÀÌ¹ÌÁös: »èÁ¦½Ã ¡é  -->
+<span class="thum"><img src="https://image.kmib.co.kr/online_image/2023/1121/2023111713121539665_1700194335_0018892821.jpg" /></span>
+<!--// ÀÌ¹ÌÁöe: »èÁ¦½Ã ¡è  -->
+
+<strong class="tit">
+¼ö´É ¸¸Á¡ÀÚ 13³â ¸¸¿¡ ¡®0¸í¡¯ °üÃø¡¦¡°Å³·¯ ¾ø¾îµµ ºÒ¼ö´É¡±
+</strong>
+</a>
+</div>
+</li>
+
+
+
+<!-- »ó´Ü Áß°£±â»ç 3°³ -->
+<li>
+<div class="m_nws_p02">
+<a href="https://news.kmib.co.kr/article/view.asp?arcid=0018891953&code=61121211&sid1=soc" title="È²ÀÇÁ¶ îñ¿¬ÀÎ ¡°ÇÕÀÇµÈ ¿µ»ó? ³­ ÃÔ¿µ µ¿ÀÇ ¾È Çß´Ù¡±">
+<!-- ÀÌ¹ÌÁö»çÀÌÁî 110*70 -->
+<!-- ÀÌ¹ÌÁös: »èÁ¦½Ã ¡é  -->
+<span class="thum"><img src="https://image.kmib.co.kr/online_image/2023/1121/2023112108193642775_1700522376_0018891953.jpg" /></span>
+<!--// ÀÌ¹ÌÁöe: »èÁ¦½Ã ¡è  -->
+
+<strong class="tit">
+È²ÀÇÁ¶ îñ¿¬ÀÎ ¡°ÇÕÀÇµÈ ¿µ»ó? ³­ ÃÔ¿µ µ¿ÀÇ ¾È Çß´Ù¡±
+</strong>
+</a>
+</div>
+</li>
+
+
+											</ul>
+										</div>
+										<!-- //»ó´Ü Áß°£ ¸®½ºÆ® -->
+									</div>
+								</div>
+							</div>
+							<!-- »ó´Ü Áß°£ -->
+
+						</div>
+						<div class="mn_rgt">
+							<div class='scroll_start03'>
+								<div class='scroll_start03_in'>
+									<!-- mission -->
+									<div class="mn_mission" style="margin-bottom: 15px;">
+										<h2 class="mn_tit"><strong>´õ¹Ì¼Ç</strong><a href="https://www.themission.co.kr/" target="_blank" class="more">´õº¸±â</a></h2>
+										<!-- ¹Ì¼Ç±â»ç -->
+<div class="m_nws_p01">
+<a href="https://www.themission.co.kr/news/articleView.html?idxno=68737" title="Àå·Ê¿¡ ¸ñÈ¸ÀÚ°¡ µé·¯¸®? ±âµ¶±³ Àå·Ê ´Ù½Ã ¼¼¿ö¾ß">
+<!-- ÀÌ¹ÌÁö»çÀÌÁî 298*138 -->
+<span class="thum"><img src="https://image.kmib.co.kr/online_image/2023/1122/2023112119310443831_1700562664_0924331228.jpg" /></span>
+<span class="tit_bg">
+<strong class="tit">
+Àå·Ê¿¡ ¸ñÈ¸ÀÚ°¡ µé·¯¸®? ±âµ¶±³ Àå·Ê ´Ù½Ã ¼¼¿ö¾ß
+</strong>
+</span>
+</a>
+</div>	
+
+										<div class="mn_lst_type01">
+											<ul>
+												<li><a href="https://www.themission.co.kr/news/articleView.html?idxno=68732" title="[¾Ë¸²] ±¹¹ÎÀÏº¸ Á¾±³ºÎ¹® Ã¤¿ë¿¬°èÇü ÀÎÅÏ±âÀÚ ¸ðÁý">[¾Ë¸²] ±¹¹ÎÀÏº¸ Á¾±³ºÎ¹® ÀÎÅÏ±âÀÚ ¸ðÁý</a></li>
+
+<li><a href="https://www.themission.co.kr/news/articleView.html?idxno=68744" title="°¡Á· ¹ß ¾Ä±â¸ç °Åµì³² ¾à¼Ó¡¦ ´ã ¾ÈÀÇ Æ¯º°ÇÑ ¼¼Á·½Ä">°¡Á· ¹ß ¾Ä±â¸ç °Åµì³² ¾à¼Ó¡¦ Æ¯º°ÇÑ ¼¼Á·½Ä</a></li>
+
+<li><a href="https://www.themission.co.kr/news/articleView.html?idxno=68736" title="°ñ ¶§¸®´Â ¿©¼ºµé¡¦ ¡°°Ç°­µµ ¾ò°í º¹À½µµ ³ª´©°í¡±">°ñ ¶§¸®´Â ¿©¼ºµé¡¦ ¡°°Ç°­ ¾ò°í º¹À½ ³ª´©°í¡±</a></li>
+
+											</ul>
+										</div>
+									</div>
+									<!-- //mission -->
+																		
+									<!-- ±¹¹Î°æÁ¦ -->
+									<div class="mn_eco">
+										<h2 class="mn_tit"><strong>±¹¹Î°æÁ¦</strong><a href="https://news.kmib.co.kr/article/list.asp?sid1=eco" class="more">´õº¸±â</a></h2>
+										<!-- ±¹¹Î°æÁ¦ -->
+<div class="m_nws_p01">
+<a href="https://news.kmib.co.kr/article/view.asp?arcid=0924331313&code=11151100&sid1=eco" title="¡°Ã»³â ½Ç¾÷·ü ³·Àºµ¥ °í¿ë ÀúÁ¶¡¦ ¸Å·ÂÀû ñéÐê À°¼º °í¹ÎÇØ¾ß¡±">
+<span class="thum"><img src="https://image.kmib.co.kr/online_image/2023/1122/2023112121070444071_1700568424_0924331313.jpg" /></span>
+<span class="tit_bg">
+<strong class="tit">
+¡°Ã»³â ½Ç¾÷·ü ³·Àºµ¥ °í¿ë ÀúÁ¶¡¦ ¸Å·ÂÀû ñéÐê À°¼º °í¹ÎÇØ¾ß¡±
+</strong>
+</span>
+</a>
+</div>	
+
+
+										<div class="mn_lst_type01">
+											<ul>
+												
+<li><a href="https://news.kmib.co.kr/article/view.asp?arcid=0924331331&code=11151100&sid1=eco" title="°í·ÉÃþ Ãë¾÷ ´Ã¾úÁö¸¸ 55¡­64¼¼ °í¿ë ºÎÁøÀº ¿©Àü">°í·ÉÃþ Ãë¾÷ ´Ã¾úÁö¸¸ 55¡­64¼¼ °í¿ë ºÎÁøÀº ¿©Àü</a></li>
+
+<li><a href="https://news.kmib.co.kr/article/view.asp?arcid=0924331284&code=11151100&sid1=eco" title="¡°ùÛ ÀúÃâ»ê¡¤°í·ÉÈ­·Î µµ½Ã Áý°ª ¶³¾îÁú °Í¡±">¡°ùÛ ÀúÃâ»ê¡¤°í·ÉÈ­·Î µµ½Ã Áý°ª ¶³¾îÁú °Í¡±</a></li>
+
+<li><a href="https://news.kmib.co.kr/article/view.asp?arcid=0924331303&code=11151300&sid1=eco" title="3ºÐ±âµµ ºú³»¼­ Áý »ò´Ù¡¦ °¡°è½Å¿ë ÀÜ¾× 1876Á¶ ¡®¿ª´ë ÃÖ´ë¡¯">3ºÐ±âµµ ºú³»¼­ Áý »ò´Ù¡¦ °¡°è½Å¿ë ÀÜ¾× 1876Á¶ ¡®¿ª´ë</a></li>
+
+											</ul>
+										</div>
+									</div>
+									<!-- //±¹¹Î°æÁ¦ -->
+									<!-- °ø°³Ã¤¿ë -->
+<div class="mn_ad ad_300_70" style="margin-bottom:10px;">
+<a href="https://www.kmib.co.kr/recruit/20231017/pass_231113.asp" target="_blank"><img src="https://www.kmib.co.kr/recruit/img/bnr_rc_231113_300_70.jpg" alt="¼ö½À±âÀÚ °ø°³Ã¤¿ë" title="¼ö½À±âÀÚ °ø°³Ã¤¿ë"></a>
+</div>
+<!-- //°ø°³Ã¤¿ë -->
+<!-- ¹Ì¼ÇÃ¤¿ë -->
+<div class="mn_ad ad_300_70" style="margin-bottom:10px;">
+<a href="https://www.themission.co.kr/news/articleView.html?idxno=68732" target="_blank"><img src="https://image.kmib.co.kr/images/www/main/bnr_msrecruit_
+300_70.jpg" alt="Ã¤¿ë¿¬°èÇü Á¾±³ ÀÎÅÏ±âÀÚ »Ì½À´Ï´Ù." title="Ã¤¿ë¿¬°èÇü Á¾±³ ÀÎÅÏ±âÀÚ »Ì½À´Ï´Ù."></a>
+</div>
+<!-- //¹Ì¼ÇÃ¤¿ë -->
+<!-- ¾Æ¸£ºê·ò -->
+<div class="mn_ad ad_300_70" style="margin-bottom:10px;">
+<a href="https://event.kmib.co.kr/2023/artbrut/passed.asp" target="_blank"><img src="https://image.kmib.co.kr/images/www/main/bnr_artbrut202301_
+300_70.jpg" alt="Á¦2È¸ ±¹¹ÎÀÏº¸ ¾Æ¸£ºê·ò¹Ì¼ú»ó °ø¸ð 1Â÷ ´ç¼±ÀÚ ¹ßÇ¥" title="Á¦2È¸ ±¹¹ÎÀÏº¸ ¾Æ¸£ºê·ò¹Ì¼ú»ó °ø¸ð 1Â÷ ´ç¼±ÀÚ ¹ßÇ¥"></a>
+</div>
+<!-- //¾Æ¸£ºê·ò -->
+<!-- ÀÎ±¸°¡ ¹Ì·¡´Ù -->
+<div class="mn_ad ad_300_70" style="margin-bottom:10px;">
+<a href="https://www.kmib.co.kr/feature/2023/newyear2023/index.asp" target="_blank"><img src="https://image.kmib.co.kr/images/www/main/bnr_population_300_70.jpg" alt="2023 ½Å³âÆ¯Áý ÀÎ±¸°¡ ¹Ì·¡´Ù!" title="2023 ½Å³âÆ¯Áý ÀÎ±¸°¡ ¹Ì·¡´Ù!"></a>
+</div>
+<!-- //ÀÎ±¸°¡ ¹Ì·¡´Ù -->
+
+<!-- º¸È£Á¾·á -->	
+<div class="mn_ad ad_300_70" style="margin-bottom:10px;">							
+<a href="https://news.kmib.co.kr/article/list.asp?sid1=prj&sid2=0102" target="_blank"><img src="https://image.kmib.co.kr/images/www/main/bnr_young_300_70.jpg" alt="º¸È£Á¾·á, »õ µ¿ÇàÀÇ ½ÃÀÛ" title="º¸È£Á¾·á, »õ µ¿ÇàÀÇ ½ÃÀÛ"></a>	
+</div>
+<!--//º¸È£Á¾·á -->
+
+
+
+
+									<!-- ad_300_200 -->
+									<div class="mn_ad" style="margin-bottom:20px;">
+									<iframe src="https://ads.kmib.co.kr/NetInsight/html/web/news/main@320" width="300" height="200" frameborder="0" scrolling="no" topmargin="0" leftmargin="0" marginwidth="0" marginheight="0" referrerpolicy="no-referrer-when-downgrade"></iframe>
+									</div>
+									<!-- //ad_300_200 -->
+									<!-- ¸¹ÀÌ º» ±â»ç -->
+									<div class="rank">
+										<div class="tab_mnu">
+											<ul>
+												<li><a href="#online" class="on">¿Â¶óÀÎ BEST</a></li>
+												<li><a href="#paper">Áö¸é BEST</a></li>
+											</ul>
+										</div>
+										<div class="rank_lst">
+																				<div id="online">
+									<ul>
+<li>
+<em class="num">1</em>
+<a href="https://news.kmib.co.kr/article/view.asp?arcid=0018895675&code=61171811&stg=wm_rank" target="_top" title="¡°³²ÀÇ ±ÍÇÑ µþÇÑÅ×¡±¡¦±³»ç¿¡ ´ëµå´Â ¿©°í»ý ¿µ»ó ÆÄ¹®">
+<strong class="tit">¡°³²ÀÇ ±ÍÇÑ µþÇÑÅ×¡±¡¦±³»ç¿¡ ´ëµå´Â ¿©°í»ý ¿µ»ó ÆÄ¹®</strong></a>
+</li>
+<li>
+<em class="num">2</em>
+<a href="https://news.kmib.co.kr/article/view.asp?arcid=0018895799&code=61161111&stg=wm_rank" target="_top" title="¡®¼º°ü°è ¿µ»ó¡¯ ³í¶õ È²ÀÇÁ¶ ±³Ã¼ÃâÀü¡¦ Å¬¸°½º¸¸ÀÇ º¯">
+<strong class="tit">¡®¼º°ü°è ¿µ»ó¡¯ ³í¶õ È²ÀÇÁ¶ ±³Ã¼ÃâÀü¡¦ Å¬¸°½º¸¸ÀÇ º¯</strong></a>
+</li>
+<li>
+<em class="num">3</em>
+<a href="https://news.kmib.co.kr/article/view.asp?arcid=0018895876&code=61121211&stg=wm_rank" target="_top" title="³²ÇöÈñ 3¾ï º¥Æ²¸® ¸ô¼öµÆ´Ù¡¦¡®ÀüÃ»Á¶ ¼±¹°¡¯ ½Ï ´Ù °¨Á¤">
+<strong class="tit">³²ÇöÈñ 3¾ï º¥Æ²¸® ¸ô¼öµÆ´Ù¡¦¡®ÀüÃ»Á¶ ¼±¹°¡¯ ½Ï ´Ù °¨Á¤</strong></a>
+</li>
+<li>
+<em class="num">4</em>
+<a href="https://news.kmib.co.kr/article/view.asp?arcid=0018896136&code=61111111&stg=wm_rank" target="_top" title="ÁøÁß±Ç ¡°ÇÑµ¿ÈÆ °¡¸é ¡®ÆÒ´ý¡¯¡¦ÀÌ¹Ì ¼±°Å ÁÖµµÇÏ°í ÀÖ´Ù¡±">
+<strong class="tit">ÁøÁß±Ç ¡°ÇÑµ¿ÈÆ °¡¸é ¡®ÆÒ´ý¡¯¡¦ÀÌ¹Ì ¼±°Å ÁÖµµÇÏ°í ÀÖ´Ù¡±</strong></a>
+</li>
+<li>
+<em class="num">5</em>
+<a href="https://news.kmib.co.kr/article/view.asp?arcid=0018896172&code=61111611&stg=wm_rank" target="_top" title="¡®»õÄ¡ Èñ²ý¡¯ ±èÁ¤Àº, Á¤ÂûÀ§¼º ¹ß»ç ¡®¼º°ø¡¯ ¸¸³£ [Æ÷Âø]">
+<strong class="tit">¡®»õÄ¡ Èñ²ý¡¯ ±èÁ¤Àº, Á¤ÂûÀ§¼º ¹ß»ç ¡®¼º°ø¡¯ ¸¸³£ [Æ÷Âø]</strong></a>
+</li>
+<li>
+<em class="num">6</em>
+<a href="https://news.kmib.co.kr/article/view.asp?arcid=0018894685&code=61181111&stg=wm_rank" target="_top" title="Å¸Áø¿ä ÀÌÀº ¡®±ÇÁø¿ä¡¯¡¦ ¸¶¾à À½¼º¿¡µµ ¹«Á¶°Ç Á¶·Õ¡¤ºÒ½Å">
+<strong class="tit">Å¸Áø¿ä ÀÌÀº ¡®±ÇÁø¿ä¡¯¡¦ ¸¶¾à À½¼º¿¡µµ ¹«Á¶°Ç Á¶·Õ¡¤ºÒ½Å</strong></a>
+</li>
+<li>
+<em class="num">7</em>
+<a href="https://news.kmib.co.kr/article/view.asp?arcid=0018895805&code=61141411&stg=wm_rank" target="_top" title="¾ûµ¢ÀÌ ´ÛÀº ¹°Æ¼½´·Î Á¤¼ö±â °ü¸®¡¦º»»çµµ ¡®È²´ç¡¯ ´ëÀÀ">
+<strong class="tit">¾ûµ¢ÀÌ ´ÛÀº ¹°Æ¼½´·Î Á¤¼ö±â °ü¸®¡¦º»»çµµ ¡®È²´ç¡¯ ´ëÀÀ</strong></a>
+</li>
+<li>
+<em class="num">8</em>
+<a href="https://news.kmib.co.kr/article/view.asp?arcid=0018896149&code=61111511&stg=wm_rank" target="_top" title="¡®9¡¤19 ³²ºÏ±º»çÇÕÀÇ¡¯ È¿·Â ÀÏºÎ Á¤Áö¡¦¡°ÝÁÁØ¼öÀÇÁö ¾ø¾î¡±">
+<strong class="tit">¡®9¡¤19 ³²ºÏ±º»çÇÕÀÇ¡¯ È¿·Â ÀÏºÎ Á¤Áö¡¦¡°ÝÁÁØ¼öÀÇÁö ¾ø¾î¡±</strong></a>
+</li>
+<li>
+<em class="num">9</em>
+<a href="https://news.kmib.co.kr/article/view.asp?arcid=0018895216&code=61161111&stg=wm_rank" target="_top" title="Å¬¸°½º¸¸È£ Áß±¹ ¿øÁ¤¼­ 3´ë0 ¿Ï½Â¡¦¼ÕÈï¹Î 2°ñ 1µµ¿ò">
+<strong class="tit">Å¬¸°½º¸¸È£ Áß±¹ ¿øÁ¤¼­ 3´ë0 ¿Ï½Â¡¦¼ÕÈï¹Î 2°ñ 1µµ¿ò</strong></a>
+</li>
+<li>
+<em class="num">10</em>
+<a href="https://news.kmib.co.kr/article/view.asp?arcid=0018895961&code=61121211&stg=wm_rank" target="_top" title="±«ÇÑ ÆøÇà ¸»¸®´Ù Ä®¸Â°í 50¹Ù´Ã¡¦¡°ÇÇÇØÀÚ ¹«»çÇØ ´ÙÇà¡±">
+<strong class="tit">±«ÇÑ ÆøÇà ¸»¸®´Ù Ä®¸Â°í 50¹Ù´Ã¡¦¡°ÇÇÇØÀÚ ¹«»çÇØ ´ÙÇà¡±</strong></a>
+</li>
+
+									</ul>
+								</div>
+								<div id="paper">
+									<ul>
+<li>
+<em class="num">1</em>
+<a href="https://news.kmib.co.kr/article/view.asp?arcid=0924331348&code=11131900&stg=wm_rank" target="_top" title="¡®¿©½Åµµ ¼ºÆøÇà¡¯ JMS Á¤¸í¼® Â¡¿ª 30³â ±¸Çü">
+<strong class="tit">¡®¿©½Åµµ ¼ºÆøÇà¡¯ JMS Á¤¸í¼® Â¡¿ª 30³â ±¸Çü</strong></a>
+</li>
+<li>
+<em class="num">2</em>
+<a href="https://news.kmib.co.kr/article/view.asp?arcid=0924331276&code=11131100&stg=wm_rank" target="_top" title="10¾ï »ç±â ÃÄµµ ¹ú±Ý °íÀÛ 2Ãµ¸¸¿ø¡¦ ¡®³°Àº Çü¹ý¡¯ÀÌ ¹®Á¦">
+<strong class="tit">10¾ï »ç±â ÃÄµµ ¹ú±Ý °íÀÛ 2Ãµ¸¸¿ø¡¦ ¡®³°Àº Çü¹ý¡¯ÀÌ ¹®Á¦</strong></a>
+</li>
+<li>
+<em class="num">3</em>
+<a href="https://news.kmib.co.kr/article/view.asp?arcid=0924331282&code=11121100&stg=wm_rank" target="_top" title="ÇÑ±¹¿¡ °¢º°ÇÑ çÈ¡¦ ¡°¹ÝµµÃ¼¡¤¹èÅÍ¸®¡¤¹æ»ê µî Çù·Â ¿øÇØ¡±">
+<strong class="tit">ÇÑ±¹¿¡ °¢º°ÇÑ çÈ¡¦ ¡°¹ÝµµÃ¼¡¤¹èÅÍ¸®¡¤¹æ»ê µî Çù·Â ¿øÇØ¡±</strong></a>
+</li>
+<li>
+<em class="num">4</em>
+<a href="https://news.kmib.co.kr/article/view.asp?arcid=0924331289&code=11131300&stg=wm_rank" target="_top" title="¡®n¼ö»ý¡¯ ºÎ¸£´Â ÀÇ´ë Á¤¿ø È®´ë¡¦ ¡®ºÒ¼ö´É¡¯ ºÒ°¡ÇÇ Àü¸Á">
+<strong class="tit">¡®n¼ö»ý¡¯ ºÎ¸£´Â ÀÇ´ë Á¤¿ø È®´ë¡¦ ¡®ºÒ¼ö´É¡¯ ºÒ°¡ÇÇ Àü¸Á</strong></a>
+</li>
+<li>
+<em class="num">5</em>
+<a href="https://news.kmib.co.kr/article/view.asp?arcid=0924331264&code=11121100&stg=wm_rank" target="_top" title="ÇÑµ¿ÈÆ¡¤¿øÈñ·æ¡¤ÀÌº¹Çö¡¦ æ¨ ¡°ÃÑ¼± ÇÊ½Â ¡®¾îº¥Àú½º Ãâµ¿¡¯¡±">
+<strong class="tit">ÇÑµ¿ÈÆ¡¤¿øÈñ·æ¡¤ÀÌº¹Çö¡¦ æ¨ ¡°ÃÑ¼± ÇÊ½Â ¡®¾îº¥Àú½º Ãâµ¿¡¯¡±</strong></a>
+</li>
+<li>
+<em class="num">6</em>
+<a href="https://news.kmib.co.kr/article/view.asp?arcid=0924331263&code=12110000&stg=wm_rank" target="_top" title="»øÄ¸ Á¶ÀÌÀÚ ¡®¿ª´ë±Þ¡¯ 2Â÷ µå·¡ÇÁÆ®¡¦ º£Å×¶û ½ñ¾ÆÁø´Ù">
+<strong class="tit">»øÄ¸ Á¶ÀÌÀÚ ¡®¿ª´ë±Þ¡¯ 2Â÷ µå·¡ÇÁÆ®¡¦ º£Å×¶û ½ñ¾ÆÁø´Ù</strong></a>
+</li>
+<li>
+<em class="num">7</em>
+<a href="https://news.kmib.co.kr/article/view.asp?arcid=0924331267&code=11131100&stg=wm_rank" target="_top" title="¡°ÀüÀå¿¬ ½ÃÀ§·Î »çÈ¸Àû ¼Õ½Ç 4450¾ï¿ø¡±">
+<strong class="tit">¡°ÀüÀå¿¬ ½ÃÀ§·Î »çÈ¸Àû ¼Õ½Ç 4450¾ï¿ø¡±</strong></a>
+</li>
+<li>
+<em class="num">8</em>
+<a href="https://news.kmib.co.kr/article/view.asp?arcid=0924331156&code=23111511&stg=wm_rank" target="_top" title="[°¡Á¤¿¹¹è 365-11¿ù 22ÀÏ] ±íÀº °÷À¸·Î">
+<strong class="tit">[°¡Á¤¿¹¹è 365-11¿ù 22ÀÏ] ±íÀº °÷À¸·Î</strong></a>
+</li>
+<li>
+<em class="num">9</em>
+<a href="https://news.kmib.co.kr/article/view.asp?arcid=0924331051&code=11151400&stg=wm_rank" target="_top" title="ºí·¢ ÇÁ¶óÀÌµ¥ÀÌ ´ë¹Ý°Ý º­¸£´Â ±¹³» ÀÌÄ¿¸Ó½º ¾÷°è">
+<strong class="tit">ºí·¢ ÇÁ¶óÀÌµ¥ÀÌ ´ë¹Ý°Ý º­¸£´Â ±¹³» ÀÌÄ¿¸Ó½º ¾÷°è</strong></a>
+</li>
+<li>
+<em class="num">10</em>
+<a href="https://news.kmib.co.kr/article/view.asp?arcid=0924331291&code=11131100&stg=wm_rank" target="_top" title="ÇÑ ¡°5000¸¸ÀÇ ¾ð¾î ¾µ °Í¡±¡¦ ÀÕ´Ü Á¤Ä¡Àû È­¹ý, »ç½Ç»ó Ãâ»çÇ¥">
+<strong class="tit">ÇÑ ¡°5000¸¸ÀÇ ¾ð¾î ¾µ °Í¡±¡¦ ÀÕ´Ü Á¤Ä¡Àû È­¹ý, »ç½Ç»ó Ãâ»çÇ¥</strong></a>
+</li>
+
+									</ul>
+								</div>
+
+										</div>
+
+									</div>
+									<!-- //¸¹ÀÌ º» ±â»ç -->				
+									<!-- ²ÁÂ÷Àå&¾Þ±Û¼Ó¼¼»ó -->
+									<div class="mn_ad ad_300_70 mn_kmbnr02" style="margin-bottom:10px;">
+										<a href="https://www.kmib.co.kr/ggon/" target="_blank"><img src="https://image.kmib.co.kr/images/www/main/bnr_ggon_300_70.jpg" alt="²ÁÂ÷Àå" title="²ÁÂ÷Àå"></a>
+										<a href="https://www.kmib.co.kr/angle/" target="_blank"><img src="https://image.kmib.co.kr/images/www/main/bnr_angle_300_70.jpg" alt="¾Þ±Û¼Ó ¼¼»ó" title="¾Þ±Û¼Ó ¼¼»ó"></a>
+									</div>
+									<!-- //²ÁÂ÷Àå&¾Þ±Û¼Ó¼¼»ó -->
+									<!-- Çø¿À¹ßÀü¼Ò ´ñ±ÛÃ¢ ±¹¹ÎÀÏº¸ ºòµ¥ÀÌÅÍ -->	
+									<div class="mn_ad ad_300_70" style="margin-bottom:10px;">
+									<a href="https://westophate.kr/" target="_blank"><img src="https://image.kmib.co.kr/images/www/main/bnr_westophate_300_70.gif" alt="Çø¿À¹ßÀü¼Ò ´ñ±ÛÃ¢-±¹¹ÎÀÏº¸ ºòµ¥ÀÌÅÍ" title="Çø¿À¹ßÀü¼Ò ´ñ±ÛÃ¢-±¹¹ÎÀÏº¸ ºòµ¥ÀÌÅÍ"></a>	
+									</div>
+									<!-- //Çø¿À¹ßÀü¼Ò ´ñ±ÛÃ¢ ±¹¹ÎÀÏº¸ ºòµ¥ÀÌÅÍ -->	
+									<!-- ad_300_70 -->
+									<div class="mn_ad ad_300_70" style="margin-bottom:10px;">
+									<iframe src="https://ads.kmib.co.kr/NetInsight/html/web/news/main@314" width="300" height="70" frameborder="0" scrolling="no" topmargin="0" leftmargin="0" marginwidth="0" marginheight="0" referrerpolicy="no-referrer-when-downgrade"></iframe>
+									</div>
+									<!-- //ad_300_70 -->
+									
+									<!-- ºê·£µå ´ë»ó -->
+									<div class="mn_ad ad_300_70">
+									<a href="https://news.kmib.co.kr/article/list.asp?sid1=prj&sid2=0101" title="¿ÃÇØÀÇ ±¹¹Î ºê·£µå ´ë»ó"><img src="https://image.kmib.co.kr/images/www/main/bnr_brand_300_70.jpg" alt="¿ÃÇØÀÇ ±¹¹Î ºê·£µå ´ë»ó"></a>
+									</div>
+									<!-- //ºê·£µå ´ë»ó -->
+									<!-- ±âÈ¹±â»ç -->
+									<div class="mn_plan">
+											<div>
+												<!-- ±âÈ¹±â»ç 01 -->
+<h2 class="mn_tit"><strong>
+Àå¾Öµµ ºñÀå¾Öµµ ¾Æ´Ñ °æ°èÀÎµé
+</strong></h2>
+<div class="m_nws_p02">
+<a href="https://news.kmib.co.kr/article/view.asp?arcid=0924324165&code=11131100&sid1=soc" title="700¸¸¸í À°¹ÚÇÏ´Â ´À¸°ÇÐ½ÀÀÚ, Áö¿øÃ¥Ä¿³ç ¿ë¾îÁ¶Â÷ ¾ø´Ù">
+<!-- ÀÌ¹ÌÁö»çÀÌÁî 110*70 -->
+<span class="thum"><img src="https://image.kmib.co.kr/online_image/2023/1009/2023100820581486703_1696766294_0924324165.jpg"  /></span>
+<strong class="tit">
+700¸¸¸í À°¹ÚÇÏ´Â ´À¸°ÇÐ½ÀÀÚ, Áö¿øÃ¥Ä¿³ç ¿ë¾îÁ¶Â÷ ¾ø´Ù
+</strong>
+</a>
+</div>
+
+												<div class="mn_lst_type01">
+													<ul>
+														
+<li><a href="https://news.kmib.co.kr/article/view.asp?arcid=0924324180&code=11131100&sid1=soc" title="µ¶ÀÏ¼± ¡®´À¸° ¼Óµµ¡¯ ±³À°¡¦ Á÷¾÷ÇÐ±³ µî°ú ¿¬°è ÀÚ¸³ µµ¿Í">µ¶ÀÏ¼± ¡®´À¸° ¼Óµµ¡¯ ±³À°¡¦ Á÷¾÷ÇÐ±³ µî°ú ¿¬°è ÀÚ¸³ µµ¿Í</a></li>
+
+
+<li><a href="https://news.kmib.co.kr/article/view.asp?arcid=0924323729&code=11131100&sid1=soc" title="¡®³ª ¾ËÀÝ¾Æ, ¹Ï¾îµµ µÅ¡¯¡¦ ´À¸°ÇÐ½ÀÀÚ ³ë¸° ¡®¾Æ´Â »ç¶÷µé¡¯">¡®³ª ¾ËÀÝ¾Æ, ¹Ï¾îµµ µÅ¡¯¡¦ ´À¸°ÇÐ½ÀÀÚ ³ë¸° ¡®¾Æ´Â »ç¶÷µé</a></li>
+
+
+
+<li><a href="https://news.kmib.co.kr/article/view.asp?arcid=0924323695&code=11131100&sid1=soc" title="È£ÀÇÀû Á¢±Ù È¯½É »ê ÈÄ ¹üÇà¡¦ °¡½º¶óÀÌÆÃÀ¸·Î ÀÔ¸·À½">È£ÀÇÀû Á¢±Ù È¯½É »ê ÈÄ ¹üÇà¡¦ °¡½º¶óÀÌÆÃÀ¸·Î ÀÔ¸·À½</a></li>
+
+													</ul>
+												</div>
+											</div>
+											<div>
+												<!-- ±âÈ¹±â»ç 02 -->
+<h2 class="mn_tit"><strong>
+°³stÇÏ¿ì½º
+</strong></h2>
+<div class="m_nws_p02">
+<a href="https://news.kmib.co.kr/article/view.asp?arcid=0924326518&code=14190000&sid1=lif" title="¡®ÇÕ¹ý ¹ø½ÄÀå¡¯ ½Ç»óÀº °Å´ëÇÑ °­¾ÆÁö °¨¿ÁÀÌ¾ú´Ù [°³stÇÏ¿ì½º]">
+<span class="thum"><img src="https://image.kmib.co.kr/online_image/2023/1028/2023102623130817042_1698329588_0924326518.jpg"  /></span>
+<strong class="tit">
+¡®ÇÕ¹ý ¹ø½ÄÀå¡¯ ½Ç»óÀº °Å´ëÇÑ °­¾ÆÁö °¨¿ÁÀÌ¾ú´Ù 
+</strong>
+</a>
+</div>
+												<div class="mn_lst_type01">
+													<ul>
+														<li><a href="https://news.kmib.co.kr/article/view.asp?arcid=0924323470&code=14190000&sid1=lif" title="¸Û³ÉÀÌ ¿¹¹æÁ¢Á¾¡¤¿µ¾ç°ü¸®, »ýÈÄ 1³â±îÁö°¡ ¡®°ñµçÅ¸ÀÓ¡¯ [°³stÇÏ¿ì½º]">¸Û³ÉÀÌ ¿¹¹æÁ¢Á¾¡¤¿µ¾ç°ü¸®, »ýÈÄ 1³â±îÁö°¡ ¡®°ñµçÅ¸ÀÓ¡¯ </a></li>
+
+<li><a href="https://news.kmib.co.kr/article/view.asp?arcid=0924319477&code=14190000&sid1=lif" title="³óÀå°³¿¡¼­ ¹Ý·Á°ßÀ¸·Î¡¦  ¡°Ä³³ª´Ù¿¡¼± Çàº¹ÇØ¾ß ÇØ¡± [°³stÇÏ¿ì½º]">³óÀå°³¿¡¼­ ¹Ý·Á°ßÀ¸·Î¡¦  ¡°Ä³³ª´Ù¿¡¼± Çàº¹ÇØ¾ß ÇØ¡±</a></li>
+
+<li><a href="https://news.kmib.co.kr/article/view.asp?arcid=0924317566&code=14190000&sid1=lif" title="¡°µµ¿ÍÁÖ¼¼¿ä. ¸Û¸Û¡±¡¦   Çö°ü¹® µÎµå¸®´ø   ¹ÙµÏÀÌ ÄíÅ° [°³stÇÏ¿ì½º]">¡°µµ¿ÍÁÖ¼¼¿ä. ¸Û¸Û¡±¡¦   Çö°ü¹® µÎµå¸®´ø   ¹ÙµÏÀÌ ÄíÅ°</a></li>
+
+
+													</ul>
+												</div>
+											</div>
+
+									</div>
+									<!-- //±âÈ¹±â»ç -->
+
+
+									<!-- ¸¸Æò -->
+									<div class="mn_cartoon">
+										<h2 class="mn_tit"><strong>¸¸Æò</strong><a href="https://www.kmib.co.kr/cartoon/index.asp" class="more">´õº¸±â</a></h2>
+										<!--<div class="tab_mnu">
+											<ul>
+												<li><a href="https://news.kmib.co.kr/article/list.asp?sid1=car&sid2=0001" class="on">¸¸Æò</a></li>
+												<li><a href="https://news.kmib.co.kr/article/list.asp?sid1=prj&sid2=0016">±¹Ãà¸¸È­</a></li>
+											</ul>
+										</div>
+										-->
+										<div class="mn_cartoon_inner">
+											<div  class="m_nws_p01">
+												<!-- ¸¸Æò -->
+<a href="https://www.kmib.co.kr/cartoon/index.asp" title="[±¹¹Î¸¸Æò-¼­¹ÎÈ£ È­¹é] 2023³â 11¿ù 22ÀÏ">
+<!-- ÀÌ¹ÌÁö»çÀÌÁî 298*288 -->
+<span class="thum"><img src="https://image.kmib.co.kr/online_image/2023/1121/2023112119021043824_1700560930_0924331341.jpg" /></span>
+</a>
+											</div>
+											<!--<div id="toon02" class="m_nws_p01">
+												[[ news_index_0019 FORM No.19 ±¹Ãà¸¸È­ ]]
+											</div>
+											-->
+										</div>
+									</div>
+									<!-- //¸¸Æò -->
+									<!-- Ãß°¡±â»ç -->
+									<div class="mn_add">
+
+										<!-- ±â»çÃß°¡ - ÀÌ¹ÌÁö -->
+<div class="m_nws_p02">
+<a href="https://news.kmib.co.kr/article/view.asp?arcid=0924331271&code=11151100&sid1=eco" title="³ë¶õ»ö Åä¸¶Åä ÀÙ ÃÔ¿µÇÏÀÚ ¡®°õÆÎÀÌº´ 64%¡¯ Áø´Ü">
+<!-- ÀÌ¹ÌÁö»çÀÌÁî 110*70 -->
+<span class="thum"><img src="https://image.kmib.co.kr/online_image/2023/1122/2023112120000643879_1700564406_0924331271.jpg" /></span>
+<strong class="tit">
+³ë¶õ»ö Åä¸¶Åä ÀÙ ÃÔ¿µÇÏÀÚ ¡®°õÆÎÀÌº´ 64%¡¯ Áø´Ü
+</strong>
+</a>
+</div>
+
+<!-- ±â»çÃß°¡ - ÀÌ¹ÌÁö -->
+<div class="m_nws_p02">
+<a href="https://news.kmib.co.kr/article/view.asp?arcid=0924331223&code=11151400&sid1=eco" title="»ï¼º¡¤LG, TV½ÃÀå 1À§¿¡µµ °æ±â Ä§Ã¼·Î ¹Ì·¡Àü¸Á ºÒÅõ¸í">
+<!-- ÀÌ¹ÌÁö»çÀÌÁî 110*70 -->
+<span class="thum"><img src="https://image.kmib.co.kr/online_image/2023/1122/2023112120301043961_1700566210_0924331223.jpg" /></span>
+<strong class="tit">
+»ï¼º¡¤LG, TV½ÃÀå 1À§¿¡µµ °æ±â Ä§Ã¼·Î ¹Ì·¡Àü¸Á ºÒÅõ¸í
+</strong>
+</a>
+</div>
+
+
+<!-- ±â»çÃß°¡ - ÀÌ¹ÌÁö -->
+<div class="m_nws_p02">
+<a href="https://news.kmib.co.kr/article/view.asp?arcid=0924331287&code=11151400&sid1=eco" title="ÀºÇà¡¤Á¤À¯»ç ¶³°í ÀÖ´Âµ¥¡¦ ¡®È¾Àç¼¼ ±¤Ç³¡¯ ºñ²¸ÀÖ´Â ÀÌÅë¾÷°è">
+<!-- ÀÌ¹ÌÁö»çÀÌÁî 110*70 -->
+<span class="thum"><img src="https://image.kmib.co.kr/online_image/2023/1122/2023112120530444029_1700567584_0924331287.jpg" /></span>
+<strong class="tit">
+ÀºÇà¡¤Á¤À¯»ç ¶³°í ÀÖ´Âµ¥¡¦ ¡®È¾Àç¼¼ ±¤Ç³¡¯ ºñ²¸ÀÖ´Â ÀÌÅë¾÷°è
+</strong>
+</a>
+</div>
+
+<!-- ±â»çÃß°¡ - ÀÌ¹ÌÁö -->
+<div class="m_nws_p02">
+<a href="https://news.kmib.co.kr/article/view.asp?arcid=0924331257&code=11151400&sid1=eco" title="Ú¸ ·Îº¿ ÅõÀÚ ¿­±â ½Ä¾ú³ª, Áßµ¿À¸·Î ´« µ¹¸®´Â ùÛ½ºÅ¸Æ®¾÷">
+<!-- ÀÌ¹ÌÁö»çÀÌÁî 110*70 -->
+<span class="thum"><img src="https://image.kmib.co.kr/online_image/2023/1122/2022072114553374369_1658382935_0924331257.jpg" /></span>
+<strong class="tit">
+Ú¸ ·Îº¿ ÅõÀÚ ¿­±â ½Ä¾ú³ª, Áßµ¿À¸·Î ´« µ¹¸®´Â ùÛ½ºÅ¸Æ®¾÷
+</strong>
+</a>
+</div>
+
+<!-- ±â»çÃß°¡ - ÀÌ¹ÌÁö -->
+<div class="m_nws_p02">
+<a href="https://news.kmib.co.kr/article/view.asp?arcid=0924331238&code=11151600&sid1=eco" title="´ëÇü¸¶Æ® ±ÔÁ¦ Çª´Â °Ô ¹Î»ý»ì¸®±â?¡¦ ÃÑ¼± ¾Õ ³íÀï ÀçÁ¡È­">
+<!-- ÀÌ¹ÌÁö»çÀÌÁî 110*70 -->
+<span class="thum"><img src="https://image.kmib.co.kr/online_image/2023/1122/2023112122260444221_1700573164_0924331238.jpg" /></span>
+<strong class="tit">
+´ëÇü¸¶Æ® ±ÔÁ¦ Çª´Â °Ô ¹Î»ý»ì¸®±â?¡¦ ÃÑ¼± ¾Õ ³íÀï ÀçÁ¡È­
+</strong>
+</a>
+</div>
+
+<!-- ±â»çÃß°¡ - ÀÌ¹ÌÁö -->
+<div class="m_nws_p02">
+<a href="https://news.kmib.co.kr/article/view.asp?arcid=0924331280&code=11151400&sid1=eco" title="·Îº¿ÀÌ Â÷Á¾º° »ý»ê¡¤¿î¹Ý¡¦ Á¤ÀÇ¼±ÀÇ ¡®¹Ì·¡ ¸ðºô¸®Æ¼ Çõ½Å±âÁö¡¯">
+<!-- ÀÌ¹ÌÁö»çÀÌÁî 110*70 -->
+<span class="thum"><img src="https://image.kmib.co.kr/online_image/2023/1122/2023112120270443944_1700566024_0924331280.jpg" /></span>
+<strong class="tit">
+·Îº¿ÀÌ Â÷Á¾º° »ý»ê¡¤¿î¹Ý¡¦ Á¤ÀÇ¼±ÀÇ ¡®¹Ì·¡ ¸ðºô¸®Æ¼ Çõ½Å±âÁö¡¯
+</strong>
+</a>
+</div>
+
+<!-- ±â»çÃß°¡ - ÀÌ¹ÌÁö -->
+<div class="m_nws_p02">
+<a href="https://news.kmib.co.kr/article/view.asp?arcid=0924331254&code=11151100&sid1=eco" title="¡®´ç±Ù¡¯ Åä½ºÆ®±â ¼ö¸®ºñ, ÆÇ¸Å¡¤±¸¸ÅÀÚ ¹Ý¹Ý ºÎ´ã ¡®¶¥¶¥¶¥¡¯">
+<!-- ÀÌ¹ÌÁö»çÀÌÁî 110*70 -->
+<span class="thum"><img src="https://image.kmib.co.kr/online_image/2023/1122/2023112120290643955_1700566146_0924331254.jpg" /></span>
+<strong class="tit">
+¡®´ç±Ù¡¯ Åä½ºÆ®±â ¼ö¸®ºñ, ÆÇ¸Å¡¤±¸¸ÅÀÚ ¹Ý¹Ý ºÎ´ã ¡®¶¥¶¥¶¥¡¯
+</strong>
+</a>
+</div>
+
+<!-- ±â»çÃß°¡ - ÀÌ¹ÌÁö -->
+<div class="m_nws_p02">
+<a href="https://news.kmib.co.kr/article/view.asp?arcid=0924331248&code=11151500&sid1=eco" title="ÃÑ¼± Ç¥½É ÀÇ½ÄÇß³ª¡¦ ³»³â °ø½Ã°¡À², ¿ÃÇØ¿Í °°°Ô ¸Å±ä´Ù">
+<!-- ÀÌ¹ÌÁö»çÀÌÁî 110*70 -->
+<span class="thum"><img src="https://image.kmib.co.kr/online_image/2023/1122/2023112119580643872_1700564286_0924331248.jpg" /></span>
+<strong class="tit">
+ÃÑ¼± Ç¥½É ÀÇ½ÄÇß³ª¡¦ ³»³â °ø½Ã°¡À², ¿ÃÇØ¿Í °°°Ô ¸Å±ä´Ù
+</strong>
+</a>
+</div>
+
+<!-- ±â»çÃß°¡ - ÀÌ¹ÌÁö -->
+<div class="m_nws_p02">
+<a href="https://news.kmib.co.kr/article/view.asp?arcid=0924331275&code=11151500&sid1=eco" title="Å« ¿À¸£³»¸² ¾øÀÌ °Ô°ÉÀ½¡¦ ³»³â Áý°ª ¡®ºÒÈ²Çü ¾ÈÁ¤¼¼¡¯">
+<!-- ÀÌ¹ÌÁö»çÀÌÁî 110*70 -->
+<span class="thum"><img src="https://image.kmib.co.kr/online_image/2023/1122/2023112120260343939_1700565963_0924331275.jpg" /></span>
+<strong class="tit">
+Å« ¿À¸£³»¸² ¾øÀÌ °Ô°ÉÀ½¡¦ ³»³â Áý°ª ¡®ºÒÈ²Çü ¾ÈÁ¤¼¼¡¯
+</strong>
+</a>
+</div>
+
+<!-- ±â»çÃß°¡ - ÀÌ¹ÌÁö -->
+<div class="m_nws_p02">
+<a href="https://news.kmib.co.kr/article/view.asp?arcid=0924331269&code=11151300&sid1=eco" title="KB±ÝÀ¶ ¾çÁ¾Èñ ½Ã´ë °³¸·">
+<!-- ÀÌ¹ÌÁö»çÀÌÁî 110*70 -->
+<span class="thum"><img src="https://image.kmib.co.kr/online_image/2023/1122/2023112119590643876_1700564346_0924331269.jpg" /></span>
+<strong class="tit">
+KB±ÝÀ¶ ¾çÁ¾Èñ ½Ã´ë °³¸·
+</strong>
+</a>
+</div>
+
+<!-- ±â»çÃß°¡ - ÀÌ¹ÌÁö -->
+<div class="m_nws_p02">
+<a href="https://news.kmib.co.kr/article/view.asp?arcid=0924331253&code=11151400&sid1=eco" title="[Àç°èµÞ´ã] ¡®¼ø»ì ¾ÆÆÄÆ®¡¯°¡ ½î¾Æ¿Ã¸° °ø¡¦ ÀÎ»çÃ¶ GS±×·ì »ì¾óÀ½ÆÇ">
+<!-- ÀÌ¹ÌÁö»çÀÌÁî 110*70 -->
+<span class="thum"><img src="https://image.kmib.co.kr/online_image/2023/1122/2023112120570344038_1700567823_0924331253.jpg" /></span>
+<strong class="tit">
+[Àç°èµÞ´ã] ¡®¼ø»ì ¾ÆÆÄÆ®¡¯°¡ ½î¾Æ¿Ã¸° °ø¡¦ ÀÎ»çÃ¶ GS±×·ì »ì¾óÀ½ÆÇ
+</strong>
+</a>
+</div>
+
+<!-- ±â»çÃß°¡ - ÀÌ¹ÌÁö -->
+<div class="m_nws_p02">
+<a href="https://news.kmib.co.kr/article/view.asp?arcid=0924331232&code=11151100&sid1=eco" title="¼­¿ï½Å¶óÈ£ÅÚ ·¹½ºÅä¶û 4°÷ ¡®¶ó ¸®½ºÆ® 2024¡¯¿¡ ¼±Á¤">
+<!-- ÀÌ¹ÌÁö»çÀÌÁî 110*70 -->
+<span class="thum"><img src="https://image.kmib.co.kr/online_image/2023/1122/2023112120370843987_1700566628_0924331232.jpg" /></span>
+<strong class="tit">
+¼­¿ï½Å¶óÈ£ÅÚ ·¹½ºÅä¶û 4°÷ ¡®¶ó ¸®½ºÆ® 2024¡¯¿¡ ¼±Á¤
+</strong>
+</a>
+</div>
+
+<!-- ±â»çÃß°¡ - ÀÌ¹ÌÁö -->
+<div class="m_nws_p02">
+<a href="https://news.kmib.co.kr/article/view.asp?arcid=0924331225&code=11151400&sid1=eco" title="10°Ç Áß 8°Ç¡¦ ñéÐê¿¡ ´õ ¸Å¼­¿î Áß´ëÀçÇØ¹ý Ã¶Åð">
+<!-- ÀÌ¹ÌÁö»çÀÌÁî 110*70 -->
+<span class="thum"><img src="https://image.kmib.co.kr/online_image/2023/1122/2021052013425597100_1621485775_0924331225.jpg" /></span>
+<strong class="tit">
+10°Ç Áß 8°Ç¡¦ ñéÐê¿¡ ´õ ¸Å¼­¿î Áß´ëÀçÇØ¹ý Ã¶Åð
+</strong>
+</a>
+</div>
+
+<!-- ±â»çÃß°¡ - ÀÌ¹ÌÁö -->
+<div class="m_nws_p02">
+<a href="https://news.kmib.co.kr/article/view.asp?arcid=0924331231&code=11151100&sid1=eco" title="·Ôµ¥È¨¼îÇÎ µ¿³²¾Æ ÁøÃâ º»°ÝÈ­¡¦ ÅÂ±¹¼­ º§¸®°õ Æ¯º°Àü½Ã Å« È£ÀÀ">
+<!-- ÀÌ¹ÌÁö»çÀÌÁî 110*70 -->
+<span class="thum"><img src="https://image.kmib.co.kr/online_image/2023/1122/2023112120360843981_1700566568_0924331231.jpg" /></span>
+<strong class="tit">
+·Ôµ¥È¨¼îÇÎ µ¿³²¾Æ ÁøÃâ º»°ÝÈ­¡¦ ÅÂ±¹¼­ º§¸®°õ Æ¯º°Àü½Ã Å« È£ÀÀ
+</strong>
+</a>
+</div>
+
+
+										<div class="mn_lst_type02">
+											<ul>
+												
+											</ul>
+										</div>
+									</div>
+									<!-- //Ãß°¡±â»ç -->
+
+									<!-- ad_300_70 -->
+									<div class="mn_ad ad_300_70">
+									<iframe src="https://ads.kmib.co.kr/NetInsight/html/web/news/main@315" width="300" height="70" frameborder="0" scrolling="no" topmargin="0" leftmargin="0" marginwidth="0" marginheight="0" referrerpolicy="no-referrer-when-downgrade"></iframe>
+									</div>
+									<!-- //ad_300_70 -->
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+				<!-- //mtop -->
+				<!-- mcnt -->
+				<div class="mcnt">
+
+
+					<!-- tv±¹¹ÎÀÏº¸ -->
+					<div class="mn_tv">
+						<div class="mn_inner">
+							<h2 class="mn_tit"><strong>TV ±¹¹ÎÀÏº¸</strong><a href="https://www.kmib.co.kr/vod/index.asp" class="more">´õº¸±â</a></h2>
+						</div>
+						<div class="mn_tv_inner">
+						<ul>
+						<!-- ¿µ»ó±â»ç -->
+<li>
+<div class="m_nws_p04">
+<a href="https://news.kmib.co.kr/article/view.asp?arcid=0018886816&code=61171811&sid1=lif" title="¡°ÀÌ°Å¿´¾î?¡± Æ½Åå¼­ ³­¸®³­ ¡®¹è´Þ ÇÇÀÚ »©¸Ô±â¡¯ [¿µ»ó]">
+<!-- ÀÌ¹ÌÁö»çÀÌÁî 202*124 -->
+<span class="thum"><img src="https://image.kmib.co.kr/online_image/2023/1119/2023111916051840658_1700377518_0018886816.jpg" alt="" /></span>
+<strong class="tit">
+¡°ÀÌ°Å¿´¾î?¡± Æ½Åå¼­ ³­¸®³­ ¡®¹è´Þ ÇÇÀÚ »©¸Ô±â¡¯
+</strong>
+</a>
+</div>
+</li>
+
+<!-- ¿µ»ó±â»ç -->
+<li>
+<div class="m_nws_p04">
+<a href="https://news.kmib.co.kr/article/view.asp?arcid=0018873573&code=61121211&sid1=soc" title="¡°³»°¡ Á³´Ù¡± Àýµµ¹ü Ç×º¹ ¹Þ¾Æ³½ Áý³äÀÇ ¿©°æ [¿µ»ó]">
+<!-- ÀÌ¹ÌÁö»çÀÌÁî 202*124 -->
+<span class="thum"><img src="https://image.kmib.co.kr/online_image/2023/1115/2023111513441736961_1700023457_0018873573.jpg" alt="" /></span>
+<strong class="tit">
+¡°³»°¡ Á³´Ù¡± Àýµµ¹ü Ç×º¹ ¹Þ¾Æ³½ Áý³äÀÇ ¿©°æ
+</strong>
+</a>
+</div>
+</li>
+
+<!-- ¿µ»ó±â»ç -->
+<li>
+<div class="m_nws_p04">
+<a href="https://news.kmib.co.kr/article/view.asp?arcid=0018858399&code=61121211&sid1=soc" title="ìí ¹øÈ­°¡¼­ ¡°¹»ºÁ XXX¾ß¡±¡¦ îñ ¾ß±¸ ±¹´ë »ç°ú [¿µ»ó]">
+<!-- ÀÌ¹ÌÁö»çÀÌÁî 202*124 -->
+<span class="thum"><img src="https://image.kmib.co.kr/online_image/2023/1110/2023111014085432079_1699592934_0018858399.png" alt="" /></span>
+<strong class="tit">
+ìí ¹øÈ­°¡¼­ ¡°¹»ºÁ XXX¾ß¡±¡¦ îñ ¾ß±¸ ±¹´ë »ç°ú
+</strong>
+</a>
+</div>
+</li>
+
+<!-- ¿µ»ó±â»ç -->
+<li>
+<div class="m_nws_p04">
+<a href="https://news.kmib.co.kr/article/view.asp?arcid=0018858167&code=61121111&sid1=soc" title="¡°Àç»ê »¯À¸·¯ ¿ÔÁö¡±¡¦³´ ÈÖµÎ¸£´Ù Å×ÀÌÀú°Ç¿¡ ¡®Äô¡¯ [¿µ»ó]">
+<!-- ÀÌ¹ÌÁö»çÀÌÁî 202*124 -->
+<span class="thum"><img src="https://image.kmib.co.kr/online_image/2023/1110/2023111013475332062_1699591673_0018858167.jpg" alt="" /></span>
+<strong class="tit">
+¡°Àç»ê »¯À¸·¯ ¿ÔÁö¡±¡¦³´ ÈÖµÎ¸£´Ù Å×ÀÌÀú°Ç¿¡ ¡®Äô¡¯ 
+</strong>
+</a>
+</div>
+</li>
+
+<!-- ¿µ»ó±â»ç -->
+<li>
+<div class="m_nws_p04">
+<a href="https://news.kmib.co.kr/article/view.asp?arcid=0018850928&code=61121111&sid1=soc" title="µµ·Î ÇÑº¹ÆÇ¼­ ³­µ¿ ºÎ¸®°í °æÂû ¹°¾î ¶âÀº ¡®¹®½Å³²¡¯ [¿µ»ó]">
+<!-- ÀÌ¹ÌÁö»çÀÌÁî 202*124 -->
+<span class="thum"><img src="https://image.kmib.co.kr/online_image/2023/1108/2023110817315629848_1699432316_0018850928.jpg" alt="" /></span>
+<strong class="tit">
+µµ·Î ÇÑº¹ÆÇ¼­ ³­µ¿ ºÎ¸®°í °æÂû ¹°¾î ¶âÀº ¡®¹®½Å³²¡¯
+</strong>
+</a>
+</div>
+</li>
+
+<!-- ¿µ»ó±â»ç -->
+<li>
+<div class="m_nws_p04">
+<a href="https://news.kmib.co.kr/article/view.asp?arcid=0018839314&code=61171811&sid1=lif" title="Â÷µµ °È´Ù ´Ù°¡¿Í ¡®Äç¡¯¡¦¡°¸íÇ° ¿îµ¿È­ ¹°¾î³»¶ó¡± [¿µ»ó]">
+<!-- ÀÌ¹ÌÁö»çÀÌÁî 202*124 -->
+<span class="thum"><img src="https://image.kmib.co.kr/online_image/2023/1106/2023110606111526170_1699218675_0018839314.jpg" alt="" /></span>
+<strong class="tit">
+Â÷µµ °È´Ù ´Ù°¡¿Í ¡®Äç¡¯¡¦¡°¸íÇ° ¿îµ¿È­ ¹°¾î³»¶ó¡±
+</strong>
+</a>
+</div>
+</li>
+
+<!-- ¿µ»ó±â»ç -->
+<li>
+<div class="m_nws_p04">
+<a href="https://news.kmib.co.kr/article/view.asp?arcid=0018822036&code=61131111&sid1=int" title="ÇÏ´Ã¼­ 13¾ï¿ø ¡®µ· ºñ¡¯ ³»·È´Ù¡¦4000¸í ¿ì¸£¸£ [¿µ»ó]">
+<!-- ÀÌ¹ÌÁö»çÀÌÁî 202*124 -->
+<span class="thum"><img src="https://image.kmib.co.kr/online_image/2023/1031/2023103116075420867_1698736074_0018822036.jpg" alt="" /></span>
+<strong class="tit">
+ÇÏ´Ã¼­ 13¾ï¿ø ¡®µ· ºñ¡¯ ³»·È´Ù¡¦4000¸í ¿ì¸£¸£
+</strong>
+</a>
+</div>
+</li>
+
+<!-- ¿µ»ó±â»ç -->
+<li>
+<div class="m_nws_p04">
+<a href="https://news.kmib.co.kr/article/view.asp?arcid=0018815246&code=61121211&sid1=soc" title="²ÇÃÊ ¹ö¸®·Á ¼Õ»¸´Ù Â÷¿¡ ¡®ÆÜ¡¯¡¦¡°ÇÑ¹æº´¿ø ÀÔ¿ø¡± [¿µ»ó]">
+<!-- ÀÌ¹ÌÁö»çÀÌÁî 202*124 -->
+<span class="thum"><img src="https://image.kmib.co.kr/online_image/2023/1030/2023103007534218864_1698620022_0018815246.jpg" alt="" /></span>
+<strong class="tit">
+²ÇÃÊ ¹ö¸®·Á ¼Õ»¸´Ù Â÷¿¡ ¡®ÆÜ¡¯¡¦¡°ÇÑ¹æº´¿ø ÀÔ¿ø¡±
+</strong>
+</a>
+</div>
+</li>
+
+<!-- ¿µ»ó±â»ç -->
+<li>
+<div class="m_nws_p04">
+<a href="https://news.kmib.co.kr/article/view.asp?arcid=0018788907&code=61121111&sid1=soc" title="¡°Ä® ³»³ö¡±¡¦¡®¾Ë¸ö ¹®½Å³²¡¯ ³­µ¿ ºÎ¸®´Ù Å×ÀÌÀú°Ç¿¡ ¡®Äô¡¯ [¿µ»ó]">
+<!-- ÀÌ¹ÌÁö»çÀÌÁî 202*124 -->
+<span class="thum"><img src="https://image.kmib.co.kr/online_image/2023/1022/2023102211580710196_1697943487_0018788907.jpg" alt="" /></span>
+<strong class="tit">
+¡°Ä® ³»³ö¡±¡¦¡®¾Ë¸ö ¹®½Å³²¡¯ ³­µ¿ ºÎ¸®´Ù Å×ÀÌÀú°Ç¿¡ ¡®Äô¡¯
+</strong>
+</a>
+</div>
+</li>
+
+<!-- ¿µ»ó±â»ç -->
+<li>
+<div class="m_nws_p04">
+<a href="https://news.kmib.co.kr/article/view.asp?arcid=0018773943&code=61171811&sid1=lif" title="Àüµ¿Å±º¸µå ÇÑ ´ë¿¡ ¿©ÇÐ»ý 4¸í¡¦°Ô´Ù°¡ ¡®¿ªÁÖÇà¡¯ [¿µ»ó]">
+<!-- ÀÌ¹ÌÁö»çÀÌÁî 202*124 -->
+<span class="thum"><img src="https://image.kmib.co.kr/online_image/2023/1018/2023101722585096509_1697551130_0018773943.jpg" alt="" /></span>
+<strong class="tit">
+Àüµ¿Å±º¸µå ÇÑ ´ë¿¡ ¿©ÇÐ»ý 4¸í¡¦°Ô´Ù°¡ ¡®¿ªÁÖÇà¡¯ 
+</strong>
+</a>
+</div>
+</li>
+
+<!-- ¿µ»ó±â»ç -->
+<li>
+<div class="m_nws_p04">
+<a href="https://news.kmib.co.kr/article/view.asp?arcid=0018739290&code=61131111&sid1=int" title="¡°»çÀÚº¸´Ù »ç¶÷ ¼Ò¸®¿¡ ´õ ¡®È­µéÂ¦¡¯¡±¡¦¾ß»ýµ¿¹°µé ¹ÝÀÀ [¿µ»ó]">
+<!-- ÀÌ¹ÌÁö»çÀÌÁî 202*124 -->
+<span class="thum"><img src="https://image.kmib.co.kr/online_image/2023/1007/2023100614501785245_1696571417_0018739290.png" alt="" /></span>
+<strong class="tit">
+¡°»çÀÚº¸´Ù »ç¶÷ ¼Ò¸®¿¡ ´õ ¡®È­µéÂ¦¡¯¡±¡¦¾ß»ýµ¿¹°µé ¹ÝÀÀ
+</strong>
+</a>
+</div>
+</li>
+
+<!-- ¿µ»ó±â»ç -->
+<li>
+<div class="m_nws_p04">
+<a href="https://news.kmib.co.kr/article/view.asp?arcid=0018729416&code=61171811&sid1=lif" title="ÅÂ±¹ ÃÑ±â³­»ç ¼îÇÎ¸ô¼­ ùÛ BJ °¡±î½º·Î Å»Ãâ [¿µ»ó]">
+<!-- ÀÌ¹ÌÁö»çÀÌÁî 202*124 -->
+<span class="thum"><img src="https://image.kmib.co.kr/online_image/2023/1004/2023100411012382507_1696384884_0018729416.jpg" alt="" /></span>
+<strong class="tit">
+ÅÂ±¹ ÃÑ±â³­»ç ¼îÇÎ¸ô¼­ ùÛ BJ °¡±î½º·Î Å»Ãâ
+</strong>
+</a>
+</div>
+</li>
+
+<!-- ¿µ»ó±â»ç -->
+<li>
+<div class="m_nws_p04">
+<a href="https://news.kmib.co.kr/article/view.asp?arcid=0018708802&code=61131111&sid1=int" title="[¿µ»ó] ÄÉÀÌÅ©·Î ¾ó±¼ ¡®ÆÜ¡¯, È£ÁÖ ³ë´øÁØÁÖ ÃÑ¸® ºÀº¯">
+<!-- ÀÌ¹ÌÁö»çÀÌÁî 202*124 -->
+<span class="thum"><img src="https://image.kmib.co.kr/online_image/2023/0926/2023092517175176999_1695629872_0018708802.png" alt="" /></span>
+<strong class="tit">
+ÄÉÀÌÅ©·Î ¾ó±¼ ¡®ÆÜ¡¯, È£ÁÖ ³ë´øÁØÁÖ ÃÑ¸® ºÀº¯
+</strong>
+</a>
+</div>
+</li>
+
+<!-- ¿µ»ó±â»ç -->
+<li>
+<div class="m_nws_p04">
+<a href="https://news.kmib.co.kr/article/view.asp?arcid=0018707541&code=61161811&sid1=spo" title="Á³´Ù°í ¶óÄÏ ¹Ú»ì¡¦ñé¾ßÀ¯ ÅÍÁø ±Ç¼ø¿ì ºñ¸Å³Ê [¿µ»ó]">
+<!-- ÀÌ¹ÌÁö»çÀÌÁî 202*124 -->
+<span class="thum"><img src="https://image.kmib.co.kr/online_image/2023/0926/2023092604255377583_1695669953_0018707541.jpg" alt="" /></span>
+<strong class="tit">
+Á³´Ù°í ¶óÄÏ ¹Ú»ì¡¦ñé¾ßÀ¯ ÅÍÁø ±Ç¼ø¿ì ºñ¸Å³Ê
+</strong>
+</a>
+</div>
+</li>
+
+<!-- ¿µ»ó±â»ç -->
+<li>
+<div class="m_nws_p04">
+<a href="https://news.kmib.co.kr/article/view.asp?arcid=0018672616&code=61131611&sid1=int" title="[¿µ»ó] °³Àå ÇÏ·ç ¸¸¿¡¡¦ Á¶°¢»ó ºÎ·¯¶ß¸° °ü±¤°´ Ã¼Æ÷">
+<!-- ÀÌ¹ÌÁö»çÀÌÁî 202*124 -->
+<span class="thum"><img src="https://image.kmib.co.kr/online_image/2023/0915/2023091511491166647_1694746151_0018672616.jpg" alt="" /></span>
+<strong class="tit">
+°³Àå ÇÏ·ç ¸¸¿¡¡¦ Á¶°¢»ó ºÎ·¯¶ß¸° °ü±¤°´ Ã¼Æ÷
+</strong>
+</a>
+</div>
+</li>
+
+<!-- ¿µ»ó±â»ç -->
+<li>
+<div class="m_nws_p04">
+<a href="https://news.kmib.co.kr/article/view.asp?arcid=0018664888&code=61121111&sid1=soc" title="[¿µ»ó] Èä±â ³­µ¿ 20´ëåü, °æÂû »ï´ÜºÀ¿¡ Áï½Ã Á¦¾Ð">
+<!-- ÀÌ¹ÌÁö»çÀÌÁî 202*124 -->
+<span class="thum"><img src="https://image.kmib.co.kr/online_image/2023/0913/2023091315220364083_1694586123_0018664888.jpg" alt="" /></span>
+<strong class="tit">
+Èä±â ³­µ¿ 20´ëåü, °æÂû »ï´ÜºÀ¿¡ Áï½Ã Á¦¾Ð
+</strong>
+</a>
+</div>
+</li>
+
+<!-- ¿µ»ó±â»ç -->
+<li>
+<div class="m_nws_p04">
+<a href="https://news.kmib.co.kr/article/view.asp?arcid=0018661763&code=61131111&sid1=int" title="[¿µ»ó] ¡°±èÁ¤Àº, ¿­Â÷¼­ ³»·Á ÀÎ»ç¡¦13ÀÏ ÇªÆ¾°ú È¸´ã¡±">
+<!-- ÀÌ¹ÌÁö»çÀÌÁî 202*124 -->
+<span class="thum"><img src="https://image.kmib.co.kr/online_image/2023/0912/2023091222230663369_1694524987_0018661763.jpg" alt="" /></span>
+<strong class="tit">
+¡°±èÁ¤Àº, ¿­Â÷¼­ ³»·Á ÀÎ»ç¡¦13ÀÏ ÇªÆ¾°ú È¸´ã¡±
+</strong>
+</a>
+</div>
+</li>
+
+<!-- ¿µ»ó±â»ç -->
+<li>
+<div class="m_nws_p04">
+<a href="https://news.kmib.co.kr/article/view.asp?arcid=0018661852&code=61121111&sid1=soc" title="[¿µ»ó] ¡°¡®°©ÅöÆ¢¡¯ ÀÚÀü°Å¿Í Ãæµ¹, Á¦ °ú½Ç 90% ¸Â³ª¿ä?¡±">
+<!-- ÀÌ¹ÌÁö»çÀÌÁî 202*124 -->
+<span class="thum"><img src="https://image.kmib.co.kr/online_image/2023/0913/2023091223114663418_1694527906_0018661852.jpg" alt="" /></span>
+<strong class="tit">
+¡°¡®°©ÅöÆ¢¡¯ ÀÚÀü°Å¿Í Ãæµ¹, Á¦ °ú½Ç 90% ¸Â³ª¿ä?¡±
+</strong>
+</a>
+</div>
+</li>
+
+<!-- ¿µ»ó±â»ç -->
+<li>
+<div class="m_nws_p04">
+<a href="https://news.kmib.co.kr/article/view.asp?arcid=0018658189&code=61121211&sid1=soc" title="µµ·Î ¸ØÃá ¹ö½º, ²ÞÂ½ ¾ÊÀÚ¡¦ÇÏ³ªµÑ ¸ðÀÎ ½Ã¹Îµé [¿µ»ó]">
+<!-- ÀÌ¹ÌÁö»çÀÌÁî 202*124 -->
+<span class="thum"><img src="https://image.kmib.co.kr/online_image/2023/0912/2023091205441462135_1694465054_0018658189.jpg" alt="" /></span>
+<strong class="tit">
+µµ·Î ¸ØÃá ¹ö½º, ²ÞÂ½ ¾ÊÀÚ¡¦ÇÏ³ªµÑ ¸ðÀÎ ½Ã¹Îµé
+</strong>
+</a>
+</div>
+</li>
+
+<!-- ¿µ»ó±â»ç -->
+<li>
+<div class="m_nws_p04">
+<a href="https://news.kmib.co.kr/article/view.asp?arcid=0018642576&code=61181111&sid1=ent" title="¿¢¼Ò µð¿À, ´ë±â½Ç Èí¿¬ µü °É·Á¡¦°úÅÂ·á Ã³ºÐ [¿µ»ó]">
+<!-- ÀÌ¹ÌÁö»çÀÌÁî 202*124 -->
+<span class="thum"><img src="https://image.kmib.co.kr/online_image/2023/0907/2023090704413357773_1694029293_0018642576.jpg" alt="" /></span>
+<strong class="tit">
+¿¢¼Ò µð¿À, ´ë±â½Ç Èí¿¬ µü °É·Á¡¦°úÅÂ·á Ã³ºÐ 
+</strong>
+</a>
+</div>
+</li>
+
+<!-- ¿µ»ó±â»ç -->
+<li>
+<div class="m_nws_p04">
+<a href="https://news.kmib.co.kr/article/view.asp?arcid=0018634745&code=61121211&sid1=soc" title="¡®¿Ö °Å±â¡¯¡¦ÁÖÂ÷Àå ¾þµå¸° 6»ì ¹â°í Áö³ª°£ Â÷ [¿µ»ó]">
+<!-- ÀÌ¹ÌÁö»çÀÌÁî 202*124 -->
+<span class="thum"><img src="https://image.kmib.co.kr/online_image/2023/0905/2023090508200155084_1693869601_0018634745.jpg" alt="" /></span>
+<strong class="tit">
+¡®¿Ö °Å±â¡¯¡¦ÁÖÂ÷Àå ¾þµå¸° 6»ì ¹â°í Áö³ª°£ Â÷
+</strong>
+</a>
+</div>
+</li>
+
+<!-- ¿µ»ó±â»ç -->
+<li>
+<div class="m_nws_p04">
+<a href="https://news.kmib.co.kr/article/view.asp?arcid=0018617799&code=61131211&sid1=int" title="ÈÄÄí½Ã¸¶»ê È¸ ¸ÔÀº ±â½Ã´Ù ¡°¿ÀÀÌ½Ãµ¥½º¡±¡¦ ¸Ô¹æ ¿µ»ó">
+<!-- ÀÌ¹ÌÁö»çÀÌÁî 202*124 -->
+<span class="thum"><img src="https://image.kmib.co.kr/online_image/2023/0830/2023083017391549985_1693384755_0018617799.jpg" alt="" /></span>
+<strong class="tit">
+ÈÄÄí½Ã¸¶»ê È¸ ¸ÔÀº ±â½Ã´Ù ¡°¿ÀÀÌ½Ãµ¥½º¡±¡¦ ¸Ô¹æ ¿µ»ó
+</strong>
+</a>
+</div>
+</li>
+						</ul>
+						</div>
+					</div>
+					<!-- //tv±¹¹ÎÀÏº¸ -->
+					<div class="mn_inner">
+						<div class="mn_lft">
+							<!-- ±¹Á¦ -->
+							<div class="mn_world">
+								<h2 class="mn_tit"><strong>±¹Á¦</strong><a href="https://news.kmib.co.kr/article/list.asp?sid1=int" class="more">´õº¸±â</a></h2>
+
+								<div class="mn_lft_p">
+									<!-- ±¹Á¦ -->
+<div class="m_nws_p01">
+<a href="https://news.kmib.co.kr/article/view.asp?arcid=0018895900&code=61131111&sid1=int" title="Ú¸, ÝÁ Á¤ÂûÀ§¼º ¹ß»ç °­·Â ±ÔÅº¡¦Àü¹®°¡ ¡°1¡¤2Â÷ ¶§º¸´Ù ÁøÀÏº¸¡±">
+<!-- ÀÌ¹ÌÁö»çÀÌÁî 314*183 -->
+<span class="thum"><img src="https://image.kmib.co.kr/online_image/2023/1122/2023112009345641440_1700440496_0018895900.jpg" /></span>
+<span class="tit_bg">
+<strong class="tit">
+Ú¸, ÝÁ Á¤ÂûÀ§¼º ¹ß»ç °­·Â ±ÔÅº¡¦Àü¹®°¡ ¡°1¡¤2Â÷ ¶§º¸´Ù ÁøÀÏº¸¡±
+</strong>
+</span>
+</a>
+</div>
+
+
+
+								</div>
+								<!-- ÄÁÅÙÃ÷ ½ºÅ¸ÀÏ02(¸®½ºÆ®) -->
+								<div class="mn_lft_lst_type02">
+								<!--div><a href="https://news.kmib.co.kr/article/list.asp?sid1=prj&sid2=0031" title="2020³â ¹Ì±¹´ë¼±¸®Æ÷Æ®"><img src="https://www.kmib.co.kr/images/main/bnr_usa2020_420_65.jpg" alt="2020³â ¹Ì±¹´ë¼±¸®Æ÷Æ®"></a></div-->
+										<ul>
+											<!-- ±¹Á¦±â»ç 5°³ -->
+<li>
+<a href="https://news.kmib.co.kr/article/view.asp?arcid=0924331247&code=11141400&sid1=int" title="Æ®·³ÇÁ, ¾çÀÚ¡¤»ïÀÚ¡¤´ÙÀÚ´ë°á ¸ðµÎ 1À§">
+Æ®·³ÇÁ, ¾çÀÚ¡¤»ïÀÚ¡¤´ÙÀÚ´ë°á ¸ðµÎ 1À§
+</a>
+</li>
+
+<!-- ±¹Á¦±â»ç 5°³ -->
+<li>
+<a href="https://news.kmib.co.kr/article/view.asp?arcid=0018894157&code=61132411&sid1=int" title="¡°¾Æ¸£ÇîÆ¼³ªÀÇ ±è¿©Á¤¡± ¹Ð·¹ÀÌ µ¿»ý Ä«¸®³ª¿¡ ½ò¸° ´«">
+¡°¾Æ¸£ÇîÆ¼³ªÀÇ ±è¿©Á¤¡± ¹Ð·¹ÀÌ µ¿»ý Ä«¸®³ª¿¡ ½ò¸° ´«
+</a>
+</li>
+
+<!-- ±¹Á¦±â»ç 5°³ -->
+<li>
+<a href="https://news.kmib.co.kr/article/view.asp?arcid=0924331266&code=11141300&sid1=int" title="°¡ÀÚÁö±¸ º´¿ø¼­ ±¸Á¶µÈ ¹Ì¼÷¾Æµé Ä¡·á µ¹ÀÔ">
+°¡ÀÚÁö±¸ º´¿ø¼­ ±¸Á¶µÈ ¹Ì¼÷¾Æµé Ä¡·á µ¹ÀÔ
+</a>
+</li>
+
+<!-- ±¹Á¦±â»ç 5°³ -->
+<li>
+<a href="https://news.kmib.co.kr/article/view.asp?arcid=0924331296&code=11141100&sid1=int" title="¿ÀÇÂAI »çÅÂ Á¡ÀÔ°¡°æ¡¦ Á÷¿øµé ÀÌ»çÈ¸¿¡ À§Çù ¼­ÇÑ">
+¿ÀÇÂAI »çÅÂ Á¡ÀÔ°¡°æ¡¦ Á÷¿øµé ÀÌ»çÈ¸¿¡ À§Çù ¼­ÇÑ
+</a>
+</li>
+
+
+
+<!-- ±¹Á¦±â»ç 5°³ -->
+<li>
+<a href="https://news.kmib.co.kr/article/view.asp?arcid=0924331122&code=11141700&sid1=int" title="±â½Ã´Ù ÁöÁöÀ² Ãß¶ô¿¡¡¦ °íÀÌÁî¹Ì¡¤´ÙÄ«ÀÌÄ¡ µî Â÷±â ÁÖÀÚ ÁÖ¸ñ">
+±â½Ã´Ù ÁöÁöÀ² Ãß¶ô¿¡¡¦ °íÀÌÁî¹Ì¡¤´ÙÄ«ÀÌÄ¡ µî Â÷±â ÁÖÀÚ ÁÖ¸ñ
+</a>
+</li>
+
+										</ul>
+								</div>
+								<!-- //ÄÁÅÙÃ÷ ½ºÅ¸ÀÏ02(¸®½ºÆ®) -->
+
+							</div>
+							<!-- //±¹Á¦ -->
+							<!-- ¹®È­ -->
+							<div class="mn_cul">
+								<h2 class="mn_tit"><strong>¹®È­</strong><a href="https://news.kmib.co.kr/article/list.asp?sid1=cul" class="more">´õº¸±â</a></h2>
+
+								<div class="mn_lft_p">
+									<!-- ¹®È­ -->
+<div class="m_nws_p01">
+<a href="https://news.kmib.co.kr/article/view.asp?arcid=0924331272&code=13180000&sid1=ent" title="Á¤ÅëºÎÅÍ Ç»Àü±îÁö¡¦ ¾È¹æ±ØÀå ½ñ¾ÆÁö´Â »ç±Ø">
+<!-- ÀÌ¹ÌÁö»çÀÌÁî 314*183 -->
+<span class="thum"><img src="https://image.kmib.co.kr/online_image/2023/1122/2023112119540443865_1700564044_0924331272.jpg" /></span>
+<span class="tit_bg">
+<strong class="tit">
+Á¤ÅëºÎÅÍ Ç»Àü±îÁö¡¦ ¾È¹æ±ØÀå ½ñ¾ÆÁö´Â »ç±Ø
+</strong>
+</span>
+</a>
+</div>
+
+								</div>
+								<!-- ÄÁÅÙÃ÷ ½ºÅ¸ÀÏ02(¸®½ºÆ®) -->
+								<div class="mn_lft_lst_type02">
+										<ul>
+											
+<!-- ¹®È­±â»ç 5°³ -->
+<li>
+<a href="https://news.kmib.co.kr/article/view.asp?arcid=0924331283&code=13180000&sid1=ent" title="´Ù±¹Àû ¼Ò³àµé ÃãÀ¸·Î ¹«½¼ ÀÌ¾ß±â µé·ÁÁÙ±î, ¿¥³Ý ¡®½º°ÉÆÄ2¡¯">
+´Ù±¹Àû ¼Ò³àµé ÃãÀ¸·Î ¹«½¼ ÀÌ¾ß±â µé·ÁÁÙ±î, ¿¥³Ý ¡®½º°ÉÆÄ2¡¯
+</a>
+</li>
+
+
+<!-- ¹®È­±â»ç 5°³ -->
+<li>
+<a href="https://news.kmib.co.kr/article/view.asp?arcid=0924331126&code=13160000&sid1=all" title="°¡Àå ÀÏ»óÀûÀÎ °È±â¡¦ °¡Àå È¯»óÀûÀÎ ¿¹¼ú·Î">
+°¡Àå ÀÏ»óÀûÀÎ °È±â¡¦ °¡Àå È¯»óÀûÀÎ ¿¹¼ú·Î
+</a>
+</li>
+
+<!-- ¹®È­±â»ç 5°³ -->
+<li>
+<a href="https://news.kmib.co.kr/article/view.asp?arcid=0924331127&code=13160000&sid1=all" title="Àü½ÃµðÀÚÀÎ °øÃ¤ 1È£°¡ °ø°³ÇÑ ¹«´ëÀÇ ÀÌ¸é">
+Àü½ÃµðÀÚÀÎ °øÃ¤ 1È£°¡ °ø°³ÇÑ ¹«´ëÀÇ ÀÌ¸é
+</a>
+</li>
+
+<!-- ¹®È­±â»ç 5°³ -->
+<li>
+<a href="https://news.kmib.co.kr/article/view.asp?arcid=0924331119&code=13160000&sid1=all" title="K¾ÆÆ® ¡®¾Æ¸Þ¸®Ä­ µå¸²¡¯ ²Þ²Ù´Ù">
+K¾ÆÆ® ¡®¾Æ¸Þ¸®Ä­ µå¸²¡¯ ²Þ²Ù´Ù
+</a>
+</li>
+
+
+<!-- ¹®È­±â»ç 5°³ -->
+<li>
+<a href="https://news.kmib.co.kr/article/view.asp?arcid=0924331063&code=13180000&sid1=ent" title="80³â´ë ÃæÃ» ¼Ò³âµéÀÇ Ãß¾ï°ú Çâ¼ö ¡®¼Ò³â½Ã´ë¡¯">
+80³â´ë ÃæÃ» ¼Ò³âµéÀÇ Ãß¾ï°ú Çâ¼ö ¡®¼Ò³â½Ã´ë¡¯
+</a>
+</li>
+
+
+										</ul>
+								</div>
+								<!-- //ÄÁÅÙÃ÷ ½ºÅ¸ÀÏ02(¸®½ºÆ®) -->
+
+							</div>
+							<!-- //¹®È­ -->
+							<!-- ¶óÀÌÇÁ -->
+							<div class="mn_life">
+								<h2 class="mn_tit"><strong>¶óÀÌÇÁ</strong><a href="https://news.kmib.co.kr/article/list.asp?sid1=lif" class="more">´õº¸±â</a></h2>
+
+								<div class="mn_lft_p">
+									<!-- ¶óÀÌÇÁ -->
+<div class="m_nws_p01">
+<a href="https://news.kmib.co.kr/article/view.asp?arcid=0924331336&code=11132000&sid1=soc" title="ÀÇ´ë Áõ¿ø Ã¹¹ß ¶Ã´Ù¡¦ ¡°ÃÖ´ë 2847¸í ´Ã·Á¾ß¡±">
+<!-- ÀÌ¹ÌÁö»çÀÌÁî 314*183 -->
+<span class="thum"><img src="https://image.kmib.co.kr/online_image/2023/1122/2023112122200444210_1700572804_0924331336.jpg" /></span>
+<span class="tit_bg">
+<strong class="tit">
+ÀÇ´ë Áõ¿ø Ã¹¹ß ¶Ã´Ù¡¦ ¡°ÃÖ´ë 2847¸í ´Ã·Á¾ß¡±
+</strong>
+</span>
+</a>
+</div>
+
+
+								</div>
+								<!-- ÄÁÅÙÃ÷ ½ºÅ¸ÀÏ02(¸®½ºÆ®) -->
+								<div class="mn_lft_lst_type02">
+										<ul>
+											
+<!-- ¶óÀÌÇÁ±â»ç 5°³ -->
+<li>
+<a href="https://news.kmib.co.kr/article/view.asp?arcid=0924331210&code=11131413&sid1=reg" title="ÅÂ¹é ÇÑ±¹Ç×°ø°í, Æó±³ À§±â µó°í ¡®³¯°¹Áþ¡¯">
+ÅÂ¹é ÇÑ±¹Ç×°ø°í, Æó±³ À§±â µó°í ¡®³¯°¹Áþ¡¯
+</a>
+</li>
+
+
+
+<!-- ¶óÀÌÇÁ±â»ç 5°³ -->
+<li>
+<a href="https://news.kmib.co.kr/article/view.asp?arcid=0924331290&code=11131400&sid1=reg" title="¡°°í¾ç¡¤±èÆ÷¡¤±¸¸® Âü¿©ÇÏ´Â ¼­¿ï½Ã ÆíÀÔ ÅëÇÕ¿¬±¸¹Ý ±¸¼º¡±">
+¡°°í¾ç¡¤±èÆ÷¡¤±¸¸® Âü¿©ÇÏ´Â ¼­¿ï½Ã ÆíÀÔ ÅëÇÕ¿¬±¸¹Ý ±¸¼º¡±
+</a>
+</li>
+
+
+<!-- ¶óÀÌÇÁ±â»ç 5°³ -->
+<li>
+<a href="https://news.kmib.co.kr/article/view.asp?arcid=0018894842&code=61171811&sid1=lif" title="¡®¿ë»ê¿¡ 200¸¸¸¶¸® Ç®¾îºÁ?¡¯¡¦°³½Ä¿ë ±ÝÁö¹ý¿¡ À°°ßÇùÈ¸ ¾öÆ÷">
+¡®¿ë»ê¿¡ 200¸¸¸¶¸® Ç®¾îºÁ?¡¯¡¦°³½Ä¿ë ±ÝÁö¹ý¿¡ À°°ßÇùÈ¸ ¾öÆ÷
+</a>
+</li>
+
+<!-- ¶óÀÌÇÁ±â»ç 5°³ -->
+<li>
+<a href="https://news.kmib.co.kr/article/view.asp?arcid=0018895065&code=61131111&sid1=int" title="°¢±¹ Áß»êÃþ ¡®ÀÌ°É·Î¡¯ ³¢´Ï ÇØ°áÇß´Ù¡¦¡°°í¹°°¡ ¿µÇâ¡±">
+°¢±¹ Áß»êÃþ ¡®ÀÌ°É·Î¡¯ ³¢´Ï ÇØ°áÇß´Ù¡¦¡°°í¹°°¡ ¿µÇâ¡±
+</a>
+</li>
+
+<!-- ¶óÀÌÇÁ±â»ç 5°³ -->
+<li>
+<a href="https://news.kmib.co.kr/article/view.asp?arcid=0924330993&code=14190000&sid1=lif" title="[¾Þ±Û¼Ó ¼¼»ó] ¹Ì·¡À§ÇØ ÀÚÀÚ, ¸êÁ¾À§±â Á¾ÀÚ">
+[¾Þ±Û¼Ó ¼¼»ó] ¹Ì·¡À§ÇØ ÀÚÀÚ, ¸êÁ¾À§±â Á¾ÀÚ
+</a>
+</li>
+										</ul>
+								</div>
+								<!-- //ÄÁÅÙÃ÷ ½ºÅ¸ÀÏ02(¸®½ºÆ®) -->
+
+							</div>
+							<!-- //¶óÀÌÇÁ -->
+							<!-- ½ºÆ÷Ã÷ -->
+							<div class="mn_sp">
+								<h2 class="mn_tit"><strong>½ºÆ÷Ã÷</strong><a href="https://news.kmib.co.kr/article/list.asp?sid1=spo" class="more">´õº¸±â</a></h2>
+
+								<div class="mn_lft_p">
+									<!-- ½ºÆ÷Ã÷ -->
+<div class="m_nws_p01">
+<a href="https://news.kmib.co.kr/article/view.asp?arcid=0018895216&code=61161111&sid1=spo" title="Å¬¸°½º¸¸È£ Áß±¹ ¿øÁ¤¼­ 3´ë0 ¿Ï½Â¡¦¼ÕÈï¹Î 2°ñ 1µµ¿ò">
+<!-- ÀÌ¹ÌÁö»çÀÌÁî 314*183 -->
+<span class="thum"><img src="https://image.kmib.co.kr/online_image/2023/1121/2023112123213344254_1700576493_0018895216.jpg" /></span>
+<span class="tit_bg">
+<strong class="tit">
+Å¬¸°½º¸¸È£ Áß±¹ ¿øÁ¤¼­ 3´ë0 ¿Ï½Â¡¦¼ÕÈï¹Î 2°ñ 1µµ¿ò
+</strong>
+</span>
+</a>
+</div>
+
+								</div>
+								<!-- ÄÁÅÙÃ÷ ½ºÅ¸ÀÏ01(ÀÌ¹ÌÁö2°³+¸®½ºÆ®) -->
+								<div class="mn_lft_lst_type01">
+										<ul>
+											
+
+<!-- ½ºÆ÷Ã÷±â»ç 5°³ -->
+<li>
+<a href="https://news.kmib.co.kr/article/view.asp?arcid=0018895799&code=61161111&sid1=spo" title="È²ÀÇÁ¶, ¡®¼º°ü°è ¿µ»ó¡¯ ³í¶õ¼Ó ±³Ã¼ÃâÀü¡¦Å¬¸°½º¸¸ÀÇ º¯">
+<!-- ÀÌ¹ÌÁö»çÀÌÁî 202*124 -->
+<span class="thum"><img src="https://image.kmib.co.kr/online_image/2023/1122/2023112205404244315_1700599242_0018895799.jpg" /></span>
+<strong class="tit">
+È²ÀÇÁ¶, ¡®¼º°ü°è ¿µ»ó¡¯ ³í¶õ¼Ó ±³Ã¼ÃâÀü¡¦Å¬¸°½º¸¸ÀÇ º¯
+</strong>
+</a>
+</li>
+
+
+<!-- ½ºÆ÷Ã÷±â»ç 5°³ -->
+<li>
+<a href="https://news.kmib.co.kr/article/view.asp?arcid=0924331285&code=12160000&sid1=spo" title="ºÒ¾¾ »ì¸° ¹ÚÁ¤È¯¡¦ ñé ·»»þ¿À¿¡ ¡®½Ã°£½Â¡¯ 4°­ ¾ÈÂø">
+<!-- ÀÌ¹ÌÁö»çÀÌÁî 202*124 -->
+<span class="thum"><img src="https://image.kmib.co.kr/online_image/2023/1122/2023112119460643856_1700563566_0924331285.jpg" /></span>
+<strong class="tit">
+ºÒ¾¾ »ì¸° ¹ÚÁ¤È¯¡¦ ñé ·»»þ¿À¿¡ ¡®½Ã°£½Â¡¯ 4°­ ¾ÈÂø
+</strong>
+</a>
+</li>
+
+<!-- ½ºÆ÷Ã÷±â»ç 5°³ -->
+<li>
+<a href="https://news.kmib.co.kr/article/view.asp?arcid=0924331263&code=12110000&sid1=spo" title="»øÄ¸ Á¶ÀÌÀÚ ¡®¿ª´ë±Þ¡¯ 2Â÷ µå·¡ÇÁÆ®¡¦ º£Å×¶û ½ñ¾ÆÁø´Ù">
+<!-- ÀÌ¹ÌÁö»çÀÌÁî 202*124 -->
+<span class="thum"><img src="https://image.kmib.co.kr/online_image/2023/1122/2023112119450443853_1700563504_0924331263.jpg" /></span>
+<strong class="tit">
+»øÄ¸ Á¶ÀÌÀÚ ¡®¿ª´ë±Þ¡¯ 2Â÷ µå·¡ÇÁÆ®¡¦ º£Å×¶û ½ñ¾ÆÁø´Ù
+</strong>
+</a>
+</li>
+
+<!-- ½ºÆ÷Ã÷±â»ç 5°³ -->
+<li>
+<a href="https://news.kmib.co.kr/article/view.asp?arcid=0924331252&code=12120000&sid1=spo" title="ÇÁ¶û½º ¿øÁ¤ °ªÁø ½Â¸®¡¦ ¿Ã¸²ÇÈ º»¼±Çà ±â´ë°¨ ¡è">
+<!-- ÀÌ¹ÌÁö»çÀÌÁî 202*124 -->
+<span class="thum"><img src="https://image.kmib.co.kr/online_image/2023/1122/2023112119530443863_1700563984_0924331252.jpg" /></span>
+<strong class="tit">
+ÇÁ¶û½º ¿øÁ¤ °ªÁø ½Â¸®¡¦ ¿Ã¸²ÇÈ º»¼±Çà ±â´ë°¨ ¡è
+</strong>
+</a>
+</li>
+
+<!-- ½ºÆ÷Ã÷±â»ç 5°³ -->
+<li>
+<a href="https://news.kmib.co.kr/article/view.asp?arcid=0924331265&code=12160000&sid1=spo" title="¡®Ãà±¸ÀÇ ½Å¡¯ À¯´ÏÆû °æ¸Å¡¦ ¡®³ó±¸ È²Á¦¡¯ ³ÑÀ»±î">
+<!-- ÀÌ¹ÌÁö»çÀÌÁî 202*124 -->
+<span class="thum"><img src="https://image.kmib.co.kr/online_image/2023/1122/2023112120350443975_1700566504_0924331265.jpg" /></span>
+<strong class="tit">
+¡®Ãà±¸ÀÇ ½Å¡¯ À¯´ÏÆû °æ¸Å¡¦ ¡®³ó±¸ È²Á¦¡¯ ³ÑÀ»±î
+</strong>
+</a>
+</li>
+
+
+										</ul>
+								</div>
+								<!-- //ÄÁÅÙÃ÷ ½ºÅ¸ÀÏ01(ÀÌ¹ÌÁö2°³+¸®½ºÆ®) -->
+							</div>
+							<!-- //½ºÆ÷Ã÷ -->
+							<!-- e½ºÆ÷Ã÷ -->
+							<div class="mn_esp">
+								<h2 class="mn_tit"><strong>°ÔÀÓ e-½ºÆ÷Ã÷</strong><a href="https://www.kmib.co.kr/esports/index.asp" class="more">´õº¸±â</a></h2>
+
+								<div class="mn_lft_p">
+									<!-- e-½ºÆ÷Ã÷ -->
+<div class="m_nws_p01">
+<a href="https://news.kmib.co.kr/article/view.asp?arcid=0018895359&code=61162013&sid1=spo" title="Àß ½Î¿î ¾ÆÁî¶ó, Á¶ 2À§·Î ½ÂÀÚ ºê¶óÄÏ ÁøÃâ">
+<!-- ÀÌ¹ÌÁö»çÀÌÁî 314*183 -->
+<span class="thum"><img src="https://image.kmib.co.kr/online_image/2023/1122/2023112200384444273_1700581124_0018895359.jpg" /></span>
+<span class="tit_bg">
+<strong class="tit">
+Àß ½Î¿î ¾ÆÁî¶ó, Á¶ 2À§·Î ½ÂÀÚ ºê¶óÄÏ ÁøÃâ
+</strong>
+</span>
+</a>
+</div>
+
+
+								</div>
+								<!-- ÄÁÅÙÃ÷ ½ºÅ¸ÀÏ02(¸®½ºÆ®) -->
+								<div class="mn_lft_lst_type02">
+										<ul>
+											
+
+<!-- e-½ºÆ÷Ã÷ ±â»ç 5°³ -->
+<li>
+<a href="https://news.kmib.co.kr/article/view.asp?arcid=0924331094&code=12230000&sid1=spo" title="[ÀüÃ¼ Ã¤ÆÃ] ¡°K-ÄÜÅÙÃ÷ÀÇ µ¿·Â e½ºÆ÷Ã÷¡¦ Àå±âÀû Ã¼°èÀû Áö¿ø Àý½Ç¡±">
+[ÀüÃ¼ Ã¤ÆÃ] ¡°K-ÄÜÅÙÃ÷ÀÇ µ¿·Â e½ºÆ÷Ã÷¡¦ Àå±âÀû Áö¿ø Àý½Ç¡±
+</a>
+</li>
+
+<!-- e-½ºÆ÷Ã÷ ±â»ç 5°³ -->
+<li>
+<a href="https://news.kmib.co.kr/article/view.asp?arcid=0924331093&code=12230001&sid1=spo" title="¡°ÀüÅõ À¯´Ö ÇÏ³ªÇÏ³ª ¼ÒÁßÇÏµí ¼±¼öµé ¼ºÀåÀÌ ÃÖ¿ì¼±¡±">
+¡°ÀüÅõ À¯´Ö ÇÏ³ªÇÏ³ª ¼ÒÁßÇÏµí ¼±¼öµé ¼ºÀåÀÌ ÃÖ¿ì¼±¡±
+</a>
+</li>
+
+<!-- e-½ºÆ÷Ã÷ ±â»ç 5°³ -->
+<li>
+<a href="https://news.kmib.co.kr/article/view.asp?arcid=0924331096&code=12230001&sid1=spo" title="LoL ½ºÅäºê¸®±× µ¹ÀÔ¡¦ 10°³ °ÔÀÓ´Ü ÁýÅä³¢ ´Ü¼Ó">
+LoL ½ºÅäºê¸®±× µ¹ÀÔ¡¦ 10°³ °ÔÀÓ´Ü ÁýÅä³¢ ´Ü¼Ó
+</a>
+</li>
+
+
+<!-- e-½ºÆ÷Ã÷ ±â»ç 5°³ -->
+<li>
+<a href="https://news.kmib.co.kr/article/view.asp?arcid=0018891271&code=61162012&sid1=spo" title="[´Üµ¶] ±èÁ¤±Õ T1 µ¹¾Æ¿Â´Ù">
+[´Üµ¶] ±èÁ¤±Õ T1 µ¹¾Æ¿Â´Ù
+</a>
+</li>
+
+
+<!-- e-½ºÆ÷Ã÷ ±â»ç 5°³ -->
+<li>
+<a href="https://news.kmib.co.kr/article/view.asp?arcid=0018894825&code=61151111&sid1=eco" title="¸ô¶óº¸°Ô ´Þ¶óÁø °ÔÀÓ »ê¾÷ ÀÔÁö¡¦ Á¤ºÎ °íÀ§ÀÚ¡¤CEO ÃÑ Ãâµ¿">
+¸ô¶óº¸°Ô ´Þ¶óÁø °ÔÀÓ »ê¾÷ ÀÔÁö¡¦ Á¤ºÎ °íÀ§ÀÚ¡¤CEO ÃÑ Ãâµ¿
+</a>
+</li>
+
+										</ul>
+								</div>
+								<!-- //ÄÁÅÙÃ÷ ½ºÅ¸ÀÏ02(¸®½ºÆ®) -->
+
+
+							</div>
+							<!-- //e½ºÆ÷Ã÷ -->
+							<!-- ¿¬¿¹ -->
+							<div class="mn_ent">
+								<h2 class="mn_tit"><strong>¿¬¿¹</strong><a href="https://news.kmib.co.kr/article/list.asp?sid1=ent" class="more">´õº¸±â</a></h2>
+
+								<div class="mn_lft_p">
+									<!-- ¿¬¿¹ -->
+<div class="m_nws_p01">
+<a href="https://news.kmib.co.kr/article/view.asp?arcid=0018895703&code=61181111&sid1=ent" title="Áöµå·¡°ï ¡°¸¶¾à Àý´ë ¾ÈµÅ¡¦¼ö»ç °á°ú ½Å¼ÓÈ÷ ¹ßÇ¥¸¦¡±">
+<!-- ÀÌ¹ÌÁö»çÀÌÁî 314*183 -->
+<span class="thum"><img src="https://image.kmib.co.kr/online_image/2023/1122/2023112204563144308_1700596591_0018895703.jpg" /></span>
+<span class="tit_bg">
+<strong class="tit">
+Áöµå·¡°ï ¡°¸¶¾à Àý´ë ¾ÈµÅ¡¦¼ö»ç °á°ú ½Å¼ÓÈ÷ ¹ßÇ¥¸¦¡±
+</strong>
+</span>
+</a>
+</div>
+
+
+								</div>
+								<!-- ÄÁÅÙÃ÷ ½ºÅ¸ÀÏ01(ÀÌ¹ÌÁö2°³+¸®½ºÆ®) -->
+								<div class="mn_lft_lst_type01">
+										<ul>
+											<!-- ¿¬¿¹ ±â»ç 5°³ -->
+<li>
+<a href="https://news.kmib.co.kr/article/view.asp?arcid=0018895698&code=61171811&sid1=lif" title="ºÐÀå½Ç Èä±â³­µ¿Ò³, ¹ÚÀºÅÂ ³ë·È´Ù¡¦¡°±ÔÇö, µ½´Ù°¡ ´ÙÃÄ¡±">
+<!-- ÀÌ¹ÌÁö»çÀÌÁî 202*124 -->
+<span class="thum"><img src="https://image.kmib.co.kr/online_image/2023/1122/2023112204591644309_1700596756_0018895698.jpg" /></span>
+<strong class="tit">
+ºÐÀå½Ç Èä±â³­µ¿Ò³, ¹ÚÀºÅÂ ³ë·È´Ù¡¦¡°±ÔÇö, µ½´Ù°¡ ´ÙÃÄ¡±
+</strong>
+</a>
+</li>
+
+<!-- ¿¬¿¹ ±â»ç 5°³ -->
+<li>
+<a href="https://news.kmib.co.kr/article/view.asp?arcid=0018894685&code=61121111&sid1=soc" title="Å¸Áø¿ä ÀÌÀº ¡®±ÇÁø¿ä¡¯¡¦ ¸¶¾à À½¼º¿¡µµ ¹«Á¶°Ç Á¶·Õ¡¤ºÒ½Å">
+<!-- ÀÌ¹ÌÁö»çÀÌÁî 202*124 -->
+<span class="thum"><img src="https://image.kmib.co.kr/online_image/2023/1122/2023110617564527139_1699261005_0018894685.jpg" /></span>
+<strong class="tit">
+Å¸Áø¿ä ÀÌÀº ¡®±ÇÁø¿ä¡¯¡¦ ¸¶¾à À½¼º¿¡µµ ¹«Á¶°Ç Á¶·Õ¡¤ºÒ½Å
+</strong>
+</a>
+</li>
+
+<!-- ¿¬¿¹ ±â»ç 5°³ -->
+<li>
+<a href="https://news.kmib.co.kr/article/view.asp?arcid=0018891807&code=61171911&sid1=hea" title="¸ô¶óº¸°Ô ¼öÃ´ÇØÁø À¯¿­ ±ÙÈ²¡¦ Æó¼¶À¯Áõ ¹¹±â¿¡">
+<!-- ÀÌ¹ÌÁö»çÀÌÁî 202*124 -->
+<span class="thum"><img src="https://image.kmib.co.kr/online_image/2023/1121/2023112107094342755_1700518183_0018891807.jpg" /></span>
+<strong class="tit">
+¸ô¶óº¸°Ô ¼öÃ´ÇØÁø À¯¿­ ±ÙÈ²¡¦ Æó¼¶À¯Áõ ¹¹±â¿¡
+</strong>
+</a>
+</li>
+
+
+
+<!-- ¿¬¿¹ ±â»ç 5°³ -->
+<li>
+<a href="https://news.kmib.co.kr/article/view.asp?arcid=0018890001&code=61171111&sid1=cul" title="¹ÚÁø¿µ, ¡®Ã¼ÀÎÁöµå ¸Ç¡¯À¸·Î ÄÄ¹é¡¦80³â´ë ½Å½ºÆË ÀçÇö">
+<!-- ÀÌ¹ÌÁö»çÀÌÁî 202*124 -->
+<span class="thum"><img src="https://image.kmib.co.kr/online_image/2023/1120/2023112015020841796_1700460128_0018890001.jpg" /></span>
+<strong class="tit">
+¹ÚÁø¿µ, ¡®Ã¼ÀÎÁöµå ¸Ç¡¯À¸·Î ÄÄ¹é¡¦80³â´ë ½Å½ºÆË ÀçÇö
+</strong>
+</a>
+</li>
+
+<!-- ¿¬¿¹ ±â»ç 5°³ -->
+<li>
+<a href="https://news.kmib.co.kr/article/view.asp?arcid=0018887635&code=61141111&sid1=eco" title="¸íÇ°¿Ê 3¾ï¾îÄ¡ »ç°í ¡®ºñ¿ëÃ³¸®¡¯ÇÑ Åé½ºÅ¸¡¦¾ï´ë ÃßÂ¡±Ý">
+<!-- ÀÌ¹ÌÁö»çÀÌÁî 202*124 -->
+<span class="thum"><img src="https://image.kmib.co.kr/online_image/2023/1120/2023112005495041356_1700426990_0018887635.jpg" /></span>
+<strong class="tit">
+¸íÇ°¿Ê 3¾ï¾îÄ¡ »ç°í ¡®ºñ¿ëÃ³¸®¡¯ÇÑ Åé½ºÅ¸¡¦¾ï´ë ÃßÂ¡±Ý
+</strong>
+</a>
+</li>
+
+										</ul>
+								</div>
+								<!-- //ÄÁÅÙÃ÷ ½ºÅ¸ÀÏ01(ÀÌ¹ÌÁö2°³+¸®½ºÆ®) -->
+							</div>
+							<!-- //¿¬¿¹ -->
+							<!-- ¿Û -->
+							<div class="mn_wng">
+								<h2 class="mn_tit"><strong class="img_cmn">ÃëÀç´ëÇà¼Ò ¿Û</strong><a href="https://www.kmib.co.kr/wng/index.asp" class="more">´õº¸±â</a></h2>
+
+								<div class="mn_lft_p">
+									<!-- ¿Û -->
+<div class="m_nws_p01">
+<a href="https://news.kmib.co.kr/article/view.asp?arcid=0018893941&code=61231111&sid1=all" title="[¿Û] ¿Ö ¿À·¡µÈ ¸ÀÁý¿¡´Â ÀÌ Ä¿ÇÇ ÀÚÆÇ±â°¡ ÀÖÀ»±î? (¿µ»ó)">
+<!-- ÀÌ¹ÌÁö»çÀÌÁî 314*183 -->
+<span class="thum"><img src="https://image.kmib.co.kr/online_image/2023/1121/2023112115370343348_1700548623_0018893941.jpg" /></span>
+<span class="tit_bg">
+<strong class="tit">
+¿Ö ¿À·¡µÈ ¸ÀÁý¿¡´Â ÀÌ Ä¿ÇÇ ÀÚÆÇ±â°¡ ÀÖÀ»±î? 
+</strong>
+</span>
+</a>
+</div>
+
+
+								</div>
+								<!-- ÄÁÅÙÃ÷ ½ºÅ¸ÀÏ01(ÀÌ¹ÌÁö2°³+¸®½ºÆ®) -->
+								<div class="mn_lft_lst_type01">
+										<ul>
+											<!-- ¿Û ±â»ç 2°³ -->
+<li>
+<a href="https://news.kmib.co.kr/article/view.asp?arcid=0018873497&code=61231111&sid1=all" title="[¿Û] ÇÁ¶û½º´Â ¿Ö ºó´ë Àâ´Âµ¥ °³¸¦ Ç®¾úÀ»±î? (¿µ»ó)">
+<!-- ÀÌ¹ÌÁö»çÀÌÁî 202*124 -->
+<span class="thum"><img src="https://image.kmib.co.kr/online_image/2023/1115/2023111513204736915_1700022047_0018873497.jpg" /></span>
+<strong class="tit">
+ÇÁ¶û½º´Â ¿Ö ºó´ë Àâ´Âµ¥ °³¸¦ Ç®¾úÀ»±î?
+</strong>
+</a>
+</li>
+
+<!-- ¿Û ±â»ç 2°³ -->
+<li>
+<a href="https://news.kmib.co.kr/article/view.asp?arcid=0018869339&code=61231111&sid1=all" title="[¿Û] ÇØ¿Ü ¿µ»ó ÆÛ¿Í¼­ ¼îÃ÷ ¸¸µé¾îµµ µÉ±î? (¿µ»ó)">
+<!-- ÀÌ¹ÌÁö»çÀÌÁî 202*124 -->
+<span class="thum"><img src="https://image.kmib.co.kr/online_image/2023/1114/2023111413571135401_1699937831_0018869339.jpg" /></span>
+<strong class="tit">
+ÇØ¿Ü ¿µ»ó ÆÛ¿Í¼­ ¼îÃ÷ ¸¸µé¾îµµ µÉ±î?
+</strong>
+</a>
+</li>
+
+										</ul>
+								</div>
+								<!-- //ÄÁÅÙÃ÷ ½ºÅ¸ÀÏ01(ÀÌ¹ÌÁö2°³+¸®½ºÆ®) -->
+							</div>
+							<!-- //¿Û -->
+						</div>
+						<div class="mn_rgt">
+							<!-- °Ç°­ -->
+							<div class="mn_health">
+								<h2 class="mn_tit"><strong>°Ç°­</strong><a href="https://news.kmib.co.kr/article/list.asp?sid1=hea" class="more">´õº¸±â</a></h2>
+								<!-- °Ç°­±â»ç -->
+<div class="m_nws_p01">
+<a href="https://news.kmib.co.kr/article/view.asp?arcid=0924330951&code=14130000&sid1=hea" title="[And °Ç°­] °íÇ÷¾Ð¡¤´ç´¢È¯ÀÚµµ ½º¸¶Æ®Æù ¾Û °Ç°­ °ü¸®¡¦ ¡°¸¸Á·µµ ±Â¡±">
+<!-- ÀÌ¹ÌÁö»çÀÌÁî 298*183 -->
+<span class="thum"><img src="https://image.kmib.co.kr/online_image/2023/1121/2023112020240842428_1700479448_0924330951.jpg" /></span>
+<span class="tit_bg">
+<strong class="tit">
+[And °Ç°­] °íÇ÷¾Ð¡¤´ç´¢È¯ÀÚµµ ½º¸¶Æ®Æù ¾Û °Ç°­ °ü¸®¡¦ ¡°¸¸Á·µµ ±Â¡±
+</strong>
+</span>
+</a>
+</div>
+
+								<div class="mn_lst_type01">
+									<ul>
+										<!-- °Ç°­ ±â»ç 3°³ -->
+<li><a href="https://news.kmib.co.kr/article/view.asp?arcid=0924330950&code=14130000&sid1=hea" title="¡°º¸°Ç¼Ò ¸ð¹ÙÀÏ ¸¸¼ºÁúÈ¯ °ü¸®, °¡´É¼º¡¤È¿°ú¼º È®ÀÎ ±â´ë¡±">¡°º¸°Ç¼Ò ¸ð¹ÙÀÏ ¸¸¼ºÁúÈ¯ °ü¸®, °¡´É¼º¡¤È¿°ú¼º È®ÀÎ ±â´ë¡±</a></li>
+
+<!-- °Ç°­ ±â»ç 3°³ -->
+<li><a href="https://news.kmib.co.kr/article/view.asp?arcid=0924330865&code=14130000&sid1=hea" title="°©ÀÚ±â ÇÈ¡¦ ¡°ÀÚ²Ù ±âÀýÇÏ´Â ¾ÆÀÌ, ¿øÀÎ ÁúÈ¯ Ã£´Â °Ô Áß¿ä¡±">°©ÀÚ±â ÇÈ¡¦ ¡°ÀÚ²Ù ±âÀýÇÏ´Â ¾ÆÀÌ, ¿øÀÎ ÁúÈ¯ Ã£´Â °Ô Áß¿ä¡±</a></li>
+
+<!-- °Ç°­ ±â»ç 3°³ -->
+<li><a href="https://news.kmib.co.kr/article/view.asp?arcid=0018873041&code=61172211&sid1=lif" title="[ÀÌÈ£ºÐÀÇ ¾ÆÀÌµé¼¼»ó] Ä£±¸µé ´«Ä¡ º¸´Â ¾ÆÀÌ">[ÀÌÈ£ºÐÀÇ ¾ÆÀÌµé¼¼»ó] Ä£±¸µé ´«Ä¡ º¸´Â ¾ÆÀÌ</a></li>
+
+									</ul>
+								</div>
+							</div>
+							<!-- //°Ç°­ -->
+							<!-- ¾Æ»ì¼¼ -->
+							<div class="mn_ass">
+								<h2 class="mn_tit"><strong>¾ÆÁ÷ »ì¸¸ÇÑ ¼¼»ó</strong><a href="https://www.kmib.co.kr/bstory/index.asp" class="more">´õº¸±â</a></h2>
+								<!-- ¾Æ»ì¼¼ ±â»ç 2°³ -->
+<div class="m_nws_p02">
+<a href="https://news.kmib.co.kr/article/view.asp?arcid=0018738251&code=61171811&sid1=lif" title="¡°ÁöÀûÀå¾ÖÀÎ È¦·Î °í¼Ó¹ö½º¿¡ ÅÂ¿ï »·Çß³×¿ä¡± [¾Æ»ì¼¼]">
+<!-- ÀÌ¹ÌÁö»çÀÌÁî 110*70 -->
+<span class="thum"><img src="https://image.kmib.co.kr/online_image/2023/1006/2023100614442685240_1696571066_0018738251.jpg" /></span>
+<strong class="tit">
+¡°ÁöÀûÀå¾ÖÀÎ È¦·Î °í¼Ó¹ö½º¿¡ ÅÂ¿ï »·Çß³×¿ä¡±
+</strong>
+</a>
+</div>
+
+<!-- ¾Æ»ì¼¼ ±â»ç 2°³ -->
+<div class="m_nws_p02">
+<a href="https://news.kmib.co.kr/article/view.asp?arcid=0018684677&code=61171811&sid1=lif" title="¡®30³â °øÁ÷¡¯ ÅÃ½Ã±â»ç, ¡®Ã¹ ¼Õ´Ô¡¯ ¿ä±Ý ¸ð¾Æ ±âºÎ [¾Æ»ì¼¼]">
+<!-- ÀÌ¹ÌÁö»çÀÌÁî 110*70 -->
+<span class="thum"><img src="https://image.kmib.co.kr/online_image/2023/0919/2023091914212470240_1695100884_0018684677.jpg" /></span>
+<strong class="tit">
+¡®30³â °øÁ÷¡¯ ÅÃ½Ã±â»ç, ¡®Ã¹ ¼Õ´Ô¡¯ ¿ä±Ý ¸ð¾Æ ±âºÎ
+</strong>
+</a>
+</div>
+
+
+								<div class="mn_lst_type02">
+									<ul>
+										<!-- ¾Æ»ì¼¼ ±â»ç 3°³ -->
+<li><a href="https://news.kmib.co.kr/article/view.asp?arcid=0018751698&code=61121111&sid1=soc" title="»çÀå´Ô¸¸ º¸ÀÌ°Ô ³²±ä ¸®ºä¡¦¡°È¯ºÒÀº ±¦Âú´Ù¡± [¾Æ»ì¼¼]">»çÀå´Ô¸¸ º¸ÀÌ°Ô ³²±ä ¸®ºä¡¦¡°È¯ºÒÀº ±¦Âú´Ù¡±</a></li>
+
+<!-- ¾Æ»ì¼¼ ±â»ç 3°³ -->
+<li><a href="https://news.kmib.co.kr/article/view.asp?arcid=0018496826&code=61171811&sid1=lif" title="¾ÆÆÄÆ® ÅÃ¹è±â»ç ¾²·¯ÁöÀÚ¡¦¼ö¼úºñ ¸ðÀº ÁÖ¹Îµé [¾Æ»ì¼¼]">¾ÆÆÄÆ® ÅÃ¹è±â»ç ¾²·¯ÁöÀÚ¡¦¼ö¼úºñ ¸ðÀº ÁÖ¹Îµé</a></li>
+
+<!-- ¾Æ»ì¼¼ ±â»ç 3°³ -->
+<li><a href="https://news.kmib.co.kr/article/view.asp?arcid=0018452359&code=61171811&sid1=lif" title="¡°³²ÀÇ ¿À¹°´Û´ø 6È£¼± Ã»³â, ¾Æ¸§´Ù¿ü½À´Ï´Ù¡± [¾Æ»ì¼¼]">¡°³²ÀÇ ¿À¹°´Û´ø 6È£¼± Ã»³â, ¾Æ¸§´Ù¿ü½À´Ï´Ù¡±</a></li>
+
+
+									</ul>
+								</div>
+							</div>
+							<!-- //¾Æ»ì¼¼ -->
+							<!-- »ç¿¬´º½º -->
+							<div class="mn_bstory">
+								<h2 class="mn_tit"><strong>»ç¿¬´º½º</strong><a href="https://news.kmib.co.kr/article/list.asp?sid1=prj&sid2=0045" class="more">´õº¸±â</a></h2>
+								<div class="mn_bstory_inner">
+									<ul>
+										<!-- »ç¿¬´º½º ±â»ç 4°³ -->
+<li>
+<div class="m_nws_p04">
+<a href="https://news.kmib.co.kr/article/view.asp?arcid=0018813470&code=61121111&sid1=soc" title="¡°¡®ÇüÆí¿¡ ¸Â°Ô »ì°Ú½À´Ï´Ù¡¯ ¾ÆÀÌ ¹Ý¼º¹®¿¡ ºñÂü¡± [»ç¿¬´º½º]">
+<!-- ÀÌ¹ÌÁö»çÀÌÁî 138*84 -->
+<span class="thum"><img src="https://image.kmib.co.kr/online_image/2023/1029/2023102911343917823_1698546879_0018813470.jpg" /></span>
+<strong class="tit">
+¡°¡®ÇüÆí¿¡ ¸Â°Ô »ì°Ú½À´Ï´Ù¡¯ ¾ÆÀÌ ¹Ý¼º¹®¿¡ ºñÂü¡±
+</strong>
+</a>
+</div>
+</li>
+
+<!-- »ç¿¬´º½º ±â»ç 4°³ -->
+<li>
+<div class="m_nws_p04">
+<a href="https://news.kmib.co.kr/article/view.asp?arcid=0018805896&code=61171811&sid1=lif" title="¡°¹«·á ³ª´®ÇÏ°í ÀÌ·± ¼Ò¸® µé¾î ¼Ó»óÇØ¿ä¡± [»ç¿¬´º½º]">
+<!-- ÀÌ¹ÌÁö»çÀÌÁî 138*84 -->
+<span class="thum"><img src="https://image.kmib.co.kr/online_image/2023/1026/2023102616054316284_1698303944_0018805896.jpg" /></span>
+<strong class="tit">
+¡°¹«·á ³ª´®ÇÏ°í ÀÌ·± ¼Ò¸® µé¾î ¼Ó»óÇØ¿ä¡±
+</strong>
+</a>
+</div>
+</li>
+
+<!-- »ç¿¬´º½º ±â»ç 4°³ -->
+<li>
+<div class="m_nws_p04">
+<a href="https://news.kmib.co.kr/article/view.asp?arcid=0018797997&code=61171811&sid1=lif" title="¡°¼ú µû¸£¶ó´Â ÇüºÎ ¶§¸° ³²Æí¡¦»ç°úÇØ¾ß ÇÏ³ª¿ä?¡± [»ç¿¬´º½º]">
+<!-- ÀÌ¹ÌÁö»çÀÌÁî 138*84 -->
+<span class="thum"><img src="https://image.kmib.co.kr/online_image/2023/1025/2023102423195814056_1698157198_0018797997.jpg" /></span>
+<strong class="tit">
+¡°¼ú µû¸£¶ó´Â ÇüºÎ ¶§¸° ³²Æí¡¦»ç°úÇØ¾ß ÇÏ³ª?¡±
+</strong>
+</a>
+</div>
+</li>
+
+<!-- »ç¿¬´º½º ±â»ç 4°³ -->
+<li>
+<div class="m_nws_p04">
+<a href="https://news.kmib.co.kr/article/view.asp?arcid=0018689433&code=61171811&sid1=lif" title="¡°¾ÆÀÌ ¸ð±â ¹°·Á¿Ô´Ù°í È­³»´Â ÇÐºÎ¸ð¡±¡¦±³»çÀÇ °í¹Î [»ç¿¬´º½º]">
+<!-- ÀÌ¹ÌÁö»çÀÌÁî 138*84 -->
+<span class="thum"><img src="https://image.kmib.co.kr/online_image/2023/0920/2023092015062171806_1695189982_0018689433.jpg" /></span>
+<strong class="tit">
+¡°¾ÆÀÌ ¸ð±â ¹°·Á¿Ô´Ù°í È­³»´Â ÇÐºÎ¸ð¡±
+</strong>
+</a>
+</div>
+</li>
+
+									</ul>
+								</div>
+
+							</div>
+							<!-- //»ç¿¬´º½º -->
+
+							<!-- Æ÷Åä°¶·¯¸® -->
+							<div class="photogallery">
+							<h2 class="mn_tit"><strong>Æ÷Åä°¶·¯¸®</strong><a href="https://www.kmib.co.kr/photo/index.asp" class="more">´õº¸±â</a></h2>
+
+											<div class="b_area">
+												 <div class="r_area">
+													<ul>
+														<li class="m_nws_p01">
+														<a href=""><span class="thum"><img src="" alt=""></span><span class="tit_bg"><strong class="tit"></strong></span></a>
+														</li>
+													</ul>
+												 </div>
+
+											<div class="l_area">
+													<ul>
+														
+<!-- Æ÷Åä°¶·¯¸® 9°³ -->
+<li>
+<!-- ÀÌ¹ÌÁö»çÀÌÁî 300*235 -->
+<a href="https://news.kmib.co.kr/article/view.asp?arcid=0018895961&code=61121211&sid1=soc" class="thum"><img src="https://image.kmib.co.kr/online_image/2023/1122/2023112206544344334_1700603684_0018895961.jpg" />
+<strong class="tit">±«ÇÑ ÆøÇà ¸»¸®´Ù Ä®¸Â°í 50¹Ù´Ã¡¦¡°ÇÇÇØÀÚ ¹«»çÇØ ´ÙÇà¡±</strong>
+</a>
+</li>
+
+<!-- Æ÷Åä°¶·¯¸® 9°³ -->
+<li>
+<!-- ÀÌ¹ÌÁö»çÀÌÁî 300*235 -->
+<a href="https://news.kmib.co.kr/article/view.asp?arcid=0018895675&code=61121111&sid1=soc" class="thum"><img src="https://image.kmib.co.kr/online_image/2023/1122/2023112204354044303_1700599634_0018895675.jpg" />
+<strong class="tit">¡°³²ÀÇ ±ÍÇÑ µþÇÑÅ×¡±¡¦±³»ç¿¡ ´ëµå´Â ¿©°í»ý ¿µ»ó ÆÄ¹®</strong>
+</a>
+</li>
+
+
+<!-- Æ÷Åä°¶·¯¸® 9°³ -->
+<li>
+<!-- ÀÌ¹ÌÁö»çÀÌÁî 300*235 -->
+<a href="https://news.kmib.co.kr/article/view.asp?arcid=0018895126&code=61111111&sid1=pol" class="thum"><img src="https://image.kmib.co.kr/online_image/2023/1121/2023112122150744192_1700572507_0018895126.jpg" />
+<strong class="tit">ëÅ, ¡®¿µ±¹ ±¹ºó¹æ¹®¡¯¡¦¿¹Æ÷ 41¹ß¿¡ Âû½º 3¼¼¿Í ¸¶Â÷±îÁö</strong>
+</a>
+</li>
+
+<!-- Æ÷Åä°¶·¯¸® 9°³ -->
+<li>
+<!-- ÀÌ¹ÌÁö»çÀÌÁî 300*235 -->
+<a href="https://news.kmib.co.kr/article/view.asp?arcid=0018892478&code=61111911&sid1=pol" class="thum"><img src="https://image.kmib.co.kr/online_image/2023/1121/2023112110101642869_1700529016_0018892478.jpg" />
+<strong class="tit">¡®À¢¸¸ÇÑ ±¹°¡ °ø±º·Â¡¯¡¦ Ú¸ Ä®ºó½¼ÇÔ ºÎ»ê ÀÔÇ× [Æ÷Âø]</strong>
+</a>
+</li>
+
+<!-- Æ÷Åä°¶·¯¸® 9°³ -->
+<li>
+<!-- ÀÌ¹ÌÁö»çÀÌÁî 300*235 -->
+<a href="https://news.kmib.co.kr/article/view.asp?arcid=0018891807&code=61171911&sid1=hea" class="thum"><img src="https://image.kmib.co.kr/online_image/2023/1121/2023112107094342755_1700518183_0018891807.jpg" />
+<strong class="tit">¸ô¶óº¸°Ô ¼öÃ´ÇØÁø À¯¿­ ±ÙÈ²¡¦ Æó¼¶À¯Áõ ¹¹±â¿¡</strong>
+</a>
+</li>
+
+<!-- Æ÷Åä°¶·¯¸® 9°³ -->
+<li>
+<!-- ÀÌ¹ÌÁö»çÀÌÁî 300*235 -->
+<a href="https://news.kmib.co.kr/article/view.asp?arcid=0018891679&code=61141411&sid1=eco" class="thum"><img src="https://image.kmib.co.kr/online_image/2023/1121/2023112105595442742_1700514043_0018891679.jpg" />
+<strong class="tit">¡®½Ã¼Ó 100§°¡¯ ÅÖºó ¿îÀü¼®¡¦ ³í¶õÀÇ ÀÚÀ²ÁÖÇà ¿µ»ó</strong>
+</a>
+</li>
+
+<!-- Æ÷Åä°¶·¯¸® 9°³ -->
+<li>
+<!-- ÀÌ¹ÌÁö»çÀÌÁî 300*235 -->
+<a href="https://news.kmib.co.kr/article/view.asp?arcid=0018891853&code=61121211&sid1=soc" class="thum"><img src="https://image.kmib.co.kr/online_image/2023/1121/2023112107361442763_1700519774_0018891853.jpg" />
+<strong class="tit">È¾´Üº¸µµ Áß°£ ¡®»¡°£ºÒ¡¯¡¦´çÈ² ³ëÀÎ, ¹è´Þ±â»ç°¡ µµ¿Ô´Ù</strong>
+</a>
+</li>
+
+
+
+<!-- Æ÷Åä°¶·¯¸® 9°³ -->
+<li>
+<!-- ÀÌ¹ÌÁö»çÀÌÁî 300*235 -->
+<a href="https://news.kmib.co.kr/article/view.asp?arcid=0018891564&code=61121211&sid1=soc" class="thum"><img src="https://image.kmib.co.kr/online_image/2023/1121/2023112105215442736_1700511714_0018891564.jpg" />
+<strong class="tit">¡°ÀÌ»ç °¡´Â ¹Ù¶÷¿¡¢½¡± °­¾ÆÁö ¹ö¸° °ßÁÖ ¡®È²´ç ¸Þ¸ð¡¯</strong>
+</a>
+</li>
+
+<!-- Æ÷Åä°¶·¯¸® 9°³ -->
+<li>
+<!-- ÀÌ¹ÌÁö»çÀÌÁî 300*235 -->
+<a href="https://news.kmib.co.kr/article/view.asp?arcid=0018891553&code=61121211&sid1=soc" class="thum"><img src="https://image.kmib.co.kr/online_image/2023/1121/2023112105133842729_1700511218_0018891553.jpg" />
+<strong class="tit">¡°ÄÅ¶ó¸é ½ñ¾Ò¾î¿ä¡± Á¡ÁÖ ºÒ·¯³»¡¦ÀüÀÚ´ã¹è ÈÉÄ£ Áßµùµé</strong>
+</a>
+</li>
+
+													</ul>
+												</div>
+											</div>
+							</div>
+							<!-- //Æ÷Åä°¶·¯¸® -->
+							<!-- »ç°ÇXÆÄÀÏ -->
+							<div class="mn_xfile">
+								<h2 class="mn_tit"><strong>»ç°Ç X ÆÄÀÏ</strong><a href="https://news.kmib.co.kr/article/list.asp?sid1=eve" class="more">´õº¸±â</a></h2>
+								<!-- »ç°ÇXÆÄÀÏ ±â»ç 2°³ -->
+<div class="m_nws_p02">
+<a href="https://news.kmib.co.kr/article/view.asp?arcid=0018896406&code=61121311&sid1=soc" title="ÇÑ¹ã ±Í°«±æ ¿©¼º °ñ¸ñ±æ ²ø°í°¡ ÃßÇà¡¦ ¡°Â¡¿ª 10°³¿ù¡±">
+<!-- ÀÌ¹ÌÁö»çÀÌÁî 110*70 -->
+<span class="thum"><img src="https://image.kmib.co.kr/online_image/2023/1122/2020083015103223577_1598767832_0018896406.jpg" /></span>
+<strong class="tit">
+ÇÑ¹ã ±Í°«±æ ¿©¼º °ñ¸ñ±æ ²ø°í°¡ ÃßÇà¡¦ ¡°Â¡¿ª 10°³¿ù¡±
+</strong>
+</a>
+</div>
+
+
+
+<!-- »ç°ÇXÆÄÀÏ ±â»ç 2°³ -->
+<div class="m_nws_p02">
+<a href="https://news.kmib.co.kr/article/view.asp?arcid=0018896045&code=61131511&sid1=int" title="¸»´ÙÅù ³¡¿¡ 10´ë ¾Æµé ÃÑ°Ý »ìÇØÇÑ 30´ë Ú¸ ¾Æ¹öÁö">
+<!-- ÀÌ¹ÌÁö»çÀÌÁî 110*70 -->
+<span class="thum"><img src="https://image.kmib.co.kr/online_image/2023/1122/2023112207365444341_1700606214_0018896045.jpg" /></span>
+<strong class="tit">
+¸»´ÙÅù ³¡¿¡ 10´ë ¾Æµé ÃÑ°Ý »ìÇØÇÑ 30´ë Ú¸ ¾Æ¹öÁö
+</strong>
+</a>
+</div>
+
+
+
+								<div class="mn_lst_type02">
+									<ul>
+										<!-- »ç°ÇXÆÄÀÏ ±â»ç 3°³ -->
+<li><a href="https://news.kmib.co.kr/article/view.asp?arcid=0018896157&code=61121211&sid1=soc" title="80´ë ¸ô´ø ½Â¿ëÂ÷, º¸ÇàÀÚ 3¸í µéÀÌ¹Þ¾Æ¡¦¡°½ÉÁ¤Áö ÀÌ¼Û¡±">80´ë ¸ô´ø ½Â¿ëÂ÷, º¸ÇàÀÚ 3¸í µéÀÌ¹Þ¾Æ¡¦¡°½ÉÁ¤Áö ÀÌ¼Û¡±</a></li>
+
+<!-- »ç°ÇXÆÄÀÏ ±â»ç 3°³ -->
+<li><a href="https://news.kmib.co.kr/article/view.asp?arcid=0018894713&code=61121211&sid1=soc" title="¡°³» °áÈ¥½Ä ¾î¶±ÇÏ³ª¡±¡¦¿þµù ¿µ»ó¾÷Ã¼ ´ëÇ¥ 1¾ï5000¸¸¿ø ¡®¸ÔÆ¢¡¯">¡°³» °áÈ¥½Ä ¾î¶±ÇÏ³ª¡±¡¦¿þµù ¿µ»ó¾÷Ã¼ ´ëÇ¥ 1¾ï5000¸¸¿ø ¡®¸ÔÆ¢¡¯</a></li>
+
+<!-- »ç°ÇXÆÄÀÏ ±â»ç 3°³ -->
+<li><a href="https://news.kmib.co.kr/article/view.asp?arcid=0018887725&code=61121311&sid1=soc" title="¡°¾Ä°í µé¾î°¡!¡±¡¦ 40´ëåü ¼ö¿µº¹ Àâ¾Æ ¶âÀº 60´ë ÃÖÈÄ">¡°¾Ä°í µé¾î°¡!¡±¡¦ 40´ëåü ¼ö¿µº¹ Àâ¾Æ ¶âÀº 60´ë ÃÖÈÄ</a></li>
+
+									</ul>
+								</div>
+							</div>
+							<!-- //»ç°ÇXÆÄÀÏ -->
+							<!-- ¿¬Àç½Ã¸®Áî -->
+							<div class="mn_series">
+								<h2 class="mn_tit"><a href="https://www.kmib.co.kr/series/index.asp">¿¬Àç / ½Ã¸®Áî</a></h2>
+									<p class="dott_area">
+
+									</p>
+
+									<!-- ¿¬Àç¹è³Ê -->
+									<div class="s_bnr">
+										<ul>
+											<li>
+<a href="https://www.kmib.co.kr/special/dmz/" target="_blank"><img src="https://image.kmib.co.kr/images/www/main/bnr_spdmz_300_70.jpg" style="width:270px;height:50px;" alt="¿¬Áß±âÈ¹ ÆòÈ­¸¸µé±â »çÁø¹Ì¼ú°ü [DMZ, Èñ¸ÁÀÇ »ç¶÷µé]" title="¿¬Áß±âÈ¹ ÆòÈ­¸¸µé±â »çÁø¹Ì¼ú°ü [DMZ, Èñ¸ÁÀÇ »ç¶÷µé]"></a>
+</li>
+<li>
+<a href="https://www.kmib.co.kr/issue/poortable/" target="_blank"><img src="https://image.kmib.co.kr/images/www/main/bnr_poortable_300_70.jpg" style="width:270px;height:50px;" alt="ºóÀÚ(Þ¸íº)ÀÇ ½ÄÅ¹" title="ºóÀÚ(Þ¸íº)ÀÇ ½ÄÅ¹"></a>
+</li>
+
+<li>
+<a href="https://news.kmib.co.kr/article/list.asp?sid1=prj&sid2=0098" target="_blank"><img src="https://image.kmib.co.kr/images/www/main/bnr_wsquare_270_50.jpg" alt="¼¼°èÀÇ ±¤ÀåÀ» °¡´Ù" title="¼¼°èÀÇ ±¤ÀåÀ» °¡´Ù"></a>
+</li>
+
+<li>
+<a href="https://www.kmib.co.kr/feature/2018/child/index.asp" target="_blank"><img src="https://image.kmib.co.kr/images/www/main/bnr_child2_270_50.jpg" alt="ÈÆÀ°°ú ÇÐ´ëÀÇ °¥¸²±æ"  title="ÈÆÀ°°ú ÇÐ´ëÀÇ °¥¸²±æ"></a>
+</li>
+
+<li>
+<a href="https://news.kmib.co.kr/article/list.asp?sid1=prj&sid2=0070" target="_blank"><img src="https://image.kmib.co.kr/images/www/main/bnr_bstory_270_50.jpg" alt="¾ÆÁ÷»ì¸¸ÇÑ¼¼»ó"  title="¾ÆÁ÷»ì¸¸ÇÑ¼¼»ó"></a>
+</li>
+								
+<li>
+<a href="https://news.kmib.co.kr/article/list.asp?sid1=prj&sid2=0062" target="_blank"><img src="https://image.kmib.co.kr/images/www/main/bnr_law_270_50.jpg" alt="ÇãÀ± º¯È£»çÀÇ ¸ð¸£¸é ´çÇÏ´Â Ûö" title="ÇãÀ± º¯È£»çÀÇ ¸ð¸£¸é ´çÇÏ´Â Ûö"></a>
+</li>
+
+<li>
+<a href="https://www.kmib.co.kr/feature/2015/consumer/index.asp">
+<img src="https://image.kmib.co.kr/images/www/main/bnr_consumer_270_50.jpg" alt="±¹¹Î ÄÁ½´¸Ó¸®Æ÷Æ®" title="±¹¹Î ÄÁ½´¸Ó¸®Æ÷Æ®">
+
+</a>
+</li>
+
+
+										</ul>
+									</div>
+									<!-- //¿¬Àç¹è³Ê -->
+								</div>
+
+									<!-- ÀÌº¥Æ® ¹è³Ê ·Ñ¸µ -->
+									<div class="mn_kmbnr01" >
+										<ul>
+											<li>
+													<a href="https://news.kmib.co.kr/article/list.asp?sid1=prj&sid2=0060"><img src="https://image.kmib.co.kr/images/www/main/bnr_and_225_45.jpg" alt="¿À´ÃÀÇ And" /></a>
+											</li>
+											<li>
+													<a href="https://news.kmib.co.kr/article/list.asp?sid1=prj&sid2=0068"><img src="https://image.kmib.co.kr/images/www/main/bnr_fact_225_45.jpg" alt="ÆÑÆ®°ËÁõ" /></a>
+											</li>
+											<li>
+													<a href="https://news.kmib.co.kr/article/list.asp?sid1=prj&sid2=0061"><img src="https://image.kmib.co.kr/images/www/main/bnr_think_225_45.jpg" alt="»ý°¢ÇØº¾½Ã´Ù" /></a>
+											</li>
+											<li>
+													<a href="https://news.kmib.co.kr/article/list.asp?sid1=prj&sid2=0064" ><img src="https://image.kmib.co.kr/images/www/main/bnr_scplan_225_45.jpg" alt="¼¼ÅÂ±âÈ¹" /></a>
+											</li>
+										</ul>
+									</div>
+									<!--//ÀÌº¥Æ® ¹è³Ê ·Ñ¸µ -->
+
+						</div>
+					</div>
+				</div>
+				<!-- //mcnt -->
+				<!-- mbtm -->
+				<div class="mbtm">
+					<!-- Áö¸é±â»ç -->
+					<div class="mn_paper">
+						<div class="h2_tit_inner">
+							<div class="mn_inner">
+								<h2 class="mn_tit"><a href="https://news.kmib.co.kr/article/list.asp?sid1=kmi">Áö¸é±â»ç</a></h2>
+							</div>
+						</div>
+						<div class="mn_paper_inner">
+							<div class="mn_inner">
+								<div class="paper_lst">
+									<dl>
+										<dt><strong>Á¤Ä¡</strong><a href="https://news.kmib.co.kr/article/list.asp?sid1=kmi&sid2=0001" class="more">´õº¸±â</a></dt>
+										<dd>
+											<ul>
+												<!-- Á¤Ä¡ ±â»ç 3°³ -->
+<li><a href="https://news.kmib.co.kr/article/view.asp?arcid=0924331363&code=11121400&sid1=pol" title="ÝÁ ±º»çÁ¤ÂûÀ§¼º 3Â÷ ¹ß»ç ¡®±â½À °­Çà¡¯">ÝÁ ±º»çÁ¤ÂûÀ§¼º 3Â÷ ¹ß»ç ¡®±â½À °­Çà¡¯</a></li>
+
+
+<!-- Á¤Ä¡ ±â»ç 3°³ -->
+<li><a href="https://news.kmib.co.kr/article/view.asp?arcid=0924331291&code=11131100&sid1=soc" title="ÇÑ ¡°5000¸¸ÀÇ ¾ð¾î ¾µ °Í¡±¡¦ ÀÕ´Ü Á¤Ä¡Àû È­¹ý, »ç½Ç»ó Ãâ»çÇ¥">ÇÑ ¡°5000¸¸ÀÇ ¾ð¾î ¾µ °Í¡±¡¦ ÀÕ´Ü Á¤Ä¡Àû È­¹ý, »ç½Ç»ó Ãâ»çÇ¥</a></li>
+
+<!-- Á¤Ä¡ ±â»ç 3°³ -->
+<li><a href="https://news.kmib.co.kr/article/view.asp?arcid=0924331352&code=11121100&sid1=pol" title="¡°ëÅ ÅºÇÙ¡± ¡°¼³Ä¡´Â ¾ÏÄÆ¡±¡¦ ¹ÎÁÖ, °­°æÆÄ ÀÕ´Ü ¼³È­¿¡ °ñ¸Ó¸®">¡°ëÅ ÅºÇÙ¡± ¡°¼³Ä¡´Â ¾ÏÄÆ¡±¡¦ ¹ÎÁÖ, °­°æÆÄ ÀÕ´Ü ¼³È­¿¡ °ñ¸Ó¸®</a></li>
+
+											</ul>
+										</dd>
+									</dl>
+								</div>
+								<div class="paper_lst">
+									<dl>
+										<dt><strong>°æÁ¦</strong><a href="https://news.kmib.co.kr/article/list.asp?sid1=kmi&sid2=0002" class="more">´õº¸±â</a></dt>
+										<dd>
+											<ul>
+												<!-- °æÁ¦ ±â»ç 3°³ -->
+<li><a href="https://news.kmib.co.kr/article/view.asp?arcid=0924331303&code=11151300&sid1=eco" title="3ºÐ±âµµ ºú³»¼­ Áý »ò´Ù¡¦ °¡°è½Å¿ë ÀÜ¾× 1876Á¶ ¡®¿ª´ë ÃÖ´ë¡¯">3ºÐ±âµµ ºú³»¼­ Áý »ò´Ù¡¦ °¡°è½Å¿ë ÀÜ¾× 1876Á¶ ¡®¿ª´ë ÃÖ´ë¡¯</a></li>
+
+<!-- °æÁ¦ ±â»ç 3°³ -->
+<li><a href="https://news.kmib.co.kr/article/view.asp?arcid=0924331248&code=11151500&sid1=eco" title="ÃÑ¼± Ç¥½É ÀÇ½ÄÇß³ª¡¦ ³»³â °ø½Ã°¡À², ¿ÃÇØ¿Í °°°Ô ¸Å±ä´Ù">ÃÑ¼± Ç¥½É ÀÇ½ÄÇß³ª¡¦ ³»³â °ø½Ã°¡À², ¿ÃÇØ¿Í °°°Ô ¸Å±ä´Ù</a></li>
+
+<!-- °æÁ¦ ±â»ç 3°³ -->
+<li><a href="https://news.kmib.co.kr/article/view.asp?arcid=0924331225&code=11151400&sid1=eco" title="10°Ç Áß 8°Ç¡¦ ñéÐê¿¡ ´õ ¸Å¼­¿î Áß´ëÀçÇØ¹ý Ã¶Åð">10°Ç Áß 8°Ç¡¦ ñéÐê¿¡ ´õ ¸Å¼­¿î Áß´ëÀçÇØ¹ý Ã¶Åð</a></li>
+
+
+											</ul>
+										</dd>
+									</dl>
+								</div>
+								<div class="paper_lst">
+									<dl>
+										<dt><strong>»çÈ¸</strong><a href="https://news.kmib.co.kr/article/list.asp?sid1=kmi&sid2=0003" class="more">´õº¸±â</a></dt>
+										<dd>
+											<ul>
+												<!-- »çÈ¸ ±â»ç 3°³ -->
+<li><a href="https://news.kmib.co.kr/article/view.asp?arcid=0924331291&code=11131100&sid1=soc" title="ÇÑ ¡°5000¸¸ÀÇ ¾ð¾î ¾µ °Í¡±¡¦ ÀÕ´Ü Á¤Ä¡Àû È­¹ý, »ç½Ç»ó Ãâ»çÇ¥">ÇÑ ¡°5000¸¸ÀÇ ¾ð¾î ¾µ °Í¡±¡¦ ÀÕ´Ü Á¤Ä¡Àû È­¹ý, »ç½Ç»ó Ãâ»çÇ¥</a></li>
+
+<!-- »çÈ¸ ±â»ç 3°³ -->
+<li><a href="https://news.kmib.co.kr/article/view.asp?arcid=0924331336&code=11132000&sid1=soc" title="ÀÇ´ë Áõ¿ø Ã¹¹ß ¶Ã´Ù¡¦ ¡°ÃÖ´ë 2847¸í ´Ã·Á¾ß¡±">ÀÇ´ë Áõ¿ø Ã¹¹ß ¶Ã´Ù¡¦ ¡°ÃÖ´ë 2847¸í ´Ã·Á¾ß¡±</a></li>
+
+<!-- »çÈ¸ ±â»ç 3°³ -->
+<li><a href="https://news.kmib.co.kr/article/view.asp?arcid=0924331335&code=11131100&sid1=soc" title="»ç±â¹ü Æò±Õ ¹üÁË¼öÀÍ 1¾ï¡¦ ¾çÇü °¡º±°í Àº´ÐÇÏ¸é ±×¸¸">»ç±â¹ü Æò±Õ ¹üÁË¼öÀÍ 1¾ï¡¦ ¾çÇü °¡º±°í Àº´ÐÇÏ¸é ±×¸¸</a></li>
+
+
+											</ul>
+										</dd>
+									</dl>
+								</div>
+								<div class="paper_lst">
+									<dl>
+										<dt><strong>±¹Á¦</strong><a href="https://news.kmib.co.kr/article/list.asp?sid1=kmi&sid2=0004" class="more">´õº¸±â</a></dt>
+										<dd>
+											<ul>
+												<!-- ±¹Á¦ ±â»ç 3°³ -->
+<li><a href="https://news.kmib.co.kr/article/view.asp?arcid=0924331296&code=11141100&sid1=int" title="¿ÀÇÂAI »çÅÂ Á¡ÀÔ°¡°æ¡¦ Á÷¿øµé ÀÌ»çÈ¸¿¡ À§Çù ¼­ÇÑ">¿ÀÇÂAI »çÅÂ Á¡ÀÔ°¡°æ¡¦ Á÷¿øµé ÀÌ»çÈ¸¿¡ À§Çù ¼­ÇÑ</a></li>
+
+<!-- ±¹Á¦ ±â»ç 3°³ -->
+<li><a href="https://news.kmib.co.kr/article/view.asp?arcid=0924331247&code=11141400&sid1=int" title="Æ®·³ÇÁ, ¾çÀÚ¡¤»ïÀÚ¡¤´ÙÀÚ´ë°á ¸ðµÎ 1À§">Æ®·³ÇÁ, ¾çÀÚ¡¤»ïÀÚ¡¤´ÙÀÚ´ë°á ¸ðµÎ 1À§</a></li>
+
+<!-- ±¹Á¦ ±â»ç 3°³ -->
+<li><a href="https://news.kmib.co.kr/article/view.asp?arcid=0924331266&code=11141300&sid1=int" title="°¡ÀÚÁö±¸ º´¿ø¼­ ±¸Á¶µÈ ¹Ì¼÷¾Æµé Ä¡·á µ¹ÀÔ">°¡ÀÚÁö±¸ º´¿ø¼­ ±¸Á¶µÈ ¹Ì¼÷¾Æµé Ä¡·á µ¹ÀÔ</a></li>
+
+											</ul>
+										</dd>
+									</dl>
+								</div>
+								<div class="paper_lst">
+									<dl>
+										<dt><strong>¹®È­ / ¶óÀÌÇÁ</strong><a href="https://news.kmib.co.kr/article/list.asp?sid1=kmi&sid2=0005" class="more">´õº¸±â</a></dt>
+										<dd>
+											<ul>
+												<!-- ¹®È­/¶óÀÌÇÁ ±â»ç 3°³ -->
+<li><a href="https://news.kmib.co.kr/article/view.asp?arcid=0924331283&code=13180000&sid1=ent" title="´Ù±¹Àû ¼Ò³àµé ÃãÀ¸·Î ¹«½¼ ÀÌ¾ß±â µé·ÁÁÙ±î, ¿¥³Ý ¡®½º°ÉÆÄ2¡¯">´Ù±¹Àû ¼Ò³àµé ÃãÀ¸·Î ¹«½¼ ÀÌ¾ß±â µé·ÁÁÙ±î, ¿¥³Ý ¡®½º°ÉÆÄ2¡¯</a></li>
+
+
+<!-- ¹®È­/¶óÀÌÇÁ ±â»ç 3°³ -->
+<li><a href="https://news.kmib.co.kr/article/view.asp?arcid=0924331272&code=13180000&sid1=ent" title="Á¤ÅëºÎÅÍ Ç»Àü±îÁö¡¦ ¾È¹æ±ØÀå ½ñ¾ÆÁö´Â »ç±Ø">Á¤ÅëºÎÅÍ Ç»Àü±îÁö¡¦ ¾È¹æ±ØÀå ½ñ¾ÆÁö´Â »ç±Ø</a></li>
+
+<!-- ¹®È­/¶óÀÌÇÁ ±â»ç 3°³ -->
+<li><a href="https://news.kmib.co.kr/article/view.asp?arcid=0924331119&code=13160000&sid1=all" title="K¾ÆÆ® ¡®¾Æ¸Þ¸®Ä­ µå¸²¡¯ ²Þ²Ù´Ù">K¾ÆÆ® ¡®¾Æ¸Þ¸®Ä­ µå¸²¡¯ ²Þ²Ù´Ù</a></li>
+											</ul>
+										</dd>
+									</dl>
+								</div>
+								<div class="paper_lst">
+									<dl>
+										<dt><strong>½ºÆ÷Ã÷</strong><a href="https://news.kmib.co.kr/article/list.asp?sid1=kmi&sid2=0006" class="more">´õº¸±â</a></dt>
+										<dd>
+											<ul>
+												<!-- ½ºÆ÷Ã÷ ±â»ç 3°³ -->
+<li><a href="https://news.kmib.co.kr/article/view.asp?arcid=0924331265&code=12160000&sid1=spo" title="¡®Ãà±¸ÀÇ ½Å¡¯ À¯´ÏÆû °æ¸Å¡¦ ¡®³ó±¸ È²Á¦¡¯ ³ÑÀ»±î">¡®Ãà±¸ÀÇ ½Å¡¯ À¯´ÏÆû °æ¸Å¡¦ ¡®³ó±¸ È²Á¦¡¯ ³ÑÀ»±î</a></li>
+
+<!-- ½ºÆ÷Ã÷ ±â»ç 3°³ -->
+<li><a href="https://news.kmib.co.kr/article/view.asp?arcid=0924331285&code=12160000&sid1=spo" title="ºÒ¾¾ »ì¸° ¹ÚÁ¤È¯¡¦ ñé ·»»þ¿À¿¡ ¡®½Ã°£½Â¡¯ 4°­ ¾ÈÂø">ºÒ¾¾ »ì¸° ¹ÚÁ¤È¯¡¦ ñé ·»»þ¿À¿¡ ¡®½Ã°£½Â¡¯ 4°­ ¾ÈÂø</a></li>
+
+<!-- ½ºÆ÷Ã÷ ±â»ç 3°³ -->
+<li><a href="https://news.kmib.co.kr/article/view.asp?arcid=0924331252&code=12120000&sid1=spo" title="ÇÁ¶û½º ¿øÁ¤ °ªÁø ½Â¸®¡¦ ¿Ã¸²ÇÈ º»¼±Çà ±â´ë°¨ ¡è">ÇÁ¶û½º ¿øÁ¤ °ªÁø ½Â¸®¡¦ ¿Ã¸²ÇÈ º»¼±Çà ±â´ë°¨ ¡è</a></li>
+
+
+											</ul>
+										</dd>
+									</dl>
+								</div>
+							</div>
+						</div>
+					</div>
+					<!-- //Áö¸é±â»ç -->
+					<div class="mn_info">
+						<div class="mn_inner">
+							<div class="mn_info_lft">
+								<!-- etc -->
+								<div class="etc_mnu">
+									<ul>
+										<li><a href="http://company.kmib.co.kr/contents/" target="_blank">ÄÁÅÙÃ÷ ±¸ÀÔ¹®ÀÇ</a></li>
+										<li><a href="http://kplus.kmib.co.kr/" target="_blank">K-PLUS<span>(ÃÊÆÇPDF)</span></a></li>
+										<li><a href="http://rss.kmib.co.kr/">RSS<i class="img_cmn"></i></a></li>
+									</ul>
+								</div>
+								<!-- //etc -->
+								<!-- notice -->
+								<div class="mn_notice">
+									<ul>
+									  <!-- °øÁö 3°³ -->
+<li>
+<a href="https://news.kmib.co.kr/article/view.asp?arcid=0924329735&code=11131100&sid1=soc">
+<em class="cate">[¾Ë¸²]</em>
+<strong class="tit">
+±¹¹ÎÀÏº¸ ¼ö½À±âÀÚ 2Â÷ ÇÊ±â½ÃÇè ¾È³»
+</strong>
+</a>
+</li>
+
+<!-- °øÁö 3°³ -->
+<li>
+<a href="https://news.kmib.co.kr/article/view.asp?arcid=0924325112&code=13160000&sid1=all">
+<em class="cate">[¾Ë¸²]</em>
+<strong class="tit">
+Á¦2È¸ ¡®¾Æ¸£ºê·ò¹Ì¼ú»ó¡¯ °ø¸ð
+</strong>
+</a>
+</li>
+
+<!-- °øÁö 3°³ -->
+<li>
+<a href="https://news.kmib.co.kr/article/view.asp?arcid=0924324352&code=11151100&sid1=eco">
+<em class="cate">[¾Ë¸²]</em>
+<strong class="tit">
+2023 ±¹¹Î¹Ì·¡Æ÷·³ ¿±´Ï´Ù
+</strong>
+</a>
+</li>
+
+
+									</ul>
+								</div>
+								<!-- //notice -->
+
+							</div>
+							<div class="mn_info_cnt">
+								<!-- ad_424*75 -->
+								<div class="mn_ad ad_424_75">
+									<iframe src="https://ads.kmib.co.kr/NetInsight/html/web/news/main@316" width="424" height="75" frameborder="0" scrolling="no" topmargin="0" leftmargin="0" marginwidth="0" marginheight="0" referrerpolicy="no-referrer-when-downgrade"></iframe>
+								</div>
+								<!-- ad_424*75 -->
+							</div>
+							<div class="mn_info_rgt">
+								<!-- facebook -->
+								<div class="mn_facebook">
+									<!--<iframe src="https://www.facebook.com/plugins/page.php?href=https%3A%2F%2Fwww.facebook.com%2Fkukmindaily&tabs=timeline&width=320&height=76&small_header=true&adapt_container_width=false&hide_cover=true&show_facepile=false&appId" width="320" height="76" style="border:none;overflow:hidden" scrolling="no" frameborder="0" allowTransparency="true" allow="encrypted-media"></iframe>-->
+								</div>
+								<!-- //facebook -->
+								<!-- sns -->
+								<div class="sns_wrap" style="margin-top:25px;">
+									<!--<p><strong>±¹¹ÎÀÏº¸</strong>±â»ç¸¦<br/><em>SNS</em>¿¡¼­µµ ¸¸³ªº¸¼¼¿ä!</p>-->
+									<ul>
+										<li class="smn01"><a href="https://twitter.com/TheKukminDaily" target="_blank" class="img_cmn">±¹¹ÎÀÏº¸ Æ®À§ÅÍ</a></li>
+										<li class="smn02"><a href="https://www.facebook.com/kukmindaily" target="_blank" class="img_cmn">±¹¹ÎÀÏº¸ ÆäÀÌ½ººÏ</a></li>
+										<li class="smn03"><a href="https://post.naver.com/my.nhn?memberNo=12282441" target="_blank" class="img_cmn">±¹¹ÎÀÏº¸ ³×ÀÌ¹öÆ÷½ºÆ®</a></li>
+										<li class="smn04"><a href="https://tv.naver.com/kukmindaily" target="_blank" class="img_cmn">±¹¹ÎÀÏº¸ ³×ÀÌ¹öTV</a></li>
+										<!--li class="smn05"><a href="https://pf.kakao.com/_RDmfl" target="_blank" class="img_cmn">±¹¹ÎÀÏº¸ Ä«Ä«¿ÀÇÃ·¯½º</a></li-->
+										<li class="smn07"><a href="https://www.instagram.com/kukminilbo_official/" target="_blank"><img src="https://image.kmib.co.kr/images/www/cmn/ico-finsta.png" style="width: 29px;" alt="±¹¹ÎÀÏº¸ ÀÎ½ºÅ¸±×·¥"></a></li>
+										<li class="smn06"><a href="https://www.youtube.com/channel/UCSuuVcF9lix5dwFmAPkHE-g" target="_blank" class="img_cmn">±¹¹ÎÀÏº¸ YOUTUBE</a></li>
+									</ul>
+								</div>
+								<!-- //sns -->
+							</div>
+						</div>
+					</div>
+				</div>
+				<!-- //mbtm -->
+			</div>
+			<!-- //main -->
+		</div>
+	</div>
+	<!-- //container -->
+	<!-- footer -->
+	<script src="https://image.kmib.co.kr/js/www/footer.js?v=2308301"></script>
+	<!-- //footer -->
+
+<!-- popup231113 -->
+
+<script type="text/javascript">
+$(function(){
+$('#popup2').draggable({
+    containment: "#wrap",
+    create: function() {
+      var position = $(this).offset();
+      $(this).css('margin', '0').offset({
+        top: position.top,
+        left: position.left
+      });
+    }
+  });
+});
+function setCookie( name, value, expirehours ) { 
+var todayDate = new Date(); 
+todayDate.setHours( todayDate.getHours() + expirehours ); 
+document.cookie = name + "=" + escape( value ) + "; path=/; expires=" + todayDate.toGMTString() + ";" 
+} 
+function closeWin2() { 
+document.getElementById('popup2').style.display = "none";
+}
+function todaycloseWin2() { 
+setCookie( "popup2", "close" , 24 ); 
+document.getElementById('popup2').style.display = "none";
+}
+</script>
+<style>
+.popup_wrap{position:absolute; z-index:1000;}
+.popup_wrap p{background:#777;text-align:right;padding:2px 5px;}
+.popup_wrap p a{display:inline-block;font-family:'Malgun Gothic','¸¼Àº °íµñ',Malgun Gothic,'MalgunGothicWeb','µ¸¿ò',sans-serif;font-weight:bold;font-size:11px;color:#fff;}
+.popup_wrap p a:hover{text-decoration:none;color:#ddd;}
+.popup_wrap p span{padding:0 3px;font-weight:normal;color:#888;}
+.popup_wrap.popup02{left:50%; top:350px; margin-left:380px;width:350px;overflow:hidden;background:url(https://www.kmib.co.kr/recruit/img/pop_re_231113.jpg) no-repeat;}
+.popup_wrap.popup02 .popup_img01{width:350px;height:230px;text-indent:-999999px;}
+.popup_wrap.popup02>ul{overflow:hidden;width:350px;height:230px;}
+.popup_wrap.popup02>ul>li a{display:block;width:100%;height:100%;text-indent:-999999px;}
+</style>
+<div id="popup2" class="popup_wrap popup02">
+<ul>
+	<li class="popup_img01"><a href="https://www.kmib.co.kr/recruit/20231017/pass_231113.asp" target="_blank" title="¼ö½À±âÀÚ °ø°³Ã¤¿ë 1Â÷ ¼­·ùÀüÇü ÇÕ°ÝÀÚ ¹ßÇ¥ ¹× 2Â÷ ÇÊ±â½ÃÇè ÀÏÁ¤ ¾È³»">¼ö½À±âÀÚ °ø°³Ã¤¿ë 1Â÷ ¼­·ùÀüÇü ÇÕ°ÝÀÚ ¹ßÇ¥ ¹× 2Â÷ ÇÊ±â½ÃÇè ÀÏÁ¤ ¾È³»</a></li>
+</ul>
+<p>
+<a href="javascript:;" onclick="todaycloseWin2();">¿À´Ã ÇÏ·ç º¸Áö¾Ê±â<span>/</span></a>
+<a href="javascript:;" onclick="closeWin2();">´Ý±â</a>
+</p>
+<script type="text/javascript">
+cookiedata = document.cookie; if ( cookiedata.indexOf("popup2=close") < 0 ){ 
+document.getElementById('popup2').style.display = "block";
+} else {
+document.getElementById('popup2').style.display = "none"; 
+}
+</script>
+</div>
+
+<!-- //popup231113  --> 
+	</div>
+ </body>
+</html>

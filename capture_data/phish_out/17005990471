@@ -1,0 +1,32 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>Coming Soon - Future home of something quite cool</title>
+
+<link href="http://p3nlhclust404.shr.prod.phx3.secureserver.net/SharedContent/404-etc-styles.css" rel="stylesheet" type="text/css" media="screen" />
+
+</head>
+
+<body>
+
+	<div class="body-coming-soon">
+		<h1>
+			<span>Future home of something quite cool</span>
+		</h1>
+		
+		<div class="info-container">
+			<div class="inner-border clear-fix">
+				<h3 class="coming-soon-owner">
+					If you're the <strong>site owner</strong>, <a href="https://hostingmanager.secureserver.net">log in</a> to launch this site.
+				</h3>
+				<h3 class="coming-soon-visitor">
+					If you are a <strong>visitor</strong>, please check back soon.
+				</h3>
+			</div>
+		</div>
+	</div>
+
+</body>
+</html>

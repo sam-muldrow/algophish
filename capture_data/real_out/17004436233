@@ -1,0 +1,1062 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<title>PChomeååºè¡ï¼å°ç£ NO.1 ç¶²è·¯éåºå¹³å°</title>
+<meta name="description" content="PChomeååºè¡ååºæ¸è¶é120,000å®¶åºï¼æ¯å°ç£åºå®¶æ¸æå¤çé»å­ååè³¼ç©å¹³å°ãååºè¡éåºç®åæ¨åºè·¨åºå®é$0åéã24hå¿«éå°è²¨ãåå¤§è¶ååè²¨åªæ ç­æåï¼æ¯æ¨è³¼ç©çæä½³é¸æï¼">    
+<meta property="og:title" content="PChomeååºè¡ï¼å°ç£ NO.1 ç¶²è·¯éåºå¹³å°"> 
+<meta property="og:url" content="https://www.pcstore.com.tw/">
+<meta property="og:image" content="https://img.pcstore.com.tw/web_img/st/idx/toplogo.png">
+<meta property="og:description" content="PChomeååºè¡ååºæ¸è¶é120,000å®¶åºï¼æ¯å°ç£åºå®¶æ¸æå¤çé»å­ååè³¼ç©å¹³å°ãååºè¡éåºç®åæ¨åºè·¨åºå®é$0åéã24hå¿«éå°è²¨ãåå¤§è¶ååè²¨åªæ ç­æåï¼æ¯æ¨è³¼ç©çæä½³é¸æï¼"> 
+<meta property="og:site_name" content="PChomeååºè¡"> 
+<script type="text/javascript" src="/js/real_fcache/lm3_idxspd.js?t=1700443488"></script>
+<script type="text/javascript" src="/js/real_fcache/lm3_jsdata.js?t=1700443488"></script>
+<link rel="stylesheet" type="text/css" href="/css/jquery/plugin/slick/slick.min.css">
+<link rel="stylesheet" type="text/css" href="/css/jquery/plugin/slick/slick-theme.min.css">
+<link rel="stylesheet" type="text/css" href="/css/siimsg.css?t=12" >
+<link rel="stylesheet" type="text/css" href="/css/style_lm3.css?t=69">
+<script type="text/javascript" src="/js/jquery/jquery-3.4.1.min.js"></script>
+<script type="text/javascript" src="/js/jquery/plugin/slick/slick.min.js"></script>
+<script type="text/javascript" src="/js/store_lm3.js?t=68"></script>
+<script language="JavaScript" src="/css/extjs/ext.js?t=11"></script><script type="text/javascript" src="/js/search.js?t=38"></script>
+<script type="text/javascript" src="/js/lm3_idxfun.js?t=202201241"></script>
+<link href="/css/fonticon.css" rel="stylesheet" type="text/css">
+<link rel="alternate" href="https://m.pcstore.com.tw/">
+<style type="text/css">
+.ad_970x90_area {
+  margin: 35px auto 0px;
+  text-align: center;
+  padding: 10px;
+  height: 110px;
+}
+.topUd {
+  position: relative;
+  width: 1250px;
+  padding: 0px 10px;
+  margin: 0px auto 10px auto;
+  background: #fff;
+  white-space: nowrap;
+  overflow: hidden;
+}
+.topUd > div.topUdOut {
+  font-size: 0;
+  width: 100%;
+  margin-left: -1230px;
+}
+</style>
+<script language="javascript">  
+	mob_checkprc('https://m.pcstore.com.tw');	//å°ææ©ç    
+  brwsckidsn_fnc();
+
+  //æååapi
+  var prts=mrts=0;
+  var pdAjax = function(){
+    $.ajax({
+      method:"GET",
+      url:"https://www.pcstore.com.tw/adm/api/get_index_data.php",
+      dataType:"JSON",
+      error:function(error){
+        console.log(error);
+        if(prts < 1){
+          pdAjax();
+          prts++;
+        }
+      },
+      xhrFields: {
+        withCredentials: true
+      },	
+    }).then(function(data){
+      //ååæ¨¡çµ
+      getData(data);
+    })
+  }
+  
+  //çä½ åæ­¡api
+  var mySearchDefault = {};
+  var mpAjax = function(){
+    $.ajax({
+      method:"POST",
+      url:"https://www.pcstore.com.tw/adm/api/get_index_advp.php",
+      dataType:"JSON",
+      error:function(error){
+        console.log(error);
+        if(mrts < 1){
+          mpAjax();
+          mrts++;
+        }
+      },
+      xhrFields: {
+        withCredentials: true
+      },	
+      cache: false,
+    }).then(function(data){
+  	  if(data['state']=="OK"){
+        dw_viewp(data['data']['viewp']);
+        dw_likep(data['data']['likep'],18);
+  	    if($('#guesslike_pds img').length == 0 && typeof(vjs_putlikep) != 'undefined'){
+  	    	//console.log("putlikep cache out");     	         	
+          $('#guesslike_pds').html(vjs_putlikep);
+          $('#glike').show();
+          guesslike_pds();
+        }
+        //$("img.lazy").lazyload({ effect : "fadeIn" }); 
+        mySearchDefault['searchp'] = data['data']['searchp'];
+      	mySearchDefault['hotkeyword'] = data['data']['hotkeywordsp']; 
+      }
+    })
+  }  
+  
+  //ååæ¨¡çµ ä¾çºè¼å¥
+  function getData(data){
+  	if(data['state']=="OK"){		  	
+  		$("#id_search_word").attr("placeholder",data['data']['searchbar']); //SearchBarééµå­
+    	indexAd.startFun(data['data']['idxbar'],1);
+      admkt.startFun(data['data']['admkt']);
+      topAd.startFun(data['data']['topad']);
+      cathotp.startFun(data['data']['cathotp']);
+      popcollection.startFun(data['data']['superprod']); 
+      $('#adtwo').show();      dw_promoarg(data['data']['promoarg']);
+      newarg.startFun(data['data']['newparg']);
+      dw_fpdarg(data['data']['fpdarg']);  
+      dw_pointarg(data['data']['pointarg']);  
+      lottecontent();//æ½ç ç¾éç©é»  	      
+            	$('#bankarg').show();
+        index_bank_box();//éè¡åªæ     
+       
+      dw_widpic(data['data']['widpic']);  
+      //$("img.lazy").lazyload({ effect : "fadeIn" });    	    
+      
+  		//èçå»£å
+  		dw_ptop(data['data']['ptop']);   	
+  	  //æµ®æ°´å°
+  		dw_float(data['data']['pfloat']);  	
+    }  
+  }
+
+	$(document).ready(function() {	
+  	if(typeof(vjs_promoarg) != 'undefined'){$('.index__store_content').html(vjs_promoarg);}
+    if($('.index__store_content img').length >0 ){ $('#promoarg').show();index__store_box();console.log("promoarg cache out"); }    	
+  	if(typeof(vjs_newparg_data) != 'undefined'){console.log("newparg cache data");newarg.startFun(vjs_newparg_data);}    
+    //$("img.lazy").lazyload({ effect : "fadeIn" }); 
+       	    
+  	pdAjax(); //apiè³æ
+    stickers();//å³å´è¼ªæ­
+    stciky();//ç½®é bar
+    mpAjax(); //çºä½ æ¨è¦
+  });    
+  $(window).scroll(stciky);
+  //alert('in debug');
+
+  //cookie
+  function intro_ck(){
+    localStorage.setItem('newcate', 1);
+  };
+  //å¤§é¤¨åç«èªªæ
+  function intro_anmi(){
+    if (localStorage.getItem('newcate') === null) {
+        $('body').append('<div class="bodyBG">');
+        $('.nav_list').hide();
+        $('.common_nav_wide').append('<div class="newsouter"><div class="newmaincate"></div></div>');
+        $('.newmaincate').addClass('optimg');
+      var menuSlide3 = setTimeout(function(){
+        $('.newmaincate').removeClass('optimg');
+        $('.newsouter').append('<div class="n_m_2" style="display:none;"><img src="https://img.pcstore.com.tw/web_img/st/idx/menushing.png"></div>');
+        $('.newsouter').append('<div class="n_m_4"><img src="https://img.pcstore.com.tw/web_img/st/idx/newmaincate3.png"></div>');
+        $('.newsouter').append('<div class="n_m_5"><img src="https://img.pcstore.com.tw/web_img/st/idx/newmaincate4.png"></div>');
+        $('.newsouter').append('<div class="n_m_6"><img src="https://img.pcstore.com.tw/web_img/st/idx/newmaincate5.png"></div>');
+        //æ¼¢å ¡äº®
+        $('.common_nav_all').css({
+          'z-index':'101'
+        });
+        clearTimeout(menuSlide3);
+      },1500);
+      var menuSlide4 = setTimeout(function(){ 
+        $('.ctg_open_btn').addClass('menu-open');//æ¼¢å ¡è®x
+        $('.newmaincate').remove();
+        $('.ham_menu_list').slideDown("slow");//æ¼¢å ¡å±é
+        clearTimeout(menuSlide4);
+      },2300);
+      var menuSlide6 = setTimeout(function(){
+        $('.n_m_2').show().addClass('optimg');//å
+        $('.n_m_4').addClass('optimg');//æå·¦å´
+        clearTimeout(menuSlide6);
+      },2800);
+      var menuSlide7 = setTimeout(function(){
+        $('.n_m_5').addClass('optimg');//å¤§é¤¨å
+        $('.n_m_6').addClass('optimg');//éé
+        clearTimeout(menuSlide7);
+      },3600);
+  
+      var menuSlide10 = setTimeout(function(){
+        var flag = true;
+        function once() {
+          $('html').on("click", function () {
+            if (flag) {
+              $('.nav_list').show();
+              $('.newsouter').remove();
+              $('.ctg_open_btn').removeClass('menu-open');
+              $('.bodyBG').remove();
+              $('.ham_menu_list').removeAttr('style');
+              $('.common_nav_all').removeAttr('style');
+              $('html').removeClass('menu-open');
+              flag = false;
+            } else {
+              return;
+            }
+          });
+        }
+        once();
+        clearTimeout(menuSlide10);
+      },4200); 
+      var menuSlide12 = setTimeout(function(){//é¡¯ç¤º5ç§å¾å¨é¨éé
+        $('html').click();
+        clearTimeout(menuSlide12);
+      },8500);    
+    }
+    intro_ck();
+  } 
+  $(function(){
+    //intro_anmi();
+  }); 
+</script>
+
+<!-- Google Tag Manager -->
+<script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+})(window,document,'script','dataLayer','GTM-NSKC5SH');</script>
+<!-- End Google Tag Manager -->
+</head>
+<body>	
+
+<!-- Google Tag Manager (noscript) -->
+<noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-NSKC5SH"
+height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+<!-- End Google Tag Manager (noscript) -->
+<div class="topbar_ad" id="topbar_over">
+<div id="top_ad_inner"></div>
+</div>
+<!-- èçå»£å end -->
+<!-- æä¸æ¹è³è¨å START -->
+<script language="JavaScript" src="/js/real_fcache/lm3_pchtree.js?t=1700442048"></script>
+<form method="post" name="main_store" onSubmit="return false;" action="">
+<div id="header">
+<div class="topbar_ad" style="background:#FA445B">
+<a href="https://img.pcstore.com.tw/store_ad/1111/" target="_blank"><img src="https://img.pcstore.com.tw/pch_img/pch_mar_img/170/002/9388/17000293888282.jpg?d=111523022308" alt="é11"></a></div>
+<div id="header" class="flexhead">
+<div class="inner" id="nav">
+<div class="stickyinside">
+  <div id="pc_logo_left">
+    <a href="https://www.pcstore.com.tw"><div class="pc-logo-img">PChomeååºè¡ï¼å°ç£ NO.1 ç¶²è·¯éåºå¹³å°</div></a>
+    <div class="stnum11">ä»æ¥åå 465,210,021ä»¶ åºå®¶ 120,925å®¶</div>
+  </div>
+  <div id="pc_logo_s">
+    <a href="https://www.pcstore.com.tw"><div class="pc-logo-img-s">PChomeååºè¡ï¼å°ç£ NO.1 ç¶²è·¯éåºå¹³å°</div></a>
+  </div>
+  <div class="indexsearchbox">
+    <div class="searchbar">
+    	<div id="id_search_area"></div>
+      <div class="select">    	
+        <!--<select name="slt_k_option" id="slct">
+          <option value="1" >å¨é¨</option>
+          <option value="12" >è·¨åº0ååéè²»</option>
+          <option value="14" >24hå¿«éå°è²¨</option>
+          <option value="8" >è¶ååè²¨ä»æ¬¾</option>-->
+                                                                              <input type="hidden" name="slt_k_option" value="1" />
+        <select name="ftd_p" id="slct">
+          <option value="" > å¨é¨ </option>
+          <option value="P000242_P000242"  >å®¶é»èè¦è½</option><option value="P000075_P000075"  >3Cå¨é</option><option value="P000027_P000027"  >é»è¦èå¹³æ¿</option><option value="P000095_P000095"  >ææ©éè¨</option><option value="P000088_P000088"  >æå½±æ©èç¸æ©</option><option value="P000054_P000054"  >æ±½æ©è»ç¾è²¨</option><option value="P211027_P211027"  >é»ç©éæ²</option><option value="P000831_P000831"  >åæ¼«ç©å·å¬ä»</option><option value="P000013_P000013"  >å±å®¶çæ´»</option><option value="P000005_P000005"  >ä¼éæé</option><option value="P000754_P000754"  >é£åèç¹ç¢</option><option value="P000252_P000252"  >ä¿å¥</option><option value="P211028_P211028"  >éåå¥èº«</option><option value="P210257_P210257"  >å¢ä¿±å¯¢é£¾</option><option value="P210615_P210615"  >é¤å»è¡æµ´</option><option value="P000587_P000587"  >å©¦å¹¼èè¦ªå­</option><option value="P000588_P000588"  >å¯µç©ç¨å</option><option value="P000022_P000022"  >ä¿é¤ç¾å¦</option><option value="P100002_P100002"  >ç·å¥³æé£¾</option><option value="P000256_P000256"  >éåéé£¾</option><option value="P000750_P000750"  >æé¶èç¼é¡</option><option value="P000001_P000001"  >é£¾åèç²¾å</option><option value="P000761_P000761"  >æ¸ç±èéèª</option><option value="P001077_P001077"  >æå·èè¾¦å¬ç¨å</option><option value="P001418_P001418"  >é³æ¨èå½±ç</option><option value="P210396_P210396"  >æä½èååµ</option><option value="P001364_P001364"  >æ¶èæä½</option><option value="P001025_P001025"  >æè¶£çæ´»</option><option value="P212413_P212413"  >ä¸åç¢æå</option>        </select>
+      </div>
+      <!--<input type="text" name="store_k_word" placeholder="" id="id_search_word" value="" onkeyup="autodirection(this, event)" onkeydown="updownselect(this, event);p_keydown(this.value, 'search', 'https://www.pcstore.com.tw/adm/search.htm','',event)" onfocus="bind_autoslt();" autocomplete="off">-->
+      <input type="text" name="store_k_word" value="" id="id_search_word" placeholder="" onkeydown="p_keydown(this.value, 'search', 'https://www.pcstore.com.tw/adm/search.htm','',event)" autocomplete="off">
+      <input type="hidden" name="pch_number" id="pch_number" value="" />
+      <a href="javascript:return;" onclick="s_k_search('https://www.pcstore.com.tw/adm/search.htm')"><img class="search-icon" src="https://img.pcstore.com.tw/web_img/st/idx/search-icon.png?t=1"></a>
+      <!-- æå°ç¸éæå­æ¡ -->
+			<div class="search-popover"></div>
+    </div>
+  </div>
+  <!-- æå°æ¡å³éå»£å -->
+    
+  <div class="index_top_ad">
+    <a href="https://boss.pcstore.com.tw/intro_flow_fee.htm" target="_blank"><img src="https://img.pcstore.com.tw/pch_img/pch_mar_img/168/871/8120/16887181201388.gif?d=070723042200" alt="éåº0å¹´è²»"></a>
+  </div>
+    <!-- ä¸æ¹å³éiconç¾¤ -->  
+  <div class="index_righttop">
+    <div id="cart_s" onclick='javascript:location.href="https://www.pcstore.com.tw/adm/buy_cart_list.htm"'><div class="top_carticon"></div>è³¼ç©è»<div class="bub" id="cartn"></div></div>
+    <div id="chat_s" class="indexcht"><div class="top_msicon" id="chticon"></div>ç§è¨<span class="bub" style="display:none;"></span></div>
+    <div id="my_s"><div class="top_myicon" onclick="location.href='https://paystore.pcstore.com.tw/adm/myacc_ordlist.htm'"></div>æç
+      <div class="myicon_slide">
+        <div id="myloginok" class="my_slide_tit" style="display:none;"></div>
+        <div id="mylogin" class="my_slide_tit notlogged"><a href='https://paystore.pcstore.com.tw/adm/myacc_ordlist.htm'>ç»å¥</a>  |  <a href='https://paystore.pcstore.com.tw/adm/psell/persondata.htm'>è¨»å</a></div>
+        <a href='https://paystore.pcstore.com.tw/adm/myacc_ordlist.htm' class='row'>æçè¨å®</a>
+        <a href='https://paystore.pcstore.com.tw/adm/myacc_coupon.htm' class='row'>æçæå¹å¸</a>
+                
+                <a href='https://paystore.pcstore.com.tw/adm/myacc_point.htm' class='row'>æçç¾éç©é»&nbsp;
+         	        
+        </a>
+        <a href='https://paystore.pcstore.com.tw/adm/myacc_lover.htm' class='row'>æçè¿½è¹¤æ¸å®</a>
+        <a href='https://paystore.pcstore.com.tw/adm/myacc_suplover.htm' class='row'>æçéæ³¨ååº</a>
+        <a href='https://paystore.pcstore.com.tw/adm/myacc_present.htm' class='row'>æçæ½ç</a>
+        <a href='https://paystore.pcstore.com.tw/adm/myacc_modify.htm' class='row'>æçæå¡è³æ</a>
+        <div id="my_logout" style="display:none;"><a href='https://paystore.pcstore.com.tw/adm/logout.htm' class='row'>ç»åº</a></div>
+      </div>    
+    </div>    	
+  </div>
+</div>
+</div>
+</div>
+</div>
+</form>
+  <!-- nav -->
+  <div class="common_nav_wide flexhead">
+    <div class="index_nav">
+        <div class="common_nav_all">
+            <button type="button" class="ctg_open_btn">
+              <span class="ctg_ico_menu"><em class="l1">&nbsp;</em></span>
+            </button>
+<!-- æ¼¢å ¡å§å®¹ -->
+<div class="menu-overlay">
+  <div class="menu-plate">
+    <div class="ham_menu_list"></div>	
+  </div>        	
+</div>          	
+<!-- æ¼¢å ¡å§å®¹end -->     
+<script>if(typeof(vjs_pchad_tree) != 'undefined'){ $('.ham_menu_list').html(vjs_pchad_tree);	console.log("pchad_tree cache out"); }</script>
+               
+            <div class="nav_list">
+            <a href="https://boss.pcstore.com.tw/?utm_source=pcstore&utm_medium=pchead&utm_campaign=save0" target="_blank">é¦¬ä¸éåºé è£å©</a><a href="https://www.pcstore.com.tw/event/coffee" target="_blank">åå¡å°å</a><a href="https://www.pcstore.com.tw/event/farm" target="_blank">è¾²ç¹ç¢å°å</a><a href="https://www.pcstore.com.tw/tfcfloveshop/" target="_blank">å®¶æ¶å¹¸ç¦å°è</a><a href="https://www.pcstore.com.tw/a089351859/" target="_blank">èªéåå®¶åº­éæ·åæ</a>            </div>
+                    </div>
+          <div class="nav_list_r"> <a href="https://boss.pcstore.com.tw/intro_flow_fee.htm">æè¦éåº</a> |  <a href="https://paystore.pcstore.com.tw/adm/appeal.htm">å®¢æä¸­å¿</a> | <a href="https://www.pcstore.com.tw/adm/faq/faq_2.htm" target="_bank">å¸¸è¦åé¡</a></div>
+    </div>
+  </div>
+</div>
+<iframe id="idifrmlogn" width="0" height="0" style="display:none;"></iframe>
+<script> 	
+  function rebind_info() {
+    var locsobj,jstm,rng=1;
+  	locsobj=locs_getmloins();
+  	if (!window.location.href.match(/\/\?ug$/i) && "object" == typeof(locsobj)) {
+  		jstm=Math.floor(new Date().getTime() / 1000);
+  		var dst=jstm-locsobj.tm;
+  		if (dst <= 5) { rng=0; }
+    }  	
+  	if (rng) {
+      $("#idifrmlogn").attr("src","https://www.pcstore.com.tw/adm/locstog.php");
+      $("#idifrmlogn").on("load",function(){ locs_display(); });
+    }
+    else {
+      locs_display();
+    }
+  }
+
+	function locs_getmloins() {
+    var ifys,locsobj,rfg=0;
+    if (typeof(Storage) !== "undefined") { 
+      try { ifys=localStorage.getItem("mloins"); rfg=1; }
+      catch (e) { return; } 	    
+    }
+    if (rfg) {    	
+      try { locsobj=JSON.parse(ifys); } catch (e) { return; }      
+      if (locsobj == null) { return; }
+      return locsobj; 
+    }    
+  }
+
+  function locs_display() {
+  	var locsobj;
+  	locsobj=locs_getmloins(); 	
+  	if ("object" != typeof(locsobj)) { return; }
+    if (1 == locsobj.fg) {
+      $("#myloginok").show(); $("#my_logout").show(); $("#mylogin").hide(); $("#myloginok").html(locsobj.nk+'ï¼æ¨å¥½');  
+    }
+    else { 
+      $("#myloginok").hide(); $("#my_logout").hide(); $("#mylogin").show(); 
+    }
+  }
+ 
+  get_cartn.MsgDiv();     //è³¼ç©è»æ¸å­
+  rebind_info();   //ç»å¥
+</script><script> if(vjs_search_str != 'undefined'){ $("#id_search_word").attr("placeholder",vjs_search_str); } </script>
+<!-- æä¸æ¹è³è¨å END -->
+<div class="adOut">
+	<div class="adInside">
+		<div class="index_keycate"> 
+      <ul class="menuList"> 
+      <li><a href="https://www.pcstore.com.tw/pchome24h/" target="_blank"><font color=#eee86c>24h å°è²¨</font></a></li><li><a href="https://img.pcstore.com.tw/store_ad/crossborder/?utm_source=pcstore&utm_medium=word&utm_campaign=jpcb&utm_content=home_pcword" target="_blank"><font color=#eee86c>æµ·å¤ç´è³¼</font></a></li><li><a href="https://www.daikokudrug-taiwan.com/event/activity/" target="_blank"><font color=#eee86c>å¤§åè¥å¦</font></a></li><li><a href="https://www.pcstore.com.tw/bikecity/" target="_blank"><font color=#eee86c>æ©è»ç¾æ</font></a></li><li><a href="https://www.pcstore.com.tw/adm/search.htm?store_k_word=JUU3JTlCJThBJUU3JTk0JTlGJUU4JThGJThD&s_page=1&slt_k_option=1&ftd_k=______________1_____&ftd_o=__1&ftd_p=P000252_P000252&ft_mk=&no_exh_flag=0" target="_blank"><font color=#eee86c>æå­£ä¿å¥</font></a></li><li><a href="https://www.pcstore.com.tw/vosun/" target="_blank"><font color=#eee86c>ç»å±±é²ç</font></a></li><li><a href="https://img.pcstore.com.tw/store_ad/onsale/" target="_blank"><font color=#eee86c>æ¥ç¨æ¡è²·</font></a></li><li><a href="https://www.pcstore.com.tw/twfish/S690912.htm?s_page=1&st_sort=7" target="_blank"><font color=#eee86c>é®®é­ç´é</font></a></li><li><a href="https://www.pcstore.com.tw/witsper/" target="_self"><font color=#eee86c>èçå¨é</font></a></li><li><a href="https://www.pcstore.com.tw/travel/S573987.htm?s_page=1&st_sort=7" target="_self"><font color=#eee86c>æº«æ³ä½å®¿</font></a></li><li><a href="https://img.pcstore.com.tw/store_ad/pibuy/" target="_blank"><font color=#eee86c>ï¼°å¹£ææµ</font></a></li><li><a href="https://img.pcstore.com.tw/store_ad/doublecoupon/" target="_blank"><font color=#eee86c>éäº«æå¹</font></a></li><li><a href="https://www.pcstore.com.tw/stexh/P000754" target="_blank">ç¾é£ç¹ç¢</a></li><li><a href="https://www.pcstore.com.tw/stexh/P211027" target="_blank">é»ç©éæ²</a></li><li><a href="https://www.pcstore.com.tw/stexh/P000242" target="_blank">çæ´»å®¶é»</a></li><li><a href="https://www.pcstore.com.tw/stexh/P000005" target="_blank">æ¶å¤ä¼é</a></li><li><a href="https://www.pcstore.com.tw/stexh/P000027" target="_blank">é»è¦å¹³æ¿</a></li><li><a href="https://www.pcstore.com.tw/stexh/P000075" target="_blank">ï¼ï¼£é±é</a></li><li><a href="https://www.pcstore.com.tw/stexh/P000252" target="_blank">æ¨é½¡ä¿å¥</a></li><li><a href="https://www.pcstore.com.tw/stexh/P000013" target="_blank">å±å®¶æ¶ç´</a></li><li><a href="https://www.pcstore.com.tw/stexh/P000054" target="_blank">æ©è»æ±½ç¾</a></li><li><a href="https://www.pcstore.com.tw/stexh/P000761" target="_blank">æ¸ç±éèª</a></li>      </ul> 
+    </div>
+    <!-- è¼ªæ­å¤§å -->  		
+	  <div class="adIn">
+	    <div class="adMv">
+	      <a><img></a>
+	      <a><img></a>
+	      <a><img></a>
+	    </div>
+	    <div class="preBtn"></div>
+	    <div class="nextBtn"></div>
+	    <div class="adDote"></div>
+	  </div>	  
+	  <!-- å³éæå¹å¸ -->
+          </div>  
+</div>
+<script>if(typeof(vjs_idxbar_data) != 'undefined'){ console.log("idxbar cache data"); indexAd.startFun(vjs_idxbar_data,1); }</script>
+
+<div class="index_content2_outer clearfix">
+  <!-- ä¸å¼µå start -->
+  <div class="index_content2 clearfix" id="admkt" style="display:none;">
+      <div class="adzone_395x140">
+        <li><img src=""></li>
+        <li><img src=""></li>
+        <li><img src=""></li>
+      </div>
+  </div>
+  <script>if(typeof(vjs_admkt_data) != 'undefined'){console.log("admkt cache data");admkt.startFun(vjs_admkt_data);}</script>
+  <!-- ä¸å¼µå end -->
+
+  <!-- ç±éç²¾é¸æå ´-->
+  <div class="index_content2 clearfix" id="superprod" style="display:none;">
+    <div class="index_event_wrap">
+    <div class="ptEventTab">
+    <img>
+    <div class="ptEventTab-nav-wrap">
+      <ul class="tabs-nav ptevtop"></ul>
+      <div style="clear:both;"></div>
+    </div>
+    <div class="ptEventTab--content">
+    <div id="tab-one" class="tab-content">
+    <ul class="ptE_tag"></ul>
+    </div>	
+    <div style="clear:both;"></div>
+    </div>
+    </div>
+    <!-- ç±éåå start -->
+    <div class="ptEventTabbox" data-cs-tab-index="0" class="active">
+    <div class="index_topthree"></div>
+    <div class="pdlayout ptEventTab_pds clearfix"></div>
+    </div>
+    <!-- ç±éåå end -->    
+    </div>
+  </div>
+  <script>if(typeof(vjs_spd_data) != 'undefined'){console.log("superprod cache data");popcollection.startFun(vjs_spd_data);}</script>
+  <!-- ç±éç²¾é¸æå ´-->
+</div>
+
+<!-- æ©«å¹è°å¸¶ 970x90AD -->
+<div id="lm3_49_0" class="ad_970x90_area" style="display:none;"></div>
+
+<div class="index_content2_outer clearfix"> 
+  <div class="topUd">
+    <div class="topUdOut">
+      <div class="topUdSlide">
+        <a class="css-selector"><img></a>
+        <a class="css-selector"><img></a>
+        <a class="css-selector"><img></a>
+        <a class="css-selector"><img></a>
+        <a class="css-selector"><img></a>
+        <a class="css-selector"><img></a>
+        <a class="css-selector"><img></a>
+        <a class="css-selector"><img></a>
+        <a class="css-selector"><img></a>
+        <a class="css-selector"><img></a>
+        <a class="css-selector"><img></a>
+        <a class="css-selector"><img></a>
+        <a class="css-selector"><img></a>
+        <a class="css-selector"><img></a>
+        <a class="css-selector"><img></a>
+      </div>
+      <div class="topUdSlide">
+        <a class="css-selector"><img></a>
+        <a class="css-selector"><img></a>
+        <a class="css-selector"><img></a>
+        <a class="css-selector"><img></a>
+        <a class="css-selector"><img></a>
+        <a class="css-selector"><img></a>
+        <a class="css-selector"><img></a>
+        <a class="css-selector"><img></a>
+        <a class="css-selector"><img></a>
+        <a class="css-selector"><img></a>
+        <a class="css-selector"><img></a>
+        <a class="css-selector"><img></a>
+        <a class="css-selector"><img></a>
+        <a class="css-selector"><img></a>
+        <a class="css-selector"><img></a>
+      </div>
+    </div>
+    <div class="topUdNext"></div>
+    <div class="topUdPre"></div>
+  </div>
+  <script>if(typeof(vjs_topad_data) != 'undefined'){ console.log("topad cache data"); topAd.startFun(vjs_topad_data); }</script>
+</div>
+  
+<!-- æ©«å¹è°å¸¶ 970x90AD -->
+<div id="lm3_49_1" class="ad_970x90_area" style="display:none;"></div>
+
+<div class="index_content2_outer clearfix">
+  <!-- ç±é·æ³¨ç®åå -->
+  <div class="index_content2 clearfix" id="cathotp">  
+    <div class="index_catpromo_section">
+      <div class="catpromo_logo">ç±é·æ³¨ç®åå</div>
+      <a href="#" class="prevaw">åä¸å</a>
+      <a href="#" class="nextaw">å¾ä¸å</a>  
+      <div class="catpromo_title"></div>  
+      <div class="cattab_container">
+        <div class="pdlayout clearfix anmation">
+        	            <div class="pd" id="pd0">
+            <a href="#">
+            <div class="imgbox"><img src="" border="0"></div>
+            <div class="ctbox"><span class="cticon"></span></div>
+            <div class="name"></div>
+            <span class="price"></span>
+            <div class="index_pd_icon"></div>
+            </a>
+            </div>  
+                      <div class="pd" id="pd1">
+            <a href="#">
+            <div class="imgbox"><img src="" border="0"></div>
+            <div class="ctbox"><span class="cticon"></span></div>
+            <div class="name"></div>
+            <span class="price"></span>
+            <div class="index_pd_icon"></div>
+            </a>
+            </div>  
+                      <div class="pd" id="pd2">
+            <a href="#">
+            <div class="imgbox"><img src="" border="0"></div>
+            <div class="ctbox"><span class="cticon"></span></div>
+            <div class="name"></div>
+            <span class="price"></span>
+            <div class="index_pd_icon"></div>
+            </a>
+            </div>  
+                      <div class="pd" id="pd3">
+            <a href="#">
+            <div class="imgbox"><img src="" border="0"></div>
+            <div class="ctbox"><span class="cticon"></span></div>
+            <div class="name"></div>
+            <span class="price"></span>
+            <div class="index_pd_icon"></div>
+            </a>
+            </div>  
+                      <div class="pd" id="pd4">
+            <a href="#">
+            <div class="imgbox"><img src="" border="0"></div>
+            <div class="ctbox"><span class="cticon"></span></div>
+            <div class="name"></div>
+            <span class="price"></span>
+            <div class="index_pd_icon"></div>
+            </a>
+            </div>  
+                      <div class="pd" id="pd5">
+            <a href="#">
+            <div class="imgbox"><img src="" border="0"></div>
+            <div class="ctbox"><span class="cticon"></span></div>
+            <div class="name"></div>
+            <span class="price"></span>
+            <div class="index_pd_icon"></div>
+            </a>
+            </div>  
+                      <div class="pd" id="pd6">
+            <a href="#">
+            <div class="imgbox"><img src="" border="0"></div>
+            <div class="ctbox"><span class="cticon"></span></div>
+            <div class="name"></div>
+            <span class="price"></span>
+            <div class="index_pd_icon"></div>
+            </a>
+            </div>  
+                      <div class="pd" id="pd7">
+            <a href="#">
+            <div class="imgbox"><img src="" border="0"></div>
+            <div class="ctbox"><span class="cticon"></span></div>
+            <div class="name"></div>
+            <span class="price"></span>
+            <div class="index_pd_icon"></div>
+            </a>
+            </div>  
+                      <div class="pd" id="pd8">
+            <a href="#">
+            <div class="imgbox"><img src="" border="0"></div>
+            <div class="ctbox"><span class="cticon"></span></div>
+            <div class="name"></div>
+            <span class="price"></span>
+            <div class="index_pd_icon"></div>
+            </a>
+            </div>  
+                      <div class="pd" id="pd9">
+            <a href="#">
+            <div class="imgbox"><img src="" border="0"></div>
+            <div class="ctbox"><span class="cticon"></span></div>
+            <div class="name"></div>
+            <span class="price"></span>
+            <div class="index_pd_icon"></div>
+            </a>
+            </div>  
+                      <div class="pd" id="pd10">
+            <a href="#">
+            <div class="imgbox"><img src="" border="0"></div>
+            <div class="ctbox"><span class="cticon"></span></div>
+            <div class="name"></div>
+            <span class="price"></span>
+            <div class="index_pd_icon"></div>
+            </a>
+            </div>  
+                      <div class="pd" id="pd11">
+            <a href="#">
+            <div class="imgbox"><img src="" border="0"></div>
+            <div class="ctbox"><span class="cticon"></span></div>
+            <div class="name"></div>
+            <span class="price"></span>
+            <div class="index_pd_icon"></div>
+            </a>
+            </div>  
+                      <div class="pd" id="pd12">
+            <a href="#">
+            <div class="imgbox"><img src="" border="0"></div>
+            <div class="ctbox"><span class="cticon"></span></div>
+            <div class="name"></div>
+            <span class="price"></span>
+            <div class="index_pd_icon"></div>
+            </a>
+            </div>  
+                      <div class="pd" id="pd13">
+            <a href="#">
+            <div class="imgbox"><img src="" border="0"></div>
+            <div class="ctbox"><span class="cticon"></span></div>
+            <div class="name"></div>
+            <span class="price"></span>
+            <div class="index_pd_icon"></div>
+            </a>
+            </div>  
+                      <div class="pd" id="pd14">
+            <a href="#">
+            <div class="imgbox"><img src="" border="0"></div>
+            <div class="ctbox"><span class="cticon"></span></div>
+            <div class="name"></div>
+            <span class="price"></span>
+            <div class="index_pd_icon"></div>
+            </a>
+            </div>  
+                      <div class="pd" id="pd15">
+            <a href="#">
+            <div class="imgbox"><img src="" border="0"></div>
+            <div class="ctbox"><span class="cticon"></span></div>
+            <div class="name"></div>
+            <span class="price"></span>
+            <div class="index_pd_icon"></div>
+            </a>
+            </div>  
+                      <div class="pd" id="pd16">
+            <a href="#">
+            <div class="imgbox"><img src="" border="0"></div>
+            <div class="ctbox"><span class="cticon"></span></div>
+            <div class="name"></div>
+            <span class="price"></span>
+            <div class="index_pd_icon"></div>
+            </a>
+            </div>  
+                      <div class="pd" id="pd17">
+            <a href="#">
+            <div class="imgbox"><img src="" border="0"></div>
+            <div class="ctbox"><span class="cticon"></span></div>
+            <div class="name"></div>
+            <span class="price"></span>
+            <div class="index_pd_icon"></div>
+            </a>
+            </div>  
+                  </div>
+      </div>
+    </div>
+  </div>
+  <script>if(typeof(vjs_cathotp_data) != 'undefined'){console.log("cathotp cache data");cathotp.startFun(vjs_cathotp_data);}</script>
+</div>
+	
+<!-- æ©«å¹è°å¸¶ 970x90AD -->
+<div id="lm3_49_2" class="ad_970x90_area" style="display:none;"></div>
+
+<!-- æ©«å¹è°å¸¶ 970x90AD -->
+<div id="lm3_49_3" class="ad_970x90_area" style="display:none;"></div>
+
+<div class="index_content2_outer clearfix">  
+  <!-- 300x250 ad -->
+    <div class="index_content2 clearfix" id="adtwo" style="display:none;">
+  <ul class="adzone_320x250">
+  	<li><a href="https://img.pcstore.com.tw/store_ad/bank/" target="_blank"><img src="https://img.pcstore.com.tw/pch_img/pch_mar_img/169/864/5546/16986455469708.jpg?d=103023015906" alt="éè¡åªæ "></a></li><li><a href="https://img.pcstore.com.tw/store_ad/pi/?utm_source=pcstore&utm_medium=display&utm_campaign=mall&utm_content=300x250_pcbn&utm_term=" target="_blank"><img src="https://img.pcstore.com.tw/pch_img/pch_mar_img/168/554/8563/16855485634220.jpg?d=053123115603" alt="Pié¢åæé«åé¥2%"></a></li><li><a href="https://img.pcstore.com.tw/store_ad/theme/" target="_blank"><img src="https://img.pcstore.com.tw/pch_img/pch_mar_img/169/865/5805/16986558058815.jpg?d=103023045005" alt="å©åå¬çææå³åºå»"></a></li><li><script async src="https://securepubads.g.doubleclick.net/tag/js/gpt.js"></script>
+<script>
+  window.googletag = window.googletag || {cmd: []};
+  googletag.cmd.push(function() {
+    googletag.defineSlot('/21787810958,21900178528/pcstore_pc_index_10676', [300, 250], 'div-gpt-ad-1624429577409-0').addService(googletag.pubads());
+    googletag.pubads().enableSingleRequest();
+    googletag.pubads().collapseEmptyDivs();
+    googletag.enableServices();
+  });
+</script>
+<!-- /21787810958,21900178528/pcstore_pc_index_10676 -->
+<div id='div-gpt-ad-1624429577409-0' style='min-width: 300px; min-height: 250px;'>
+  <script>
+    googletag.cmd.push(function() { googletag.display('div-gpt-ad-1624429577409-0'); });
+  </script>
+</div></li>  </ul>
+  </div>
+  </div>
+  
+<!-- æ©«å¹è°å¸¶ 970x90AD -->
+<div id="lm3_49_4" class="ad_970x90_area" style="display:none;"></div>
+
+<div class="index_content2_outer clearfix">  
+  <div class="index_content2 clearfix" id="promoarg" style="display:none;">
+  <!-- åºå®¶ä¿é·åå¡ -->
+  <div class="index__store_box">
+  <ul class="index__store_content"></ul>
+  </div>
+  </div>
+</div>
+
+<!-- æ©«å¹è°å¸¶ 970x90AD -->
+<div id="lm3_49_5" class="ad_970x90_area" style="display:none;"></div>
+
+<div class="index_content2_outer clearfix">
+  <!-- æå¹å¸ -->
+  <div class="index_content2 clearfix" id="listcop" style="display:none;">
+  <div class="coupontitle"><h3>COUPON</h3>  
+  <div class="switch-cp"></div>
+  </div>
+  <div id="c"></div>
+  </div>
+  <script>
+    if(typeof(vjs_coupon_tit) != 'undefined' && typeof(vjs_coupon_content) != 'undefined'){ //æå¹å¸
+    	$('.switch-cp').html(vjs_coupon_tit);
+    	$('#c').html(vjs_coupon_content);
+    } 
+    if($('#c li').length > 0){ $('#listcop').show(); couponset(); console.log('coupon cache out'); }
+  </script>  
+  <!-- æå¹å¸end -->
+</div>
+
+<!-- æ©«å¹è°å¸¶ 970x90AD -->
+<div id="lm3_49_6" class="ad_970x90_area" style="display:none;"></div>
+
+<div class="index_content2_outer clearfix">
+  <!-- æ¯æ¥æ°ç¼ç¾ start -->
+  <div class="index_content2 clearfix" id="newparg" style="display:none;">
+  <div class="index_new_box clearfix">
+    <h3>æ¯æ¥æ°ç¼ç¾</h3>
+    <div class="switch-new-pd"></div>
+    <div class="new_box_pds">
+      <div class="pdlayout clearfix anmationB">
+      	        <div class="pd" id="pds0" style="display:none;">
+        <a href="#">
+        <div class="imgbox"><img src="" border="0"></div>
+        <div class="ctbox"><span class="cticon"></span></div>
+        <div class="name"></div>
+        <span class="price"></span>
+        <div class="index_pd_icon"></div>
+        </a>
+        </div>    	  
+                <div class="pd" id="pds1" style="display:none;">
+        <a href="#">
+        <div class="imgbox"><img src="" border="0"></div>
+        <div class="ctbox"><span class="cticon"></span></div>
+        <div class="name"></div>
+        <span class="price"></span>
+        <div class="index_pd_icon"></div>
+        </a>
+        </div>    	  
+                <div class="pd" id="pds2" style="display:none;">
+        <a href="#">
+        <div class="imgbox"><img src="" border="0"></div>
+        <div class="ctbox"><span class="cticon"></span></div>
+        <div class="name"></div>
+        <span class="price"></span>
+        <div class="index_pd_icon"></div>
+        </a>
+        </div>    	  
+                <div class="pd" id="pds3" style="display:none;">
+        <a href="#">
+        <div class="imgbox"><img src="" border="0"></div>
+        <div class="ctbox"><span class="cticon"></span></div>
+        <div class="name"></div>
+        <span class="price"></span>
+        <div class="index_pd_icon"></div>
+        </a>
+        </div>    	  
+                <div class="pd" id="pds4" style="display:none;">
+        <a href="#">
+        <div class="imgbox"><img src="" border="0"></div>
+        <div class="ctbox"><span class="cticon"></span></div>
+        <div class="name"></div>
+        <span class="price"></span>
+        <div class="index_pd_icon"></div>
+        </a>
+        </div>    	  
+                <div class="pd" id="pds5" style="display:none;">
+        <a href="#">
+        <div class="imgbox"><img src="" border="0"></div>
+        <div class="ctbox"><span class="cticon"></span></div>
+        <div class="name"></div>
+        <span class="price"></span>
+        <div class="index_pd_icon"></div>
+        </a>
+        </div>    	  
+                <div class="pd" id="pds6" style="display:none;">
+        <a href="#">
+        <div class="imgbox"><img src="" border="0"></div>
+        <div class="ctbox"><span class="cticon"></span></div>
+        <div class="name"></div>
+        <span class="price"></span>
+        <div class="index_pd_icon"></div>
+        </a>
+        </div>    	  
+                <div class="pd" id="pds7" style="display:none;">
+        <a href="#">
+        <div class="imgbox"><img src="" border="0"></div>
+        <div class="ctbox"><span class="cticon"></span></div>
+        <div class="name"></div>
+        <span class="price"></span>
+        <div class="index_pd_icon"></div>
+        </a>
+        </div>    	  
+                <div class="pd" id="pds8" style="display:none;">
+        <a href="#">
+        <div class="imgbox"><img src="" border="0"></div>
+        <div class="ctbox"><span class="cticon"></span></div>
+        <div class="name"></div>
+        <span class="price"></span>
+        <div class="index_pd_icon"></div>
+        </a>
+        </div>    	  
+                <div class="pd" id="pds9" style="display:none;">
+        <a href="#">
+        <div class="imgbox"><img src="" border="0"></div>
+        <div class="ctbox"><span class="cticon"></span></div>
+        <div class="name"></div>
+        <span class="price"></span>
+        <div class="index_pd_icon"></div>
+        </a>
+        </div>    	  
+                <div class="pd" id="pds10" style="display:none;">
+        <a href="#">
+        <div class="imgbox"><img src="" border="0"></div>
+        <div class="ctbox"><span class="cticon"></span></div>
+        <div class="name"></div>
+        <span class="price"></span>
+        <div class="index_pd_icon"></div>
+        </a>
+        </div>    	  
+                <div class="pd" id="pds11" style="display:none;">
+        <a href="#">
+        <div class="imgbox"><img src="" border="0"></div>
+        <div class="ctbox"><span class="cticon"></span></div>
+        <div class="name"></div>
+        <span class="price"></span>
+        <div class="index_pd_icon"></div>
+        </a>
+        </div>    	  
+                <div class="pd" id="pds12" style="display:none;">
+        <a href="#">
+        <div class="imgbox"><img src="" border="0"></div>
+        <div class="ctbox"><span class="cticon"></span></div>
+        <div class="name"></div>
+        <span class="price"></span>
+        <div class="index_pd_icon"></div>
+        </a>
+        </div>    	  
+                <div class="pd" id="pds13" style="display:none;">
+        <a href="#">
+        <div class="imgbox"><img src="" border="0"></div>
+        <div class="ctbox"><span class="cticon"></span></div>
+        <div class="name"></div>
+        <span class="price"></span>
+        <div class="index_pd_icon"></div>
+        </a>
+        </div>    	  
+                <div class="pd" id="pds14" style="display:none;">
+        <a href="#">
+        <div class="imgbox"><img src="" border="0"></div>
+        <div class="ctbox"><span class="cticon"></span></div>
+        <div class="name"></div>
+        <span class="price"></span>
+        <div class="index_pd_icon"></div>
+        </a>
+        </div>    	  
+                <div class="pd" id="pds15" style="display:none;">
+        <a href="#">
+        <div class="imgbox"><img src="" border="0"></div>
+        <div class="ctbox"><span class="cticon"></span></div>
+        <div class="name"></div>
+        <span class="price"></span>
+        <div class="index_pd_icon"></div>
+        </a>
+        </div>    	  
+                <div class="pd" id="pds16" style="display:none;">
+        <a href="#">
+        <div class="imgbox"><img src="" border="0"></div>
+        <div class="ctbox"><span class="cticon"></span></div>
+        <div class="name"></div>
+        <span class="price"></span>
+        <div class="index_pd_icon"></div>
+        </a>
+        </div>    	  
+                <div class="pd" id="pds17" style="display:none;">
+        <a href="#">
+        <div class="imgbox"><img src="" border="0"></div>
+        <div class="ctbox"><span class="cticon"></span></div>
+        <div class="name"></div>
+        <span class="price"></span>
+        <div class="index_pd_icon"></div>
+        </a>
+        </div>    	  
+              </div>    	  
+    </div>    
+  </div>
+  </div>
+  <!-- æ¯æ¥æ°ç¼ç¾ end -->
+</div>
+
+<!-- æ©«å¹è°å¸¶ 970x90AD -->
+<div id="lm3_49_7" class="ad_970x90_area" style="display:none;"></div>
+
+<div class="index_content2_outer clearfix">
+  <div class="index_content2 clearfix">
+  <!-- æ½ç -->
+  <div class="index_lottebox" style="display:none;">
+    <div class="index_lottitle"><div class="index_loteicon"></div></div>
+    <ul class="index_lottecontent" id="lott"></ul>
+  </div>
+    
+  <!-- ç¾éç©é» -->
+  <div class="index_pointbox" style="display:none;">
+    <div class="index_pottitle"><div class="index_poticon"></div></div>
+    <ul class="index_lottecontent" id="pointt"></ul>
+  </div>
+  </div>
+</div>
+
+<!-- æ©«å¹è°å¸¶ 970x90AD -->
+<div id="lm3_49_8" class="ad_970x90_area" style="display:none;"></div>
+
+<div class="index_content2_outer clearfix">  
+  <!-- çºä½ æ¨è¦ -->
+  <div class="index_content2 clearfix" id="glike" style="display:none;">
+  <div class="index_seenguess_box">
+  <h3>çºä½ æ¨è¦</h3>
+  <div class="pdlayout guesslike_pds clearfix" id="guesslike_pds"></div>
+  </div>
+  </div>
+</div>
+  
+<!-- æ©«å¹è°å¸¶ 970x90AD -->
+<div id="lm3_49_9" class="ad_970x90_area" style="display:none;"></div>
+
+<div class="index_content2_outer clearfix">
+  <!-- ä½ æ¾ç¶çé -->
+  <div class="index_content2 clearfix" id="viewpd" style="display:none;">
+  <div class="index_seenguess_box">
+  <h3>ä½ æ¾çé</h3>
+  <a class="edit_allseen" href="/adm/index_haveseen.htm" target="_bank">æ¥ç/ç·¨è¼¯</a>
+  <div class="pdlayout haveseen_pds clearfix" id="haveseen_pds"></div>
+  </div>
+  </div>
+</div>
+
+<!-- æ©«å¹è°å¸¶ 970x90AD -->
+<div id="lm3_49_10" class="ad_970x90_area" style="display:none;"></div>
+
+<div class="index_content2_outer clearfix">
+  <!-- éè¡åªæ  -->
+    <div class="index_content2 clearfix" id="bankarg" style="display:none;">  
+  <div class="index_bankarea clearfix">
+    <h3>éè¡åªæ </h3>
+    <div class="index_bank_box">   
+    	      <div><a href="https://img.pcstore.com.tw/store_ad/bank/" target="_blank"><img src="https://img.pcstore.com.tw/pch_img/pch_mar_img/169/864/5301/16986453011445.jpg?d=103023015501" alt="ä¸­ä¿¡"></a></div>
+            <div><a href="https://img.pcstore.com.tw/store_ad/bank/" target="_blank"><img src="https://img.pcstore.com.tw/pch_img/pch_mar_img/169/864/5344/16986453443161.jpg?d=103023015544" alt="æ°¸è±"></a></div>
+            <div><a href="https://img.pcstore.com.tw/store_ad/bank/" target="_blank"><img src="https://img.pcstore.com.tw/pch_img/pch_mar_img/169/864/5386/16986453865207.jpg?d=103023015626" alt="æå±"></a></div>
+            <div><a href="https://img.pcstore.com.tw/store_ad/bank/" target="_blank"><img src="https://img.pcstore.com.tw/pch_img/pch_mar_img/169/864/5422/16986454225365.jpg?d=103023015702" alt="è¯å"></a></div>
+          </div>
+  </div>  
+  </div>
+    </div>
+</div>
+
+<!-- æ©«å¹è°å¸¶ 970x90AD -->
+<div id="lm3_49_11" class="ad_970x90_area" style="display:none;"></div>
+<!-- index_content2_outer end -->
+<!-- æµ®æ°´å° -->
+<a class="floatPOP" href="" target="" style="display:none;"></a>
+<!-- å·¦éæµ®å -->
+<div id="lm3_49_14"></div>
+<!-- footer -->
+<div class="index_foot_content">
+<div class="rt-footer-section">
+          <ul class="rt-footer-nav">
+            <li class="rt-footer-nav-item">
+              <a href="https://www.pcstore.com.tw/adm/information.htm" title="æåèªªæ">
+                <span class="rt-footer-nav-name">æåèªªæ</span>
+              </a>
+            </li>
+            <li class="rt-footer-nav-item">
+              <a href="https://www.pcstore.com.tw/adm/flow.htm" title="è³¼ç©å®å¨">
+                <span class="rt-footer-nav-name">è³¼ç©å®å¨</span>
+              </a>
+            </li>
+            <li class="rt-footer-nav-item">
+              <a href="https://www.pcstore.com.tw/adm/privacy.htm" title="é±ç§æ¬è²æ">
+                <span class="rt-footer-nav-name">é±ç§æ¬è²æ</span>
+              </a>
+            </li>
+            <li class="rt-footer-nav-item">
+              <a href="https://www.pcstore.com.tw/adm/ad.htm" title="å»£ååç»">
+                <span class="rt-footer-nav-name">å»£ååç»</span>
+              </a>
+            </li>
+            <li class="rt-footer-nav-item" target="_blank">
+              <a href="https://www.104.com.tw/jobbank/cust_job/introduce.cfm?j=623a42293c6c3e6844583a1d1d1d1d5f2443a363189j50&jobsource=checkc" target="_BLANK" title="å¾µæ">
+                <span class="rt-footer-nav-name">å¾µæ</span>
+              </a>
+            </li>
+            <li class="rt-footer-nav-item">
+              <a href="http://store.ezpay.pchome.com.tw/" target="_BLANK" title="è³¼ç©é">
+                <span class="rt-footer-nav-name">è³¼ç©é</span>
+              </a>
+            </li>
+            <li class="rt-footer-nav-item" target="_blank">
+              <a href="https://www.facebook.com/seller.pcstore/" title="Facebook" target="_blank">
+                <span class="rt-footer-nav-name">Facebook</span>
+              </a>
+            </li>
+            <li class="rt-footer-nav-item">
+              <a href="https://www.instagram.com/pcstore_meow/" title="Instagram" target="_blank">
+                <span class="rt-footer-nav-name">Instagram</span>
+              </a>
+            </li>
+            <li class="rt-footer-nav-item">
+              <a href="javascript:mob_frtoprc('https://m.pcstore.com.tw')" title="ææ©ç">
+                <span class="rt-footer-nav-name">ææ©ç</span>
+              </a>
+            </li>
+          </ul>
+        </div>
+<div class="addinfo">
+ååºè¡å¸éåéè³è¨è¡ä»½æéå¬å¸çæ¬ææï¼è½è¼å¿ç©¶ãï¼çµ±ç·¨ï¼25132909ï¼<br>
+106 å°åå¸å¤§å®åæ¦ååè·¯äºæ®µ105è5æ¨<br>
+é»è©±(ä¸å«ä¾åæ¥)ï¼02-2700-5658  (æ¬å¬å¸ä¸æä»¥æ­¤é»è©±èç¢¼æ¥æçµ¦æ¨ï¼å¦æä¾é»é¡¯ç¤ºæ­¤èç¢¼ï¼è«å¿çæ)</div>
+<div class="aboutus"><img src="https://img.pcstore.com.tw/web_img/st/idx/index_aboutus.png?t=1"></div>
+<div class="appdownload"><img src="https://img.pcstore.com.tw/web_img/st/idx/appdownload.png?t=0" usemap="#Map">
+  <map name="Map">
+    <area shape="rect" coords="1,5,116,39" href="https://apps.apple.com/tw/app/pchome%E5%95%86%E5%BA%97%E8%A1%97/id993983004">
+    <area shape="rect" coords="2,49,115,88" href="https://play.google.com/store/apps/details?id=com.tw.pcstore&hl=zh_TW">
+  </map>
+</div>
+</div>
+<script type="text/javascript" src="https://sii.pcstore.com.tw/ui/js/comet_tool.js?p=20231002002"></script>
+<script type="text/javascript" src="https://ii.pcstore.com.tw/ui/js/comet_tool.js?p=20231002002"></script>
+</body>
+</html>
+<!-- 	 2023/11/20 09:26:27 -->
+
+<script language="JavaScript">
+  var html_end_js_var=true;
+
+if(window.cal_impression && !window.cal_black ) cal_impression("https://www.pcstore.com.tw/edm/calculate_manage.php");
+
+</script>

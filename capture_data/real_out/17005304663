@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta http-equiv="content-type" content="text/html; charset=utf-8" />
+    <meta http-equiv="Cache-Control" content="no-cache" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, user-scalable=no, shrink-to-fit=no" />
+    <meta name="keywords" content="UC下载,UC浏览器,UC浏览器下载,UC官方下载" />
+    <meta name="description" content="通过UC官网，您可以快速、安全地下载UC浏览器，时刻刷新世界！" />
+    <title>UC浏览器_官网下载</title>
+    <link rel="stylesheet" type="text/css" href="//image.uc.cn/s/uae/g/61/uc-wrap/src/app_1.0.34.css" />
+</head>
+<body>
+<div id="main-container"></div>
+<script version=1.0.34>
+    var script = document.getElementsByTagName("script");
+    for (var i = 0; i < script.length; i++){
+        if (script[i].getAttribute("version")) {
+            if (script[i].getAttribute("version") != localStorage["version"]) {
+                localStorage.clear();
+                localStorage["version"] = script[i].getAttribute("version");
+            }
+        }
+    }
+    if (!localStorage.sessionid) localStorage.sessionid = uuid(32, 16);
+
+    var url = '//image.uc.cn/s/uae/g/61/uc-wrap/src/app_1.0.34.js';
+
+    if(!localStorage["web_js"] || location.port !== "") {
+        jsReq();
+    }
+    try {
+        eval(localStorage["web_js"]);
+    } catch(err) {
+        jsReq();
+    }
+    function jsReq() {
+        var xmlhttp = window.ActiveXObject ? new ActiveXObject('Microsoft.XMLHTTP') : new XMLHttpRequest();
+        xmlhttp.open("GET", url, false);
+        xmlhttp.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
+        xmlhttp.send();
+        localStorage["web_js"] = xmlhttp.responseText;
+    }
+    function uuid(len, radix) {
+        var chars = '0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz'.split('');
+        var uuid = [], i;
+        radix = radix || chars.length;
+
+        if (len) {
+            for (i = 0; i < len; i++) uuid[i] = chars[0 | Math.random()*radix];
+        } else {
+            var r;
+            uuid[8] = uuid[13] = uuid[18] = uuid[23] = '-';
+            uuid[14] = '4';
+            for (i = 0; i < 36; i++) {
+            if (!uuid[i]) {
+                r = 0 | Math.random()*16;
+                uuid[i] = chars[(i == 19) ? (r & 0x3) | 0x8 : r];
+            }
+            }
+        }
+        return uuid.join('');
+    }
+</script>
+</body>
+</html>

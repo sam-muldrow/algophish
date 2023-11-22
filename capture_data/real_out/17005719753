@@ -1,0 +1,424 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta http-equiv="x-ua-compatible" content="ie=edge">
+<title>League of Legends Game &amp; Summoner Lookups &ndash; LoLSkill</title>
+<base href="//www.lolskill.net/">
+<meta name="description" content="Lookup active League of Legends games, analyze summoners and strive to become the world's best player with your favorite champions in our toplist!">
+<meta name="keywords" content="league of legends,lol,summoner lookup,game lookup,summoner stats,summoner ranking,lolskillscore,skillscore,skill,score,top summoners,champions,summoner stats,champion information,live games,streams">
+<meta name="robots" content="index, follow">
+<meta name="revisit-after" content="2 days">
+<meta property="og:url" content="//www.lolskill.net">
+<meta property="og:type" content="website">
+<meta property="og:title" content="League of Legends Game &amp; Summoner Lookups &ndash; LoLSkill">
+<meta property="og:locale" content="en_US">
+<meta property="og:image" content="//cdn.lolskill.net/img/cover.jpg">
+<meta property="og:description" content="Lookup active League of Legends games, analyze summoners and strive to become the world's best player with your favorite champions in our toplist!">
+<meta property="og:site_name" content="LoLSkill">
+<link rel="icon" href="//cdn.lolskill.net/img/favicon/favicon.ico">
+<link rel="icon" sizes="192x192" href="//cdn.lolskill.net/img/favicon/touch-icon-192x192.png">
+<link rel="apple-touch-icon-precomposed" sizes="180x180" href="//cdn.lolskill.net/img/favicon/apple-touch-icon-180x180-precomposed.png">
+<link rel="apple-touch-icon-precomposed" sizes="152x152" href="//cdn.lolskill.net/img/favicon/apple-touch-icon-152x152-precomposed.png">
+<link rel="apple-touch-icon-precomposed" sizes="144x144" href="//cdn.lolskill.net/img/favicon/apple-touch-icon-144x144-precomposed.png">
+<link rel="apple-touch-icon-precomposed" sizes="120x120" href="//cdn.lolskill.net/img/favicon/apple-touch-icon-120x120-precomposed.png">
+<link rel="apple-touch-icon-precomposed" sizes="114x114" href="//cdn.lolskill.net/img/favicon/apple-touch-icon-114x114-precomposed.png">
+<link rel="apple-touch-icon-precomposed" sizes="76x76" href="//cdn.lolskill.net/img/favicon/apple-touch-icon-76x76-precomposed.png">
+<link rel="apple-touch-icon-precomposed" sizes="72x72" href="//cdn.lolskill.net/img/favicon/apple-touch-icon-72x72-precomposed.png">
+<link rel="apple-touch-icon-precomposed" href="//cdn.lolskill.net/img/favicon/apple-touch-icon-precomposed.png">
+<link rel="stylesheet" href="//fonts.googleapis.com/css?family=Roboto:300,900">
+<link rel="stylesheet" href="//cdn.lolskill.net/3rdparty/bootstrap/css/bootstrap.min.css">
+<link rel="stylesheet" href="//cdn.lolskill.net/3rdparty/bootstrap/css/bootstrap-grid.min.css">
+<link rel="stylesheet" href="//cdn.lolskill.net/css/style.css" media="all">
+<style>
+	</style>
+<script src="//cdn.lolskill.net/3rdparty/chartjs/Chart.bundle.min.js"></script>
+<script>
+		// Performance Chart
+		function generatePerformanceChart(id, percent){
+			var ctx = document.getElementById(id);
+			var data = {
+				datasets: [
+					{
+						data:[percent, 100 - percent],
+						backgroundColor:[
+							"#f6dea7",
+							"#6c6a6e"
+						],
+						hoverBackgroundColor:[
+							"#f6dea7",
+							"#6c6a6e"
+						],
+						borderColor:[
+							"#000000",
+							"#000000"
+						],
+						borderWidth:2
+					}]
+			};
+			var options = {
+				aspectRatio: 1,
+				responsive: false,
+				cutoutPercentage: 75,
+				legend: {
+					display: false
+				},
+				tooltips: {
+					enabled: false
+				},
+				center: {
+					maxText: '100%', // the longest text that could appear in the center
+					text: percent + '%',
+					fontColor: '#f6dea7',
+					fontFamily: "'Roboto Black', sans-serif",
+					fontStyle: 'normal',
+					fontSize: 15,
+					// minFontSize: 1,
+					// maxFontSize: 256,
+				}
+			};
+			var plugin_performance_chart = {
+				afterUpdate: function(chart){
+					if(chart.config.options.center){
+						var helpers = Chart.helpers;
+						var centerConfig = chart.config.options.center;
+						var globalConfig = Chart.defaults.global;
+						var ctx = chart.chart.ctx;
+
+						var fontStyle = helpers.getValueOrDefault(centerConfig.fontStyle, globalConfig.defaultFontStyle);
+						var fontFamily = helpers.getValueOrDefault(centerConfig.fontFamily, globalConfig.defaultFontFamily);
+
+						if(centerConfig.fontSize)
+							var fontSize = centerConfig.fontSize;
+							// figure out the best font size, if one is not specified
+						else{
+							ctx.save();
+							var fontSize = helpers.getValueOrDefault(centerConfig.minFontSize, 1);
+							var maxFontSize = helpers.getValueOrDefault(centerConfig.maxFontSize, 256);
+							var maxText = helpers.getValueOrDefault(centerConfig.maxText, centerConfig.text);
+
+							do{
+								ctx.font = helpers.fontString(fontSize, fontStyle, fontFamily);
+								var textWidth = ctx.measureText(maxText).width;
+
+								// check if it fits, is within configured limits and that we are not simply toggling back and forth
+								if(textWidth < chart.innerRadius * 2 && fontSize < maxFontSize)
+									fontSize += 1;
+								else{
+									// reverse last step
+									fontSize -= 1;
+									break;
+								}
+							}while(true)
+							ctx.restore();
+						}
+
+						// save properties
+						chart.center = {
+							font: helpers.fontString(fontSize, fontStyle, fontFamily),
+							fillStyle: helpers.getValueOrDefault(centerConfig.fontColor, globalConfig.defaultFontColor)
+						};
+					}
+				},
+				afterDraw: function(chart){
+					if(chart.center){
+						var centerConfig = chart.config.options.center;
+						var ctx = chart.chart.ctx;
+
+						ctx.save();
+						ctx.font = chart.center.font;
+						ctx.fillStyle = chart.center.fillStyle;
+						ctx.textAlign = 'center';
+						ctx.textBaseline = 'middle';
+						var centerX = (chart.chartArea.left + chart.chartArea.right) / 2;
+						var centerY = (chart.chartArea.top + chart.chartArea.bottom) / 2;
+						ctx.fillText(centerConfig.text, centerX, centerY);
+						ctx.restore();
+					}
+				}
+			};
+			var chart = new Chart(ctx, {
+				type: 'doughnut',
+				data: data,
+				options: options,
+				plugins: [plugin_performance_chart]
+			});
+		}
+		function generateWinChanceChart(id, team100, team200){
+			var ctx = document.getElementById(id);
+			var data = {
+				datasets: [
+					{
+						data: [team200, team100],
+						backgroundColor: [
+							"#e94848",
+							"#24598b"
+						],
+						hoverBackgroundColor: [
+							"#e94848",
+							"#24598b"
+						],
+						borderColor: [
+							"#000000",
+							"#000000"
+						],
+						borderWidth: 2
+					}]
+			};
+			var options = {
+				aspectRatio: 1,
+				responsive: false,
+				cutoutPercentage: 75,
+				legend: {
+					display: false
+				},
+				tooltips: {
+					enabled: false
+				},
+			};
+			var chart = new Chart(ctx, {
+				type: 'doughnut',
+				data: data,
+				options: options
+			});
+		}
+	</script>
+
+<script async src="https://www.googletagmanager.com/gtag/js?id=UA-42137525-1"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'UA-42137525-1', {'anonymize_ip': true});
+</script>
+<script src="https://lngtd.com/lolskill.js"></script></head>
+<body class="background-index">
+
+<nav id="nav-main" class="navbar navbar-expand-lg navbar-inverse align-items-stretch sticky-top nav-index">
+<button class="navbar-toggler navbar-toggler-links hidden-lg-up" type="button" data-toggle="collapse" data-target="#navbar-main-responsive-links" aria-controls="navbar-main-responsive-links" aria-expanded="false" aria-label="Toggle navigation">
+<img src="//cdn.lolskill.net/img/nav_collapse.png" alt>
+</button>
+<button class="navbar-toggler navbar-toggler-search hidden-lg-up" type="button" data-toggle="collapse" data-target="#navbar-main-responsive-search" aria-controls="navbar-main-responsive-search" aria-expanded="false" aria-label="Toggle search">
+<img src="//cdn.lolskill.net/img/search.png" alt>
+</button>
+<a class="navbar-brand mr-auto" href="//www.lolskill.net">
+<img src="//cdn.lolskill.net/img/logo.png" alt>
+</a>
+<div class="collapse navbar-collapse" id="navbar-main-responsive-search">
+</div>
+<div class="collapse navbar-collapse" id="navbar-main-responsive-links">
+<ul class="navbar-nav ml-auto">
+<li class="nav-item">
+<a class="nav-link" href="top">Toplists</a>
+</li>
+<li class="nav-item">
+<a class="nav-link" href="champions">Champions</a>
+</li>
+<li class="nav-item">
+<a class="nav-link" href="streams">Streams</a>
+</li>
+<li class="nav-item">
+<a class="nav-link" href="live-matches">Live Matches</a>
+</li>
+
+<li class="nav-item">
+<a class="nav-link" href="blog">Blog</a>
+</li>
+
+</ul>
+</div>
+
+</nav>
+
+<div id="dataProvider" data-static-path="//cdn.lolskill.net" data-current-platform="EUW1" data-current-name></div>
+<div id="content-wrapper">
+<section id="landing">
+<div class="container text-center d-flex align-items-center h-100">
+<div class="content text-center w-100">
+<h2>League of Legends</h2>
+<h1 class="color-secondary">Game &amp; Summoner Analysis</h1>
+<div id="search-container">
+<form id="search" action="search" method="post">
+<div class="input-group">
+<input type="text" id="name" name="name" class="form-control" placeholder="Summoner name..." autofocus>
+<div class="input-group-btn input-group-btn-realm">
+<button type="button" id="search-realm" class="btn btn-secondary dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+EUW
+</button>
+<div id="dropdown-menu-realm" class="dropdown-menu dropdown-menu-right">
+<p class="dropdown-item" data-handle="EUW">Europe West</p>
+<p class="dropdown-item" data-handle="EUNE">Europe Nordic & East</p>
+<p class="dropdown-item" data-handle="NA">North America</p>
+<p class="dropdown-item" data-handle="BR">Brazil</p>
+<p class="dropdown-item" data-handle="KR">Korea</p>
+<p class="dropdown-item" data-handle="TR">Turkey</p>
+<p class="dropdown-item" data-handle="RU">Russia</p>
+<p class="dropdown-item" data-handle="LAN">Latin America North</p>
+<p class="dropdown-item" data-handle="LAS">Latin America south</p>
+<p class="dropdown-item" data-handle="OCE">Oceania</p>
+<p class="dropdown-item" data-handle="JP">Japan</p>
+</div>
+</div>
+<div class="input-group-btn input-group-btn-submit">
+<button type="submit" id="search-submit" class="btn btn-secondary border-carry">&nbsp;</button>
+</div>
+</div>
+<input type="hidden" id="realm" name="realm" value="EUW">
+</form>
+</div>
+</div>
+</div>
+</section><div class="container text-center aaa aaaLB"><div id="cdm-zone-01"></div></div> <section id="blog"> <div class="container">
+<h2 class="headline">Blog</h2>
+<div class="row">
+<div class="col-12 col-lg-7 col-xl-8">
+<div class="row"> <div class="col-12 col-md-6 col-lg-12">
+<div id="entity483" class="entity blog" data-entity-id="483">
+<a href="blog/champion-preview-zoe">
+<img class="blog-img-top" src="//cdn.lolskill.net/entity/483/header.jpg" alt="Champion Preview: Zoe">
+<h5 class="blog-title color-secondary text-center text-md-left">Champion Preview: Zoe</h5>
+</a>
+<div class="blog-text text-center text-md-left">Zoe, the Aspect of Twilight has been revealed! <br/>
+<br/>
+Check out her champion page to find out everything about her abilities, damage ratios and more.<br/>
+<br/>
+<a href="//www.lolskill.net/champion/zoe">View champion page</a></div> </div>
+</div> <div class="col-12 col-md-6 col-lg-12">
+<div id="entity477" class="entity blog" data-entity-id="477">
+<a href="blog/champion-preview-ornn">
+<img class="blog-img-top" src="//cdn.lolskill.net/entity/477/header.jpg" alt="Champion Preview: Ornn">
+<h5 class="blog-title color-secondary text-center text-md-left">Champion Preview: Ornn</h5>
+</a>
+<div class="blog-text text-center text-md-left">Ornn, the Fire below the Mountain has been revealed! <br/>
+<br/>
+Check out his champion page to find out everything about his abilities, damage ratios and more.<br/>
+<br/>
+<a href="//www.lolskill.net/champion/ornn">View champion page</a></div> </div>
+</div> </div>
+<div class="text-center">
+<a href="blog" class="btn btn-outline-primary button-viewall">View All</a>
+</div>
+</div>
+<div class="col-lg-5 col-xl-4 hidden-md-down text-center"><div class="container text-center aaa aaaMR"><div id="cdm-zone-02"></div></div><div class="container text-center aaa aaaMR"><div id="cdm-zone-03"></div></div> <div class="socialmedia">
+<a href="https://www.facebook.com/LoLSkill.net">
+<img class="socialmedia align-middle" src="//cdn.lolskill.net/img/social_facebook.png" alt="Facebook">
+</a>
+</div>
+<div class="socialmedia">
+<a href="https://twitter.com/LoLSkillDotNet">
+<img class="socialmedia align-middle" src="//cdn.lolskill.net/img/social_twitter.png" alt="Twitter">
+</a>
+</div>
+ </div>
+</div>
+</div>
+</section><div class="container text-center aaa aaaLB"><div id="cdm-zone-04"></div></div> <section id="freetoplay"> <div class="container text-center">
+<h2 class="headline has-subheadline">Free Champions of the Week</h2>
+<h5 class="headline subheadline color-secondary">21.11.2023</h5> <a class="champion" data-champion-id="2" href="champion/olaf">
+<div class="champion-slice d-inline-block" style="background-image:url(//cdn.lolskill.net/img/skins/loading/Olaf_0.jpg); width:6.4%;"></div>
+</a> <a class="champion" data-champion-id="4" href="champion/twistedfate">
+<div class="champion-slice d-inline-block" style="background-image:url(//cdn.lolskill.net/img/skins/loading/TwistedFate_0.jpg); width:6.4%;"></div>
+</a> <a class="champion" data-champion-id="8" href="champion/vladimir">
+<div class="champion-slice d-inline-block" style="background-image:url(//cdn.lolskill.net/img/skins/loading/Vladimir_0.jpg); width:6.4%;"></div>
+</a> <a class="champion" data-champion-id="22" href="champion/ashe">
+<div class="champion-slice d-inline-block" style="background-image:url(//cdn.lolskill.net/img/skins/loading/Ashe_0.jpg); width:6.4%;"></div>
+</a> <a class="champion" data-champion-id="32" href="champion/amumu">
+<div class="champion-slice d-inline-block" style="background-image:url(//cdn.lolskill.net/img/skins/loading/Amumu_0.jpg); width:6.4%;"></div>
+</a> <a class="champion" data-champion-id="53" href="champion/blitzcrank">
+<div class="champion-slice d-inline-block" style="background-image:url(//cdn.lolskill.net/img/skins/loading/Blitzcrank_0.jpg); width:6.4%;"></div>
+</a> <a class="champion" data-champion-id="78" href="champion/poppy">
+<div class="champion-slice d-inline-block" style="background-image:url(//cdn.lolskill.net/img/skins/loading/Poppy_0.jpg); width:6.4%;"></div>
+</a> <a class="champion" data-champion-id="89" href="champion/leona">
+<div class="champion-slice d-inline-block" style="background-image:url(//cdn.lolskill.net/img/skins/loading/Leona_0.jpg); width:6.4%;"></div>
+</a> <a class="champion" data-champion-id="102" href="champion/shyvana">
+<div class="champion-slice d-inline-block" style="background-image:url(//cdn.lolskill.net/img/skins/loading/Shyvana_0.jpg); width:6.4%;"></div>
+</a> <a class="champion" data-champion-id="113" href="champion/sejuani">
+<div class="champion-slice d-inline-block" style="background-image:url(//cdn.lolskill.net/img/skins/loading/Sejuani_0.jpg); width:6.4%;"></div>
+</a> <a class="champion" data-champion-id="133" href="champion/quinn">
+<div class="champion-slice d-inline-block" style="background-image:url(//cdn.lolskill.net/img/skins/loading/Quinn_0.jpg); width:6.4%;"></div>
+</a> <a class="champion" data-champion-id="141" href="champion/kayn">
+<div class="champion-slice d-inline-block" style="background-image:url(//cdn.lolskill.net/img/skins/loading/Kayn_0.jpg); width:6.4%;"></div>
+</a> <a class="champion" data-champion-id="157" href="champion/yasuo">
+<div class="champion-slice d-inline-block" style="background-image:url(//cdn.lolskill.net/img/skins/loading/Yasuo_0.jpg); width:6.4%;"></div>
+</a> <a class="champion" data-champion-id="222" href="champion/jinx">
+<div class="champion-slice d-inline-block" style="background-image:url(//cdn.lolskill.net/img/skins/loading/Jinx_0.jpg); width:6.4%;"></div>
+</a> </div>
+</section><div class="container text-center aaa aaaLB"><div id="cdm-zone-05"></div></div> </div>
+<footer id="footer">
+<section id="footer-top">
+<div class="container">
+<div class="row d-flex align-items-center">
+<div class="col-12 col-md-4 footer-logo text-center text-md-left">
+<img src="//cdn.lolskill.net/img/logo.png" alt>
+</div>
+<div class="col-12 col-md-4 footer-socialmedia text-center">
+<div class="socialmedia">
+<a href="https://www.facebook.com/LoLSkill.net">
+<img class="socialmedia align-middle" src="//cdn.lolskill.net/img/social_facebook.png" alt="Facebook">
+</a>
+</div>
+<div class="socialmedia">
+<a href="https://twitter.com/LoLSkillDotNet">
+<img class="socialmedia align-middle" src="//cdn.lolskill.net/img/social_twitter.png" alt="Twitter">
+</a>
+</div>
+ </div>
+<div class="col-12 col-md-4 footer-partner text-center text-md-right">
+
+</div>
+</div>
+</div>
+</section>
+<section id="footer-bottom">
+<div class="container">
+<div class="row">
+<div class="col-12 col-md-8 push-md-4 footer-links text-center text-md-right">
+<a href="about">About</a>
+<a href="contact">Contact Us</a>
+<a href="faq">FAQ</a>
+<a href="policy">Privacy Policy</a>
+</div>
+<div class="col-12 col-md-4 pull-md-8 footer-copyright text-center text-md-left">
+&copy; 2023 LoLSkill.net
+</div>
+</div>
+</div>
+</section>
+</footer>
+<div id="modal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="modal-title">
+<div class="modal-dialog" role="document">
+<div class="modal-content">
+<div class="modal-header">
+<div class="container">
+<h4 id="modal-title" class="modal-title">&nbsp;</h4>
+</div>
+</div>
+<div class="modal-body">
+</div>
+<div class="modal-footer">
+<div class="modal-buttons container text-center">
+</div>
+</div>
+</div>
+</div>
+</div>
+
+<script type="text/javascript">
+		(function(t,l){
+			let w=window,d=document,s=d.createElement('script'),f=d.getElementsByTagName('script')[0];
+			w[t]=w[t]||function(){(w["_rgea"]=w["_rgea"]||[["uts",new Date()]]).push(Array.prototype.slice.call(arguments));w.RGEA&&w.RGEA.p();};
+			s.type='text/javascript'; s.async=true; s.defer=true; s.src=l; f.parentNode.insertBefore(s,f);
+		})("rgea", "https://static.developer.riotgames.com/js/rgea.min.js");
+		rgea("propertyId", "RGEA0002-1f205e07-51c8-4ec4-966d-4e1e7816f0c1");
+		rgea("lolpid", "euw1");
+		rgea("anonymous", true);
+	</script>
+
+<script src="//ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script src="//cdn.lolskill.net/3rdparty/js-cookie/js.cookie-2.2.0.min.js"></script>
+<script src="//cdn.lolskill.net/3rdparty/popperjs/umd/popper.min.js"></script>
+<script src="//cdn.lolskill.net/3rdparty/bootstrap-beta3/js/bootstrap.min.js"></script>
+<script src="//cdn.lolskill.net/js/base.js"></script>
+</body>
+</html>

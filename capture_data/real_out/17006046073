@@ -1,0 +1,598 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+<base target="_blank" />
+<title>ÉÌ¶¼Íø£¬ÉÌ¶¼ÐÅÏ¢¸Û£¬ÉÌ¶¼Ö£ÖÝ</title>
+<meta name="keywords" content="ÉÌ¶¼Íø" />
+<meta name="description" content="ÉÌ¶¼Íø£¬ºÓÄÏÃÅ»§ÍøÕ¾£¬ºÓÄÏÉÌÒµÃÅ»§ÍøÕ¾£¬ºÓÄÏ´óÐÍÍøÂçÃ½Ìå£¬ÊÇÖÐÔ­µØÇø³ÉÁ¢×îÔçµÄ×ÛºÏÐÔÉÌÒµÃÅ»§ÍøÕ¾£¬ÊÇºÓÄÏÊ¡ÓÐ×ã¹»Ó°ÏìÁ¦ºÍ·ÃÎÊÁ¿µÄÍøÂçÉú»î¼ÒÔ°¡£" />
+<meta http-equiv="Content-Type" content="text/html; charset=GBK"/>
+<meta name="renderer" content="webkit" />
+<script src="https://thangdu.com/hjs/jqm-201127.js" type="text/javascript"></script>
+<script src="https://zz.ha.cn/bootstrap/js/bootstrap.min.js" type="text/javascript"></script>
+<link href="https://zz.ha.cn/bootstrap/css/bootstrap.min.css" rel="stylesheet" />
+<link href="css/index.css" rel="stylesheet" />
+<script type="text/javascript" src="https://thangdu.com/mjs/rmobile.js"></script>
+
+</head>
+<body style="background-image: url(images/backimg.jpg);background-repeat: no-repeat;background-size:100%">
+
+<div class="main">
+
+<div class="nav_s" style="font-size: 14px;">
+    <ul>
+     <ul>
+       
+       <li  onmouseover="show('1')"><img style="margin-top: -5px;margin-right: 3px;margin-left: 20px;" src="images/wx.png" /><a style="background-color: #fff; border-radius: 5px;color: #50b674;">&nbsp;&nbsp;Î¢ÐÅ¶©ÔÄ&nbsp;&nbsp;</a></li>
+        <li><img style="margin-top: -5px;margin-right: 3px;margin-left: 10px;" src="images/wb.png" /><a href="https://weibo.com/shangducom" style="background-color: #fff; border-radius: 5px;color: #f1b33b;">&nbsp;&nbsp;¹Ù·½Î¢²©&nbsp;&nbsp;</a></li>
+    </ul>
+       
+    <div id="jjh" style="position: absolute; margin-left: 1000px; display: none;"><img onmouseout="show('0')" src="images/jjh.jpg" style="height: 180px;"></div>
+</div>
+<script>
+if (location.search!='?nojump') chkmobile(); 
+ function show(k)
+ {  
+    if(k==1){
+     $('#jjh').fadeIn(200);
+ }else{
+     $('#jjh').fadeOut(200);
+ }
+   
+  
+ }
+ 
+ida=new Array('second','minite','hour','day','month','year');
+cv=new Array();
+
+gg2_idx=0;chg_timout=5; 
+
+     
+     function gosec()
+{
+cv[0]++;chg=0;
+if (cv[0]>59)
+{cv[0]=0;cv[1]++;chg=1;
+if (cv[1]>59)
+{cv[1]=0;cv[2]++;chg=2;
+if (cv[2]>23)
+{cv[2]=0;cv[3]++;chg=3;
+if (cv[4]==2) days=(cv[5]%4)?28:29;
+else if (cv[4]<=7) days=(cv[4]&1)?31:30;
+else days=(cv[4]&1)?30:31;
+if (cv[3]>days)
+{day=cv[3];cv[4]++;chg=4;
+if (cv[4]>12)
+{cv[4]=1;cv[5]++;chg=5;}}}}}
+
+for (i=0;i<=chg;i++) $('#'+ida[i]).html((cv[i]<10)?('0'+cv[i]):cv[i]);
+
+tag=cv[0]%chg_timout;
+if (tag==0) 
+  {
+   $('#gg2_'+gg2_idx).hide();
+   gg2_idx++;  
+   if (gg2_idx>1) gg2_idx=0;
+   $('#gg2_'+gg2_idx).fadeIn(200); 
+  }
+setTimeout('gosec()',1000);
+}
+
+function onesec()
+{
+for (i=0;i<6;i++) cv[i]=parseInt($('#'+ida[i]).html());
+gosec();
+}
+
+ function get2code(nm,k)
+ {
+  if (k) $('#jjh').fadeIn(200);
+  else $('#jjh').fadeOut(200);  
+ }
+ 
+ $(function() {
+   
+   $.get('p-getweather.htm',function (wt) {
+   $('#showtime').html(wt); 
+   setTimeout('onesec()',1000);
+   //SlideShow(2000);
+    })
+   $.get('p-isha.htm',function (x) {
+    $('#mainnav').html(x);
+   })  
+    
+    $.get('p-update.htm?id=1',{r:Math.random()},function(yr) {
+     $('#toyear').text(yr);  
+    });
+});
+</script>
+   <div style="height: 85px;">
+      <div class="weather" id="showtime" style="float: right;margin-right: 100px;"></div>
+   </div>
+<div class="nav_b" >
+  <div class="logo_img">
+   <a href="https://zz.ha.cn/"><img src="https://zz.ha.cn/images/logo.png" /></a>
+  </div>
+  
+  <div class="nav" >
+   <ul>
+   <li><a href="https://surl.plus/index.htm">¶ÌÍøÖ·</a></li>
+   <li><a href="https://supply.thangdu.com/">¹©Ó¦Á´</a></li>
+    <li><a href="">µç×ÓÆ±</a></li>
+     <li><a href="http://shangdu.wo.com.cn ">·ÅÓ³ÊÒ</a></li>
+   <li><a href="http://tv.shangdu.com/">à½Ö±²¥</a></li>
+    <li><a href="https://web.sddstar.pro/d-spot.html">ÐÇ²¿Âä</a></li>
+    <li><a href="http://art.shangdu.com/">²©ÒÕÌÃ</a></li>
+   </ul>
+  </div>
+</div>
+
+<div class="banner_01">
+   <div class="good_goods">
+     <div class="goods_name">
+     <span>&nbsp;&nbsp;ºÃ ¶« Î÷</span>
+     </div>
+     <div class="major">
+     <ul class="list fl">    
+         <li>
+                 <div class='span_left fl'>
+                        <a href='https://b.sdoodo.com/shops/info.htm?gid=nodX3e9B80-hS' target='_blank'>
+                        <img src='img/face/z19aDvU7LIND8KmsqTsWg0-Q6vOuethSL.png'>
+                        </a>
+                  </div>
+                  <a href='https://b.sdoodo.com/shops/info.htm?gid=nodX3e9B80-hS'>
+                  <div class='goods_title'>
+                    <b>°½¶«½¡¿µ¶ÎÊ÷·äÃÛ</b>
+                    <p style='line-height:15px'>¶«±±ºÚ·ä Æ·ÖÊ±£Ö¤</p>
+                  </div>
+                  </a>
+            </li><li>
+                 <div class='span_left fl'>
+                        <a href='https://b.sdoodo.com/shops/info.htm?gid=q1PjaWT6ypZ6M' target='_blank'>
+                        <img src='img/face/jZ3CE3BBiqA_Vz3wFDE-3E4L737BdVPGF.png'>
+                        </a>
+                  </div>
+                  <a href='https://b.sdoodo.com/shops/info.htm?gid=q1PjaWT6ypZ6M'>
+                  <div class='goods_title'>
+                    <b>ÐÂ½®ÍÂÂ³·¬ºÚÉ£ÝØ¸É</b>
+                    <p style='line-height:15px'>¿Å¿ÅÓÅÑ¡ ¸É¾»ÎÞÔÓÖÊ</p>
+                  </div>
+                  </a>
+            </li><li>
+                 <div class='span_left fl'>
+                        <a href='https://b.sdoodo.com/shops/info.htm?gid=cW4BvPS6wjmof' target='_blank'>
+                        <img src='img/face/L6TFWlWQYc5beF7xKI1vNlik_-c8Fhqbk.png'>
+                        </a>
+                  </div>
+                  <a href='https://b.sdoodo.com/shops/info.htm?gid=cW4BvPS6wjmof'>
+                  <div class='goods_title'>
+                    <b>ÏÊÉ½Êå èÁèËÇïÀæ¸à</b>
+                    <p style='line-height:15px'>Õæ²ÄÊµÁÏ£¬½³ÐÄ°¾ÖÆ</p>
+                  </div>
+                  </a>
+            </li><li>
+                 <div class='span_left fl'>
+                        <a href='https://b.sdoodo.com/shops/info.htm?gid=eX5H70XHdSVco' target='_blank'>
+                        <img src='img/face/TEfEPfjkTSAIuMRIsXBc1fPHI_taeuhxT.png'>
+                        </a>
+                  </div>
+                  <a href='https://b.sdoodo.com/shops/info.htm?gid=eX5H70XHdSVco'>
+                  <div class='goods_title'>
+                    <b>Üò¼ÃÌÃÀ¶Ý®Ò¶»ÆËØõ¥Æ¬</b>
+                    <p style='line-height:15px'>ºÇ»¤Ë«íø ÇåÎúÊÓ½ç</p>
+                  </div>
+                  </a>
+            </li><li>
+                 <div class='span_left fl'>
+                        <a href='https://b.sdoodo.com/shops/info.htm?gid=suxyvuc0v8zKD' target='_blank'>
+                        <img src='img/face/MUHLT7esRYWzLGGYCmAJRqwYWynqt_68c.png'>
+                        </a>
+                  </div>
+                  <a href='https://b.sdoodo.com/shops/info.htm?gid=suxyvuc0v8zKD'>
+                  <div class='goods_title'>
+                    <b>¹ðÔ²ºìÔæèÛè½²è</b>
+                    <p style='line-height:15px'>ºÈ³öºÃÈÝÑÕ</p>
+                  </div>
+                  </a>
+            </li>              
+     </ul>
+     </div>
+</div>
+   <div class="lunbo">
+     <img style="width: 775px;"  src="images/biaoyu.png"/>
+    <div class="ban01">
+    <div class="ban01_pic">
+           <div class="carousel slide" id="photoslides" data-ride="carousel" data-interval="3000">
+    <ol class="carousel-indicators">
+         <li data-target="#slides" data-slide-to="0" class="active"></li> 
+         <li data-target="#slides" data-slide-to="1" class=""></li>
+         <li data-target="#slides" data-slide-to="2" class=""></li> 
+         <li data-target="#slides" data-slide-to="3" class=""></li> 
+         <li data-target="#slides" data-slide-to="4" class=""></li> 
+         <li data-target="#slides" data-slide-to="5" class=""></li>
+    </ol>   
+    <div class="carousel-inner">
+        <div class='item active'>
+                    <a href='http://www.shangdu.com/c-arghc-Xzrj4F.html'>
+                        <img src='img/face/jN0DP9MNXc8rGb8gxtTncLhLbndw7vIkh.png' title='µÚÎå½ìÈ«¹úÖÐ¹ú»­Õ¹ÀÀ|Ãû¼ÒÑûÇë×÷Æ·' />
+                        <div class='carousel-caption'>µÚÎå½ìÈ«¹úÖÐ¹ú»­Õ¹ÀÀ|Ãû¼ÒÑûÇë×÷Æ·</div>
+                    </a>
+                  </div> <div class='item'>
+                    <a href='http://www.shangdu.com/c-arghc-iCPzY1.html'>
+                        <img src='img/face/WYcR4Q1xIVHty98j9w6SdTCSd_ZW_Af4P.png' title='µÚÎå½ìÈ«¹úÖÐ¹ú»­Õ¹ÀÀ|ÈËÎï»­×÷Æ·ÐÀÉÍ' />
+                        <div class='carousel-caption'>µÚÎå½ìÈ«¹úÖÐ¹ú»­Õ¹ÀÀ|ÈËÎï»­×÷Æ·ÐÀÉÍ</div>
+                    </a>
+                  </div> <div class='item'>
+                    <a href='http://www.shangdu.com/c-arghc-YRL0QN.html'>
+                        <img src='img/face/RY38UY7rRTo2N_tqxTPc_uvIMffKdj52p.png' title='µÚÎå½ìÈ«¹úÖÐ¹ú»­Õ¹ÀÀ|É½Ë®»­×÷Æ·ÐÀÉÍ' />
+                        <div class='carousel-caption'>µÚÎå½ìÈ«¹úÖÐ¹ú»­Õ¹ÀÀ|É½Ë®»­×÷Æ·ÐÀÉÍ</div>
+                    </a>
+                  </div> <div class='item'>
+                    <a href='http://www.shangdu.com/c-arghc-3djvHd.html'>
+                        <img src='img/face/g6e-bDHTHDyRR_I-zkeMxMkKU73PzymFd.png' title='µÚÎå½ìÈ«¹úÖÐ¹ú»­Õ¹ÀÀ|»¨Äñ»­×÷Æ·ÐÀÉÍ' />
+                        <div class='carousel-caption'>µÚÎå½ìÈ«¹úÖÐ¹ú»­Õ¹ÀÀ|»¨Äñ»­×÷Æ·ÐÀÉÍ</div>
+                    </a>
+                  </div> <div class='item'>
+                    <a href='https://web.sddstar.pro/c-aiyu-kP1l8y.html'>
+                        <img src='img/face/uZk5NJFuNkPaoihJPTRQglmv1JdfhLvBE.png' title='ÖÐÇï¹úÇìµµ£¬ºÃÏ·¼´½«µÇ³¡£¡' />
+                        <div class='carousel-caption'>ÖÐÇï¹úÇìµµ£¬ºÃÏ·¼´½«µÇ³¡£¡</div>
+                    </a>
+                  </div>
+    </div>
+    
+    
+    <!-- ÂÖ²¥£¨Carousel£©µ¼º½ -->
+    <a class="left carousel-control" href="#photoslides" role="button" data-slide="prev">
+        <span class="glyphicon glyphicon-chevron-left" aria-hidden="true"></span>
+        <span class="sr-only">Previous</span>
+    </a>
+    <a class="right carousel-control" href="#photoslides" role="button" data-slide="next">
+        <span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span>
+        <span class="sr-only">Next</span>
+    </a>
+ </div>
+    </div>
+    </div>
+  </div>
+  
+   <div class="right_nav">
+     <ul>
+       <li><a href="http://info.shangdu.com">Õý·¢²¼</a></li>
+      
+    
+        <li><a href="http://3nong.shangdu.com/">´óÈýÅ©</a></li>
+       <li><a href="http://yjk.shangdu.com/">Ô¥½¡¿µ</a></li>
+        
+     </ul>
+   </div>
+  
+</div>
+
+<!--µÚ¶þ°æ-->
+<div class="pic_five">
+  <a href='https://web.sdoodo.com/c-cars-eeI01H.html'><img src='img/face/lCw_MIO7OUTqHbVS_5Ra3IyJVyZFCxyrR.png' title='ÊýÖÇ¹¤³§µÞÔì¸ß¶ËÆ·ÖÊ ÈÙÍþD7Á¿²úÏÂÏßÊµÁ¦Æô³Ì'/></a><a href='https://web.sdoodo.com/c-cars-zIRB70.html'><img src='img/face/zShd1wOrZIXDPUCnGSKLWovfRqXgGsZFp.png' title='ÊÛ¼Û16.68Íò-23.68ÍòÔª£¬±ÈÑÇµÏº£±ªDM-i´óºÓ³µÕ¹ÕýÊ½ÉÏÊÐ'/></a><a href='https://web.sdoodo.com/c-cars-uGBVdO.html'><img src='img/face/5x5MJ6Xstz1ctBtUisHRYNAt0LAh4upnX.png' title='ÌáËÙºÓÄÏÆû³µÏû·Ñ£¬µãÈ¼Ö£ÖÝ»îÁ¦½ðÇï'/></a><a href='https://web.sdoodo.com/c-cars-ZdcfG1.html'><img src='img/face/GSdu9seSbcBm24Fs0DX9gKscdk15jNm3f.png' title='º£ëàµÚ50ÍòÁ¾ÏÂÏß£¬°ÂÔË¹Ú¾üÈÎÜç³ÉÎªµÚ50ÍòÁ¾º£ëàËÇÑøÔ±'/></a><a href='https://web.sdoodo.com/c-cars-x5Q4lh.html'><img src='img/face/7lfgUB0OEnxTzFhUinOPni8idHSA465zm.png' title='10Íò¼¶¼ÒÓÃSUVÐÂÑ¡Ôñ Ò»Æû±¼ÌÚT90Ô½¼¶ÉÏÊÐ'/></a>
+</div>
+<div class="news-01">
+  <div class="news-01-left" >
+     <div class="news-h1" >
+     <div style=""></div>
+        <span>´° Íâ ÊÂ</span>
+        <span class="more">¸ü¶à</span>     
+     </div>
+     <div class="news-pic">
+         <a href='https://web.sddstar.pro/c-spot-CgieRe.html'>
+            <img src='img/face/Zru6N4Oh80py4Ovth8MBzpUkVzyUNGtES.png' title='Ë®Ä¾Äê»ª¡°ËùÒÔÉÙÄêÈË¡±2023Ö£ÖÝÑÝ³ª»á¿ª³ªÔÚ¼´' />
+             <div >
+              <span>Ë®Ä¾Äê»ª¡°ËùÒÔÉÙÄêÈË¡±2023Ö£ÖÝÑÝ³ª»á¿ª³ªÔÚ¼´</span>
+              <p>¹´ÆðÄãÄÑÍüµÄÇà´º¼ÇÒä</p>
+             </div>
+           </a>     
+     </div>
+    
+     <div class="news-title">
+      <ul>
+        
+       <li><img src='images/small.png' /><a href='https://web.sddstar.pro/c-aiyu-dko0gH.html'>¡¶ºÃÏñÒ²Ã»ÄÇÃ´ÈÈÑª·ÐÌÚ¡·Ö£ÖÝÂ·ÑÝ</a></li><li><img src='images/small.png' /><a href='https://web.sddstar.pro/c-aiyu-HeoBwy.html'>ºÃÀ³Îë¶¯×÷´óÆ¬¡¶¸ÒËÀ¶Ó4£º×îÖÕÕÂ¡·ÉÏÓ³</a></li><li><img src='images/small.png' /><a href='https://web.sddstar.pro/c-spot-kHTZnI.html'>Íò´ïÓ°³ÇÁªºÏIMAX¾Ù°ì¡¶°Â±¾º£Ä¬¡·¹ÛÓ°»á</a></li><li><img src='images/small.png' /><a href='https://web.sddstar.pro/c-spot-bK10O9.html'>º¼ÖÝÑÇ²ÐÔË»á¿ªÄ»Ê½Ê×´ÎÈ«ÒªËØ²ÊÅÅ</a></li>
+      </ul>
+     </div>
+     
+  </div>
+   <div class="news-01-left" >
+     <div class="news-h1" >
+     <div style=""></div>
+        <span style="">ÓÐ Ê« Êé</span>
+        <span class="more" style="">¸ü¶à</span>     
+     </div>
+     <div class="news-pic">
+      <a href='https://mp.weixin.qq.com/s/zv5BwS87hNy5sE3xJ_wttQ'>
+            <img src='img/face/eLYeTRBqfNiO3zch2q_LYVKXwhe1ECQha.png' title='Ë×»°Ëµ¡°ÈËÊÜÒ»¾ä»°£¬·ðÊÜÒ»ÖùÏã¡±£¬×¢ÒâÕâÐ©ÓïÆø' />
+             <div >
+              <span>Ë×»°Ëµ¡°ÈËÊÜÒ»¾ä»°£¬·ðÊÜÒ»ÖùÏã¡±£¬×¢ÒâÕâÐ©ÓïÆø</span>
+              <p>ºÃµÄ¼ÒÍ¥¹ØÏµ£¬ÓëËµ»°µÄÓïÆøÏ¢Ï¢Ïà¹Ø</p>
+             </div>
+           </a> 
+     </div>
+    
+     <div class="news-title">
+      <ul>
+       <li><img src='images/small.png' /><a href='https://mp.weixin.qq.com/s/O7cuSGXzEIv9zc_owhmpWA'>ìØÓîÖæµÚÒ»»Ø£ºÁÖÑ§ÉúÃÎ´ðÑ¡°Î¾í ÕÔÀÏÊ¦¾ªãµÂ¼È¡</a></li><li><img src='images/small.png' /><a href='https://mp.weixin.qq.com/s/jj-i2dxSkNmBsywuBCnkzQ'>µÚ¶þ»Ø£ºÎÄ·åÏÂÒþÒþÐÂÊÀ½ç ÄÏÉ½ÉÏÓÆÓÆ¾ÉÛë¿Ú</a></li><li><img src='images/small.png' /><a href='https://mp.weixin.qq.com/s/fjUp2BjW14BXVvRN9ZDXxA'>µÚÈý»Ø£ºËæÇå·çÆ®É¢éÏé­Ê÷ ¿´ºì³¾ÒÀÏ¡»Æèö¸ù</a></li><li><img src='images/small.png' /><a href='https://mp.weixin.qq.com/s/cPN2DuOATgIHonot_8rmPQ'>²»¹ÜÈ¥Ë­¼Ò×ö¿Í£¬¶¼Òª¶®µÃ¡°ÀñÓÐÈýËÍ£¬Èý²»ËÍ¡±</a></li> 
+      </ul>
+     </div>
+  </div>
+ <div class="news-right" style="width:350px;height: 300px;">
+    <div class="news-h1" >
+     <div style="width: 80px;"></div>
+        <span>»Ý Éú »î</span>
+        <span class="more">¸ü¶à</span>     
+    </div>
+     <a  href="">
+     <a href='https://mp.weixin.qq.com/s/1EqL2RviiYps3AxY5wUWaw'> <img class='news-right_img' src='img/face/YTicpsUQqjKwqil5SFf8enAwnzQnMaK9l.png' title='Ìð¡°â¨¡±À´Ï®£¡ÏãÌðÏ¸ÄÛÓÖ¶àÖ­£¬³ÔÒ»¿Ú¾ÍÃÔÉÏ'/>  </a>  
+     </a>
+     <div class="news-title">
+      <ul>
+       <li><img src='images/small.png' /><a href='https://mp.weixin.qq.com/s/5TdtGxaR6lUZsTBAUgZqhg'>Ã×ÖÐ¡°°®ÂíÊË¡±¿Å¿ÅÐÂÏÊ£¬Á£Á£ÓÐ»ú</a></li><li><img src='images/small.png' /><a href='https://mp.weixin.qq.com/s/TDwIUdvVd3pTvc1XOtf0mA'>±»³ÆÎªÉ³Ä®Ãæ°ü£¬À´×Ô°¢ÁªÇõµÄÒ¬Ôæ</a></li><li><img src='images/small.png' /><a href='https://mp.weixin.qq.com/s/Pjxsg1zcdc0SCAnyy_QNFg'>¸ÛÈÙÕôÃæ°ü£¬Ëø×¡ÃÀÎ¶£¬¸øÄãÎ¶ÀÙÂú</a></li>
+      </ul>
+     </div>
+    
+ </div>
+</div>
+<div style="margin-top: 25px;">
+
+<a href="https://b.sdoodo.com/shops/index.htm?sid=UUjHjBY_Pw"><img src="images/shops.jpg" /></a>
+<!--<a href="https://www.citicbank.com"><img src="images/zhongxin214.jpg"  style="width: 1200px;height:120px"/></a>-->
+
+
+
+</div>
+<!--µÚÈý°æ-->
+<div class="news-01">
+  <div class="news-01-left" >
+     <div class="news-h1" >
+     <div style=""></div>
+        <span>»¥ ¶¯ Õ¾</span>
+        <span class="more">¸ü¶à</span>     
+     </div>
+     <div class="news-pic">
+         <a href='https://web.sdoodo.com/c-join-S6vVWC.html'>
+            <img src='img/face/TUboV29iyZkiWpQkJKBKHXVrQpwv-LJRo.png' title='ÎÊÌâ' />
+             <div >
+              <span>ÎÊÌâ</span>
+              <p>¸Õ²ÅÂòË®¹û£¬ÎÊÀÏ°å£º¡°ÕâË®¹ûÌð²»Ìð£¿¡±</p>
+             </div>
+           </a>     
+     </div>
+    
+     <div class="news-title">
+      <ul>
+        
+       <li><img src='images/small.png' /><a href='https://web.sdoodo.com/c-join-J7Bx9X.html'>´ð¶ÔÁË</a></li><li><img src='images/small.png' /><a href='https://web.sdoodo.com/c-join-3RRoBh.html'>ÒâÍâÎÊÌâ</a></li><li><img src='images/small.png' /><a href='https://web.sdoodo.com/c-join-vIOdls.html'>¾Æ×ÀÉÏµÄÍæÐ¦</a></li><li><img src='images/small.png' /><a href='https://web.sdoodo.com/c-join-n2qOik.html'>¶Ì¹ÊÊÂ£¬´óÈËÐÔ£¡</a></li>
+      </ul>
+     </div>
+     
+  </div>
+   <div class="news-01-left" >
+     <div class="news-h1" >
+     <div style=""></div>
+        <span style="">²© ÒÕ ÌÃ</span>
+        <span class="more" style="">¸ü¶à</span>     
+     </div>
+     <div class="news-pic">
+      <a href='http://www.shangdu.com/c-arghc-2YoEHa.html'>
+            <img src='img/face/Ov6P0D3HwB_25q_MnOZ3g61C80C2CXzJY.png' title=' »Æ±öºçÉ½Ë®»­£ºÊµ´¦Ò× Ðé´¦ÄÑ ' />
+             <div >
+              <span> »Æ±öºçÉ½Ë®»­£ºÊµ´¦Ò× Ðé´¦ÄÑ </span>
+              <p>»Æ±öºç±»ºóÈË×ðÎªÖÐ¹ú½üÏÖ´úÉ½Ë®»­Ò»´ú×ÚÊ¦</p>
+             </div>
+           </a> 
+     </div>
+    
+     <div class="news-title">
+      <ul>
+       <li><img src='images/small.png' title='' title='µÚÎå½ìÈ«¹úÖÐ¹ú»­Õ¹ÀÀ|É½Ë®»­×÷Æ·ÐÀÉÍ' /><a href='http://www.shangdu.com/c-arghc-YRL0QN.html'>µÚÎå½ìÈ«¹úÖÐ¹ú»­Õ¹ÀÀ|É½Ë®»­×÷Æ·ÐÀÉÍ</a></li><li><img src='images/small.png' title='' title='µÚÎå½ìÈ«¹úÖÐ¹ú»­Õ¹ÀÀ|»¨Äñ»­×÷Æ·ÐÀÉÍ' /><a href='http://www.shangdu.com/c-arghc-3djvHd.html'>µÚÎå½ìÈ«¹úÖÐ¹ú»­Õ¹ÀÀ|»¨Äñ»­×÷Æ·ÐÀÉÍ</a></li><li><img src='images/small.png' title='' title='µÚÎå½ìÈ«¹úÖÐ¹ú»­Õ¹ÀÀ|ÈËÎï»­×÷Æ·ÐÀÉÍ' /><a href='http://www.shangdu.com/c-arghc-iCPzY1.html'>µÚÎå½ìÈ«¹úÖÐ¹ú»­Õ¹ÀÀ|ÈËÎï»­×÷Æ·ÐÀÉÍ</a></li><li><img src='images/small.png' title='' title='Çé¾³ÓëÑ¡Ôñ:¶ÎÕýÇþ×÷Æ·ôßÎÄÏ×Õ¹1983-2020¡¾×éÍ¼¡¿ ' /><a href='https://www.shangdu.com/c-arghc-uN2v0Y.html'>Çé¾³ÓëÑ¡Ôñ:¶ÎÕýÇþ×÷Æ·ôßÎÄÏ×Õ¹1983-2020¡¾×éÍ¼¡¿ </a></li> 
+      </ul>
+     </div>
+  </div>
+ <div class="news-right" style="width:350px;height: 300px;">
+    <div class="news-h1" >
+     <div style="width: 80px;"></div>
+        <span>Õý ·¢ ²¼</span>
+        <span class="more">¸ü¶à</span>     
+    </div>
+     <a  href="">
+     <a href='http://www.shangdu.com/info-bmOt4W-byJoFL.htm'> <img class='news-right_img' src='img/face/HCzxVQ3IxG_u63BB3ERdERSND13hSmgwm.png' />  </a>  
+     </a>
+     <div class="news-title">
+      <ul>
+       <li><img src='images/small.png' /><a href='https://web.sddstar.pro/c-spot-wS17Ic.html'>ÂÃÓÎ×¨ÁÐ£¬ÎªÐÂ½®ÂÃÓÎ¸³ÄÜ</a></li><li><img src='images/small.png' /><a href='https://web.sddstar.pro/c-spot-IEdDOw.html'>ÖÐÀÏÌúÂ·ÅÜ³ö¹²¡°Ó®¡±¼ÓËÙ¶È</a></li><li><img src='images/small.png' /><a href='https://web.sddstar.pro/c-spot-GFIzM2.html'>ÌúÂ·ÖúÁ¦¡°Á÷¶¯ÖÐ¹ú¡±¶¯Á¦Ê®×ã</a></li>
+      </ul>
+     </div>
+    
+ </div>
+</div>
+
+<div style="margin-top: 25px;">
+<a href="https://web.sdoodo.com/c-tech-kzxNQn.html"><img src="images/shang_hz.jpg"  style="width: 1200px;height:120px"/></a>
+</div>
+<div class="news-01">
+  <div class="news-01-left" >
+     <div class="news-h1" >
+     <div style=""></div>
+        <span>·¿ µØ ²ú</span>
+        <span class="more">¸ü¶à</span>     
+     </div>
+     <div class="news-pic">
+         <a href='https://www.shangdu.com/c-hous-fzXN6G.html'>
+            <img src='img/face/wP0tpjeaVzBxM0Vbsgblr-BAQLMBiOpBF.png' title='Í¬ÐÄÐ­Á¦ÔÙ³ö·¢ È«Á¦ÒÔ¸°±£½»Â¥' />
+             <div >
+              <span>Í¬ÐÄÐ­Á¦ÔÙ³ö·¢ È«Á¦ÒÔ¸°±£½»Â¥</span>
+              <p>Ëæ×Å½ðÇïÀ´ÁÙ£¬ÁúºþÒ»ºÅÒ²Ó­À´È«Ãæ¸´¹¤µÄºÃÏûÏ¢</p>
+             </div>
+           </a>     
+     </div>
+    
+     <div class="news-title">
+      <ul>
+        
+       <li><img src='images/small.png' /><a href='https://www.shangdu.com/c-hous-XspdEv.html'>9ÔÂ29ÈÕ£¬Ö£ÖÝÈË²»¿É´í¹ýµÄ´ò¿¨µØ£¡</a></li><li><img src='images/small.png' /><a href='https://www.shangdu.com/c-hous-aoQYeT.html'>Ö£ÖÝÖ£Î÷¡¤öÎÔ·Ãû¼Ò¾ÙÐÐÒµÖ÷×ùÌ¸»áºÍ¹¤µØ¿ª·Å»î¶¯</a></li><li><img src='images/small.png' /><a href='https://www.shangdu.com/c-hous-6Aq0PH.html'>Ö»´ËÑÅËÎ À¶³Ç¡¤½­ÄÏÀïÑù°åÊ¾·¶ÇøÊ¢´óÆôÄ»</a></li><li><img src='images/small.png' /><a href='https://www.shangdu.com/c-hous-QlkvAl.html'>Íò¿ÆÎïÒµ´òÔì×¨ÊôÁÚ¾ÓÃÇµÄ¡°ÆÓÀï½Ú</a></li>
+      </ul>
+     </div>
+     
+  </div>
+   <div class="news-01-left" >
+     <div class="news-h1" >
+     <div style=""></div>
+        <span style="">´ó ½Ì Óý</span>
+        <span class="more" style="">¸ü¶à</span>     
+     </div>
+     <div class="news-pic">
+      <a href='https://web.sdoodo.com/c-jiaz-9RHOsK.html'>
+            <img style='' src='img/face/vrlxZLPcQfX7H_ixoSeZAPl3tD9pfbXpO.png' title='510ÈË£¡Ö£ÖÝ´óÑ§2023Äê¸ßÐ£×¨Ïî¼Æ»®ÕÐÉú¼òÕÂ·¢²¼£¡' />
+             <div >
+              <span>510ÈË£¡Ö£ÖÝ´óÑ§2023Äê¸ßÐ£×¨Ïî¼Æ»®ÕÐÉú¼òÕÂ·¢²¼£¡</span>
+              <p></p>
+             </div>
+           </a> 
+     </div>
+    
+     <div class="news-title">
+      <ul>
+       <li><img src='images/small.png' /><a href='https://web.sdoodo.com/c-jiaz-ahLJyA.html'>ºÓÄÏ2024ÒÕÊõÀàÊ¡Í³¿¼Ê±¼ä¹«²¼£¡</a></li><li><img src='images/small.png' /><a href='https://web.sdoodo.com/c-jiaz-43BqAV.html'>2024ÄêÆðºÓÄÏÒÕÊõÀà×¨Òµ¿¼ÊÔÕÐÉúÓÐÕâÐ©ÐÂ±ä»¯</a></li><li><img src='images/small.png' /><a href='https://web.sdoodo.com/c-jiaz-yYxHcM.html'>ÓÖÒ»Ëù¹ú×ÖºÅ´óÑ§Ã÷Äê½¨³É£¬Ê×Éè3¸öÑ§¿Æ£¡</a></li><li><img src='images/small.png' /><a href='https://web.sdoodo.com/c-jiaz-nfJ79V.html'>È«¹úµÚÒ»Ëù£¡¿ÕÌìÐÅÏ¢´óÑ§»ñÅú£¬´óÐÜÃ¨Ñ§Ôº³ÉÁ¢£¡</a></li> 
+      </ul>
+     </div>
+  </div>
+ <div class="news-right" style="width:350px;height: 300px;">
+    <div class="news-h1" >
+     <div style="width: 80px;"></div>
+        <span>ÈË Îï Ö¾</span>
+        <span class="more">¸ü¶à</span>     
+    </div>
+     <a  href="">
+     <a href='https://web.sddstar.pro/c-spot-3CBuSn.html'> <img class='news-right_img' src='img/face/l5YPqBZwxAD617ZhZZw8D5AYBrPgbkLjx.png' />  </a>  
+     </a>
+     <div class="news-title">
+      <ul>
+       <li><img src='images/small.png' /><a href='https://web.sddstar.pro/c-yuku-7pZM3g.html'>³£ÍòÇàÈÙ»ñÔË¶¯½¡Éí½±Ïî³öÑÝ¶à²¿Ó°ÊÓ¾ç</a></li><li><img src='images/small.png' /><a href='https://web.sddstar.pro/c-aiyu-NLCaCc.html'>ÀîÊ¤Î°Ê×ÕÅ´´×÷×¨¼­¡¶ÍùÊÂÇàÌï¡·</a></li><li><img src='images/small.png' /><a href='https://web.sddstar.pro/c-yuku-ktVcXd.html'>ÍõÕñ·¼ÎªÈê´É·ÇÒÅ¼¼ÒÕºÍÎÄ»¯×ßÏòÊÀ½ç</a></li>
+      </ul>
+     </div>
+    
+ </div>
+</div>
+
+<div style="margin-top: 35px;">
+
+<a href="https://zz.ha.cn/images/chaoji.html"><img src="images/gongzhonghao.jpg" /></a>
+
+</div>
+
+<div class="footpic">
+  <a href='https://web.sddstar.pro/c-aiyu-5U3Z1v.html'> <img  src='img/face/IZCpAxTubkDUnzzXHiFpjp2u3U7SRGOmo.png' title='Ö£ÖÝÊÐÓÖÒ»µØ±êÐÔ½¨Öþ½Ó½üÍê¹¤' />  </a>
+           <div class='footpic_left_title' style='margin-top:334px'>
+			<a href='https://web.sddstar.pro/c-aiyu-5U3Z1v.html'>Ö£ÖÝÊÐÓÖÒ»µØ±êÐÔ½¨Öþ½Ó½üÍê¹¤'</a>
+           </div>
+  
+   <div  class="footpic_mid">
+     <div class="footpic_mid_top">
+        <div>
+                 <a href=' https://web.sddstar.pro/c-spot-yDsCh0.html'><img src='img/face/uzEDgeVs66FMvpuodQTsl1aWb03BuHQkt.png' title='ºÓÄÏËþ¹µÎäÐ£ÕâÈºÉÙÄê¾«²ÊÔÙÏÖ' /></a>
+                 <div class='footpic_mid_title'>
+			    <a href='https://web.sddstar.pro/c-spot-yDsCh0.html'>ºÓÄÏËþ¹µÎäÐ£ÕâÈºÉÙÄê¾«²ÊÔÙÏÖ</a>
+                </div>
+               </div><div>
+                 <a href=' https://web.sddstar.pro/c-spot-UG2HDP.html'><img src='img/face/3gKPSKTLZz_Ca7g38W9rLyZuR7Z9f5dRH.png' title='Ëþ¹µÎäÐ£¡°Åª³±¶ù¡±' /></a>
+                 <div class='footpic_mid_title'>
+			    <a href='https://web.sddstar.pro/c-spot-UG2HDP.html'>Ëþ¹µÎäÐ£¡°Åª³±¶ù¡±</a>
+                </div>
+               </div>
+       
+     </div>
+     <div class="footpic_mid_flo">
+       <div>
+                 <a href=' https://web.sddstar.pro/c-spot-NUBUGK.html'><img src='img/face/PZjnz96vvcr652XBzpKPLy4iXWA7FKtNQ.png' title='¹úÄÚÍâ¶¥¼¶È­ÊÖÆë¾Û' /></a>
+                  <div class='footpic_mid_title'>
+			       <a href='https://web.sddstar.pro/c-spot-NUBUGK.html'>¹úÄÚÍâ¶¥¼¶È­ÊÖÆë¾Û</a>
+                  </div>
+               </div><div>
+                 <a href=' https://web.sddstar.pro/c-spot-y1cDAZ.html'><img src='img/face/TJb9zZQs8IUzUOC2cF9T6db9kvC80XoCq.png' title='ËÍÌ²Ñò£¬Ïí°Ù¼Ò²ÍÒûÓÅ»ÝÍÅ¹º' /></a>
+                  <div class='footpic_mid_title'>
+			       <a href='https://web.sddstar.pro/c-spot-y1cDAZ.html'>ËÍÌ²Ñò£¬Ïí°Ù¼Ò²ÍÒûÓÅ»ÝÍÅ¹º</a>
+                  </div>
+               </div>
+     </div>
+    
+   </div>
+   <div class="footpic_right" >
+    <a href='https://web.sddstar.pro/c-spot-gIZnMV.html'> <img  src='img/face/2BW89VsLAIH9ybzP6NGv1hoqpcxPh73d8.png' title='ÊÀ½ç¹¦·òÒÕÊõÖÐÐÄ»îÁ¦¿ªÈü ' /> 
+              <div class='footpic_mid_title'>
+			    <a href='https://web.sddstar.pro/c-spot-gIZnMV.html'>ÊÀ½ç¹¦·òÒÕÊõÖÐÐÄ»îÁ¦¿ªÈü '</a>
+              </div>
+           </a>
+   </div>
+</div>
+</div>
+
+<div id="fenge" style="margin-top: 1800px;"></div>
+<div class="foot">
+   <div class="youqing" >
+    <div class="youqing_name">ÓÑÇéÁ´½Ó</div>
+     <div class="youqing_all">
+         <ul>
+             
+             <a target="_blank" href="http://www.cac.gov.cn/" rel="nofollow">ÖÐ¹úÍøÐÅÍø</a>
+             <a target="_blank" href="http://www.cnwest.com/" rel="nofollow">Î÷²¿Íø</a>
+             <a target="_blank" href="https://www.hntv.tv">´óÏóÍø</a>
+             <a target="_blank" href="http://www.bandao.cn/">°ëµºÍø</a>
+             <a target="_blank" href="http://www.hnfzb.com">ºÓÄÏ·¨ÖÆ±¨</a>
+             <a target="_blank" href="">ºÓÄÏÊ¡ÈËÁ¦×ÊÔ´ºÍÉç»á±£ÕÏÌü</a>
+             <a target="_blank" href="">ÖÐ¹úÖ£ÖÝ</a>
+             <a target="_blank" href="http://www.zynews.cn/">ÖÐÔ­Íø</a>
+             <a target="_blank" href="">ºÍÑ¶ºÓÄÏ</a>
+             <a target="_blank" href="http://www.hnr.cn/">Ó³ÏóÍø</a>
+             <a target="_blank" href="https://www.liuwanlin.art/">ºÓÄÏ¹ú»­</a>
+             <a target="_blank" href="http://hn.chinaso.com/">¹úËÑºÓÄÏ</a>
+             <a target="_blank" href="http://www.xywy.com/">Ñ°Ò½ÎÊÒ©Íø</a>
+             <a target="_blank" href="http://henan.sina.com.cn/">ÐÂÀËºÓÄÏ</a>
+             <a target="_blank" href="http://www.thethirdmedia.com/">µÚÈýÃ½Ìå</a>
+             <a target="_blank" href="http://henan.china.com.cn/" rel="nofollow">ÖÐ¹úÍøºÓÄÏÆµµÀ</a>
+             <a target="_blank" href="https://henan.china.com//">ÖÐ»ªÍøºÓÄÏ </a>     
+         </ul>
+    </div>
+   </div>
+   <div class="to_all">
+       <a href="https://www.henanjubao.com/" rel="nofollow">
+        <img src="https://zz.ha.cn/images/10.jpg"/>
+       </a>
+       <a href="https://www.12377.cn/" rel="nofollow">
+        <img src="https://zz.ha.cn/images/12377.jpg"/>
+       </a>
+       <a href="http://zz.ha.cn/c-info-0bM5XM.html" rel="nofollow">
+        <img src="https://zz.ha.cn/images/03.png"/>
+       </a>
+       <a href="https://www.henanjubao.com/jbxz.html?dantype=11" rel="nofollow">
+        <img src="https://zz.ha.cn/images/11.jpg"/>
+       </a>
+       <a href="https://ss.knet.cn/verifyseal.dll?sn=e130529110100409567sel000000&amp;ct=df&amp;a=1&amp;pa=843617" rel="nofollow">
+        <img src="https://zz.ha.cn/images/05.png"/>
+       </a>
+       <a href="http://www.piyao.org.cn/yybgt/index.htm" rel="nofollow">
+        <img src="https://zz.ha.cn/images/06.jpg"/>
+       </a>
+       <a href="" rel="nofollow">
+        <img src="https://zz.ha.cn/images/jubao.jpg"/>
+       </a>
+    </div>
+       <div style="margin-left: 500px;margin-top: 50px;">
+    <a style="color: #555;" href="https://web.sdoodo.com/c-info-QQfwYe.html">¹ØÓÚÎÒÃÇ</a>|
+    <a style="color: #555;" href="https://www.huliang.com/sdulink/">À¸Ä¿ºÏ×÷</a>|
+    <a style="color: #555;" href="https://web.sdoodo.com/c-tech-kzxNQn.html">¹ã¸æ·þÎñ</a>|
+    <a style="color: #555;" href="https://web.sdoodo.com/c-info-mu1yJE.html">ÁªÏµÎÒÃÇ</a>
+    </div>
+    <div class="foot_f" style="margin-top: 10px;">
+      <img src="https://zz.ha.cn/images/logo.png">
+      <div><a href="http://beian.miit.gov.cn/">Ô¥ICP±¸09032602ºÅ-3</a> ¾©ÍøÎÄ(2022) 1938-058ºÅ Íø¾¯±¸°¸±àºÅ4101000000016 <br/>
+        ÔöÖµµçÐÅÒµÎñ¾­ÓªÐí¿ÉÖ¤A2.B1.B2-20090003 Öµ°à¼°²»Á¼ÐÅÏ¢¾Ù±¨µç»°£º0371-69180100 <br/>
+         Copyright &copy; 1997-<span id="toyear">2022</span> ÉÌ¶¼Íø, All Rights Reserved<br/>
+        ÉÌ¶¼Íø(shangdu.com)¼°×ó²àLogoÎªÖÐ¹úÁªºÏÍøÂçÍ¨ÐÅÓÐÏÞ¹«Ë¾ºÓÄÏÊ¡·Ö¹«Ë¾ºÏ·¨³ÖÓÐ×¢²áÉÌ±ê<br/>
+      </div>
+     
+    </div>
+</div>
+</body><!--Éú³ÉÊ±¼ä£º2023-11-1 15:24:17-->

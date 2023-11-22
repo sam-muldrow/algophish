@@ -1,0 +1,463 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0,minimum-scale=1.0,maximum-scale=1.0" />
+<meta name="format-detection" content="telephone=no" />
+<meta name="msapplication-TileColor" content="#ffffff">
+<meta name="msapplication-TileImage" content="/favicon/ms-icon-144x144.png">
+<meta name="theme-color" content="#ffffff">
+
+<link rel="apple-touch-icon" sizes="57x57" href="/favicon/apple-icon-57x57.png">
+<link rel="apple-touch-icon" sizes="60x60" href="/favicon/apple-icon-60x60.png">
+<link rel="apple-touch-icon" sizes="72x72" href="/favicon/apple-icon-72x72.png">
+<link rel="apple-touch-icon" sizes="76x76" href="/favicon/apple-icon-76x76.png">
+<link rel="apple-touch-icon" sizes="114x114" href="/favicon/apple-icon-114x114.png">
+<link rel="apple-touch-icon" sizes="120x120" href="/favicon/apple-icon-120x120.png">
+<link rel="apple-touch-icon" sizes="144x144" href="/favicon/apple-icon-144x144.png">
+<link rel="apple-touch-icon" sizes="152x152" href="/favicon/apple-icon-152x152.png">
+<link rel="apple-touch-icon" sizes="180x180" href="/favicon/apple-icon-180x180.png">
+<link rel="icon" type="image/png" sizes="192x192"  href="/favicon/android-icon-192x192.png">
+<link rel="icon" type="image/png" sizes="32x32" href="/favicon/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="96x96" href="/favicon/favicon-96x96.png">
+<link rel="icon" type="image/png" sizes="16x16" href="/favicon/favicon-16x16.png">
+<link rel="manifest" href="/favicon/manifest.json">
+
+<title>WarpEX</title>
+
+<link rel="stylesheet" href="/en/css/main_style.css">
+<link rel="stylesheet" href="/css/swiper.min.css">
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js">
+
+</script>
+<!-- Swiper JS -->
+<script src="js/swiper.jquery.min.js"></script>
+<script type="text/javascript">
+	// 컨테츠 영역에 따라 메뉴바 hover
+$(document).ready(function() {
+	var $menu = $(".nav-menu");
+	var $menu_a = $("ul li a", $menu);
+	var id = false;
+	var sections = [];
+    var hash = function(h){
+        if (history.pushState) {
+        	history.pushState(null, null, h);
+        } else {
+          location.hash = h;
+    	}
+	};
+
+	$menu_a.click(function(event) {
+
+    	event.preventDefault();
+        $("html, body").animate({
+        	scrollTop: $($(this).attr("href")).offset().top - $("#header").height()
+        },
+        {
+        	duration: 700,
+            complete: hash($(this).attr("href"))
+        });
+
+        if($(this).attr("href") == "#tracking-info") {
+        	$("#search_Tracking").focus();
+        }
+	});
+
+	$menu_a.each(function() {
+		sections.push($($(this).attr("href")));
+    });
+
+    $(window).scroll(function(event) {
+    	var scrolling = $(this).scrollTop() + $(this).height() / 2;
+        var scroll_id;
+        for (var i in sections) {
+        	var section = sections[i];
+         	if (scrolling > section.offset().top) {
+            	scroll_id = section.attr("id");
+          	}
+        }
+
+		if (scroll_id !== id) {
+        	id = scroll_id;
+			$menu_a.removeClass("isactive");
+			$("a[href='#" + id + "']", $menu).addClass("isactive");
+
+			if(id == "tracking-info" ) {
+				$("#search_Tracking").focus();
+			}
+		}
+	});
+
+	$(window).scroll( function(){
+		$('.slideinleft').each( function(i){
+
+	    	var bottom_of_element = $(this).offset().top + $(this).outerHeight();
+	        var bottom_of_window = $(window).scrollTop() + $(window).height();
+
+	        if( bottom_of_window > bottom_of_element ){
+	        	$('.slideinleft .box1').animate({'opacity':'1','left':'0'},1500);
+	            $('.slideinleft .box2').animate({'opacity':'1','top':'50px'},1500);
+				$('.slideinleft .box3').animate({'opacity':'1','bottom':'50px'},1500);
+	            $('.slideinleft .box4').animate({'opacity':'1','right':'0'},1500);
+            }
+        });
+	});
+
+	//mask
+//	$('.Contact_us .right_mail p.btn').click(function(){
+//		$('.mail_popup h3, .mail_popup .txt, .mail_popup .mail_write').show();
+//		$('.result').hide();
+//		$('.mask').addClass('active');
+//		$('.mail_popup').addClass('active');
+//		$(".mail_popup").css({
+//        	"top": (($(window).height()-$(".mail_popup").outerHeight())/2+$(window).scrollTop())+"px",
+//            "left": (($(window).width()-$(".mail_popup").outerWidth())/2+$(window).scrollLeft())+"px"
+//        });
+//		$("body").css("overflow","hidden");
+//	});
+
+	$('.close_btn').click(function(){
+		$('.mask').removeClass('active');
+		$('.mail_popup').removeClass('active');
+		$("body").css("overflow","auto");
+		$('#name, #email, #title, #mail_content').val('');
+	});
+
+	$('.btnBenu').click(function(){
+		$('.mask').addClass('active');
+		$('.nav-menu').addClass('active');
+
+	});
+	$('.btnBenu_close').click(function(){
+		$('.mask').removeClass('active');
+		$('.nav-menu').removeClass('active');
+	});
+});
+
+	// 텍스트 애니메이션
+	$(document).ready(function() {
+
+		$(window).scroll( function(){
+			var height = $(window).scrollTop();
+
+			if(height > 768){
+				$('#header').addClass('active')
+			}else{
+				$('#header').removeClass('active')
+			}
+
+    	});
+
+		var jbTime = 800;
+		$( '.visual_txt .title' ).animate( {
+	          opacity: '1',left:'0'
+	        }, jbTime, function() {
+	            $( '.visual_txt .txt' ).animate( {
+	                opacity: '1',left:'0'
+	            }, jbTime);
+	    } );
+
+    // 트래킹 버튼 클릭
+        $(".search_btn").click(function(){
+            var trackNum = $("#search_Tracking").val();
+
+            if( trackNum == "" ) {
+                alert("Please intput the B/L number.");
+                $("#search_Tracking").focus();
+            } else {
+
+                $.ajax({
+                    url: '/api/warpexApi.php?wbl_no=' + trackNum,
+                    processData: false,
+                    contentType: false,
+                    type: 'GET',
+                    async:false,
+                    success: function(result){
+                        data = JSON.parse(result);
+                        if ( (data.return.cnt*1) > 0 ) {
+                            window.open("https://packing.warpex.com/api/warpexTrack?wbl=" + trackNum, 'warpEx','width=700,height=900,scrollbars=1');
+                        } else {
+                            alert("It's not Warpex cargo. Please check the B/L number.");
+                            $("#search_Tracking").focus().select();
+                        }
+                    }
+                }); // $.ajax({
+
+
+            }
+
+        });
+        // 영문판 / 한글판
+        $("#toEng").click(function(){
+            location.href = "/en";
+        });
+        $("#toKor").click(function(){
+            location.href = "/kr";
+        });
+
+    	});
+
+
+	$(function(){
+		$(".Service ul li:first").prependTo(".Service ul");
+
+		$(".arrowBtn .right").click(function(){
+			$(".Service ul").animate({marginLeft:-660}, function(){
+				$(".Service ul li:first").appendTo(".Service ul")
+				$(".Service ul").css({marginLeft:0})
+			});
+		});
+
+		$(".arrowBtn .left").click(function(){
+			$(".Service ul").animate({marginLeft:0}, function(){
+				$(".Service ul li:last").prependTo(".Service ul")
+				$(".Service ul").css({marginLeft:-660})
+			});
+		});
+	});
+</script>
+</head>
+
+<body>
+<header id="header">
+	<nav class="nav">
+    <h1><a href="#"></a></h1>
+    <a href="#none" class="btnBenu"><span>All Menu</span></a>
+    <div class="nav-menu">
+    	<p class="m_menu_logo"><img src="img/logo.png" alt="logo"></p>
+    	<a href="#none" class="btnBenu_close"><span>Close</span></a>
+    	<ul class="menu">
+    	  <li><a class="nav-menu-item" href="#section-1">Company</a></li>
+		  <li><a class="nav-menu-item" href="#section-2">Service</a></li>
+		  <li><a class="nav-menu-item" href="#section-3">Tracking</a></li>
+		  <li><a class="nav-menu-item" href="#section-4">Contact us</a></li>
+		</ul>
+
+    </div>
+    <ul class="language">
+		<li><img src="img/us_flag.png" alt="us"><span>English</span>
+			<ul>
+				<li id="toEng"><img src="/img/us_flag.png" alt="us"><span>English</span></li>
+				<li id="toKor"><img src="/img/kr_flag.png" alt="한국어"><span>한국어</span></li>
+			</ul>
+		</li>
+	</ul>
+	</nav>
+	<section class="mask"></section>
+</header>
+<main id="main" class="main_container">
+  <div class="swiper-container">
+	<div class="swiper-wrapper">
+		<div class="swiper-slide">
+			<div class="visual1">
+				<p class="title">Cross Border Courier</p>
+				<p class="txt">Leading global business partner specialized<br/>in providing customized global transportation solution.</p>
+			</div>
+		</div>
+		<div class="swiper-slide">
+			<div class="visual2">
+				<p class="title">Cross Boarder E-Commerce Solution</p>
+				<p class="txt">Our solutions connect people and possibilities.<br/>We deliver solutions that matter to you and your business, <br/>turning global challenges into opportunities.</p>
+			</div>
+		</div>
+		<div class="swiper-slide">
+			<div class="visual3">
+				<p class="title">CCSF</p>
+				<p class="txt">WarpEx Certified Cargo Screening Facilities.<br/>We offer TSA qualified products that combine thechnology, <br/>value and reliability you can depend on.</p>
+			</div>
+		</div>
+		<div class="swiper-slide">
+			<div class="visual4">
+				<p class="title">Cross Border Air, Sea, Land</p>
+				<p class="txt">WarpEx  has all of the tools necessary to personalize logistics solutions for any business. <br/>We focuses on the logistics<br/>management efficiency and customer success by reducing the time and <br/>cost of import and export services.</p>
+			</div>
+		</div>
+		<div class="swiper-slide">
+			<div class="visual5">
+				<p class="title">Your Address in other country</p>
+				<p class="txt">WarpEx provides an official mailing and physical street addresses in the USA, <br/>Korea and Japan for those customers that<br/>purchase goods in the USA, Korea and Japan for ultimate transport to a foreign destination.</p>
+			</div>
+		</div>
+	</div>
+	<!-- Add Pagination -->
+	<div class="swiper-pagination"></div>
+	<!-- Add Navigation -->
+	<div class="swiper-button-prev"><i class="xi-angle-left-min"></i></div>
+	<div class="swiper-button-next"><i class="xi-angle-right-min"></i></div>
+	<p class="scroll">
+		<a><span></span></a>
+	</p>
+</div>
+ <!-- Initialize Swiper -->
+ <script>
+    var swiper = new Swiper('.swiper-container', {
+        loop: true,
+        pagination: '.swiper-pagination',
+        paginationClickable: true,
+        nextButton: '.swiper-button-next',
+        prevButton: '.swiper-button-prev',
+        loop: true,
+        autoplay: 3000,
+        delay: 1000,
+    });
+  </script>
+  <div class="section">
+    <section class="About_us">
+      <div class="content" id="section-1" >
+        <h3>Company</h3>
+		<ul>
+		  <li>
+			<p class="tit">Expertise in Global eCommerce business</p>
+		  </li>
+		  <li>
+			<p class="tit">Smart logistics</p>
+			<p class="txt">Increase efficiency of our partner companies by equipping the cargo classification system with existing data analysis.</p>
+		  </li>
+		  <li>
+			<p class="tit">The connection between the world and Korea</p>
+			<p class="txt">Provide a B2B, B2C platform between Korean customers and the US, China and Germany.<br/>
+			Through local warehouse operation, the entire process of stocking to shipment is directly carried out at first hand, which minimizes the time required for logistics flow.</p>
+		  </li>
+		  <li>
+			<p class="tit">Safely delivered right into the customer’s hands</p>
+			<p class="txt">24/7 tracking service of the entire process, from shipment to final consumer receipt of the product.</p>
+		  </li>
+		</ul>
+      </div>
+    </section>
+	<section class="Service">
+      <div class="content" id="section-2" >
+        <h3>Service</h3>
+		<div class="arrowBtn">
+			<p class="left"><img src="img/arrow_left.gif" alt="leftBtn"></p>
+			<p class="right"><img src="img/arrow_right.gif" alt="rightBtn"></p>
+		</div>
+		<ul>
+		  <li>
+			<p class="img"><img src="img/service_img01.jpg" alt="International express service"></p>
+			<div class="con_txt">
+				<p class="tit">International express service</p>
+				<p class="txt">Providers of fast customs clearance and delivery services for e-commerce shipments, personal shipments, and commercial samples imported from countries including the United States, China and Germany.</p>
+			</div>
+		  </li>
+		  <li>
+			<p class="img"><img src="img/service_img02.jpg" alt="Package forwarding service"></p>
+			<div class="con_txt">
+				<p class="tit">Package forwarding service</p>
+				<p class="txt">Local warehouse operations in the US, China and Germany provides warehousing, inventory management, and delivery services.</p>
+				<p class="txt">Our program that allows retailers to check the entire process from product arrival to consumer delivery at one glance. Thus, it decreases the need for extra attention on importing their products, instead allows to focus mainly on their sales activities.</p>
+			</div>
+		  </li>
+		  <li>
+			<p class="img"><img src="img/service_img03.jpg" alt="Air and sea transport services"></p>
+			<div class="con_txt">
+				<p class="tit">Air and sea transport services</p>
+				<p class="txt">Customers can select any shipping method by air or sea.</p>
+				<p class="txt">Through direct booking of airlines and shipping companies, it is possible to reduce costs and ensure smooth transportation without schedule disruption.</p>
+			</div>
+		  </li>
+		  <li>
+			<p class="img"><img src="img/service_img04.jpg" alt="China Weihai GDC(Global Distribution Center)"></p>
+			<div class="con_txt">
+				<p class="tit">China Weihai GDC(Global Distribution Center)</p>
+				<p class="txt">From Wdihai GDC we can provide services inventory management, packing, sending e-commerce products to overseas.</p>
+			</div>
+		  </li>
+		</ul>
+      </div>
+    </section>
+    <section class="Tracking">
+      <div class="content" id="section-3" >
+        <h3>Tracking</h3>
+        <p class="con_txt">By entering the B/L number, you can check the current shipment status.</p>
+        <div class="search">
+          <input type="text" name="search_Tracking" id="search_Tracking" placeholder="Please intput the B/L number.">
+          <p class="search_btn">Confirm</p>
+        </div>
+      </div>
+    </section>
+    <section id="section-4" class="Contact_us">
+      <div class="left_num">
+        <p class="title">Main Phone Number</p>
+        <p class="txt">If you have any questions, please call any regional center below.</p>
+        <p class="btn"><span>US, CN, DE, KR</span></p>
+      </div>
+      <div class="right_mail">
+        <p class="title">Partnership inquiry</p>
+        <p class="txt">If you have any questions, please email us.</p>
+        <a href="mailto:contact@warpex.com"><p class="btn"><span>CONTACT US</span></p></a>
+      </div>
+    </section>
+    <section class="mail_popup">
+      <p class="close_btn"><img src="img/popup_close_btn.png" alt="닫기"></p>
+      <h3>Partnership inquiry</h3>
+      <p class="txt">If you have any questions, please email us. </p>
+      <div class="mail_write">
+        <dl>
+          <dt><span>*</span> Name</dt>
+          <dd>
+            <input type="text" name="name" id="name" placeholder="Please enter your name">
+          </dd>
+        </dl>
+        <dl>
+          <dt><span>*</span> Email</dt>
+          <dd>
+            <input type="text" name="email" id="email" placeholder="Please enter your email address">
+          </dd>
+        </dl>
+        <dl>
+          <dt><span>*</span> Subject</dt>
+          <dd>
+            <input type="text" name="title" id="title" placeholder="Please enter your subject">
+          </dd>
+        </dl>
+        <textarea name="mail_content" id="mail_content" cols="30" rows="10" placeholder="Message (Please enter your message)"></textarea>
+        <p class="mail_btn">Send</p>
+      </div>
+    </section>
+  </div>
+</main>
+<footer>
+  <div class="footerArea">
+	  <p class="footer_logo"><img src="img/f_logo.png" alt="하단 로고"></p>
+	  <address>
+	  	<ul>
+			<li>
+				<p class="area">USA</p>
+				<div class="address">
+					<strong>DE</strong>
+					<p>498 Centerpoint Blvd. New Castle, DE 19720, USA<br/>
+					Tel 302-328-2896 <span class="line">ㅣ</span> Fax 302-322-8793 <span class="line">ㅣ</span> Email <a href="mailto:contact@warpex.com">contact@warpex.com</a></p>
+				</div>
+				<div class="address pl_100">
+					<strong>CA</strong>
+					<p>2945 E Maria St, Compton, CA 90221, USA<br/>
+					Tel 714-676-7274 <span class="line">ㅣ</span> Fax 302-322-8793 <span class="line">ㅣ</span> Email <a href="mailto:contact@warpex.com">contact@warpex.com</a></p>
+				</div>
+			</li>
+			<li>
+				<p class="area">CHINA</p>
+				<div class="address">
+					<p>山东省威海市 环翠区苘山镇福州路9号中韩保税区(顺丰快递接收点北20米)<br/>Tel 156-8451-3564 <span class="line">ㅣ</span> Email <a href="mailto:contact@warpex.com">contact@warpex.com</a></p>
+				</div>
+			</li>
+			<li>
+				<p class="area">GERMANY</p>
+				<div class="address">
+					<p>WarpEx Hugo-Junkers Str. 7 (Geb 110, TOR 30) Frankfurt am Main Deutschland 60386<br/>Tel 069-3700-6635 <span class="line">ㅣ</span> Email <a href="mailto:contact@warpex.com">contact@warpex.com</a></p>
+				</div>
+			</li>
+			<li>
+				<p class="area">KOREA</p>
+				<div class="address">
+					<p>서울특별시 강서구 마곡중앙6로 11 보타닉파크타워3 405호<br/>Tel 070-8270-6600 <span class="line">ㅣ</span> Fax 02-2039-7769 <span class="line">ㅣ</span> Email <a href="mailto:contact@warpex.com">contact@warpex.com</a></p>
+				</div>
+			</li>
+		</ul>
+		<p class="copy pl_100" >Copyright © 2021 warpex.com, Inc All Rights Reserved.</p>
+	  </address>
+	  <p class="webmark"><img src="img/ict_mark.png"></p>
+   </div>
+</footer>
+</body>
+</html>

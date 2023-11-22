@@ -1,0 +1,38 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>NewspaperDirect</title>
+<link href='http://fonts.googleapis.com/css?family=Droid+Serif:400italic' rel='stylesheet' type='text/css'>
+<link href='http://fonts.googleapis.com/css?family=Roboto:400,300' rel='stylesheet' type='text/css'>
+<link rel="stylesheet" href="style.css" type="text/css">
+</head>
+
+<body>
+<div class="main">
+  <div  class="title"> NewspaperDirect is now </div>
+  <div align="center" class="logo" style="margin-top:-30px;"><img src="images/logo.png" width="664" alt=""/></div>
+  
+<div align="center">  
+  <div class="buttons">
+  <div  1align="center" class="button_PR1"  ><a href="http://about.pressreader.com/" target="_self"><img src="images/button1.png" width="366" height="101" border="0" alt=""/></a></div>
+  
+  <div  1align="center" class="button_PR2"  ><a href="http://www.pressreader.com/" target="_self"><img src="images/button2.png" width="366" height="101" border="0" alt=""/></a></div>
+</div>
+</div>
+
+
+
+
+  
+<!--div align="center">  
+ <div align="left" class="message" >
+    <p> Dear Partners,</p>
+    <p>Please note that we are im the process of performing a reporting system maintenance, meaning that reports will not be available until early next week. We apologize for the inconvinience this may cause.</p>
+    <p>Best regards,</p>
+    <p>The PressReader Team </p>
+   
+  </div-->
+</div>
+</body>
+</html>

@@ -1,0 +1,1334 @@
+
+
+
+
+<!DOCTYPE html>
+<html>
+<head>
+  <title>NewsBlur</title>
+  <link rel="shortcut icon" href="/media/img/favicon.ico" type="image/png" />
+  <link rel="icon" href="/media/img/favicon_32.png" sizes="32x32"/>
+  <link rel="icon" href="/media/img/favicon_64.png" sizes="64x64"/>
+  <link rel="apple-touch-icon" href="/media/img/mobile/apple-touch-icon-precomposed.png" />
+  <meta http-equiv="Content-type" content="text/html; charset=utf-8">
+  <meta name="msapplication-TileImage" content="/media/img/logo_144.png" />
+  <meta name="msapplication-TileColor" content="#F7E5A8"/>
+  <meta name="apple-itunes-app" content="app-id=463981119">
+  <link rel="manifest" href="/manifest.webmanifest">
+  <!-- <link rel="mask-icon" href="/media/img/favicon_monochrome.svg" color="orange"> -->
+  
+  <script type="text/javascript" charset="utf-8">
+    window.NEWSBLUR = {};
+    NEWSBLUR.Globals = {
+      'is_authenticated'        : false,
+      'is_anonymous'            : true,
+      'is_premium'              : true,
+      'is_archive'              : false,
+      'is_pro'                  : false,
+      'is_admin'                : false,
+      'is_staff'                : false,
+      'premium_expire'          : new Date('2024-11-18'),
+      'premium_renewal'         : true,
+      'active_provider'         : "stripe",
+      'secret_token'            : "75ddb05c6a00",
+      'username'                : "",
+      
+      'email'                   : "",
+      'MEDIA_URL'               : "/media/",
+      'debug'                   : false,
+      'default_days_of_unread'  : 30
+    };
+    NEWSBLUR.Flags = {
+    };
+    NEWSBLUR.Preferences = {
+      'unread_view'             : 0,
+      'lock_mouse_indicator'    : 300,
+      'feed_pane_size'          : 240,
+      'hide_getting_started'    : true,
+      'has_setup_feeds'         : true,
+      'has_found_friends'       : true,
+      'has_trained_intelligence': true,
+      'story_titles_pane_size'  : 420,
+      'story_pane_anchor'       : 'west',
+      'new_window'              : 1,
+      'default_view'            : 'feed',
+      'default_order'           : 'newest',
+      'default_read_filter'     : 'all',
+      'default_dashboard_count' : 5,
+      'grid_columns'            : 0,
+      'grid_height'             : 'm',
+      'hide_read_feeds'         : 0,
+      'show_tooltips'           : 1,
+      'show_contextmenus'       : 1,
+      'notification_title_only' : 0,
+      'feed_order'              : 'ALPHABETICAL',
+      'keyboard_verticalarrows' : 'story',
+      'keyboard_horizontalarrows': 'view',
+      'space_scroll_spacing'    : 40,
+      'arrow_scroll_spacing'    : 100,
+      'space_bar_action'        : 'next_unread',
+      'infrequent_stories_per_month': 30,
+      'ssl'                     : 0,
+      'open_feed_action'        : 'newest',
+      'read_story_delay'        : 0,
+      'feed_view_single_story'  : 0,
+      'animations'              : true,
+      'dateformat'              : "12",
+      'folder_counts'           : false,
+      'send_emails'             : true,
+      'email_cc'                : true,
+      'view_settings'           : {},
+      'story_layout'            : 'split',
+      'collapsed_folders'       : [],
+      'story_styling'           : 'sans-serif',
+      'feed_font'               : 'whitney',
+      'feed_size'               : 'm',
+      'story_size'              : 'm',
+      'story_line_spacing'      : 'm',
+      'hide_public_comments'    : false,
+      'story_button_placement'  : "right",
+      'days_of_unread'          : 30,
+      'timezone'                : "America/New_York",
+      'title_counts'            : true,
+      'show_global_shared_stories': true,
+      'show_infrequent_site_stories': true,
+      'full_width_story'        : false,
+      'story_position'          : 'center',
+      'truncate_story'          : 'social',
+      'autoopen_folder'         : false,
+      'show_content_preview'    : true,
+      'image_preview'           : 'small-left',
+      'mark_read_on_scroll_titles' : false,
+      'density'                 : 'comfortable',
+      'doubleclick_feed'        : 'open',
+      'doubleclick_unread'      : 'markread',
+      'mark_read_river_confirm' : true,
+      'markread_nextfeed'       : 'nextfeed',
+      'story_share_twitter'     : true,
+      'story_share_facebook'    : true,
+      'story_share_readitlater' : false,
+      'story_share_instapaper'  : true,
+      'story_share_email'       : true,
+      'theme'                   : 'auto',
+      'highlights'              : true,
+      'dashboard_columns'       : 2
+    };
+    NEWSBLUR.URLs = {
+      'upload-avatar'           : "/social/upload_avatar",
+      'opml-upload'             : "/import/opml_upload",
+      'opml-export'             : "/import/opml_export",
+      'domain'                  : "www.newsblur.com",
+      'favicon'                 : "/rss_feeds/icon/{id}",
+      'delete-account'          : "/profile/delete_account",
+      'folder_rss'              : "/reader/folder_rss/{user_id}/{secret_token}/{unread_filter}/{folder_title}",
+      'paypal_checkout_js'      : 'https://www.paypal.com/sdk/js?vault=true&intent=subscription&client-id=Ab9ukBA8_fCd925huloC4TXw7dKjiEy4IqmQFIo8mczv9HGSnBnywUXklEKh',
+      'paypal_return'           : "https://www.newsblur.com/profile/paypal_return",
+      'paypal_archive_return'   : "https://www.newsblur.com/profile/paypal_archive_return"
+    };
+    NEWSBLUR.Models = {};
+    NEWSBLUR.Collections = {};
+    NEWSBLUR.Views = {};
+    NEWSBLUR.app = {};
+  </script>
+  
+  <link href="/static/css/common.8ee5a9c352a9.css" rel="stylesheet" type="text/css" media="all" />
+  
+  
+      <link rel="stylesheet" type="text/css" href="https://cloud.typography.com/6565292/711824/css/fonts.css" />
+  
+  
+</head>
+
+<body class="NB-welcome  NB-premium">
+
+  
+    
+<div class="NB-layout">
+
+    <div class="left-pane">
+
+        <div class="left-north">
+            <div class="NB-feeds-header-user">
+                <div class="NB-feeds-header-user-image">
+                    
+                        <img src="https://www.gravatar.com/avatar/e3c7a29b7538122f0ee20f8e9cf05f42">
+                    
+                </div>
+                <div class="NB-feeds-header-user-name">homepage</div>
+                <div class="NB-feeds-header-collapse-sidebar" role="button">
+                    <img src="/media//img/reader/chevron_sq_left.png">
+                </div>
+                <div class="NB-feeds-header-user-interactions" role="button">
+                    <div class="NB-feeds-header-user-interactions-badge NB-hidden"></div>
+                    <img src="/media//img/icons/circular/nav_icn_activity_active.png">
+                </div>
+                <div class="NB-feeds-header-dashboard"></div>
+            </div>
+            <div class="NB-feeds-selector">
+                <input type="text" name="feeds_selector" class="NB-feeds-selector-input NB-search-input" />
+            </div>
+        </div>
+
+        <div class="left-center">
+
+            <div class="left-center-content NB-sidebar NB-feedlists">
+                <div class="NB-feeds-list-loader">Everything is on its way...</div>
+                <div class="NB-feeds-list-error">
+                    Something went wrong...
+                    <div class="NB-button NB-feeds-list-retry">Retry</div>
+                </div>
+
+                <div class="NB-feeds-header-wrapper">
+
+                    <div class="NB-feeds-header-container NB-feeds-header-tryfeed-container">
+                        <div class="NB-feeds-header NB-feeds-header-tryfeed">
+                            <img class="NB-feeds-header-icon" src="" />
+                            <div class="NB-feeds-header-title"></div>
+                        </div>
+                    </div>
+
+                    <div class="NB-feeds-header-container NB-feeds-header-river-container NB-feeds-header-river-dashboard-container">
+                        <div class="NB-feeds-header NB-feeds-header-river-dashboard NB-empty" role="link">
+                            <img class="NB-feeds-header-icon" src="/media/img/icons/nouns/home.svg" />
+                            <div class="NB-feeds-header-title">
+                                NewsBlur Dashboard
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="NB-feeds-header-container NB-feeds-header-river-container NB-feeds-header-river-infrequent-container">
+                        <div class="NB-feeds-header NB-feeds-header-river-infrequent NB-empty" role="link">
+                            <div class="NB-feeds-header-count unread_count"></div>
+                            <img class="NB-feeds-header-icon" src="" />
+                            <div class="NB-feeds-header-title">
+                                Infrequent Site Stories
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="NB-feeds-header-container NB-feeds-header-river-container NB-feeds-header-river-sites-container">
+                        <div class="NB-feeds-header NB-feeds-header-river-sites NB-empty" role="link">
+                            <div class="NB-feeds-header-count unread_count"></div>
+                            <img class="NB-feeds-header-icon" src="" />
+                            <div class="NB-feeds-header-title">
+                                All Site Stories
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+
+                <ul class="folder NB-feedlist" id="feed_list"></ul>
+                
+                <div class="NB-feeds-header-container NB-feeds-header-read-container NB-hidden">
+                    <div class="NB-feeds-header NB-feeds-header-read" role="link">
+                        <img class="NB-feeds-header-icon" src="" />
+                        <div class="NB-feeds-header-title">
+                            Read Stories
+                        </div>
+                    </div>
+                </div>
+
+                <div class="NB-feeds-header-container NB-feeds-header-river-container NB-feeds-header-river-global-container">
+                    <div class="NB-feeds-header NB-feeds-header-river-global NB-empty" role="link">
+                        <div class="NB-feeds-header-count unread_count"></div>
+                        <img class="NB-feeds-header-icon" src="" />
+                        <div class="NB-feeds-header-title">
+                            Global Shared Stories
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="NB-feeds-header-container NB-feeds-header-river-container NB-feeds-header-river-blurblogs-container">
+                    <div class="NB-feeds-header NB-feeds-header-river-blurblogs NB-empty" role="link">
+                        <div class="NB-feeds-header-count unread_count"></div>
+                        <img class="NB-feeds-header-icon" src="" />
+                        <div class="NB-feedlist-collapse-icon"></div>
+                        <div class="NB-feeds-header-title">
+                            All Shared Stories
+                        </div>
+                    </div>
+                </div>
+
+                <div class="NB-socialfeeds-folder">
+                    <ul class="NB-socialfeeds NB-feedlist"></ul>
+                </div>
+                
+                
+                <div class="NB-feeds-header-container NB-feeds-header-searches-container NB-hidden">
+                    <div class="NB-feeds-header NB-feeds-header-searches">
+                        <img class="NB-feeds-header-icon" src="" />
+                        <div class="NB-feeds-header-title">
+                            Saved Searches
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="NB-searches-folder">
+                    <ul class="NB-searches-feeds NB-feedlist"></ul>
+                </div>
+                
+                <div class="NB-feeds-header-container NB-feeds-header-starred-container">
+                    <div class="NB-feeds-header NB-feeds-header-starred NB-empty" role="link">
+                        <div class="NB-feeds-header-count feed_counts_floater unread_count"></div>
+                        <img class="NB-feeds-header-icon" src="" />
+                        <div class="NB-feedlist-collapse-icon"></div>
+                        <div class="NB-feeds-header-title">
+                            Saved Stories
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="NB-starred-folder">
+                    <ul class="NB-starred-feeds NB-feedlist"></ul>
+                </div>
+                
+            </div>
+
+            <div class="left-center-footer">
+                <div id="NB-progress">
+                    <div class="NB-progress-container">
+                        <div class="NB-progress-close"></div>
+                        <div class="NB-progress-title">Fetching your feeds</div>
+                        <div class="NB-progress-percentage"></div>
+                        <div class="NB-progress-link"></div>
+                        <div class="NB-progress-counts">
+                            <span class="NB-progress-counts-fetched"></span>
+                            /
+                            <span class="NB-progress-counts-total"></span>
+                        </div>
+                        <div class="NB-progress-bar"></div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+        <div class="left-south">
+            <div class="NB-taskbar-container">
+                <div class="NB-feed-taskbar">
+                    <div class="NB-callout-ftux NB-callout">
+                        <div class="NB-callout-container">
+                            <div class="NB-callout-text"></div>
+                            <div class="NB-callout-arrow"></div>
+                        </div>
+                    </div>
+                    <div class="NB-task-button NB-task-add" role="button">
+                        <div class="NB-task-image"></div>
+                    </div>
+                    <div class="NB-task-button NB-task-manage NB-disabled" role="button">
+                        <div class="NB-task-image"></div>
+                    </div>
+                    <div class="NB-taskbar-intelligence">
+                        <div class="NB-intelligence-slider">
+                            <ul class="segmented-control">
+                                <li class="NB-intelligence-slider-control NB-intelligence-slider-red" role="button">
+                                    All
+                                </li>
+                                <li class="NB-intelligence-slider-control NB-intelligence-slider-yellow" role="button">
+                                    <img src="/media/embed/icons/nouns/indicator-unread.svg">
+                                    <span class="NB-intelligence-label">Unread</span>
+                                </li>
+                                <li class="NB-intelligence-slider-control NB-intelligence-slider-green" role="button">
+                                    <img src="/media/embed/icons/nouns/indicator-focus.svg">
+                                    <span class="NB-intelligence-label">Focus</span>
+                                </li>
+                                <li class="NB-intelligence-slider-control NB-intelligence-slider-blue" role="button">
+                                    <img src="/media/embed/icons/nouns/saved-stories.svg">
+                                    <span class="NB-intelligence-label">Saved</span>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+    <div class="NB-menu-manage-container"></div>
+
+    <div class="NB-taskbar-sidebar-toggle-open" title="Show sidebar"><div class="NB-taskbar-sidebar-toggle-open-image"></div></div>
+
+    <div class="right-pane">
+
+        <div class="NB-feedbar content-north">
+            
+            <ul class="segmented-control NB-taskbar NB-taskbar-nav">
+                <li class="NB-taskbar-button NB-task-story-previous" role="button">
+                    <div class="NB-task-image"></div>
+                </li>
+                <li class="NB-taskbar-button NB-task-story-next-unread NB-task-story-next-positive" role="button">
+                    <div class="NB-task-image"></div>
+                    <span class="NB-task-title">Next unread</span>
+                </li>
+                <li class="NB-taskbar-button NB-task-story-next" role="button">
+                    <div class="NB-task-image"></div>
+                </li>
+            </ul>
+            
+            <div class="NB-story-titles-expand-sidebar"></div>
+            
+            <div class="NB-story-titles-header"></div>
+            
+        </div>
+
+        <div id="story_taskbar" class="NB-taskbar-container content-south">
+            <ul class="segmented-control NB-taskbar NB-taskbar-view">
+                <li class="NB-taskbar-button task_view_page NB-tipsy" tipsy-title="Original">
+                    <div class="NB-task-image"></div>
+                    <span class="NB-task-title">Original</span>
+                    <span class="NB-task-original-return NB-task-title">
+                        Return
+                    </span>
+                    <div class="NB-task-view-switch-arrow NB-task-view-page-to-feed-arrow"></div>
+                </li>
+                <li class="NB-taskbar-button task_view_feed NB-active NB-tipsy" tipsy-title="Feed">
+                    <div class="NB-task-image"></div>
+                    <span class="NB-task-title">Feed</span>
+                    <div class="NB-task-view-switch-arrow NB-task-view-to-feed-arrow"></div>
+                </li>
+                <li class="NB-taskbar-button task_view_text NB-tipsy" tipsy-title="Text">
+                    <div class="NB-task-image"></div>
+                    <span class="NB-task-title">Text</span>
+                    <div class="NB-task-view-switch-arrow NB-task-view-to-text-arrow"></div>
+                </li>
+                <li class="NB-taskbar-button task_view_story NB-tipsy" tipsy-title="Story">
+                    <div class="NB-task-image"></div>
+                    <span class="NB-task-title">Story</span>
+                    <div class="NB-task-view-switch-arrow NB-task-view-to-story-arrow"></div>
+                </li>
+            </ul>
+
+            <ul class="segmented-control NB-taskbar NB-taskbar-layout">
+                <li class="NB-taskbar-button NB-task-layout-full NB-tipsy" tipsy-title="Full">
+                    <div class="NB-task-image"></div>
+                    <span class="NB-task-title">Full</span>
+                </li>
+                <li class="NB-taskbar-button NB-task-layout-split NB-active NB-tipsy" tipsy-title="Split">
+                    <div class="NB-task-image"></div>
+                    <span class="NB-task-title">Split</span>
+                </li>
+                <li class="NB-taskbar-button NB-task-layout-list NB-tipsy" tipsy-title="List">
+                    <div class="NB-task-image"></div>
+                    <span class="NB-task-title">List</span>
+                </li>
+                <li class="NB-taskbar-button NB-task-layout-magazine NB-tipsy" tipsy-title="Magazine">
+                    <div class="NB-task-image"></div>
+                    <span class="NB-task-title">Magazine</span>
+                </li>
+                <li class="NB-taskbar-button NB-task-layout-grid NB-tipsy" tipsy-title="Grid">
+                    <div class="NB-task-image"></div>
+                    <span class="NB-task-title">Grid</span>
+                </li>
+            </ul>
+            
+            <div class="NB-taskbar-options-container">
+                <span class="NB-taskbar-options" role="button">
+                    <div class="NB-icon"></div>
+                    Style
+                </span>
+            </div>
+            
+            
+        </div>
+
+        <div class="content-pane">
+
+            <div id="story_titles" class="right-north">
+                <div class="NB-search-header">
+                    <div class="NB-search-header-icon"></div>
+                    <div class="NB-search-header-save"></div>
+                    <div class="NB-search-header-title"></div>
+                </div>
+                <div class="NB-story-titles"></div>
+            </div>
+        
+            <div id="story_pane" class="content-center">
+                <div id="mouse-indicator">
+                    <div class="NB-callout-mouse-indicator NB-callout">
+                        <div class="NB-callout-container">
+                            <div class="NB-callout-text"></div>
+                            <div class="NB-callout-arrow"></div>
+                        </div>
+                    </div>
+                </div>
+                <div class="NB-story-pane-container">
+                    <iframe id="feed_iframe" class="NB-feed-iframe"></iframe>
+                    <div class="NB-feed-story-view NB-view-hidden">
+                        <div class="NB-feed-stories-container">
+                            <div class="NB-feed-story-view-header NB-feedbar"></div>
+                            <ul class="NB-feed-stories"></ul>
+                        </div>
+                    </div>
+                    <div class="NB-text-view">
+                        <div class="NB-text-view-detail"></div>
+                    </div>
+                    <div class="NB-story-view">
+                        <iframe id="story_iframe" class="NB-story-iframe" sandbox="allow-scripts"></iframe>
+                    </div>
+                </div>
+            </div>
+
+        </div>    
+
+    </div>
+
+</div>
+
+
+
+  <div class="NB-body-inner">
+      <div class="NB-splash-info NB-splash-top">
+        <a href="/"><div class="NB-splash-title NB-splash-blurred-logo"></div></a>
+      </div>
+  
+      
+
+<div class="NB-welcome-container NB-splash">
+    
+    <div class="NB-welcome-header">
+        <div class="NB-background">
+          <div class="NB-inner">
+              <div class="NB-welcome-header-logo">
+                  <a href="/"><img src="/media/img/logo_512.png" class="NB-module-logo-image" style="height: 128px;" /></a>
+              </div>
+              <div class="NB-welcome-header-tagline">
+                  <span style="font-size:24px;">NewsBlur is a personal news reader</span><br /><span style="font-size: 17px;color: #FBDB9B">bringing people together to talk about the world</span>
+              </div>
+              <div class="NB-welcome-header-captions">
+                  <div class="NB-welcome-header-caption NB-1 NB-active" data-ss="1"><span>Web</span></div>
+                  <div class="NB-welcome-header-caption NB-2" data-ss="2"><span>iPad &amp; iPhone</span></div>
+                  <div class="NB-welcome-header-caption NB-3" data-ss="3"><span>Android</span></div>
+                  <div class="NB-welcome-header-caption NB-welcome-header-caption-signin "><span>Sign in</span></div>
+              </div>
+              <div class="NB-welcome-header-actions">
+                  <div class="NB-welcome-header-action">
+                      <div class="NB-welcome-header-action-subtext">First</div>
+                      <div class="NB-button NB-button-tryout">
+                          <img src="/media/img/welcome/04-eye@2x.png" style="width: 20px; height: 13px; margin-top: 2px">
+                          Try out NewsBlur
+                      </div>
+                  </div>
+                  <div class="NB-welcome-header-action">
+                      <div class="NB-welcome-header-action-subtext">Then</div>
+                      <div class="NB-button NB-button-login">
+                          <img src="/media/img/welcome/09-lightning@2x.png" class="NB-welcome-header-action-bolt" style="width: 12px; height: 18px; margin-bottom: -2px">
+                          <img src="/media/img/reader/32-Arrow-Right.png" class="NB-welcome-header-action-arrow">
+                          Sign up or Log in
+                      </div>
+                  </div>
+              </div>
+              <div class="NB-welcome-header-image NB-1 NB-active">
+                  <img src="/media/img/welcome/header-web.png">
+              </div>
+              <div class="NB-welcome-header-image NB-2">
+                  <img src="/media/img/welcome/header-ios.png">
+              </div>
+              <div class="NB-welcome-header-image NB-3">
+                  <img src="/media/img/welcome/header-android.png">
+              </div>
+
+          </div>
+          
+          <div class="NB-inner-account">
+
+            <div class="NB-welcome-header-account ">
+                <div class="NB-account-header">
+                    <div class="NB-module-header-login">Log in</div>
+                    <div class="NB-module-header-signup">Sign up</div>
+                </div>
+                <div class="NB-login">
+                    <form method="post" action="/reader/login">
+                        <input type="hidden" name="csrfmiddlewaretoken" value="PBkiH9P1yAQSj2IeovpsIEWTEeLExYxdkfMx0Iil6LUEZcoSBVausRwOR9lG9qu8">
+
+                        <div>
+                            <label for="id_login-username">Username or Email:</label>
+                            <input type="text" name="login-username" tabindex="1" class="NB-input" maxlength="30" required id="id_login-username">
+                        </div>
+                        <div>
+                            <div class="NB-signup-optional">
+                                <a href="/profile/forgot_password" class="NB-splash-link">Forgot?</a>
+                            </div>
+                            <label for="id_login-password">Password:</label>
+                            <input type="password" name="login-password" tabindex="2" class="NB-input" id="id_login-password">
+                        </div>
+
+                        <input type="hidden" name="login-add" id="id_login-add">
+                        <input name="submit" type="submit" class="NB-modal-submit-button NB-modal-submit-green" value="log in" />
+                        <input type="hidden" name="next" value="/" />
+                    </form>
+                    
+                </div>
+            
+                <div class="NB-signup">
+                    <form method="post" action="/reader/signup">
+                        <input type="hidden" name="csrfmiddlewaretoken" value="PBkiH9P1yAQSj2IeovpsIEWTEeLExYxdkfMx0Iil6LUEZcoSBVausRwOR9lG9qu8">
+
+                        <div>
+                            <label for="id_signup-username">Username:</label>
+                            <input type="text" name="signup-username" class="NB-input" maxlength="30" id="id_signup-username">
+                        </div>
+                        <div class="NB-signup-hidden">
+                            <div class="NB-signup-optional">Optional</div>
+                            <label for="id_signup-password">Password:</label>
+                            <input type="password" name="signup-password" class="NB-input" id="id_signup-password">
+                        </div>
+                        <div class="NB-signup-hidden">
+                            <label for="id_signup-email">Email:</label>
+                            <input type="text" name="signup-email" maxlength="75" class="NB-input" id="id_signup-email">
+                        </div>
+
+                        <input name="submit" type="submit" class="NB-modal-submit-button NB-modal-submit-green" value="create account" />
+                        <input type="hidden" name="next" value="/" />
+                    </form>
+                    
+                        <img src="/media/img/welcome/fleuron.png" style="width: 36px; height: 36px; opacity: .35; margin: 24px auto; display: block">
+                    
+                </div>
+            </div>
+          </div>
+        </div>
+    </div>
+    
+    <div class="NB-welcome-features">
+        <div class="NB-inner">
+            <div class="NB-feature">
+                <img src="/media/img/welcome/feature_1.png">
+                <div class="NB-feature-caption">Real-time RSS</div>
+                <div class="NB-feature-text">Stories are pushed directly to you, so you can read news as it comes in</div>
+            </div>
+            <div class="NB-feature">
+                <img src="/media/img/welcome/feature_2.png">
+                <div class="NB-feature-caption">Original Site</div>
+                <div class="NB-feature-text">Read the content in context, the way it was meant to be seen</div>
+            </div>
+            <div class="NB-feature">
+                <img src="/media/img/welcome/feature_3.png">
+                <div class="NB-feature-caption">Shared Stories</div>
+                <div class="NB-feature-text">Reading news is better with friends. Share stories on your public blurblog</div>
+            </div>
+            <div class="NB-feature">
+                <img src="/media/img/welcome/feature_4.png">
+                <div class="NB-feature-caption">Training</div>
+                <div class="NB-feature-text">Hide the stories you don't like and highlight the stories you do</div>
+            </div>
+        </div>    
+    </div>
+    
+    <div class="NB-welcome-features">
+        <div class="NB-inner">
+            <div class="NB-feature">
+                <img src="/media/img/welcome/feature_5.jpg">
+                <div class="NB-feature-caption">Full Text Search</div>
+                <div class="NB-feature-text">Quickly find stories across all of your subscriptions</div>
+            </div>
+            <div class="NB-feature">
+                <img src="/media/img/welcome/feature_6.png">
+                <div class="NB-feature-caption">Story Tagging</div>
+                <div class="NB-feature-text">Save stories with custom tags for fast references</div>
+            </div>
+            <div class="NB-feature">
+                <img src="/media/img/welcome/feature_7.jpg">
+                <div class="NB-feature-caption">Blurblog Privacy</div>
+                <div class="NB-feature-text">Share stories with the world or only with your friends</div>
+            </div>
+            <div class="NB-feature">
+                <img src="/media/img/welcome/feature_8.jpg">
+                <div class="NB-feature-caption">Third-party Apps</div>
+                <div class="NB-feature-text">Supports <a href="http://reederapp.com" class="NB-splash-link" target="_blank">Reeder</a>, <a href="http://readkitapp.com" class="NB-splash-link" target="_blank">ReadKit</a>, <a href="http://supertop.co/unread/" class="NB-splash-link" target="_blank">Unread</a>, and loads more</div>
+            </div>
+        </div>
+    </div>
+    
+    
+    <div class="NB-welcome-subfeatures">
+        <div class="NB-inner">
+            <div class="NB-feature">
+                <img src="/media/img/welcome/subfeature_1.png">
+                <div class="NB-feature-caption">Saved Searches</div>
+                <div class="NB-feature-text">Regularly used searches are conveniently given their own feeds</div>
+            </div>
+            <div class="NB-feature">
+                <img src="/media/img/welcome/header-ios.png">
+                <div class="NB-feature-caption">First-class iOS App</div>
+                <div class="NB-feature-text">The NewsBlur iOS app is free and is jam-packed with features</div>
+            </div>
+            <div class="NB-feature">
+                <img src="/media/img/welcome/subfeature_3.png">
+                <div class="NB-feature-caption">Read the Full Story</div>
+                <div class="NB-feature-text">The original story from truncated RSS feeds is seamlessly expanded</div>
+            </div>
+            <div class="NB-feature">
+                <img src="/media/img/welcome/header-android.png">
+                <div class="NB-feature-caption">First-class Android App</div>
+                <div class="NB-feature-text">The NewsBlur Android app is free and has it all</div>
+            </div>
+            <div class="NB-feature">
+                <img src="/media/img/welcome/subfeature_5.png">
+                <div class="NB-feature-caption">Track Changes</div>
+                <div class="NB-feature-text">See how a story evolved since it was first published</div>
+            </div>
+            <div class="NB-feature">
+                <img src="/media/img/welcome/subfeature_6.png">
+                <div class="NB-feature-caption">IFTTT Support</div>
+                <div class="NB-feature-text">Hook NewsBlur up to nearly every service on the web</div>
+            </div>
+            <div class="NB-feature">
+                <img src="/media/img/welcome/subfeature_7.png">
+                <div class="NB-feature-caption">Email Newsletters</div>
+                <div class="NB-feature-text">Read your email newsletters where they belong, in a news reader</div>
+            </div>
+            <div class="NB-feature">
+                <img src="/media/img/welcome/subfeature_8.png">
+                <div class="NB-feature-caption">Grid, List, Split</div>
+                <div class="NB-feature-text">Every site has its own story layout, so you can mix and match</div>
+            </div>
+            <div class="NB-feature">
+                <img src="/media/img/welcome/subfeature_9.png">
+                <div class="NB-feature-caption">Dark Mode</div>
+                <div class="NB-feature-text">Easy on the eyes and built into the web, iOS, and Android</div>
+            </div>
+            <div class="NB-feature">
+                <img src="/media/img/welcome/subfeature_10.png">
+                <div class="NB-feature-caption">Twitter & YouTube</div>
+                <div class="NB-feature-text">Even sites that don't publish RSS feeds can be followed</div>
+            </div>
+        </div>
+    </div>
+
+    <div class="NB-welcome-pricing">
+        <div class="NB-inner">
+            <h2>Pricing</h2>
+            <p>NewsBlur is free on the web, iPad, iPhone, and Android. By subscribing to a <br> premium account, you support a growing service and unlock a few restrictions.</p>
+            <table class="NB-pricing">
+                <tr>
+                    <th></th>
+                    <th>Free Account</th>
+                    <th>
+                        <div class="NB-price">$36 / year</div>
+                        Premium Subscription
+                    </th>
+                    <th>
+                        <div class="NB-price">$99 / year</div>
+                        Premium Archive Subscription
+                    </th>
+                </tr>
+                <tr>
+                    <td class="NB-bold"><div class="NB-welcome-premium-bullet NB-1"></div> Number of Sites</td>
+                    <td>Up to 64 sites</td>
+                    <td>1,000 sites</td>
+                    <td>Unlimited sites</td>
+                </tr>
+                <tr>
+                    <td class="NB-bold"><div class="NB-welcome-premium-bullet NB-3"></div> River of News</td>
+                    <td>Only 3 stories at a time</td>
+                    <td>Every story from every site</td>
+                    <td>Plus every story ever published in the archive</td>
+                </tr>
+                <tr>
+                    <td class="NB-bold"><div class="NB-welcome-premium-bullet NB-4"></div> Search</td>
+                    <td>-</td>
+                    <td>Search for recent stories, your saved stories, and shared stories</td>
+                    <td>Search the entire history of every site</td>
+                </tr>
+                <tr>
+                    <td class="NB-bold"><div class="NB-welcome-premium-bullet NB-7"></div> Custom RSS</td>
+                    <td>-</td>
+                    <td>Only saved stories</td>
+                    <td>Saved stories + folders</td>
+                </tr>
+                <tr>
+                    <td class="NB-bold"><div class="NB-welcome-premium-bullet NB-2"></div> Site updates</td>
+                    <td>1X</td>
+                    <td>Up to 10X as often</td>
+                    <td>Same as premium</td>
+                </tr>
+                <tr>
+                    <td class="NB-bold"><div class="NB-welcome-premium-bullet NB-5"></div> Saved story tagging</td>
+                    <td>Only save stories</td>
+                    <td>Tag saved stories</td>
+                    <td>Same as premium</td>
+                </tr>
+                <tr>
+                    <td class="NB-bold"><div class="NB-welcome-premium-bullet NB-6"></div> Privacy</td>
+                    <td>Public shares only</td>
+                    <td>Public, protected, and private shares</td>
+                    <td>Same as premium</td>
+                </tr>
+                <tr>
+                    <td class="NB-bold"><div class="NB-welcome-premium-bullet NB-8"></div> Full Text</td>
+                    <td>Only what's in the feed</td>
+                    <td>Full text of each story</td>
+                    <td>Same as premium</td>
+                </tr>
+                <tr>
+                    <td class="NB-bold">
+                        <div class="NB-welcome-premium-bullet NB-9"></div>
+                        Feed poor Lyric
+                    </td>
+                    <td>She goes hungry</td>
+                    <td colspan="2" class="NB-lyric-text">
+                        <img src="/media/img/reader/lyric.jpg" class="NB-lyric">Home cooked meals of green beans, sweet potatoes, carrots, and brown rice</td>
+                </tr>
+            </table>
+        </div>
+    </div>
+    
+    <div class="NB-welcome-activity">
+        <div class="NB-inner">
+            
+
+<div class="NB-module NB-module-features">
+
+  <h5 class="NB-module-header">
+    <div class="NB-module-header-right">
+      
+      <div class="NB-spinner NB-left"></div>
+      <a href="#" class="NB-module-direction NB-module-previous-page NB-disabled"></a>
+      <a href="#" class="NB-module-direction NB-module-next-page NB-javascript"></a>
+    </div>
+    <div class="NB-module-header-text">What's New</div>
+  </h5>
+
+  <h3 class="NB-module-content-header">
+    New Features
+  </h3>
+  
+  <table class="NB-features" cellpadding="0" cellspacing="0">
+    
+      <tr class="NB-module-feature  ">
+        <td class="NB-module-feature-date">Jul 01, 2022</td>
+        <td class="NB-module-feature-description">The 2022 redesign is here, featuring a new dashboard layout, refreshed stories and story titles, and entirely redrawn&nbsp;icons.</td>
+      </tr>
+    
+      <tr class="NB-module-feature  ">
+        <td class="NB-module-feature-date">Jul 01, 2022</td>
+        <td class="NB-module-feature-description">The NewsBlur Premium Archive subscription keeps all of your stories searchable, shareable, and unread forever.&nbsp;$99/year</td>
+      </tr>
+    
+      <tr class="NB-module-feature last ">
+        <td class="NB-module-feature-date">Jun 09, 2022</td>
+        <td class="NB-module-feature-description">Support for Raindrop.io (bookmarking manager) has been added. Find it under Preferences > Stories.</td>
+      </tr>
+    
+  </table>
+  
+
+  <h3 class="NB-module-content-header">
+    Community Feedback
+  </h3>
+
+  
+
+  <table class="NB-feedback-table" cellpadding="0" cellspacing="0">
+    
+      <tr class="NB-module-feature ">
+        <td class="NB-module-feature-date">13 hours ago</td>
+        <td class="NB-module-feature-description">
+          <span class="NB-module-feature-tag NB-tag-question">question</span>
+          <a href="https://forum.newsblur.com/t/feed-stoped-updating-now-cant-add-it/10311/2" target="_blank">Feed stoped updating now can&#8217;t add&nbsp;it</a>
+        </td>
+      </tr>
+    
+      <tr class="NB-module-feature ">
+        <td class="NB-module-feature-date">16 hours ago</td>
+        <td class="NB-module-feature-description">
+          <span class="NB-module-feature-tag NB-tag-problem">problem</span>
+          <a href="https://forum.newsblur.com/t/bug-youtube-video-fetcher-broken-buggy/6797/8" target="_blank">Bug: Youtube video fetcher&nbsp;broken/buggy</a>
+        </td>
+      </tr>
+    
+      <tr class="NB-module-feature ">
+        <td class="NB-module-feature-date">22 hours ago</td>
+        <td class="NB-module-feature-description">
+          <span class="NB-module-feature-tag NB-tag-problem">problem</span>
+          <a href="https://forum.newsblur.com/t/cant-add-feed-on-porsche-ev/10313/2" target="_blank">Can&#8217;t Add feed on Porsche&nbsp;<span class="caps">EV</span></a>
+        </td>
+      </tr>
+    
+      <tr class="NB-module-feature last">
+        <td class="NB-module-feature-date">22 hours ago</td>
+        <td class="NB-module-feature-description">
+          <span class="NB-module-feature-tag NB-tag-problem">problem</span>
+          <a href="https://forum.newsblur.com/t/test-flight-install-crashing-and-marking-as-read/10273/5" target="_blank">Test flight install crashing and marking as&nbsp;read</a>
+        </td>
+      </tr>
+    
+  </table>
+
+</div>
+
+            <h2>Real-time Stats</h2>
+            
+<div class="NB-module NB-module-stats NB-module-site-stats">
+  <!-- <h5 class="NB-module-header">
+    Site Statistics
+  </h5> -->
+  
+  <div class="NB-splash-module-section">
+      <h3 class="NB-module-content-header">
+        Past day
+      </h3>
+  
+      <div class="NB-module-stats-counts">
+          <div class="NB-module-stats-count">
+            <div class="NB-module-stats-count-number">4,350</div>
+            <div class="NB-module-stats-count-description">Premium Users</div>
+          </div>
+          <div class="NB-module-stats-count">
+            <div class="NB-module-stats-count-number">4,232</div>
+            <div class="NB-module-stats-count-description">Standard Users</div>
+          </div>
+          <div class="NB-module-stats-count">
+            <div class="NB-module-stats-count-number">5,078,268</div>
+            <div class="NB-module-stats-count-description">Feeds fetched</div>
+          </div>
+      </div>
+  </div>
+  
+  <div class="NB-splash-module-section">
+      <h3 class="NB-module-content-header NB-module-content-header-hour">
+        Past day by hour
+      </h3>
+  
+      <div class="NB-module-stats-counts">
+          <div class="NB-module-stats-count">
+            <div class="NB-module-stats-count-graph">
+              <div class="NB-graph-value">
+                <div class="NB-graph-label">14,843</div>
+                <div class="NB-graph-bar" style="height:15.443762355634169px"></div>
+              </div><div class="NB-graph-value">
+                <div class="NB-graph-label">14,883</div>
+                <div class="NB-graph-bar" style="height:15.485381333888252px"></div>
+              </div><div class="NB-graph-value">
+                <div class="NB-graph-label">13,596</div>
+                <div class="NB-graph-bar" style="height:14.146290708563104px"></div>
+              </div><div class="NB-graph-value">
+                <div class="NB-graph-label">15,098</div>
+                <div class="NB-graph-bar" style="height:15.709083342003954px"></div>
+              </div><div class="NB-graph-value">
+                <div class="NB-graph-label">10,821</div>
+                <div class="NB-graph-bar" style="height:11.258974092186037px"></div>
+              </div><div class="NB-graph-value">
+                <div class="NB-graph-label">11,519</div>
+                <div class="NB-graph-bar" style="height:11.9852252627198px"></div>
+              </div><div class="NB-graph-value">
+                <div class="NB-graph-label">12,173</div>
+                <div class="NB-graph-bar" style="height:12.665695557174072px"></div>
+              </div><div class="NB-graph-value">
+                <div class="NB-graph-label">13,408</div>
+                <div class="NB-graph-bar" style="height:13.950681510768911px"></div>
+              </div><div class="NB-graph-value">
+                <div class="NB-graph-label">12,230</div>
+                <div class="NB-graph-bar" style="height:12.72500260118614px"></div>
+              </div><div class="NB-graph-value">
+                <div class="NB-graph-label">12,801</div>
+                <div class="NB-graph-bar" style="height:13.319113515763188px"></div>
+              </div><div class="NB-graph-value">
+                <div class="NB-graph-label">17,338</div>
+                <div class="NB-graph-bar" style="height:18.03974612423265px"></div>
+              </div><div class="NB-graph-value">
+                <div class="NB-graph-label">19,879</div>
+                <div class="NB-graph-bar" style="height:20.683591717823326px"></div>
+              </div><div class="NB-graph-value">
+                <div class="NB-graph-label">21,170</div>
+                <div class="NB-graph-bar" style="height:22.026844240973887px"></div>
+              </div><div class="NB-graph-value">
+                <div class="NB-graph-label">26,365</div>
+                <div class="NB-graph-bar" style="height:27.432109041723027px"></div>
+              </div><div class="NB-graph-value">
+                <div class="NB-graph-label">27,252</div>
+                <div class="NB-graph-bar" style="height:28.355009884507332px"></div>
+              </div><div class="NB-graph-value">
+                <div class="NB-graph-label">28,833</div>
+                <div class="NB-graph-bar" style="height:30.0px"></div>
+              </div><div class="NB-graph-value">
+                <div class="NB-graph-label">26,708</div>
+                <div class="NB-graph-bar" style="height:27.788991780251795px"></div>
+              </div><div class="NB-graph-value">
+                <div class="NB-graph-label">24,999</div>
+                <div class="NB-graph-bar" style="height:26.01082093434606px"></div>
+              </div><div class="NB-graph-value">
+                <div class="NB-graph-label">25,698</div>
+                <div class="NB-graph-bar" style="height:26.738112579336175px"></div>
+              </div><div class="NB-graph-value">
+                <div class="NB-graph-label">27,887</div>
+                <div class="NB-graph-bar" style="height:29.01571116429092px"></div>
+              </div><div class="NB-graph-value">
+                <div class="NB-graph-label">24,660</div>
+                <div class="NB-graph-bar" style="height:25.658100093642698px"></div>
+              </div><div class="NB-graph-value">
+                <div class="NB-graph-label">19,575</div>
+                <div class="NB-graph-bar" style="height:20.36728748309229px"></div>
+              </div><div class="NB-graph-value">
+                <div class="NB-graph-label">17,433</div>
+                <div class="NB-graph-bar" style="height:18.138591197586102px"></div>
+              </div><div class="NB-graph-value">
+                <div class="NB-graph-label">16,217</div>
+                <div class="NB-graph-bar" style="height:16.873374258661947px"></div>
+              </div>
+            </div>
+            <div class="NB-module-stats-count-number">455,386</div>
+            <div class="NB-module-stats-count-description">Sites loaded</div>
+          </div>
+          <div class="NB-module-stats-count">
+            <div class="NB-module-stats-count-graph">
+              
+              <div class="NB-graph-value">
+                <div class="NB-graph-label">0.31</div>
+                <div class="NB-graph-bar" style="height:9.24px"></div>
+              </div>
+              
+              <div class="NB-graph-value">
+                <div class="NB-graph-label">0.27</div>
+                <div class="NB-graph-bar" style="height:8.01px"></div>
+              </div>
+              
+              <div class="NB-graph-value">
+                <div class="NB-graph-label">0.28</div>
+                <div class="NB-graph-bar" style="height:8.459999999999999px"></div>
+              </div>
+              
+              <div class="NB-graph-value">
+                <div class="NB-graph-label">0.21</div>
+                <div class="NB-graph-bar" style="height:6.239999999999999px"></div>
+              </div>
+              
+              <div class="NB-graph-value">
+                <div class="NB-graph-label">0.21</div>
+                <div class="NB-graph-bar" style="height:6.239999999999999px"></div>
+              </div>
+              
+              <div class="NB-graph-value">
+                <div class="NB-graph-label">0.20</div>
+                <div class="NB-graph-bar" style="height:5.91px"></div>
+              </div>
+              
+              <div class="NB-graph-value">
+                <div class="NB-graph-label">0.20</div>
+                <div class="NB-graph-bar" style="height:6.119999999999999px"></div>
+              </div>
+              
+              <div class="NB-graph-value">
+                <div class="NB-graph-label">0.19</div>
+                <div class="NB-graph-bar" style="height:5.79px"></div>
+              </div>
+              
+              <div class="NB-graph-value">
+                <div class="NB-graph-label">0.17</div>
+                <div class="NB-graph-bar" style="height:5.159999999999999px"></div>
+              </div>
+              
+              <div class="NB-graph-value">
+                <div class="NB-graph-label">0.19</div>
+                <div class="NB-graph-bar" style="height:5.61px"></div>
+              </div>
+              
+              <div class="NB-graph-value">
+                <div class="NB-graph-label">0.20</div>
+                <div class="NB-graph-bar" style="height:5.94px"></div>
+              </div>
+              
+              <div class="NB-graph-value">
+                <div class="NB-graph-label">0.24</div>
+                <div class="NB-graph-bar" style="height:7.05px"></div>
+              </div>
+              
+              <div class="NB-graph-value">
+                <div class="NB-graph-label">0.25</div>
+                <div class="NB-graph-bar" style="height:7.47px"></div>
+              </div>
+              
+              <div class="NB-graph-value">
+                <div class="NB-graph-label">0.26</div>
+                <div class="NB-graph-bar" style="height:7.83px"></div>
+              </div>
+              
+              <div class="NB-graph-value">
+                <div class="NB-graph-label">0.34</div>
+                <div class="NB-graph-bar" style="height:10.08px"></div>
+              </div>
+              
+              <div class="NB-graph-value">
+                <div class="NB-graph-label">0.32</div>
+                <div class="NB-graph-bar" style="height:9.48px"></div>
+              </div>
+              
+              <div class="NB-graph-value">
+                <div class="NB-graph-label">0.32</div>
+                <div class="NB-graph-bar" style="height:9.66px"></div>
+              </div>
+              
+              <div class="NB-graph-value">
+                <div class="NB-graph-label">0.36</div>
+                <div class="NB-graph-bar" style="height:10.74px"></div>
+              </div>
+              
+              <div class="NB-graph-value">
+                <div class="NB-graph-label">0.38</div>
+                <div class="NB-graph-bar" style="height:11.25px"></div>
+              </div>
+              
+              <div class="NB-graph-value">
+                <div class="NB-graph-label">0.36</div>
+                <div class="NB-graph-bar" style="height:10.74px"></div>
+              </div>
+              
+              <div class="NB-graph-value">
+                <div class="NB-graph-label">0.31</div>
+                <div class="NB-graph-bar" style="height:9.3px"></div>
+              </div>
+              
+              <div class="NB-graph-value">
+                <div class="NB-graph-label">0.26</div>
+                <div class="NB-graph-bar" style="height:7.83px"></div>
+              </div>
+              
+              <div class="NB-graph-value">
+                <div class="NB-graph-label">0.29</div>
+                <div class="NB-graph-bar" style="height:8.729999999999999px"></div>
+              </div>
+              
+              <div class="NB-graph-value">
+                <div class="NB-graph-label">0.31</div>
+                <div class="NB-graph-bar" style="height:9.33px"></div>
+              </div>
+              
+            </div>
+            <div class="NB-module-stats-count-number">0.24 <small>sec</small></div>
+            <div class="NB-module-stats-count-description">Avg. load time</div>
+          </div>
+          <div class="NB-module-stats-count">
+            <div class="NB-module-stats-count-graph">
+              
+              <div class="NB-graph-value">
+                <div class="NB-graph-label">24</div>
+                <div class="NB-graph-bar" style="height:16.363636363636363px"></div>
+              </div>
+              
+              <div class="NB-graph-value">
+                <div class="NB-graph-label">17</div>
+                <div class="NB-graph-bar" style="height:11.59090909090909px"></div>
+              </div>
+              
+              <div class="NB-graph-value">
+                <div class="NB-graph-label">26</div>
+                <div class="NB-graph-bar" style="height:17.727272727272727px"></div>
+              </div>
+              
+              <div class="NB-graph-value">
+                <div class="NB-graph-label">10</div>
+                <div class="NB-graph-bar" style="height:6.818181818181818px"></div>
+              </div>
+              
+              <div class="NB-graph-value">
+                <div class="NB-graph-label">3</div>
+                <div class="NB-graph-bar" style="height:2.0454545454545454px"></div>
+              </div>
+              
+              <div class="NB-graph-value">
+                <div class="NB-graph-label">7</div>
+                <div class="NB-graph-bar" style="height:4.7727272727272725px"></div>
+              </div>
+              
+              <div class="NB-graph-value">
+                <div class="NB-graph-label">5</div>
+                <div class="NB-graph-bar" style="height:3.409090909090909px"></div>
+              </div>
+              
+              <div class="NB-graph-value">
+                <div class="NB-graph-label">7</div>
+                <div class="NB-graph-bar" style="height:4.7727272727272725px"></div>
+              </div>
+              
+              <div class="NB-graph-value">
+                <div class="NB-graph-label">2</div>
+                <div class="NB-graph-bar" style="height:1.3636363636363638px"></div>
+              </div>
+              
+              <div class="NB-graph-value">
+                <div class="NB-graph-label">17</div>
+                <div class="NB-graph-bar" style="height:11.59090909090909px"></div>
+              </div>
+              
+              <div class="NB-graph-value">
+                <div class="NB-graph-label">7</div>
+                <div class="NB-graph-bar" style="height:4.7727272727272725px"></div>
+              </div>
+              
+              <div class="NB-graph-value">
+                <div class="NB-graph-label">3</div>
+                <div class="NB-graph-bar" style="height:2.0454545454545454px"></div>
+              </div>
+              
+              <div class="NB-graph-value">
+                <div class="NB-graph-label">5</div>
+                <div class="NB-graph-bar" style="height:3.409090909090909px"></div>
+              </div>
+              
+              <div class="NB-graph-value">
+                <div class="NB-graph-label">23</div>
+                <div class="NB-graph-bar" style="height:15.681818181818182px"></div>
+              </div>
+              
+              <div class="NB-graph-value">
+                <div class="NB-graph-label">26</div>
+                <div class="NB-graph-bar" style="height:17.727272727272727px"></div>
+              </div>
+              
+              <div class="NB-graph-value">
+                <div class="NB-graph-label">17</div>
+                <div class="NB-graph-bar" style="height:11.59090909090909px"></div>
+              </div>
+              
+              <div class="NB-graph-value">
+                <div class="NB-graph-label">17</div>
+                <div class="NB-graph-bar" style="height:11.59090909090909px"></div>
+              </div>
+              
+              <div class="NB-graph-value">
+                <div class="NB-graph-label">44</div>
+                <div class="NB-graph-bar" style="height:30.0px"></div>
+              </div>
+              
+              <div class="NB-graph-value">
+                <div class="NB-graph-label">43</div>
+                <div class="NB-graph-bar" style="height:29.31818181818182px"></div>
+              </div>
+              
+              <div class="NB-graph-value">
+                <div class="NB-graph-label">10</div>
+                <div class="NB-graph-bar" style="height:6.818181818181818px"></div>
+              </div>
+              
+              <div class="NB-graph-value">
+                <div class="NB-graph-label">14</div>
+                <div class="NB-graph-bar" style="height:9.545454545454545px"></div>
+              </div>
+              
+              <div class="NB-graph-value">
+                <div class="NB-graph-label">11</div>
+                <div class="NB-graph-bar" style="height:7.5px"></div>
+              </div>
+              
+              <div class="NB-graph-value">
+                <div class="NB-graph-label">4</div>
+                <div class="NB-graph-bar" style="height:2.7272727272727275px"></div>
+              </div>
+              
+              <div class="NB-graph-value">
+                <div class="NB-graph-label">5</div>
+                <div class="NB-graph-bar" style="height:3.409090909090909px"></div>
+              </div>
+              
+            </div>
+            <div class="NB-module-stats-count-number">347</div>
+            <div class="NB-module-stats-count-description">
+                Stories Shared
+            </div>
+          </div>
+      </div>
+  </div>
+  
+</div>
+
+        </div>
+    </div>
+
+    <div class="NB-welcome-bottomactions">
+        <div class="NB-inner">
+            <div class="NB-welcome-header-actions">
+                <div class="NB-welcome-header-action">
+                    <div class="NB-welcome-header-action-subtext">First</div>
+                    <div class="NB-button NB-button-tryout">
+                        <img src="/media/img/welcome/04-eye@2x.png" style="width: 20px; height: 13px; margin-top: 2px">
+                        Try out NewsBlur
+                    </div>
+                </div>
+                <div class="NB-welcome-header-action">
+                    <div class="NB-welcome-header-action-subtext">Then</div>
+                    <div class="NB-button NB-button-login">
+                        <img src="/media/img/welcome/09-lightning@2x.png" class="NB-welcome-header-action-bolt" style="width: 12px; height: 18px; margin-bottom: -2px">
+                        <img src="/media/img/reader/32-Arrow-Right.png" class="NB-welcome-header-action-arrow">
+                        Sign up or Log in
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+</div>
+
+
+      
+      
+
+    <footer class="NB-welcome-footer">
+        <div class="NB-welcome-footer-content NB-inner">
+            <div class="NB-footer-icons">
+                <a href="http://github.com/samuelclay" title="GitHub"><img src="/media/img/welcome/github_favicon.png"></a>
+                <a href="http://twitter.com/newsblur" title="Twitter"><img src="/media/img/welcome/twitter_favicon.png"></a>
+            </div>
+            <a href="/"><img src="/media//img/logo_newsblur_blur.png" style="height: 32px;" class="NB-footer-logo" title="NewsBlur" alt="NewsBlur" /></a>
+            is built in Cambridge, Massachusetts by 
+            <a href="http://twitter.com/samuelclay" class="NB-splash-link">
+                <img src="/media/img/static/Samuel%20Clay.jpg" class="NB-twitter-avatar">
+                @samuelclay
+            </a>
+        </div>
+        
+        <div class="NB-splash-info NB-splash-bottom">
+    <ul class="NB-splash-links NB-inner">
+        <li class="NB-splash-link NB-splash-link-about "><a href="/about">About</a></li>
+        <li class="NB-splash-link NB-splash-link-faq "><a href="/faq">FAQ</a></li>
+        <li class="NB-splash-link NB-splash-link-api "><a href="/api">API</a></li>
+        <li class="NB-splash-link NB-splash-link-ios "><a href="/ios">iOS</a></li>
+        <li class="NB-splash-link NB-splash-link-android "><a href="/android">Android</a></li>
+        <li class="NB-splash-link NB-splash-link-github"><a href="http://github.com/samuelclay">GitHub</a></li>
+        <li class="NB-splash-link NB-splash-link-discourse"><a href="https://forum.newsblur.com">Support</a></li>
+        <li class="NB-splash-link NB-splash-link-blog"><a href="http://blog.newsblur.com">The Blog</a></li>
+        <li class="NB-splash-link NB-first NB-splash-link-facebook"><a href="https://facebook.com/newsblur">Facebook</a></li>
+        <li class="NB-splash-link NB-first NB-splash-link-twitter"><a href="http://twitter.com/newsblur">@newsblur</a></li>
+    </ul>
+
+    <div class="NB-splash-link NB-splash-link-logo">
+        <a href="/"><div class="NB-splash-blurred-logo"></div></a>
+    </div>
+
+</div>
+
+        
+    </footer>
+
+      
+  </div>
+  
+  
+    <script type="text/javascript" src="/static/js/common.fd6856dd5f6d.js" charset="utf-8"></script>
+  
+
+  <script type="text/javascript" charset="utf-8">
+    _.extend(NEWSBLUR.Preferences, {"show_contextmenus": "1", "markread_nextfeed": "nextfeed", "story_share_blogger": false, "keyboard_verticalarrows": "story", "mark_read_river_confirm": true, "read_story_delay": "0", "feed_view_single_story": "1", "story_styling": "whitney", "story_share_kippt": false, "hide_story_changes": "0", "story_share_delicious": false, "truncate_story": "social", "default_view": "feed", "story_share_evernote": false, "full_width_story": false, "story_share_diigo": false, "hide_public_comments": false, "dateformat": "12", "default_read_filter": "all", "lock_green_slider": true, "space_scroll_spacing": "40", "story_share_facebook": true, "folder_counts": false, "story_share_twitter": true, "story_share_readability": false, "doubleclick_feed": "open", "show_global_shared_stories": true, "intro_page": "4", "title_counts": false, "space_bar_action": "next_unread", "show_image_preview": "1", "doubleclick_unread": "markread", "story_button_placement": "right", "open_feed_action": "0", "hide_read_feeds": "0", "ssl": "0", "new_window": "1", "story_layout": "list", "story_titles_pane_size": "463", "animations": true, "lock_mouse_indicator": "0", "story_share_tumblr": false, "story_size": "m", "story_share_googleplus": false, "mark_read_on_scroll_titles": true, "arrow_scroll_spacing": "100", "story_share_instapaper": true, "show_content_preview": "1", "show_infrequent_site_stories": true, "autoopen_folder": "0", "story_pane_anchor": "west", "story_share_readitlater": false, "feed_order": "ALPHABETICAL", "story_share_pinterest": false, "show_tooltips": "1", "default_order": "newest", "story_share_buffer": false, "default_folder": "", "keyboard_horizontalarrows": "view", "story_share_pinboard": false});
+    _.extend(NEWSBLUR.Preferences['view_settings'], {"social:3833": {}, "social:12716": {}, "river:Blogs": {"l": "split"}, "500314": {}, "569": {}, "159": {}, "river:Photoblogs": {"l": "grid"}, "1186180": {}, "social:26578": {}, "river:Tech": {"l": "split"}, "776101": {}, "3556": {}, "social:13": {"l": "list"}, "social:11": {}, "526": {"l": "grid"}, "social:32048": {}, "3": {}, "2": {}, "5261603": {}, "social:31611": {}, "558041": {}, "5994357": {"l": "full"}, "river:": {"l": "list"}, "social:12218": {}, "98102": {"l": "list"}, "64313": {"l": "split"}, "76": {"v": "page"}, "river:Writers": {"r": "all"}, "38": {}, "169": {}, "1095": {}, "5719080": {"l": "split", "v": "page"}, "21309": {"l": "split"}, "161": {}, "39": {"l": "split"}, "16935": {}, "1627": {"l": "split"}, "social:23766": {}, "34": {"l": "split"}, "river:Cooking": {"r": "all", "l": "grid"}, "social:33405": {}, "12": {}});
+    _.extend(NEWSBLUR.Preferences['collapsed_folders'], ["New York","Cooking","Photoblogs"]);
+    
+  </script>
+
+  
+    <script>
+        $(document).ready(function() {
+
+            NEWSBLUR.reader = new NEWSBLUR.Reader();
+            NEWSBLUR.reader.init({
+                hide_sidebar: true
+            });
+
+            NEWSBLUR.welcome = new NEWSBLUR.Welcome();
+        });
+    </script>
+
+  
+</body>
+</html>
+

@@ -1,0 +1,181 @@
+
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+	<head>
+		<title>
+United Overseas Bank
+</title>
+<script src="//assets.adobedtm.com/4f0de1c2a678946ab5959eeb23f3c13fd6552995/satelliteLib-584985543080f70b51078cd33cdd0fd548906d90.js"></script>
+
+<script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start': new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0], j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src= '//www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f); })(window,document,'script','dataLayer','GTM-PBG4DX');</script>
+<style type="text/css">
+	body {
+		margin: 0;
+	}
+	#pdfViewer {
+		position:fixed;
+		top:0;
+		left:0;
+		bottom:0;
+		right:0;
+		width:100%;
+		height:100%;
+		border:none;
+		margin:0;
+		padding:0;
+		overflow:hidden;
+		z-index:999999;
+	}
+</style>
+<META NAME="ROBOTS" CONTENT="NOINDEX, NOFOLLOW">
+	</head>
+<body>
+<noscript><iframe src="//www.googletagmanager.com/ns.html?id=GTM-PBG4DX" height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+<div id="pdfWrapper">
+
+</div>
+<script type="text/javascript">_satellite.pageBottom();</script>
+<script>
+	var locationToRedirectTo = 'https://www.uobgroup.com/uobgroup/index.page'; // default fallback as per original code
+	var domain = location.hostname;
+	if (domain == 'www.uobprivilegebanking.com' || domain == 'uobprivilegebanking.com'|| domain == 'www.uobprivilegebanking.com.sg'|| domain == 'uobprivilegebanking.com.sg')
+	{	
+		var locationToRedirectTo = "https://www.uob.com.sg/privilegebanking/index.page";
+	}
+	else if(domain == 'www.uobprivilegereserve.com' || domain == 'uobprivilegereserve.com'|| domain == 'www.uobprivilegereserve.com.sg'|| domain == 'uobprivilegereserve.com.sg')
+	{
+		var locationToRedirectTo = "https://www.uob.com.sg/privilegereserve/index_pvr.html";
+	}
+	/* file redirect setup start */
+	var fileRedirect = false;
+	var redirectTrkVal = getParameterByName('redirectTrk');
+	var AADownloadFires = AADownloadFires || false;
+	var GADownloadFires = GADownloadFires || false;
+	if (!!redirectTrkVal) {
+			locationToRedirectTo = window.location.origin + '/' + redirectTrkVal;
+			fileRedirect = true;
+	}
+	/* file redirect setup end */
+
+	/* original redirect codeblock start
+		modified to run only if:
+		1. not doing file redirection.
+		2. assigning redirect location to locationToRedirectTo variable, instead to location.href immediately
+		3. delay firing as needed for Adobe DTM to fire AA call.
+		*/
+	// https://github.com/pipwerks/PDFObject/blob/master/pdfobject.js
+	var ua = window.navigator.userAgent,
+
+    //declare booleans
+    supportsPDFs,
+    isIE,
+    supportsPdfMimeType = (typeof navigator.mimeTypes['application/pdf'] !== "undefined"),
+    supportsPdfActiveX,
+    isModernBrowser = (function (){ return (typeof window.Promise !== "undefined"); })(),
+    isFirefox = (function (){ return (ua.indexOf("irefox") !== -1); } )(),
+    isFirefoxWithPDFJS = (function (){
+        //Firefox started shipping PDF.js in Firefox 19.
+        //If this is Firefox 19 or greater, assume PDF.js is available
+        if(!isFirefox){ return false; }
+        //parse userAgent string to get release version ("rv")
+        //ex: Mozilla/5.0 (Macintosh; Intel Mac OS X 10.12; rv:57.0) Gecko/20100101 Firefox/57.0
+        return (parseInt(ua.split("rv:")[1].split(".")[0], 10) > 18);
+    })(),
+    isIOS = (function (){ return (/iphone|ipad|ipod/i.test(ua.toLowerCase())); })(),
+
+    //declare functions
+    createAXO;
+
+    createAXO = function (type){
+        var ax;
+        try {
+            ax = new ActiveXObject(type);
+        } catch (e) {
+            ax = null; //ensure ax remains null
+        }
+        return ax;
+    };
+
+    //IE11 still uses ActiveX for Adobe Reader, but IE 11 doesn't expose
+    //window.ActiveXObject the same way previous versions of IE did
+    //window.ActiveXObject will evaluate to false in IE 11, but "ActiveXObject" in window evaluates to true
+    //so check the first one for older IE, and the second for IE11
+    //FWIW, MS Edge (replacing IE11) does not support ActiveX at all, both will evaluate false
+    //Constructed as a method (not a prop) to avoid unneccesarry overhead -- will only be evaluated if needed
+    isIE = function (){ return !!(window.ActiveXObject || "ActiveXObject" in window); };
+
+    //If either ActiveX support for "AcroPDF.PDF" or "PDF.PdfCtrl" are found, return true
+    //Constructed as a method (not a prop) to avoid unneccesarry overhead -- will only be evaluated if needed
+    supportsPdfActiveX = function (){ return !!(createAXO("AcroPDF.PDF") || createAXO("PDF.PdfCtrl")); };
+
+	supportsPDFs = (
+        //as of iOS 12, inline PDF rendering is still not supported in Safari or native webview
+        //3rd-party browsers (eg Chrome, Firefox) use Apple's webview for rendering, and thus the same result as Safari
+        //Therefore if iOS, we shall assume that PDF support is not available
+        !isIOS && (
+            //Modern versions of Firefox come bundled with PDFJS
+            isFirefoxWithPDFJS ||
+            //Browsers that still support the original MIME type check
+            supportsPdfMimeType || (
+                //Pity the poor souls still using IE
+                isIE() && supportsPdfActiveX()
+            )
+        )
+    );
+
+	if (!fileRedirect) {
+		var parentfolder = location.pathname.match(/\w+(?=\/)/);
+		if (parentfolder!=null) {
+			if ((location.hostname.indexOf("pib")!=-1) )
+				locationToRedirectTo = 'https://www.uobgroup.com/uobgroup/default.page';
+		} else {
+			if (document.URL=='https://pib.uob.com.sg' || document.URL=='https://pib.uob.com.sg/' || document.URL=='https://pib.uob.com.sg/index.html') {
+				locationToRedirectTo = '/PIBLogin/appmanager/Login/Public';
+			} else if (((location.protocol=='https:') && (location.hostname.indexOf("pib")!=-1)) || (document.URL.indexOf("uob.com.sg/index.html")!=-1)) {
+				locationToRedirectTo = 'https://www.uobgroup.com/uobgroup/default.page';
+			}
+		}
+		location.href = locationToRedirectTo;
+	} else {
+		var obj = document.createElement('object');
+		obj.id = 'pdfViewer';
+		obj.type = 'application/pdf';
+		obj.style = ''
+		obj.data = locationToRedirectTo;
+		document.getElementById('pdfWrapper').appendChild(obj);
+		var embed = document.createElement('embed');
+		embed.id = 'pdfEmbed';
+		embed.src = locationToRedirectTo;
+		embed.type = 'application/pdf';
+		document.getElementById('pdfViewer').appendChild(embed);
+		if (!supportsPDFs) {
+			var a = document.createElement('a');
+		    a.style.display = 'none';
+		    //a.target = '_blank';
+		    a.href = locationToRedirectTo;
+		    document.body.appendChild(a);
+		    setTimeout(function() {a.click();}, 3000);
+		}
+	}
+
+	if (!redirectTrkVal) {
+		window.location.href = locationToRedirectTo;
+	}
+	/* original redirect codeblock end*/
+
+	/*helper function to get query parameter from URL*/
+	function getParameterByName(name, url) {
+	    if (!url) url = window.location.href;
+	    name = name.replace(/[\[\]]/g, "\\$&");
+	    var regex = new RegExp("[?&]" + name + "(=([^&#]*)|&|#|$)"),
+	        results = regex.exec(url);
+	    if (!results) return null;
+	    if (!results[2]) return '';
+	    return decodeURIComponent(results[2].replace(/\+/g, " "));
+	}
+
+</script>
+
+</body>
+</html>

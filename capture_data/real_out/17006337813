@@ -1,0 +1,776 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+
+<head>
+
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="renderer" content="webkit">
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>amazon|海淘|QQ华人快递:华人快递|美中快递|代购-海外代购,美国代购,华人快递,美中快递</title>
+    <meta name="keywords" content="amazon,海淘,华人快递,海外代购,美国代购,华人快递,美中快递">
+    <meta name="description" content="amazon,海淘,QQ快递是一家专门从事海外代购,美国代购,华人快递,美中快递快递公司">
+    <script src="/user/resource/layui-v2.7.6/layui.js" type="text/javascript"></script>
+	 <script src="/user/resource/js/jquery-1.4.min.js" type="text/javascript"></script>
+	
+    <link href="/user/resource/layui-v2.7.6/css/layui.css" rel="stylesheet">
+    <link href="/user/resource/css/common.css?v=149958657" rel="stylesheet">
+    <script>
+		
+			
+        layui.use(['form', 'jquery', 'element'], function() {
+            var form = layui.form;
+            var element = layui.element;
+            var $ = layui.jquery;
+
+            /*form.on('submit(formDemo)', function(data) {
+                layer.msg(JSON.stringify(data.field));
+                return false;
+            });*/
+            $("#vercode").click(function() {
+                var loginname = $.trim($("#loginname").val());
+                var loginpsw = $.trim($("#loginpsw").val());
+
+                if (loginname == '') {
+                    alert('用户名不能为空');
+                    return false;
+                }
+                if (loginpsw == '') {
+                    alert('密码不能为空');
+                    return false;
+                }
+                $("#vercode").attr("disabled", true);
+                $.post('/user/index/get_vcode', {
+                    loginname: loginname,
+                    loginpsw: loginpsw
+                }, function(response) {
+                    $("#vercode").attr("disabled", false);
+                    if (response.msg) {
+                        alert(response.msg);
+                        // layer.msg(response.msg);
+                    }
+                }, 'json');
+
+
+            })
+
+            $("#login_bt").click(function() {
+                var username = $.trim($("#loginname").val());
+                var pwd = $.trim($("#loginpsw").val());
+                var captcha = $.trim($("#captcha").val());
+                if (username == '' || pwd == '') {
+                    layer.msg('用户名或密码不能为空');
+                    return false;
+                }
+                if (captcha == '') {
+                    layer.msg('邮件验证码不能为空');
+                    return false;
+                }
+
+                $.ajax({
+                    type: 'POST',
+                    url: "/user/index/login_action23",
+                    data: {
+                        loginname: username,
+                        loginpsw: pwd,
+                        captcha: captcha,
+                        hash: 'loginaction',
+                        qqex_validate: ''
+                    },
+                    success: function(response) {
+                        if (response == '') {
+                            layer.msg('亲，用户名或密码没有填写');
+                        } else {
+                            eval(response);
+                        }
+                    }
+                });
+            })
+            $("#login_bt2").click(function() {
+                var username = $.trim($("#loginname").val());
+                var pwd = $.trim($("#loginpsw").val());
+                var captcha = $.trim($("#captcha").val());
+                var hash = 'loginaction';
+                if (username == '' || pwd == '') {
+                    layer.msg('用户名或密码不能为空');
+                    return false;
+                }
+                if (captcha == '') {
+                    layer.msg('邮件验证码不能为空');
+                    return false;
+                }
+
+                $.ajax({
+                    type: 'POST',
+                    url: "/user/index/login_action23",
+                    data: {
+                        loginname: username,
+                        loginpsw: pwd,
+                        captcha: captcha,
+                        hash: 'loginaction',
+                        haiwai_submit: '1',
+                        qqex_validate: ''
+                    },
+                    success: function(response) {
+                        if (response == '') {
+                            layer.msg('亲，用户名或密码没有填写');
+                        } else {
+                            eval(response);
+                        }
+                    }
+                });
+            })
+
+            $("#login_bt_none").click(function() {
+                var username = $.trim($("#loginname").val());
+                var hash = 'loginaction';
+                if (username == '') {
+                    layer.msg('用户名不能为空');
+                    return false;
+                }
+
+                $.ajax({
+                    type: 'POST',
+                    url: "/user/index/login_action",
+                    data: {
+                        loginname: username,
+                        hash: 'loginaction',
+                    },
+                    success: function(response) {
+                        if (response == '') {
+                            layer.msg('亲，用户名没有填写');
+                        } else {
+                            eval(response);
+                        }
+                    }
+                });
+            })
+        });
+    </script>
+    <script>
+        var _hmt = _hmt || [];
+        (function() {
+            var hm = document.createElement("script");
+            hm.src = "https://hm.baidu.com/hm.js?f8bc83f6b0a3cef0f9e202d1847a974c";
+            var s = document.getElementsByTagName("script")[0];
+            s.parentNode.insertBefore(hm, s);
+        })();
+    </script>
+</head>
+
+<body>
+    <div class="layui-container container">
+        <div class="tops">
+            <div class="top">
+
+                                    <div class="top-left">
+                        <div class="top-left-left">
+                            <div class="top-label">手机号码/email</div>
+                            <div class="top-label">
+                                <input type="text" id="loginname" name="loginname" required lay-verify="required" autocomplete="off" class="layui-input input1">
+                            </div>
+                            <div class="top-label">密码</div>
+                            <div class="top-label">
+                                <input type="password" id="loginpsw" name="loginpsw" required lay-verify="required" autocomplete="new-password" class="layui-input input3">
+                            </div>
+
+                        </div>
+
+                        <div class="top-left-right">
+                            <div class="top-label">
+                                <button type="button" name="vercode" id="vercode">获取验证码</button>
+                            </div>
+
+                            <div class="top-label">
+                                &nbsp;验证码
+                            </div>
+
+                            <div class="top-label">
+                                <input type="text" id="captcha" name="captcha" required lay-verify="required" autocomplete="off" class="layui-input input2">
+                            </div>
+
+                            <div class="top-label">
+
+                                <button type="button" id="login_bt" class="button2">点此登录</button>
+                            </div>
+                            <div class="top-label">
+                                <button type="button" id="login_bt2" class="button2">海外仓登录</button>
+
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="top-right">
+                        <div class="top-right-label">
+                            <button type="button" id="login_bt_none" class="button2">免密登录</button>
+
+                        </div>
+
+                    </div>
+                            </div>
+        </div>
+
+        <div class="nav">
+            <div class="nav-content">
+                <div class="nav-left">
+                    <a href="/" target="_blank"><img src="/user/resource/images/logo.png"></a>
+                </div>
+
+                <div class="nav-right">
+                    <div class="nav-label">
+                        <a href="/" target="_blank">首页</a>
+                    </div>
+                    <div class="nav-label">
+                        <a href="/idupload.php" target="_blank">上传证件</a>
+                    </div>
+                    <div class="nav-label">
+                        <a href="/user/qudao" target="_blank">服务与价格</a>
+                    </div>
+                    <div class="nav-label">
+                        <a href="/user/home/lxwm" target="_blank">联系我们</a>
+                    </div>
+                    <div class="nav-label">
+                        <a href="http://www.haitao8.com/" target="_blank">海淘论坛</a>
+                    </div>
+
+                    <div class="nav-label">
+                        <a href="/user/i/s" target="_blank">免费注册</a>
+                    </div>
+                    <div class="nav-label">
+                        <a href="/user/index2/forget_pass" target="_blank">忘记密码</a>
+                    </div>
+
+
+
+                    <!-- <div class="nav-label">
+                        <a href="/cyhz.html" target="_blank">诚邀合作</a>
+                    </div>
+                    <div class="nav-label">
+                        <a href="/link_list.php" target="_blank">友情链接</a>
+                    </div> -->
+                </div>
+            </div>
+        </div><link href="/user/resource/css/home.css?v=2042804306" rel="stylesheet">
+
+<div class="contents">
+
+	<div class="content2s">
+		<div class="content2-1"> 业务分类 </div>
+		<div class="content2-2"> <img src="/user/resource/images/home-separate.png"> </div>
+		<div class="content2-3"> Business Classification </div>
+		<div class="content2-4">
+			<div> <a href="https://help.qq-ex.com/qq-exshiyongjiaocheng/" target="_blank"><img src="/user/resource/images/home-zy_line.png"></a> </div>
+			<div> <a href="https://www.haiwaicang.com/" target="_blank"><img src="/user/resource/images/home-hwc_line.png"></a> </div>
+		</div>
+		<div class="content2-5">
+			<div class="content2-5-left">
+				<div> <a href="https://help.qq-ex.com/mianshuizhoudaifa-shou/" target="_blank"><img src="/user/resource/images/home-msz.png">
+						<div class="content2-5-left-txt">免税州代收/发</div>
+					</a> </div>
+				<div> <a href="https://help.qq-ex.com/jihuozhuanyun/" target="_blank"><img src="/user/resource/images/home-jhzy.png">
+						<div class="content2-5-left-txt">集货转运</div>
+					</a> </div>
+				<div> <a href="http://help.qq-ex.com/yijiandaigou/" target="_blank"><img src="/user/resource/images/home-yjdf.png">
+						<div class="content2-5-left-txt">一键代购</div>
+					</a> </div>
+			</div>
+			<div class="content2-5-right">
+				<div> <a href="https://help.qq-ex.com/meiguobendishouhuo/" target="_blank"><img src="/user/resource/images/home-bd.png">
+						<div class="content2-5-left-txt">美中快递</div>
+					</a> </div>
+				<div> <a href="https://help.qq-ex.com/usps-ups-label/" target="_blank"><img src="/user/resource/images/home-usps.png">
+						<div class="content2-5-left-txt">USPS/UPS Label</div>
+					</a> </div>
+				<div> <a href="https://help.qq-ex.com/huiguoxingli/" target="_blank"><img src="/user/resource/images/home-hg.png">
+						<div class="content2-5-left-txt">回国行李</div>
+					</a> </div>
+			</div>
+		</div>
+	</div>
+	<div class="content1s">
+		<div class="content1">
+			<form class="layui-form" action="/user/search_order" method="post" target="_blank">
+				<div class="content1-left">
+					<input type="text" placeholder="请输入运单号" id="order_no" name="order_no" lay-verify="number"  onfocus="this.placeholder=''">
+					<input type="image" src="/user/resource/images/home-search.png" lay-submit id="search_btn" name="submit">
+				</div>
+			</form>
+			<a href="/idupload.php" target="_blank">
+				<div class="content1-right">
+					<div class="content1-right-top">
+						<div> <img src="/user/resource/images/home-card1.png"> </div>
+						<div> <img src="/user/resource/images/home-card2.png"> </div>
+					</div>
+					<div class="content1-right-button"> <img src="/user/resource/images/home-upload.png"> </div>
+				</div>
+			</a>
+		</div>
+	</div>
+	<div class="content3s">
+		<div class="content3-1"> 特色服务 </div>
+		<div class="content3-2"> <img src="/user/resource/images/home-separate.png"> </div>
+		<div class="content3-3"> Featured Services </div>
+		<div class="content3-4">
+			<div class="content3-4-left">
+				<div>
+					<div class="content3-4-1">01</div>
+					<div class="content3-4-txt">
+						<div class="content3-4-2"> <a href="/user/news/detail/4751" target="_blank"> qq快递晒单送运费</a> </div>
+						<div class="content3-4-3"> <a href="/user/news/detail/4751" target="_blank">qq快递晒单送运费抽奖送面膜</a> </div>
+					</div>
+					<div> <a href="/user/news/detail/4751" target="_blank"><img src="/user/resource/images/arror-right.png"></a> </div>
+				</div>
+				<div>
+					<div class="content3-4-1">03</div>
+					<div class="content3-4-txt">
+						<div class="content3-4-2"> <a href="http://www.qq-ex.com./user/news/detail/4560" target="_blank">归国人员行李</a> </div>
+						<div class="content3-4-3"> <a href="http://www.qq-ex.com./user/news/detail/4560" target="_blank">归国人员行李归国人员行李归国人员行李</a> </div>
+					</div>
+					<div> <a href="http://www.qq-ex.com./user/news/detail/4560" target="_blank"><img src="/user/resource/images/arror-right.png"></a> </div>
+				</div>
+				<div>
+					<div class="content3-4-1">05</div>
+					<div class="content3-4-txt">
+						<div class="content3-4-2"> <a href="http://www.qq-ex.com/user/news/detail/4747" target="_blank">0.1磅收费更省运费</a> </div>
+						<div class="content3-4-3"> <a href="http://www.qq-ex.com/user/news/detail/4747" target="_blank">合箱分箱 原箱都按照</a> </div>
+					</div>
+					<div> <a href="http://www.qq-ex.com/user/news/detail/4747" target="_blank"><img src="/user/resource/images/arror-right.png"></a> </div>
+				</div>
+				<div>
+					<div class="content3-4-1">07</div>
+					<div class="content3-4-txt">
+						<div class="content3-4-2"> <a href="/index_cn.php" target="_blank">免费代下单</a> </div>
+						<div class="content3-4-3"> <a href="/index_cn.php" target="_blank">实时汇率，免费代下单</a> </div>
+					</div>
+					<div> <a href="" target="_blank"><img src="/user/resource/images/arror-right.png"></a> </div>
+				</div>
+			</div>
+			<div class="content3-4-right">
+				<div>
+					<div class="content3-4-1">02</div>
+					<div class="content3-4-txt">
+						<div class="content3-4-2"> <a href="https://qq-ex.com/user/news/detail/3689" target="_blank">推荐注册送200元运费</a> </div>
+						<div class="content3-4-3"> <a href="https://qq-ex.com/user/news/detail/3689" target="_blank">终身2%忠诚度返利</a> </div>
+					</div>
+					<div> <a href="https://qq-ex.com/user/news/detail/3689" target="_blank"><img src="/user/resource/images/arror-right.png"></a> </div>
+				</div>
+				<div>
+					<div class="content3-4-1">04</div>
+					<div class="content3-4-txt">
+						<div class="content3-4-2"> <a href="http://www.qq-ex.com/user/news/detail/4731" target="_blank">打包出库拍照免费</a> </div>
+						<div class="content3-4-3"> <a href="http://www.qq-ex.com/user/news/detail/4731" target="_blank">qq快递打包出库拍照免费</a> </div>
+					</div>
+					<div> <a href="http://www.qq-ex.com/user/news/detail/4731" target="_blank"><img src="/user/resource/images/arror-right.png"></a> </div>
+				</div>
+				<div>
+					<div class="content3-4-1">06</div>
+					<div class="content3-4-txt">
+						<div class="content3-4-2"> <a href="/user/news/detail/5036" target="_blank">返利赠送</a> </div>
+						<div class="content3-4-3"> <a href="/user/news/detail/5036" target="_blank">qq快递返利赠送3.75%-18.75%</a> </div>
+					</div>
+					<div> <a href="/user/news/detail/4751" target="_blank"><img src="/user/resource/images/arror-right.png"></a> </div>
+				</div>
+				<div>
+					<div class="content3-4-1">08</div>
+					<div class="content3-4-txt">
+						<div class="content3-4-2"> <a href="/user/news/detail/4738" target="_blank">分箱，拍照</a> </div>
+						<div class="content3-4-3"> <a href="/user/news/detail/4738" target="_blank">免费仓内精确分箱+拍照</a> </div>
+					</div>
+					<div> <a href="" target="_blank"><img src="/user/resource/images/arror-right.png"></a> </div>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<!--  <div class="content4s">
+        <div class="content4-1">
+            客户晒单
+        </div>
+        <div class="content4-2">
+            <img src="/user/resource/images/home-separate.png">
+        </div>
+        <div class="content4-3">
+            Customer Posting
+        </div>
+        <div class="content4-4">
+            查看更多
+        </div>
+        <div class="content4-5">
+            <div>
+                <div class="content4-5-img">
+                    <a href="" target="_blank"><img src="/user/resource/images/home-sd.png"></a>
+                </div>
+                <div class="content4-5-txt">
+                    <a href="" target="_blank">五一晒单 新百伦男孩夹克裤子两件套</a>
+                </div>
+                <div class="content4-5-profile">
+                    <img src="/user/resource/images/home-profile.png">
+                    <span>用户昵称</span>
+                </div>
+            </div>
+            <div>
+                <div class="content4-5-img">
+                    <a href="" target="_blank"><img src="/user/resource/images/home-sd.png"></a>
+                </div>
+                <div class="content4-5-txt">
+                    <a href="" target="_blank">五一晒单 新百伦男孩夹克裤子两件套</a>
+                </div>
+                <div class="content4-5-profile">
+                    <img src="/user/resource/images/home-profile.png">
+                    <span>用户昵称</span>
+                </div>
+            </div>
+            <div>
+                <div class="content4-5-img">
+                    <a href="" target="_blank"><img src="/user/resource/images/home-sd.png"></a>
+                </div>
+                <div class="content4-5-txt">
+                    <a href="" target="_blank">五一晒单 新百伦男孩夹克裤子两件套</a>
+                </div>
+                <div class="content4-5-profile">
+                    <img src="/user/resource/images/home-profile.png">
+                    <span>用户昵称</span>
+                </div>
+            </div>
+            <div>
+                <div class="content4-5-img">
+                    <a href="" target="_blank"><img src="/user/resource/images/home-sd.png"></a>
+                </div>
+                <div class="content4-5-txt">
+                    <a href="" target="_blank">五一晒单 新百伦男孩夹克裤子两件套</a>
+                </div>
+                <div class="content4-5-profile">
+                    <img src="/user/resource/images/home-profile.png">
+                    <span>用户昵称</span>
+                </div>
+            </div>
+        </div>
+    </div>-->
+	<div class="content5s">
+		<div class="content5-1"> 其他服务 </div>
+		<div class="content5-2"> <img src="/user/resource/images/home-separate.png"> </div>
+		<div class="content5-3"> Other Services </div>
+	</div>
+	<div class="content6s">
+		<div class="content6-1">
+			<div class="content6-title content6-1-active" onclick="content6(this,'news')"> 新闻公告 </div>
+			<div class="content6-title" onclick="content6(this,'discount')"> 折扣资讯 </div>
+			<div class="content6-title" onclick="content6(this,'haitao')"> 海淘教程 </div>
+			<div class="content6-title" onclick="content6(this,'help')"> 帮助中心 </div>
+		</div>
+		<div class="content6-content news">
+			<div class="content6-2">
+				<div class="content6-2-left"> <img src="/user/resource/images/home-other.png"> </div>
+				<div class="content6-2-right">
+					<div class="content6-2-right-top" style="position:relative;"> <a href="/user/news/detail/5039" target="_blank">
+							2023-147B航班已清关						</a> <span>
+							2023-11-20						</span> </div>
+					<div class="content6-2-right-bottom">
+													<div>
+								<div class="content6-2-right-bottom-left"><a href="/user/news/detail/5038" target="_blank">
+										2023-146B航班已清关									</a></div>
+								<div class="content6-2-right-bottom-right">
+									2023-11-16								</div>
+							</div>
+							<div><img src="/user/resource/images/home-separate1.png"></div>
+													<div>
+								<div class="content6-2-right-bottom-left"><a href="/user/news/detail/5037" target="_blank">
+										2023-145B航班已清关									</a></div>
+								<div class="content6-2-right-bottom-right">
+									2023-11-16								</div>
+							</div>
+							<div><img src="/user/resource/images/home-separate1.png"></div>
+													<div>
+								<div class="content6-2-right-bottom-left"><a href="/user/news/detail/5036" target="_blank">
+										QQ美中转运助力黑五！预付运费赠送额外增加25%！									</a></div>
+								<div class="content6-2-right-bottom-right">
+									2023-11-14								</div>
+							</div>
+							<div><img src="/user/resource/images/home-separate1.png"></div>
+													<div>
+								<div class="content6-2-right-bottom-left"><a href="/user/news/detail/5035" target="_blank">
+										E1渠道：USPS11072023已更新USPS单号									</a></div>
+								<div class="content6-2-right-bottom-right">
+									2023-11-13								</div>
+							</div>
+							<div><img src="/user/resource/images/home-separate1.png"></div>
+													<div>
+								<div class="content6-2-right-bottom-left"><a href="/user/news/detail/5034" target="_blank">
+										2023-144B航班已清关									</a></div>
+								<div class="content6-2-right-bottom-right">
+									2023-11-08								</div>
+							</div>
+							<div><img src="/user/resource/images/home-separate1.png"></div>
+											</div>
+				</div>
+			</div>
+			<div class="content6-3"> <a href="/user/index/index_flist3" style="float:right" target="_blank"><img src="/user/resource/images/home-more.png"></a> </div>
+		</div>
+		<div class="content6-content discount" style="display:none;">
+			<div class="content6-2">
+				<div class="content6-2-left"> <img src="/user/resource/images/home-other.png"> </div>
+				<div class="content6-2-right">
+					<div class="content6-2-right-top" style="position:relative;"> <a href="/user/di/show?id=12278" target="_blank">
+							Xbox Series S+3个月GPU会员 7.8折 $234（约1667元）						</a> <span>
+							2023-11-21						</span> </div>
+					<div class="content6-2-right-bottom">
+													<div>
+								<div class="content6-2-right-bottom-left"><a href="/user/di/show?id=12277" target="_blank">
+										Janie and Jack 女童卫衣 5.1折 $22.39（约160元）									</a></div>
+								<div class="content6-2-right-bottom-right">
+									2023-11-21								</div>
+							</div>
+													<div>
+								<div class="content6-2-right-bottom-left"><a href="/user/di/show?id=12276" target="_blank">
+										Kate Spade Outlet：黑五提前购 全场包袋、饰品 低至3折+精选额外8									</a></div>
+								<div class="content6-2-right-bottom-right">
+									2023-11-21								</div>
+							</div>
+													<div>
+								<div class="content6-2-right-bottom-left"><a href="/user/di/show?id=12275" target="_blank">
+										【2023黑五】Coach Outlet：精选包袋、配饰等低至3折 限时高返+额外7									</a></div>
+								<div class="content6-2-right-bottom-right">
+									2023-11-21								</div>
+							</div>
+													<div>
+								<div class="content6-2-right-bottom-left"><a href="/user/di/show?id=12274" target="_blank">
+										【2023黑五】Savannahs：精选 The Row 时尚专区低至4折 抢 Park 托									</a></div>
+								<div class="content6-2-right-bottom-right">
+									2023-11-21								</div>
+							</div>
+													<div>
+								<div class="content6-2-right-bottom-left"><a href="/user/di/show?id=12273" target="_blank">
+										e.l.f. Cosmetics 保湿有色唇膏 7折 $4.9（约35元）									</a></div>
+								<div class="content6-2-right-bottom-right">
+									2023-11-21								</div>
+							</div>
+											</div>
+				</div>
+			</div>
+			<div class="content6-3"> <a href="/user/di/discountinfo_list" style="float:right" target="_blank"><img src="/user/resource/images/home-more.png"></a> </div>
+		</div>
+		<div class="content6-content haitao" style="display:none;">
+			<div class="content6-2">
+				<div class="content6-2-left"> <img src="/user/resource/images/home-other.png"> </div>
+				<div class="content6-2-right">
+					<div class="content6-2-right-top" style="position:relative;"><a href="http://help.qq-ex.com/qq-exshiyongjiaocheng" target="_blank">QQ-EX转运教程</a><span>2023-06-02</span> </div>
+					<div class="content6-2-right-bottom">
+
+						<div>
+							<div class="content6-2-right-bottom-left"><a href="http://help.qq-ex.com/haitaoliucheng" target="_blank">海淘的一般流程</a></div>
+							<div class="content6-2-right-bottom-right">2023-05-02</div>
+						</div>
+						<div>
+							<div class="content6-2-right-bottom-left"><a href="/3.html" target="_blank">amazon海淘扫盲之如何注册亚马逊</a></div>
+							<div class="content6-2-right-bottom-right">2023-04-02</div>
+						</div>
+						<div>
+							<div class="content6-2-right-bottom-left"><a href="/4.html" target="_blank">Eddie Bauer尺码表</a></div>
+							<div class="content6-2-right-bottom-right">2023-03-02</div>
+						</div>
+						<div>
+							<div class="content6-2-right-bottom-left"><a href="/5.html" target="_blank">Columbia尺码表</a></div>
+							<div class="content6-2-right-bottom-right">2023-02-02</div>
+						</div>
+						<div>
+							<div class="content6-2-right-bottom-left"><a href="/6.html" target="_blank">dkny尺码表</a></div>
+							<div class="content6-2-right-bottom-right">2023-01-02</div>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="content6-3">
+				<!--<img src="/user/resource/images/home-more.png">-->
+			</div>
+		</div>
+		<div class="content6-content help" style="display:none;">
+			<div class="content6-2">
+				<div class="content6-2-left"> <img src="/user/resource/images/home-other.png"> </div>
+				<div class="content6-2-right">
+					<div class="content6-2-right-top" style="position:relative;"><a href="http://www.haitao8.com/thread-254363-1-1.html" target="_blank">QQ-EX各类活动大全</a> <span>2023-06-02</span> </div>
+					<div class="content6-2-right-bottom">
+
+						<div>
+							<div class="content6-2-right-bottom-left"><a href="/user/news/detail/4761" target="_blank">免费查看打包录像、打包图片、入库图片方法</a></div>
+							<div class="content6-2-right-bottom-right">2023-06-02</div>
+						</div>
+						<div>
+							<div class="content6-2-right-bottom-left"><a href="/see_protocol.html" target="_blank">QQ-EX售后服务理赔协议</a></div>
+							<div class="content6-2-right-bottom-right">2023-06-02</div>
+						</div>
+						<div>
+							<div class="content6-2-right-bottom-left"><a href="/user/news/detail/3753" target="_blank">QQ-ex转运身份证上传问题的说明</a></div>
+							<div class="content6-2-right-bottom-right">2023-06-02</div>
+						</div>
+						<div>
+							<div class="content6-2-right-bottom-left"><a href="/12.html" target="_blank">关于ups、usps称重不准的问题，原理解剖</a></div>
+							<div class="content6-2-right-bottom-right">2023-06-02</div>
+						</div>
+						<div>
+							<div class="content6-2-right-bottom-left"><a href="/13.html" target="_blank">禁运物品</a></div>
+							<div class="content6-2-right-bottom-right">2023-06-02</div>
+						</div>
+						<div>
+							<div class="content6-2-right-bottom-left"><a href="/8.html" target="_blank">如何 申请 退款到支付宝 操作</a></div>
+							<div class="content6-2-right-bottom-right">2023-06-02</div>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="content6-3"> <!--<img src="/user/resource/images/home-more.png">--> </div>
+		</div>
+	</div>
+</div>
+<script>
+	layui.use(['form', 'jquery'], function() {
+		var form = layui.form;
+		var $ = layui.jquery;
+
+		window.content6 = function(that, mode) {
+			$(".content6-title").removeClass('content6-1-active')
+			$(that).addClass('content6-1-active')
+			$(".content6-content").hide()
+			$("." + mode).show()
+			console.log(mode)
+		}
+
+		/*$("#search_btn").click(function(response){
+			var search_txt=$.trim($("#search_txt").val());
+			var reg = /^\d{13}$/g 
+			if(search_txt.length!=13 || !reg.test(search_txt)){
+				layer.alert('运单号应该为13位的数字');
+				 return false;
+			}
+			
+			
+		})	*/
+	})
+</script>
+<div class="foots">
+    <div class="foot">
+        <div class="foot-left">
+            <div class="foot-link">
+                <a href="http://www.haitao8.com/" title="海淘吧论坛" target="_blank">海淘吧论坛</a>
+                <a href="/lxwm.html" title="联系我们">联系我们</a>
+            </div>
+            <div class="foot-copyright">
+                <div>该网站属于AMERIMAX.INC.版权所有。本网站里的商品属于品牌方自有， 不属于本网站品牌。</div>
+                <div>The site is owned by AMERIMAX.INC. The goods in this website belong to brand party own, do not belong to this website brand.</div>
+            </div>
+        </div>
+        <div class="foot-right">
+            <div>
+                <div>微信号：qqex2011</div>
+                <img src="/user/resource/images/wechat2011.png">
+            </div>
+            <div>
+                <div>微信号：qqex2022</div>
+                <img src="/user/resource/images/wechat2011.png">
+            </div>
+        </div>
+    </div>
+</div>
+
+</div>
+
+<style>
+	* {
+		margin: 0;
+		padding: 0;
+		list-style: none;
+	}
+
+	img {
+		border: 0;
+	}
+
+	.lanren {
+		position: absolute;
+		right: 0;
+		top: 200px;
+	}
+
+	.lanren .slide_min {
+		width: 28px;
+		height: 112px;
+		background: url(http://www.qq-ex.com/images/slide_min.jpg) no-repeat;
+		cursor: pointer;
+	}
+
+	.lanren .slide_box {
+		width: 154px;
+		height: auto;
+		overflow: hidden;
+		background: url(http://www.qq-ex.com/images/slide_box_bg.jpg) repeat-y;
+		font-size: 12px;
+		text-align: center;
+		line-height: 130%;
+		color: #666;
+		border-bottom: 2px solid #76A20D;
+	}
+
+	.lanren .slide_box .weixin {
+		margin-bottom: 5px;
+	}
+
+	.lanren .slide_box img {
+		cursor: pointer;
+	}
+
+	.lanren .slide_box p {
+		text-align: center;
+		padding: 5px;
+		margin: 5px;
+		border-bottom: 1px solid #ddd;
+	}
+
+	.lanren .slide_box span {
+		padding: 5px 10px;
+		display: block;
+	}
+
+	.lanren .slide_box span a {
+		color: #76A20C;
+	}
+</style>
+
+<!-- 代码部分begin -->
+<div class="lanren">
+	<div class="slide_min" style="display:none;"></div>
+	<div class="slide_box" style="display:block;">
+		<h2><img src="http://www.qq-ex.com/images/slide_box.jpg" /></h2>
+		<p>QQ快递-小欧<a title='QQ快递-小欧' href='tencent://message/?uin=188019368&amp;Site=www.qq-ex.com&amp;Menu=yes' target='_blank'><img src='http://wpa.qq.com/pa?p=2:123456789:41'></a></p><p>QQ快递-小梅<a title='QQ快递-小梅' href='tencent://message/?uin=188019318&amp;Site=www.qq-ex.com&amp;Menu=yes' target='_blank'><img src='http://wpa.qq.com/pa?p=2:123456789:41'></a></p><p>微信客服<img src='/user/resource/images/wechat2011.png'></p>	</div>
+</div>
+
+<script>
+	layui.use('jquery', function() {
+		var $ = layui.jquery;
+
+		$(function() {
+			var thisBox = $('.lanren');
+			var defaultTop = thisBox.offset().top;
+			var slide_min = $('.lanren .slide_min');
+			var slide_box = $('.lanren .slide_box');
+			var closed = $('.lanren .slide_box h2 img');
+			//slide_min.on('click',function(){$(this).hide();	slide_box.show();});
+			//closed.on('click',function(){slide_box.hide().hide();slide_min.show();});
+			// 页面滚动的同时，悬浮框也跟着滚动
+			$(window).on('scroll', function() {
+				scroll();
+			});
+			$(window).onload = scroll();
+
+			function scroll() {
+				var offsetTop = defaultTop + $(window).scrollTop() + 'px';
+				//console.log(1234)
+				thisBox.animate({
+					top: offsetTop
+				}, {
+					duration: 600, //滑动速度
+					queue: false //此动画将不进入动画队列
+				});
+			}
+		})
+	});
+</script></body>
+
+</html>

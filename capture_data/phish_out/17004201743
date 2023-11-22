@@ -1,0 +1,82 @@
+
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="robots" content="noindex,nofollow">
+
+<style type="text/css">
+body {
+  opacity: 0;
+  transition: opacity 2s;
+  -webkit-transition: opacity 2s;
+
+  height:100%; 
+  margin:0;
+  padding:0
+}
+ 
+h1, h2 {
+    font-family: "PT Sans", Helvetica, Arial;
+} 
+ 
+.container-fluid {
+  height:100%;
+  display:table;
+  width: 100%;
+  padding: 0;
+}
+ 
+.row-fluid {height: 100%; display:table-cell; vertical-align: middle;}
+ 
+
+.centering {
+   float:none;
+   margin:0 auto;
+   text-align: center;
+}
+
+h2,
+input {
+    padding: 3px 5px;
+    font-size: 20px;
+    border-radius: 3px
+}
+
+</style>
+</head>
+<body onload="document.body.style.opacity='1'">
+
+<div class="container-fluid">
+    <div class="row-fluid">
+        <div class="centering text-center">
+            <h1>&#128274; Требуется авторизация</h1>
+            <h2>Пароль <input type="password" id="a" size=10> 
+            <input type="button" id="gobut" value="&nbsp;&nbsp;OK&nbsp;&nbsp;" onclick="go();"></h2>
+        </div>
+    </div>
+</div>
+
+<script language="javascript">
+    var method = 'GET';
+    function go() {
+        var http = new XMLHttpRequest();
+
+        document.body.style.opacity = '0';
+
+        http.open("POST", "/", true);
+        http.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+        http.onreadystatechange = function() {
+            if ((http.readyState == 4) && (http.status == 200)) {
+               window.location.reload(true);
+            } else {
+              alert('Error in the response: ' + http.status + ' ' + http_statusText);
+            }
+        };
+
+        http.send("do_auth=true&lor_auth_bd6e4423be422b2c9fcfe2aa54f92980=" + document.getElementById("a").value);
+    }
+</script>
+
+<noscript><font color=red>Please, <a href="http://www.enable-javascript.com" target=_blank>enable javascript</a> support in the browser.</font></noscript>
+</body>
+</html>

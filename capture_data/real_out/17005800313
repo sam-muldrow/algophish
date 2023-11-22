@@ -1,0 +1,1910 @@
+<!DOCTYPE html><html lang="en">
+
+	<head>
+		
+
+
+
+
+
+
+
+
+
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+
+<script type="text/javascript">
+
+(function() {
+
+	var extractDataFromResponse = function(response) {
+		var dataObject = response;
+		if(typeof response === "string") {
+			try {
+				dataObject = JSON.parse(response);
+			} catch(e) {
+				dataObject = undefined;
+			}
+		}
+		return dataObject;
+	};
+
+	var isPageRedirectUrlPresent = function(data) {
+		return data && data.pageRedirect && data.pageRedirect.url;
+	};
+
+	var originalAjax = jQuery.ajax;
+	jQuery.ajax = function(url, options) {
+		if ( typeof url === "object" ) {
+			options = url;
+			url = undefined;
+		}
+		options = options || {};
+
+		if (options.success) {
+			var originalSuccess = options.success;
+			options.success = function(response) {
+				var data = extractDataFromResponse(response);
+				if(isPageRedirectUrlPresent(data)) {
+					document.location.href = data.pageRedirect.url;
+				} else {
+					originalSuccess.apply(this, arguments);
+				}
+			}
+		}
+
+		if(options.complete) {
+			var originalComplete = options.complete;
+			options.complete = function( jqXHR, status, responseText ) {
+				if(jqXHR && jqXHR.responseText) {
+					var data = extractDataFromResponse(jqXHR.responseText);
+					if (isPageRedirectUrlPresent(data)) {
+						document.location.href = data.pageRedirect.url;
+						return false;
+					}
+				}
+				originalComplete.apply(this, arguments);
+			}
+		}
+
+		var ajax = $.Deferred();
+
+		originalAjax(url, options)
+			.done(function(response) {
+				var data = extractDataFromResponse(response);
+				if(isPageRedirectUrlPresent(data)) {
+					document.location.href = data.pageRedirect.url;
+					ajax.reject();
+				} else {
+					ajax.resolve(response);
+				}
+			})
+			.fail(ajax.reject);
+
+		return ajax.promise();
+	};
+})();
+</script><!-- Declare General functions -->
+<script>
+	$.fn.bindFirst=function bindFirst(eventType,fn) {	
+	    this.on(eventType, fn);
+	    this.each(function() {
+	    	var handlers = $._data(this, 'events')[eventType.split('.')[0]];
+	        var handler = handlers.pop();
+	        handlers.splice(0, 0, handler);
+	    });
+	}
+	
+   	function noErrorsOnForm(siteForm) {
+		//add information_message negative
+		var errors = $(siteForm).find('.form_field_error');
+		return errors.length === 0;
+	}
+   		
+   	function getScriptParentNode(scriptId){
+   		var scriptTag = document.getElementById(scriptId);
+   		if (!scriptTag) return null;
+   		
+   		return scriptTag.parentNode;
+   	}
+   	
+   	function isParentValid(parent){
+   		if (!parent) return false;
+   		if ("BODY" === parent.tagName) return false;
+   		
+   		return true;
+   	}
+
+   	function findProductIndex(basket, product, matcher) {
+   	    var products = basket.products;
+   	    var index = -1;
+   	    for (var i = 0; i < products.length; i++) {
+   	        if (matcher(products[i], product) == true) {
+   	            index = i;
+   	            break;
+   	        }
+   	    }
+   	    return index;
+   	}
+
+	function setProductData(productEnclosingTag, productName, productLocation, productPosition){
+   		$(productEnclosingTag).data('gtmProductLocation', productLocation);
+   		$(productEnclosingTag).data('gtmProductPosition', productPosition);
+   		$(productEnclosingTag).data('gtmProductName', productName);	
+	}
+
+   	function productLocationNotSet(productEnclosingTag){    		
+   		return !$(productEnclosingTag).data('gtmProductLocation');
+   	}
+   	
+   	function getProductLocation(currentElement, defaultLocation){
+   		var productLocation = $(currentElement).closest(":data(gtmProductLocation)").data("gtmProductLocation");
+   		if (!productLocation) productLocation = defaultLocation;
+   		
+   		return productLocation;
+   	}
+   	
+   	function getProductPosition(currentElement){
+   		var productPosition = $(currentElement).closest(':data(gtmProductPosition)').data('gtmProductPosition');
+   		
+   		return productPosition;
+   	}
+   	
+   	function getProductName(currentElement){
+   		var productName = $(currentElement).closest(':data(gtmProductName)').data('gtmProductName');
+   		
+   		return productName;
+   	}
+   	
+   	function addProductImpression(productObj){
+   		window.impressions = window.impressions || [];
+   		window.impressions.push(productObj);
+   	}
+   	
+   	function pushProductImpressionsOnReady() {
+   		$(document).ready(function() {
+   			if(window.impressions){
+   				dataLayer.push({
+   					'event': '',
+   					'': 'productImpression',
+   					'ecommerce': {
+   						 'impressions': window.impressions
+   				 	}
+   				}); 
+   			}
+   		});
+   	}
+
+   	function appendFulfilmentData(product, fulfilmentType, storeId, storeName) {
+   	    if("C&C" === fulfilmentType) {
+   	        product["store_ID"] = storeId;
+        	product["store_name"] = storeName;
+        	product["product_fulfillment"] = "C&C";
+        } else {
+            product["product_fulfillment"] = "Delivery";
+        }
+   	}
+
+   	function appendBasketAndSendGtmEvent(event, updateBasketFunction) {
+        $.ajax({
+            url: "/cart",
+            type: 'GET',
+            dataType: 'json',
+            headers: {
+                'Accept': 'application/json'
+            },
+            async : false,
+            contentType: 'application/json; charset=utf-8',
+            success: function (result) {
+                event.ecommerce.basket = result;
+                updateBasketFunction(result);
+                removeEntryNumberFromBasket(result);
+                dataLayer.push(event);
+            }
+        });
+   	}
+
+   	function removeEntryNumberFromBasket(basket) {
+   	    basket.products.forEach(function(product){
+   	        delete product.entry_number;
+   	    });
+   	}
+
+   	function isEqualProducts(actualProduct, targetProduct) {
+   	    if(targetProduct.product_code !== actualProduct.product_code) {
+   	        return false;
+   	    }
+   	    if(targetProduct.product_fulfillment !== actualProduct.product_fulfillment) {
+   	        return false;
+   	    }
+   	    if (targetProduct.product_fulfillment === "C&C" && targetProduct.store_name !== actualProduct.store_name) {
+   	        return false;
+   	    }
+   	    return true;
+   	}
+
+   	function findProductIndexInBasket(basket, targetProduct) {
+   	    return findProductIndex(basket, targetProduct, isEqualProducts);
+   	}
+
+   	function cloneProduct(product) {
+    	    //create product clone and append fulfilment related data for search product in basket
+    	    var productClone = {};
+    	    for (var prop in product) {
+    	        productClone[prop] = product[prop];
+    	    }
+    	    return productClone;
+    	}
+
+    function changeProductDeliveryMode(product, productToUpdate) {
+        productToUpdate.product_fulfillment = product.product_fulfillment;
+    	var storeIdProp = "store_ID";
+        var storeNameProp = "store_name";
+        if (product.product_fulfillment === "C&C") {
+            productToUpdate[storeIdProp] = product.store_ID;
+            productToUpdate[storeNameProp] = product.store_name;
+        } else {
+            delete productToUpdate[storeIdProp];
+            delete productToUpdate[storeNameProp];
+        }
+    }
+
+	function handleUpdateBasketEvent(eventType, product, currencyCode) {
+	    var event = {
+	        "event" : eventType,
+            "ecommerce" : {
+                "currencyCode" : currencyCode
+            }
+        };
+
+        var resultProductQuantity = product.product_quantity_new;
+        delete product.product_quantity_new;
+        if (!isValidProductQuantity(resultProductQuantity)) {
+            return;
+        }
+
+        var productCloneForBasketUpdate = cloneProduct(product);
+        productCloneForBasketUpdate.product_quantity = resultProductQuantity;
+
+        delete product.entry_number;
+        event.ecommerce['update'] = {"products": [product]};
+
+        appendBasketAndSendGtmEvent(event, updateBasket(productCloneForBasketUpdate));
+	}
+
+	function isValidProductQuantity(quantity) {
+        return (!isNaN(quantity)) && (quantity >= 0);
+    }
+
+	function updateBasket(product) {
+	    return function(basket) {
+	        var productIndex = findProductIndex(basket, product, hasEqualEntryNumber);
+	        if (productIndex == -1) {
+	            return;
+	        }
+	        var productToUpdate = basket.products[productIndex];
+	        productToUpdate.product_quantity = product.product_quantity;
+	        updateProductDeliveryMethod (productToUpdate, product);
+	        mergeDuplicatesInBasket(basket, productToUpdate, productIndex);
+	    }
+	}
+
+	function hasEqualEntryNumber(currentProduct, targetProduct) {
+	    return currentProduct.entry_number == targetProduct.entry_number;
+	}
+
+    function updateProductDeliveryMethod(productToUpdate, product) {
+        productToUpdate.product_fulfillment = product.product_fulfillment;
+        if (product.product_fulfillment === "C&C") {
+            productToUpdate.store_ID = product.store_ID;
+            productToUpdate.store_name = product.store_name;
+        } else {
+            delete productToUpdate.store_ID;
+            delete productToUpdate.store_name;
+        }
+    }
+
+    function mergeDuplicatesInBasket(basket, product, skipIndex) {
+        var duplicateIndex = findDuplicateIndexInBasket(basket, product, skipIndex);
+        if (duplicateIndex == -1) {
+            return;
+        } else {
+            //there are two similar products but with different product quantity
+            var duplicateProduct = basket.products[duplicateIndex];
+            product.product_quantity = (parseInt(product.product_quantity) + parseInt(duplicateProduct.product_quantity)).toString();
+            basket.products.splice(duplicateIndex, 1);
+        }
+    }
+
+    function findDuplicateIndexInBasket(basket, product, skipIndex) {
+        var duplicateIndex = -1;
+        for (var i = 0; i < basket.products.length; i++) {
+            if (i == skipIndex) {
+                continue;
+            }
+            if (isEqualProducts(basket.products[i], product)) {
+                duplicateIndex = i;
+                break;
+            }
+        }
+        return duplicateIndex;
+    }
+</script><!-- Google Tag Manager Data layer -->
+<script>
+dataLayer = [{
+	
+	currency : 'GBP', //OPT
+	agilOneAuthKey : '$2a$10$08PhyiWavfy8XPRu8ipODuMRr.ps4kZqM9uBZxlzQlNCfiOnA..za',
+	customer_email : '',
+	
+		customer_new_existing : 'new', //OPT
+		customer_type: 'Guest',
+		trade_category: null,
+	
+	page_url : location.href, //REQ - if not currently being captured, you can use location.href
+
+    
+            platform : "website",
+        
+					page_type : 'Homepage', //REQ - the page type being viewed by the user
+					page_name : 'Wickes DIY & Trade Home Improvement Products and Inspiration', //REQ - the specific page identifier being viewed by the customer
+					basket_page_revenue : '', //OPT
+					total_items : '', //OPT
+				
+	wickes_card_number : '' //OPT - Is not aplicable now
+}];
+</script>
+<!--  End Google Tag Manager Data layer -->
+
+<!-- Start Enhanced Ecommerce Analytics -->
+
+
+
+
+
+
+
+
+
+<script type="text/javascript">
+	dataLayer = window.dataLayer || [];
+	ACC = window.ACC || {};
+	ACC.eea = {
+        triggerProductClick: function(list, product) {
+             dataLayer.push({
+                event: "productClick",
+                ecommerce: {
+                    click: {
+                        actionField: {
+                            list: list
+                        },
+                        products: [$.extend({}, product)]
+                    }
+                },
+            });
+        },
+
+		createAddToCartEvent: function(product, position, params)
+		{
+			return {
+				event: "addToCart",
+				ecommerce: {
+					currencyCode: "GBP",
+					add: {
+						products: [
+							$.extend({
+								position: position,
+								quantity: params.quantity,
+								fulfillment: params.fulfillment || 'Delivery',
+								wisdomAddToDeliveryFlow: params.wisdomAddToDeliveryFlow
+							}, product)
+						]
+					}
+				}
+			};
+		},
+
+		triggerAddToCart: function(quantity, fulfillment, wisdomAddToDeliveryFlow, sku)
+		{
+			$(document).trigger("EEAddToCart", {
+				quantity: quantity,
+				fulfillment: fulfillment,
+				wisdomAddToDeliveryFlow: wisdomAddToDeliveryFlow,
+				sku: sku
+			});
+		},
+
+		handlePromotionClick: function(promotionElement) {
+			dataLayer.push({
+				event: "promotionClick",
+				ecommerce: {
+					promoClick: {
+						promotions: [{
+							id: $(promotionElement).closest("[id]").attr("id"),
+							name: $(promotionElement).closest("[title]").attr("title"),
+							creative: "not specified",
+							position: $(promotionElement).attr("data-eea-position")
+						}]
+					}
+				},
+			});
+		},
+
+		handlePromotionImpressions: function(promotionElements) {
+			var promotions = [];
+
+			promotionElements.each(function(i, promotionElement) {
+				promotions.push({
+					id: $(promotionElement).closest("[id]").attr("id"),
+					name: $(promotionElement).closest("[title]").attr("title"),
+					creative: "not specified",
+					position: $(promotionElement).attr("data-eea-position")
+				});
+			});
+
+			if (promotions.length > 0) {
+				dataLayer.push({
+					event: "promoView",
+					ecommerce: {
+						promoView: {
+							promotions: promotions
+						}
+					},
+				});
+			}
+		},
+
+		listenForAddToCart: function(product)
+		{
+			$(document).on('EEAddToCart', function(event, eventData) {
+				var quantity = ''
+				if (eventData.quantity) {
+					quantity = eventData.quantity + '';
+				}
+
+				const params = {
+					quantity: quantity,
+					fulfillment: eventData.fulfillment,
+					wisdomAddToDeliveryFlow: eventData.wisdomAddToDeliveryFlow
+				}
+				dataLayer.push(ACC.eea.createAddToCartEvent(product, "0", params));
+			});
+		},
+
+		listenForUpdateCheckoutStartEventObject: function() {
+			$(document).on('EEUpdateCheckoutStartEventObject', function(event, eeaCheckoutStartEventObject) {
+				ACC.eea.eeaCheckoutStartEventObject = eeaCheckoutStartEventObject;
+			});
+		},
+
+        listenProductClick: function(list, product)
+        {
+            $(document).on("click", "#product_item_code_" + product.id + " a", function(event) {
+                ACC.eea.triggerProductClick(list, product);
+            });
+        },
+
+        listenCartUpdate: function() {
+            $(document).on('EEUpdateCart', function(event, eventData) {
+                var initialCartQuantity = parseInt(eventData.initialCartQuantity, 10) || 0;
+                var newCartQuantity = parseInt(eventData.newCartQuantity, 10) || 0;
+                var quantity = newCartQuantity - initialCartQuantity;
+
+                var event = {
+                  event: quantity > 0 ? "addToCart" : "removeFromCart",
+                  ecommerce: {
+                    currencyCode: "GBP"
+                  }
+                };
+                event.ecommerce[quantity > 0 ? "add" : "remove"] = {
+                  products: [
+                    $.extend(
+                      {
+                        quantity: Math.abs(quantity).toString(),
+                        fulfillment: eventData.fulfillment
+                      },
+                      eeaProducts[eventData.cartEntryNumber]
+                    )
+                  ]
+                };
+
+                dataLayer.push(event);
+            });
+        },
+
+        listenDeliveryModeUpdate: function() {
+            $(document).on("EEUpdateDeliveryMode", (_, eventData) => {
+                const { cartEntry, fulfilmentData } = eventData;
+                const product = cartEntry.product;
+
+                const productData = {
+                    "product_name": product.name,
+                    "product_code": product.code,
+                    "product_price": product.price.value.toString(),
+                    "product_category": (product.categories || []).map(c => c.name).join(","),
+                    "product_quantity": cartEntry.quantity.toString(),
+                    "product_quantity_new": cartEntry.quantity,
+                    "product_fulfillment": fulfilmentData.fulfillmentType
+                };
+
+                if (fulfilmentData.storeId && fulfilmentData.storeName) {
+                    productData["store_ID"] = fulfilmentData.storeId;
+                    productData["store_name"] = fulfilmentData.storeName;
+                }
+
+                handleUpdateBasketEvent("updateCart", productData, product.price.currencyIso);
+            })
+        },
+
+        listenMiniCartProductClick: function() {
+            $(document).on("click", "li.cart_modal_popup div.prod_image a, li.cart_modal_popup div.prod_info a", function(event, eventData) {
+                 var dataHolder = $(this).closest("li.cart_modal_popup");
+                 var product = {
+                    name: "" + dataHolder.data("name"),
+                    id: "" + dataHolder.data("id"),
+                    price: "" + dataHolder.data("price") || "not classified",
+                    brand: "" + dataHolder.data("brand") || "not classified",
+                    category: "" + dataHolder.data("category") || "not classified",
+                    variant: "not classified",
+                    position: "" + dataHolder.data("position") || "0"
+                };
+
+                ACC.eea.triggerProductClick("Mini Cart", product);
+
+            });
+        },
+
+        listenMiniCartPopupProductClick: function() {
+            $(document).on("click", "div.popover-mini-basket div.card__inner a.card__img-wrap, div.popover-mini-basket div.card__inner a.product-card__title", function() {
+                var dataHolder = $(this).closest("div.card__inner");
+                var product = {
+                   name: "" + dataHolder.data("name"),
+                   id: "" + dataHolder.data("id"),
+                   price: "" + dataHolder.data("price") || "not classified",
+                   brand: "" + dataHolder.data("brand") || "not classified",
+                   category: "" + dataHolder.data("category") || "not classified",
+                   variant: "not classified",
+                   position: "" + dataHolder.data("position") || "0"
+                };
+
+                ACC.eea.triggerProductClick("Mini Cart", product);
+            });
+        },
+
+        listenCheckoutStart: function(checkoutButtonSelector, pushConditionFunction) {
+			$(document).on("click", checkoutButtonSelector, function(event) {
+				if (!pushConditionFunction || pushConditionFunction()) {
+					dataLayer.push(ACC.eea.eeaCheckoutStartEventObject);
+				}
+			});
+        },
+
+		getOrderType: function(internalOrderType) {
+			switch(internalOrderType) {
+				case "DELIVERY":
+					return "Delivery";
+				case "CC":
+					return "C&C";
+				case "MIXED":
+					return "Mixed Order";
+			}
+			return "not specified";
+        },
+
+        getUserType: function() {
+			if (true) {
+				return "New";
+			}
+			return "Existing";
+        },
+
+        eeaCheckoutStartEventObject: {},
+
+		listenAddForDeliveryError: function () {
+			$(document).on("EEAddForDeliveryError", (event, eventData) => {
+				dataLayer.push({
+					event: "addForDeliveryError",
+					eventCategory: "PDP",
+					eventAction: "Add for delivery error",
+					eventLabel: eventData.errorDescription
+				});
+			})
+		}
+	};
+
+	
+
+
+
+	
+
+
+
+	
+
+
+
+
+	
+
+
+
+
+
+	
+
+ACC.eea.listenMiniCartPopupProductClick();
+
+
+
+
+
+
+
+var eeaCheckoutProducts = [];
+
+
+
+	
+		
+			
+		
+		
+	
+
+	
+
+
+
+	
+		
+		
+			
+		
+	
+
+	
+
+
+
+ACC.eea.eeaCheckoutStartEventObject = {
+		event: "checkout",
+		orderType: ACC.eea.getOrderType(""),
+		ecommerce: {
+			checkout: {
+				actionField: {
+					step: 1
+				},
+				products: eeaCheckoutProducts
+			}
+		},
+	};
+
+ACC.eea.listenCheckoutStart("#cartPopupCheckoutButton" , function(){return ACC.eea.eeaCheckoutStartEventObject && ACC.eea.eeaCheckoutStartEventObject.orderType !== 'not specified'});
+
+	
+
+
+
+	
+
+
+
+	
+
+
+
+
+    
+
+
+
+
+    
+
+
+
+
+
+    
+
+
+
+
+
+</script>
+
+
+<!-- End Enhanced Ecommerce Analytics -->
+<!-- Google Tag Manager -->
+<script>
+    (function (w, d, s, l, i) {
+        w[l] = w[l] || [];
+        w[l].push({
+            'gtm.start': new Date().getTime(),
+            event: 'gtm.js'
+        });
+        var f = d.getElementsByTagName(s)[0],
+            j = d.createElement(s),
+            dl = l != 'dataLayer' ? '&l=' + l : '';
+        j.async = true;
+        j.src = 'https://www.googletagmanager.com/gtm.js?id=' + i + dl;
+        f.parentNode.insertBefore(j, f);
+    })(window, document, 'script', 'dataLayer', 'GTM-M3LZ2SC');
+</script>
+<!-- End Google Tag Manager -->
+<script async src="https://www.googleoptimize.com/optimize.js?id=GTM-WLDHXNF"></script>
+<script src="https://tag.getamigo.io/js/0fbe90de8ef3ffeaea12e7548b4652e721f64c7874608cb3a0a9747eb58d919d/load.js"></script>
+        <title>
+			Wickes DIY & Trade Home Improvement Products and Inspiration</title>
+
+		<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+		<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+
+		<meta name="google-site-verification" content="8pAmfu-kNqTE4RO5IV_cNFgFAjtppzoZszIuo0GjJgY" />
+			<meta name="p:domain_verify" content="701ce30644ef9e03ddfe346cbb4d15ce" />
+			<meta name="description" content="Home improvement products, services and advice for Trade & DIY. Find inspirational ideas, tips, tools and 'How To' guides to make your next project perfect." />
+			<meta name="robots" content="index,follow" />
+			<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+		
+
+
+	<meta http-equiv="x-dns-prefetch-control" content="on"/>
+	
+		<link rel="dns-prefetch" href="//media.wickes.co.uk" />
+	
+		<link rel="dns-prefetch" href="//prod1-wx-prod03-aws-travisperkins-cloud-public.s3.amazonaws.com" />
+	
+		<link rel="dns-prefetch" href="//static.queue-it.net" />
+	
+		<link rel="dns-prefetch" href="//www.google-analytics.com" />
+	
+		<link rel="dns-prefetch" href="//ajax.googleapis.com" />
+	
+
+<link rel="icon" href="/_ui/addons/b2caddon/responsive/common/img/favicon.ico?v=231116113840" sizes="16x16" type="image/x-icon"/>
+		<link rel="icon" href="/_ui/addons/b2caddon/responsive/common/img/favicon.png?v=231116113840" sizes="48x48" type="image/png"/>
+
+		<link rel="apple-touch-icon" sizes="180x180" type="image/png" href="/_ui/addons/b2caddon/shared/common/images/apple-touch-icon-180x180.png?v=231116113840">
+<link rel="canonical" href="https://www.wickes.co.uk/" />
+			<link type="text/css" media="all" href="/_ui/addons/b2caddon/responsive/common/css/colorbox.css?v=231116113840" rel="preload" as="style" onload="this.rel='stylesheet'"/>
+
+<meta name="theme-color" content="#3e3e3e">
+
+<link rel="stylesheet" type="text/css" href="https://static-content.wickes.co.uk/wickes-css@2.75.2/build/css/homepage-main.css"/>
+	<link rel="preconnect" href="https://fonts.gstatic.com">
+<link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&display=swap" rel="stylesheet" media="print" onload="this.media='all'">
+
+<link type="text/css" media="all" href="/_ui/addons/bloomreachsearchaddon/responsive/common/css/bloomreachsearchaddon.css?v=231116113840" rel="preload" as="style" onload="this.rel='stylesheet'" />
+<script type="text/javascript">
+		/*<![CDATA[*/
+		
+		var ACC = window.ACC || {};
+			ACC.config = {};
+			ACC.config.contextPath = "";
+			ACC.config.encodedContextPath = "";
+			ACC.config.commonResourcePath = "/_ui/responsive/common";
+			ACC.config.themeResourcePath = "/_ui/responsive/theme-wickes";
+			ACC.config.siteResourcePath = "/_ui/responsive/site-wickes";
+			ACC.config.rootPath = "/_ui/responsive";
+			ACC.pwdStrengthVeryWeak = 'Very weak';
+			ACC.pwdStrengthWeak = 'Weak';
+			ACC.pwdStrengthMedium = 'Medium';
+			ACC.pwdStrengthStrong = 'Strong';
+			ACC.pwdStrengthVeryStrong = 'Very strong';
+			ACC.pwdStrengthUnsafePwd = 'password.strength.unsafepwd';
+			ACC.pwdStrengthTooShortPwd = 'Too short';
+			ACC.pwdStrengthMinCharText = 'Minimum length is %d characters';
+			ACC.accessibilityLoading = 'Loading... Please wait...';
+			ACC.accessibilityStoresLoaded = 'Stores loaded';
+			
+			
+			ACC.autocompleteUrl = '/search/autocompleteSecure';
+			ACC.suggestProductsUrl = '/search/suggestProductsSecure';
+			
+			ACC.maxSuggestionsWithProducts = 5;
+			ACC.startSuggestProducts = 3;
+			ACC.defaultCarouselTimeout = 5000;
+			
+			
+		/*]]>*/
+	</script>
+<meta name="format-detection" content="telephone=no" />
+
+		<script type="text/javascript">
+			
+ACC = window.ACC || {};
+
+ACC.scripts = {
+    deferred: new Map,
+    loaded: 0,
+    addAllDeferred: function() {
+        ACC.scripts.deferred.forEach(function(script) {
+            document.body.appendChild(script);
+        });
+    },
+    addDeferred: function(scriptConfig) {
+        var script = document.createElement('script');
+        script.src = scriptConfig.src + scriptConfig.version;
+        script.async = scriptConfig.async;
+        script.type = scriptConfig.type;
+        var fileName = scriptConfig.src.substring(scriptConfig.src.lastIndexOf('/') + 1);
+        script.fileName = fileName;
+        script.onload = function() {
+            ACC.scripts.loaded++;
+            var event = jQuery.Event(fileName + "_loaded");
+            $(window).trigger(event);
+            if(scriptConfig.onload) {
+                var onloadCallback = scriptConfig.onload;
+                if(onloadCallback && (typeof onloadCallback === 'function')) {
+                    onloadCallback();
+                }
+            }
+        };
+        ACC.scripts.deferred.set(scriptConfig.src, script);
+    }
+};
+
+$(window).on('load', ACC.scripts.addAllDeferred);
+</script>
+
+		</head>
+
+	<body class="page-responsiveHomePage pageType-ContentPage template-pages-layout-responsiveContentPageT1 pageLabel-homepage language-en  page_content " >
+
+		<!-- Google Tag Manager (noscript) -->
+<noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-M3LZ2SC"
+height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+<!-- End Google Tag Manager (noscript) -->
+<div class="app-data" style="display: none;">
+	<div class="app-discount-code"></div>
+	<div class="app-customer-type">Online</div>
+	<div class="basket-total-items">0</div>
+</div>
+<script>
+    var ACC = ACC || {};
+    ACC.app = {};
+    ACC.app.isMobileAppBrowser = false;
+    ACC.app.isVatToggleAvailable = false;
+    ACC.app.guestUid = "";
+</script>
+<script
+                    async
+                    src="https://eu-library.klarnaservices.com/lib.js"
+                    data-client-id="ddb62582-3156-55f6-9fc8-dc3259aa4617"
+                ></script>
+            <div class="sticky-wrapper waypoint">
+			</div>
+
+		
+
+
+
+
+
+
+<a href="#skip-to-content" class="sr-only" data-role="none">Skip to content</a>
+		<a href="#skip-to-navigation" class="sr-only" data-role="none">Skip to navigation menu</a>
+
+		<div class="header-wrapper">
+    <div class="header-top-wrapp ">
+        <div class="header-top-wrapp__container">
+            <ul class="header-top-line">
+                <li class="header-top-line__item header-top-line_shop-list">
+                    <a href="/login" class='header-top-line__link'>
+                    <span class="btn__text">
+                        <i class="fas fa-user fa-lg"></i>
+                    </span>
+                    <span class="header-top-line__link-title">
+                        Sign-in / Register</span>
+                </a>
+            </li>
+<li class="header-top-line__item header-top-line_shop-list">
+    <a href="/track-my-order" class="header-top-line__link">
+        <span class="btn__text">
+           <i class="fas fa-map-marked-alt fa-lg"></i>
+       </span>
+       <span class="header-top-line__link-title">Track my order</span>
+   </a>
+</li>
+<li class="header-top-line__item header-top-line_shop-list">
+        <a href="/project-list" class="header-top-line__link">
+            <span class="btn__text">
+               <i class="fas fa-clipboard fa-lg d-none"></i>
+               <i class="fas fa-clipboard-list fa-lg "></i>
+           </span>
+           <span class="header-top-line__link-title">Project list</span>
+       </a>
+    </li>
+</ul>
+</div>
+</div>
+
+<header class="header">
+    <div class="header-inner">
+        <div class="header-logo">
+            <a href="/" class="header-logo__link ">Wickes</a>
+</div>
+<div class="header-hamburg">
+    <div class="btn btn-primary header-hamburger-menu">
+       <span class="icon">
+         <span class="fas fa-bars fa-2x"></span>
+     </span>
+ </div>
+ <div class="header-logo header-logo--minicart">
+   <a href="/" class="header-logo__link header-logo_wickes">Wickes</a>
+</div>
+</div>
+<div class="header-search__wrapper" id="search-wrapper">
+    <div class="header-search__overlay"></div>
+    <form class="header-search" name="search_form" method="get" action="/search">
+    <input hidden id="products_suggestions_header" value="Products">
+    <div class="autocomplete">
+        <input id="search" aria-label="search" type="text" name="text" class="header-search__input"
+        maxlength="100" placeholder="Search for your product">
+    </div>
+    <button class="header-search__submit" aria-label="search submit" type="submit">
+        <span class="header-search__submit-icon">
+           <i class="fas fa-search fa-2x"></i>
+       </span>
+       <span class="header-search__submit-icon header-search__submit-icon--mobile">
+          <i class="fas fa-search fa-2x"></i>
+      </span>
+  </button>
+</form>
+</div>
+<div class="header-right-wrapp">
+    <ul class="header-right">
+        <li class="header-right__item">
+            <a href="/ideas-advice" class="header-right__link">
+              <span class="btn__text">
+                 <i class="fas fa-lightbulb fa-2x"></i>
+             </span>
+             <span class="header-right__link-title">Ideas & Advice</span>
+         </a>
+     </li>
+     <li class="header-right__item">
+        <a href="/store-finder" class="header-right__link">
+          <span class="btn__text">
+             <i class="fas fa-map-marker-alt fa-2x"></i>
+         </span>
+         <span class="header-right__link-title">Store Locator</span>
+     </a>
+ </li>
+ <li class="header-right__item">
+    <script type="text/javascript">
+	var rolloverPopupUrl = '/cart/rollover/ResponsiveMiniCart';
+	var refreshMiniCartUrl = '/cart/enhancedMiniCart/SUBTOTAL/?';
+</script>
+
+<div class="header-minicart">
+    <div class="header-minicart__switcher">
+							<span class="header-right__link header-minicart__btn header-minicart__btn_switcher">
+               <span class="btn__text">
+                 <i class="fas fa-shopping-basket fa-2x"></i>
+               </span>
+               <span class="header-right__link-title">
+               	Basket</span>
+ 							</span>
+        <a href="/cart" class="header-right__link header-minicart__btn header-minicart__btn_link" style="display: none;">
+              <span class="btn__text">
+                <i class="fas fa-shopping-basket fa-2x"></i>
+              </span>
+            <span class="header-right__link-title">
+              	Basket</span>
+        </a>
+    </div>
+    				<span class="header-minicart__counter">0</span>
+</div>
+
+<script type="text/html" id="mini-basket-rollover"></script>
+<script type="text/html" id="mini-basket-popup"></script></li>
+</ul>
+</div>
+<div class="header-mobileicon">
+    <div class="btn btn-primary header-shop-list search-switcher" id="search-button">
+        <span class="icon">
+            <span class="fas fa-search fa-lg"></span>
+        </span>
+    </div>
+    <a href="/login">
+    <div class="btn btn-primary header-shop-list">
+            <span class="icon">
+                <span class="fas fa-user fa-lg"></span>
+            </span>
+        </div>
+    </a>
+    <a href="/store-finder">
+        <div class="btn btn-primary header-shop-list">
+            <span class="icon">
+                <span class="fas fa-map-marker-alt fa-lg"></span>
+            </span>
+        </div>
+    </a>
+</div>
+<div class="header-minicart-wrap">
+    <script type="text/javascript">
+	var rolloverPopupUrl = '/cart/rollover/ResponsiveMiniCart';
+	var refreshMiniCartUrl = '/cart/enhancedMiniCart/SUBTOTAL/?';
+</script>
+
+<div class="header-minicart">
+    <div class="header-minicart__switcher">
+							<span class="header-right__link header-minicart__btn header-minicart__btn_switcher">
+               <span class="btn__text">
+                 <i class="fas fa-shopping-basket fa-2x"></i>
+               </span>
+               <span class="header-right__link-title">
+               	Basket</span>
+ 							</span>
+        <a href="/cart" class="header-right__link header-minicart__btn header-minicart__btn_link" style="display: none;">
+              <span class="btn__text">
+                <i class="fas fa-shopping-basket fa-2x"></i>
+              </span>
+            <span class="header-right__link-title">
+              	Basket</span>
+        </a>
+    </div>
+    				<span class="header-minicart__counter">0</span>
+</div>
+
+<script type="text/html" id="mini-basket-rollover"></script>
+<script type="text/html" id="mini-basket-popup"></script></div>
+</div>
+
+    <span class="btn btn-primary back-to-top" id="back-to-top" style="display: none;">
+        <span class="icon">
+            <span class="sr-only">back to top</span>
+            <span class="fas fa-arrow-to-top"></span>
+        </span>
+    </span>
+</header>
+</div>
+
+<script type="text/html" id="search-button"></script>
+<script type="text/html" id="search-wrapper"></script>
+<script type="text/html" id="search"></script><a id="skip-to-navigation"></a>
+
+
+
+
+
+
+<nav class="main-nav" id="main-nav">
+	<div class="ssc ssc-wrapper ssc-nav">
+    <div class="ssc-line"></div>
+    <div class="ssc-line"></div>
+    <div class="ssc-line"></div>
+    <div class="ssc-line"></div>
+    <div class="ssc-line"></div>
+    <div class="ssc-line"></div>
+    <div class="ssc-line"></div>
+    <div class="ssc-line"></div>
+    <div class="ssc-line"></div>
+    <div class="ssc-line"></div>
+    <div class="ssc-line"></div>
+    <div class="ssc-line"></div>
+    <div class="ssc-line"></div>
+    <div class="ssc-line"></div>
+</div>
+
+	
+
+
+
+
+
+
+
+
+
+
+
+<div class="main-nav__button" data-logged-in="false">
+  <a href="/login" class="nav-button" tabindex="0">
+  <span class="nav-button__icon">
+              <i class="fas fa-user"></i>
+  </span>
+  <span class="nav-button__text">
+   Log In / Register
+ </span>
+</a>
+</div>
+
+
+<div class="main-nav__button">
+  <a href="/track-my-order" class="nav-button">
+    <span class="nav-button__icon">
+      <i class="fas fa-map-marked-alt"></i>
+    </span>
+    <span class="nav-button__text">Track Order</span>
+  </a>
+</div>
+<div class="main-nav__button">
+  <a href="/ideas-advice" class="nav-button">
+    <span class="nav-button__icon">
+      <i class="fas fa-lightbulb"></i>
+    </span>
+    <span class="nav-button__text">Ideas & Advice</span>
+  </a>
+</div>
+
+    <div class="main-nav__button">
+        <a href="/project-list" class="nav-button">
+            <span class="nav-button__icon">
+                <i class="fas fa-clipboard d-none"></i>
+                <i class="fas fa-clipboard-list "></i>
+            </span>
+            <span class="nav-button__text text-capitalize">Project list</span>
+        </a>
+    </div>
+
+
+</nav>
+<div class="main-nav__overlay"></div>
+<a id="skip-to-content"></a>
+
+		<main class=" ">
+			<div class="globalMessages">
+	</div>
+<div class="hybris-class"> 
+ <style>
+            main {
+                padding-top: 0!important;
+            }
+            .hero-cms-foreground{position:absolute;left:0;top:0;-webkit-filter:drop-shadow(0 0 4px rgba(0, 0, 0, .5));filter:drop-shadow(0 0 4px rgba(0, 0, 0, .5));height:340px;object-fit:contain;box-shadow:inset 0 0 0 transparent}.hero-cms-container{height:calc(100% - 1.5rem);max-height:340px}.hero-link{min-height:100%;overflow:hidden}.hero-empty{position:absolute;left:0;top:0;width:100%;height:100%}.small-insp-card{padding-bottom:30px}.small-insp-card-text{text-align:center}.small-insp-card-title{position:absolute;left:0;right:0;margin:-50px auto 0;background-color:#fff;border-radius:3px 3px 0 0;height:50px;padding-top:15px;width:85%;color:#3e3e3e;font-size:1.375rem;font-weight:700;letter-spacing:0;line-height:32px}.small-insp-card-info{padding:10px 14px 0;height:auto;color:#3e3e3e;font-size:16px;letter-spacing:0;line-height:24px;margin-bottom:7px}.small-insp-card-link{font-weight:600;height:17px;color:#0277bd;font-size:16px;letter-spacing:0;line-height:32px;text-decoration:none}.center-me{text-align:center}.popcats-container{overflow:hidden}.popcats-col{padding-top: 10px}.popcats-col a{text-decoration:none}.popcats-col a:hover{text-decoration:underline}.popcats-img-container{width:100%;overflow:hidden;border-radius:200px;border:1px solid #eee}.popcats-img{width:100%;height:auto}.popcats-title{padding:20px 0 0}.popcats-title p{font-weight:500;font-size:18px;line-height:24px;color:#3e3e3e}.essential-title{font-weight:500}.fullwidth-blue-hr{max-width:555px;margin:40px auto;border-bottom:8px solid #0a3055}.hero-insp-banner{background-position:center center;background-size:cover;display:-webkit-flex;display:flex;-webkit-justify-content:center;justify-content:center;height:300px;max-height:300px;overflow:hidden;max-width:1110px;margin-bottom:40px;position:relative;cursor:pointer}.hero-insp-banner__content{background-color:rgba(255,255,255,.8);width:407px;height:250px;padding:20px;text-align:center;position:absolute;left:27.98px;top:24px;bottom:26px}.hero-insp-banner__gallery-content{margin:0 auto;height:100%;left:auto;top:auto;bottom:auto;background-color:transparent}.hero-insp-banner__gallery-icon img{height:38px;width:26px}.hero-insp-banner__text{color:#3e3e3e;height:100%;display:-webkit-flex;display:flex;-webkit-flex-direction:column;flex-direction:column;-webkit-justify-content:space-evenly;justify-content:space-evenly}.hero-insp-banner__gallery-text{color:#fff}.hero-insp-banner__text-title{font-size:30px;font-weight:500}.hero-insp-banner__text-descr{font-size:18px}.hero-insp-banner__text-link{color:#0277bd;font-size:18px;font-weight:500;text-decoration:underline}.hero-insp-banner__galery-text-link a{color:#fff}p{line-height:1.2}.middle-align{margin:0 auto}.corner-borders::after,.corner-borders::before{border-color:#337a8b;border-width:4px;content:'';display:block;height:30px;pointer-events:none;position:absolute;width:30px}.corner-borders--left::before{top:15px;left:14px;border-left-style:solid;border-top-style:solid}.corner-borders--left::after{bottom:15px;left:14px;border-bottom-style:solid;border-left-style:solid}.corner-borders--right::before{top:15px;right:14px;border-right-style:solid;border-top-style:solid}.corner-borders--right::after{bottom:15px;right:14px;border-bottom-style:solid;border-right-style:solid}.gallery-corner-borders::after,.gallery-corner-borders::before{border-color:rgba(255,255,255,.3)}.product-recall-banner{display:-webkit-flex;display:flex;-webkit-flex-direction:row;flex-direction:row;max-width:1110px;background:#fcf2f3;margin:0 auto;font-size:28px;line-height:37px}.product-safety-recall{height:100%;background:#cf000f;padding:22px;color:#fff;font-weight:600}.product-safety-icon{margin-right:10px}.product-recall-message{padding:22px;font-weight:500;color:#3e3e3e}.product-recall-link{position:relative;padding:22px;font-size:20px;line-height:26px;font-weight:400;color:#0277bd;-webkit-flex-grow:1;flex-grow:1}.product-recall-link-holder{position:absolute;top:50%;right:22px;-webkit-transform:translateY(-50%);transform:translateY(-50%)}.product-recall-link-icon{font-size:16px;text-decoration:none;margin-left:5px}.component_filled{background:0 0;border-top:1px solid #ccc;border-bottom:1px solid #ccc}.component_filled .card__inner{border:1px solid #ccc}.impress-the-guests-banner{position:relative;display:-webkit-flex;display:flex;-webkit-justify-content:center;justify-content:center;-webkit-flex-direction:row;flex-direction:row;-webkit-align-items:flex-start;align-items:flex-start;min-width:100%;overflow:hidden}.impress-the-guests-banner p{font-size:18px;font-weight:100;line-height:22px}.info-box{position:absolute;left:0;display:-webkit-flex;display:flex;-webkit-flex-direction:column;flex-direction:column;-webkit-justify-content:center;justify-content:center;background-color:rgba(62,62,62,.6);width:44.4444%;height:100%;color:#fff;padding:1em;text-align:center}.width-fix{max-width:1397px}.padding-fix{padding:0}.bottom-fix{margin-bottom:-1.5rem}.new-home-banner{max-width:1110px}.new-home-banner img{border:0}.card__offers-item_discount{opacity:.8}.new-card__title{margin:15px;font-size:1.125rem;font-weight:700;color:#000;text-decoration:none}.card__title-link{text-decoration:none}.hero-banner-info{width:355px}.hero-banner-info__small{font-size:19px!important}.hero-banner-info__section:nth-child(3),.hero-banner-info__section:nth-child(4){border-style:none!important}.hero-spend{border-style:none!important;font-size:16px!important}.yellow-background{padding-bottom:4px}.offer__banner{background-color:rgba(207,0,15,.1)!important}.hero-link-karcher{position:absolute;left:0;top:0;width:100%;height:100%}.hero-banner-karcher{background:#fff url(https://media.wickes.co.uk/is/image/wickes/10519-3241-Karcher-Homepage-banner-withouttext-1400x400?fmt=png-alpha&wid=1400&hei=400&fit=crop) no-repeat center;background-size:100% 100%;height:400px;text-align:center}.hero-overlay-image{position:relative;background:url(https://media.wickes.co.uk/is/image/wickes/2519-3241-Karcher-Homepage-element?fmt=png-alpha&wid=320&hei=400&fit=crop) no-repeat center top;width:320px;height:400px;margin-left:auto;margin-right:auto}.left-align-button-image a img{position:relative;top:200px;left:697px}.inspiration-border{border:1px solid #0a3055}@media screen and (max-width:1199px){.product-recall-banner{font-size:25px;line-height:32px}}@media screen and (max-width:1010px){.hero-banner-karcher{background:#fff url(https://media.wickes.co.uk/is/image/wickes/10519-3241-Karcher-Homepagebanner-Background-Blank-1400x400?fmt=png-alpha&wid=1400&hei=400&fit=crop) no-repeat center top}.hero-overlay-image{background:url(https://media.wickes.co.uk/is/image/wickes/10519-3241-Karcher-Homepagebanner-messaging-d3-320x400-1?fmt=png-alpha&wid=320&hei=400&fit=crop) no-repeat center top}}
+            .banner-max-height, .banner-max-height img {max-height: 350px}
+            @media screen and (max-width:991px){
+                .hero-cms-container{min-height:280px}
+                .hero-cms-background,.hero-cms-foreground{height:315px}
+                .product-recall-banner{font-size:18px;line-height:24px}.product-recall-link{font-size:13px;line-height:24px}.product-recall-link-icon{font-size:10px;margin-left:3px}
+                .banner-max-height, .banner-max-height img {max-height: 750px}
+            }
+            @media screen and (max-width:767px){
+                .info-box{width:100%}.product-recall-banner{-webkit-flex-direction:column;flex-direction:column;text-align:center}.product-recall-link{padding:0 0 22px}.product-recall-link-holder{position:relative;top:0;right:0;-webkit-transform:none;transform:none}
+                .hero-cms-foreground{object-fit:cover}
+                .banner-max-height, .banner-max-height img {max-height: 1000px}
+            }
+            @media screen and (min-width:478px){
+                .lift-to-right{right:27.98px!important;left:auto!important}}@media screen and (max-width:478px){.hero-insp-banner{height:450px;max-height:450px}.hero-insp-banner__content{width:300px;max-width:300px;height:300px;max-height:300px;top:75px;bottom:75px;left:auto;right:auto}.hero-insp-banner__text-title{font-size:24px}.hero-insp-banner__text-descr{font-size:16px}
+            }
+            .hero-full-width .hero-cms-background {
+                height: auto;
+            }
+            .hero-full-width .hero-cms-container {
+                min-height: 150px;
+                max-height: none;
+            }
+            .snow-video {
+                position: absolute;
+                left: 0;
+                top: 0;
+                width: 100%;
+                mix-blend-mode: screen;
+                z-index: 2;
+            }
+            @supports (-ms-ime-align:auto) {
+                .snow-video {
+                    opacity: .3;
+                }
+            }
+        
+ </style> 
+ <link rel="preload" href="https://eu-images.contentstack.com/v3/assets/blt066259863543a0d2/blt0877c785cda127f6/653791387b536e72eaa75d3f/Hero-DIY-T&amp;F-Everest&amp;Clovelly-November-171023.png?format=pjpg&amp;auto=webp&amp;dpr=1&amp;width=400&amp;quality=85" imagesrcset="https://eu-images.contentstack.com/v3/assets/blt066259863543a0d2/blt0877c785cda127f6/653791387b536e72eaa75d3f/Hero-DIY-T&amp;F-Everest&amp;Clovelly-November-171023.png?format=pjpg&amp;auto=webp&amp;dpr=1&amp;width=400&amp;quality=85 1x, https://eu-images.contentstack.com/v3/assets/blt066259863543a0d2/blt0877c785cda127f6/653791387b536e72eaa75d3f/Hero-DIY-T&amp;F-Everest&amp;Clovelly-November-171023.png?format=pjpg&amp;auto=webp&amp;dpr=2&amp;width=400&amp;quality=85 2x" as="image" media="(max-width: 414px)" /> 
+ <link rel="preload" href="https://eu-images.contentstack.com/v3/assets/blt066259863543a0d2/blt0877c785cda127f6/653791387b536e72eaa75d3f/Hero-DIY-T&amp;F-Everest&amp;Clovelly-November-171023.png?format=pjpg&amp;auto=webp&amp;dpr=1&amp;width=500&amp;quality=85" imagesrcset="https://eu-images.contentstack.com/v3/assets/blt066259863543a0d2/blt0877c785cda127f6/653791387b536e72eaa75d3f/Hero-DIY-T&amp;F-Everest&amp;Clovelly-November-171023.png?format=pjpg&amp;auto=webp&amp;dpr=1&amp;width=400&amp;quality=85 1x, https://eu-images.contentstack.com/v3/assets/blt066259863543a0d2/blt0877c785cda127f6/653791387b536e72eaa75d3f/Hero-DIY-T&amp;F-Everest&amp;Clovelly-November-171023.png?format=pjpg&amp;auto=webp&amp;dpr=2&amp;width=400&amp;quality=85 2x" as="image" media="(min-width: 415px) and (max-width: 767px)" /> 
+ <link rel="preload" href="https://eu-images.contentstack.com/v3/assets/blt066259863543a0d2/blt0877c785cda127f6/653791387b536e72eaa75d3f/Hero-DIY-T&amp;F-Everest&amp;Clovelly-November-171023.png?format=pjpg&amp;auto=webp&amp;dpr=1&amp;width=688&amp;quality=85" imagesrcset="https://eu-images.contentstack.com/v3/assets/blt066259863543a0d2/blt0877c785cda127f6/653791387b536e72eaa75d3f/Hero-DIY-T&amp;F-Everest&amp;Clovelly-November-171023.png?format=pjpg&amp;auto=webp&amp;dpr=1&amp;width=688&amp;quality=85 1x, https://eu-images.contentstack.com/v3/assets/blt066259863543a0d2/blt0877c785cda127f6/653791387b536e72eaa75d3f/Hero-DIY-T&amp;F-Everest&amp;Clovelly-November-171023.png?format=pjpg&amp;auto=webp&amp;dpr=2&amp;width=688&amp;quality=85 2x" as="image" media="(min-width: 768px) and (max-width: 992px)" /> 
+ <link rel="preload" href="https://eu-images.contentstack.com/v3/assets/blt066259863543a0d2/blt0877c785cda127f6/653791387b536e72eaa75d3f/Hero-DIY-T&amp;F-Everest&amp;Clovelly-November-171023.png?format=pjpg&amp;auto=webp&amp;dpr=1&amp;width=682&amp;quality=85" imagesrcset="https://eu-images.contentstack.com/v3/assets/blt066259863543a0d2/blt0877c785cda127f6/653791387b536e72eaa75d3f/Hero-DIY-T&amp;F-Everest&amp;Clovelly-November-171023.png?format=pjpg&amp;auto=webp&amp;dpr=1&amp;width=682&amp;quality=85 1x, https://eu-images.contentstack.com/v3/assets/blt066259863543a0d2/blt0877c785cda127f6/653791387b536e72eaa75d3f/Hero-DIY-T&amp;F-Everest&amp;Clovelly-November-171023.png?format=pjpg&amp;auto=webp&amp;dpr=2&amp;width=682&amp;quality=85 2x" as="image" media="(min-width: 993px)" /> 
+ <link rel="preload" href="https://eu-images.contentstack.com/v3/assets/blt066259863543a0d2/blt8d66736f5e1e896e/654362f6144783040aa9d0ad/Hero-Doors-GenevaCobham-November-181023.png?format=pjpg&amp;auto=webp&amp;dpr=1&amp;width=400&amp;quality=85" imagesrcset="https://eu-images.contentstack.com/v3/assets/blt066259863543a0d2/blt8d66736f5e1e896e/654362f6144783040aa9d0ad/Hero-Doors-GenevaCobham-November-181023.png?format=pjpg&amp;auto=webp&amp;dpr=1&amp;width=400&amp;quality=85 1x, https://eu-images.contentstack.com/v3/assets/blt066259863543a0d2/blt8d66736f5e1e896e/654362f6144783040aa9d0ad/Hero-Doors-GenevaCobham-November-181023.png?format=pjpg&amp;auto=webp&amp;dpr=2&amp;width=400&amp;quality=85 2x" as="image" media="(max-width: 414px)" /> 
+ <link rel="preload" href="https://eu-images.contentstack.com/v3/assets/blt066259863543a0d2/blt8d66736f5e1e896e/654362f6144783040aa9d0ad/Hero-Doors-GenevaCobham-November-181023.png?format=pjpg&amp;auto=webp&amp;dpr=1&amp;width=500&amp;quality=85" imagesrcset="https://eu-images.contentstack.com/v3/assets/blt066259863543a0d2/blt8d66736f5e1e896e/654362f6144783040aa9d0ad/Hero-Doors-GenevaCobham-November-181023.png?format=pjpg&amp;auto=webp&amp;dpr=1&amp;width=400&amp;quality=85 1x, https://eu-images.contentstack.com/v3/assets/blt066259863543a0d2/blt8d66736f5e1e896e/654362f6144783040aa9d0ad/Hero-Doors-GenevaCobham-November-181023.png?format=pjpg&amp;auto=webp&amp;dpr=2&amp;width=400&amp;quality=85 2x" as="image" media="(min-width: 415px) and (max-width: 767px)" /> 
+ <link rel="preload" href="https://eu-images.contentstack.com/v3/assets/blt066259863543a0d2/blt8d66736f5e1e896e/654362f6144783040aa9d0ad/Hero-Doors-GenevaCobham-November-181023.png?format=pjpg&amp;auto=webp&amp;dpr=1&amp;width=688&amp;quality=85" imagesrcset="https://eu-images.contentstack.com/v3/assets/blt066259863543a0d2/blt8d66736f5e1e896e/654362f6144783040aa9d0ad/Hero-Doors-GenevaCobham-November-181023.png?format=pjpg&amp;auto=webp&amp;dpr=1&amp;width=688&amp;quality=85 1x, https://eu-images.contentstack.com/v3/assets/blt066259863543a0d2/blt8d66736f5e1e896e/654362f6144783040aa9d0ad/Hero-Doors-GenevaCobham-November-181023.png?format=pjpg&amp;auto=webp&amp;dpr=2&amp;width=688&amp;quality=85 2x" as="image" media="(min-width: 768px) and (max-width: 992px)" /> 
+ <link rel="preload" href="https://eu-images.contentstack.com/v3/assets/blt066259863543a0d2/blt8d66736f5e1e896e/654362f6144783040aa9d0ad/Hero-Doors-GenevaCobham-November-181023.png?format=pjpg&amp;auto=webp&amp;dpr=1&amp;width=682&amp;quality=85" imagesrcset="https://eu-images.contentstack.com/v3/assets/blt066259863543a0d2/blt8d66736f5e1e896e/654362f6144783040aa9d0ad/Hero-Doors-GenevaCobham-November-181023.png?format=pjpg&amp;auto=webp&amp;dpr=1&amp;width=682&amp;quality=85 1x, https://eu-images.contentstack.com/v3/assets/blt066259863543a0d2/blt8d66736f5e1e896e/654362f6144783040aa9d0ad/Hero-Doors-GenevaCobham-November-181023.png?format=pjpg&amp;auto=webp&amp;dpr=2&amp;width=682&amp;quality=85 2x" as="image" media="(min-width: 993px)" /> 
+ <div class="banner-inside"> 
+  <style>
+                        .new-usp-tile,.new-usp-tile:hover{text-decoration:none}.new-usp-bar,.new-usp-container,.new-usp-message,.new-usp-tile{display:-webkit-flex;display:flex;-webkit-justify-content:center;justify-content:center;-webkit-align-items:center;align-items:center}.new-usp-bar,.new-usp-container{position:relative}.new-usp-container{overflow:hidden;max-width:1397px;margin:0 auto;padding:5px 0}.new-usp-bar{-webkit-flex-direction:row;flex-direction:row;max-width:1130px;padding:3px}.new-usp-tile{-webkit-flex-direction:column;display:flex;flex-direction:inherit;min-width:275px;background-color:#f8f8f8;padding:0;margin:2px;min-height:auto}.new-usp-tile:hover .new-proposition-title{text-decoration:underline!important}.new-usp-message{-webkit-flex-direction:column;flex-direction:column}.new-proposition-icon{color:#1a77bc;font-size:20px;padding-right:10px;margin-top:5px}.new-proposition-title{color:#0277bd;font-size:.875rem;font-weight:500;line-height:14px}.new-proposition-descr{color:#3e3e3e;font-size:12px;font-weight:300;line-height:16px}.for-mobile{display:none}@media screen and (max-width:1110px){.new-usp-bar,.new-usp-container,.new-usp-tile{min-width:100%;max-height:100px}.new-usp-container,.new-usp-tile{padding:0}.new-usp-bar{-webkit-justify-content:left;justify-content:left;padding:5px 0}.new-usp-tile{margin:0;padding:0;min-height:78px}.for-mobile{display:-webkit-flex;display:flex}.new-proposition-title{line-height:17px}}@media screen and (max-width:576px){.new-usp-bar,.new-usp-container,.new-usp-tile{min-height:48px}.new-usp-tile{-webkit-flex-direction:row;flex-direction:row}.new-usp-message{-webkit-align-items:initial;align-items:initial}}
+                    
+  </style> 
+  <div class="new-usp-container"> 
+   <div class="new-usp-bar" id="usp-slideshow"> 
+    <a class="new-usp-tile " href="/clickcollect" features-benefits-0="" title="Click &amp; collect"> 
+     <div class="new-proposition-icon"> 
+      <i class="fas fa-mouse-pointer icon"></i> 
+     </div> 
+     <div class="new-usp-message"> 
+      <span class="new-proposition-title">FREE Click &amp; Collect within 30 minutes</span> 
+     </div> </a> 
+    <a class="new-usp-tile " href="/deliverydetails" features-benefits-1="" title="Delivery details"> 
+     <div class="new-proposition-icon"> 
+      <i class="fas fa-truck icon"></i> 
+     </div> 
+     <div class="new-usp-message"> 
+      <span class="new-proposition-title">FREE delivery on orders over &pound;85*</span> 
+     </div> </a> 
+    <a class="new-usp-tile " href="/c/1000032" features-benefits-2="" title="Samples are available"> 
+     <div class="new-proposition-icon"> 
+      <i class="fas fa-swatchbook icon"></i> 
+     </div> 
+     <div class="new-usp-message"> 
+      <span class="new-proposition-title">SAMPLES are available</span> 
+     </div> </a> 
+    <a class="new-usp-tile " href="/designconsultant" features-benefits-3="" title="Book a design appointment"> 
+     <div class="new-proposition-icon"> 
+      <i class="fas fa-calendar-check icon"></i> 
+     </div> 
+     <div class="new-usp-message"> 
+      <span class="new-proposition-title">FREE design appointment</span> 
+     </div> </a> 
+   </div> 
+  </div> 
+  <script>
+                        if($(window).width() < 1100) {
+                            $("#usp-slideshows > a:gt(0)").hide();
+                            setInterval(function() {
+                                $('#usp-slideshow > a:first')
+                                        .fadeOut(1000)
+                                        .next()
+                                        .fadeIn(1000)
+                                        .end()
+                                        .appendTo('#usp-slideshow');
+                            }, 3000);
+                        }
+                    
+  </script> 
+  <div class="container padding-fix width-fix bottom-fix pb-4"> 
+   <div class="row pb-0 d-flex"> 
+    <div class="col-12 col-md-12 justify-content-between mb-4 col-lg-6"> 
+     <a href="/featured/tiles-and-flooring-top-offers" tag-class="banner-0"> 
+      <picture> 
+       <source data-srcset="https://eu-images.contentstack.com/v3/assets/blt066259863543a0d2/blt0877c785cda127f6/653791387b536e72eaa75d3f/Hero-DIY-T&amp;F-Everest&amp;Clovelly-November-171023.png?format=pjpg&amp;auto=webp&amp;dpr=1&amp;width=400&amp;quality=85 1x, https://eu-images.contentstack.com/v3/assets/blt066259863543a0d2/blt0877c785cda127f6/653791387b536e72eaa75d3f/Hero-DIY-T&amp;F-Everest&amp;Clovelly-November-171023.png?format=pjpg&amp;auto=webp&amp;dpr=2&amp;width=400&amp;quality=85 2x" srcset="https://eu-images.contentstack.com/v3/assets/blt066259863543a0d2/blt0877c785cda127f6/653791387b536e72eaa75d3f/Hero-DIY-T&amp;F-Everest&amp;Clovelly-November-171023.png?format=pjpg&amp;auto=webp&amp;dpr=1&amp;width=400&amp;quality=85 1x, https://eu-images.contentstack.com/v3/assets/blt066259863543a0d2/blt0877c785cda127f6/653791387b536e72eaa75d3f/Hero-DIY-T&amp;F-Everest&amp;Clovelly-November-171023.png?format=pjpg&amp;auto=webp&amp;dpr=2&amp;width=400&amp;quality=85 2x" media="(max-width: 414px)"></source> 
+       <source data-srcset="https://eu-images.contentstack.com/v3/assets/blt066259863543a0d2/blt0877c785cda127f6/653791387b536e72eaa75d3f/Hero-DIY-T&amp;F-Everest&amp;Clovelly-November-171023.png?format=pjpg&amp;auto=webp&amp;dpr=1&amp;width=500&amp;quality=85 1x, https://eu-images.contentstack.com/v3/assets/blt066259863543a0d2/blt0877c785cda127f6/653791387b536e72eaa75d3f/Hero-DIY-T&amp;F-Everest&amp;Clovelly-November-171023.png?format=pjpg&amp;auto=webp&amp;dpr=2&amp;width=500&amp;quality=85 2x" srcset="https://eu-images.contentstack.com/v3/assets/blt066259863543a0d2/blt0877c785cda127f6/653791387b536e72eaa75d3f/Hero-DIY-T&amp;F-Everest&amp;Clovelly-November-171023.png?format=pjpg&amp;auto=webp&amp;dpr=1&amp;width=500&amp;quality=85 1x, https://eu-images.contentstack.com/v3/assets/blt066259863543a0d2/blt0877c785cda127f6/653791387b536e72eaa75d3f/Hero-DIY-T&amp;F-Everest&amp;Clovelly-November-171023.png?format=pjpg&amp;auto=webp&amp;dpr=2&amp;width=500&amp;quality=85 2x" media="(min-width: 415px) and (max-width: 767px)"></source> 
+       <source data-srcset="https://eu-images.contentstack.com/v3/assets/blt066259863543a0d2/blt0877c785cda127f6/653791387b536e72eaa75d3f/Hero-DIY-T&amp;F-Everest&amp;Clovelly-November-171023.png?format=pjpg&amp;auto=webp&amp;dpr=1&amp;width=688&amp;quality=85 1x, https://eu-images.contentstack.com/v3/assets/blt066259863543a0d2/blt0877c785cda127f6/653791387b536e72eaa75d3f/Hero-DIY-T&amp;F-Everest&amp;Clovelly-November-171023.png?format=pjpg&amp;auto=webp&amp;dpr=2&amp;width=688&amp;quality=85 2x" srcset="https://eu-images.contentstack.com/v3/assets/blt066259863543a0d2/blt0877c785cda127f6/653791387b536e72eaa75d3f/Hero-DIY-T&amp;F-Everest&amp;Clovelly-November-171023.png?format=pjpg&amp;auto=webp&amp;dpr=1&amp;width=688&amp;quality=85 1x, https://eu-images.contentstack.com/v3/assets/blt066259863543a0d2/blt0877c785cda127f6/653791387b536e72eaa75d3f/Hero-DIY-T&amp;F-Everest&amp;Clovelly-November-171023.png?format=pjpg&amp;auto=webp&amp;dpr=2&amp;width=688&amp;quality=85 2x" media="(min-width: 768px) and (max-width: 992px)"></source> 
+       <source data-srcset="https://eu-images.contentstack.com/v3/assets/blt066259863543a0d2/blt0877c785cda127f6/653791387b536e72eaa75d3f/Hero-DIY-T&amp;F-Everest&amp;Clovelly-November-171023.png?format=pjpg&amp;auto=webp&amp;dpr=1&amp;width=800&amp;quality=85 1x, https://eu-images.contentstack.com/v3/assets/blt066259863543a0d2/blt0877c785cda127f6/653791387b536e72eaa75d3f/Hero-DIY-T&amp;F-Everest&amp;Clovelly-November-171023.png?format=pjpg&amp;auto=webp&amp;dpr=2&amp;width=800&amp;quality=85 2x" srcset="https://eu-images.contentstack.com/v3/assets/blt066259863543a0d2/blt0877c785cda127f6/653791387b536e72eaa75d3f/Hero-DIY-T&amp;F-Everest&amp;Clovelly-November-171023.png?format=pjpg&amp;auto=webp&amp;dpr=1&amp;width=800&amp;quality=85 1x, https://eu-images.contentstack.com/v3/assets/blt066259863543a0d2/blt0877c785cda127f6/653791387b536e72eaa75d3f/Hero-DIY-T&amp;F-Everest&amp;Clovelly-November-171023.png?format=pjpg&amp;auto=webp&amp;dpr=2&amp;width=800&amp;quality=85 2x" media="(min-width: 993px)"></source> 
+       <img loading="lazy" class="img-fluid w-100 " src="https://eu-images.contentstack.com/v3/assets/blt066259863543a0d2/blt0877c785cda127f6/653791387b536e72eaa75d3f/Hero-DIY-T&amp;F-Everest&amp;Clovelly-November-171023.png?format=pjpg&amp;auto=webp&amp;dpr=1&amp;width=400&amp;quality=85" alt="Hero-DIY-T&amp;F-Everest&amp;Clovelly-November-171023.png" /> 
+      </picture> </a> 
+    </div> 
+    <div class="col-12 col-md-12 justify-content-between mb-4 col-lg-6"> 
+     <a href="/featured/doors-windows-offers" tag-class="banner-1"> 
+      <picture> 
+       <source data-srcset="https://eu-images.contentstack.com/v3/assets/blt066259863543a0d2/blt8d66736f5e1e896e/654362f6144783040aa9d0ad/Hero-Doors-GenevaCobham-November-181023.png?format=pjpg&amp;auto=webp&amp;dpr=1&amp;width=400&amp;quality=85 1x, https://eu-images.contentstack.com/v3/assets/blt066259863543a0d2/blt8d66736f5e1e896e/654362f6144783040aa9d0ad/Hero-Doors-GenevaCobham-November-181023.png?format=pjpg&amp;auto=webp&amp;dpr=2&amp;width=400&amp;quality=85 2x" srcset="https://eu-images.contentstack.com/v3/assets/blt066259863543a0d2/blt8d66736f5e1e896e/654362f6144783040aa9d0ad/Hero-Doors-GenevaCobham-November-181023.png?format=pjpg&amp;auto=webp&amp;dpr=1&amp;width=400&amp;quality=85 1x, https://eu-images.contentstack.com/v3/assets/blt066259863543a0d2/blt8d66736f5e1e896e/654362f6144783040aa9d0ad/Hero-Doors-GenevaCobham-November-181023.png?format=pjpg&amp;auto=webp&amp;dpr=2&amp;width=400&amp;quality=85 2x" media="(max-width: 414px)"></source> 
+       <source data-srcset="https://eu-images.contentstack.com/v3/assets/blt066259863543a0d2/blt8d66736f5e1e896e/654362f6144783040aa9d0ad/Hero-Doors-GenevaCobham-November-181023.png?format=pjpg&amp;auto=webp&amp;dpr=1&amp;width=500&amp;quality=85 1x, https://eu-images.contentstack.com/v3/assets/blt066259863543a0d2/blt8d66736f5e1e896e/654362f6144783040aa9d0ad/Hero-Doors-GenevaCobham-November-181023.png?format=pjpg&amp;auto=webp&amp;dpr=2&amp;width=500&amp;quality=85 2x" srcset="https://eu-images.contentstack.com/v3/assets/blt066259863543a0d2/blt8d66736f5e1e896e/654362f6144783040aa9d0ad/Hero-Doors-GenevaCobham-November-181023.png?format=pjpg&amp;auto=webp&amp;dpr=1&amp;width=500&amp;quality=85 1x, https://eu-images.contentstack.com/v3/assets/blt066259863543a0d2/blt8d66736f5e1e896e/654362f6144783040aa9d0ad/Hero-Doors-GenevaCobham-November-181023.png?format=pjpg&amp;auto=webp&amp;dpr=2&amp;width=500&amp;quality=85 2x" media="(min-width: 415px) and (max-width: 767px)"></source> 
+       <source data-srcset="https://eu-images.contentstack.com/v3/assets/blt066259863543a0d2/blt8d66736f5e1e896e/654362f6144783040aa9d0ad/Hero-Doors-GenevaCobham-November-181023.png?format=pjpg&amp;auto=webp&amp;dpr=1&amp;width=688&amp;quality=85 1x, https://eu-images.contentstack.com/v3/assets/blt066259863543a0d2/blt8d66736f5e1e896e/654362f6144783040aa9d0ad/Hero-Doors-GenevaCobham-November-181023.png?format=pjpg&amp;auto=webp&amp;dpr=2&amp;width=688&amp;quality=85 2x" srcset="https://eu-images.contentstack.com/v3/assets/blt066259863543a0d2/blt8d66736f5e1e896e/654362f6144783040aa9d0ad/Hero-Doors-GenevaCobham-November-181023.png?format=pjpg&amp;auto=webp&amp;dpr=1&amp;width=688&amp;quality=85 1x, https://eu-images.contentstack.com/v3/assets/blt066259863543a0d2/blt8d66736f5e1e896e/654362f6144783040aa9d0ad/Hero-Doors-GenevaCobham-November-181023.png?format=pjpg&amp;auto=webp&amp;dpr=2&amp;width=688&amp;quality=85 2x" media="(min-width: 768px) and (max-width: 992px)"></source> 
+       <source data-srcset="https://eu-images.contentstack.com/v3/assets/blt066259863543a0d2/blt8d66736f5e1e896e/654362f6144783040aa9d0ad/Hero-Doors-GenevaCobham-November-181023.png?format=pjpg&amp;auto=webp&amp;dpr=1&amp;width=800&amp;quality=85 1x, https://eu-images.contentstack.com/v3/assets/blt066259863543a0d2/blt8d66736f5e1e896e/654362f6144783040aa9d0ad/Hero-Doors-GenevaCobham-November-181023.png?format=pjpg&amp;auto=webp&amp;dpr=2&amp;width=800&amp;quality=85 2x" srcset="https://eu-images.contentstack.com/v3/assets/blt066259863543a0d2/blt8d66736f5e1e896e/654362f6144783040aa9d0ad/Hero-Doors-GenevaCobham-November-181023.png?format=pjpg&amp;auto=webp&amp;dpr=1&amp;width=800&amp;quality=85 1x, https://eu-images.contentstack.com/v3/assets/blt066259863543a0d2/blt8d66736f5e1e896e/654362f6144783040aa9d0ad/Hero-Doors-GenevaCobham-November-181023.png?format=pjpg&amp;auto=webp&amp;dpr=2&amp;width=800&amp;quality=85 2x" media="(min-width: 993px)"></source> 
+       <img loading="lazy" class="img-fluid w-100 " src="https://eu-images.contentstack.com/v3/assets/blt066259863543a0d2/blt8d66736f5e1e896e/654362f6144783040aa9d0ad/Hero-Doors-GenevaCobham-November-181023.png?format=pjpg&amp;auto=webp&amp;dpr=1&amp;width=400&amp;quality=85" alt="Hero-Doors-GenevaCobham-November-181023.png" /> 
+      </picture> </a> 
+    </div> 
+   </div> 
+  </div> 
+  <div class="pt-2 container padding-fix width-fix new-home-banner"> 
+   <div class="row pb-0 d-flex"> 
+    <div class="col-12   col-md-12 justify-content-between "> 
+     <div class="card-easter card__inner banner-max-height mb-4"> 
+      <div class="card__offers"></div> 
+      <a href="/designconsultant" tag-class="banner-0" title="DC Banner"> 
+       <picture> 
+        <source data-srcset="https://eu-images.contentstack.com/v3/assets/blt066259863543a0d2/blt4376db9f7244727c/63975fec0d36887bdf66d4f5/Strip-mobile-Book-a-DC.png?format=pjpg&amp;auto=webp&amp;dpr=1&amp;width=400&amp;quality=85 1x, https://eu-images.contentstack.com/v3/assets/blt066259863543a0d2/blt4376db9f7244727c/63975fec0d36887bdf66d4f5/Strip-mobile-Book-a-DC.png?format=pjpg&amp;auto=webp&amp;dpr=2&amp;width=400&amp;quality=85 2x" srcset="https://eu-images.contentstack.com/v3/assets/blt066259863543a0d2/blt4376db9f7244727c/63975fec0d36887bdf66d4f5/Strip-mobile-Book-a-DC.png?format=pjpg&amp;auto=webp&amp;dpr=1&amp;width=400&amp;quality=85 1x, https://eu-images.contentstack.com/v3/assets/blt066259863543a0d2/blt4376db9f7244727c/63975fec0d36887bdf66d4f5/Strip-mobile-Book-a-DC.png?format=pjpg&amp;auto=webp&amp;dpr=2&amp;width=400&amp;quality=85 2x" media="(max-width: 414px)"></source> 
+        <source data-srcset="https://eu-images.contentstack.com/v3/assets/blt066259863543a0d2/blt4376db9f7244727c/63975fec0d36887bdf66d4f5/Strip-mobile-Book-a-DC.png?format=pjpg&amp;auto=webp&amp;dpr=1&amp;width=500&amp;quality=85 1x, https://eu-images.contentstack.com/v3/assets/blt066259863543a0d2/blt4376db9f7244727c/63975fec0d36887bdf66d4f5/Strip-mobile-Book-a-DC.png?format=pjpg&amp;auto=webp&amp;dpr=2&amp;width=500&amp;quality=85 2x" srcset="https://eu-images.contentstack.com/v3/assets/blt066259863543a0d2/blt4376db9f7244727c/63975fec0d36887bdf66d4f5/Strip-mobile-Book-a-DC.png?format=pjpg&amp;auto=webp&amp;dpr=1&amp;width=500&amp;quality=85 1x, https://eu-images.contentstack.com/v3/assets/blt066259863543a0d2/blt4376db9f7244727c/63975fec0d36887bdf66d4f5/Strip-mobile-Book-a-DC.png?format=pjpg&amp;auto=webp&amp;dpr=2&amp;width=500&amp;quality=85 2x" media="(min-width: 415px) and (max-width: 767px)"></source> 
+        <source data-srcset="https://eu-images.contentstack.com/v3/assets/blt066259863543a0d2/blt62088028f9feb558/63975fec8424c47782488626/Strip-Book-a-DC.png?format=pjpg&amp;auto=webp&amp;dpr=1&amp;width=688&amp;quality=85 1x, https://eu-images.contentstack.com/v3/assets/blt066259863543a0d2/blt62088028f9feb558/63975fec8424c47782488626/Strip-Book-a-DC.png?format=pjpg&amp;auto=webp&amp;dpr=2&amp;width=688&amp;quality=85 2x" srcset="https://eu-images.contentstack.com/v3/assets/blt066259863543a0d2/blt62088028f9feb558/63975fec8424c47782488626/Strip-Book-a-DC.png?format=pjpg&amp;auto=webp&amp;dpr=1&amp;width=688&amp;quality=85 1x, https://eu-images.contentstack.com/v3/assets/blt066259863543a0d2/blt62088028f9feb558/63975fec8424c47782488626/Strip-Book-a-DC.png?format=pjpg&amp;auto=webp&amp;dpr=2&amp;width=688&amp;quality=85 2x" media="(min-width: 768px) and (max-width: 992px)"></source> 
+        <source data-srcset="https://eu-images.contentstack.com/v3/assets/blt066259863543a0d2/blt62088028f9feb558/63975fec8424c47782488626/Strip-Book-a-DC.png?format=pjpg&amp;auto=webp&amp;dpr=1&amp;width=1110&amp;quality=85 1x, https://eu-images.contentstack.com/v3/assets/blt066259863543a0d2/blt62088028f9feb558/63975fec8424c47782488626/Strip-Book-a-DC.png?format=pjpg&amp;auto=webp&amp;dpr=2&amp;width=1110&amp;quality=85 2x" srcset="https://eu-images.contentstack.com/v3/assets/blt066259863543a0d2/blt62088028f9feb558/63975fec8424c47782488626/Strip-Book-a-DC.png?format=pjpg&amp;auto=webp&amp;dpr=1&amp;width=1110&amp;quality=85 1x, https://eu-images.contentstack.com/v3/assets/blt066259863543a0d2/blt62088028f9feb558/63975fec8424c47782488626/Strip-Book-a-DC.png?format=pjpg&amp;auto=webp&amp;dpr=2&amp;width=1110&amp;quality=85 2x" media="(min-width: 993px)"></source> 
+        <img loading="lazy" class="img-fluid w-100 " src="https://eu-images.contentstack.com/v3/assets/blt066259863543a0d2/blt4376db9f7244727c/63975fec0d36887bdf66d4f5/Strip-mobile-Book-a-DC.png?format=pjpg&amp;auto=webp&amp;dpr=1&amp;width=400&amp;quality=85" alt="Strip-Book-a-DC.png" /> 
+       </picture> </a> 
+     </div> 
+    </div> 
+   </div> 
+  </div> 
+  <div class="pt-3"> 
+   <div class="container"> 
+    <hr class="fullwidth-blue-hr mt-0" /> 
+   </div> 
+   <div class="container popcats-container" id="popcats"> 
+    <div class="row popcats-row"> 
+     <div class="col col-6 col-sm-3 popcats-col"> 
+      <a href="/Products/Electrical+Lighting/Outdoor-Lights/All-Outdoor-Lights/c/1079000" tag-class="carousel-card-img-0"> 
+       <div class="popcats-img-container"> 
+        <picture> 
+         <source data-srcset="https://eu-images.contentstack.com/v3/assets/blt066259863543a0d2/blt877110dc18ffa830/653789d2a3082d5d36aff720/Popcat-Exterior_lighting-November-161023.png?format=pjpg&amp;auto=webp&amp;dpr=1&amp;width=162&amp;crop=1:1&amp;quality=85 1x, https://eu-images.contentstack.com/v3/assets/blt066259863543a0d2/blt877110dc18ffa830/653789d2a3082d5d36aff720/Popcat-Exterior_lighting-November-161023.png?format=pjpg&amp;auto=webp&amp;dpr=2&amp;width=162&amp;crop=1:1&amp;quality=85 2x" srcset="https://eu-images.contentstack.com/v3/assets/blt066259863543a0d2/blt877110dc18ffa830/653789d2a3082d5d36aff720/Popcat-Exterior_lighting-November-161023.png?format=pjpg&amp;auto=webp&amp;dpr=1&amp;width=162&amp;crop=1:1&amp;quality=85 1x, https://eu-images.contentstack.com/v3/assets/blt066259863543a0d2/blt877110dc18ffa830/653789d2a3082d5d36aff720/Popcat-Exterior_lighting-November-161023.png?format=pjpg&amp;auto=webp&amp;dpr=2&amp;width=162&amp;crop=1:1&amp;quality=85 2x" media="(max-width: 414px)"></source> 
+         <source data-srcset="https://eu-images.contentstack.com/v3/assets/blt066259863543a0d2/blt877110dc18ffa830/653789d2a3082d5d36aff720/Popcat-Exterior_lighting-November-161023.png?format=pjpg&amp;auto=webp&amp;dpr=1&amp;width=250&amp;crop=1:1&amp;quality=85 1x, https://eu-images.contentstack.com/v3/assets/blt066259863543a0d2/blt877110dc18ffa830/653789d2a3082d5d36aff720/Popcat-Exterior_lighting-November-161023.png?format=pjpg&amp;auto=webp&amp;dpr=2&amp;width=250&amp;crop=1:1&amp;quality=85 2x" srcset="https://eu-images.contentstack.com/v3/assets/blt066259863543a0d2/blt877110dc18ffa830/653789d2a3082d5d36aff720/Popcat-Exterior_lighting-November-161023.png?format=pjpg&amp;auto=webp&amp;dpr=1&amp;width=250&amp;crop=1:1&amp;quality=85 1x, https://eu-images.contentstack.com/v3/assets/blt066259863543a0d2/blt877110dc18ffa830/653789d2a3082d5d36aff720/Popcat-Exterior_lighting-November-161023.png?format=pjpg&amp;auto=webp&amp;dpr=2&amp;width=250&amp;crop=1:1&amp;quality=85 2x" media="(min-width: 415px) and (max-width: 767px)"></source> 
+         <source data-srcset="https://eu-images.contentstack.com/v3/assets/blt066259863543a0d2/blt877110dc18ffa830/653789d2a3082d5d36aff720/Popcat-Exterior_lighting-November-161023.png?format=pjpg&amp;auto=webp&amp;dpr=1&amp;width=148&amp;crop=1:1&amp;quality=85 1x, https://eu-images.contentstack.com/v3/assets/blt066259863543a0d2/blt877110dc18ffa830/653789d2a3082d5d36aff720/Popcat-Exterior_lighting-November-161023.png?format=pjpg&amp;auto=webp&amp;dpr=2&amp;width=148&amp;crop=1:1&amp;quality=85 2x" srcset="https://eu-images.contentstack.com/v3/assets/blt066259863543a0d2/blt877110dc18ffa830/653789d2a3082d5d36aff720/Popcat-Exterior_lighting-November-161023.png?format=pjpg&amp;auto=webp&amp;dpr=1&amp;width=148&amp;crop=1:1&amp;quality=85 1x, https://eu-images.contentstack.com/v3/assets/blt066259863543a0d2/blt877110dc18ffa830/653789d2a3082d5d36aff720/Popcat-Exterior_lighting-November-161023.png?format=pjpg&amp;auto=webp&amp;dpr=2&amp;width=148&amp;crop=1:1&amp;quality=85 2x" media="(min-width: 768px) and (max-width: 992px)"></source> 
+         <source data-srcset="https://eu-images.contentstack.com/v3/assets/blt066259863543a0d2/blt877110dc18ffa830/653789d2a3082d5d36aff720/Popcat-Exterior_lighting-November-161023.png?format=pjpg&amp;auto=webp&amp;dpr=1&amp;width=254&amp;crop=1:1&amp;quality=85 1x, https://eu-images.contentstack.com/v3/assets/blt066259863543a0d2/blt877110dc18ffa830/653789d2a3082d5d36aff720/Popcat-Exterior_lighting-November-161023.png?format=pjpg&amp;auto=webp&amp;dpr=2&amp;width=254&amp;crop=1:1&amp;quality=85 2x" srcset="https://eu-images.contentstack.com/v3/assets/blt066259863543a0d2/blt877110dc18ffa830/653789d2a3082d5d36aff720/Popcat-Exterior_lighting-November-161023.png?format=pjpg&amp;auto=webp&amp;dpr=1&amp;width=254&amp;crop=1:1&amp;quality=85 1x, https://eu-images.contentstack.com/v3/assets/blt066259863543a0d2/blt877110dc18ffa830/653789d2a3082d5d36aff720/Popcat-Exterior_lighting-November-161023.png?format=pjpg&amp;auto=webp&amp;dpr=2&amp;width=254&amp;crop=1:1&amp;quality=85 2x" media="(min-width: 993px)"></source> 
+         <img loading="lazy" class="img-fluid w-100 popcats-img" src="https://eu-images.contentstack.com/v3/assets/blt066259863543a0d2/blt877110dc18ffa830/653789d2a3082d5d36aff720/Popcat-Exterior_lighting-November-161023.png?format=pjpg&amp;auto=webp&amp;dpr=1&amp;width=400&amp;crop=1:1&amp;quality=85" alt="Popcat-Exterior_lighting-November-161023.png" /> 
+        </picture> 
+       </div> 
+       <div class="popcats-title center-me"> 
+        <p>Exterior Lighting</p> 
+       </div> </a> 
+     </div> 
+     <div class="col col-6 col-sm-3 popcats-col"> 
+      <a href="/Products/Heating+Plumbing/Portable-Heaters/c/1001144" tag-class="carousel-card-img-1"> 
+       <div class="popcats-img-container"> 
+        <picture> 
+         <source data-srcset="https://eu-images.contentstack.com/v3/assets/blt066259863543a0d2/blt4488fe817503434f/653789d20dc5ad3127133b35/Popcat-Electric_heaters-November-161023.png?format=pjpg&amp;auto=webp&amp;dpr=1&amp;width=162&amp;crop=1:1&amp;quality=85 1x, https://eu-images.contentstack.com/v3/assets/blt066259863543a0d2/blt4488fe817503434f/653789d20dc5ad3127133b35/Popcat-Electric_heaters-November-161023.png?format=pjpg&amp;auto=webp&amp;dpr=2&amp;width=162&amp;crop=1:1&amp;quality=85 2x" srcset="https://eu-images.contentstack.com/v3/assets/blt066259863543a0d2/blt4488fe817503434f/653789d20dc5ad3127133b35/Popcat-Electric_heaters-November-161023.png?format=pjpg&amp;auto=webp&amp;dpr=1&amp;width=162&amp;crop=1:1&amp;quality=85 1x, https://eu-images.contentstack.com/v3/assets/blt066259863543a0d2/blt4488fe817503434f/653789d20dc5ad3127133b35/Popcat-Electric_heaters-November-161023.png?format=pjpg&amp;auto=webp&amp;dpr=2&amp;width=162&amp;crop=1:1&amp;quality=85 2x" media="(max-width: 414px)"></source> 
+         <source data-srcset="https://eu-images.contentstack.com/v3/assets/blt066259863543a0d2/blt4488fe817503434f/653789d20dc5ad3127133b35/Popcat-Electric_heaters-November-161023.png?format=pjpg&amp;auto=webp&amp;dpr=1&amp;width=250&amp;crop=1:1&amp;quality=85 1x, https://eu-images.contentstack.com/v3/assets/blt066259863543a0d2/blt4488fe817503434f/653789d20dc5ad3127133b35/Popcat-Electric_heaters-November-161023.png?format=pjpg&amp;auto=webp&amp;dpr=2&amp;width=250&amp;crop=1:1&amp;quality=85 2x" srcset="https://eu-images.contentstack.com/v3/assets/blt066259863543a0d2/blt4488fe817503434f/653789d20dc5ad3127133b35/Popcat-Electric_heaters-November-161023.png?format=pjpg&amp;auto=webp&amp;dpr=1&amp;width=250&amp;crop=1:1&amp;quality=85 1x, https://eu-images.contentstack.com/v3/assets/blt066259863543a0d2/blt4488fe817503434f/653789d20dc5ad3127133b35/Popcat-Electric_heaters-November-161023.png?format=pjpg&amp;auto=webp&amp;dpr=2&amp;width=250&amp;crop=1:1&amp;quality=85 2x" media="(min-width: 415px) and (max-width: 767px)"></source> 
+         <source data-srcset="https://eu-images.contentstack.com/v3/assets/blt066259863543a0d2/blt4488fe817503434f/653789d20dc5ad3127133b35/Popcat-Electric_heaters-November-161023.png?format=pjpg&amp;auto=webp&amp;dpr=1&amp;width=148&amp;crop=1:1&amp;quality=85 1x, https://eu-images.contentstack.com/v3/assets/blt066259863543a0d2/blt4488fe817503434f/653789d20dc5ad3127133b35/Popcat-Electric_heaters-November-161023.png?format=pjpg&amp;auto=webp&amp;dpr=2&amp;width=148&amp;crop=1:1&amp;quality=85 2x" srcset="https://eu-images.contentstack.com/v3/assets/blt066259863543a0d2/blt4488fe817503434f/653789d20dc5ad3127133b35/Popcat-Electric_heaters-November-161023.png?format=pjpg&amp;auto=webp&amp;dpr=1&amp;width=148&amp;crop=1:1&amp;quality=85 1x, https://eu-images.contentstack.com/v3/assets/blt066259863543a0d2/blt4488fe817503434f/653789d20dc5ad3127133b35/Popcat-Electric_heaters-November-161023.png?format=pjpg&amp;auto=webp&amp;dpr=2&amp;width=148&amp;crop=1:1&amp;quality=85 2x" media="(min-width: 768px) and (max-width: 992px)"></source> 
+         <source data-srcset="https://eu-images.contentstack.com/v3/assets/blt066259863543a0d2/blt4488fe817503434f/653789d20dc5ad3127133b35/Popcat-Electric_heaters-November-161023.png?format=pjpg&amp;auto=webp&amp;dpr=1&amp;width=254&amp;crop=1:1&amp;quality=85 1x, https://eu-images.contentstack.com/v3/assets/blt066259863543a0d2/blt4488fe817503434f/653789d20dc5ad3127133b35/Popcat-Electric_heaters-November-161023.png?format=pjpg&amp;auto=webp&amp;dpr=2&amp;width=254&amp;crop=1:1&amp;quality=85 2x" srcset="https://eu-images.contentstack.com/v3/assets/blt066259863543a0d2/blt4488fe817503434f/653789d20dc5ad3127133b35/Popcat-Electric_heaters-November-161023.png?format=pjpg&amp;auto=webp&amp;dpr=1&amp;width=254&amp;crop=1:1&amp;quality=85 1x, https://eu-images.contentstack.com/v3/assets/blt066259863543a0d2/blt4488fe817503434f/653789d20dc5ad3127133b35/Popcat-Electric_heaters-November-161023.png?format=pjpg&amp;auto=webp&amp;dpr=2&amp;width=254&amp;crop=1:1&amp;quality=85 2x" media="(min-width: 993px)"></source> 
+         <img loading="lazy" class="img-fluid w-100 popcats-img" src="https://eu-images.contentstack.com/v3/assets/blt066259863543a0d2/blt4488fe817503434f/653789d20dc5ad3127133b35/Popcat-Electric_heaters-November-161023.png?format=pjpg&amp;auto=webp&amp;dpr=1&amp;width=400&amp;crop=1:1&amp;quality=85" alt="Popcat-Electric_heaters-November-161023.png" /> 
+        </picture> 
+       </div> 
+       <div class="popcats-title center-me"> 
+        <p>Portable Heaters</p> 
+       </div> </a> 
+     </div> 
+     <div class="col col-6 col-sm-3 popcats-col"> 
+      <a href="/Products/Garden+Outdoor-Landscaping/BBQs+Outdoor-Heating/Logs+Firelighters/c/1017000" tag-class="carousel-card-img-2"> 
+       <div class="popcats-img-container"> 
+        <picture> 
+         <source data-srcset="https://eu-images.contentstack.com/v3/assets/blt066259863543a0d2/bltca665e96b9095501/653789db5cf932736bd2c047/Popcat-Logs_&amp;_Firelighters-November-161023.png?format=pjpg&amp;auto=webp&amp;dpr=1&amp;width=162&amp;crop=1:1&amp;quality=85 1x, https://eu-images.contentstack.com/v3/assets/blt066259863543a0d2/bltca665e96b9095501/653789db5cf932736bd2c047/Popcat-Logs_&amp;_Firelighters-November-161023.png?format=pjpg&amp;auto=webp&amp;dpr=2&amp;width=162&amp;crop=1:1&amp;quality=85 2x" srcset="https://eu-images.contentstack.com/v3/assets/blt066259863543a0d2/bltca665e96b9095501/653789db5cf932736bd2c047/Popcat-Logs_&amp;_Firelighters-November-161023.png?format=pjpg&amp;auto=webp&amp;dpr=1&amp;width=162&amp;crop=1:1&amp;quality=85 1x, https://eu-images.contentstack.com/v3/assets/blt066259863543a0d2/bltca665e96b9095501/653789db5cf932736bd2c047/Popcat-Logs_&amp;_Firelighters-November-161023.png?format=pjpg&amp;auto=webp&amp;dpr=2&amp;width=162&amp;crop=1:1&amp;quality=85 2x" media="(max-width: 414px)"></source> 
+         <source data-srcset="https://eu-images.contentstack.com/v3/assets/blt066259863543a0d2/bltca665e96b9095501/653789db5cf932736bd2c047/Popcat-Logs_&amp;_Firelighters-November-161023.png?format=pjpg&amp;auto=webp&amp;dpr=1&amp;width=250&amp;crop=1:1&amp;quality=85 1x, https://eu-images.contentstack.com/v3/assets/blt066259863543a0d2/bltca665e96b9095501/653789db5cf932736bd2c047/Popcat-Logs_&amp;_Firelighters-November-161023.png?format=pjpg&amp;auto=webp&amp;dpr=2&amp;width=250&amp;crop=1:1&amp;quality=85 2x" srcset="https://eu-images.contentstack.com/v3/assets/blt066259863543a0d2/bltca665e96b9095501/653789db5cf932736bd2c047/Popcat-Logs_&amp;_Firelighters-November-161023.png?format=pjpg&amp;auto=webp&amp;dpr=1&amp;width=250&amp;crop=1:1&amp;quality=85 1x, https://eu-images.contentstack.com/v3/assets/blt066259863543a0d2/bltca665e96b9095501/653789db5cf932736bd2c047/Popcat-Logs_&amp;_Firelighters-November-161023.png?format=pjpg&amp;auto=webp&amp;dpr=2&amp;width=250&amp;crop=1:1&amp;quality=85 2x" media="(min-width: 415px) and (max-width: 767px)"></source> 
+         <source data-srcset="https://eu-images.contentstack.com/v3/assets/blt066259863543a0d2/bltca665e96b9095501/653789db5cf932736bd2c047/Popcat-Logs_&amp;_Firelighters-November-161023.png?format=pjpg&amp;auto=webp&amp;dpr=1&amp;width=148&amp;crop=1:1&amp;quality=85 1x, https://eu-images.contentstack.com/v3/assets/blt066259863543a0d2/bltca665e96b9095501/653789db5cf932736bd2c047/Popcat-Logs_&amp;_Firelighters-November-161023.png?format=pjpg&amp;auto=webp&amp;dpr=2&amp;width=148&amp;crop=1:1&amp;quality=85 2x" srcset="https://eu-images.contentstack.com/v3/assets/blt066259863543a0d2/bltca665e96b9095501/653789db5cf932736bd2c047/Popcat-Logs_&amp;_Firelighters-November-161023.png?format=pjpg&amp;auto=webp&amp;dpr=1&amp;width=148&amp;crop=1:1&amp;quality=85 1x, https://eu-images.contentstack.com/v3/assets/blt066259863543a0d2/bltca665e96b9095501/653789db5cf932736bd2c047/Popcat-Logs_&amp;_Firelighters-November-161023.png?format=pjpg&amp;auto=webp&amp;dpr=2&amp;width=148&amp;crop=1:1&amp;quality=85 2x" media="(min-width: 768px) and (max-width: 992px)"></source> 
+         <source data-srcset="https://eu-images.contentstack.com/v3/assets/blt066259863543a0d2/bltca665e96b9095501/653789db5cf932736bd2c047/Popcat-Logs_&amp;_Firelighters-November-161023.png?format=pjpg&amp;auto=webp&amp;dpr=1&amp;width=254&amp;crop=1:1&amp;quality=85 1x, https://eu-images.contentstack.com/v3/assets/blt066259863543a0d2/bltca665e96b9095501/653789db5cf932736bd2c047/Popcat-Logs_&amp;_Firelighters-November-161023.png?format=pjpg&amp;auto=webp&amp;dpr=2&amp;width=254&amp;crop=1:1&amp;quality=85 2x" srcset="https://eu-images.contentstack.com/v3/assets/blt066259863543a0d2/bltca665e96b9095501/653789db5cf932736bd2c047/Popcat-Logs_&amp;_Firelighters-November-161023.png?format=pjpg&amp;auto=webp&amp;dpr=1&amp;width=254&amp;crop=1:1&amp;quality=85 1x, https://eu-images.contentstack.com/v3/assets/blt066259863543a0d2/bltca665e96b9095501/653789db5cf932736bd2c047/Popcat-Logs_&amp;_Firelighters-November-161023.png?format=pjpg&amp;auto=webp&amp;dpr=2&amp;width=254&amp;crop=1:1&amp;quality=85 2x" media="(min-width: 993px)"></source> 
+         <img loading="lazy" class="img-fluid w-100 popcats-img" src="https://eu-images.contentstack.com/v3/assets/blt066259863543a0d2/bltca665e96b9095501/653789db5cf932736bd2c047/Popcat-Logs_&amp;_Firelighters-November-161023.png?format=pjpg&amp;auto=webp&amp;dpr=1&amp;width=400&amp;crop=1:1&amp;quality=85" alt="Popcat-Logs_&amp;_Firelighters-November-161023.png" /> 
+        </picture> 
+       </div> 
+       <div class="popcats-title center-me"> 
+        <p>Logs &amp; Firelighters</p> 
+       </div> </a> 
+     </div> 
+     <div class="col col-6 col-sm-3 popcats-col"> 
+      <a href="/Products/Building-Materials/Guttering+Drainage/c/1000180" tag-class="carousel-card-img-3"> 
+       <div class="popcats-img-container"> 
+        <picture> 
+         <source data-srcset="https://eu-images.contentstack.com/v3/assets/blt066259863543a0d2/bltc20a9c8f476463e9/653789d27b536e5ce5a75d24/Popcat-Guttering_&amp;_Drainage-November-161023.png?format=pjpg&amp;auto=webp&amp;dpr=1&amp;width=162&amp;crop=1:1&amp;quality=85 1x, https://eu-images.contentstack.com/v3/assets/blt066259863543a0d2/bltc20a9c8f476463e9/653789d27b536e5ce5a75d24/Popcat-Guttering_&amp;_Drainage-November-161023.png?format=pjpg&amp;auto=webp&amp;dpr=2&amp;width=162&amp;crop=1:1&amp;quality=85 2x" srcset="https://eu-images.contentstack.com/v3/assets/blt066259863543a0d2/bltc20a9c8f476463e9/653789d27b536e5ce5a75d24/Popcat-Guttering_&amp;_Drainage-November-161023.png?format=pjpg&amp;auto=webp&amp;dpr=1&amp;width=162&amp;crop=1:1&amp;quality=85 1x, https://eu-images.contentstack.com/v3/assets/blt066259863543a0d2/bltc20a9c8f476463e9/653789d27b536e5ce5a75d24/Popcat-Guttering_&amp;_Drainage-November-161023.png?format=pjpg&amp;auto=webp&amp;dpr=2&amp;width=162&amp;crop=1:1&amp;quality=85 2x" media="(max-width: 414px)"></source> 
+         <source data-srcset="https://eu-images.contentstack.com/v3/assets/blt066259863543a0d2/bltc20a9c8f476463e9/653789d27b536e5ce5a75d24/Popcat-Guttering_&amp;_Drainage-November-161023.png?format=pjpg&amp;auto=webp&amp;dpr=1&amp;width=250&amp;crop=1:1&amp;quality=85 1x, https://eu-images.contentstack.com/v3/assets/blt066259863543a0d2/bltc20a9c8f476463e9/653789d27b536e5ce5a75d24/Popcat-Guttering_&amp;_Drainage-November-161023.png?format=pjpg&amp;auto=webp&amp;dpr=2&amp;width=250&amp;crop=1:1&amp;quality=85 2x" srcset="https://eu-images.contentstack.com/v3/assets/blt066259863543a0d2/bltc20a9c8f476463e9/653789d27b536e5ce5a75d24/Popcat-Guttering_&amp;_Drainage-November-161023.png?format=pjpg&amp;auto=webp&amp;dpr=1&amp;width=250&amp;crop=1:1&amp;quality=85 1x, https://eu-images.contentstack.com/v3/assets/blt066259863543a0d2/bltc20a9c8f476463e9/653789d27b536e5ce5a75d24/Popcat-Guttering_&amp;_Drainage-November-161023.png?format=pjpg&amp;auto=webp&amp;dpr=2&amp;width=250&amp;crop=1:1&amp;quality=85 2x" media="(min-width: 415px) and (max-width: 767px)"></source> 
+         <source data-srcset="https://eu-images.contentstack.com/v3/assets/blt066259863543a0d2/bltc20a9c8f476463e9/653789d27b536e5ce5a75d24/Popcat-Guttering_&amp;_Drainage-November-161023.png?format=pjpg&amp;auto=webp&amp;dpr=1&amp;width=148&amp;crop=1:1&amp;quality=85 1x, https://eu-images.contentstack.com/v3/assets/blt066259863543a0d2/bltc20a9c8f476463e9/653789d27b536e5ce5a75d24/Popcat-Guttering_&amp;_Drainage-November-161023.png?format=pjpg&amp;auto=webp&amp;dpr=2&amp;width=148&amp;crop=1:1&amp;quality=85 2x" srcset="https://eu-images.contentstack.com/v3/assets/blt066259863543a0d2/bltc20a9c8f476463e9/653789d27b536e5ce5a75d24/Popcat-Guttering_&amp;_Drainage-November-161023.png?format=pjpg&amp;auto=webp&amp;dpr=1&amp;width=148&amp;crop=1:1&amp;quality=85 1x, https://eu-images.contentstack.com/v3/assets/blt066259863543a0d2/bltc20a9c8f476463e9/653789d27b536e5ce5a75d24/Popcat-Guttering_&amp;_Drainage-November-161023.png?format=pjpg&amp;auto=webp&amp;dpr=2&amp;width=148&amp;crop=1:1&amp;quality=85 2x" media="(min-width: 768px) and (max-width: 992px)"></source> 
+         <source data-srcset="https://eu-images.contentstack.com/v3/assets/blt066259863543a0d2/bltc20a9c8f476463e9/653789d27b536e5ce5a75d24/Popcat-Guttering_&amp;_Drainage-November-161023.png?format=pjpg&amp;auto=webp&amp;dpr=1&amp;width=254&amp;crop=1:1&amp;quality=85 1x, https://eu-images.contentstack.com/v3/assets/blt066259863543a0d2/bltc20a9c8f476463e9/653789d27b536e5ce5a75d24/Popcat-Guttering_&amp;_Drainage-November-161023.png?format=pjpg&amp;auto=webp&amp;dpr=2&amp;width=254&amp;crop=1:1&amp;quality=85 2x" srcset="https://eu-images.contentstack.com/v3/assets/blt066259863543a0d2/bltc20a9c8f476463e9/653789d27b536e5ce5a75d24/Popcat-Guttering_&amp;_Drainage-November-161023.png?format=pjpg&amp;auto=webp&amp;dpr=1&amp;width=254&amp;crop=1:1&amp;quality=85 1x, https://eu-images.contentstack.com/v3/assets/blt066259863543a0d2/bltc20a9c8f476463e9/653789d27b536e5ce5a75d24/Popcat-Guttering_&amp;_Drainage-November-161023.png?format=pjpg&amp;auto=webp&amp;dpr=2&amp;width=254&amp;crop=1:1&amp;quality=85 2x" media="(min-width: 993px)"></source> 
+         <img loading="lazy" class="img-fluid w-100 popcats-img" src="https://eu-images.contentstack.com/v3/assets/blt066259863543a0d2/bltc20a9c8f476463e9/653789d27b536e5ce5a75d24/Popcat-Guttering_&amp;_Drainage-November-161023.png?format=pjpg&amp;auto=webp&amp;dpr=1&amp;width=400&amp;crop=1:1&amp;quality=85" alt="Popcat-Guttering_&amp;_Drainage-November-161023.png" /> 
+        </picture> 
+       </div> 
+       <div class="popcats-title center-me"> 
+        <p>Guttering &amp; Drainage</p> 
+       </div> </a> 
+     </div> 
+    </div> 
+   </div> 
+   <div class="container"> 
+    <hr class="fullwidth-blue-hr" /> 
+   </div> 
+  </div> 
+  <div class="container bottom-fix pb-4"> 
+   <div class="row pb-0 d-flex"> 
+    <div class="col-12 col-lg-6  col-md-12 justify-content-between "> 
+     <div class="card-easter card__inner banner-max-height mb-4"> 
+      <div class="card__offers"></div> 
+      <a href="/featured/autumn-tidy-prep" tag-class="banner-0" title="Autumn Tidy"> 
+       <picture> 
+        <source data-srcset="https://eu-images.contentstack.com/v3/assets/blt066259863543a0d2/blt947279bdae45e682/64dcbf5194181b64e362f996/4-3-AutumnTiday-160823.png?format=pjpg&amp;auto=webp&amp;dpr=1&amp;width=400&amp;quality=85 1x, https://eu-images.contentstack.com/v3/assets/blt066259863543a0d2/blt947279bdae45e682/64dcbf5194181b64e362f996/4-3-AutumnTiday-160823.png?format=pjpg&amp;auto=webp&amp;dpr=2&amp;width=400&amp;quality=85 2x" srcset="https://eu-images.contentstack.com/v3/assets/blt066259863543a0d2/blt947279bdae45e682/64dcbf5194181b64e362f996/4-3-AutumnTiday-160823.png?format=pjpg&amp;auto=webp&amp;dpr=1&amp;width=400&amp;quality=85 1x, https://eu-images.contentstack.com/v3/assets/blt066259863543a0d2/blt947279bdae45e682/64dcbf5194181b64e362f996/4-3-AutumnTiday-160823.png?format=pjpg&amp;auto=webp&amp;dpr=2&amp;width=400&amp;quality=85 2x" media="(max-width: 414px)"></source> 
+        <source data-srcset="https://eu-images.contentstack.com/v3/assets/blt066259863543a0d2/blt947279bdae45e682/64dcbf5194181b64e362f996/4-3-AutumnTiday-160823.png?format=pjpg&amp;auto=webp&amp;dpr=1&amp;width=500&amp;quality=85 1x, https://eu-images.contentstack.com/v3/assets/blt066259863543a0d2/blt947279bdae45e682/64dcbf5194181b64e362f996/4-3-AutumnTiday-160823.png?format=pjpg&amp;auto=webp&amp;dpr=2&amp;width=500&amp;quality=85 2x" srcset="https://eu-images.contentstack.com/v3/assets/blt066259863543a0d2/blt947279bdae45e682/64dcbf5194181b64e362f996/4-3-AutumnTiday-160823.png?format=pjpg&amp;auto=webp&amp;dpr=1&amp;width=500&amp;quality=85 1x, https://eu-images.contentstack.com/v3/assets/blt066259863543a0d2/blt947279bdae45e682/64dcbf5194181b64e362f996/4-3-AutumnTiday-160823.png?format=pjpg&amp;auto=webp&amp;dpr=2&amp;width=500&amp;quality=85 2x" media="(min-width: 415px) and (max-width: 767px)"></source> 
+        <source data-srcset="https://eu-images.contentstack.com/v3/assets/blt066259863543a0d2/bltcc85535830febb9a/64dcbf517e05e835d2cb5689/SubHero-Half-AutumnTiday-160823.png?format=pjpg&amp;auto=webp&amp;dpr=1&amp;width=688&amp;quality=85 1x, https://eu-images.contentstack.com/v3/assets/blt066259863543a0d2/bltcc85535830febb9a/64dcbf517e05e835d2cb5689/SubHero-Half-AutumnTiday-160823.png?format=pjpg&amp;auto=webp&amp;dpr=2&amp;width=688&amp;quality=85 2x" srcset="https://eu-images.contentstack.com/v3/assets/blt066259863543a0d2/bltcc85535830febb9a/64dcbf517e05e835d2cb5689/SubHero-Half-AutumnTiday-160823.png?format=pjpg&amp;auto=webp&amp;dpr=1&amp;width=688&amp;quality=85 1x, https://eu-images.contentstack.com/v3/assets/blt066259863543a0d2/bltcc85535830febb9a/64dcbf517e05e835d2cb5689/SubHero-Half-AutumnTiday-160823.png?format=pjpg&amp;auto=webp&amp;dpr=2&amp;width=688&amp;quality=85 2x" media="(min-width: 768px) and (max-width: 992px)"></source> 
+        <source data-srcset="https://eu-images.contentstack.com/v3/assets/blt066259863543a0d2/bltcc85535830febb9a/64dcbf517e05e835d2cb5689/SubHero-Half-AutumnTiday-160823.png?format=pjpg&amp;auto=webp&amp;dpr=1&amp;width=540&amp;quality=85 1x, https://eu-images.contentstack.com/v3/assets/blt066259863543a0d2/bltcc85535830febb9a/64dcbf517e05e835d2cb5689/SubHero-Half-AutumnTiday-160823.png?format=pjpg&amp;auto=webp&amp;dpr=2&amp;width=540&amp;quality=85 2x" srcset="https://eu-images.contentstack.com/v3/assets/blt066259863543a0d2/bltcc85535830febb9a/64dcbf517e05e835d2cb5689/SubHero-Half-AutumnTiday-160823.png?format=pjpg&amp;auto=webp&amp;dpr=1&amp;width=540&amp;quality=85 1x, https://eu-images.contentstack.com/v3/assets/blt066259863543a0d2/bltcc85535830febb9a/64dcbf517e05e835d2cb5689/SubHero-Half-AutumnTiday-160823.png?format=pjpg&amp;auto=webp&amp;dpr=2&amp;width=540&amp;quality=85 2x" media="(min-width: 993px)"></source> 
+        <img loading="lazy" class="img-fluid w-100 " src="https://eu-images.contentstack.com/v3/assets/blt066259863543a0d2/blt947279bdae45e682/64dcbf5194181b64e362f996/4-3-AutumnTiday-160823.png?format=pjpg&amp;auto=webp&amp;dpr=1&amp;width=400&amp;quality=85" alt="SubHero-Half-AutumnTiday-160823.png" /> 
+       </picture> </a> 
+     </div> 
+    </div> 
+    <div class="col-12 col-lg-6  col-md-12 justify-content-between "> 
+     <div class="card-easter card__inner banner-max-height mb-4"> 
+      <div class="card__offers"></div> 
+      <a href="/payments" tag-class="banner-1" title="Klarna"> 
+       <picture> 
+        <source data-srcset="https://eu-images.contentstack.com/v3/assets/blt066259863543a0d2/blt716d0a35101c31ad/6384ec74b2251710d60648e4/4-3-Klarna-Trade-281122.png?format=pjpg&amp;auto=webp&amp;dpr=1&amp;width=400&amp;quality=85 1x, https://eu-images.contentstack.com/v3/assets/blt066259863543a0d2/blt716d0a35101c31ad/6384ec74b2251710d60648e4/4-3-Klarna-Trade-281122.png?format=pjpg&amp;auto=webp&amp;dpr=2&amp;width=400&amp;quality=85 2x" srcset="https://eu-images.contentstack.com/v3/assets/blt066259863543a0d2/blt716d0a35101c31ad/6384ec74b2251710d60648e4/4-3-Klarna-Trade-281122.png?format=pjpg&amp;auto=webp&amp;dpr=1&amp;width=400&amp;quality=85 1x, https://eu-images.contentstack.com/v3/assets/blt066259863543a0d2/blt716d0a35101c31ad/6384ec74b2251710d60648e4/4-3-Klarna-Trade-281122.png?format=pjpg&amp;auto=webp&amp;dpr=2&amp;width=400&amp;quality=85 2x" media="(max-width: 414px)"></source> 
+        <source data-srcset="https://eu-images.contentstack.com/v3/assets/blt066259863543a0d2/blt716d0a35101c31ad/6384ec74b2251710d60648e4/4-3-Klarna-Trade-281122.png?format=pjpg&amp;auto=webp&amp;dpr=1&amp;width=500&amp;quality=85 1x, https://eu-images.contentstack.com/v3/assets/blt066259863543a0d2/blt716d0a35101c31ad/6384ec74b2251710d60648e4/4-3-Klarna-Trade-281122.png?format=pjpg&amp;auto=webp&amp;dpr=2&amp;width=500&amp;quality=85 2x" srcset="https://eu-images.contentstack.com/v3/assets/blt066259863543a0d2/blt716d0a35101c31ad/6384ec74b2251710d60648e4/4-3-Klarna-Trade-281122.png?format=pjpg&amp;auto=webp&amp;dpr=1&amp;width=500&amp;quality=85 1x, https://eu-images.contentstack.com/v3/assets/blt066259863543a0d2/blt716d0a35101c31ad/6384ec74b2251710d60648e4/4-3-Klarna-Trade-281122.png?format=pjpg&amp;auto=webp&amp;dpr=2&amp;width=500&amp;quality=85 2x" media="(min-width: 415px) and (max-width: 767px)"></source> 
+        <source data-srcset="https://eu-images.contentstack.com/v3/assets/blt066259863543a0d2/blt29ed8eb88c24f714/646dd0f5cd01211844a99790/Half-Subhero_-Klarna--June-Additions-140523.png?format=pjpg&amp;auto=webp&amp;dpr=1&amp;width=688&amp;quality=85 1x, https://eu-images.contentstack.com/v3/assets/blt066259863543a0d2/blt29ed8eb88c24f714/646dd0f5cd01211844a99790/Half-Subhero_-Klarna--June-Additions-140523.png?format=pjpg&amp;auto=webp&amp;dpr=2&amp;width=688&amp;quality=85 2x" srcset="https://eu-images.contentstack.com/v3/assets/blt066259863543a0d2/blt29ed8eb88c24f714/646dd0f5cd01211844a99790/Half-Subhero_-Klarna--June-Additions-140523.png?format=pjpg&amp;auto=webp&amp;dpr=1&amp;width=688&amp;quality=85 1x, https://eu-images.contentstack.com/v3/assets/blt066259863543a0d2/blt29ed8eb88c24f714/646dd0f5cd01211844a99790/Half-Subhero_-Klarna--June-Additions-140523.png?format=pjpg&amp;auto=webp&amp;dpr=2&amp;width=688&amp;quality=85 2x" media="(min-width: 768px) and (max-width: 992px)"></source> 
+        <source data-srcset="https://eu-images.contentstack.com/v3/assets/blt066259863543a0d2/blt29ed8eb88c24f714/646dd0f5cd01211844a99790/Half-Subhero_-Klarna--June-Additions-140523.png?format=pjpg&amp;auto=webp&amp;dpr=1&amp;width=540&amp;quality=85 1x, https://eu-images.contentstack.com/v3/assets/blt066259863543a0d2/blt29ed8eb88c24f714/646dd0f5cd01211844a99790/Half-Subhero_-Klarna--June-Additions-140523.png?format=pjpg&amp;auto=webp&amp;dpr=2&amp;width=540&amp;quality=85 2x" srcset="https://eu-images.contentstack.com/v3/assets/blt066259863543a0d2/blt29ed8eb88c24f714/646dd0f5cd01211844a99790/Half-Subhero_-Klarna--June-Additions-140523.png?format=pjpg&amp;auto=webp&amp;dpr=1&amp;width=540&amp;quality=85 1x, https://eu-images.contentstack.com/v3/assets/blt066259863543a0d2/blt29ed8eb88c24f714/646dd0f5cd01211844a99790/Half-Subhero_-Klarna--June-Additions-140523.png?format=pjpg&amp;auto=webp&amp;dpr=2&amp;width=540&amp;quality=85 2x" media="(min-width: 993px)"></source> 
+        <img loading="lazy" class="img-fluid w-100 " src="https://eu-images.contentstack.com/v3/assets/blt066259863543a0d2/blt716d0a35101c31ad/6384ec74b2251710d60648e4/4-3-Klarna-Trade-281122.png?format=pjpg&amp;auto=webp&amp;dpr=1&amp;width=400&amp;quality=85" alt="Half-Subhero_-Klarna--June-Additions-140523.png" /> 
+       </picture> </a> 
+     </div> 
+    </div> 
+   </div> 
+  </div> 
+  <div class="container pb-4"> 
+   <!-- TrustBox widget - Horizontal --> 
+   <div class="trustpilot-widget" data-locale="en-GB" data-template-id="5406e65db0d04a09e042d5fc" data-businessunit-id="487ca1cb000064000502f4e2" data-style-height="28px" data-style-width="100%" data-theme="light"> 
+    <a href="https://uk.trustpilot.com/review/www.wickes.co.uk" target="_blank" rel="noopener">Trustpilot</a> 
+   </div> 
+   <!-- End TrustBox widget --> 
+  </div> 
+  <div class="container bottom-fix pb-4"> 
+   <div class="row pb-0 d-flex"> 
+    <div class="col-12 col-lg-6  col-md-12 justify-content-between "> 
+     <div class="card-easter card__inner banner-max-height mb-4"> 
+      <div class="card__offers"></div> 
+      <a href="/latestoffers/kitchen" tag-class="banner-0" title="WLK-madison white"> 
+       <picture> 
+        <source data-srcset="https://eu-images.contentstack.com/v3/assets/blt066259863543a0d2/blt93858709ac9fbbec/64be3b333223c2ae0dccdd03/Tier2-Kitchens-MadisonRange-190723.png?format=pjpg&amp;auto=webp&amp;dpr=1&amp;width=400&amp;quality=85 1x, https://eu-images.contentstack.com/v3/assets/blt066259863543a0d2/blt93858709ac9fbbec/64be3b333223c2ae0dccdd03/Tier2-Kitchens-MadisonRange-190723.png?format=pjpg&amp;auto=webp&amp;dpr=2&amp;width=400&amp;quality=85 2x" srcset="https://eu-images.contentstack.com/v3/assets/blt066259863543a0d2/blt93858709ac9fbbec/64be3b333223c2ae0dccdd03/Tier2-Kitchens-MadisonRange-190723.png?format=pjpg&amp;auto=webp&amp;dpr=1&amp;width=400&amp;quality=85 1x, https://eu-images.contentstack.com/v3/assets/blt066259863543a0d2/blt93858709ac9fbbec/64be3b333223c2ae0dccdd03/Tier2-Kitchens-MadisonRange-190723.png?format=pjpg&amp;auto=webp&amp;dpr=2&amp;width=400&amp;quality=85 2x" media="(max-width: 414px)"></source> 
+        <source data-srcset="https://eu-images.contentstack.com/v3/assets/blt066259863543a0d2/blt93858709ac9fbbec/64be3b333223c2ae0dccdd03/Tier2-Kitchens-MadisonRange-190723.png?format=pjpg&amp;auto=webp&amp;dpr=1&amp;width=500&amp;quality=85 1x, https://eu-images.contentstack.com/v3/assets/blt066259863543a0d2/blt93858709ac9fbbec/64be3b333223c2ae0dccdd03/Tier2-Kitchens-MadisonRange-190723.png?format=pjpg&amp;auto=webp&amp;dpr=2&amp;width=500&amp;quality=85 2x" srcset="https://eu-images.contentstack.com/v3/assets/blt066259863543a0d2/blt93858709ac9fbbec/64be3b333223c2ae0dccdd03/Tier2-Kitchens-MadisonRange-190723.png?format=pjpg&amp;auto=webp&amp;dpr=1&amp;width=500&amp;quality=85 1x, https://eu-images.contentstack.com/v3/assets/blt066259863543a0d2/blt93858709ac9fbbec/64be3b333223c2ae0dccdd03/Tier2-Kitchens-MadisonRange-190723.png?format=pjpg&amp;auto=webp&amp;dpr=2&amp;width=500&amp;quality=85 2x" media="(min-width: 415px) and (max-width: 767px)"></source> 
+        <source data-srcset="https://eu-images.contentstack.com/v3/assets/blt066259863543a0d2/blt93858709ac9fbbec/64be3b333223c2ae0dccdd03/Tier2-Kitchens-MadisonRange-190723.png?format=pjpg&amp;auto=webp&amp;dpr=1&amp;width=688&amp;quality=85 1x, https://eu-images.contentstack.com/v3/assets/blt066259863543a0d2/blt93858709ac9fbbec/64be3b333223c2ae0dccdd03/Tier2-Kitchens-MadisonRange-190723.png?format=pjpg&amp;auto=webp&amp;dpr=2&amp;width=688&amp;quality=85 2x" srcset="https://eu-images.contentstack.com/v3/assets/blt066259863543a0d2/blt93858709ac9fbbec/64be3b333223c2ae0dccdd03/Tier2-Kitchens-MadisonRange-190723.png?format=pjpg&amp;auto=webp&amp;dpr=1&amp;width=688&amp;quality=85 1x, https://eu-images.contentstack.com/v3/assets/blt066259863543a0d2/blt93858709ac9fbbec/64be3b333223c2ae0dccdd03/Tier2-Kitchens-MadisonRange-190723.png?format=pjpg&amp;auto=webp&amp;dpr=2&amp;width=688&amp;quality=85 2x" media="(min-width: 768px) and (max-width: 992px)"></source> 
+        <source data-srcset="https://eu-images.contentstack.com/v3/assets/blt066259863543a0d2/blt93858709ac9fbbec/64be3b333223c2ae0dccdd03/Tier2-Kitchens-MadisonRange-190723.png?format=pjpg&amp;auto=webp&amp;dpr=1&amp;width=540&amp;quality=85 1x, https://eu-images.contentstack.com/v3/assets/blt066259863543a0d2/blt93858709ac9fbbec/64be3b333223c2ae0dccdd03/Tier2-Kitchens-MadisonRange-190723.png?format=pjpg&amp;auto=webp&amp;dpr=2&amp;width=540&amp;quality=85 2x" srcset="https://eu-images.contentstack.com/v3/assets/blt066259863543a0d2/blt93858709ac9fbbec/64be3b333223c2ae0dccdd03/Tier2-Kitchens-MadisonRange-190723.png?format=pjpg&amp;auto=webp&amp;dpr=1&amp;width=540&amp;quality=85 1x, https://eu-images.contentstack.com/v3/assets/blt066259863543a0d2/blt93858709ac9fbbec/64be3b333223c2ae0dccdd03/Tier2-Kitchens-MadisonRange-190723.png?format=pjpg&amp;auto=webp&amp;dpr=2&amp;width=540&amp;quality=85 2x" media="(min-width: 993px)"></source> 
+        <img loading="lazy" class="img-fluid w-100 " src="https://eu-images.contentstack.com/v3/assets/blt066259863543a0d2/blt93858709ac9fbbec/64be3b333223c2ae0dccdd03/Tier2-Kitchens-MadisonRange-190723.png?format=pjpg&amp;auto=webp&amp;dpr=1&amp;width=400&amp;quality=85" alt="Tier2-Kitchens-MadisonRange-190723.png" /> 
+       </picture> </a> 
+     </div> 
+    </div> 
+    <div class="col-12 col-lg-6  col-md-12 justify-content-between "> 
+     <div class="card-easter card__inner banner-max-height mb-4"> 
+      <div class="card__offers"></div> 
+      <a href="/featured/insulation-offers" tag-class="banner-1" title="Insulation "> 
+       <picture> 
+        <source data-srcset="https://eu-images.contentstack.com/v3/assets/blt066259863543a0d2/blt0f094d5b0fa38367/6537887c75c74c91f65843b4/Tier2-BuildingMaterials-Loftroll-November-181023.png?format=pjpg&amp;auto=webp&amp;dpr=1&amp;width=400&amp;quality=85 1x, https://eu-images.contentstack.com/v3/assets/blt066259863543a0d2/blt0f094d5b0fa38367/6537887c75c74c91f65843b4/Tier2-BuildingMaterials-Loftroll-November-181023.png?format=pjpg&amp;auto=webp&amp;dpr=2&amp;width=400&amp;quality=85 2x" srcset="https://eu-images.contentstack.com/v3/assets/blt066259863543a0d2/blt0f094d5b0fa38367/6537887c75c74c91f65843b4/Tier2-BuildingMaterials-Loftroll-November-181023.png?format=pjpg&amp;auto=webp&amp;dpr=1&amp;width=400&amp;quality=85 1x, https://eu-images.contentstack.com/v3/assets/blt066259863543a0d2/blt0f094d5b0fa38367/6537887c75c74c91f65843b4/Tier2-BuildingMaterials-Loftroll-November-181023.png?format=pjpg&amp;auto=webp&amp;dpr=2&amp;width=400&amp;quality=85 2x" media="(max-width: 414px)"></source> 
+        <source data-srcset="https://eu-images.contentstack.com/v3/assets/blt066259863543a0d2/blt0f094d5b0fa38367/6537887c75c74c91f65843b4/Tier2-BuildingMaterials-Loftroll-November-181023.png?format=pjpg&amp;auto=webp&amp;dpr=1&amp;width=500&amp;quality=85 1x, https://eu-images.contentstack.com/v3/assets/blt066259863543a0d2/blt0f094d5b0fa38367/6537887c75c74c91f65843b4/Tier2-BuildingMaterials-Loftroll-November-181023.png?format=pjpg&amp;auto=webp&amp;dpr=2&amp;width=500&amp;quality=85 2x" srcset="https://eu-images.contentstack.com/v3/assets/blt066259863543a0d2/blt0f094d5b0fa38367/6537887c75c74c91f65843b4/Tier2-BuildingMaterials-Loftroll-November-181023.png?format=pjpg&amp;auto=webp&amp;dpr=1&amp;width=500&amp;quality=85 1x, https://eu-images.contentstack.com/v3/assets/blt066259863543a0d2/blt0f094d5b0fa38367/6537887c75c74c91f65843b4/Tier2-BuildingMaterials-Loftroll-November-181023.png?format=pjpg&amp;auto=webp&amp;dpr=2&amp;width=500&amp;quality=85 2x" media="(min-width: 415px) and (max-width: 767px)"></source> 
+        <source data-srcset="https://eu-images.contentstack.com/v3/assets/blt066259863543a0d2/blt0f094d5b0fa38367/6537887c75c74c91f65843b4/Tier2-BuildingMaterials-Loftroll-November-181023.png?format=pjpg&amp;auto=webp&amp;dpr=1&amp;width=688&amp;quality=85 1x, https://eu-images.contentstack.com/v3/assets/blt066259863543a0d2/blt0f094d5b0fa38367/6537887c75c74c91f65843b4/Tier2-BuildingMaterials-Loftroll-November-181023.png?format=pjpg&amp;auto=webp&amp;dpr=2&amp;width=688&amp;quality=85 2x" srcset="https://eu-images.contentstack.com/v3/assets/blt066259863543a0d2/blt0f094d5b0fa38367/6537887c75c74c91f65843b4/Tier2-BuildingMaterials-Loftroll-November-181023.png?format=pjpg&amp;auto=webp&amp;dpr=1&amp;width=688&amp;quality=85 1x, https://eu-images.contentstack.com/v3/assets/blt066259863543a0d2/blt0f094d5b0fa38367/6537887c75c74c91f65843b4/Tier2-BuildingMaterials-Loftroll-November-181023.png?format=pjpg&amp;auto=webp&amp;dpr=2&amp;width=688&amp;quality=85 2x" media="(min-width: 768px) and (max-width: 992px)"></source> 
+        <source data-srcset="https://eu-images.contentstack.com/v3/assets/blt066259863543a0d2/blt0f094d5b0fa38367/6537887c75c74c91f65843b4/Tier2-BuildingMaterials-Loftroll-November-181023.png?format=pjpg&amp;auto=webp&amp;dpr=1&amp;width=540&amp;quality=85 1x, https://eu-images.contentstack.com/v3/assets/blt066259863543a0d2/blt0f094d5b0fa38367/6537887c75c74c91f65843b4/Tier2-BuildingMaterials-Loftroll-November-181023.png?format=pjpg&amp;auto=webp&amp;dpr=2&amp;width=540&amp;quality=85 2x" srcset="https://eu-images.contentstack.com/v3/assets/blt066259863543a0d2/blt0f094d5b0fa38367/6537887c75c74c91f65843b4/Tier2-BuildingMaterials-Loftroll-November-181023.png?format=pjpg&amp;auto=webp&amp;dpr=1&amp;width=540&amp;quality=85 1x, https://eu-images.contentstack.com/v3/assets/blt066259863543a0d2/blt0f094d5b0fa38367/6537887c75c74c91f65843b4/Tier2-BuildingMaterials-Loftroll-November-181023.png?format=pjpg&amp;auto=webp&amp;dpr=2&amp;width=540&amp;quality=85 2x" media="(min-width: 993px)"></source> 
+        <img loading="lazy" class="img-fluid w-100 " src="https://eu-images.contentstack.com/v3/assets/blt066259863543a0d2/blt0f094d5b0fa38367/6537887c75c74c91f65843b4/Tier2-BuildingMaterials-Loftroll-November-181023.png?format=pjpg&amp;auto=webp&amp;dpr=1&amp;width=400&amp;quality=85" alt="Tier2-BuildingMaterials-Loftroll-November-181023.png" /> 
+       </picture> </a> 
+     </div> 
+    </div> 
+   </div> 
+  </div> 
+  <style>
+                    .small-insp-card{padding-bottom:30px}.small-insp-card-title{position:absolute;left:0;right:0;background-color:#fff;border-radius:3px 3px 0 0;height:50px;padding-top:20px;width:85%;color:#3e3e3e;font-size:1.375rem;font-weight:700;letter-spacing:0;line-height:20px;margin:-50px auto 0}.small-insp-card-info{height:auto;color:#3e3e3e;font-size:16px;letter-spacing:0;line-height:24px;margin-bottom:7px;padding:10px 14px 0}.small-insp-card-link{font-weight:600;height:17px;color:#0277bd;font-size:16px;letter-spacing:0;line-height:32px;text-decoration:none}.center-me,.small-insp-card-text{text-align:center}@media only screen and (min-width:768px){.insp-card-component h2{text-align:center;font-size:28px;line-height:32px}}
+                
+  </style> 
+  <div class="insp-card-component" id=""> 
+   <div class="container pb-4"> 
+    <div class="row"> 
+     <div class="col-12  col-lg-4 col-md-12 justify-content-between"> 
+      <div class="small-insp-card"> 
+       <a href="/interior-paint" tag-class="small-insp-banner-0"> 
+        <picture> 
+         <source data-srcset="https://eu-images.contentstack.com/v3/assets/blt066259863543a0d2/blt40f9994df2d7a215/64db3f5b7570b025d73076a0/Tier3-DuluxandWickes-paintevent-september-070823.png?format=pjpg&amp;auto=webp&amp;dpr=1&amp;width=300&amp;crop=4:3&amp;quality=85 1x, https://eu-images.contentstack.com/v3/assets/blt066259863543a0d2/blt40f9994df2d7a215/64db3f5b7570b025d73076a0/Tier3-DuluxandWickes-paintevent-september-070823.png?format=pjpg&amp;auto=webp&amp;dpr=2&amp;width=300&amp;crop=4:3&amp;quality=85 2x" srcset="https://eu-images.contentstack.com/v3/assets/blt066259863543a0d2/blt40f9994df2d7a215/64db3f5b7570b025d73076a0/Tier3-DuluxandWickes-paintevent-september-070823.png?format=pjpg&amp;auto=webp&amp;dpr=1&amp;width=300&amp;crop=4:3&amp;quality=85 1x, https://eu-images.contentstack.com/v3/assets/blt066259863543a0d2/blt40f9994df2d7a215/64db3f5b7570b025d73076a0/Tier3-DuluxandWickes-paintevent-september-070823.png?format=pjpg&amp;auto=webp&amp;dpr=2&amp;width=300&amp;crop=4:3&amp;quality=85 2x" media="(max-width: 414px)"></source> 
+         <source data-srcset="https://eu-images.contentstack.com/v3/assets/blt066259863543a0d2/blt40f9994df2d7a215/64db3f5b7570b025d73076a0/Tier3-DuluxandWickes-paintevent-september-070823.png?format=pjpg&amp;auto=webp&amp;dpr=1&amp;width=500&amp;crop=4:3&amp;quality=85 1x, https://eu-images.contentstack.com/v3/assets/blt066259863543a0d2/blt40f9994df2d7a215/64db3f5b7570b025d73076a0/Tier3-DuluxandWickes-paintevent-september-070823.png?format=pjpg&amp;auto=webp&amp;dpr=2&amp;width=500&amp;crop=4:3&amp;quality=85 2x" srcset="https://eu-images.contentstack.com/v3/assets/blt066259863543a0d2/blt40f9994df2d7a215/64db3f5b7570b025d73076a0/Tier3-DuluxandWickes-paintevent-september-070823.png?format=pjpg&amp;auto=webp&amp;dpr=1&amp;width=500&amp;crop=4:3&amp;quality=85 1x, https://eu-images.contentstack.com/v3/assets/blt066259863543a0d2/blt40f9994df2d7a215/64db3f5b7570b025d73076a0/Tier3-DuluxandWickes-paintevent-september-070823.png?format=pjpg&amp;auto=webp&amp;dpr=2&amp;width=500&amp;crop=4:3&amp;quality=85 2x" media="(min-width: 415px) and (max-width: 767px)"></source> 
+         <source data-srcset="https://eu-images.contentstack.com/v3/assets/blt066259863543a0d2/blt40f9994df2d7a215/64db3f5b7570b025d73076a0/Tier3-DuluxandWickes-paintevent-september-070823.png?format=pjpg&amp;auto=webp&amp;dpr=1&amp;width=688&amp;crop=4:3&amp;quality=85 1x, https://eu-images.contentstack.com/v3/assets/blt066259863543a0d2/blt40f9994df2d7a215/64db3f5b7570b025d73076a0/Tier3-DuluxandWickes-paintevent-september-070823.png?format=pjpg&amp;auto=webp&amp;dpr=2&amp;width=688&amp;crop=4:3&amp;quality=85 2x" srcset="https://eu-images.contentstack.com/v3/assets/blt066259863543a0d2/blt40f9994df2d7a215/64db3f5b7570b025d73076a0/Tier3-DuluxandWickes-paintevent-september-070823.png?format=pjpg&amp;auto=webp&amp;dpr=1&amp;width=688&amp;crop=4:3&amp;quality=85 1x, https://eu-images.contentstack.com/v3/assets/blt066259863543a0d2/blt40f9994df2d7a215/64db3f5b7570b025d73076a0/Tier3-DuluxandWickes-paintevent-september-070823.png?format=pjpg&amp;auto=webp&amp;dpr=2&amp;width=688&amp;crop=4:3&amp;quality=85 2x" media="(min-width: 768px) and (max-width: 992px)"></source> 
+         <source data-srcset="https://eu-images.contentstack.com/v3/assets/blt066259863543a0d2/blt40f9994df2d7a215/64db3f5b7570b025d73076a0/Tier3-DuluxandWickes-paintevent-september-070823.png?format=pjpg&amp;auto=webp&amp;dpr=1&amp;width=350&amp;crop=4:3&amp;quality=85 1x, https://eu-images.contentstack.com/v3/assets/blt066259863543a0d2/blt40f9994df2d7a215/64db3f5b7570b025d73076a0/Tier3-DuluxandWickes-paintevent-september-070823.png?format=pjpg&amp;auto=webp&amp;dpr=2&amp;width=350&amp;crop=4:3&amp;quality=85 2x" srcset="https://eu-images.contentstack.com/v3/assets/blt066259863543a0d2/blt40f9994df2d7a215/64db3f5b7570b025d73076a0/Tier3-DuluxandWickes-paintevent-september-070823.png?format=pjpg&amp;auto=webp&amp;dpr=1&amp;width=350&amp;crop=4:3&amp;quality=85 1x, https://eu-images.contentstack.com/v3/assets/blt066259863543a0d2/blt40f9994df2d7a215/64db3f5b7570b025d73076a0/Tier3-DuluxandWickes-paintevent-september-070823.png?format=pjpg&amp;auto=webp&amp;dpr=2&amp;width=350&amp;crop=4:3&amp;quality=85 2x" media="(min-width: 993px)"></source> 
+         <img loading="lazy" class="img-fluid w-100 " src="https://eu-images.contentstack.com/v3/assets/blt066259863543a0d2/blt40f9994df2d7a215/64db3f5b7570b025d73076a0/Tier3-DuluxandWickes-paintevent-september-070823.png?format=pjpg&amp;auto=webp&amp;dpr=1&amp;width=400&amp;crop=4:3&amp;quality=85" alt="Tier3-DuluxandWickes-paintevent-september-070823.png" /> 
+        </picture> </a> 
+       <div class="small-insp-card-text"> 
+        <p class="small-insp-card-title">Paint offers</p> 
+        <p class="small-insp-card-info">Refresh any room your home with our latest offers on paint. </p> 
+        <a class="small-insp-card-link" href="/interior-paint" tag-class="small-insp-banner-0">Shop now <i class="far fa-angle-right"></i></a> 
+       </div> 
+      </div> 
+     </div> 
+     <div class="col-12  col-lg-4 col-md-12 justify-content-between"> 
+      <div class="small-insp-card"> 
+       <a href="https://kitchens.wickes.co.uk/content/sale" tag-class="small-insp-banner-1"> 
+        <picture> 
+         <source data-srcset="https://eu-images.contentstack.com/v3/assets/blt066259863543a0d2/bltc5dcc5525b4c87a7/65549aa6db2706040a10d446/Tier3-KitchenSale-TLP16-141123.png?format=pjpg&amp;auto=webp&amp;dpr=1&amp;width=300&amp;crop=4:3&amp;quality=85 1x, https://eu-images.contentstack.com/v3/assets/blt066259863543a0d2/bltc5dcc5525b4c87a7/65549aa6db2706040a10d446/Tier3-KitchenSale-TLP16-141123.png?format=pjpg&amp;auto=webp&amp;dpr=2&amp;width=300&amp;crop=4:3&amp;quality=85 2x" srcset="https://eu-images.contentstack.com/v3/assets/blt066259863543a0d2/bltc5dcc5525b4c87a7/65549aa6db2706040a10d446/Tier3-KitchenSale-TLP16-141123.png?format=pjpg&amp;auto=webp&amp;dpr=1&amp;width=300&amp;crop=4:3&amp;quality=85 1x, https://eu-images.contentstack.com/v3/assets/blt066259863543a0d2/bltc5dcc5525b4c87a7/65549aa6db2706040a10d446/Tier3-KitchenSale-TLP16-141123.png?format=pjpg&amp;auto=webp&amp;dpr=2&amp;width=300&amp;crop=4:3&amp;quality=85 2x" media="(max-width: 414px)"></source> 
+         <source data-srcset="https://eu-images.contentstack.com/v3/assets/blt066259863543a0d2/bltc5dcc5525b4c87a7/65549aa6db2706040a10d446/Tier3-KitchenSale-TLP16-141123.png?format=pjpg&amp;auto=webp&amp;dpr=1&amp;width=500&amp;crop=4:3&amp;quality=85 1x, https://eu-images.contentstack.com/v3/assets/blt066259863543a0d2/bltc5dcc5525b4c87a7/65549aa6db2706040a10d446/Tier3-KitchenSale-TLP16-141123.png?format=pjpg&amp;auto=webp&amp;dpr=2&amp;width=500&amp;crop=4:3&amp;quality=85 2x" srcset="https://eu-images.contentstack.com/v3/assets/blt066259863543a0d2/bltc5dcc5525b4c87a7/65549aa6db2706040a10d446/Tier3-KitchenSale-TLP16-141123.png?format=pjpg&amp;auto=webp&amp;dpr=1&amp;width=500&amp;crop=4:3&amp;quality=85 1x, https://eu-images.contentstack.com/v3/assets/blt066259863543a0d2/bltc5dcc5525b4c87a7/65549aa6db2706040a10d446/Tier3-KitchenSale-TLP16-141123.png?format=pjpg&amp;auto=webp&amp;dpr=2&amp;width=500&amp;crop=4:3&amp;quality=85 2x" media="(min-width: 415px) and (max-width: 767px)"></source> 
+         <source data-srcset="https://eu-images.contentstack.com/v3/assets/blt066259863543a0d2/bltc5dcc5525b4c87a7/65549aa6db2706040a10d446/Tier3-KitchenSale-TLP16-141123.png?format=pjpg&amp;auto=webp&amp;dpr=1&amp;width=688&amp;crop=4:3&amp;quality=85 1x, https://eu-images.contentstack.com/v3/assets/blt066259863543a0d2/bltc5dcc5525b4c87a7/65549aa6db2706040a10d446/Tier3-KitchenSale-TLP16-141123.png?format=pjpg&amp;auto=webp&amp;dpr=2&amp;width=688&amp;crop=4:3&amp;quality=85 2x" srcset="https://eu-images.contentstack.com/v3/assets/blt066259863543a0d2/bltc5dcc5525b4c87a7/65549aa6db2706040a10d446/Tier3-KitchenSale-TLP16-141123.png?format=pjpg&amp;auto=webp&amp;dpr=1&amp;width=688&amp;crop=4:3&amp;quality=85 1x, https://eu-images.contentstack.com/v3/assets/blt066259863543a0d2/bltc5dcc5525b4c87a7/65549aa6db2706040a10d446/Tier3-KitchenSale-TLP16-141123.png?format=pjpg&amp;auto=webp&amp;dpr=2&amp;width=688&amp;crop=4:3&amp;quality=85 2x" media="(min-width: 768px) and (max-width: 992px)"></source> 
+         <source data-srcset="https://eu-images.contentstack.com/v3/assets/blt066259863543a0d2/bltc5dcc5525b4c87a7/65549aa6db2706040a10d446/Tier3-KitchenSale-TLP16-141123.png?format=pjpg&amp;auto=webp&amp;dpr=1&amp;width=350&amp;crop=4:3&amp;quality=85 1x, https://eu-images.contentstack.com/v3/assets/blt066259863543a0d2/bltc5dcc5525b4c87a7/65549aa6db2706040a10d446/Tier3-KitchenSale-TLP16-141123.png?format=pjpg&amp;auto=webp&amp;dpr=2&amp;width=350&amp;crop=4:3&amp;quality=85 2x" srcset="https://eu-images.contentstack.com/v3/assets/blt066259863543a0d2/bltc5dcc5525b4c87a7/65549aa6db2706040a10d446/Tier3-KitchenSale-TLP16-141123.png?format=pjpg&amp;auto=webp&amp;dpr=1&amp;width=350&amp;crop=4:3&amp;quality=85 1x, https://eu-images.contentstack.com/v3/assets/blt066259863543a0d2/bltc5dcc5525b4c87a7/65549aa6db2706040a10d446/Tier3-KitchenSale-TLP16-141123.png?format=pjpg&amp;auto=webp&amp;dpr=2&amp;width=350&amp;crop=4:3&amp;quality=85 2x" media="(min-width: 993px)"></source> 
+         <img loading="lazy" class="img-fluid w-100 " src="https://eu-images.contentstack.com/v3/assets/blt066259863543a0d2/bltc5dcc5525b4c87a7/65549aa6db2706040a10d446/Tier3-KitchenSale-TLP16-141123.png?format=pjpg&amp;auto=webp&amp;dpr=1&amp;width=400&amp;crop=4:3&amp;quality=85" alt="Tier3-KitchenSale-TLP16-141123.png" /> 
+        </picture> </a> 
+       <div class="small-insp-card-text"> 
+        <p class="small-insp-card-title">Wickes Bespoke Kitchens</p> 
+        <p class="small-insp-card-info">Choose from our range of 53 kitchens in a variety of styles and colours.</p> 
+        <a class="small-insp-card-link" href="https://kitchens.wickes.co.uk/content/sale" tag-class="small-insp-banner-1">Browse now <i class="far fa-angle-right"></i></a> 
+       </div> 
+      </div> 
+     </div> 
+     <div class="col-12  col-lg-4 col-md-12 justify-content-between"> 
+      <div class="small-insp-card"> 
+       <a href="/featured/bathroom-offers" tag-class="small-insp-banner-2"> 
+        <picture> 
+         <source data-srcset="https://eu-images.contentstack.com/v3/assets/blt066259863543a0d2/blt5acf745dd7f22fe4/65378ab779b70965463818ff/Tier_3-Bathrooms-Vanityunit-November-171023.png?format=pjpg&amp;auto=webp&amp;dpr=1&amp;width=300&amp;crop=4:3&amp;quality=85 1x, https://eu-images.contentstack.com/v3/assets/blt066259863543a0d2/blt5acf745dd7f22fe4/65378ab779b70965463818ff/Tier_3-Bathrooms-Vanityunit-November-171023.png?format=pjpg&amp;auto=webp&amp;dpr=2&amp;width=300&amp;crop=4:3&amp;quality=85 2x" srcset="https://eu-images.contentstack.com/v3/assets/blt066259863543a0d2/blt5acf745dd7f22fe4/65378ab779b70965463818ff/Tier_3-Bathrooms-Vanityunit-November-171023.png?format=pjpg&amp;auto=webp&amp;dpr=1&amp;width=300&amp;crop=4:3&amp;quality=85 1x, https://eu-images.contentstack.com/v3/assets/blt066259863543a0d2/blt5acf745dd7f22fe4/65378ab779b70965463818ff/Tier_3-Bathrooms-Vanityunit-November-171023.png?format=pjpg&amp;auto=webp&amp;dpr=2&amp;width=300&amp;crop=4:3&amp;quality=85 2x" media="(max-width: 414px)"></source> 
+         <source data-srcset="https://eu-images.contentstack.com/v3/assets/blt066259863543a0d2/blt5acf745dd7f22fe4/65378ab779b70965463818ff/Tier_3-Bathrooms-Vanityunit-November-171023.png?format=pjpg&amp;auto=webp&amp;dpr=1&amp;width=500&amp;crop=4:3&amp;quality=85 1x, https://eu-images.contentstack.com/v3/assets/blt066259863543a0d2/blt5acf745dd7f22fe4/65378ab779b70965463818ff/Tier_3-Bathrooms-Vanityunit-November-171023.png?format=pjpg&amp;auto=webp&amp;dpr=2&amp;width=500&amp;crop=4:3&amp;quality=85 2x" srcset="https://eu-images.contentstack.com/v3/assets/blt066259863543a0d2/blt5acf745dd7f22fe4/65378ab779b70965463818ff/Tier_3-Bathrooms-Vanityunit-November-171023.png?format=pjpg&amp;auto=webp&amp;dpr=1&amp;width=500&amp;crop=4:3&amp;quality=85 1x, https://eu-images.contentstack.com/v3/assets/blt066259863543a0d2/blt5acf745dd7f22fe4/65378ab779b70965463818ff/Tier_3-Bathrooms-Vanityunit-November-171023.png?format=pjpg&amp;auto=webp&amp;dpr=2&amp;width=500&amp;crop=4:3&amp;quality=85 2x" media="(min-width: 415px) and (max-width: 767px)"></source> 
+         <source data-srcset="https://eu-images.contentstack.com/v3/assets/blt066259863543a0d2/blt5acf745dd7f22fe4/65378ab779b70965463818ff/Tier_3-Bathrooms-Vanityunit-November-171023.png?format=pjpg&amp;auto=webp&amp;dpr=1&amp;width=688&amp;crop=4:3&amp;quality=85 1x, https://eu-images.contentstack.com/v3/assets/blt066259863543a0d2/blt5acf745dd7f22fe4/65378ab779b70965463818ff/Tier_3-Bathrooms-Vanityunit-November-171023.png?format=pjpg&amp;auto=webp&amp;dpr=2&amp;width=688&amp;crop=4:3&amp;quality=85 2x" srcset="https://eu-images.contentstack.com/v3/assets/blt066259863543a0d2/blt5acf745dd7f22fe4/65378ab779b70965463818ff/Tier_3-Bathrooms-Vanityunit-November-171023.png?format=pjpg&amp;auto=webp&amp;dpr=1&amp;width=688&amp;crop=4:3&amp;quality=85 1x, https://eu-images.contentstack.com/v3/assets/blt066259863543a0d2/blt5acf745dd7f22fe4/65378ab779b70965463818ff/Tier_3-Bathrooms-Vanityunit-November-171023.png?format=pjpg&amp;auto=webp&amp;dpr=2&amp;width=688&amp;crop=4:3&amp;quality=85 2x" media="(min-width: 768px) and (max-width: 992px)"></source> 
+         <source data-srcset="https://eu-images.contentstack.com/v3/assets/blt066259863543a0d2/blt5acf745dd7f22fe4/65378ab779b70965463818ff/Tier_3-Bathrooms-Vanityunit-November-171023.png?format=pjpg&amp;auto=webp&amp;dpr=1&amp;width=350&amp;crop=4:3&amp;quality=85 1x, https://eu-images.contentstack.com/v3/assets/blt066259863543a0d2/blt5acf745dd7f22fe4/65378ab779b70965463818ff/Tier_3-Bathrooms-Vanityunit-November-171023.png?format=pjpg&amp;auto=webp&amp;dpr=2&amp;width=350&amp;crop=4:3&amp;quality=85 2x" srcset="https://eu-images.contentstack.com/v3/assets/blt066259863543a0d2/blt5acf745dd7f22fe4/65378ab779b70965463818ff/Tier_3-Bathrooms-Vanityunit-November-171023.png?format=pjpg&amp;auto=webp&amp;dpr=1&amp;width=350&amp;crop=4:3&amp;quality=85 1x, https://eu-images.contentstack.com/v3/assets/blt066259863543a0d2/blt5acf745dd7f22fe4/65378ab779b70965463818ff/Tier_3-Bathrooms-Vanityunit-November-171023.png?format=pjpg&amp;auto=webp&amp;dpr=2&amp;width=350&amp;crop=4:3&amp;quality=85 2x" media="(min-width: 993px)"></source> 
+         <img loading="lazy" class="img-fluid w-100 " src="https://eu-images.contentstack.com/v3/assets/blt066259863543a0d2/blt5acf745dd7f22fe4/65378ab779b70965463818ff/Tier_3-Bathrooms-Vanityunit-November-171023.png?format=pjpg&amp;auto=webp&amp;dpr=1&amp;width=400&amp;crop=4:3&amp;quality=85" alt="Tier_3-Bathrooms-Vanityunit-November-171023.png" /> 
+        </picture> </a> 
+       <div class="small-insp-card-text"> 
+        <p class="small-insp-card-title">Bathroom essentials</p> 
+        <p class="small-insp-card-info">Shop our best offers on our stylish range of Bathrooms to suit all home styles. </p> 
+        <a class="small-insp-card-link" href="/featured/bathroom-offers" tag-class="small-insp-banner-2">Shop now <i class="far fa-angle-right"></i></a> 
+       </div> 
+      </div> 
+     </div> 
+    </div> 
+   </div> 
+  </div> 
+  <div class="container"> 
+   <hr class="fullwidth-blue-hr mt-0 mb-0" /> 
+  </div> 
+  <div id="olapic_specific_widget" class="pb-4"></div> 
+  <div class="container padding-fix width-fix new-home-banner"> 
+   <div class="row pb-0 d-flex"> 
+    <div class="col-12   col-md-12 justify-content-between "> 
+     <div class="card-easter card__inner banner-max-height mb-4"> 
+      <div class="card__offers"></div> 
+      <a href="/deliverydetails" tag-class="banner-0" title="Delivery details"> 
+       <picture> 
+        <source data-srcset="https://eu-images.contentstack.com/v3/assets/blt066259863543a0d2/blte1409bee7e71d269/6436bcad897f1d163aa79afc/Mobile-CC-120423.png?format=pjpg&amp;auto=webp&amp;dpr=1&amp;width=400&amp;quality=85 1x, https://eu-images.contentstack.com/v3/assets/blt066259863543a0d2/blte1409bee7e71d269/6436bcad897f1d163aa79afc/Mobile-CC-120423.png?format=pjpg&amp;auto=webp&amp;dpr=2&amp;width=400&amp;quality=85 2x" srcset="https://eu-images.contentstack.com/v3/assets/blt066259863543a0d2/blte1409bee7e71d269/6436bcad897f1d163aa79afc/Mobile-CC-120423.png?format=pjpg&amp;auto=webp&amp;dpr=1&amp;width=400&amp;quality=85 1x, https://eu-images.contentstack.com/v3/assets/blt066259863543a0d2/blte1409bee7e71d269/6436bcad897f1d163aa79afc/Mobile-CC-120423.png?format=pjpg&amp;auto=webp&amp;dpr=2&amp;width=400&amp;quality=85 2x" media="(max-width: 414px)"></source> 
+        <source data-srcset="https://eu-images.contentstack.com/v3/assets/blt066259863543a0d2/blte1409bee7e71d269/6436bcad897f1d163aa79afc/Mobile-CC-120423.png?format=pjpg&amp;auto=webp&amp;dpr=1&amp;width=500&amp;quality=85 1x, https://eu-images.contentstack.com/v3/assets/blt066259863543a0d2/blte1409bee7e71d269/6436bcad897f1d163aa79afc/Mobile-CC-120423.png?format=pjpg&amp;auto=webp&amp;dpr=2&amp;width=500&amp;quality=85 2x" srcset="https://eu-images.contentstack.com/v3/assets/blt066259863543a0d2/blte1409bee7e71d269/6436bcad897f1d163aa79afc/Mobile-CC-120423.png?format=pjpg&amp;auto=webp&amp;dpr=1&amp;width=500&amp;quality=85 1x, https://eu-images.contentstack.com/v3/assets/blt066259863543a0d2/blte1409bee7e71d269/6436bcad897f1d163aa79afc/Mobile-CC-120423.png?format=pjpg&amp;auto=webp&amp;dpr=2&amp;width=500&amp;quality=85 2x" media="(min-width: 415px) and (max-width: 767px)"></source> 
+        <source data-srcset="https://eu-images.contentstack.com/v3/assets/blt066259863543a0d2/blt80da2e5c8766dade/6436bcaa6d671c104f22b202/Desktop-CC-120423.png?format=pjpg&amp;auto=webp&amp;dpr=1&amp;width=688&amp;quality=85 1x, https://eu-images.contentstack.com/v3/assets/blt066259863543a0d2/blt80da2e5c8766dade/6436bcaa6d671c104f22b202/Desktop-CC-120423.png?format=pjpg&amp;auto=webp&amp;dpr=2&amp;width=688&amp;quality=85 2x" srcset="https://eu-images.contentstack.com/v3/assets/blt066259863543a0d2/blt80da2e5c8766dade/6436bcaa6d671c104f22b202/Desktop-CC-120423.png?format=pjpg&amp;auto=webp&amp;dpr=1&amp;width=688&amp;quality=85 1x, https://eu-images.contentstack.com/v3/assets/blt066259863543a0d2/blt80da2e5c8766dade/6436bcaa6d671c104f22b202/Desktop-CC-120423.png?format=pjpg&amp;auto=webp&amp;dpr=2&amp;width=688&amp;quality=85 2x" media="(min-width: 768px) and (max-width: 992px)"></source> 
+        <source data-srcset="https://eu-images.contentstack.com/v3/assets/blt066259863543a0d2/blt80da2e5c8766dade/6436bcaa6d671c104f22b202/Desktop-CC-120423.png?format=pjpg&amp;auto=webp&amp;dpr=1&amp;width=1110&amp;quality=85 1x, https://eu-images.contentstack.com/v3/assets/blt066259863543a0d2/blt80da2e5c8766dade/6436bcaa6d671c104f22b202/Desktop-CC-120423.png?format=pjpg&amp;auto=webp&amp;dpr=2&amp;width=1110&amp;quality=85 2x" srcset="https://eu-images.contentstack.com/v3/assets/blt066259863543a0d2/blt80da2e5c8766dade/6436bcaa6d671c104f22b202/Desktop-CC-120423.png?format=pjpg&amp;auto=webp&amp;dpr=1&amp;width=1110&amp;quality=85 1x, https://eu-images.contentstack.com/v3/assets/blt066259863543a0d2/blt80da2e5c8766dade/6436bcaa6d671c104f22b202/Desktop-CC-120423.png?format=pjpg&amp;auto=webp&amp;dpr=2&amp;width=1110&amp;quality=85 2x" media="(min-width: 993px)"></source> 
+        <img loading="lazy" class="img-fluid w-100 " src="https://eu-images.contentstack.com/v3/assets/blt066259863543a0d2/blte1409bee7e71d269/6436bcad897f1d163aa79afc/Mobile-CC-120423.png?format=pjpg&amp;auto=webp&amp;dpr=1&amp;width=400&amp;quality=85" alt="Desktop-CC-120423.png" /> 
+       </picture> </a> 
+     </div> 
+    </div> 
+    <div class="col-12   col-md-12 justify-content-between "> 
+     <div class="card-easter card__inner banner-max-height mb-4"> 
+      <div class="card__offers"></div> 
+      <a href="/ideas-advice" tag-class="banner-1" title="Ideas and Advice"> 
+       <picture> 
+        <source data-srcset="https://eu-images.contentstack.com/v3/assets/blt066259863543a0d2/blt36d9bd7194d9be16/63b4111755d91b7d930d680b/4-3-I&amp;A-NY-Mobile.png?format=pjpg&amp;auto=webp&amp;dpr=1&amp;width=400&amp;quality=85 1x, https://eu-images.contentstack.com/v3/assets/blt066259863543a0d2/blt36d9bd7194d9be16/63b4111755d91b7d930d680b/4-3-I&amp;A-NY-Mobile.png?format=pjpg&amp;auto=webp&amp;dpr=2&amp;width=400&amp;quality=85 2x" srcset="https://eu-images.contentstack.com/v3/assets/blt066259863543a0d2/blt36d9bd7194d9be16/63b4111755d91b7d930d680b/4-3-I&amp;A-NY-Mobile.png?format=pjpg&amp;auto=webp&amp;dpr=1&amp;width=400&amp;quality=85 1x, https://eu-images.contentstack.com/v3/assets/blt066259863543a0d2/blt36d9bd7194d9be16/63b4111755d91b7d930d680b/4-3-I&amp;A-NY-Mobile.png?format=pjpg&amp;auto=webp&amp;dpr=2&amp;width=400&amp;quality=85 2x" media="(max-width: 414px)"></source> 
+        <source data-srcset="https://eu-images.contentstack.com/v3/assets/blt066259863543a0d2/blt36d9bd7194d9be16/63b4111755d91b7d930d680b/4-3-I&amp;A-NY-Mobile.png?format=pjpg&amp;auto=webp&amp;dpr=1&amp;width=500&amp;quality=85 1x, https://eu-images.contentstack.com/v3/assets/blt066259863543a0d2/blt36d9bd7194d9be16/63b4111755d91b7d930d680b/4-3-I&amp;A-NY-Mobile.png?format=pjpg&amp;auto=webp&amp;dpr=2&amp;width=500&amp;quality=85 2x" srcset="https://eu-images.contentstack.com/v3/assets/blt066259863543a0d2/blt36d9bd7194d9be16/63b4111755d91b7d930d680b/4-3-I&amp;A-NY-Mobile.png?format=pjpg&amp;auto=webp&amp;dpr=1&amp;width=500&amp;quality=85 1x, https://eu-images.contentstack.com/v3/assets/blt066259863543a0d2/blt36d9bd7194d9be16/63b4111755d91b7d930d680b/4-3-I&amp;A-NY-Mobile.png?format=pjpg&amp;auto=webp&amp;dpr=2&amp;width=500&amp;quality=85 2x" media="(min-width: 415px) and (max-width: 767px)"></source> 
+        <source data-srcset="https://eu-images.contentstack.com/v3/assets/blt066259863543a0d2/blt64d4b939c257a3dd/63b41117f624610ee808d003/SubHero-I&amp;A-NY-Desktop.png?format=pjpg&amp;auto=webp&amp;dpr=1&amp;width=688&amp;quality=85 1x, https://eu-images.contentstack.com/v3/assets/blt066259863543a0d2/blt64d4b939c257a3dd/63b41117f624610ee808d003/SubHero-I&amp;A-NY-Desktop.png?format=pjpg&amp;auto=webp&amp;dpr=2&amp;width=688&amp;quality=85 2x" srcset="https://eu-images.contentstack.com/v3/assets/blt066259863543a0d2/blt64d4b939c257a3dd/63b41117f624610ee808d003/SubHero-I&amp;A-NY-Desktop.png?format=pjpg&amp;auto=webp&amp;dpr=1&amp;width=688&amp;quality=85 1x, https://eu-images.contentstack.com/v3/assets/blt066259863543a0d2/blt64d4b939c257a3dd/63b41117f624610ee808d003/SubHero-I&amp;A-NY-Desktop.png?format=pjpg&amp;auto=webp&amp;dpr=2&amp;width=688&amp;quality=85 2x" media="(min-width: 768px) and (max-width: 992px)"></source> 
+        <source data-srcset="https://eu-images.contentstack.com/v3/assets/blt066259863543a0d2/blt64d4b939c257a3dd/63b41117f624610ee808d003/SubHero-I&amp;A-NY-Desktop.png?format=pjpg&amp;auto=webp&amp;dpr=1&amp;width=1110&amp;quality=85 1x, https://eu-images.contentstack.com/v3/assets/blt066259863543a0d2/blt64d4b939c257a3dd/63b41117f624610ee808d003/SubHero-I&amp;A-NY-Desktop.png?format=pjpg&amp;auto=webp&amp;dpr=2&amp;width=1110&amp;quality=85 2x" srcset="https://eu-images.contentstack.com/v3/assets/blt066259863543a0d2/blt64d4b939c257a3dd/63b41117f624610ee808d003/SubHero-I&amp;A-NY-Desktop.png?format=pjpg&amp;auto=webp&amp;dpr=1&amp;width=1110&amp;quality=85 1x, https://eu-images.contentstack.com/v3/assets/blt066259863543a0d2/blt64d4b939c257a3dd/63b41117f624610ee808d003/SubHero-I&amp;A-NY-Desktop.png?format=pjpg&amp;auto=webp&amp;dpr=2&amp;width=1110&amp;quality=85 2x" media="(min-width: 993px)"></source> 
+        <img loading="lazy" class="img-fluid w-100 " src="https://eu-images.contentstack.com/v3/assets/blt066259863543a0d2/blt36d9bd7194d9be16/63b4111755d91b7d930d680b/4-3-I&amp;A-NY-Mobile.png?format=pjpg&amp;auto=webp&amp;dpr=1&amp;width=400&amp;quality=85" alt="SubHero-I&amp;A-NY-Desktop.png" /> 
+       </picture> </a> 
+     </div> 
+    </div> 
+    <div class="col-12   col-md-12 justify-content-between "> 
+     <div class="card-easter card__inner banner-max-height mb-4"> 
+      <div class="card__offers"></div> 
+      <a href="/house-move-heroes" tag-class="banner-2" title=""> 
+       <picture> 
+        <source data-srcset="https://eu-images.contentstack.com/v3/assets/blt066259863543a0d2/blte294bb478feaa735/65427f4afc2df4040a037dc6/4-3-HMH-011123.png?format=pjpg&amp;auto=webp&amp;dpr=1&amp;width=400&amp;quality=85 1x, https://eu-images.contentstack.com/v3/assets/blt066259863543a0d2/blte294bb478feaa735/65427f4afc2df4040a037dc6/4-3-HMH-011123.png?format=pjpg&amp;auto=webp&amp;dpr=2&amp;width=400&amp;quality=85 2x" srcset="https://eu-images.contentstack.com/v3/assets/blt066259863543a0d2/blte294bb478feaa735/65427f4afc2df4040a037dc6/4-3-HMH-011123.png?format=pjpg&amp;auto=webp&amp;dpr=1&amp;width=400&amp;quality=85 1x, https://eu-images.contentstack.com/v3/assets/blt066259863543a0d2/blte294bb478feaa735/65427f4afc2df4040a037dc6/4-3-HMH-011123.png?format=pjpg&amp;auto=webp&amp;dpr=2&amp;width=400&amp;quality=85 2x" media="(max-width: 414px)"></source> 
+        <source data-srcset="https://eu-images.contentstack.com/v3/assets/blt066259863543a0d2/blte294bb478feaa735/65427f4afc2df4040a037dc6/4-3-HMH-011123.png?format=pjpg&amp;auto=webp&amp;dpr=1&amp;width=500&amp;quality=85 1x, https://eu-images.contentstack.com/v3/assets/blt066259863543a0d2/blte294bb478feaa735/65427f4afc2df4040a037dc6/4-3-HMH-011123.png?format=pjpg&amp;auto=webp&amp;dpr=2&amp;width=500&amp;quality=85 2x" srcset="https://eu-images.contentstack.com/v3/assets/blt066259863543a0d2/blte294bb478feaa735/65427f4afc2df4040a037dc6/4-3-HMH-011123.png?format=pjpg&amp;auto=webp&amp;dpr=1&amp;width=500&amp;quality=85 1x, https://eu-images.contentstack.com/v3/assets/blt066259863543a0d2/blte294bb478feaa735/65427f4afc2df4040a037dc6/4-3-HMH-011123.png?format=pjpg&amp;auto=webp&amp;dpr=2&amp;width=500&amp;quality=85 2x" media="(min-width: 415px) and (max-width: 767px)"></source> 
+        <source data-srcset="https://eu-images.contentstack.com/v3/assets/blt066259863543a0d2/blt7d58b8012542db88/65427f71a9724a040a78cfb0/SubHero-HMH-011123.png?format=pjpg&amp;auto=webp&amp;dpr=1&amp;width=688&amp;quality=85 1x, https://eu-images.contentstack.com/v3/assets/blt066259863543a0d2/blt7d58b8012542db88/65427f71a9724a040a78cfb0/SubHero-HMH-011123.png?format=pjpg&amp;auto=webp&amp;dpr=2&amp;width=688&amp;quality=85 2x" srcset="https://eu-images.contentstack.com/v3/assets/blt066259863543a0d2/blt7d58b8012542db88/65427f71a9724a040a78cfb0/SubHero-HMH-011123.png?format=pjpg&amp;auto=webp&amp;dpr=1&amp;width=688&amp;quality=85 1x, https://eu-images.contentstack.com/v3/assets/blt066259863543a0d2/blt7d58b8012542db88/65427f71a9724a040a78cfb0/SubHero-HMH-011123.png?format=pjpg&amp;auto=webp&amp;dpr=2&amp;width=688&amp;quality=85 2x" media="(min-width: 768px) and (max-width: 992px)"></source> 
+        <source data-srcset="https://eu-images.contentstack.com/v3/assets/blt066259863543a0d2/blt7d58b8012542db88/65427f71a9724a040a78cfb0/SubHero-HMH-011123.png?format=pjpg&amp;auto=webp&amp;dpr=1&amp;width=1110&amp;quality=85 1x, https://eu-images.contentstack.com/v3/assets/blt066259863543a0d2/blt7d58b8012542db88/65427f71a9724a040a78cfb0/SubHero-HMH-011123.png?format=pjpg&amp;auto=webp&amp;dpr=2&amp;width=1110&amp;quality=85 2x" srcset="https://eu-images.contentstack.com/v3/assets/blt066259863543a0d2/blt7d58b8012542db88/65427f71a9724a040a78cfb0/SubHero-HMH-011123.png?format=pjpg&amp;auto=webp&amp;dpr=1&amp;width=1110&amp;quality=85 1x, https://eu-images.contentstack.com/v3/assets/blt066259863543a0d2/blt7d58b8012542db88/65427f71a9724a040a78cfb0/SubHero-HMH-011123.png?format=pjpg&amp;auto=webp&amp;dpr=2&amp;width=1110&amp;quality=85 2x" media="(min-width: 993px)"></source> 
+        <img loading="lazy" class="img-fluid w-100 " src="https://eu-images.contentstack.com/v3/assets/blt066259863543a0d2/blte294bb478feaa735/65427f4afc2df4040a037dc6/4-3-HMH-011123.png?format=pjpg&amp;auto=webp&amp;dpr=1&amp;width=400&amp;quality=85" alt="SubHero-HMH-011123.png" /> 
+       </picture> </a> 
+     </div> 
+    </div> 
+   </div> 
+  </div> 
+  <div class="container bottom-fix pb-4"> 
+   <div class="row pb-0 d-flex"> 
+    <div class="col-12  col-lg-4 col-md-12 justify-content-between "> 
+     <div class="card-easter card__inner banner-max-height mb-4"> 
+      <div class="card__offers"></div> 
+      <a href="/kimberley-walsh" tag-class="banner-0" title="Kimberley Walsh"> 
+       <picture> 
+        <source data-srcset="https://eu-images.contentstack.com/v3/assets/blt066259863543a0d2/blte62d177a3fc35a89/65258a0504fc4c83a1df24c4/Homepage_footer-KW-PaintLaunch-Banners-200423.png?format=pjpg&amp;auto=webp&amp;dpr=1&amp;width=400&amp;quality=85 1x, https://eu-images.contentstack.com/v3/assets/blt066259863543a0d2/blte62d177a3fc35a89/65258a0504fc4c83a1df24c4/Homepage_footer-KW-PaintLaunch-Banners-200423.png?format=pjpg&amp;auto=webp&amp;dpr=2&amp;width=400&amp;quality=85 2x" srcset="https://eu-images.contentstack.com/v3/assets/blt066259863543a0d2/blte62d177a3fc35a89/65258a0504fc4c83a1df24c4/Homepage_footer-KW-PaintLaunch-Banners-200423.png?format=pjpg&amp;auto=webp&amp;dpr=1&amp;width=400&amp;quality=85 1x, https://eu-images.contentstack.com/v3/assets/blt066259863543a0d2/blte62d177a3fc35a89/65258a0504fc4c83a1df24c4/Homepage_footer-KW-PaintLaunch-Banners-200423.png?format=pjpg&amp;auto=webp&amp;dpr=2&amp;width=400&amp;quality=85 2x" media="(max-width: 414px)"></source> 
+        <source data-srcset="https://eu-images.contentstack.com/v3/assets/blt066259863543a0d2/blte62d177a3fc35a89/65258a0504fc4c83a1df24c4/Homepage_footer-KW-PaintLaunch-Banners-200423.png?format=pjpg&amp;auto=webp&amp;dpr=1&amp;width=500&amp;quality=85 1x, https://eu-images.contentstack.com/v3/assets/blt066259863543a0d2/blte62d177a3fc35a89/65258a0504fc4c83a1df24c4/Homepage_footer-KW-PaintLaunch-Banners-200423.png?format=pjpg&amp;auto=webp&amp;dpr=2&amp;width=500&amp;quality=85 2x" srcset="https://eu-images.contentstack.com/v3/assets/blt066259863543a0d2/blte62d177a3fc35a89/65258a0504fc4c83a1df24c4/Homepage_footer-KW-PaintLaunch-Banners-200423.png?format=pjpg&amp;auto=webp&amp;dpr=1&amp;width=500&amp;quality=85 1x, https://eu-images.contentstack.com/v3/assets/blt066259863543a0d2/blte62d177a3fc35a89/65258a0504fc4c83a1df24c4/Homepage_footer-KW-PaintLaunch-Banners-200423.png?format=pjpg&amp;auto=webp&amp;dpr=2&amp;width=500&amp;quality=85 2x" media="(min-width: 415px) and (max-width: 767px)"></source> 
+        <source data-srcset="https://eu-images.contentstack.com/v3/assets/blt066259863543a0d2/blte62d177a3fc35a89/65258a0504fc4c83a1df24c4/Homepage_footer-KW-PaintLaunch-Banners-200423.png?format=pjpg&amp;auto=webp&amp;dpr=1&amp;width=688&amp;quality=85 1x, https://eu-images.contentstack.com/v3/assets/blt066259863543a0d2/blte62d177a3fc35a89/65258a0504fc4c83a1df24c4/Homepage_footer-KW-PaintLaunch-Banners-200423.png?format=pjpg&amp;auto=webp&amp;dpr=2&amp;width=688&amp;quality=85 2x" srcset="https://eu-images.contentstack.com/v3/assets/blt066259863543a0d2/blte62d177a3fc35a89/65258a0504fc4c83a1df24c4/Homepage_footer-KW-PaintLaunch-Banners-200423.png?format=pjpg&amp;auto=webp&amp;dpr=1&amp;width=688&amp;quality=85 1x, https://eu-images.contentstack.com/v3/assets/blt066259863543a0d2/blte62d177a3fc35a89/65258a0504fc4c83a1df24c4/Homepage_footer-KW-PaintLaunch-Banners-200423.png?format=pjpg&amp;auto=webp&amp;dpr=2&amp;width=688&amp;quality=85 2x" media="(min-width: 768px) and (max-width: 992px)"></source> 
+        <source data-srcset="https://eu-images.contentstack.com/v3/assets/blt066259863543a0d2/blte62d177a3fc35a89/65258a0504fc4c83a1df24c4/Homepage_footer-KW-PaintLaunch-Banners-200423.png?format=pjpg&amp;auto=webp&amp;dpr=1&amp;width=350&amp;quality=85 1x, https://eu-images.contentstack.com/v3/assets/blt066259863543a0d2/blte62d177a3fc35a89/65258a0504fc4c83a1df24c4/Homepage_footer-KW-PaintLaunch-Banners-200423.png?format=pjpg&amp;auto=webp&amp;dpr=2&amp;width=350&amp;quality=85 2x" srcset="https://eu-images.contentstack.com/v3/assets/blt066259863543a0d2/blte62d177a3fc35a89/65258a0504fc4c83a1df24c4/Homepage_footer-KW-PaintLaunch-Banners-200423.png?format=pjpg&amp;auto=webp&amp;dpr=1&amp;width=350&amp;quality=85 1x, https://eu-images.contentstack.com/v3/assets/blt066259863543a0d2/blte62d177a3fc35a89/65258a0504fc4c83a1df24c4/Homepage_footer-KW-PaintLaunch-Banners-200423.png?format=pjpg&amp;auto=webp&amp;dpr=2&amp;width=350&amp;quality=85 2x" media="(min-width: 993px)"></source> 
+        <img loading="lazy" class="img-fluid w-100 " src="https://eu-images.contentstack.com/v3/assets/blt066259863543a0d2/blte62d177a3fc35a89/65258a0504fc4c83a1df24c4/Homepage_footer-KW-PaintLaunch-Banners-200423.png?format=pjpg&amp;auto=webp&amp;dpr=1&amp;width=400&amp;quality=85" alt="Homepage_footer-KW-PaintLaunch-Banners-200423.png" /> 
+       </picture> </a> 
+     </div> 
+    </div> 
+    <div class="col-12  col-lg-4 col-md-12 justify-content-between "> 
+     <div class="card-easter card__inner banner-max-height mb-4"> 
+      <div class="card__offers"></div> 
+      <a href="/jeff-brazier" tag-class="banner-1" title="Jeff Brazier"> 
+       <picture> 
+        <source data-srcset="https://eu-images.contentstack.com/v3/assets/blt066259863543a0d2/bltb9d45e19a6434f90/63d26a005ba52a4ddb50f9e0/Homepage-Footer-JeffBrazier-01.png?format=pjpg&amp;auto=webp&amp;dpr=1&amp;width=400&amp;quality=85 1x, https://eu-images.contentstack.com/v3/assets/blt066259863543a0d2/bltb9d45e19a6434f90/63d26a005ba52a4ddb50f9e0/Homepage-Footer-JeffBrazier-01.png?format=pjpg&amp;auto=webp&amp;dpr=2&amp;width=400&amp;quality=85 2x" srcset="https://eu-images.contentstack.com/v3/assets/blt066259863543a0d2/bltb9d45e19a6434f90/63d26a005ba52a4ddb50f9e0/Homepage-Footer-JeffBrazier-01.png?format=pjpg&amp;auto=webp&amp;dpr=1&amp;width=400&amp;quality=85 1x, https://eu-images.contentstack.com/v3/assets/blt066259863543a0d2/bltb9d45e19a6434f90/63d26a005ba52a4ddb50f9e0/Homepage-Footer-JeffBrazier-01.png?format=pjpg&amp;auto=webp&amp;dpr=2&amp;width=400&amp;quality=85 2x" media="(max-width: 414px)"></source> 
+        <source data-srcset="https://eu-images.contentstack.com/v3/assets/blt066259863543a0d2/bltb9d45e19a6434f90/63d26a005ba52a4ddb50f9e0/Homepage-Footer-JeffBrazier-01.png?format=pjpg&amp;auto=webp&amp;dpr=1&amp;width=500&amp;quality=85 1x, https://eu-images.contentstack.com/v3/assets/blt066259863543a0d2/bltb9d45e19a6434f90/63d26a005ba52a4ddb50f9e0/Homepage-Footer-JeffBrazier-01.png?format=pjpg&amp;auto=webp&amp;dpr=2&amp;width=500&amp;quality=85 2x" srcset="https://eu-images.contentstack.com/v3/assets/blt066259863543a0d2/bltb9d45e19a6434f90/63d26a005ba52a4ddb50f9e0/Homepage-Footer-JeffBrazier-01.png?format=pjpg&amp;auto=webp&amp;dpr=1&amp;width=500&amp;quality=85 1x, https://eu-images.contentstack.com/v3/assets/blt066259863543a0d2/bltb9d45e19a6434f90/63d26a005ba52a4ddb50f9e0/Homepage-Footer-JeffBrazier-01.png?format=pjpg&amp;auto=webp&amp;dpr=2&amp;width=500&amp;quality=85 2x" media="(min-width: 415px) and (max-width: 767px)"></source> 
+        <source data-srcset="https://eu-images.contentstack.com/v3/assets/blt066259863543a0d2/bltb9d45e19a6434f90/63d26a005ba52a4ddb50f9e0/Homepage-Footer-JeffBrazier-01.png?format=pjpg&amp;auto=webp&amp;dpr=1&amp;width=688&amp;quality=85 1x, https://eu-images.contentstack.com/v3/assets/blt066259863543a0d2/bltb9d45e19a6434f90/63d26a005ba52a4ddb50f9e0/Homepage-Footer-JeffBrazier-01.png?format=pjpg&amp;auto=webp&amp;dpr=2&amp;width=688&amp;quality=85 2x" srcset="https://eu-images.contentstack.com/v3/assets/blt066259863543a0d2/bltb9d45e19a6434f90/63d26a005ba52a4ddb50f9e0/Homepage-Footer-JeffBrazier-01.png?format=pjpg&amp;auto=webp&amp;dpr=1&amp;width=688&amp;quality=85 1x, https://eu-images.contentstack.com/v3/assets/blt066259863543a0d2/bltb9d45e19a6434f90/63d26a005ba52a4ddb50f9e0/Homepage-Footer-JeffBrazier-01.png?format=pjpg&amp;auto=webp&amp;dpr=2&amp;width=688&amp;quality=85 2x" media="(min-width: 768px) and (max-width: 992px)"></source> 
+        <source data-srcset="https://eu-images.contentstack.com/v3/assets/blt066259863543a0d2/bltb9d45e19a6434f90/63d26a005ba52a4ddb50f9e0/Homepage-Footer-JeffBrazier-01.png?format=pjpg&amp;auto=webp&amp;dpr=1&amp;width=350&amp;quality=85 1x, https://eu-images.contentstack.com/v3/assets/blt066259863543a0d2/bltb9d45e19a6434f90/63d26a005ba52a4ddb50f9e0/Homepage-Footer-JeffBrazier-01.png?format=pjpg&amp;auto=webp&amp;dpr=2&amp;width=350&amp;quality=85 2x" srcset="https://eu-images.contentstack.com/v3/assets/blt066259863543a0d2/bltb9d45e19a6434f90/63d26a005ba52a4ddb50f9e0/Homepage-Footer-JeffBrazier-01.png?format=pjpg&amp;auto=webp&amp;dpr=1&amp;width=350&amp;quality=85 1x, https://eu-images.contentstack.com/v3/assets/blt066259863543a0d2/bltb9d45e19a6434f90/63d26a005ba52a4ddb50f9e0/Homepage-Footer-JeffBrazier-01.png?format=pjpg&amp;auto=webp&amp;dpr=2&amp;width=350&amp;quality=85 2x" media="(min-width: 993px)"></source> 
+        <img loading="lazy" class="img-fluid w-100 " src="https://eu-images.contentstack.com/v3/assets/blt066259863543a0d2/bltb9d45e19a6434f90/63d26a005ba52a4ddb50f9e0/Homepage-Footer-JeffBrazier-01.png?format=pjpg&amp;auto=webp&amp;dpr=1&amp;width=400&amp;quality=85" alt="Homepage-Footer-JeffBrazier-01.png" /> 
+       </picture> </a> 
+     </div> 
+    </div> 
+    <div class="col-12  col-lg-4 col-md-12 justify-content-between "> 
+     <div class="card-easter card__inner banner-max-height mb-4"> 
+      <div class="card__offers"></div> 
+      <a href="/trade" tag-class="banner-2" title="Trade Pro"> 
+       <picture> 
+        <source data-srcset="https://eu-images.contentstack.com/v3/assets/blt066259863543a0d2/blt63412c19568826b4/602284cbc713d222f78eb5ec/5221-HP-TradePro-700x700.png?format=pjpg&amp;auto=webp&amp;dpr=1&amp;width=400&amp;quality=85 1x, https://eu-images.contentstack.com/v3/assets/blt066259863543a0d2/blt63412c19568826b4/602284cbc713d222f78eb5ec/5221-HP-TradePro-700x700.png?format=pjpg&amp;auto=webp&amp;dpr=2&amp;width=400&amp;quality=85 2x" srcset="https://eu-images.contentstack.com/v3/assets/blt066259863543a0d2/blt63412c19568826b4/602284cbc713d222f78eb5ec/5221-HP-TradePro-700x700.png?format=pjpg&amp;auto=webp&amp;dpr=1&amp;width=400&amp;quality=85 1x, https://eu-images.contentstack.com/v3/assets/blt066259863543a0d2/blt63412c19568826b4/602284cbc713d222f78eb5ec/5221-HP-TradePro-700x700.png?format=pjpg&amp;auto=webp&amp;dpr=2&amp;width=400&amp;quality=85 2x" media="(max-width: 414px)"></source> 
+        <source data-srcset="https://eu-images.contentstack.com/v3/assets/blt066259863543a0d2/blt63412c19568826b4/602284cbc713d222f78eb5ec/5221-HP-TradePro-700x700.png?format=pjpg&amp;auto=webp&amp;dpr=1&amp;width=500&amp;quality=85 1x, https://eu-images.contentstack.com/v3/assets/blt066259863543a0d2/blt63412c19568826b4/602284cbc713d222f78eb5ec/5221-HP-TradePro-700x700.png?format=pjpg&amp;auto=webp&amp;dpr=2&amp;width=500&amp;quality=85 2x" srcset="https://eu-images.contentstack.com/v3/assets/blt066259863543a0d2/blt63412c19568826b4/602284cbc713d222f78eb5ec/5221-HP-TradePro-700x700.png?format=pjpg&amp;auto=webp&amp;dpr=1&amp;width=500&amp;quality=85 1x, https://eu-images.contentstack.com/v3/assets/blt066259863543a0d2/blt63412c19568826b4/602284cbc713d222f78eb5ec/5221-HP-TradePro-700x700.png?format=pjpg&amp;auto=webp&amp;dpr=2&amp;width=500&amp;quality=85 2x" media="(min-width: 415px) and (max-width: 767px)"></source> 
+        <source data-srcset="https://eu-images.contentstack.com/v3/assets/blt066259863543a0d2/blt63412c19568826b4/602284cbc713d222f78eb5ec/5221-HP-TradePro-700x700.png?format=pjpg&amp;auto=webp&amp;dpr=1&amp;width=688&amp;quality=85 1x, https://eu-images.contentstack.com/v3/assets/blt066259863543a0d2/blt63412c19568826b4/602284cbc713d222f78eb5ec/5221-HP-TradePro-700x700.png?format=pjpg&amp;auto=webp&amp;dpr=2&amp;width=688&amp;quality=85 2x" srcset="https://eu-images.contentstack.com/v3/assets/blt066259863543a0d2/blt63412c19568826b4/602284cbc713d222f78eb5ec/5221-HP-TradePro-700x700.png?format=pjpg&amp;auto=webp&amp;dpr=1&amp;width=688&amp;quality=85 1x, https://eu-images.contentstack.com/v3/assets/blt066259863543a0d2/blt63412c19568826b4/602284cbc713d222f78eb5ec/5221-HP-TradePro-700x700.png?format=pjpg&amp;auto=webp&amp;dpr=2&amp;width=688&amp;quality=85 2x" media="(min-width: 768px) and (max-width: 992px)"></source> 
+        <source data-srcset="https://eu-images.contentstack.com/v3/assets/blt066259863543a0d2/blt63412c19568826b4/602284cbc713d222f78eb5ec/5221-HP-TradePro-700x700.png?format=pjpg&amp;auto=webp&amp;dpr=1&amp;width=350&amp;quality=85 1x, https://eu-images.contentstack.com/v3/assets/blt066259863543a0d2/blt63412c19568826b4/602284cbc713d222f78eb5ec/5221-HP-TradePro-700x700.png?format=pjpg&amp;auto=webp&amp;dpr=2&amp;width=350&amp;quality=85 2x" srcset="https://eu-images.contentstack.com/v3/assets/blt066259863543a0d2/blt63412c19568826b4/602284cbc713d222f78eb5ec/5221-HP-TradePro-700x700.png?format=pjpg&amp;auto=webp&amp;dpr=1&amp;width=350&amp;quality=85 1x, https://eu-images.contentstack.com/v3/assets/blt066259863543a0d2/blt63412c19568826b4/602284cbc713d222f78eb5ec/5221-HP-TradePro-700x700.png?format=pjpg&amp;auto=webp&amp;dpr=2&amp;width=350&amp;quality=85 2x" media="(min-width: 993px)"></source> 
+        <img loading="lazy" class="img-fluid w-100 " src="https://eu-images.contentstack.com/v3/assets/blt066259863543a0d2/blt63412c19568826b4/602284cbc713d222f78eb5ec/5221-HP-TradePro-700x700.png?format=pjpg&amp;auto=webp&amp;dpr=1&amp;width=400&amp;quality=85" alt="5221-HP-TradePro-700x700.png" /> 
+       </picture> </a> 
+     </div> 
+    </div> 
+   </div> 
+  </div> 
+ </div> 
+</div></main>
+
+		
+
+<footer>
+	
+		<script type="text/javascript">
+    var invalidTitle = "Please select a title";
+    var invalidFirstName = "Please enter a first name";
+    var invalidLastName = "Please enter a surname";
+    var invalidAddressOne = "Please enter address line 1";
+    var invalidAddressTwo = "Please enter address line 2";
+    var invalidTownCity = "Please enter a town/city";
+    var invalidMobile = "Please enter a valid mobile number with no spaces e.g. 07700900000";
+    var invalidTelephone = "Please enter a valid phone number. It should be 10 or 11 digits e.g. 01234 123456, 0123 412 3456";
+    var invalidPostCode = "Please enter a valid postcode";
+    var undeliverablePostCode = "Please enter deliverable postcode";
+    var selectAddressMessage = "Please select address";
+    var invalidAddressSelection = "Please find your address first";
+    var invalidPostcodeAndHouseSelection = "Please check address details";
+    var invalidPassword = "Please enter a password";
+    var invalidVoucherCode = "Please enter a voucher code";
+    var invalidNameOnCard = "Please enter a name on card";
+    var invalidCustomNameOnCard = "Please enter the name as it appears on the card";
+    var invalidNameOnCardLength = "Name on card should be no more than 32 symbols";
+    var nameOnCardMaxLength = "32";
+    var validationWarnNameOnCard = "Is this name correct?";
+    var invalidStoreId = "Please select a store";
+    var invalidEmailAddress = "Please enter a valid email address - check and try again";
+    var invalidPassword = "Please enter a password";
+    var selectAddressMessage = "Select your nearest/chosen store";
+    var notifyMeDefaultError = "Sorry, we are unable to process your request to be notified, please try again";
+    var gpsTurnedOffMessage = "To search for the stores nearest you, please enable geolocation services on your device";
+    var preferenceServiceError = "Sorry, we were not able to subscribe you to receive marketing information, please try again";
+    var preferenceServicePermanentOptOutWarning = 'You have previously requested to be permanently opted out of all marketing communications from Wickes. If you wish to change your communications preferences please call us on <a href="tel:03301234123" class="tel-uri">0330 123 4123</a>.';
+    var undeliverableAddressErrorMessage = "Sorry, we can't deliver to your area";
+    var completeAddressDetailsMessage = "Please complete your address details";
+</script>
+
+<script defer type="text/javascript" src="/_ui/addons/b2caddon/responsive/common/js/checkout-validation.js?v=231116113840"></script>
+<link rel="subresource" href="/_ui/addons/b2caddon/responsive/common/js/acc.signup.js" >
+<script type="text/javascript">
+	ACC.scripts.addDeferred({src: '/_ui/addons/b2caddon/responsive/common/js/acc.signup.js', version: '?v=231116113840', async: false, type: 'text/javascript', onload: undefined})
+</script>
+<div id="sign-up-wrapper">
+	<div class="sign-up container">
+		<form id="sign-up-form" class="sign-up__form" novalidate action="/quicksignup/signup" onsubmit="return false">
+			<label class="sign-up__newsletter" for="sign-up-email">
+				<span>Newsletter</span></label>
+			<div class="sign-up__email-container">
+				<input id="sign-up-email" class="sign-up__email" type="email" placeholder="Newsletters sign-up">
+				<div id="sign-up-email-error-msg" class="notification notification_error">
+					<span class="icon notification__icon">
+						<span class="fas fa-exclamation-circle"></span>
+					</span>
+					Please enter a valid email address</div>
+				<button id="sign-up-email-submit-btn" class="btn sign-up__submit">
+                	<i class="far fa-long-arrow-right"></i>
+                </button>
+			</div>
+			  <div class="sign-up__link"><span>Sign Up</span></div>
+		</form>
+		<div id="sign-up-thank-you-msg" class="sign-up__thank-you-msg-container">
+			<div class="sign-up__thank-you-msg">
+				<span class="fas fa-check" aria-hidden="true"></span>Thank you for signing up for emails</div>
+		</div>
+	</div>
+</div>
+
+	
+		<div class="footer-menu__wrap">
+    <div class="footer-menu container">
+        <div class="footer-menu__inner">
+        <div class="accordion">
+    <h5 class="accordion__header">
+        <span class="icon accordion__header-icon"></span>
+        <span class="accordion__header-text">Help & Support</span>
+    </h5>
+    <div class="accordion__content hidden-state">
+        <div class="accordion__content-inner">
+            <p class="footer-menu__item">
+                        <a href="/contactus" class="footer-menu__link" target="_self">Get In Touch</a>
+                    </p>
+                <p class="footer-menu__item">
+                        <a href="/track-my-order" class="footer-menu__link" target="_self">Track My Order</a>
+                    </p>
+                <p class="footer-menu__item">
+                        <a href="/deliverydetails" class="footer-menu__link" target="_self">Delivery Information</a>
+                    </p>
+                <p class="footer-menu__item">
+                        <a href="/clickcollect" class="footer-menu__link" target="_self">Click & Collect</a>
+                    </p>
+                <p class="footer-menu__item">
+                        <a href="/store-finder" class="footer-menu__link" target="_self">Store Locator</a>
+                    </p>
+                <p class="footer-menu__item">
+                        <a href="/returnsandrefunds" class="footer-menu__link" target="_self">Returns & Refunds</a>
+                    </p>
+                <p class="footer-menu__item">
+                        <a href="/payments" class="footer-menu__link" target="_self">Payments</a>
+                    </p>
+                <p class="footer-menu__item">
+                        <a href="/reviewsRatings" class="footer-menu__link" target="_self">Rate & Review</a>
+                    </p>
+                <p class="footer-menu__item">
+                        <a href="/trade" class="footer-menu__link" target="_self">TradePro Membership</a>
+                    </p>
+                <p class="footer-menu__item">
+                        <a href="/quickanswers" class="footer-menu__link" target="_self">FAQs</a>
+                    </p>
+                <p class="footer-menu__item">
+                        <a href="https://edigitalsurvey.com/survey/enter/s/ESV-vn17-162959841" class="footer-menu__link" target="_blank">Share Your Feedback</a>
+                    </p>
+                <p class="footer-menu__item">
+                        <a href="/designconsultant" class="footer-menu__link" target="_self">Free Design Appointment</a>
+                    </p>
+                </div>
+    </div>
+</div><div class="accordion">
+    <h5 class="accordion__header">
+        <span class="icon accordion__header-icon"></span>
+        <span class="accordion__header-text">Our Policies</span>
+    </h5>
+    <div class="accordion__content hidden-state">
+        <div class="accordion__content-inner">
+            <p class="footer-menu__item">
+                        <a href="/pricematchpromise" class="footer-menu__link" target="_self">Price Match Promise</a>
+                    </p>
+                <p class="footer-menu__item">
+                        <a href="/sitemap" class="footer-menu__link" target="_self">Sitemap</a>
+                    </p>
+                <p class="footer-menu__item">
+                        <a href="/security" class="footer-menu__link" target="_self">Security Online</a>
+                    </p>
+                <p class="footer-menu__item">
+                        <a href="https://www.wickesplc.co.uk/company/responsible-business/modern-slavery-statement/" class="footer-menu__link" target="_blank">Modern Slavery</a>
+                    </p>
+                <p class="footer-menu__item">
+                        <a href="/corporate-governance" class="footer-menu__link" target="_blank">Corporate Governance</a>
+                    </p>
+                </div>
+    </div>
+</div><div class="accordion">
+    <h5 class="accordion__header">
+        <span class="icon accordion__header-icon"></span>
+        <span class="accordion__header-text">About Wickes</span>
+    </h5>
+    <div class="accordion__content hidden-state">
+        <div class="accordion__content-inner">
+            <p class="footer-menu__item">
+                        <a href="https://www.wickescareers.co.uk" class="footer-menu__link" target="_blank">Careers at Wickes</a>
+                    </p>
+                <p class="footer-menu__item">
+                        <a href="/companyhistory" class="footer-menu__link" target="_self">Company History</a>
+                    </p>
+                <p class="footer-menu__item">
+                        <a href="/community-programme" class="footer-menu__link" target="_self">Wickes Community Programme</a>
+                    </p>
+                <p class="footer-menu__item">
+                        <a href="https://www.wickesplc.co.uk/company/responsible-business/responsible-business" class="footer-menu__link" target="_self">Wickes & the Environment</a>
+                    </p>
+                <p class="footer-menu__item">
+                        <a href="/the-brain-tumour-charity" class="footer-menu__link" target="_self">The Brain Tumour Charity</a>
+                    </p>
+                </div>
+    </div>
+</div><div class="socials">
+	<ul class="socials__list">
+    <li class="socials__item">
+		    <a href="https://www.instagram.com/wickes/"  target="_blank"class="socials__img"><img loading='lazy' src='https://prod1-wx-wickesprod03-aws-travisperkins-cloud-public.s3.amazonaws.com/sys-master/images/hc0/h51/10318830600222/socials_instagram_color.svg' alt='Instagram Link' title='Instagram Link' class='' /></a></li>
+	<li class="socials__item">
+		    <a href="https://www.facebook.com/Wickes.co.uk"  target="_blank"class="socials__img"><img loading='lazy' src='https://prod1-wx-wickesprod03-aws-travisperkins-cloud-public.s3.amazonaws.com/sys-master/images/h39/h8d/10126716207134/socials_facebook_color.svg' alt='Facebook Link' title='Facebook Link' class='' /></a></li>
+	<li class="socials__item">
+		    <a href="https://www.pinterest.co.uk/wickes/"  target="_blank"class="socials__img"><img loading='lazy' src='https://prod1-wx-wickesprod03-aws-travisperkins-cloud-public.s3.amazonaws.com/sys-master/images/h7b/h86/10126716010526/socials_pinterest_color.svg' alt='Pinterest Link' title='Pinterest Link' class='' /></a></li>
+	<li class="socials__item">
+		    <a href="http://www.youtube.com/user/wickesvideo"  target="_blank"class="socials__img"><img loading='lazy' src='https://prod1-wx-wickesprod03-aws-travisperkins-cloud-public.s3.amazonaws.com/sys-master/images/h3a/h8a/10126716141598/socials_youtube_color.svg' alt='Youtube Link' title='Youtube Link' class='' /></a></li>
+	<li class="socials__item">
+		    <a href="http://www.twitter.com/Wickes"  target="_blank"class="socials__img"><img loading='lazy' src='https://prod1-wx-wickesprod03-aws-travisperkins-cloud-public.s3.amazonaws.com/sys-master/images/h2a/h87/10126716076062/socials_twitter_color.svg' alt='Twitter Link' title='Twitter Link' class='' /></a></li>
+	</ul><div class="socials__charity-img">
+        <img loading="lazy" src="https://eu-images.contentstack.com/v3/assets/blt066259863543a0d2/bltb052ecd44eea7676/6426e700c845ee10d665c2d8/the-brain-tumour-charity-logo.png?width=300&height=200" alt="The Brain Tumour Charity Online Donation" title="The Brain Tumour Charity Online Donation"/>
+    </div><div class="payments">
+	<ul class="payments__list payments__list--small">
+		<li class="payments__item">
+				<span class="payments-klarna">
+							<klarna-placement
+									data-key="sidebar-promotion-auto-size"
+									data-locale="en-GB"
+							></klarna-placement>
+						</span>
+					</li>
+		<li class="payments__item">
+				<img class="payments__image" src="https://static-content.wickes.co.uk/wickes-css@2.75.2/build/img/payment/footer/applepay.svg" alt="applepay.svg">
+					</li>
+		<li class="payments__item">
+				<img class="payments__image" src="https://static-content.wickes.co.uk/wickes-css@2.75.2/build/img/payment/footer/mastercard.svg" alt="mastercard.svg">
+					</li>
+		<li class="payments__item">
+				<img class="payments__image" src="https://static-content.wickes.co.uk/wickes-css@2.75.2/build/img/payment/footer/visa.svg" alt="visa.svg">
+					</li>
+		<li class="payments__item">
+				<img class="payments__image" src="https://static-content.wickes.co.uk/wickes-css@2.75.2/build/img/payment/footer/paypal.svg" alt="paypal.svg">
+					</li>
+		</ul>
+</div></div>
+</div>
+    </div>
+</div>
+	
+		<style>
+    .footer-links__item:empty { display:none; }
+</style>
+
+<div class="footer-links">
+	<ul class="footer-links__list">
+		<li class="yCmsComponent footer-links__item">
+<a href="/privacy"  title="Privacy policy" class="footer-links__link">Privacy policy</a></li><li class="yCmsComponent footer-links__item">
+<a href="/termsAndConditions"  title="Terms & conditions" class="footer-links__link">Terms & conditions</a></li><li class="yCmsComponent footer-links__item">
+<a href="https://www.wickesplc.co.uk"  title="Wickes Corporate PLC"  target="_blank"class="footer-links__link">Wickes Corporate PLC</a></li><li class="yCmsComponent footer-links__item">
+<a href="/cookies"  title="Cookie policy" class="footer-links__link">Cookie policy</a></li></ul>
+</div>
+
+	
+		<div class="copyright">
+	Copyright © 2023 Wickes.co.uk</div>
+	
+</footer>
+<form name="accessiblityForm">
+			<input type="hidden" id="accesibility_refreshScreenReaderBufferField" name="accesibility_refreshScreenReaderBufferField" value=""/>
+		</form>
+		<div id="ariaStatusMsg" class="skip" role="status" aria-relevant="text" aria-live="polite"></div>
+
+		<script type="text/javascript" src="/_ui/addons/b2caddon/responsive/common/js/lib/js.tag.libs.min.js?v=231116113840"></script>
+
+<script>
+    Date.prototype.toUKDateString = function(options) {
+        return this.toLocaleDateString("en-GB", options);
+    };
+	ACC.flashcookie = {
+        COOKIE_NAME_PREFIX : 'FLASH_',
+        flashCookies : [],
+
+        populateFlashCookies : function() {
+            for(var cookieName in $.cookie()) {
+                if(cookieName && cookieName.indexOf && cookieName.indexOf(this.COOKIE_NAME_PREFIX) === 0) {
+                    this.popFlashCookie(cookieName);
+                }
+            }
+        },
+
+        addFlashCookie : function(name, value) {
+            var cookieName = this.COOKIE_NAME_PREFIX + name;
+            $.cookie(cookieName, value, { path : "/" });
+        },
+
+        popFlashCookie : function(cookieName) {
+            var value = $.cookie(cookieName);
+            $.removeCookie(cookieName, { path : "/" });
+            var name = cookieName.replace(this.COOKIE_NAME_PREFIX, "");
+            this.flashCookies[name] = value;
+        }
+};
+
+ACC.flashcookie.populateFlashCookies();
+$(window).trigger('flashCookiesAreRead');ACC.globalmessages = {
+
+    MessageType: {
+        WARNING: "notification_warning",
+        ERROR: "notification_error"
+    },
+
+    showWarningMessage: function (message) {
+        ACC.globalmessages.showMessage(message, ACC.globalmessages.MessageType.WARNING);
+    },
+
+    showErrorMessage: function (message) {
+        ACC.globalmessages.showMessage(message, ACC.globalmessages.MessageType.ERROR);
+    },
+
+    showMessage: function (message, messageType) {
+        var messageBody = '<div class="container"><div class="notification_general notification ' + messageType + '"><span class="icon notification__icon"><span class="fas fa-exclamation-circle"></span></span>'
+            + message
+            + '<span class="icon notification__close"><span class="far fa-times"></span></span></div></div>';
+        ACC.globalmessages.showMessageWithBody(messageBody);
+    },
+
+    showMessageWithBody: function(messageBody) {
+        var globalMsg = $(".globalMessages");
+        globalMsg.empty();
+        globalMsg.append(messageBody);
+        globalMsg.show();
+
+        var offset = (Wick.OfferBanner ? Wick.OfferBanner.$element.outerHeight(true) : 0),
+        stickyHeaderOffset = ($('body.tp-app').length ? $('.sticky-header-wrapper').height() || 0 : 0);
+
+        $('html, body').animate({
+            scrollTop: globalMsg.offset().top - offset - stickyHeaderOffset - 30
+        }, 500);
+    },
+
+    hideGlobalMessages: function () {
+        $('.globalMessages').empty();
+    }
+
+};
+</script>
+
+<script defer src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/js/bootstrap.bundle.min.js"
+                      integrity="sha384-Piv4xVNRyMGpqkS2by6br4gNJ7DXjqk09RmUpJ8jgGtD7zP9yug3goQfGII0yAns"
+                      crossorigin="anonymous"></script>
+    <script defer src="https://static-content.wickes.co.uk/wickes-css@2.75.2/build/js/general.bundle.min.js"></script>
+
+<script defer type="text/javascript" src="/_ui/addons/b2caddon/responsive/common/js/popover-mini-basket.js?v=231116113840"></script>
+
+<script async src="/_ui/addons/b2caddon/responsive/common/js/search-suggestions.js?v=231116113840"></script>
+
+<script defer src="https://kit.fontawesome.com/b73abc6840.js" crossorigin="anonymous"></script>
+
+<script defer type="text/javascript" src="https://static-content.wickes.co.uk/wickes-css@2.75.2/build/js/cookie.min.js?v=231116113840"></script>
+<script defer src="//widget.trustpilot.com/bootstrap/v5/tp.widget.bootstrap.min.js"></script>
+	
+
+
+ 
+</body>
+</html>

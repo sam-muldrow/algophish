@@ -1,0 +1,332 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta charset="utf-8">
+<title>å®å¨å«å£«åºç¨é²æ¤å¹³å°</title>
+<style>
+.alertBody {
+    padding: 0;
+    margin: 0;
+    background-color: #F2F3F8;
+}
+.alertCon {
+    margin: 0 auto;
+    width: 500px;
+    padding-top: 150px;
+    overflow: hidden;
+}
+.alertCon_title {
+    height: 40px;
+    line-height: 40px;
+    color: #357FFF;
+    font-size: 24px;
+    text-align: center;
+    font-weight: 700;
+}
+.alertCon_title_S {
+    height: 40px;
+    line-height: 40px;
+    color: #47495A;
+    font-size: 14px;
+    text-align: center;
+}
+.alertCon_title_F {
+    text-align: center;
+    border: 1px dashed #96A5BC;
+    margin: 0 105px;
+    padding: 30px 0;
+    margin-top: 30px;
+}
+.alertCon_title_T {
+    height: 50px;
+    line-height: 40px;
+    color: #96A5BC;
+    font-size: 14px;
+    text-align: center;
+    margin-top: -50px;
+    background-color: #F2F3F8;
+    margin-left: 80px;
+    margin-right: 80px;
+}
+.alertCon_title_F span {
+    font-size: 14px;
+    color: #47495A;
+    text-align: center;
+    width: 100%;
+    display: block;
+}
+.alertCon_title_F span:last-child {
+    margin-top: 6px;
+}
+.alertCon_feedback {
+    display: block;
+    width: 100%;
+    margin-top: 30px;
+    text-align: center;
+}
+.common_btn {
+    display: inline-block;
+    min-width: 72px;
+    height: 32px;
+    line-height: 32px;
+    /*margin: 20px;*/
+    color: #FFF;
+    font-size: 14px;
+    background-color: #357FFF;
+    border-radius: 4px;
+    text-align: center;
+    text-decoration: none;
+    cursor: pointer;
+}
+.alertCon_feedback_btn {
+    width: 290px;
+    margin-top: 0;
+}
+.modal,
+.loading_mask {
+    position: fixed;
+    top: 0;
+    bottom: 0;
+    width: 100%;
+    background-color: rgba(0,0,0,0.6);
+    transition: all 0.5s;
+    opacity: 0;
+    z-index: -10001;
+}
+.loading_mask {
+    background-color: #000;
+}
+.modal .content {
+    position: relative;
+    max-width: 400px;
+    max-height: 96%;
+    margin: 200px auto;
+    background-color: #fff;
+    border-radius: 8px;
+}
+.modal .content header {
+    height: 45px;
+    overflow: hidden;
+    background-color: #EEEFF5;
+    border-radius: 8px 8px 0 0;
+}
+.modal .content header h2 {
+    margin: 0;
+    height: 44px;
+    line-height: 45px;
+    padding: 0 20px;
+    font-weight: 700;
+    border-bottom: 1px solid #ddd;
+    font-size: 18px;
+    color: #282850;
+    letter-spacing: 0;
+}
+.modal .content .main {
+    position: relative;
+    overflow-y: auto;
+    overflow-x: hidden;
+}
+.modal .content .main .msg {
+    padding: 30px 60px;
+    font-size: 16px;
+    line-height: 1.8em;
+}
+.modal .content .main .icon_warning {
+    position: absolute;
+    top: 30px;
+    left: 30px;
+    display: none;
+    width: 24px;
+    height: 24px;
+    border-radius: 50%;
+    background-color: #EC6529;
+    color: #fff;
+    text-align: center;
+    font-size: 20px;
+}
+.modal .content .main .icon_success{
+    position: absolute;
+    top: 30px;
+    left: 30px;
+    display: none;
+    width: 24px;
+    height: 24px;
+    border-radius: 50%;
+    background-color: #3EDD7A;
+    color: #fff;
+    text-align: center;
+    font-size: 20px;
+}
+.modal .content footer {
+    text-align: right;
+    padding: 20px 32px;
+}
+.modal .content footer .cancel_btn {
+    color: #000;
+    background-color: #F5F7FA;
+    border: 1px solid #D9DFEA;
+    margin-right: 10px;
+}
+.loading_mask .round {
+    position: relative;
+    width: 40px;
+    height: 40px;
+    margin: 300px auto;
+    border: 2px solid #357FFF;
+    border-radius: 40px;
+    animation: round 1s linear 0s infinite normal;
+}
+.loading_mask .round:after {
+    content: " ";
+    display: block;
+    position: absolute;
+    left: -10px;
+    top: 0;
+    width: 25px;
+    height: 25px;
+    background-color: #000;
+    border-radius: 25px;
+}
+@keyframes round {
+    0% {
+        transform: rotate(0);
+    }
+    50% {
+        transform: rotate(180deg);
+    }
+    100% {
+        transform: rotate(360deg);
+    }
+}
+</style>
+</head>
+<body class="alertBody">
+    <div class="alertCon">
+        <div class="alertCon_title" >å®å¨å«å£«æ¸©é¦¨æç¤º</div>
+        <div class="alertCon_title_S" >æ¨çè¯·æ±å¸¦æä¸æ³åæ°ï¼å·²è¢«å®å¨å«å£«æ¦æªï¼</div>
+        <div class="alertCon_title_F">
+            <div class="alertCon_title_T" >è¯·å°è¯ä»¥ä¸æ¹æ³</div>
+            <span>1.æ£æ¥è¾å¥æ¯å¦åæ³</span>
+            <span>2.è¯·èç³»ç½ç«ç®¡çå</span>
+        </div>
+        <div class="alertCon_feedback">
+            <a id="feedbackBtn" class="common_btn alertCon_feedback_btn" style="display: none;" href="javascript:void(0)" 
+            onclick="submitFeedback()">è¯¯æ¥åé¦</a>
+        </div>
+    </div>
+    <div id="modal" class="modal">
+        <div class="content">
+            <header>
+                <h2>æç¤º</h2>
+            </header>
+            <div class="main">
+                <span id="warningIcon" class="icon_warning">!</span>
+                <span id="successIcon" class="icon_success">â</span>
+                <div id="modalMsg" class="msg"></div>
+            </div>
+            <footer>
+                <a id="modalCancelBtn" href="javascript:void(0)" class="common_btn cancel_btn" onclick="closeModal()">åæ¶</a>
+                <a id="modalConfirmBtn" href="javascript:void(0)" class="common_btn">ç¡®å®</a>
+            </footer>
+        </div>
+    </div>
+    <div id="loading" class="loading_mask">
+        <div id="loadingContent" class="round"></div>
+    </div>
+    <div id="requestID" style="display: none;">""</div>
+    <span id="misinformation_url" style="display: none;">""</span>
+    <label id="attackType" style="display: none;">4</label>
+    <script type = "text/javascript">
+        var showModal = function(msg,type,callback) {
+            document.getElementById('modalMsg').innerHTML = msg;
+            document.getElementById('modalConfirmBtn').style.display = 'inline-block';
+            switch(type){
+                case 'warning':
+                    document.getElementById('warningIcon').style.display = 'inline-block';
+                    document.getElementById('successIcon').style.display = 'none';
+                    break;
+                case 'success':
+                    document.getElementById('successIcon').style.display = 'inline-block';
+                    document.getElementById('warningIcon').style.display = 'none';
+                    break;
+                default: 
+                    document.getElementById('warningIcon').style.display = 'inline-block';
+                    document.getElementById('successIcon').style.display = 'none';
+                    break;
+            }
+            document.getElementById('modalConfirmBtn').onclick = callback || closeModal;
+            document.getElementById('modal').style.opacity = 1;
+            document.getElementById('modal').style.zIndex = 10001;
+        };
+        var confirmModal = function(msg,type,callback) {
+            document.getElementById('modalCancelBtn').style.display = 'inline-block';
+            showModal(msg,type,callback);
+        };
+        var alertModal = function(msg,type,callback) {
+            document.getElementById('modalCancelBtn').style.display = 'none';
+            showModal(msg,type,callback);
+        }
+        var closeModal = function() {
+            document.getElementById('modal').style.opacity = 0;
+            document.getElementById('modal').style.zIndex = -1 * 10001;
+        };
+        var showLoading = function() {
+            document.getElementById('loading').style.opacity = 0.7;
+            document.getElementById('loading').style.zIndex = 20001;
+        };
+        var closeLoading = function() {
+            document.getElementById('loading').style.opacity = 0;
+            document.getElementById('loading').style.zIndex = -1 * 20001;
+        };
+        window.onerror = function(){
+            closeLoading();
+            alertModal('å è½½å¼å¸¸ï¼è¯·ç¨åéè¯', 'warning');
+        };
+        var setFeedbackBtn = function(){
+            var attackType = document.getElementById('attackType') && document.getElementById('attackType').innerHTML;
+            if(attackType && attackType == 1){
+                document.getElementById('feedbackBtn').style.display = 'inline-block';
+            }else {
+                document.getElementById('feedbackBtn').style.display = 'none';
+            }
+        };
+        setFeedbackBtn();
+        var hasSuccessSubmit = false;
+        var submitFeedback = function(){
+            if(hasSuccessSubmit){
+                return;
+            }
+            confirmModal('æ¯å¦ç¡®è®¤åé¦ï¼', 'warning', function(){
+                var requestID = document.getElementById('requestID') && document.getElementById('requestID').innerHTML;
+                var url = document.getElementById('misinformation_url') && document.getElementById('misinformation_url').innerHTML;
+                if(requestID && url){
+                    closeModal();
+                    var xhr = new XMLHttpRequest();
+                    xhr.onreadystatechange = function(){
+                        if( xhr.readyState === 4 ) {
+                            if( xhr.status === 200 || xhr.status === 0) {
+                                alertModal('æè°¢æ¨çåé¦', 'success');
+                                hasSuccessSubmit = true;
+                                document.getElementById('feedbackBtn').style.backgroundColor = '#ddd';
+                                console.log('è¯·æ±æåï¼' + xhr.responseText);
+                            }
+                            else {
+                                alertModal('å è½½å¼å¸¸ï¼è¯·ç¨åéè¯', 'warning');
+                                console.log('è¯·æ±åºéï¼éè¯¯ç :' + xhr.status);
+                                console.log(xhr);
+                            }
+                            closeLoading();
+                        }
+                    }
+                    showLoading();
+                    xhr.open('GET',url+'?requestID='+requestID,true);
+                    xhr.send(null);
+                }else {
+                    alertModal('å è½½å¼å¸¸ï¼è¯·ç¨åéè¯', 'warning');
+                }
+            });
+        }
+    </script>
+</body>
+</html>
+

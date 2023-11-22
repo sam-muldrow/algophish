@@ -1,0 +1,177 @@
+<html>
+<head><title>ESPACE DEDIE : </title>
+ <meta charset="iso-8859-1"/>
+ <link rel="stylesheet" href="style2.css" type="text/css">
+<link rel="stylesheet" href="jquery/custom-theme/jquery-ui-1.8.custom.css" type="text/css" media="screen" />
+<script type="text/javascript" src="/jquery/jquery-1.4.2.min.js"></script>
+<script type="text/javascript" src="/jquery/jquery-ui-1.8.2.min.js"></script>
+<SCRIPT LANGUAGE="JavaScript">
+function newImage(arg) {
+        if (document.images) {
+                rslt = new Image();
+                rslt.src = arg;
+                return rslt;
+        }
+}
+function changeImages() {
+        if (document.images && (preloadFlag == true)) {
+                for (var i=0; i<changeImages.arguments.length; i+=2) {
+                        document[changeImages.arguments[i]].src = changeImages.arguments[i+1];
+                }
+        }
+}
+
+function preloadImages() {
+        if (document.images) {
+                espaceur = newImage("images/espaceur.gif");
+                preloadFlag = true;
+        }
+}
+function nf_go(nom,url) {
+        URL = url;
+		url = url + '&TRI='+TRI+'&TRI_TYPE='+TRI_TYPE;
+		//alert(url);
+        parent.frames[nom].location.href=url;
+}
+
+function change_tri(tri) {
+	if (TRI==tri) {
+		TRI=tri;
+		change_type_tri();
+	} else {
+		TRI=tri;
+		affiche_tri();
+		nf_go('fichier',URL);
+	}
+}
+
+function change_type_tri() {
+	TRI_TYPE=TRI_TYPE == 'CROISSANT' ? 'DECROISSANT' : 'CROISSANT';
+	affiche_tri();
+	nf_go('fichier',URL);
+}
+function affiche_tri() {
+	$('.img_tri').attr('src', 'images/espaceur.gif');
+	
+	$('#IMG_'+TRI).attr('src', TRI_TYPE == 'CROISSANT' ? 'images/croissant.png' : 'images/decroissant.png');
+}
+
+function fichier_selection_toute() {
+        $('#fichier').contents().find('.fichier').each(function() {
+			if ( $(this).hasClass('selectionner') ) {
+				$(this).removeClass('selectionner');
+			} else {
+				$(this).addClass('selectionner');
+			}
+		});
+}
+
+function fichier_selection() {
+        var res="";
+        $('#fichier').contents().find('.fichier.selectionner').each(function() {
+			res+= ( res.length > 0 ? ',' : '' ) +  $(this).attr('fichier');
+		});
+        return(res);
+}
+
+function texte_fichier_selection() {
+       return fichier_selection();
+}
+
+function ajoute_fichier() {
+        url="ajout.php?NOEUD="+noeud+"&PATH=/usr/local/bin:/usr/bin:/bin&PATH_SELECTIONNE="+path_selectionne;
+        window.open(url,'fichiers','width=350,height=650');
+}
+
+function change_fichier() {
+
+
+}
+var preloadFlag = false;
+window.name='principale';
+var ftp_path='/usr/local/bin:/usr/bin:/bin';
+var path_selectionne='';
+var noeud=0;
+var URL='';
+var TRI = 'NOM';
+var TRI_TYPE='CROISSANT';
+
+$(document).ready(function(){
+URL = 'fichier.php?PATH=/usr/local/bin:/usr/bin:/bin';
+nf_go('fichier',URL);
+affiche_tri();
+
+});
+</SCRIPT>
+
+</head>
+<body bgcolor=#000000 topmargin=0 leftmargin=0 marginwidth=0 marginheight=0 ONLOAD="preloadImages();" background="images/fond.jpg">
+<center>
+<table border=0 width=950 cellpadding=0 cellspacing=0 background="images/bandeau.jpg">
+        <tr>
+                <td width=380><img src=images/espaceur.gif width=380 height=80></td>
+                <td width=200 class=titre align=center</td>
+                <td width=370 valign=top align=right><img src=images/espaceur.gif width=370 height=80 border=0></a></td>
+        </tr>
+</table>
+<table border=0 width=950 cellpadding=0 cellspacing=0>
+        <tr>
+                <td align=center valign=top><img src=images/espaceur.gif width=1 height=5><br>
+                <table><tr>
+                                <td><a class=lienb href=deconnexion.php><img src=images/close.gif width=30 height=30 align=absmiddle border=0></a>&nbsp;<a class=lienb href=deconnexion.php>Déconnexion</a></td>
+                </tr></table>
+                </td>
+        </tr>
+</table>
+<br>
+<br><br>
+<font class=titre>LISTE DES DOMAINES</font><br><br><br>
+<table border=0 width=406 cellpadding=0 cellspacing=0>
+        <tr>
+                <td width=5><img src=images/bhg.gif width=5 height=5></td>
+                <td width=396 background=images/bhm.gif><img src=images/espaceur.gif width=1 height=5></td>
+                <td width=5><img src=images/bhd.gif width=5 height=5></td>
+        </tr>
+        <tr>
+                <td background=images/bmg.gif><img src=images/espaceur.gif width=5 height=1></td>
+                <td><table border=0 width=396 cellpadding=0 cellspacing=0 bgcolor=#FFFFFF>
+                        <tr><td>&nbsp;<img src=images/rep.gif width=16 height=14 align=absmiddle>&nbsp;<a class=dossier
+                                                                                href=index.php?DOMAINE=dsa>dsa</a></td></tr><tr><td>&nbsp;<img src=images/rep.gif width=16 height=14 align=absmiddle>&nbsp;<a class=dossier
+                                                                                href=index.php?DOMAINE=newcoconsulting>newcoconsulting</a></td></tr><tr><td>&nbsp;<img src=images/rep.gif width=16 height=14 align=absmiddle>&nbsp;<a class=dossier
+                                                                                href=index.php?DOMAINE=asie>asie</a></td></tr><tr><td>&nbsp;<img src=images/rep.gif width=16 height=14 align=absmiddle>&nbsp;<a class=dossier
+                                                                                href=index.php?DOMAINE=anaaff>anaaff</a></td></tr><tr><td>&nbsp;<img src=images/rep.gif width=16 height=14 align=absmiddle>&nbsp;<a class=dossier
+                                                                                href=index.php?DOMAINE=snef>snef</a></td></tr><tr><td>&nbsp;<img src=images/rep.gif width=16 height=14 align=absmiddle>&nbsp;<a class=dossier
+                                                                                href=index.php?DOMAINE=trevailproservices>trevailproservices</a></td></tr><tr><td>&nbsp;<img src=images/rep.gif width=16 height=14 align=absmiddle>&nbsp;<a class=dossier
+                                                                                href=index.php?DOMAINE=sup_tertiaire>sup_tertiaire</a></td></tr><tr><td>&nbsp;<img src=images/rep.gif width=16 height=14 align=absmiddle>&nbsp;<a class=dossier
+                                                                                href=index.php?DOMAINE=sourire>sourire</a></td></tr><tr><td>&nbsp;<img src=images/rep.gif width=16 height=14 align=absmiddle>&nbsp;<a class=dossier
+                                                                                href=index.php?DOMAINE=althalia>althalia</a></td></tr><tr><td>&nbsp;<img src=images/rep.gif width=16 height=14 align=absmiddle>&nbsp;<a class=dossier
+                                                                                href=index.php?DOMAINE=demo>demo</a></td></tr><tr><td>&nbsp;<img src=images/rep.gif width=16 height=14 align=absmiddle>&nbsp;<a class=dossier
+                                                                                href=index.php?DOMAINE=companeo>companeo</a></td></tr><tr><td>&nbsp;<img src=images/rep.gif width=16 height=14 align=absmiddle>&nbsp;<a class=dossier
+                                                                                href=index.php?DOMAINE=associationuva>associationuva</a></td></tr><tr><td>&nbsp;<img src=images/rep.gif width=16 height=14 align=absmiddle>&nbsp;<a class=dossier
+                                                                                href=index.php?DOMAINE=associationrevivre>associationrevivre</a></td></tr><tr><td>&nbsp;<img src=images/rep.gif width=16 height=14 align=absmiddle>&nbsp;<a class=dossier
+                                                                                href=index.php?DOMAINE=microconseil>microconseil</a></td></tr><tr><td>&nbsp;<img src=images/rep.gif width=16 height=14 align=absmiddle>&nbsp;<a class=dossier
+                                                                                href=index.php?DOMAINE=agence-web-conseil>agence-web-conseil</a></td></tr><tr><td>&nbsp;<img src=images/rep.gif width=16 height=14 align=absmiddle>&nbsp;<a class=dossier
+                                                                                href=index.php?DOMAINE=webextenso>webextenso</a></td></tr><tr><td>&nbsp;<img src=images/rep.gif width=16 height=14 align=absmiddle>&nbsp;<a class=dossier
+                                                                                href=index.php?DOMAINE=studioflament>studioflament</a></td></tr><tr><td>&nbsp;<img src=images/rep.gif width=16 height=14 align=absmiddle>&nbsp;<a class=dossier
+                                                                                href=index.php?DOMAINE=famille>famille</a></td></tr><tr><td>&nbsp;<img src=images/rep.gif width=16 height=14 align=absmiddle>&nbsp;<a class=dossier
+                                                                                href=index.php?DOMAINE=gess>gess</a></td></tr><tr><td>&nbsp;<img src=images/rep.gif width=16 height=14 align=absmiddle>&nbsp;<a class=dossier
+                                                                                href=index.php?DOMAINE=mc3>mc3</a></td></tr><tr><td>&nbsp;<img src=images/rep.gif width=16 height=14 align=absmiddle>&nbsp;<a class=dossier
+                                                                                href=index.php?DOMAINE=bcm>bcm</a></td></tr><tr><td>&nbsp;<img src=images/rep.gif width=16 height=14 align=absmiddle>&nbsp;<a class=dossier
+                                                                                href=index.php?DOMAINE=selmet>selmet</a></td></tr><tr><td>&nbsp;<img src=images/rep.gif width=16 height=14 align=absmiddle>&nbsp;<a class=dossier
+                                                                                href=index.php?DOMAINE=accprocess>accprocess</a></td></tr><tr><td>&nbsp;<img src=images/rep.gif width=16 height=14 align=absmiddle>&nbsp;<a class=dossier
+                                                                                href=index.php?DOMAINE=3ds>3ds</a></td></tr><tr><td>&nbsp;<img src=images/rep.gif width=16 height=14 align=absmiddle>&nbsp;<a class=dossier
+                                                                                href=index.php?DOMAINE=isicb2b>isicb2b</a></td></tr>                </table></td>
+                <td background=images/bmd.gif><img src=images/espaceur.gif width=5 height=1></td>
+        </tr>
+        <tr>
+                <td width=5><img src=images/bbg.gif width=5 height=5></td>
+                <td width=396 background=images/bbm.gif><img src=images/espaceur.gif width=1 height=5></td>
+                <td width=5><img src=images/bbd.gif width=5 height=5></td>
+        </tr>
+</table>
+	<font style="font: 11px Verdana; color: #3D6380"><a href=http://www.agence-web-conseil.com target="_blank" class=lienmicro alt="Agence Web Conseil : Web Agency, création de site internet" title="Agence Web Conseil : Web Agency, création de site internet">Réalisé par Agence Web Conseil</a>
+			</font>
+	</center>
+	
+</body>
+</html>

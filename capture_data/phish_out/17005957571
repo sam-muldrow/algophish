@@ -1,0 +1,804 @@
+<!DOCTYPE html>
+<html lang="en-US">
+
+<head><meta charset="UTF-8" /><script>if(navigator.userAgent.match(/MSIE|Internet Explorer/i)||navigator.userAgent.match(/Trident\/7\..*?rv:11/i)){var href=document.location.href;if(!href.match(/[?&]nowprocket/)){if(href.indexOf("?")==-1){if(href.indexOf("#")==-1){document.location.href=href+"?nowprocket=1"}else{document.location.href=href.replace("#","?nowprocket=1#")}}else{if(href.indexOf("#")==-1){document.location.href=href+"&nowprocket=1"}else{document.location.href=href.replace("#","&nowprocket=1#")}}}}</script><script>class RocketLazyLoadScripts{constructor(){this.v="1.2.4",this.triggerEvents=["keydown","mousedown","mousemove","touchmove","touchstart","touchend","wheel"],this.userEventHandler=this._triggerListener.bind(this),this.touchStartHandler=this._onTouchStart.bind(this),this.touchMoveHandler=this._onTouchMove.bind(this),this.touchEndHandler=this._onTouchEnd.bind(this),this.clickHandler=this._onClick.bind(this),this.interceptedClicks=[],window.addEventListener("pageshow",t=>{this.persisted=t.persisted}),window.addEventListener("DOMContentLoaded",()=>{this._preconnect3rdParties()}),this.delayedScripts={normal:[],async:[],defer:[]},this.trash=[],this.allJQueries=[]}_addUserInteractionListener(t){if(document.hidden){t._triggerListener();return}this.triggerEvents.forEach(e=>window.addEventListener(e,t.userEventHandler,{passive:!0})),window.addEventListener("touchstart",t.touchStartHandler,{passive:!0}),window.addEventListener("mousedown",t.touchStartHandler),document.addEventListener("visibilitychange",t.userEventHandler)}_removeUserInteractionListener(){this.triggerEvents.forEach(t=>window.removeEventListener(t,this.userEventHandler,{passive:!0})),document.removeEventListener("visibilitychange",this.userEventHandler)}_onTouchStart(t){"HTML"!==t.target.tagName&&(window.addEventListener("touchend",this.touchEndHandler),window.addEventListener("mouseup",this.touchEndHandler),window.addEventListener("touchmove",this.touchMoveHandler,{passive:!0}),window.addEventListener("mousemove",this.touchMoveHandler),t.target.addEventListener("click",this.clickHandler),this._renameDOMAttribute(t.target,"onclick","rocket-onclick"),this._pendingClickStarted())}_onTouchMove(t){window.removeEventListener("touchend",this.touchEndHandler),window.removeEventListener("mouseup",this.touchEndHandler),window.removeEventListener("touchmove",this.touchMoveHandler,{passive:!0}),window.removeEventListener("mousemove",this.touchMoveHandler),t.target.removeEventListener("click",this.clickHandler),this._renameDOMAttribute(t.target,"rocket-onclick","onclick"),this._pendingClickFinished()}_onTouchEnd(){window.removeEventListener("touchend",this.touchEndHandler),window.removeEventListener("mouseup",this.touchEndHandler),window.removeEventListener("touchmove",this.touchMoveHandler,{passive:!0}),window.removeEventListener("mousemove",this.touchMoveHandler)}_onClick(t){t.target.removeEventListener("click",this.clickHandler),this._renameDOMAttribute(t.target,"rocket-onclick","onclick"),this.interceptedClicks.push(t),t.preventDefault(),t.stopPropagation(),t.stopImmediatePropagation(),this._pendingClickFinished()}_replayClicks(){window.removeEventListener("touchstart",this.touchStartHandler,{passive:!0}),window.removeEventListener("mousedown",this.touchStartHandler),this.interceptedClicks.forEach(t=>{t.target.dispatchEvent(new MouseEvent("click",{view:t.view,bubbles:!0,cancelable:!0}))})}_waitForPendingClicks(){return new Promise(t=>{this._isClickPending?this._pendingClickFinished=t:t()})}_pendingClickStarted(){this._isClickPending=!0}_pendingClickFinished(){this._isClickPending=!1}_renameDOMAttribute(t,e,r){t.hasAttribute&&t.hasAttribute(e)&&(event.target.setAttribute(r,event.target.getAttribute(e)),event.target.removeAttribute(e))}_triggerListener(){this._removeUserInteractionListener(this),"loading"===document.readyState?document.addEventListener("DOMContentLoaded",this._loadEverythingNow.bind(this)):this._loadEverythingNow()}_preconnect3rdParties(){let t=[];document.querySelectorAll("script[type=rocketlazyloadscript][data-rocket-src]").forEach(e=>{let r=e.getAttribute("data-rocket-src");if(r&&0!==r.indexOf("data:")){0===r.indexOf("//")&&(r=location.protocol+r);try{let i=new URL(r).origin;i!==location.origin&&t.push({src:i,crossOrigin:e.crossOrigin||"module"===e.getAttribute("data-rocket-type")})}catch(n){}}}),t=[...new Map(t.map(t=>[JSON.stringify(t),t])).values()],this._batchInjectResourceHints(t,"preconnect")}async _loadEverythingNow(){this.lastBreath=Date.now(),this._delayEventListeners(),this._delayJQueryReady(this),this._handleDocumentWrite(),this._registerAllDelayedScripts(),this._preloadAllScripts(),await this._loadScriptsFromList(this.delayedScripts.normal),await this._loadScriptsFromList(this.delayedScripts.defer),await this._loadScriptsFromList(this.delayedScripts.async);try{await this._triggerDOMContentLoaded(),await this._pendingWebpackRequests(this),await this._triggerWindowLoad()}catch(t){console.error(t)}window.dispatchEvent(new Event("rocket-allScriptsLoaded")),this._waitForPendingClicks().then(()=>{this._replayClicks()}),this._emptyTrash()}_registerAllDelayedScripts(){document.querySelectorAll("script[type=rocketlazyloadscript]").forEach(t=>{t.hasAttribute("data-rocket-src")?t.hasAttribute("async")&&!1!==t.async?this.delayedScripts.async.push(t):t.hasAttribute("defer")&&!1!==t.defer||"module"===t.getAttribute("data-rocket-type")?this.delayedScripts.defer.push(t):this.delayedScripts.normal.push(t):this.delayedScripts.normal.push(t)})}async _transformScript(t){if(await this._littleBreath(),!0===t.noModule&&"noModule"in HTMLScriptElement.prototype){t.setAttribute("data-rocket-status","skipped");return}return new Promise(navigator.userAgent.indexOf("Firefox/")>0||""===navigator.vendor?e=>{let r=document.createElement("script");[...t.attributes].forEach(t=>{let e=t.nodeName;"type"!==e&&("data-rocket-type"===e&&(e="type"),"data-rocket-src"===e&&(e="src"),r.setAttribute(e,t.nodeValue))}),t.text&&(r.text=t.text),r.hasAttribute("src")?(r.addEventListener("load",e),r.addEventListener("error",e)):(r.text=t.text,e());try{t.parentNode.replaceChild(r,t)}catch(i){e()}}:e=>{function r(){t.setAttribute("data-rocket-status","failed"),e()}try{let i=t.getAttribute("data-rocket-type"),n=t.getAttribute("data-rocket-src");i?(t.type=i,t.removeAttribute("data-rocket-type")):t.removeAttribute("type"),t.addEventListener("load",function r(){t.setAttribute("data-rocket-status","executed"),e()}),t.addEventListener("error",r),n?(t.removeAttribute("data-rocket-src"),t.src=n):t.src="data:text/javascript;base64,"+window.btoa(unescape(encodeURIComponent(t.text)))}catch(s){r()}})}async _loadScriptsFromList(t){let e=t.shift();return e&&e.isConnected?(await this._transformScript(e),this._loadScriptsFromList(t)):Promise.resolve()}_preloadAllScripts(){this._batchInjectResourceHints([...this.delayedScripts.normal,...this.delayedScripts.defer,...this.delayedScripts.async],"preload")}_batchInjectResourceHints(t,e){var r=document.createDocumentFragment();t.forEach(t=>{let i=t.getAttribute&&t.getAttribute("data-rocket-src")||t.src;if(i){let n=document.createElement("link");n.href=i,n.rel=e,"preconnect"!==e&&(n.as="script"),t.getAttribute&&"module"===t.getAttribute("data-rocket-type")&&(n.crossOrigin=!0),t.crossOrigin&&(n.crossOrigin=t.crossOrigin),t.integrity&&(n.integrity=t.integrity),r.appendChild(n),this.trash.push(n)}}),document.head.appendChild(r)}_delayEventListeners(){let t={};function e(e,r){!function e(r){!t[r]&&(t[r]={originalFunctions:{add:r.addEventListener,remove:r.removeEventListener},eventsToRewrite:[]},r.addEventListener=function(){arguments[0]=i(arguments[0]),t[r].originalFunctions.add.apply(r,arguments)},r.removeEventListener=function(){arguments[0]=i(arguments[0]),t[r].originalFunctions.remove.apply(r,arguments)});function i(e){return t[r].eventsToRewrite.indexOf(e)>=0?"rocket-"+e:e}}(e),t[e].eventsToRewrite.push(r)}function r(t,e){let r=t[e];Object.defineProperty(t,e,{get:()=>r||function(){},set(i){t["rocket"+e]=r=i}})}e(document,"DOMContentLoaded"),e(window,"DOMContentLoaded"),e(window,"load"),e(window,"pageshow"),e(document,"readystatechange"),r(document,"onreadystatechange"),r(window,"onload"),r(window,"onpageshow")}_delayJQueryReady(t){let e;function r(t){return t.split(" ").map(t=>"load"===t||0===t.indexOf("load.")?"rocket-jquery-load":t).join(" ")}function i(i){if(i&&i.fn&&!t.allJQueries.includes(i)){i.fn.ready=i.fn.init.prototype.ready=function(e){return t.domReadyFired?e.bind(document)(i):document.addEventListener("rocket-DOMContentLoaded",()=>e.bind(document)(i)),i([])};let n=i.fn.on;i.fn.on=i.fn.init.prototype.on=function(){return this[0]===window&&("string"==typeof arguments[0]||arguments[0]instanceof String?arguments[0]=r(arguments[0]):"object"==typeof arguments[0]&&Object.keys(arguments[0]).forEach(t=>{let e=arguments[0][t];delete arguments[0][t],arguments[0][r(t)]=e})),n.apply(this,arguments),this},t.allJQueries.push(i)}e=i}i(window.jQuery),Object.defineProperty(window,"jQuery",{get:()=>e,set(t){i(t)}})}async _pendingWebpackRequests(t){let e=document.querySelector("script[data-webpack]");async function r(){return new Promise(t=>{e.addEventListener("load",t),e.addEventListener("error",t)})}e&&(await r(),await t._requestAnimFrame(),await t._pendingWebpackRequests(t))}async _triggerDOMContentLoaded(){this.domReadyFired=!0,await this._littleBreath(),document.dispatchEvent(new Event("rocket-DOMContentLoaded")),await this._littleBreath(),window.dispatchEvent(new Event("rocket-DOMContentLoaded")),await this._littleBreath(),document.dispatchEvent(new Event("rocket-readystatechange")),await this._littleBreath(),document.rocketonreadystatechange&&document.rocketonreadystatechange()}async _triggerWindowLoad(){await this._littleBreath(),window.dispatchEvent(new Event("rocket-load")),await this._littleBreath(),window.rocketonload&&window.rocketonload(),await this._littleBreath(),this.allJQueries.forEach(t=>t(window).trigger("rocket-jquery-load")),await this._littleBreath();let t=new Event("rocket-pageshow");t.persisted=this.persisted,window.dispatchEvent(t),await this._littleBreath(),window.rocketonpageshow&&window.rocketonpageshow({persisted:this.persisted})}_handleDocumentWrite(){let t=new Map;document.write=document.writeln=function(e){let r=document.currentScript;r||console.error("WPRocket unable to document.write this: "+e);let i=document.createRange(),n=r.parentElement,s=t.get(r);void 0===s&&(s=r.nextSibling,t.set(r,s));let a=document.createDocumentFragment();i.setStart(a,0),a.appendChild(i.createContextualFragment(e)),n.insertBefore(a,s)}}async _littleBreath(){Date.now()-this.lastBreath>45&&(await this._requestAnimFrame(),this.lastBreath=Date.now())}async _requestAnimFrame(){return document.hidden?new Promise(t=>setTimeout(t)):new Promise(t=>requestAnimationFrame(t))}_emptyTrash(){this.trash.forEach(t=>t.remove())}static run(){let t=new RocketLazyLoadScripts;t._addUserInteractionListener(t)}}RocketLazyLoadScripts.run();</script>
+	
+	<meta name="viewport" content="width=device-width,initial-scale=1, maximum-scale=6" />
+	<link rel="shortcut icon" href="https://cut2code.com/wp-content/themes/cut2code/assets/images/favicon.ico" />
+	<title>WordPress, Shopify, Front-End Solutions, Professional Support | Cut2Code</title>
+<link rel="preload" as="font" href="https://cut2code.com/wp-content/themes/cut2code/assets/fonts/Px-Grotesk-Bold/Px-Grotesk-Bold.woff2" crossorigin>
+<link rel="preload" as="font" href="https://cut2code.com/wp-content/themes/cut2code/assets/fonts/PxGroteskRegular/Px-Grotesk-Regular.woff2" crossorigin><style id="rocket-critical-css">#cookie-law-info-bar{font-size:15px;margin:0 auto;padding:12px 10px;position:absolute;text-align:center;box-sizing:border-box;width:100%;z-index:9999;display:none;left:0px;font-weight:300;box-shadow:0 -1px 10px 0 rgba(172,171,171,0.3)}#cookie-law-info-bar span{vertical-align:middle}.cli-plugin-button,.cli-plugin-button:visited{display:inline-block;padding:9px 12px;color:#fff;text-decoration:none;position:relative;margin-left:5px;text-decoration:none}.cli-plugin-button,.cli-plugin-button:visited,.medium.cli-plugin-button,.medium.cli-plugin-button:visited{font-size:13px;font-weight:400;line-height:1}.cli-plugin-button{margin-top:5px}.cli-bar-popup{-moz-background-clip:padding;-webkit-background-clip:padding;background-clip:padding-box;-webkit-border-radius:30px;-moz-border-radius:30px;border-radius:30px;padding:20px}.cli-container-fluid{padding-right:15px;padding-left:15px;margin-right:auto;margin-left:auto}.cli-row{display:-ms-flexbox;display:flex;-ms-flex-wrap:wrap;flex-wrap:wrap;margin-right:-15px;margin-left:-15px}.cli-align-items-stretch{-ms-flex-align:stretch!important;align-items:stretch!important}.cli-px-0{padding-left:0;padding-right:0}.cli-btn{font-size:14px;display:inline-block;font-weight:400;text-align:center;white-space:nowrap;vertical-align:middle;border:1px solid transparent;padding:.5rem 1.25rem;line-height:1;border-radius:.25rem}.cli-modal-backdrop{position:fixed;top:0;right:0;bottom:0;left:0;z-index:1040;background-color:#000;display:none}.cli-modal-backdrop.cli-fade{opacity:0}.cli-modal a{text-decoration:none}.cli-modal .cli-modal-dialog{position:relative;width:auto;margin:.5rem;font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif,"Apple Color Emoji","Segoe UI Emoji","Segoe UI Symbol";font-size:1rem;font-weight:400;line-height:1.5;color:#212529;text-align:left;display:-ms-flexbox;display:flex;-ms-flex-align:center;align-items:center;min-height:calc(100% - (.5rem * 2))}@media (min-width:576px){.cli-modal .cli-modal-dialog{max-width:500px;margin:1.75rem auto;min-height:calc(100% - (1.75rem * 2))}}@media (min-width:992px){.cli-modal .cli-modal-dialog{max-width:900px}}.cli-modal-content{position:relative;display:-ms-flexbox;display:flex;-ms-flex-direction:column;flex-direction:column;width:100%;background-color:#fff;background-clip:padding-box;border-radius:.3rem;outline:0}.cli-modal .cli-modal-close{position:absolute;right:10px;top:10px;z-index:1;padding:0;background-color:transparent!important;border:0;-webkit-appearance:none;font-size:1.5rem;font-weight:700;line-height:1;color:#000;text-shadow:0 1px 0 #fff}.cli-switch{display:inline-block;position:relative;min-height:1px;padding-left:70px;font-size:14px}.cli-switch input[type="checkbox"]{display:none}.cli-switch .cli-slider{background-color:#e3e1e8;height:24px;width:50px;bottom:0;left:0;position:absolute;right:0;top:0}.cli-switch .cli-slider:before{background-color:#fff;bottom:2px;content:"";height:20px;left:2px;position:absolute;width:20px}.cli-switch .cli-slider{border-radius:34px}.cli-switch .cli-slider:before{border-radius:50%}.cli-tab-content{background:#ffffff}.cli-tab-content{width:100%;padding:30px}@media (max-width:767px){.cli-tab-content{padding:30px 10px}}.cli-container-fluid{padding-right:15px;padding-left:15px;margin-right:auto;margin-left:auto}.cli-row{display:-ms-flexbox;display:flex;-ms-flex-wrap:wrap;flex-wrap:wrap;margin-right:-15px;margin-left:-15px}.cli-align-items-stretch{-ms-flex-align:stretch!important;align-items:stretch!important}.cli-px-0{padding-left:0;padding-right:0}.cli-btn{font-size:14px;display:inline-block;font-weight:400;text-align:center;white-space:nowrap;vertical-align:middle;border:1px solid transparent;padding:.5rem 1.25rem;line-height:1;border-radius:.25rem}.cli-modal-backdrop{position:fixed;top:0;right:0;bottom:0;left:0;z-index:1040;background-color:#000;-webkit-transform:scale(0);transform:scale(0)}.cli-modal-backdrop.cli-fade{opacity:0}.cli-modal{position:fixed;top:0;right:0;bottom:0;left:0;z-index:99999;transform:scale(0);overflow:hidden;outline:0;display:none}.cli-modal a{text-decoration:none}.cli-modal .cli-modal-dialog{position:relative;width:auto;margin:.5rem;font-family:inherit;font-size:1rem;font-weight:400;line-height:1.5;color:#212529;text-align:left;display:-ms-flexbox;display:flex;-ms-flex-align:center;align-items:center;min-height:calc(100% - (.5rem * 2))}@media (min-width:576px){.cli-modal .cli-modal-dialog{max-width:500px;margin:1.75rem auto;min-height:calc(100% - (1.75rem * 2))}}.cli-modal-content{position:relative;display:-ms-flexbox;display:flex;-ms-flex-direction:column;flex-direction:column;width:100%;background-color:#fff;background-clip:padding-box;border-radius:.2rem;box-sizing:border-box;outline:0}.cli-switch{display:inline-block;position:relative;min-height:1px;padding-left:38px;font-size:14px}.cli-switch input[type="checkbox"]{display:none}.cli-switch .cli-slider{background-color:#e3e1e8;height:20px;width:38px;bottom:0;left:0;position:absolute;right:0;top:0}.cli-switch .cli-slider:before{background-color:#fff;bottom:2px;content:"";height:15px;left:3px;position:absolute;width:15px}.cli-switch .cli-slider{border-radius:34px;font-size:0}.cli-switch .cli-slider:before{border-radius:50%}.cli-tab-content{background:#ffffff}.cli-tab-content{width:100%;padding:5px 30px 5px 5px;box-sizing:border-box}@media (max-width:767px){.cli-tab-content{padding:30px 10px}}.cli-tab-footer .cli-btn{background-color:#00acad;padding:10px 15px;text-decoration:none}.cli-tab-footer .wt-cli-privacy-accept-btn{background-color:#61a229;color:#ffffff;border-radius:0}.cli-tab-footer{width:100%;text-align:right;padding:20px 0}.cli-col-12{width:100%}.cli-tab-header{display:flex;justify-content:space-between}.cli-tab-header a:before{width:10px;height:2px;left:0;top:calc(50% - 1px)}.cli-tab-header a:after{width:2px;height:10px;left:4px;top:calc(50% - 5px);-webkit-transform:none;transform:none}.cli-tab-header a:before{width:7px;height:7px;border-right:1px solid #4a6e78;border-bottom:1px solid #4a6e78;content:" ";transform:rotate(-45deg);margin-right:10px}.cli-tab-header a.cli-nav-link{position:relative;display:flex;align-items:center;font-size:14px;color:#000;text-transform:capitalize}.cli-tab-header{border-radius:5px;padding:12px 15px;background-color:#f2f2f2}.cli-modal .cli-modal-close{position:absolute;right:0;top:0;z-index:1;-webkit-appearance:none;width:40px;height:40px;padding:0;border-radius:50%;padding:10px;background:transparent;border:none;min-width:40px}.cli-tab-container h4{font-family:inherit;font-size:16px;margin-bottom:15px;margin:10px 0}#cliSettingsPopup .cli-tab-section-container{padding-top:12px}.cli-privacy-content-text{font-size:14px;line-height:1.4;margin-top:0;padding:0;color:#000}.cli-tab-content{display:none}.cli-tab-section .cli-tab-content{padding:10px 20px 5px 20px}.cli-tab-section{margin-top:5px}@media (min-width:992px){.cli-modal .cli-modal-dialog{max-width:645px}}.cli-switch .cli-slider:after{content:attr(data-cli-disable);position:absolute;right:50px;color:#000;font-size:12px;text-align:right;min-width:80px}.cli-privacy-overview:not(.cli-collapsed) .cli-privacy-content{max-height:60px;overflow:hidden}a.cli-privacy-readmore{font-size:12px;margin-top:12px;display:inline-block;padding-bottom:0;color:#000;text-decoration:underline}.cli-modal-footer{position:relative}a.cli-privacy-readmore:before{content:attr(data-readmore-text)}.cli-modal-close svg{fill:#000}span.cli-necessary-caption{color:#000;font-size:12px}.cli-tab-container .cli-row{max-height:500px;overflow-y:auto}.cli-tab-section .cookielawinfo-row-cat-table td,.cli-tab-section .cookielawinfo-row-cat-table th{font-size:12px}.wt-cli-sr-only{display:none;font-size:16px}.cli-bar-container{float:none;margin:0 auto;display:-webkit-box;display:-moz-box;display:-ms-flexbox;display:-webkit-flex;display:flex;justify-content:space-between;-webkit-box-align:center;-moz-box-align:center;-ms-flex-align:center;-webkit-align-items:center;align-items:center}.cli-bar-btn_container{margin-left:20px;display:-webkit-box;display:-moz-box;display:-ms-flexbox;display:-webkit-flex;display:flex;-webkit-box-align:center;-moz-box-align:center;-ms-flex-align:center;-webkit-align-items:center;align-items:center;flex-wrap:nowrap}.cli-bar-btn_container a{white-space:nowrap}.cli-style-v2{font-size:11pt;line-height:18px;font-weight:normal}.cli-style-v2 .cli-bar-message{width:70%;text-align:left}.cli-style-v2 .cli-bar-btn_container .cli_action_button,.cli-style-v2 .cli-bar-btn_container .cli_settings_button{margin-left:5px}.cli-style-v2 .cli-bar-btn_container .cli-plugin-button{margin-top:5px;margin-bottom:5px}.wt-cli-necessary-checkbox{display:none!important}@media (max-width:985px){.cli-style-v2 .cli-bar-message{width:100%}.cli-style-v2.cli-bar-container{justify-content:left;flex-wrap:wrap}.cli-style-v2 .cli-bar-btn_container{margin-left:0px;margin-top:10px}}.wt-cli-ckyes-brand-logo{display:flex;align-items:center;font-size:9px;color:#111111;font-weight:normal}.wt-cli-ckyes-brand-logo img{width:65px;margin-left:2px}.wt-cli-privacy-overview-actions{padding-bottom:0}@media only screen and (max-width:479px) and (min-width:320px){.cli-style-v2 .cli-bar-btn_container{flex-wrap:wrap}}.wt-cli-cookie-description{font-size:14px;line-height:1.4;margin-top:0;padding:0;color:#000}.hero{padding:78px 0 60px;overflow:hidden}@media (min-width:768px){.hero{padding:109px 0 127px}}.hero__wrapper{z-index:999;position:relative}.hero__title{font-size:8rem;line-height:8rem;margin:0;min-height:104px;z-index:999}@media (min-width:768px){.hero__title{font-size:9rem;line-height:1;padding-top:14px;left:-12px}}.hero__subtitle{min-height:106px;font-size:2.6rem;padding:19px 0px 13px;margin:0}@media (min-width:768px){.hero__subtitle{font-size:4.5rem;padding:19px 0px 31px;min-height:150px}.hero__subtitle br{display:none}}.hero__desc{margin:0;color:#ababb1;font-size:2.5rem;padding:0 0 20px}.hero__buttons{display:flex;flex-wrap:wrap;justify-content:space-between;align-items:center}.hero__link{margin:0 20px 10px 0}@media (max-width:767px){.hero__title{font-size:5.2rem;line-height:5.2rem}.hero{padding:28px 0 60px}.hero__subtitle{min-height:150px}.hero .clutch{margin-top:50px;margin-left:0;padding-left:155px}}.clutch{position:relative;padding-left:160px;flex:0 0 200px;margin:30px 0;display:flex;justify-content:flex-end}.clutch__badge{width:150px;position:absolute;left:0;top:50%;transform:translate(0,-50%)}.clutch__badge img{width:100%;height:auto}.clutch-widget .content{display:flex}.clutch-widget .small_widget_logo_text{color:#6a797e;display:block;font-size:11px;letter-spacing:1px;margin:0 0 5px;text-transform:uppercase;white-space:nowrap}.clutch-widget .small_widget_text{margin-left:10px}.clutch-widget .rating{display:none}.clutch-widget .small_widget_text .reviews-totals-stars{padding-right:4px;padding-top:1px}.clutch-widget a{color:#6a797e;text-decoration:none}.clutch-widget .fivestar{height:19px;display:flex}.clutch-widget .fivestar .star{display:inline-block;font-size:0;height:16px;margin-right:2px;overflow:hidden;position:relative;text-indent:0;width:16px}.clutch-widget .fivestar .star span.on{display:block;height:16px;width:16px}.clutch-widget .fivestar .star span.on:after,.fivestar .star span.on:before{content:"";display:block;height:100%;min-height:16px;width:100%}.clutch-widget{--star-empty:url('data:image/svg+xml;charset=utf-8,');--star-full:url('data:image/svg+xml;charset=utf-8,')}.clutch-widget .fivestar .star span.on:before{background-color:#FF3D2E;-webkit-mask-image:var(--star-empty);mask-image:var(--star-empty);min-width:16px}.clutch-widget .fivestar .star span.on:after{background-color:#ff3d2e;margin-top:-16px;-webkit-mask-image:var(--star-full);mask-image:var(--star-full);mask-repeat:no-repeat;-webkit-mask-repeat:no-repeat;-webkit-mask-size:cover;mask-size:cover;width:-moz-available;width:-webkit-fill-available;width:fill-available}.clutch-widget .reviews-count{display:inline-block;font-size:14px;letter-spacing:1px;margin-top:7px;text-align:left;text-transform:uppercase;white-space:nowrap}@font-face{font-family:"Px-Grotesk";src:url(https://cut2code.com/wp-content/themes/cut2code/assets/fonts/Px-Grotesk-Bold/Px-Grotesk-Bold.woff2) format("woff2"),url(https://cut2code.com/wp-content/themes/cut2code/assets/fonts/Px-Grotesk-Bold/PxGrotesk-Bold.woff) format("woff");font-weight:700;font-style:normal;font-display:swap}@font-face{font-family:"Px-Grotesk";src:url(https://cut2code.com/wp-content/themes/cut2code/assets/fonts/Px-Grotesk-Bold-Italic/Px-Grotesk-Bold-Italic.woff2) format("woff2"),url(https://cut2code.com/wp-content/themes/cut2code/assets/fonts/Px-Grotesk-Bold-Italic/PxGrotesk-BoldItalic.woff) format("woff");font-weight:700;font-style:italic;font-display:swap}@font-face{font-family:"Px-Grotesk";src:url(https://cut2code.com/wp-content/themes/cut2code/assets/fonts/Px-Grotesk-Regular-Italic/Px-Grotesk-Regular-Italic.woff2) format("woff2"),url(https://cut2code.com/wp-content/themes/cut2code/assets/fonts/Px-Grotesk-Regular-Italic/PxGrotesk-RegularItalic.woff) format("woff");font-weight:400;font-style:italic;font-display:swap}@font-face{font-family:"Px-Grotesk";src:url(https://cut2code.com/wp-content/themes/cut2code/assets/fonts/PxGroteskRegular/Px-Grotesk-Regular.woff2) format("woff2"),url(https://cut2code.com/wp-content/themes/cut2code/assets/fonts/PxGroteskRegular/PxGroteskRegular.woff) format("woff");font-weight:400;font-style:normal;font-display:swap}*,* ::before,* ::after{-webkit-box-sizing:border-box;box-sizing:border-box}html{font-size:62.5%}html body{font-size:1.6rem;line-height:1.5;font-family:"Px-Grotesk",sans-serif;color:#32323a;background:#fff}img{height:auto}html{font-family:sans-serif;-webkit-text-size-adjust:100%}body{margin:0}header,main,nav,section{display:block}small{font-size:80%}img{border-style:none}button,input{font:inherit}button,input{margin:0}button{text-transform:none}button,html [type=button]{-webkit-appearance:none}button::-moz-focus-inner,input::-moz-focus-inner{border:0;padding:0}button:-moz-focusring,input:-moz-focusring{outline:1px dotted ButtonText}.screen-reader-text{width:1px!important;height:1px!important;padding:0!important;position:absolute!important;margin:-1px!important;white-space:nowrap!important;border:0!important;overflow:hidden!important;clip:rect(0,0,0,0)!important}a.skip-link{width:1px;height:1px;position:absolute;z-index:-999;top:auto;left:-999px;overflow:hidden}.hero__wrapper{width:calc(1104px + 40px);padding:0 20px;max-width:100%;margin:0 auto}@media (min-width:768px){.hero__wrapper{width:calc(1130px + 80px);padding:0 40px}}.hero__link{border-radius:2.8rem;font-size:1.8rem;font-weight:700;color:#fff;text-decoration:none;display:inline-block;padding:13px 25px 13px;text-align:center;position:relative;overflow:hidden;transform:translateZ(0);background:linear-gradient(90deg,#13b7b1 0%,#1fdd9e 50%,#13b7b1 100%);background-size:200% 100%;background-position:0 0}@media (min-width:768px){.hero__link{font-size:2.1rem}}.header__link{padding:24px 115px 24px 0;background-image:url(https://cut2code.com/wp-content/themes/cut2code/assets/images/green-arrow.png);background-position:95% 50%;background-repeat:no-repeat;background-size:86px 48px;text-decoration:none;font-size:2.1rem;font-weight:700}.header__link span{background:linear-gradient(90deg,#13b8b1 0%,#1fdd9e 100%);-webkit-background-clip:text;-webkit-text-fill-color:transparent}.header__link{padding:15px 56px 15px 0;background-image:url(https://cut2code.com/wp-content/themes/cut2code/assets/images/green-arrow--medium.svg);background-size:45px 21px;font-size:1.6rem;font-weight:500;white-space:nowrap}html{margin-top:99px!important}@media (min-width:768px){html{margin-top:0!important}}.header{margin:0 auto 0;padding:18px 0;border-top:20px solid #fff}@media (min-width:768px){.header{padding:32px 0}}.header:not(.sticky-header){display:none}@media (min-width:768px){.header:not(.sticky-header){display:block}}.header__wrapper{width:1208px;max-width:100%;margin:0 auto;padding:0 30px;display:flex;flex-wrap:wrap;justify-content:flex-end}@media (min-width:576px){.header__wrapper{padding:0 40px}}.header__logo{width:60px;height:40px;display:block;padding:8px 0 0 0;margin-right:auto;overflow:hidden}@media (min-width:768px){.header__logo{padding:9px 0;height:auto;width:160px}}.header__nav{margin:0 56px 0 0}.header__nav ul{list-style:none;margin:0;padding:0;display:none}@media (min-width:768px){.header__nav ul{display:block}}.header__nav li{margin-bottom:10px}.header__nav li:last-child{margin-bottom:0}.header__nav a{color:#32323a;text-decoration:none}.header__nav-hamburger{text-indent:-999em;width:61px}@media (min-width:768px){.header__nav-hamburger{display:none}}.header__nav-hamburger:before,.header__nav-hamburger:after,.header__nav-hamburger span{content:"";display:block;width:100%;height:1px;background:#32323a;margin-bottom:7px}.header__nav-hamburger:before{width:71%}@media (min-width:576px){.header__nav-hamburger:before{width:92%}}.header__nav-hamburger span{width:100%}@media (min-width:576px){.header__nav-hamburger span{width:72%}}.header__nav-hamburger:after{width:100%}@media (min-width:576px){.header__nav-hamburger:after{width:49%}}.header__contact{list-style:none;margin:-1px 0 0 -4px;padding:0}.header__contact li{margin-bottom:10px;display:none}@media (min-width:768px){.header__contact li{display:block}}.header__contact li:last-child{display:block;margin-bottom:0}.header__contact a:not(.header__link){color:#ababb1;font-size:1.2rem;text-decoration:none}.header.sticky-header{margin-top:0;position:fixed;left:0;width:100vw;max-width:100%;z-index:99999;padding:23px 0 21px;border-top-color:#fff;border-bottom-color:#fff;top:0}@media (min-width:768px){.header.sticky-header{top:-120px}}.header.sticky-header .header__logo{margin-left:0;margin-right:auto;width:100px;padding:0}.header.sticky-header .header__nav{margin:0 0 0 15px;width:100px}@media (min-width:768px){.header.sticky-header .header__nav{margin:0 0 0 59px}}.header.sticky-header .header__nav ul{display:none}.header.sticky-header .header__nav li:first-child{padding-top:20px}.header.sticky-header .header__nav-hamburger{display:block;margin-top:10px;border:0;background:transparent;box-shadow:none;padding:0}.header.sticky-header .header__contact{margin-top:10px}@media (min-width:768px){.header.sticky-header .header__contact{margin-left:48px}}@media (max-width:575px){.header.sticky-header .header__contact .header__link{padding-right:0;background:transparent}}@media (min-width:768px){.wave{animation:wave 7s cubic-bezier(0.36,0.45,0.63,0.53) infinite}.wave:nth-of-type(2){animation:swell 7s cubic-bezier(0.36,0.45,0.63,0.53) -0.125s infinite}}@keyframes wave{0%{transform:translateX(0)}100%{transform:translateX(-1600px)}}@keyframes swell{0%{transform:translate3d(0,-25px,0)}50%{transform:translate3d(-800px,5px,0)}100%{transform:translate3d(-1600px,-25px,0)}}@media (prefers-reduced-motion:reduce){.wave{animation:none!important}}@media (max-width:575px){.header__logo{position:absolute;left:30px}.header.sticky-header .header__nav:first-of-type{margin-left:0}}@media (max-width:767px){.header.sticky-header .menu-header-nav-1-container,.header.sticky-header .menu-header-nav-2-container{padding-top:35px}.header.sticky-header .header__nav-hamburger+.menu-header-nav-2-container{padding-top:0}}#menu-item-3037 a{background:#fff;padding:2px 3px}.cli-style-v2 .cli-bar-btn_container #wt-cli-accept-all-btn{background-color:#3B6119!important}.cookielawinfo-column-1{width:25%}.cookielawinfo-column-3{width:15%}.cookielawinfo-column-4{width:50%}table.cookielawinfo-winter{font:85% "Lucida Grande","Lucida Sans Unicode","Trebuchet MS",sans-serif;padding:0;margin:10px 0 20px;border-collapse:collapse;color:#333;background:#F3F5F7}table.cookielawinfo-winter thead th{background:#3A4856;padding:15px 10px;color:#fff;text-align:left;font-weight:normal}table.cookielawinfo-winter tbody{border-left:1px solid #EAECEE;border-right:1px solid #EAECEE}table.cookielawinfo-winter tbody{border-bottom:1px solid #EAECEE}table.cookielawinfo-winter tbody td{padding:10px;background:url(https://cut2code.com/wp-content/plugins/cookie-law-info/legacy/images/td_back.gif) repeat-x;text-align:left}table.cookielawinfo-winter tbody tr{background:#F3F5F7}@media (max-width:800px){table.cookielawinfo-row-cat-table td,table.cookielawinfo-row-cat-table th{width:23%;font-size:12px;word-wrap:break-word}table.cookielawinfo-row-cat-table .cookielawinfo-column-4,table.cookielawinfo-row-cat-table .cookielawinfo-column-4{width:45%}}.cookielawinfo-row-cat-table{width:99%;margin-left:5px}</style>
+	<!-- Google Tag Manager -->
+	<script type="rocketlazyloadscript">(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+	new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+	j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.defer=true;j.src=
+	'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+	})(window,document,'script','dataLayer','GTM-KVSQQ56');</script>
+	<!-- End Google Tag Manager -->
+	<meta name='robots' content='index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1' />
+
+	<!-- This site is optimized with the Yoast SEO plugin v21.5 - https://yoast.com/wordpress/plugins/seo/ -->
+	<meta name="description" content="Clutch&#039;s Top Web Development Company. Do you want to create a modern and useful website? See what our clients say about our website design services!" />
+	<link rel="canonical" href="https://cut2code.com/" />
+	<meta property="og:locale" content="en_US" />
+	<meta property="og:type" content="website" />
+	<meta property="og:title" content="WordPress, Shopify, Front-End Solutions, Professional Support | Cut2Code" />
+	<meta property="og:description" content="Clutch&#039;s Top Web Development Company. Do you want to create a modern and useful website? See what our clients say about our website design services!" />
+	<meta property="og:url" content="https://cut2code.com/" />
+	<meta property="og:site_name" content="Cut2Code" />
+	<meta property="article:modified_time" content="2023-11-15T11:43:26+00:00" />
+	<meta property="og:image" content="https://cut2code.com/wp-content/uploads/2018/05/logo-3.png" />
+	<meta property="og:image:width" content="1244" />
+	<meta property="og:image:height" content="698" />
+	<meta property="og:image:type" content="image/png" />
+	<meta name="twitter:card" content="summary_large_image" />
+	<script type="application/ld+json" class="yoast-schema-graph">{"@context":"https://schema.org","@graph":[{"@type":"WebPage","@id":"https://cut2code.com/","url":"https://cut2code.com/","name":"WordPress, Shopify, Front-End Solutions, Professional Support | Cut2Code","isPartOf":{"@id":"https://cut2code.com/#website"},"primaryImageOfPage":{"@id":"https://cut2code.com/#primaryimage"},"image":{"@id":"https://cut2code.com/#primaryimage"},"thumbnailUrl":"https://cut2code.com/wp-content/uploads/2018/05/logo-3.png","datePublished":"2019-12-04T11:41:09+00:00","dateModified":"2023-11-15T11:43:26+00:00","description":"Clutch's Top Web Development Company. Do you want to create a modern and useful website? See what our clients say about our website design services!","breadcrumb":{"@id":"https://cut2code.com/#breadcrumb"},"inLanguage":"en-US","potentialAction":[{"@type":"ReadAction","target":["https://cut2code.com/"]}]},{"@type":"ImageObject","inLanguage":"en-US","@id":"https://cut2code.com/#primaryimage","url":"https://cut2code.com/wp-content/uploads/2018/05/logo-3.png","contentUrl":"https://cut2code.com/wp-content/uploads/2018/05/logo-3.png","width":1244,"height":698},{"@type":"BreadcrumbList","@id":"https://cut2code.com/#breadcrumb","itemListElement":[{"@type":"ListItem","position":1,"name":"Strona główna"}]},{"@type":"WebSite","@id":"https://cut2code.com/#website","url":"https://cut2code.com/","name":"Cut2Code","description":"","potentialAction":[{"@type":"SearchAction","target":{"@type":"EntryPoint","urlTemplate":"https://cut2code.com/?s={search_term_string}"},"query-input":"required name=search_term_string"}],"inLanguage":"en-US"}]}</script>
+	<!-- / Yoast SEO plugin. -->
+
+
+
+<style id='safe-svg-svg-icon-style-inline-css' type='text/css'>
+.safe-svg-cover{text-align:center}.safe-svg-cover .safe-svg-inside{display:inline-block;max-width:100%}.safe-svg-cover svg{height:100%;max-height:100%;max-width:100%;width:100%}
+
+</style>
+<style id='classic-theme-styles-inline-css' type='text/css'>
+/*! This file is auto-generated */
+.wp-block-button__link{color:#fff;background-color:#32373c;border-radius:9999px;box-shadow:none;text-decoration:none;padding:calc(.667em + 2px) calc(1.333em + 2px);font-size:1.125em}.wp-block-file__button{background:#32373c;color:#fff;text-decoration:none}
+</style>
+<style id='global-styles-inline-css' type='text/css'>
+body{--wp--preset--color--black: #000000;--wp--preset--color--cyan-bluish-gray: #abb8c3;--wp--preset--color--white: #ffffff;--wp--preset--color--pale-pink: #f78da7;--wp--preset--color--vivid-red: #cf2e2e;--wp--preset--color--luminous-vivid-orange: #ff6900;--wp--preset--color--luminous-vivid-amber: #fcb900;--wp--preset--color--light-green-cyan: #7bdcb5;--wp--preset--color--vivid-green-cyan: #00d084;--wp--preset--color--pale-cyan-blue: #8ed1fc;--wp--preset--color--vivid-cyan-blue: #0693e3;--wp--preset--color--vivid-purple: #9b51e0;--wp--preset--gradient--vivid-cyan-blue-to-vivid-purple: linear-gradient(135deg,rgba(6,147,227,1) 0%,rgb(155,81,224) 100%);--wp--preset--gradient--light-green-cyan-to-vivid-green-cyan: linear-gradient(135deg,rgb(122,220,180) 0%,rgb(0,208,130) 100%);--wp--preset--gradient--luminous-vivid-amber-to-luminous-vivid-orange: linear-gradient(135deg,rgba(252,185,0,1) 0%,rgba(255,105,0,1) 100%);--wp--preset--gradient--luminous-vivid-orange-to-vivid-red: linear-gradient(135deg,rgba(255,105,0,1) 0%,rgb(207,46,46) 100%);--wp--preset--gradient--very-light-gray-to-cyan-bluish-gray: linear-gradient(135deg,rgb(238,238,238) 0%,rgb(169,184,195) 100%);--wp--preset--gradient--cool-to-warm-spectrum: linear-gradient(135deg,rgb(74,234,220) 0%,rgb(151,120,209) 20%,rgb(207,42,186) 40%,rgb(238,44,130) 60%,rgb(251,105,98) 80%,rgb(254,248,76) 100%);--wp--preset--gradient--blush-light-purple: linear-gradient(135deg,rgb(255,206,236) 0%,rgb(152,150,240) 100%);--wp--preset--gradient--blush-bordeaux: linear-gradient(135deg,rgb(254,205,165) 0%,rgb(254,45,45) 50%,rgb(107,0,62) 100%);--wp--preset--gradient--luminous-dusk: linear-gradient(135deg,rgb(255,203,112) 0%,rgb(199,81,192) 50%,rgb(65,88,208) 100%);--wp--preset--gradient--pale-ocean: linear-gradient(135deg,rgb(255,245,203) 0%,rgb(182,227,212) 50%,rgb(51,167,181) 100%);--wp--preset--gradient--electric-grass: linear-gradient(135deg,rgb(202,248,128) 0%,rgb(113,206,126) 100%);--wp--preset--gradient--midnight: linear-gradient(135deg,rgb(2,3,129) 0%,rgb(40,116,252) 100%);--wp--preset--font-size--small: 13px;--wp--preset--font-size--medium: 20px;--wp--preset--font-size--large: 36px;--wp--preset--font-size--x-large: 42px;--wp--preset--spacing--20: 0.44rem;--wp--preset--spacing--30: 0.67rem;--wp--preset--spacing--40: 1rem;--wp--preset--spacing--50: 1.5rem;--wp--preset--spacing--60: 2.25rem;--wp--preset--spacing--70: 3.38rem;--wp--preset--spacing--80: 5.06rem;--wp--preset--shadow--natural: 6px 6px 9px rgba(0, 0, 0, 0.2);--wp--preset--shadow--deep: 12px 12px 50px rgba(0, 0, 0, 0.4);--wp--preset--shadow--sharp: 6px 6px 0px rgba(0, 0, 0, 0.2);--wp--preset--shadow--outlined: 6px 6px 0px -3px rgba(255, 255, 255, 1), 6px 6px rgba(0, 0, 0, 1);--wp--preset--shadow--crisp: 6px 6px 0px rgba(0, 0, 0, 1);}:where(.is-layout-flex){gap: 0.5em;}:where(.is-layout-grid){gap: 0.5em;}body .is-layout-flow > .alignleft{float: left;margin-inline-start: 0;margin-inline-end: 2em;}body .is-layout-flow > .alignright{float: right;margin-inline-start: 2em;margin-inline-end: 0;}body .is-layout-flow > .aligncenter{margin-left: auto !important;margin-right: auto !important;}body .is-layout-constrained > .alignleft{float: left;margin-inline-start: 0;margin-inline-end: 2em;}body .is-layout-constrained > .alignright{float: right;margin-inline-start: 2em;margin-inline-end: 0;}body .is-layout-constrained > .aligncenter{margin-left: auto !important;margin-right: auto !important;}body .is-layout-constrained > :where(:not(.alignleft):not(.alignright):not(.alignfull)){max-width: var(--wp--style--global--content-size);margin-left: auto !important;margin-right: auto !important;}body .is-layout-constrained > .alignwide{max-width: var(--wp--style--global--wide-size);}body .is-layout-flex{display: flex;}body .is-layout-flex{flex-wrap: wrap;align-items: center;}body .is-layout-flex > *{margin: 0;}body .is-layout-grid{display: grid;}body .is-layout-grid > *{margin: 0;}:where(.wp-block-columns.is-layout-flex){gap: 2em;}:where(.wp-block-columns.is-layout-grid){gap: 2em;}:where(.wp-block-post-template.is-layout-flex){gap: 1.25em;}:where(.wp-block-post-template.is-layout-grid){gap: 1.25em;}.has-black-color{color: var(--wp--preset--color--black) !important;}.has-cyan-bluish-gray-color{color: var(--wp--preset--color--cyan-bluish-gray) !important;}.has-white-color{color: var(--wp--preset--color--white) !important;}.has-pale-pink-color{color: var(--wp--preset--color--pale-pink) !important;}.has-vivid-red-color{color: var(--wp--preset--color--vivid-red) !important;}.has-luminous-vivid-orange-color{color: var(--wp--preset--color--luminous-vivid-orange) !important;}.has-luminous-vivid-amber-color{color: var(--wp--preset--color--luminous-vivid-amber) !important;}.has-light-green-cyan-color{color: var(--wp--preset--color--light-green-cyan) !important;}.has-vivid-green-cyan-color{color: var(--wp--preset--color--vivid-green-cyan) !important;}.has-pale-cyan-blue-color{color: var(--wp--preset--color--pale-cyan-blue) !important;}.has-vivid-cyan-blue-color{color: var(--wp--preset--color--vivid-cyan-blue) !important;}.has-vivid-purple-color{color: var(--wp--preset--color--vivid-purple) !important;}.has-black-background-color{background-color: var(--wp--preset--color--black) !important;}.has-cyan-bluish-gray-background-color{background-color: var(--wp--preset--color--cyan-bluish-gray) !important;}.has-white-background-color{background-color: var(--wp--preset--color--white) !important;}.has-pale-pink-background-color{background-color: var(--wp--preset--color--pale-pink) !important;}.has-vivid-red-background-color{background-color: var(--wp--preset--color--vivid-red) !important;}.has-luminous-vivid-orange-background-color{background-color: var(--wp--preset--color--luminous-vivid-orange) !important;}.has-luminous-vivid-amber-background-color{background-color: var(--wp--preset--color--luminous-vivid-amber) !important;}.has-light-green-cyan-background-color{background-color: var(--wp--preset--color--light-green-cyan) !important;}.has-vivid-green-cyan-background-color{background-color: var(--wp--preset--color--vivid-green-cyan) !important;}.has-pale-cyan-blue-background-color{background-color: var(--wp--preset--color--pale-cyan-blue) !important;}.has-vivid-cyan-blue-background-color{background-color: var(--wp--preset--color--vivid-cyan-blue) !important;}.has-vivid-purple-background-color{background-color: var(--wp--preset--color--vivid-purple) !important;}.has-black-border-color{border-color: var(--wp--preset--color--black) !important;}.has-cyan-bluish-gray-border-color{border-color: var(--wp--preset--color--cyan-bluish-gray) !important;}.has-white-border-color{border-color: var(--wp--preset--color--white) !important;}.has-pale-pink-border-color{border-color: var(--wp--preset--color--pale-pink) !important;}.has-vivid-red-border-color{border-color: var(--wp--preset--color--vivid-red) !important;}.has-luminous-vivid-orange-border-color{border-color: var(--wp--preset--color--luminous-vivid-orange) !important;}.has-luminous-vivid-amber-border-color{border-color: var(--wp--preset--color--luminous-vivid-amber) !important;}.has-light-green-cyan-border-color{border-color: var(--wp--preset--color--light-green-cyan) !important;}.has-vivid-green-cyan-border-color{border-color: var(--wp--preset--color--vivid-green-cyan) !important;}.has-pale-cyan-blue-border-color{border-color: var(--wp--preset--color--pale-cyan-blue) !important;}.has-vivid-cyan-blue-border-color{border-color: var(--wp--preset--color--vivid-cyan-blue) !important;}.has-vivid-purple-border-color{border-color: var(--wp--preset--color--vivid-purple) !important;}.has-vivid-cyan-blue-to-vivid-purple-gradient-background{background: var(--wp--preset--gradient--vivid-cyan-blue-to-vivid-purple) !important;}.has-light-green-cyan-to-vivid-green-cyan-gradient-background{background: var(--wp--preset--gradient--light-green-cyan-to-vivid-green-cyan) !important;}.has-luminous-vivid-amber-to-luminous-vivid-orange-gradient-background{background: var(--wp--preset--gradient--luminous-vivid-amber-to-luminous-vivid-orange) !important;}.has-luminous-vivid-orange-to-vivid-red-gradient-background{background: var(--wp--preset--gradient--luminous-vivid-orange-to-vivid-red) !important;}.has-very-light-gray-to-cyan-bluish-gray-gradient-background{background: var(--wp--preset--gradient--very-light-gray-to-cyan-bluish-gray) !important;}.has-cool-to-warm-spectrum-gradient-background{background: var(--wp--preset--gradient--cool-to-warm-spectrum) !important;}.has-blush-light-purple-gradient-background{background: var(--wp--preset--gradient--blush-light-purple) !important;}.has-blush-bordeaux-gradient-background{background: var(--wp--preset--gradient--blush-bordeaux) !important;}.has-luminous-dusk-gradient-background{background: var(--wp--preset--gradient--luminous-dusk) !important;}.has-pale-ocean-gradient-background{background: var(--wp--preset--gradient--pale-ocean) !important;}.has-electric-grass-gradient-background{background: var(--wp--preset--gradient--electric-grass) !important;}.has-midnight-gradient-background{background: var(--wp--preset--gradient--midnight) !important;}.has-small-font-size{font-size: var(--wp--preset--font-size--small) !important;}.has-medium-font-size{font-size: var(--wp--preset--font-size--medium) !important;}.has-large-font-size{font-size: var(--wp--preset--font-size--large) !important;}.has-x-large-font-size{font-size: var(--wp--preset--font-size--x-large) !important;}
+.wp-block-navigation a:where(:not(.wp-element-button)){color: inherit;}
+:where(.wp-block-post-template.is-layout-flex){gap: 1.25em;}:where(.wp-block-post-template.is-layout-grid){gap: 1.25em;}
+:where(.wp-block-columns.is-layout-flex){gap: 2em;}:where(.wp-block-columns.is-layout-grid){gap: 2em;}
+.wp-block-pullquote{font-size: 1.5em;line-height: 1.6;}
+</style>
+<link data-minify="1" rel='preload'  href='https://cut2code.com/wp-content/cache/min/1/wp-content/plugins/cookie-law-info/legacy/public/css/cookie-law-info-public.css?ver=1700487755' data-rocket-async="style" as="style" onload="this.onload=null;this.rel='stylesheet'" onerror="this.removeAttribute('data-rocket-async')"  type='text/css' media='all' />
+<link data-minify="1" rel='preload'  href='https://cut2code.com/wp-content/cache/min/1/wp-content/plugins/cookie-law-info/legacy/public/css/cookie-law-info-gdpr.css?ver=1700487755' data-rocket-async="style" as="style" onload="this.onload=null;this.rel='stylesheet'" onerror="this.removeAttribute('data-rocket-async')"  type='text/css' media='all' />
+<link data-minify="1" rel='preload'  href='https://cut2code.com/wp-content/cache/min/1/wp-content/themes/cut2code/assets/css/blocks/hero.css?ver=1700487755' data-rocket-async="style" as="style" onload="this.onload=null;this.rel='stylesheet'" onerror="this.removeAttribute('data-rocket-async')"  type='text/css' media='' />
+<link data-minify="1" rel='preload'  href='https://cut2code.com/wp-content/cache/min/1/wp-content/themes/cut2code/style.css?ver=1700487755' data-rocket-async="style" as="style" onload="this.onload=null;this.rel='stylesheet'" onerror="this.removeAttribute('data-rocket-async')"  type='text/css' media='' />
+<link rel='preload'  href='https://cut2code.com/wp-content/themes/cut2code/assets/splide.min.css?ver=1676998510' data-rocket-async="style" as="style" onload="this.onload=null;this.rel='stylesheet'" onerror="this.removeAttribute('data-rocket-async')"  type='text/css' media='' />
+<script type="rocketlazyloadscript" data-rocket-type="text/javascript" data-rocket-src="https://cut2code.com/wp-includes/js/jquery/jquery.min.js?ver=3.7.1" id="jquery-core-js" defer></script>
+<script type="text/javascript" id="cookie-law-info-js-extra">
+/* <![CDATA[ */
+var Cli_Data = {"nn_cookie_ids":["_gat","ppwp_wp_session","initialTrafficSource","CookieLawInfoConsent","cookielawinfo-checkbox-advertisement","cookielawinfo-checkbox-performance","cookielawinfo-checkbox-others","__utmzzses","__utmzz","_ga","_gid","_gat_UA-79832523-1","browser_id"],"cookielist":[],"non_necessary_cookies":{"necessary":["CookieLawInfoConsent"],"analytics":["__utmzzses","__utmzz","_ga","_gid","_gat_UA-79832523-1","browser_id"],"performance":["_gat"],"others":["ppwp_wp_session","initialTrafficSource"]},"ccpaEnabled":"","ccpaRegionBased":"","ccpaBarEnabled":"","strictlyEnabled":["necessary","obligatoire"],"ccpaType":"gdpr","js_blocking":"1","custom_integration":"","triggerDomRefresh":"","secure_cookies":""};
+var cli_cookiebar_settings = {"animate_speed_hide":"500","animate_speed_show":"500","background":"#FFF","border":"#b1a6a6c2","border_on":"","button_1_button_colour":"#61a229","button_1_button_hover":"#4e8221","button_1_link_colour":"#fff","button_1_as_button":"1","button_1_new_win":"","button_2_button_colour":"#333","button_2_button_hover":"#292929","button_2_link_colour":"#444","button_2_as_button":"","button_2_hidebar":"","button_3_button_colour":"#dd3333","button_3_button_hover":"#b12929","button_3_link_colour":"#ffffff","button_3_as_button":"1","button_3_new_win":"","button_4_button_colour":"#dedfe0","button_4_button_hover":"#b2b2b3","button_4_link_colour":"#333333","button_4_as_button":"1","button_7_button_colour":"#61a229","button_7_button_hover":"#4e8221","button_7_link_colour":"#fff","button_7_as_button":"1","button_7_new_win":"","font_family":"inherit","header_fix":"","notify_animate_hide":"1","notify_animate_show":"","notify_div_id":"#cookie-law-info-bar","notify_position_horizontal":"right","notify_position_vertical":"bottom","scroll_close":"","scroll_close_reload":"","accept_close_reload":"","reject_close_reload":"","showagain_tab":"","showagain_background":"#fff","showagain_border":"#000","showagain_div_id":"#cookie-law-info-again","showagain_x_position":"100px","text":"#333333","show_once_yn":"","show_once":"10000","logging_on":"","as_popup":"","popup_overlay":"1","bar_heading_text":"","cookie_bar_as":"banner","popup_showagain_position":"bottom-right","widget_position":"left"};
+var log_object = {"ajax_url":"https:\/\/cut2code.com\/wp-admin\/admin-ajax.php"};
+/* ]]> */
+</script>
+<script type="rocketlazyloadscript" data-minify="1" data-rocket-type="text/javascript" data-rocket-src="https://cut2code.com/wp-content/cache/min/1/wp-content/plugins/cookie-law-info/legacy/public/js/cookie-law-info-public.js?ver=1700487755" id="cookie-law-info-js" defer></script>
+<script data-minify="1" type="text/javascript" src="https://cut2code.com/wp-content/cache/min/1/wp-content/themes/cut2code/animations.js?ver=1700487755" id="animations-js" defer></script>
+<script type="rocketlazyloadscript" data-rocket-type="text/javascript" data-rocket-src="https://cut2code.com/wp-content/themes/cut2code/assets/splide.min.js?ver=1676998510" id="splide-js-js" defer></script>
+<script type="text/javascript" id="custom_scripts-js-extra">
+/* <![CDATA[ */
+var SiteVars = {"siteUrl":"https:\/\/cut2code.com","templateUrl":"https:\/\/cut2code.com\/wp-content\/themes\/cut2code","stylesheetUrl":"https:\/\/cut2code.com\/wp-content\/themes\/cut2code","ajaxUrl":"https:\/\/cut2code.com\/wp-admin\/admin-ajax.php"};
+/* ]]> */
+</script>
+<script type="rocketlazyloadscript" data-rocket-type="text/javascript" data-rocket-src="https://cut2code.com/wp-content/themes/cut2code/assets/js/bundle.min.js?ver=1679315070" id="custom_scripts-js" defer></script>
+<link rel="https://api.w.org/" href="https://cut2code.com/wp-json/" /><link rel="alternate" type="application/json" href="https://cut2code.com/wp-json/wp/v2/pages/7" /><link rel="EditURI" type="application/rsd+xml" title="RSD" href="https://cut2code.com/xmlrpc.php?rsd" />
+
+<link rel='shortlink' href='https://cut2code.com/' />
+<link rel="alternate" type="application/json+oembed" href="https://cut2code.com/wp-json/oembed/1.0/embed?url=https%3A%2F%2Fcut2code.com%2F" />
+<link rel="alternate" type="text/xml+oembed" href="https://cut2code.com/wp-json/oembed/1.0/embed?url=https%3A%2F%2Fcut2code.com%2F&#038;format=xml" />
+<script type="rocketlazyloadscript">
+/*! loadCSS rel=preload polyfill. [c]2017 Filament Group, Inc. MIT License */
+(function(w){"use strict";if(!w.loadCSS){w.loadCSS=function(){}}
+var rp=loadCSS.relpreload={};rp.support=(function(){var ret;try{ret=w.document.createElement("link").relList.supports("preload")}catch(e){ret=!1}
+return function(){return ret}})();rp.bindMediaToggle=function(link){var finalMedia=link.media||"all";function enableStylesheet(){link.media=finalMedia}
+if(link.addEventListener){link.addEventListener("load",enableStylesheet)}else if(link.attachEvent){link.attachEvent("onload",enableStylesheet)}
+setTimeout(function(){link.rel="stylesheet";link.media="only x"});setTimeout(enableStylesheet,3000)};rp.poly=function(){if(rp.support()){return}
+var links=w.document.getElementsByTagName("link");for(var i=0;i<links.length;i++){var link=links[i];if(link.rel==="preload"&&link.getAttribute("as")==="style"&&!link.getAttribute("data-loadcss")){link.setAttribute("data-loadcss",!0);rp.bindMediaToggle(link)}}};if(!rp.support()){rp.poly();var run=w.setInterval(rp.poly,500);if(w.addEventListener){w.addEventListener("load",function(){rp.poly();w.clearInterval(run)})}else if(w.attachEvent){w.attachEvent("onload",function(){rp.poly();w.clearInterval(run)})}}
+if(typeof exports!=="undefined"){exports.loadCSS=loadCSS}
+else{w.loadCSS=loadCSS}}(typeof global!=="undefined"?global:this))
+</script>	<style>.hero__title,.image_text__title,.logos__title,.quotes__title,.top-title__title{font-weight:700;color:#4dc9c4;-webkit-text-fill-color:#fff;-webkit-text-stroke-width:2px;-webkit-text-stroke-color:#4dc9c4;display:inline-block;position:relative;z-index:1}.hero__title::after,.image_text__title::after,.logos__title::after,.quotes__title::after,.top-title__title::after{content:"";position:absolute;top:0;left:0;width:100%;height:100%;background:#fff;z-index:-1}@media(min-width: 1024px){.hero__title::after,.image_text__title::after,.logos__title::after,.quotes__title::after,.top-title__title::after{width:113%}}.columns,.contact_form,.footer,.footer__bar,.google_map,.header,.hero,.image_text,.latest_posts,.logos,.map,.quotes,.text_blocks,.tiles,.top-title{position:relative}.columns::after,.contact_form::after,.footer::after,.footer__bar::after,.google_map::after,.header::after,.hero::after,.image_text::after,.latest_posts::after,.logos::after,.map::after,.quotes::after,.text_blocks::after,.tiles::after,.top-title::after{content:"";position:absolute;max-width:calc(100vw - 20px);width:1380px;bottom:0;top:0;left:50%;transform:translateX(-50%);background:#eaeaef;z-index:-1}@media(min-width: 768px){.columns::after,.contact_form::after,.footer::after,.footer__bar::after,.google_map::after,.header::after,.hero::after,.image_text::after,.latest_posts::after,.logos::after,.map::after,.quotes::after,.text_blocks::after,.tiles::after,.top-title::after{max-width:calc(100vw - 40px);width:calc(100vw - 40px)}}.single-post .columns::after,.single-post .contact_form::after,.single-post .footer::after,.single-post .footer__bar::after,.single-post .google_map::after,.single-post .header::after,.single-post .hero::after,.single-post .image_text::after,.single-post .latest_posts::after,.single-post .logos::after,.single-post .map::after,.single-post .quotes::after,.single-post .text_blocks::after,.single-post .tiles::after,.single-post .top-title::after{background:#fff}.columns::after,.tiles::after,.text_blocks::after,.latest_posts::after,.footer::after,.contact_form::after,.google_map::after,.map::after,.slider::after{background:#f9f9f9}.ocean,.wave,.wave-wrapper{position:absolute;left:0}.wave-wrapper{overflow:hidden;bottom:-120px;top:0;right:0}.ocean{height:9%;width:100%;bottom:0;background:#fff}.wave{background:url(https://cut2code.com/wp-content/themes/cut2code/assets/images/wave.svg) repeat-x;top:-198px;width:6400px;height:198px;will-change:transform;transform:translate3d(0, 0, 0)}.wave:nth-of-type(2){top:-175px;opacity:1}</style></head>
+
+
+<body data-rsssl=1 class="home page-template-default page page-id-7">
+	<header class="header sticky-header">
+		<div class="header__wrapper">
+	<a class="header__logo" href="https://cut2code.com">
+		<span class="screen-reader-text">Cut2Code</span>
+		<svg version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
+	 width="100px" height="32px" viewBox="0 0 100 32" enable-background="new 0 0 100 32" xml:space="preserve">
+<linearGradient id="logo-small-path" gradientUnits="userSpaceOnUse" x1="50" y1="799.3791" x2="50" y2="831.3384" gradientTransform="matrix(1 0 0 1 0 -799.34)">
+	<stop  offset="0" style="stop-color:#00E094"/>
+	<stop  offset="1" style="stop-color:#00C4AF"/>
+</linearGradient>
+<path fill="url(#logo-small-path)" d="M6.9,23.8c-1-0.5-2.2-0.5-3.2,0.1c-0.5,0.3-0.9,0.7-1.2,1.2c-0.6,1.1-0.6,2.3,0,3.4
+	c0.6,1,1.7,1.7,3,1.7c0.5,0,1-0.1,1.5-0.3c0.5-0.2,0.9-0.5,1.3-0.9l1.2,1.3c-0.5,0.5-1.2,1-1.9,1.3C6.8,31.8,6.1,32,5.3,32
+	c-0.9,0-1.9-0.2-2.7-0.7c-0.8-0.4-1.5-1.1-1.9-1.9C0.2,28.6,0,27.7,0,26.8c0-0.9,0.2-1.8,0.7-2.6c0.5-0.8,1.1-1.4,1.9-1.8
+	c1.5-0.8,3.3-0.9,4.9-0.2c0.7,0.3,1.3,0.7,1.8,1.2l-1.1,1.4C7.8,24.3,7.4,24,6.9,23.8z M16.3,29.6c0.5,0.5,1.2,0.7,1.8,0.7
+	c0.7,0,1.3-0.2,1.8-0.7c0.5-0.5,0.7-1.2,0.7-1.9v-5.9h1.9v5.9c0,0.8-0.2,1.6-0.5,2.3c-0.3,0.6-0.9,1.1-1.5,1.5
+	c-0.7,0.4-1.5,0.5-2.4,0.5c-0.8,0-1.6-0.2-2.4-0.5c-0.7-0.3-1.2-0.8-1.5-1.5c-0.4-0.7-0.6-1.5-0.5-2.3v-5.9h1.9v5.9
+	C15.6,28.4,15.8,29.1,16.3,29.6L16.3,29.6z M26.6,21.9h8.3v1.7h-3.2v8.3h-2v-8.3h-3.2V21.9z M46,30.2v1.7h-7.5v-1.4l3.8-3.9
+	c0.3-0.3,0.6-0.7,0.9-1.1c0.2-0.3,0.3-0.6,0.3-0.9c0-0.3-0.1-0.6-0.4-0.8c-0.4-0.2-0.8-0.3-1.2-0.3c-0.5,0-1,0.1-1.4,0.3
+	c-0.5,0.2-1,0.5-1.4,0.9l-0.8-1.5c0.6-0.4,1.2-0.8,1.9-1.1c0.6-0.2,1.3-0.4,2-0.4c0.6,0,1.2,0.1,1.8,0.3c0.5,0.2,0.9,0.5,1.2,0.9
+	c0.3,0.4,0.4,0.9,0.4,1.3c0,0.6-0.2,1.1-0.5,1.5c-0.4,0.6-0.9,1.2-1.4,1.8l-2.6,2.6L46,30.2z M56.8,23.8c-1-0.5-2.2-0.5-3.2,0.1
+	c-0.5,0.3-0.9,0.7-1.2,1.2c-0.6,1.1-0.6,2.3,0,3.4c0.6,1,1.7,1.7,3,1.7c0.5,0,1-0.1,1.5-0.3c0.5-0.2,0.9-0.5,1.3-0.9l1.2,1.3
+	c-0.5,0.5-1.2,1-1.9,1.3c-0.7,0.3-1.4,0.5-2.2,0.5c-0.9,0-1.9-0.2-2.7-0.7c-0.8-0.4-1.5-1.1-1.9-1.9c-0.5-0.8-0.7-1.7-0.7-2.6
+	c0-1.8,1-3.5,2.7-4.4c1.5-0.8,3.3-0.9,4.9-0.2c0.7,0.3,1.3,0.7,1.8,1.2l-1.1,1.4C57.7,24.4,57.3,24,56.8,23.8L56.8,23.8z M70.9,22.4
+	c2.5,1.4,3.4,4.5,2,7l0,0.1c-0.5,0.8-1.1,1.4-2,1.9c-1.7,0.9-3.8,0.9-5.5,0c-2.5-1.3-3.4-4.4-2-6.9c0.4-0.8,1.1-1.4,1.9-1.9l0.2-0.1
+	C67.1,21.5,69.2,21.5,70.9,22.4L70.9,22.4z M66.5,23.9c-1.7,0.9-2.2,3-1.3,4.7c0,0,0,0,0,0c0.3,0.5,0.7,0.9,1.3,1.2
+	c0.5,0.3,1.1,0.5,1.7,0.5c0.6,0,1.2-0.2,1.7-0.5c1.6-1,2.2-3,1.2-4.7c-0.3-0.5-0.7-0.9-1.2-1.2c-0.5-0.3-1.1-0.5-1.7-0.5
+	C67.6,23.5,67,23.6,66.5,23.9L66.5,23.9z M85.2,22.5c0.8,0.4,1.4,1,1.9,1.8c0.5,0.8,0.7,1.7,0.7,2.6c0,0.9-0.2,1.8-0.7,2.6
+	c-0.5,0.8-1.1,1.4-1.9,1.8c-0.9,0.4-1.8,0.7-2.8,0.7h-4.2v-10h4.2C83.4,21.9,84.4,22.1,85.2,22.5L85.2,22.5z M84.2,29.8
+	c0.5-0.3,0.9-0.7,1.2-1.2c0.3-0.5,0.4-1.1,0.4-1.7c0-0.6-0.1-1.2-0.4-1.7c-0.3-0.5-0.7-0.9-1.2-1.2c-0.5-0.3-1.1-0.4-1.7-0.4h-2.2
+	v6.6h2.3C83.1,30.2,83.7,30,84.2,29.8L84.2,29.8z M92.4,21.9h7.5v1.7h-5.5V26h4.9v1.7h-4.9v2.5h5.7v1.7h-7.6L92.4,21.9z M65.1,8.4
+	c-0.2,4.4-4,7.7-8.4,7.7h-1.8l1.1-2.6h0.4c3,0,5.5-2.3,5.7-5.3c0.1-2.7-1.9-5.1-4.7-5.5c-0.2,0-0.3,0-0.5,0h-1.4
+	c-0.1-0.1-0.1-0.3-0.2-0.4c-0.6-1-1.5-1.8-2.6-2.3h5.6C62.3,0.5,65.3,4.3,65.1,8.4L65.1,8.4z M49.8,13.5L49.8,13.5
+	c0.3-0.3,2.2-2.2,3.5-3.6l0,0c0.4-0.4,0.8-0.9,1.2-1.4c1.7-2.5,1-5.9-1.6-7.6c-0.9-0.6-1.9-0.9-3-0.9h-2.1l-1.1,2.7h2.5
+	c0.1,0,0.8,0,1.2,0c1.3,0.2,2.3,1.3,2.2,2.6v0.2c0,0.4-0.2,0.8-0.4,1.2c0,0.1-0.1,0.1-0.1,0.2c-0.2,0.2-0.7,0.8-0.7,0.8l-4.9,5.5
+	L46,13.5h-2.1c-3,0-5.5-2.4-5.5-5.4c0-2.8,2.1-5.1,4.9-5.4c0.2,0,0.4,0,0.6,0h1.8L46.8,0h-3.3c-4.6,0-8.3,3.6-8.3,8.1
+	c0,3.2,2,6.2,5,7.4l0.1,0l0.2,0.1c0.9,0.4,1.9,0.5,2.9,0.5h7.2l3.3,0l1-2.6H49.8z"/>
+</svg>	</a>
+			<nav class="header__nav" role="navigation">
+						<div class="menu-header-nav-1-container"><ul id="menu-header-nav-1" class="menu"><li id="menu-item-74" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-74 "><a href="https://cut2code.com/who-are-we/">About</a></li>
+<li id="menu-item-72" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-72 "><a href="https://cut2code.com/services/">Services</a></li>
+<li id="menu-item-3165" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-3165 "><a href="https://cut2code.com/portfolio/">Portfolio</a></li>
+<li id="menu-item-3266" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-3266 "><a href="https://cut2code.com/case-study/">Case Study</a></li>
+</ul></div>		</nav>
+				<nav class="header__nav header__nav--2" role="navigation">
+							<button class="header__nav-hamburger"><span>Menu</span></button>
+						<div class="menu-header-nav-2-container"><ul id="menu-header-nav-2" class="menu"><li id="menu-item-3037" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-3037 "><a href="https://cut2code.com/mi-damo-robotu/"><span style="color:#005BBB;">МИ ДАМО</span> <span style="color:#FFD500">РОБОТУ</span></a></li>
+<li id="menu-item-2697" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-2697 "><a href="https://cut2code.com/careers/">Careers</a></li>
+<li id="menu-item-78" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-78 "><a href="https://cut2code.com/blog/">Insights</a></li>
+<li id="menu-item-2152" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-2152 "><a href="https://cut2code.com/ebook/">Ebook</a></li>
+</ul></div>		</nav>
+			<ul class="header__contact">
+			<li><a class="header__link" href="/contact"><span>Contact us</span></a></li>
+	</ul>
+</div>	</header>
+	<a class="skip-link" href="#page-content">Skip to content</a>
+	<!-- Google Tag Manager (noscript) -->
+	<noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-KVSQQ56"
+	height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+	<!-- End Google Tag Manager (noscript) -->
+	<header class="header">
+		<div class="header__wrapper">
+	<a class="header__logo" href="https://cut2code.com">
+		<span class="screen-reader-text">Cut2Code</span>
+		<svg viewBox="0 0 300.74 98.23" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"><linearGradient id="a" gradientTransform="matrix(1 0 0 -1 0 100.66)" gradientUnits="userSpaceOnUse" x1="150.37" x2="150.37" y1="100.54" y2="2.43"><stop offset="0" stop-color="#00e094"/><stop offset="1" stop-color="#00c4af"/></linearGradient><path d="m20.74 73.07a10.39 10.39 0 0 0 -9.69.31 9.76 9.76 0 0 0 -3.72 3.74 10.75 10.75 0 0 0 0 10.46 10.24 10.24 0 0 0 8.94 5.13 11.13 11.13 0 0 0 4.4-1 12.8 12.8 0 0 0 3.92-2.71l3.46 3.85a18.28 18.28 0 0 1 -5.61 3.87 15.71 15.71 0 0 1 -6.44 1.46 16 16 0 0 1 -8.1-2.1 15.35 15.35 0 0 1 -5.8-5.71 15.59 15.59 0 0 1 -2.1-8 15.22 15.22 0 0 1 2.14-8 15.43 15.43 0 0 1 5.86-5.64 17 17 0 0 1 14.62-.73 15.82 15.82 0 0 1 5.38 3.62l-3.41 4.28a11.59 11.59 0 0 0 -3.85-2.83zm28.2 17.81a7.46 7.46 0 0 0 5.51 2.06 7.22 7.22 0 0 0 5.45-2.06 7.82 7.82 0 0 0 2-5.69v-18h5.84v18a14.21 14.21 0 0 1 -1.62 6.94 11 11 0 0 1 -4.61 4.53 15 15 0 0 1 -7.07 1.57 15.4 15.4 0 0 1 -7.15-1.57 10.89 10.89 0 0 1 -4.66-4.53 14.21 14.21 0 0 1 -1.63-6.94v-18h5.86v18a7.73 7.73 0 0 0 2.14 5.69zm31.06-23.71h25v5.16h-9.54v25.42h-5.91v-25.42h-9.55zm58.46 25.5v5.12h-22.65v-4.24l11.56-11.9a18.63 18.63 0 0 0 2.63-3.28 5.55 5.55 0 0 0 1-2.8 3 3 0 0 0 -1.28-2.57 6.18 6.18 0 0 0 -3.63-.94 10.65 10.65 0 0 0 -4.29 1 16.28 16.28 0 0 0 -4.29 2.8l-2.31-4.49a22.94 22.94 0 0 1 5.71-3.26 16.67 16.67 0 0 1 6-1.16 13.55 13.55 0 0 1 5.34 1 8.32 8.32 0 0 1 3.61 2.73 6.75 6.75 0 0 1 1.29 4.09 9 9 0 0 1 -1.54 4.73 33.6 33.6 0 0 1 -4.28 5.38l-7.79 7.87zm32.35-19.6a10.39 10.39 0 0 0 -9.69.31 10 10 0 0 0 -3.72 3.74 10.81 10.81 0 0 0 0 10.46 10.14 10.14 0 0 0 8.93 5.14 11.13 11.13 0 0 0 4.4-1 12.64 12.64 0 0 0 3.91-2.67l3.46 3.85a18 18 0 0 1 -5.6 3.87 15.72 15.72 0 0 1 -6.5 1.42 16 16 0 0 1 -8.09-2.1 15.38 15.38 0 0 1 -5.78-5.71 15.59 15.59 0 0 1 -2.1-8 15.39 15.39 0 0 1 8-13.61 17 17 0 0 1 14.69-.69 16 16 0 0 1 5.39 3.64l-3.4 4.28a11.52 11.52 0 0 0 -3.88-2.93zm42.45-4.24a15.68 15.68 0 0 1 6 21.34l-.14.25a15.5 15.5 0 0 1 -5.88 5.71 17.43 17.43 0 0 1 -16.59 0 15.57 15.57 0 0 1 -.52-27l.59-.34a17.71 17.71 0 0 1 16.59 0zm-13.41 4.57a10.48 10.48 0 0 0 -3.79 14.33 10.78 10.78 0 0 0 3.81 3.81 10 10 0 0 0 5.18 1.4 9.93 9.93 0 0 0 5.12-1.4 10.69 10.69 0 0 0 3.74-14.38 10.14 10.14 0 0 0 -3.74-3.76 10 10 0 0 0 -5.12-1.4 10.25 10.25 0 0 0 -5.18 1.38zm56.31-4.29a14.32 14.32 0 0 1 5.68 5.45 15.27 15.27 0 0 1 2.06 7.92 15 15 0 0 1 -2.08 7.9 14.41 14.41 0 0 1 -5.75 5.44 17.25 17.25 0 0 1 -8.36 2h-12.49v-30.65h12.78a17.2 17.2 0 0 1 8.23 1.94zm-3 22.23a9.2 9.2 0 0 0 3.52-3.59 10.73 10.73 0 0 0 1.32-5.23 10.55 10.55 0 0 0 -1.32-5.27 9.14 9.14 0 0 0 -3.68-3.63 10.25 10.25 0 0 0 -5.14-1.29h-6.76v20.3h7a10 10 0 0 0 5-1.3zm24.65-24.17h22.43v5.16h-16.59v7.56h14.88v5.11h-14.88v7.7h17.09v5.12h-23zm-82.07-41.29c-.56 13.38-11.91 23.78-25.31 23.78h-5.35l3.16-8.13h1.19a17 17 0 0 0 17-16.31 16.62 16.62 0 0 0 -14-16.82 9.5 9.5 0 0 0 -1.51-.09h-4.18c-.2-.39-.4-.77-.62-1.14a16.73 16.73 0 0 0 -7.84-6.91h16.72c12.22 1.34 21.25 12.86 20.74 25.62zm-46 15.69.08-.08c.73-.75 6.39-6.61 10.32-11l.06-.14a44 44 0 0 0 3.47-4.22 16.8 16.8 0 0 0 -13.76-26h-6.46l-3.24 8.2h7.53c.25 0 2.34 0 3.48.13a7.81 7.81 0 0 1 6.68 7.92v.62a8.07 8.07 0 0 1 -1.17 3.54 3.2 3.2 0 0 1 -.32.57c-.48.64-2.17 2.39-2.17 2.39l-14.85 17-1 1h-6.33a16.6 16.6 0 0 1 -1.95-33.09 15.15 15.15 0 0 1 1.9-.12h5.56l3.2-8.29h-9.83a24.83 24.83 0 0 0 -9.7 47.69l.17.07.68.29a24.76 24.76 0 0 0 8.84 1.66h21.66l10-.07 3.15-8.07z" fill="url(#a)"/></svg>	</a>
+			<nav class="header__nav" role="navigation">
+						<div class="menu-header-nav-1-container"><ul id="menu-header-nav-3" class="menu"><li class="menu-item menu-item-type-post_type menu-item-object-page menu-item-74 "><a href="https://cut2code.com/who-are-we/">About</a></li>
+<li class="menu-item menu-item-type-post_type menu-item-object-page menu-item-72 "><a href="https://cut2code.com/services/">Services</a></li>
+<li class="menu-item menu-item-type-custom menu-item-object-custom menu-item-3165 "><a href="https://cut2code.com/portfolio/">Portfolio</a></li>
+<li class="menu-item menu-item-type-custom menu-item-object-custom menu-item-3266 "><a href="https://cut2code.com/case-study/">Case Study</a></li>
+</ul></div>		</nav>
+				<nav class="header__nav header__nav--2" role="navigation">
+							<button class="header__nav-hamburger"><span>Menu</span></button>
+						<div class="menu-header-nav-2-container"><ul id="menu-header-nav-4" class="menu"><li class="menu-item menu-item-type-post_type menu-item-object-page menu-item-3037 "><a href="https://cut2code.com/mi-damo-robotu/"><span style="color:#005BBB;">МИ ДАМО</span> <span style="color:#FFD500">РОБОТУ</span></a></li>
+<li class="menu-item menu-item-type-post_type menu-item-object-page menu-item-2697 "><a href="https://cut2code.com/careers/">Careers</a></li>
+<li class="menu-item menu-item-type-post_type menu-item-object-page menu-item-78 "><a href="https://cut2code.com/blog/">Insights</a></li>
+<li class="menu-item menu-item-type-post_type menu-item-object-page menu-item-2152 "><a href="https://cut2code.com/ebook/">Ebook</a></li>
+</ul></div>		</nav>
+			<ul class="header__contact">
+			<li><small>US:</small> <a href="tel:+15186204787">+1 518 620 4787</a><br><small>EU:</small> <a href="tel:+48519398899">+48 519 39 88 99</a></li>
+		<li><a href="/cdn-cgi/l/email-protection#f4979b9a80959780b4978180c6979b9091da979b99"><span class="__cf_email__" data-cfemail="6f0c00011b0e0c1b2f0c1a1b5d0c000b0a410c0002">[email&#160;protected]</span></a></li>
+			<li><a class="header__link" href="/contact"><span>Contact us</span></a></li>
+	</ul>
+</div>	</header>
+<main id="page-content" role="main" class="page-content page-content--default">
+	
+<section id="hero-block_1bc088dadbe033499184af3455708399" class="block_custom hero">
+	<div class="hero__wrapper">
+					<h1 class="hero__title" >Quality web development</h1>
+							<p class="hero__subtitle" id="title">WordPress | WooCommerce | Shopify | Magento | Cybersecurity | Accessibility | Support&nbsp;&#038;&nbsp;Maintenance </p>
+							<p class="hero__desc">We do awesome projects from concept to publication</p>
+				<div class="hero__buttons">
+			<a class="hero__link" href="https://calendly.com/greg-cut2code/meeting-with-greg-from-cut2code" target="_blank">Let&#039;s talk about your needs</a>					<div class="clutch">
+							<div class="clutch__badge"><img fetchpriority="high" decoding="async" width="1080" height="927" src="https://cut2code.com/wp-content/uploads/2023/11/Global-Badge-2023-Clutch.svg" class="attachment-hero-badge size-hero-badge" alt="" /></div>
+							<div class="clutch-widget" data-url="https://widget.clutch.co" data-widget-type="2" data-height="50" data-clutchcompany-id="74065">
+					<div class="clutch-reviews">
+    <div class="content">
+        <div class="small_widget_logo_wrapper">
+            <span class="small_widget_logo_text">Reviewed on</span>
+            <a class="clutch-reviews__logotype" target="_blank" data-ga-action="logo_click" href="https://clutch.co/profile/cut2code">
+				<span class="screen-reader-text">Clutch Logo</span>
+				<svg xmlns="http://www.w3.org/2000/svg" width="82" height="23" viewBox="0 0 87.861 25"><path fill="%2317313b" d="M22.861 0h4v25h-4zm18 17.025c0 3.826-3.217 4.131-4.174 4.131-2.391 0-2.826-2.238-2.826-3.588V8h-4v9.548c0 2.37.744 4.326 2.048 5.63 1.152 1.153 2.878 1.783 4.748 1.783 1.326 0 3.204-.413 4.204-1.326V25h4V8h-4v9.025zM52.861 2h-4v6h-3v4h3v13h4V12h3V8h-3zm15.597 17.917c-.871.783-2.021 1.217-3.283 1.217-2.782 0-4.825-2.043-4.825-4.848s1.978-4.762 4.825-4.762c1.24 0 2.412.413 3.305 1.196l.607.522 2.697-2.696-.675-.609C69.522 8.504 67.415 7.7 65.174 7.7c-5 0-8.631 3.608-8.631 8.565 0 4.936 3.718 8.673 8.631 8.673 2.283 0 4.412-.804 5.979-2.26l.652-.609-2.739-2.694-.608.542zM86.061 9.482C84.909 8.33 83.559 7.7 81.689 7.7c-1.326 0-2.828.413-3.828 1.325V0h-4v25h4v-9.365c0-3.826 2.718-4.13 3.675-4.13 2.391 0 2.325 2.239 2.325 3.587V25h4v-9.887c0-2.37-.495-4.326-1.8-5.631"/><path fill="#ff3d2e" d="M65.043 13.438a2.891 2.891 0 1 1 0 5.784 2.891 2.891 0 0 1 0-5.784"/><path fill="%2317313b" d="M17.261 18.721c-1.521 1.565-3.587 2.413-5.761 2.413-4.456 0-7.696-3.5-7.696-8.304 0-4.826 3.24-8.326 7.696-8.326 2.153 0 4.196.847 5.74 2.391l.608.609 2.674-2.674-.587-.609C17.718 1.938 14.718.7 11.5.7 4.935.7 0 5.917 0 12.851 0 19.764 4.957 24.96 11.5 24.96c3.24 0 6.24-1.26 8.457-3.543l.587-.609-2.652-2.717-.631.63z"/></svg>
+            </a>
+        </div>
+        <div class="small_widget_text">
+			<span class="rating">5.0</span>
+			<div class="reviews-totals-stars">
+				<a href="https://clutch.co/profile/cut2code?#reviews" target="_blank">
+					<div class="fivestar-static-item">
+						<div class="form-item form-type-item">
+							<div class="fivestar-widget-static fivestar-widget-static-vote clearfix">
+								<div class="fivestar"><div class="star star-1 star-odd"><span class="on">5.000000</span></div><div class="star star-2 star-even"><span class="on"></span></div><div class="star star-3 star-odd"><span class="on"></span></div><div class="star star-4 star-even"><span class="on"></span></div><div class="star star-5 star-odd"><span class="on"></span></div></div>
+							</div>
+						</div>
+					</div>
+				</a>
+			</div>
+			<span class="reviews-count">
+				<a href="https://clutch.co/profile/cut2code?#reviews" target="_blank">
+					39 reviews				</a>
+			</span>
+        </div>
+    </div>
+</div>				</div>
+			</div>
+				</div>
+	</div>
+	<div class="wave-wrapper">
+		<div class="ocean">
+			<div class="wave"></div>
+			<div class="wave"></div>
+		</div>
+	</div>
+</section>
+
+
+<section id="logos-block_bade724dd717763d3767ab3917f269d3" class="block_custom logos logos--style-3" style="background:#ffffff">
+	<div class="logos__wrapper">
+									<div class="logos__logo logos__logo_filter_grayscale">
+																																																													<div class="logo" data-image_type="landscape" data-image_number="1"><img decoding="async" width="195" height="40" src="https://cut2code.com/wp-content/uploads/2022/10/wordpress-logo-vector.svg" class="attachment-full size-full" alt="" /></div><div class="logo" data-image_type="landscape" data-image_number="2"><img decoding="async" width="251" height="51" src="https://cut2code.com/wp-content/uploads/2020/07/woocommerce_logo.png" class="attachment-full size-full" alt="" srcset="https://cut2code.com/wp-content/uploads/2020/07/woocommerce_logo.png 251w, https://cut2code.com/wp-content/uploads/2020/07/woocommerce_logo-80x16.png 80w" sizes="(max-width: 251px) 100vw, 251px" /></div><div class="logo" data-image_type="landscape" data-image_number="3"><img loading="lazy" decoding="async" width="167" height="51" src="https://cut2code.com/wp-content/uploads/2020/07/pngegg.png" class="attachment-full size-full" alt="" srcset="https://cut2code.com/wp-content/uploads/2020/07/pngegg.png 167w, https://cut2code.com/wp-content/uploads/2020/07/pngegg-80x24.png 80w" sizes="(max-width: 167px) 100vw, 167px" /></div><div class="logo" data-image_type="landscape" data-image_number="4"><img loading="lazy" decoding="async" width="201" height="51" src="https://cut2code.com/wp-content/uploads/2020/07/wpengine-logo-600x159-1.png" class="attachment-full size-full" alt="" srcset="https://cut2code.com/wp-content/uploads/2020/07/wpengine-logo-600x159-1.png 201w, https://cut2code.com/wp-content/uploads/2020/07/wpengine-logo-600x159-1-80x20.png 80w" sizes="(max-width: 201px) 100vw, 201px" /></div><div class="logo" data-image_type="landscape" data-image_number="5"><img loading="lazy" decoding="async" width="85" height="51" src="https://cut2code.com/wp-content/uploads/2020/07/1280px-Amazon_Web_Services_Logo.svg-2.png" class="attachment-full size-full" alt="" srcset="https://cut2code.com/wp-content/uploads/2020/07/1280px-Amazon_Web_Services_Logo.svg-2.png 85w, https://cut2code.com/wp-content/uploads/2020/07/1280px-Amazon_Web_Services_Logo.svg-2-80x48.png 80w" sizes="(max-width: 85px) 100vw, 85px" /></div>				<style>
+					@media (min-width: 768px) { #logos-block_bade724dd717763d3767ab3917f269d3 .logos__logo { -ms-grid-columns: 1fr 1fr ; grid-template-columns: 1fr 1fr ; } } 				</style>
+			</div>
+			</div>
+</section>
+
+
+
+
+
+
+<section id="columns-block_b5fefc760543e9c8f785f95ef76a1f53" class="block_custom columns">
+	<div class="columns__wrapper">
+					<h2 class="tiles__title onview">What makes us stand out?</h2>
+				<div class="columns__cols onview">
+											<div class="columns__col">
+											<p class="number">01</p>
+																<p class="title">We approach each project individually</p>
+																<div class="desc">
+							<p>You can be sure that we will plan and implement an individual, expert work process for your project. We will create a detailed analysis of the activities and we will provide you with suggestions for tailor-made solutions.<br />
+As a result, we will optimize the time needed to complete the project and you will save the money you planned to spend on it.</p>
+						</div>
+									</div>
+											<div class="columns__col">
+											<p class="number">02</p>
+																<p class="title">We guarantee a flexible approach to the project</p>
+																<div class="desc">
+							<p>We know that new ideas and solutions are sometimes born unexpectedly. If a new idea comes to your mind, tell us about it! We are very flexible and happy to discuss improvements at every stage of the project.<br />
+Do you need to have a project finished at lightning speed? Our web development company will allocate all our resources for you and deliver the task on time.</p>
+						</div>
+									</div>
+											<div class="columns__col">
+											<p class="number">03</p>
+																<p class="title">We speak transparently about costs</p>
+																<div class="desc">
+							<p>We clearly define the cost of project implementation. We will show you precisely what your money is being spent on. We also guarantee that we work in the white label model &#8211; we can work as an extension of your own team.</p>
+						</div>
+									</div>
+					</div>
+		<div class="columns__link-wrapper"><a class="columns__link" href="/who-are-we/" target="_self"><span>Check out</span></a></div>	</div>
+</section>
+
+
+
+<section id="tiles-block_38dd8d25093fe540066bc50f8953d669" class="block_custom tiles tiles--style-1">
+	<div class="tiles__wrapper">
+							<h2 class="tiles__title onview">What can we offer you?</h2>
+				<div class="tiles__tiles onview">
+											<div class="tile">
+					<div class="tile__wrapper">
+						<div class="tile__wrapper-inner">
+														<a href="https://cut2code.com/wordpress/" class="tile__wrapper-link">
+																						<div class="icon"><img loading="lazy" decoding="async" width="80" height="80" src="https://cut2code.com/wp-content/uploads/2020/07/wordpress-80x80.png" class="attachment-tiles-img size-tiles-img" alt="" srcset="https://cut2code.com/wp-content/uploads/2020/07/wordpress-80x80.png 80w, https://cut2code.com/wp-content/uploads/2020/07/wordpress-300x300.png 300w, https://cut2code.com/wp-content/uploads/2020/07/wordpress-150x150.png 150w, https://cut2code.com/wp-content/uploads/2020/07/wordpress-60x60.png 60w, https://cut2code.com/wp-content/uploads/2020/07/wordpress-95x95.png 95w, https://cut2code.com/wp-content/uploads/2020/07/wordpress.png 512w" sizes="(max-width: 80px) 100vw, 80px" /></div>
+																						<div class="title">WordPress</div>
+																						<div class="desc">
+									<p>We create customized web templates based on Gutenberg and ACF Pro. We use the most popular open-source content management  system &#8211; WordPress CMS.</p>
+<p>You will be surprised how easily and quickly you can edit your new page.</p>
+								</div>
+																						<span class="columns__link"><span>Read more</span></span>
+																													</a>
+													</div>
+					</div>
+				</div>
+											<div class="tile">
+					<div class="tile__wrapper">
+						<div class="tile__wrapper-inner">
+														<a href="https://cut2code.com/front-end-development/" class="tile__wrapper-link">
+																						<div class="icon"><img loading="lazy" decoding="async" width="80" height="80" src="https://cut2code.com/wp-content/uploads/2020/07/009-web-design-1-80x80.png" class="attachment-tiles-img size-tiles-img" alt="" srcset="https://cut2code.com/wp-content/uploads/2020/07/009-web-design-1-80x80.png 80w, https://cut2code.com/wp-content/uploads/2020/07/009-web-design-1-300x300.png 300w, https://cut2code.com/wp-content/uploads/2020/07/009-web-design-1-150x150.png 150w, https://cut2code.com/wp-content/uploads/2020/07/009-web-design-1-60x60.png 60w, https://cut2code.com/wp-content/uploads/2020/07/009-web-design-1-95x95.png 95w, https://cut2code.com/wp-content/uploads/2020/07/009-web-design-1.png 512w" sizes="(max-width: 80px) 100vw, 80px" /></div>
+																						<div class="title">Front-end development</div>
+																						<div class="desc">
+									<p>We create a ready-made, frontend product, which you can easily customize and adapt to your website.</p>
+<p>Imagine perfect code that loads quickly, works without problems and is refined in every detail. This is what we will do for you! We code according to modern standards, make sure that the code is adapted to popular browsers, as well as commented and SEO-friendly.</p>
+								</div>
+																						<span class="columns__link"><span>Read more</span></span>
+																													</a>
+													</div>
+					</div>
+				</div>
+											<div class="tile">
+					<div class="tile__wrapper">
+						<div class="tile__wrapper-inner">
+														<a href="https://cut2code.com/woocommerce-shopify/" class="tile__wrapper-link">
+																						<div class="icon"><img loading="lazy" decoding="async" width="80" height="80" src="https://cut2code.com/wp-content/uploads/2020/07/006-shopping-bag-80x80.png" class="attachment-tiles-img size-tiles-img" alt="" srcset="https://cut2code.com/wp-content/uploads/2020/07/006-shopping-bag-80x80.png 80w, https://cut2code.com/wp-content/uploads/2020/07/006-shopping-bag-300x300.png 300w, https://cut2code.com/wp-content/uploads/2020/07/006-shopping-bag-150x150.png 150w, https://cut2code.com/wp-content/uploads/2020/07/006-shopping-bag-60x60.png 60w, https://cut2code.com/wp-content/uploads/2020/07/006-shopping-bag-95x95.png 95w, https://cut2code.com/wp-content/uploads/2020/07/006-shopping-bag.png 512w" sizes="(max-width: 80px) 100vw, 80px" /></div>
+																						<div class="title">WooCommerce / Shopify</div>
+																						<div class="desc">
+									<p>Thanks to well-tailored templates, you can easily manage all elements inside your online shop.</p>
+<p>You will receive a customized project from us, equipped with e.g. a customized payment management system, a system of sending and receiving shipments or an original product creator.</p>
+								</div>
+																						<span class="columns__link"><span>Read more</span></span>
+																													</a>
+													</div>
+					</div>
+				</div>
+											<div class="tile">
+					<div class="tile__wrapper">
+						<div class="tile__wrapper-inner">
+														<a href="https://cut2code.com/magento/" class="tile__wrapper-link">
+																						<div class="icon"><img loading="lazy" decoding="async" width="80" height="80" src="https://cut2code.com/wp-content/uploads/2023/06/free-magento-2-432454-80x80.webp" class="attachment-tiles-img size-tiles-img" alt="" srcset="https://cut2code.com/wp-content/uploads/2023/06/free-magento-2-432454-80x80.webp 80w, https://cut2code.com/wp-content/uploads/2023/06/free-magento-2-432454-150x150.webp 150w, https://cut2code.com/wp-content/uploads/2023/06/free-magento-2-432454-60x60.webp 60w, https://cut2code.com/wp-content/uploads/2023/06/free-magento-2-432454-95x95.webp 95w, https://cut2code.com/wp-content/uploads/2023/06/free-magento-2-432454-122x122.webp 122w, https://cut2code.com/wp-content/uploads/2023/06/free-magento-2-432454-204x204.webp 204w, https://cut2code.com/wp-content/uploads/2023/06/free-magento-2-432454.webp 256w" sizes="(max-width: 80px) 100vw, 80px" /></div>
+																						<div class="title">Magento</div>
+																						<div class="desc">
+									<p>Whether you’re looking to build a brand-new Magento store or enhance your existing one, we’ve got you covered. We offer a wide range of services that span the entire Magento development lifecycle.</p>
+								</div>
+																						<span class="columns__link"><span>Read more</span></span>
+																													</a>
+													</div>
+					</div>
+				</div>
+											<div class="tile">
+					<div class="tile__wrapper">
+						<div class="tile__wrapper-inner">
+														<a href="https://cut2code.com/cybersecurity/" class="tile__wrapper-link">
+																						<div class="icon"><img loading="lazy" decoding="async" width="80" height="80" src="https://cut2code.com/wp-content/uploads/2023/06/1797500-80x80.png" class="attachment-tiles-img size-tiles-img" alt="" srcset="https://cut2code.com/wp-content/uploads/2023/06/1797500-80x80.png 80w, https://cut2code.com/wp-content/uploads/2023/06/1797500-300x300.png 300w, https://cut2code.com/wp-content/uploads/2023/06/1797500-150x150.png 150w, https://cut2code.com/wp-content/uploads/2023/06/1797500-60x60.png 60w, https://cut2code.com/wp-content/uploads/2023/06/1797500-95x95.png 95w, https://cut2code.com/wp-content/uploads/2023/06/1797500-122x122.png 122w, https://cut2code.com/wp-content/uploads/2023/06/1797500-204x204.png 204w, https://cut2code.com/wp-content/uploads/2023/06/1797500.png 512w" sizes="(max-width: 80px) 100vw, 80px" /></div>
+																						<div class="title">Cybersecurity</div>
+																						<div class="desc">
+									<p>Protecting your digital assets and customer data is crucial in today&#8217;s rapidly evolving threat landscape. Our cybersecurity services combine industry best practices and a deep understanding of emerging threats to provide you with substantial protection.</p>
+								</div>
+																						<span class="columns__link"><span>Read more</span></span>
+																													</a>
+													</div>
+					</div>
+				</div>
+											<div class="tile">
+					<div class="tile__wrapper">
+						<div class="tile__wrapper-inner">
+														<a href="https://cut2code.com/support-maintenance/" class="tile__wrapper-link">
+																						<div class="icon"><img loading="lazy" decoding="async" width="80" height="80" src="https://cut2code.com/wp-content/uploads/2020/07/009-gear-80x80.png" class="attachment-tiles-img size-tiles-img" alt="" srcset="https://cut2code.com/wp-content/uploads/2020/07/009-gear-80x80.png 80w, https://cut2code.com/wp-content/uploads/2020/07/009-gear-300x300.png 300w, https://cut2code.com/wp-content/uploads/2020/07/009-gear-150x150.png 150w, https://cut2code.com/wp-content/uploads/2020/07/009-gear-60x60.png 60w, https://cut2code.com/wp-content/uploads/2020/07/009-gear-95x95.png 95w, https://cut2code.com/wp-content/uploads/2020/07/009-gear.png 512w" sizes="(max-width: 80px) 100vw, 80px" /></div>
+																						<div class="title">Support &#038; Maintenance</div>
+																						<div class="desc">
+									<p>We will take care of your website maintenance.</p>
+<p>We will make sure that it loads quickly and without any problems on all the most popular browsers, track and eliminate all bugs, get rid of malware, as well as introduce minor modifications to improve the website’s operation.</p>
+								</div>
+																						<span class="columns__link"><span>Read more</span></span>
+																													</a>
+													</div>
+					</div>
+				</div>
+					</div>
+	</div>
+</section>
+
+
+
+<section id="text_blocks-block_5222a7bce695af5b83cd14db8c6b2f42" class="block_custom text_blocks text_blocks--style-1 text_blocks--style-bg-default">
+	<div class="text_blocks__wrapper">
+					<h2 class="text_blocks__title onview">Who are we?</h2>
+				<div class="text_blocks__cols text_blocks__cols--left_to_right onview">
+																<div class="text_blocks__col">
+												We are a web dev company that handles the creation of efficient websites and e-commerce solutions. <br />
+<br />
+We can do the project from scratch or continue development based on the existing code.					</div>
+																				
+																<div class="text_blocks__col">
+												<div class="hexagons"><div class="hexagon"><div class="hexagon__inner"><strong>6</strong> years of experience</div></div><div class="hexagon"><div class="hexagon__inner"><strong>30</strong> people on board</div></div><div class="hexagon"><div class="hexagon__inner"><strong>12</strong> long-term partnerships</div></div><div class="hexagon"><div class="hexagon__inner"><strong>300+</strong> completed projects</div></div>					</div>
+																				
+															</div>
+	</div>
+</section>
+
+
+
+<section id="text_blocks-block_cad6ad64220dd929ae04c1cd2069aaee" class="block_custom text_blocks text_blocks--style-1 text_blocks--style-bg-default">
+	<div class="text_blocks__wrapper">
+					<h2 class="text_blocks__title onview">1st place in the Digital Impact Award</h2>
+				<div class="text_blocks__cols text_blocks__cols--left_to_right onview">
+																<div class="text_blocks__col">
+												Together with our client Biedronka, we have won <b>1st place in the Digital Impact Awards in the Best Intranet category</b>!<br />
+					</div>
+																				
+																				<div class="text_blocks__col">
+						<img loading="lazy" decoding="async" width="289" height="274" src="https://cut2code.com/wp-content/uploads/2023/10/DIAWinner.png" class="attachment-full size-full" alt="" srcset="https://cut2code.com/wp-content/uploads/2023/10/DIAWinner.png 289w, https://cut2code.com/wp-content/uploads/2023/10/DIAWinner-80x76.png 80w, https://cut2code.com/wp-content/uploads/2023/10/DIAWinner-129x122.png 129w" sizes="(max-width: 289px) 100vw, 289px" />					</div>
+																
+															<div class="text_blocks__col">
+						<a class="text_blocks__link" href="https://cut2code.com/case-study/cs-biedronkas-intranet/" target="_self">Check out our case study</a>					</div>
+									</div>
+	</div>
+</section>
+
+
+
+<section id="slider-block_bb47bdadc0a1bd1b8ba408ae33930a28" class="block_custom slider">
+	<div class="slider__wrapper">
+					<div class="slider__intro onview">
+									<h2 class="slider__title">Check out our last projects</h2>
+								<a class="slider__link" href="/portfolio/" target="_self"><span>Full Portfolio</span></a>			</div>
+				<div class="slider__slider splide">
+			<div class="slider__row splide__track">
+				<div class="slider__list splide__list">
+														<div class="slider__slide splide__slide">
+						<div class="content">
+															<p class="content__title">Energy &#038; Biosciences Institute</p>
+																						<div class="content__desc">
+									<p>The Energy &#038; Biosciences Institute provides industrial sponsors access to world-class, collaborative research facilities across the energy, chemical, material sciences, data sciences, engineering, and agriculture sectors.</p>
+								</div>
+													</div>
+											<div class="image">
+							<img loading="lazy" decoding="async" width="791" height="527" src="https://cut2code.com/wp-content/uploads/2020/08/ebi-791x527.png" class="image" alt="" sizes="(min-width: 1270px) calc(50vw - ( 100vw - 1270px ) / 2), (min-width: 992px) 42.5vw, calc(100vw - (15px * 2))" srcset="https://cut2code.com/wp-content/uploads/2020/08/ebi-791x527.png 791w, https://cut2code.com/wp-content/uploads/2020/08/ebi-300x200.png 300w, https://cut2code.com/wp-content/uploads/2020/08/ebi-1024x683.png 1024w, https://cut2code.com/wp-content/uploads/2020/08/ebi-768x512.png 768w, https://cut2code.com/wp-content/uploads/2020/08/ebi-1536x1024.png 1536w, https://cut2code.com/wp-content/uploads/2020/08/ebi-2048x1365.png 2048w, https://cut2code.com/wp-content/uploads/2020/08/ebi-80x53.png 80w" />						</div>
+										</div>
+														<div class="slider__slide splide__slide">
+						<div class="content">
+															<p class="content__title">TONE Dermatology</p>
+																						<div class="content__desc">
+									<p>A thoughtfully crafted and patient-first approach to medical and cosmetic dermatology.</p>
+								</div>
+													</div>
+											<div class="image">
+							<img loading="lazy" decoding="async" width="791" height="527" src="https://cut2code.com/wp-content/uploads/2020/08/tone-791x527.png" class="image" alt="" sizes="(min-width: 1270px) calc(50vw - ( 100vw - 1270px ) / 2), (min-width: 992px) 42.5vw, calc(100vw - (15px * 2))" srcset="https://cut2code.com/wp-content/uploads/2020/08/tone-791x527.png 791w, https://cut2code.com/wp-content/uploads/2020/08/tone-300x200.png 300w, https://cut2code.com/wp-content/uploads/2020/08/tone-1024x683.png 1024w, https://cut2code.com/wp-content/uploads/2020/08/tone-768x512.png 768w, https://cut2code.com/wp-content/uploads/2020/08/tone-1536x1024.png 1536w, https://cut2code.com/wp-content/uploads/2020/08/tone-2048x1365.png 2048w, https://cut2code.com/wp-content/uploads/2020/08/tone-80x53.png 80w" />						</div>
+										</div>
+														<div class="slider__slide splide__slide">
+						<div class="content">
+															<p class="content__title">PurePail</p>
+																						<div class="content__desc">
+									<p>PurePail™ is technology proven #1* in odor control in independent testing without the use of added fragrance. When paired with our 7-layer bags, which remain sealed while the lid is open to prevent escaping odor, your nursery is left smelling fresh and clean.</p>
+								</div>
+													</div>
+											<div class="image">
+							<img loading="lazy" decoding="async" width="791" height="527" src="https://cut2code.com/wp-content/uploads/2020/08/purepail-791x527.png" class="image" alt="" sizes="(min-width: 1270px) calc(50vw - ( 100vw - 1270px ) / 2), (min-width: 992px) 42.5vw, calc(100vw - (15px * 2))" srcset="https://cut2code.com/wp-content/uploads/2020/08/purepail-791x527.png 791w, https://cut2code.com/wp-content/uploads/2020/08/purepail-300x200.png 300w, https://cut2code.com/wp-content/uploads/2020/08/purepail-1024x683.png 1024w, https://cut2code.com/wp-content/uploads/2020/08/purepail-768x512.png 768w, https://cut2code.com/wp-content/uploads/2020/08/purepail-1536x1024.png 1536w, https://cut2code.com/wp-content/uploads/2020/08/purepail-2048x1365.png 2048w, https://cut2code.com/wp-content/uploads/2020/08/purepail-80x53.png 80w" />						</div>
+										</div>
+														<div class="slider__slide splide__slide">
+						<div class="content">
+															<p class="content__title">DoubleVerify</p>
+																						<div class="content__desc">
+									<p>DoubleVerify authenticates the quality of digital media for the world’s largest brands ensuring viewable, fraud-free, brand-safe ads.</p>
+								</div>
+													</div>
+											<div class="image">
+							<img loading="lazy" decoding="async" width="791" height="527" src="https://cut2code.com/wp-content/uploads/2020/08/dv-791x527.png" class="image" alt="" sizes="(min-width: 1270px) calc(50vw - ( 100vw - 1270px ) / 2), (min-width: 992px) 42.5vw, calc(100vw - (15px * 2))" srcset="https://cut2code.com/wp-content/uploads/2020/08/dv-791x527.png 791w, https://cut2code.com/wp-content/uploads/2020/08/dv-300x200.png 300w, https://cut2code.com/wp-content/uploads/2020/08/dv-1024x683.png 1024w, https://cut2code.com/wp-content/uploads/2020/08/dv-768x512.png 768w, https://cut2code.com/wp-content/uploads/2020/08/dv-1536x1024.png 1536w, https://cut2code.com/wp-content/uploads/2020/08/dv-2048x1365.png 2048w, https://cut2code.com/wp-content/uploads/2020/08/dv-80x53.png 80w" />						</div>
+										</div>
+														<div class="slider__slide splide__slide">
+						<div class="content">
+															<p class="content__title">UCSF Bioethics</p>
+																						<div class="content__desc">
+									<p>UCSF Bioethics determining the nature of the good and implementing a moral vision in clinical and scientific practice is health care’s greatest challenge.</p>
+								</div>
+													</div>
+											<div class="image">
+							<img loading="lazy" decoding="async" width="791" height="527" src="https://cut2code.com/wp-content/uploads/2020/08/ucsf-791x527.png" class="image" alt="" sizes="(min-width: 1270px) calc(50vw - ( 100vw - 1270px ) / 2), (min-width: 992px) 42.5vw, calc(100vw - (15px * 2))" srcset="https://cut2code.com/wp-content/uploads/2020/08/ucsf-791x527.png 791w, https://cut2code.com/wp-content/uploads/2020/08/ucsf-300x200.png 300w, https://cut2code.com/wp-content/uploads/2020/08/ucsf-1024x683.png 1024w, https://cut2code.com/wp-content/uploads/2020/08/ucsf-768x512.png 768w, https://cut2code.com/wp-content/uploads/2020/08/ucsf-1536x1024.png 1536w, https://cut2code.com/wp-content/uploads/2020/08/ucsf-2048x1365.png 2048w, https://cut2code.com/wp-content/uploads/2020/08/ucsf-80x53.png 80w" />						</div>
+										</div>
+								</div>
+			</div>
+		</div>
+	</div>
+</section>
+
+
+
+
+
+<section id="quotes-block_3431d9b95c8c40e3820a2a7e755d377f" class="block_custom quotes">
+	<div class="quotes__wrapper">
+					<h2 class="quotes__title onview">See what our clients say about us:</h2>
+				<div class="quotes__slider splide">
+			<div class="slider__row splide__track">
+				<div class="slider__list splide__list">
+				<!-- Slides -->
+														<div class="quotes__slide splide__slide">
+													<div class="quotes__quote">
+								When I&#8217;m in a jam, I know I can count on Cut2Code for help! I rely on their versatile expertise in both WordPress and web application development and sometimes even quick design fixes. The Cut2Code team has been great to work with, not only for their technical skills but also because they&#8217;re organized and great communicators!							</div>
+																			<div class="quotes__author">
+																									<p class="name">Tony Ash</p>
+																									<p class="position">Principal Consultant &#038; PM</p>
+																									<p class="company">Hip Check Interactive</p>
+															</div>
+											</div>
+														<div class="quotes__slide splide__slide">
+													<div class="quotes__quote">
+								Cut2Code’s team is the best. Their communication skills, quick responses, professional approach to the topic, accuracy, and creativity in preparing the system helped us achieve our goal on time and with great results!							</div>
+																			<div class="quotes__author">
+																									<p class="name">David Card</p>
+																									<p class="position">Founder &#038; CEO</p>
+																									<p class="company">c42d.com</p>
+															</div>
+											</div>
+														<div class="quotes__slide splide__slide">
+													<div class="quotes__quote">
+								Cut2Code was responsive, friendly, accessible and being able to talk on the phone put me at ease.							</div>
+																			<div class="quotes__author">
+																									<p class="name">Robert C. Bowman III</p>
+																									<p class="position">Owner</p>
+																									<p class="company">Opuscule, LLC</p>
+															</div>
+											</div>
+														<div class="quotes__slide splide__slide">
+													<div class="quotes__quote">
+								Working with Cut2Code has streamlined our internal processes, so we can better support our clients. The result has been improved customer service, as well as growth within our team. We couldn’t be happier with their level of communication, web expertise, and project follow-through.							</div>
+																			<div class="quotes__author">
+																									<p class="name">Nick Hoag</p>
+																									<p class="position">Managing Partner</p>
+																									<p class="company">The Future Forward Inc.</p>
+															</div>
+											</div>
+														<div class="quotes__slide splide__slide">
+													<div class="quotes__quote">
+								Every time I want small fixes done quickly I turn to Cut2Code who immediately jump to my tasks. This way my technical requests don&#8217;t wait in the system, letting me focus on ongoing projects and boost the efficiency of the entire team. If you need a great web dev support for your WordPress and front-end, look no further and use C2C! That&#8217;s what I will do for my next project.							</div>
+																			<div class="quotes__author">
+																									<p class="name">John Hale</p>
+																									<p class="position">CEO &#038; Founder</p>
+																									<p class="company">FIGA Digital</p>
+															</div>
+											</div>
+														<div class="quotes__slide splide__slide">
+													<div class="quotes__quote">
+								We needed to extend our social sharing tools. Cut2Code reached out to us, meeting our needs in a very timely manner. The team was easy to work with, and they delivered exactly what we wanted for something other developers wanted to charge as much as 5 times more for.							</div>
+																			<div class="quotes__author">
+																									<p class="name">Bradley Wint</p>
+																									<p class="position">Founder/Executive Editor</p>
+																									<p class="company">Try Modern</p>
+															</div>
+											</div>
+								</div>
+			</div>
+		</div>
+	</div>
+</section>
+
+
+
+<section id="latest_posts-block_be72e215b17899cb89db8f11ba1e5a89" class="block_custom latest_posts">
+	<div class="latest_posts__wrapper">
+					<h2 class="latest_posts__title onview">We love to share knowledge with others. <br>Get inspired!</h2>
+				<div class="latest_posts__cols onview">
+												<a href="https://cut2code.com/cut2code-clinches-clutch-global-award/" class="latest_posts__col">
+						<time datetime="2023-11-16T15:16:21+01:00" class="number">16 XI</time>
+						<p class="title">Cut2Code Clinches Clutch Global Award</p>
+						<div class="desc">
+							<p>We are thrilled to announce that we have been honored with the Clutch Global Award. This award is a testament to our unwavering commitment to excellence in the industry on a global scale. Global Recognition, Local Dedication Receiving the Clutch Global Award for Fall 2023 is a tremendous honor for Cut2Code. It validates the hard work, dedication, and commitment to&#8230;</p>
+						</div>
+						<span class="link">Read more</span>
+					</a>
+									<a href="https://cut2code.com/a-comprehensive-guide-to-oxygen-maximizing-your-web-development-experience/" class="latest_posts__col">
+						<time datetime="2023-03-29T12:00:00+02:00" class="number">29 III</time>
+						<p class="title">A Comprehensive Guide to Oxygen: Maximizing Your Web Development Experience.</p>
+						<div class="desc">
+							<p>Oxygen is a vital component in our daily lives and necessary for survival. But did you know that it can also be used to build websites? More and more freelance developers and IT companies have heard of or already used Oxygen Builder – a modern, lightweight visual editor plugin for WordPress, launched in 2016. Despite having a steep learning curve,&#8230;</p>
+						</div>
+						<span class="link">Read more</span>
+					</a>
+									<a href="https://cut2code.com/web-accessibility-a-temporary-trend-or-a-permanent-change/" class="latest_posts__col">
+						<time datetime="2023-02-01T13:46:12+01:00" class="number">01 II</time>
+						<p class="title">Web accessibility – a temporary trend or a permanent change?</p>
+						<div class="desc">
+							<p>What is it all about? Back in 1999 when the ubiquitous digitization as we know it today was relatively still in its infancy yet becoming more and more evident, the Web Content Accessibility Guidelines (WCAG) 1.0 was first introduced by the Web Accessibility Initiative. Due to its shortcomings, it was followed by the introduction of WCAG 2.0 in 2008. And&#8230;</p>
+						</div>
+						<span class="link">Read more</span>
+					</a>
+													<div class="latest_posts__col"><a class="latest_posts__link" href="/blog/" target="_self"><span>Check other Insights</span></a>		</div>
+	</div>
+</section>
+</main>
+<footer class="footer">
+	<div class="footer__wrapper">
+		<div class="footer__info">
+			<a class="footer__logo" href="https://cut2code.com">
+				<span class="screen-reader-text">Cut2Code</span>
+				<img width="300" height="98" loading="lazy" src="https://cut2code.com/wp-content/themes/cut2code/assets/images/logo.svg" alt="C2c Logo">
+			</a>
+			<p>Cut2Code is a team of professionals who collaborate with clients and agencies worldwide to deliver best handwoven websites and e-commerce solutions.</p>
+			<div class="footer__clutch">
+				<div class="clutch-widget" data-url="https://widget.clutch.co" data-widget-type="1" data-height="50" data-clutchcompany-id="74065">
+					<div class="clutch-reviews">
+    <div class="content">
+        <div class="small_widget_logo_wrapper">
+            <span class="small_widget_logo_text">Reviewed on</span>
+            <a class="clutch-reviews__logotype" target="_blank" data-ga-action="logo_click" href="https://clutch.co/profile/cut2code">
+				<span class="screen-reader-text">Clutch Logo</span>
+				<svg xmlns="http://www.w3.org/2000/svg" width="82" height="23" viewBox="0 0 87.861 25"><path fill="%2317313b" d="M22.861 0h4v25h-4zm18 17.025c0 3.826-3.217 4.131-4.174 4.131-2.391 0-2.826-2.238-2.826-3.588V8h-4v9.548c0 2.37.744 4.326 2.048 5.63 1.152 1.153 2.878 1.783 4.748 1.783 1.326 0 3.204-.413 4.204-1.326V25h4V8h-4v9.025zM52.861 2h-4v6h-3v4h3v13h4V12h3V8h-3zm15.597 17.917c-.871.783-2.021 1.217-3.283 1.217-2.782 0-4.825-2.043-4.825-4.848s1.978-4.762 4.825-4.762c1.24 0 2.412.413 3.305 1.196l.607.522 2.697-2.696-.675-.609C69.522 8.504 67.415 7.7 65.174 7.7c-5 0-8.631 3.608-8.631 8.565 0 4.936 3.718 8.673 8.631 8.673 2.283 0 4.412-.804 5.979-2.26l.652-.609-2.739-2.694-.608.542zM86.061 9.482C84.909 8.33 83.559 7.7 81.689 7.7c-1.326 0-2.828.413-3.828 1.325V0h-4v25h4v-9.365c0-3.826 2.718-4.13 3.675-4.13 2.391 0 2.325 2.239 2.325 3.587V25h4v-9.887c0-2.37-.495-4.326-1.8-5.631"/><path fill="#ff3d2e" d="M65.043 13.438a2.891 2.891 0 1 1 0 5.784 2.891 2.891 0 0 1 0-5.784"/><path fill="%2317313b" d="M17.261 18.721c-1.521 1.565-3.587 2.413-5.761 2.413-4.456 0-7.696-3.5-7.696-8.304 0-4.826 3.24-8.326 7.696-8.326 2.153 0 4.196.847 5.74 2.391l.608.609 2.674-2.674-.587-.609C17.718 1.938 14.718.7 11.5.7 4.935.7 0 5.917 0 12.851 0 19.764 4.957 24.96 11.5 24.96c3.24 0 6.24-1.26 8.457-3.543l.587-.609-2.652-2.717-.631.63z"/></svg>
+            </a>
+        </div>
+        <div class="small_widget_text">
+			<span class="rating">5.0</span>
+			<div class="reviews-totals-stars">
+				<a href="https://clutch.co/profile/cut2code?#reviews" target="_blank">
+					<div class="fivestar-static-item">
+						<div class="form-item form-type-item">
+							<div class="fivestar-widget-static fivestar-widget-static-vote clearfix">
+								<div class="fivestar"><div class="star star-1 star-odd"><span class="on">5.000000</span></div><div class="star star-2 star-even"><span class="on"></span></div><div class="star star-3 star-odd"><span class="on"></span></div><div class="star star-4 star-even"><span class="on"></span></div><div class="star star-5 star-odd"><span class="on"></span></div></div>
+							</div>
+						</div>
+					</div>
+				</a>
+			</div>
+			<span class="reviews-count">
+				<a href="https://clutch.co/profile/cut2code?#reviews" target="_blank">
+					39 reviews				</a>
+			</span>
+        </div>
+    </div>
+</div>				</div>
+			</div>
+		</div>
+		<div class="footer__content">
+			<h2 class="footer__title">Contact us, <br>we will be happy to answer all your questions</h2>
+			<ul class="footer__contact">
+				<li><a href="/cdn-cgi/l/email-protection#46252928322725320625333274252922236825292b"><span class="__cf_email__" data-cfemail="90f3fffee4f1f3e4d0f3e5e4a2f3fff4f5bef3fffd">[email&#160;protected]</span></a></li>				
+				<li><small>US:</small> <a href="tel:+15186204787">+1 518 620 4787</a><br><small>EU:</small> <a href="tel:+48519398899">+48 519 39 88 99</a></li>
+			</ul>
+
+			<p class="footer__address">
+				Cut2Code sp. z o.o.<br>
+				ul. Świętego Mikołaja 7,<br>
+				50-125 Wrocław, Poland, EU<br>
+				<small>District Court for Wrocław-Fabryczna in Wrocław,<br>VI Commercial Division of the National Court Register<br>
+				KRS: 0000634432, NIP: 8971828088<br>
+				Share capital: 30 000 PLN</small>
+			</p>
+		</div>
+		<div class="footer__bar">
+			<p class="footer__copy">cut2code.com &copy; 2023</p>
+			<nav class="footer__nav" role="navigation">
+				<div class="menu-footer-nav-container"><ul id="menu-footer-nav" class="menu"><li id="menu-item-81" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-81 "><a href="https://cut2code.com/who-are-we/">About</a></li>
+<li id="menu-item-79" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-79 "><a href="https://cut2code.com/services/">Services</a></li>
+<li id="menu-item-1581" class="menu-item menu-item-type-post_type_archive menu-item-object-portfolio menu-item-1581 "><a href="https://cut2code.com/portfolio/">Portfolio</a></li>
+<li id="menu-item-82" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-82 "><a href="https://cut2code.com/blog/">Insights</a></li>
+<li id="menu-item-1882" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-1882 "><a href="https://cut2code.com/rfp/">Request For Proposal</a></li>
+<li id="menu-item-2696" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-2696 "><a href="https://cut2code.com/careers/">Careers</a></li>
+</ul></div>			</nav>
+		</div>
+	</div>
+</footer>
+
+<!--googleoff: all--><div id="cookie-law-info-bar" data-nosnippet="true"><span><div class="cli-bar-container cli-style-v2"><div class="cli-bar-message">We use cookies on our website to give you the most relevant experience by remembering your preferences and repeat visits. By clicking “Accept All”, you consent to the use of ALL the cookies. However, you may visit "Cookie Settings" to provide a controlled consent.</div><div class="cli-bar-btn_container"><a role='button' class="medium cli-plugin-button cli-plugin-main-button cli_settings_button">Cookie Settings</a><a role='button' id="cookie_action_close_header_reject" class="medium cli-plugin-button cli-plugin-main-button cookie_action_close_header_reject cli_action_button wt-cli-reject-btn" data-cli_action="reject">Reject All</a> <a id="wt-cli-accept-all-btn" role='button' data-cli_action="accept_all" class="wt-cli-element medium cli-plugin-button wt-cli-accept-all-btn cookie_action_close_header cli_action_button">Accept All</a></div></div></span></div><div id="cookie-law-info-again" data-nosnippet="true"><span id="cookie_hdr_showagain">Manage consent</span></div><div class="cli-modal" data-nosnippet="true" id="cliSettingsPopup" tabindex="-1" role="dialog" aria-labelledby="cliSettingsPopup" aria-hidden="true">
+  <div class="cli-modal-dialog" role="document">
+	<div class="cli-modal-content cli-bar-popup">
+		  <button type="button" class="cli-modal-close" id="cliModalClose">
+			<svg class="" viewBox="0 0 24 24"><path d="M19 6.41l-1.41-1.41-5.59 5.59-5.59-5.59-1.41 1.41 5.59 5.59-5.59 5.59 1.41 1.41 5.59-5.59 5.59 5.59 1.41-1.41-5.59-5.59z"></path><path d="M0 0h24v24h-24z" fill="none"></path></svg>
+			<span class="wt-cli-sr-only">Close</span>
+		  </button>
+		  <div class="cli-modal-body">
+			<div class="cli-container-fluid cli-tab-container">
+	<div class="cli-row">
+		<div class="cli-col-12 cli-align-items-stretch cli-px-0">
+			<div class="cli-privacy-overview">
+				<h4>Privacy Overview</h4>				<div class="cli-privacy-content">
+					<div class="cli-privacy-content-text">This website uses cookies to improve your experience while you navigate through the website. Out of these, the cookies that are categorized as necessary are stored on your browser as they are essential for the working of basic functionalities of the website. We also use third-party cookies that help us analyze and understand how you use this website. These cookies will be stored in your browser only with your consent. You also have the option to opt-out of these cookies. But opting out of some of these cookies may affect your browsing experience.</div>
+				</div>
+				<a class="cli-privacy-readmore" aria-label="Show more" role="button" data-readmore-text="Show more" data-readless-text="Show less"></a>			</div>
+		</div>
+		<div class="cli-col-12 cli-align-items-stretch cli-px-0 cli-tab-section-container">
+												<div class="cli-tab-section">
+						<div class="cli-tab-header">
+							<a role="button" tabindex="0" class="cli-nav-link cli-settings-mobile" data-target="necessary" data-toggle="cli-toggle-tab">
+								Necessary							</a>
+															<div class="wt-cli-necessary-checkbox">
+									<input type="checkbox" class="cli-user-preference-checkbox"  id="wt-cli-checkbox-necessary" data-id="checkbox-necessary" checked="checked"  />
+									<label class="form-check-label" for="wt-cli-checkbox-necessary">Necessary</label>
+								</div>
+								<span class="cli-necessary-caption">Always Enabled</span>
+													</div>
+						<div class="cli-tab-content">
+							<div class="cli-tab-pane cli-fade" data-id="necessary">
+								<div class="wt-cli-cookie-description">
+									Necessary cookies are absolutely essential for the website to function properly. These cookies ensure basic functionalities and security features of the website, anonymously.
+<table class="cookielawinfo-row-cat-table cookielawinfo-winter"><thead><tr><th class="cookielawinfo-column-1">Cookie</th><th class="cookielawinfo-column-3">Duration</th><th class="cookielawinfo-column-4">Description</th></tr></thead><tbody><tr class="cookielawinfo-row"><td class="cookielawinfo-column-1">cookielawinfo-checkbox-advertisement</td><td class="cookielawinfo-column-3">1 year</td><td class="cookielawinfo-column-4">Set by the GDPR Cookie Consent plugin, this cookie is used to record the user consent for the cookies in the "Advertisement" category .</td></tr><tr class="cookielawinfo-row"><td class="cookielawinfo-column-1">cookielawinfo-checkbox-analytics</td><td class="cookielawinfo-column-3">11 months</td><td class="cookielawinfo-column-4">This cookie is set by GDPR Cookie Consent plugin. The cookie is used to store the user consent for the cookies in the category "Analytics".</td></tr><tr class="cookielawinfo-row"><td class="cookielawinfo-column-1">cookielawinfo-checkbox-functional</td><td class="cookielawinfo-column-3">11 months</td><td class="cookielawinfo-column-4">The cookie is set by GDPR cookie consent to record the user consent for the cookies in the category "Functional".</td></tr><tr class="cookielawinfo-row"><td class="cookielawinfo-column-1">cookielawinfo-checkbox-necessary</td><td class="cookielawinfo-column-3">11 months</td><td class="cookielawinfo-column-4">This cookie is set by GDPR Cookie Consent plugin. The cookies is used to store the user consent for the cookies in the category "Necessary".</td></tr><tr class="cookielawinfo-row"><td class="cookielawinfo-column-1">cookielawinfo-checkbox-others</td><td class="cookielawinfo-column-3">1 year</td><td class="cookielawinfo-column-4">Set by the GDPR Cookie Consent plugin, this cookie is used to store the user consent for cookies in the category "Others".</td></tr><tr class="cookielawinfo-row"><td class="cookielawinfo-column-1">cookielawinfo-checkbox-performance</td><td class="cookielawinfo-column-3">1 year</td><td class="cookielawinfo-column-4">Set by the GDPR Cookie Consent plugin, this cookie is used to store the user consent for cookies in the category "Performance".</td></tr><tr class="cookielawinfo-row"><td class="cookielawinfo-column-1">CookieLawInfoConsent</td><td class="cookielawinfo-column-3">1 year</td><td class="cookielawinfo-column-4">Records the default button state of the corresponding category &amp; the status of CCPA. It works only in coordination with the primary cookie.</td></tr></tbody></table>								</div>
+							</div>
+						</div>
+					</div>
+																	<div class="cli-tab-section">
+						<div class="cli-tab-header">
+							<a role="button" tabindex="0" class="cli-nav-link cli-settings-mobile" data-target="analytics" data-toggle="cli-toggle-tab">
+								Analytics							</a>
+															<div class="cli-switch">
+									<input type="checkbox" id="wt-cli-checkbox-analytics" class="cli-user-preference-checkbox"  data-id="checkbox-analytics" />
+									<label for="wt-cli-checkbox-analytics" class="cli-slider" data-cli-enable="Enabled" data-cli-disable="Disabled"><span class="wt-cli-sr-only">Analytics</span></label>
+								</div>
+													</div>
+						<div class="cli-tab-content">
+							<div class="cli-tab-pane cli-fade" data-id="analytics">
+								<div class="wt-cli-cookie-description">
+									Analytical cookies are used to understand how visitors interact with the website. These cookies help provide information on metrics the number of visitors, bounce rate, traffic source, etc.
+<table class="cookielawinfo-row-cat-table cookielawinfo-winter"><thead><tr><th class="cookielawinfo-column-1">Cookie</th><th class="cookielawinfo-column-3">Duration</th><th class="cookielawinfo-column-4">Description</th></tr></thead><tbody><tr class="cookielawinfo-row"><td class="cookielawinfo-column-1">__utmzz</td><td class="cookielawinfo-column-3">5 months 27 days</td><td class="cookielawinfo-column-4">Google Analytics sets this cookie to gather information about how a visitor uses the site.</td></tr><tr class="cookielawinfo-row"><td class="cookielawinfo-column-1">__utmzzses</td><td class="cookielawinfo-column-3">session</td><td class="cookielawinfo-column-4">Google Analytics sets this cookie to gather information about how a visitor uses the site.</td></tr><tr class="cookielawinfo-row"><td class="cookielawinfo-column-1">_ga</td><td class="cookielawinfo-column-3">2 years</td><td class="cookielawinfo-column-4">The _ga cookie, installed by Google Analytics, calculates visitor, session and campaign data and also keeps track of site usage for the site's analytics report. The cookie stores information anonymously and assigns a randomly generated number to recognize unique visitors.</td></tr><tr class="cookielawinfo-row"><td class="cookielawinfo-column-1">_gat_UA-79832523-1</td><td class="cookielawinfo-column-3">1 minute</td><td class="cookielawinfo-column-4">A variation of the _gat cookie set by Google Analytics and Google Tag Manager to allow website owners to track visitor behaviour and measure site performance. The pattern element in the name contains the unique identity number of the account or website it relates to.</td></tr><tr class="cookielawinfo-row"><td class="cookielawinfo-column-1">_gid</td><td class="cookielawinfo-column-3">1 day</td><td class="cookielawinfo-column-4">Installed by Google Analytics, _gid cookie stores information on how visitors use a website, while also creating an analytics report of the website's performance. Some of the data that are collected include the number of visitors, their source, and the pages they visit anonymously.</td></tr><tr class="cookielawinfo-row"><td class="cookielawinfo-column-1">browser_id</td><td class="cookielawinfo-column-3">5 years</td><td class="cookielawinfo-column-4">This cookie is used for identifying the visitor browser on re-visit to the website.</td></tr></tbody></table>								</div>
+							</div>
+						</div>
+					</div>
+																	<div class="cli-tab-section">
+						<div class="cli-tab-header">
+							<a role="button" tabindex="0" class="cli-nav-link cli-settings-mobile" data-target="advertisement" data-toggle="cli-toggle-tab">
+								Advertisement							</a>
+															<div class="cli-switch">
+									<input type="checkbox" id="wt-cli-checkbox-advertisement" class="cli-user-preference-checkbox"  data-id="checkbox-advertisement" />
+									<label for="wt-cli-checkbox-advertisement" class="cli-slider" data-cli-enable="Enabled" data-cli-disable="Disabled"><span class="wt-cli-sr-only">Advertisement</span></label>
+								</div>
+													</div>
+						<div class="cli-tab-content">
+							<div class="cli-tab-pane cli-fade" data-id="advertisement">
+								<div class="wt-cli-cookie-description">
+									Advertisement cookies are used to provide visitors with relevant ads and marketing campaigns. These cookies track visitors across websites and collect information to provide customized ads.
+								</div>
+							</div>
+						</div>
+					</div>
+																	<div class="cli-tab-section">
+						<div class="cli-tab-header">
+							<a role="button" tabindex="0" class="cli-nav-link cli-settings-mobile" data-target="functional" data-toggle="cli-toggle-tab">
+								Functional							</a>
+															<div class="cli-switch">
+									<input type="checkbox" id="wt-cli-checkbox-functional" class="cli-user-preference-checkbox"  data-id="checkbox-functional" />
+									<label for="wt-cli-checkbox-functional" class="cli-slider" data-cli-enable="Enabled" data-cli-disable="Disabled"><span class="wt-cli-sr-only">Functional</span></label>
+								</div>
+													</div>
+						<div class="cli-tab-content">
+							<div class="cli-tab-pane cli-fade" data-id="functional">
+								<div class="wt-cli-cookie-description">
+									Functional cookies help to perform certain functionalities like sharing the content of the website on social media platforms, collect feedbacks, and other third-party features.
+								</div>
+							</div>
+						</div>
+					</div>
+																	<div class="cli-tab-section">
+						<div class="cli-tab-header">
+							<a role="button" tabindex="0" class="cli-nav-link cli-settings-mobile" data-target="performance" data-toggle="cli-toggle-tab">
+								Performance							</a>
+															<div class="cli-switch">
+									<input type="checkbox" id="wt-cli-checkbox-performance" class="cli-user-preference-checkbox"  data-id="checkbox-performance" />
+									<label for="wt-cli-checkbox-performance" class="cli-slider" data-cli-enable="Enabled" data-cli-disable="Disabled"><span class="wt-cli-sr-only">Performance</span></label>
+								</div>
+													</div>
+						<div class="cli-tab-content">
+							<div class="cli-tab-pane cli-fade" data-id="performance">
+								<div class="wt-cli-cookie-description">
+									Performance cookies are used to understand and analyze the key performance indexes of the website which helps in delivering a better user experience for the visitors.
+<table class="cookielawinfo-row-cat-table cookielawinfo-winter"><thead><tr><th class="cookielawinfo-column-1">Cookie</th><th class="cookielawinfo-column-3">Duration</th><th class="cookielawinfo-column-4">Description</th></tr></thead><tbody><tr class="cookielawinfo-row"><td class="cookielawinfo-column-1">_gat</td><td class="cookielawinfo-column-3">1 minute</td><td class="cookielawinfo-column-4">This cookie is installed by Google Universal Analytics to restrain request rate and thus limit the collection of data on high traffic sites.</td></tr></tbody></table>								</div>
+							</div>
+						</div>
+					</div>
+																	<div class="cli-tab-section">
+						<div class="cli-tab-header">
+							<a role="button" tabindex="0" class="cli-nav-link cli-settings-mobile" data-target="others" data-toggle="cli-toggle-tab">
+								Others							</a>
+															<div class="cli-switch">
+									<input type="checkbox" id="wt-cli-checkbox-others" class="cli-user-preference-checkbox"  data-id="checkbox-others" />
+									<label for="wt-cli-checkbox-others" class="cli-slider" data-cli-enable="Enabled" data-cli-disable="Disabled"><span class="wt-cli-sr-only">Others</span></label>
+								</div>
+													</div>
+						<div class="cli-tab-content">
+							<div class="cli-tab-pane cli-fade" data-id="others">
+								<div class="wt-cli-cookie-description">
+									Other uncategorized cookies are those that are being analyzed and have not been classified into a category as yet.
+<table class="cookielawinfo-row-cat-table cookielawinfo-winter"><thead><tr><th class="cookielawinfo-column-1">Cookie</th><th class="cookielawinfo-column-3">Duration</th><th class="cookielawinfo-column-4">Description</th></tr></thead><tbody><tr class="cookielawinfo-row"><td class="cookielawinfo-column-1">initialTrafficSource</td><td class="cookielawinfo-column-3">2 years</td><td class="cookielawinfo-column-4">No description available.</td></tr><tr class="cookielawinfo-row"><td class="cookielawinfo-column-1">ppwp_wp_session</td><td class="cookielawinfo-column-3">30 minutes</td><td class="cookielawinfo-column-4">No description</td></tr></tbody></table>								</div>
+							</div>
+						</div>
+					</div>
+										</div>
+	</div>
+</div>
+		  </div>
+		  <div class="cli-modal-footer">
+			<div class="wt-cli-element cli-container-fluid cli-tab-container">
+				<div class="cli-row">
+					<div class="cli-col-12 cli-align-items-stretch cli-px-0">
+						<div class="cli-tab-footer wt-cli-privacy-overview-actions">
+						
+															<a id="wt-cli-privacy-save-btn" role="button" tabindex="0" data-cli-action="accept" class="wt-cli-privacy-btn cli_setting_save_button wt-cli-privacy-accept-btn cli-btn">SAVE &amp; ACCEPT</a>
+													</div>
+												<div class="wt-cli-ckyes-footer-section">
+							<div class="wt-cli-ckyes-brand-logo">Powered by <a href="https://www.cookieyes.com/"><img width="300" height="60" src="https://cut2code.com/wp-content/plugins/cookie-law-info/legacy/public/images/logo-cookieyes.svg" alt="CookieYes Logo"></a></div>
+						</div>
+						
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+  </div>
+</div>
+<div class="cli-modal-backdrop cli-fade cli-settings-overlay"></div>
+<div class="cli-modal-backdrop cli-fade cli-popupbar-overlay"></div>
+<!--googleon: all--><link data-minify="1" rel='preload'  href='https://cut2code.com/wp-content/cache/min/1/wp-content/plugins/cookie-law-info/legacy/public/css/cookie-law-info-table.css?ver=1700487755' data-rocket-async="style" as="style" onload="this.onload=null;this.rel='stylesheet'" onerror="this.removeAttribute('data-rocket-async')"  type='text/css' media='all' />
+<script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>"use strict";function wprRemoveCPCSS(){var preload_stylesheets=document.querySelectorAll('link[data-rocket-async="style"][rel="preload"]');if(preload_stylesheets&&0<preload_stylesheets.length)for(var stylesheet_index=0;stylesheet_index<preload_stylesheets.length;stylesheet_index++){var media=preload_stylesheets[stylesheet_index].getAttribute("media")||"all";if(window.matchMedia(media).matches)return void setTimeout(wprRemoveCPCSS,200)}var elem=document.getElementById("rocket-critical-css");elem&&"remove"in elem&&elem.remove()}window.addEventListener?window.addEventListener("load",wprRemoveCPCSS):window.attachEvent&&window.attachEvent("onload",wprRemoveCPCSS);</script><noscript><link data-minify="1" rel='stylesheet' id='cookie-law-info-css' href='https://cut2code.com/wp-content/cache/min/1/wp-content/plugins/cookie-law-info/legacy/public/css/cookie-law-info-public.css?ver=1700487755' type='text/css' media='all' /><link data-minify="1" rel='stylesheet' id='cookie-law-info-gdpr-css' href='https://cut2code.com/wp-content/cache/min/1/wp-content/plugins/cookie-law-info/legacy/public/css/cookie-law-info-gdpr.css?ver=1700487755' type='text/css' media='all' /><link data-minify="1" rel='stylesheet' id='hero-css' href='https://cut2code.com/wp-content/cache/min/1/wp-content/themes/cut2code/assets/css/blocks/hero.css?ver=1700487755' type='text/css' media='' /><link data-minify="1" rel='stylesheet' id='style-css' href='https://cut2code.com/wp-content/cache/min/1/wp-content/themes/cut2code/style.css?ver=1700487755' type='text/css' media='' /><link rel='stylesheet' id='splide-style-css' href='https://cut2code.com/wp-content/themes/cut2code/assets/splide.min.css?ver=1676998510' type='text/css' media='' /><link data-minify="1" rel='stylesheet' id='cookie-law-info-table-css' href='https://cut2code.com/wp-content/cache/min/1/wp-content/plugins/cookie-law-info/legacy/public/css/cookie-law-info-table.css?ver=1700487755' type='text/css' media='all' /></noscript></body>
+
+</html>
+
+<!-- This website is like a Rocket, isn't it? Performance optimized by WP Rocket. Learn more: https://wp-rocket.me - Debug: cached@1700487861 -->

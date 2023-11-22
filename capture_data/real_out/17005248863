@@ -1,0 +1,533 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>Currency Exchange Rate Conversion Calculator</title>
+<meta name="description" content="Convert money between all worldwide currencies using up to date exchange rates.">
+<link rel="shortcut icon" href="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAC5klEQVQ4T2WSbUhTYRTHz3VKoqX4QQpKv/QhgoLKKCKCglQioTBCKpA2nS9TKEXJlttVybIXKBAhTJkpzrnKbeq2UDYtJ9pMczoyl0PTTUei+J5ru3t6nu3eGnXgt3t3Xv7nPOe5ANh8zlIe45Cc8zmlbYyDtjEOad+mXSxYsBRH4vBOTBFmCGPDtGASICSER2oBOWiez0lXofky5GehHHHvnllp38ljewtJD5L6D+V+AZ9DmhgoLEPeORq5LEXj7u+STU4ET1LPC6HMAJQXKMoaJLCNuQJontay3VDl3fOJRFTbmBaLj+EifnKktEuHrlGhO6IgYDmYX6yIjAjMkbHtg7dGSfSDik+Rp3umtIYIuGckP9FK5UHgjBcWjn+XWIEOvEDaQsbftN/zPJIk7ePysH+IFVj6qBMegb92HLPBCihJopgkusaKB0vEqbvbhLC//iYVv2aXlPn3sFihi4kOV+NkDaYSM8sWM3gnJTA7XBBh0afnKvgg7sgDDwYRVEKYkhfGphTknhbg5Hn4/xaGMTFQnwJh6mxoIEWdhPwA6hxAXU9SS9NTL1/HiaagQueuyIjWbtlTGl9dFGhEkMwVv8kG5nkadf8Vn5JVX4VaNGVyMBPGRatWRj4essgD+rrH+dvjXdPI1ru1OqwthvY8qCMCahGglKOhf5a1Omo4gSZ7EPr2Hplaqms5v6v/7RnfV+MGiW1Z3imhXQQq0l0hxB9KkKEZc5JfwNaLjI3PbnD+KUNTBPYvk9jGZ70G1LkgIRPgSZA8A6pIklIAh3XShIukO7L1oPUR3ZhZWRNHYsyEoQIXe/AUaMmseQGtWRCH98Bt34dhyPtrIUx7J/vl/ikCMCw+8t/7xbBuUlQnwZ0LoZQyC/h4B8vcFXayEzWL9txGNpORdAsSQm5r9+qEvoEOPjI0CahTCiE8aMmEtuYMUDTwqSJJMsSvWQei10a0mesj2tqVTx3yHwOqh6Pql2e5ut8ANea38joyIwAAAABJRU5ErkJggg==" type="image/png">
+<link rel="canonical" href="https://coinmill.com/">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<meta name="robots" content="noarchive">
+<style type="text/css">
+html{padding:0;margin:0;height:100%;}
+body{font-family:sans-serif;font-size:9pt;background-color:#B36B00;padding:0;margin:0 auto;max-width:1100px;min-height:100%;}
+table{font-family:inherit;font-size:inherit;}
+img{border:none;}
+#logo{margin:10px;}
+#rsslink{margin-left:10px;}
+.headfoot{background-color:#B36B00;padding:0;margin:0;}
+.headfoot,.headfoot a,.headfoot a:link,.headfoot a:active,.headfoot a:visited {color:#FFD9BF;}
+.sitename {font-size:2em;font-weight:bold;}
+p{margin:0 0 5px 0;}
+h1{font-size:1.1em;padding:0;margin:0;}
+h2{font-size:1.3em;padding:0;margin:0;}
+h3{font-size:1.2em;padding:0;margin:0 0 1em 0;}
+.searchNtitle{background-color:#A67121;padding-left:4px;color:#FFD9BF;padding-top:1px;padding-bottom:1px;}
+.pagecontent{padding:1em 0;background-color:#FFD9BF;position:relative;min-height:100vh}
+.pagecontent:before{content:"";background-color:#FFD9BF;position:absolute;height:100%;top:0;width:8000px;left:-4000px;z-index:-1;}
+.currencyexchange, .externalsearch {background-color:#FFE680;padding:0.3cm;border-radius:10px;}
+input, textarea, select {background-color:#FFF2BF;}
+.currencyexchange input.currencyField{border:inset 2px #FFF2BF;}
+a,a:link,a:active,a:visited,a:hover{color:#A67121}
+a:link,a:visited{text-decoration:none}
+a:link:hover,a:visited:hover,a:link:active,a:visited:active{text-decoration:underline}
+.frontpagetall{height:280px;}
+.smallestcurrencyunitbox{height:100px;}
+.optionsform input{background-color:#FFD9BF;}
+#footer{line-height:2em;padding:1em 0}
+#footer a{text-decoration:underline;}
+.tipfield{width:300px;background-color:#FFF2BF;border:inset 2px #FFF2BF;margin-top:5px;margin-bottom:10px;}
+.tiprequest{border-top:1px black solid; border-bottom:1px black solid; padding-bottom:0.5cm;}
+.tipbody{border:2px solid #FF9900; margin:0.2cm 0cm 0.2cm 0cm; padding:0.2cm;}
+#comments{width:320px;}
+.tiptitle{font-size:1.5em;font-weight:bold;margin-bottom:0.2cm}
+.tipsignature:before{content:'-- '}
+.tipsignature{text-align:right;}
+img.flag{padding:2px;vertical-align:middle;}
+.bar{background:#FF9900;color:#A67121;}
+.answer{padding-bottom:4px;}
+.obsolete{border:2px solid red;padding:0.4cm;}
+.conversionresult{font-size:2em;padding:1cm;}
+.error{color:red;font-size:1.3em;padding:0.5cm;}
+.ob{color:gray;}
+.searchform{margin:0;padding:0;}
+.searchform input{color:gray;background-color:#FFD9BF;font-size:0.8em;}
+.conversionchart{background-color:#FFE680;border:2px dashed black;}
+.conversionchart tr td{padding:3px;text-align:right;border:1px solid #FFD9BF;}
+.searchgo{background-color:#FFD9BF;color:#B36B00;}
+.required{color:green}
+.manylinks{overflow:scroll;overflow-x:hidden;}
+.manylinks li{margin-bottom: 0.8em}
+.homearea{max-width:320px;height:350px;float:left;margin:1em 3em 1em 0;}
+.frontpagebox.currencyexchange input,.frontpagebox select{width: 220px;height:40px;margin:0 0 1.5em 0;display:inline-block;}
+.frontpagebox .inplabel {width:60px;display:inline-block;}
+.frontpagebox ul{padding-left:15px}
+.ac{display:flex;flex-direction:column;justify-content:center}
+.ha{text-align:center;border:1px solid black}
+.ha a{color:black;text-decoration:none;display:block}
+.ha span{display:block;margin-bottom:0.2em}
+.ha.big .mn,.ha.big .br{font-size:300%}
+.ha.med .mn,.ha.med .br{font-size:200%}
+.ha .tg{font-style:italic}
+.ha .br{font-weight:bold}
+</style>
+<script type="text/javascript"><!--
+var numErrsLogged=0;
+function lgerr(msg,url,ln){if((++numErrsLogged)>5)return true;var r=window.XMLHttpRequest?new XMLHttpRequest():new ActiveXObject("Microsoft.XMLHTTP");r.open("GET","/jserr?"+"msg="+escape(msg)+"&ln="+ln+"&url="+escape(url)+"&page="+escape(location.href)+"&ref="+escape(document.referrer),false);r.send("");return true;}
+try{window.onerror=lgerr;}catch(er){}
+document.addEventListener('DOMContentLoaded',function(){
+setTimeout(function(){
+var ha=[
+['https://ijn.tl/','URL Shortener','ijn.tl'],
+['https://ostermiller.org/calc/calculator.html','Scientific Calculator','ostermiller.org/calc',''],
+['https://qqwing.com/','Play Sudoku Online Free','QQWing'],
+['https://ostermiller.org/calc/tictactoe.html','Play Online Free','Tic-Tac-Toe'],
+['https://doozoon.com/','Manage Tasks Online Free','Doozoon To-Do List'],
+8,
+['https://savvyroo.com/','Try Online Brainstorming','SavvyRoo'],
+12,
+['https://passwordcreator.org/','Make Secure Passwords','Password Creator.org'],
+3];	
+for(var i=0;i<ha.length;i++){
+if(typeof ha[i]=='number'){
+var n=ha[i]-1,e=ha[i-1]
+ha[i]=e
+for(var j=0;j<n;j++)ha.push(e);
+}}
+var x=document.getElementsByClassName("ac")
+for(var i=0;i<x.length;i++){
+if(x[i].innerHTML.search(/iframe/i)==-1){		
+var a=ha[Math.floor(Math.random()*ha.length)],h=x[i].offsetHeight,sz=(h<70?'sm':(h<100?'med':'big'));
+ha=ha.filter(function(e){return e!==a})
+x[i].innerHTML="<div class='ha "+sz+"'><a href='"+a[0]+"?utm_source=coinmill&utm_medium=banner&utm_campaign=house'><span class=mn>"+a[1]+"</span> <span class=br>"+a[2]+"</span> <span class=tg>by Coinmill creator Stephen Ostermiller</span></div>";
+}}},3000);});
+var _gaq=_gaq||[];_gaq.push(['_setAccount','UA-8075292-1'],['_setDomainName','coinmill.com'],['_trackPageview']);
+(function(){var ga=document.createElement('script');ga.type='text/javascript';ga.async=true;
+ga.src=('https:'==document.location.protocol?'https://ssl':'http://www')+'.google-analytics.com/ga.js';
+var s=document.getElementsByTagName('script')[0];s.parentNode.insertBefore(ga,s);})();
+var randconv = new Array("100 US Dollars to GBP","convert 450.00 American into Sterling","25.00 Can. dollars to Indian","170.00 SFr in Zloty","75.00 Euros to British Pounds","125 € into USA","4800 Indian to Yen","49.99 EUR to ¥","900 NOK - Sterling","200.00 US in Hong Kong","3000 INR to rands","250 Australian into NZ$","2500 Baht to $US");
+
+function fillfreeform(){document.freeformconvert.q.value=randconv[Math.floor(Math.random()*randconv.length)]};
+var googletag = googletag || {};
+googletag.cmd = googletag.cmd || [];
+(function() {
+var gads = document.createElement('script');
+gads.async = true;
+gads.type = 'text/javascript';
+var useSSL = 'https:' == document.location.protocol;
+gads.src = (useSSL ? 'https:' : 'http:') + 
+'//www.googletagservices.com/tag/js/gpt.js';
+var node = document.getElementsByTagName('script')[0];
+node.parentNode.insertBefore(gads, node);
+})();
+googletag.cmd.push(function() {
+googletag.defineSlot('/6155572/home_main_300x250', [300, 250], 'div-gpt-ad-1373415697962-0').addService(googletag.pubads());
+googletag.pubads().enableSingleRequest();
+googletag.enableServices();
+});
+//--></script>
+</head><body onload="fillfreeform();">
+<table id=pagehead class=headfoot style="width:100%;border-collapse:collapse;border-spacing:0;border:none;"><tr><td style="width:100px;" rowspan="2">
+<a href="/"><img id="logo" src="data:image/png;base64,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" width="75" height="75" alt="currency conversion"></a>
+</td><td>
+<div class=sitename><a href="/">CoinMill.com - The Currency Converter</a></div>
+</td><td style="text-align:right;vertical-align:text-top;">
+<div style="margin:3px 15px;">
+Welcome! <a href="/login">Login</a>
+</div>
+<form class="searchform" name="search" action="http://www.google.com/cse">
+<input type="hidden" name="cx" value="partner-pub-2385172974335864:m04uw14or4v">
+<input type="hidden" name="ie" value="UTF-8">
+<input type="text" name="q" size="20" value="(currency search)" onfocus="if(this.value=='(currency search)'){this.value='';}">
+<input type="submit" value="Go" name="sa" style="font-weight:bold;font-size:larger;border:none;background-color:#B36B00;color:#FFD9BF;border-radius:4px;">
+</form>
+</td></tr><tr><td colspan="2">
+<table style="border:none;border-collapse:collapse;border-spacing:0;"><tr><td>
+<h1>Currency Exchange Rate Conversion Calculator</h1></td><td style="text-align:right;">
+</td></tr></table>
+</td></tr></table>
+<div class="pagecontent">
+<p>This currency convertor <a href="/sources.html">is up to date</a> with exchange rates from November 19, 2023.</p>
+<div class=homearea>
+<div class="frontpagebox currencyexchange">
+<form method=GET action="/currency">
+<div>
+<span class=inplabel>Amount:</span>
+<input type=number name=amount min=0>
+</div>
+<div>
+<span class=inplabel>From:</span>
+<select name=from>
+<option value="AUD">Australian Dollar (AUD)</option>
+<option value="BTC">Bitcoin (BTC)</option>
+<option value="CAD" selected>Canadian Dollar (CAD)</option>
+<option value="XDG">DogeCoin (XDG)</option>
+<option value="EUR">Euro (EUR)</option>
+<option value="GHS">Ghanaian Cedi (GHS)</option>
+<option value="INR">Indian Rupee (INR)</option>
+<option value="IQD">Iraqi Dinar (IQD)</option>
+<option value="JPY">Japanese Yen (JPY)</option>
+<option value="MYR">Malaysian Ringgit (MYR)</option>
+<option value="MXN">Mexican Peso (MXN)</option>
+<option value="NGN">Nigerian Naira (NGN)</option>
+<option value="PKR">Pakistan Rupee (PKR)</option>
+<option value="PHP">Philippine Peso (PHP)</option>
+<option value="GBP">Pound Sterling (GBP)</option>
+<option value="SGD">Singapore Dollar (SGD)</option>
+<option value="ZAR">South African Rand (ZAR)</option>
+<option value="THB">Thai Baht (THB)</option>
+<option value="AED">United Arab Emirates Dirham (AED)</option>
+<option value="USD">United States Dollar (USD)</option>
+</select>
+</div>
+<div>
+<span class=inplabel>To:</span>
+<select name=to>
+<option value="AUD">Australian Dollar (AUD)</option>
+<option value="BTC">Bitcoin (BTC)</option>
+<option value="CAD">Canadian Dollar (CAD)</option>
+<option value="XDG">DogeCoin (XDG)</option>
+<option value="EUR">Euro (EUR)</option>
+<option value="GHS">Ghanaian Cedi (GHS)</option>
+<option value="INR">Indian Rupee (INR)</option>
+<option value="IQD">Iraqi Dinar (IQD)</option>
+<option value="JPY">Japanese Yen (JPY)</option>
+<option value="MYR">Malaysian Ringgit (MYR)</option>
+<option value="MXN">Mexican Peso (MXN)</option>
+<option value="NGN">Nigerian Naira (NGN)</option>
+<option value="PKR">Pakistan Rupee (PKR)</option>
+<option value="PHP">Philippine Peso (PHP)</option>
+<option value="GBP">Pound Sterling (GBP)</option>
+<option value="SGD">Singapore Dollar (SGD)</option>
+<option value="ZAR">South African Rand (ZAR)</option>
+<option value="THB">Thai Baht (THB)</option>
+<option value="AED">United Arab Emirates Dirham (AED)</option>
+<option value="USD" selected>United States Dollar (USD)</option>
+</select>
+</div>
+<div>
+<span class=inplabel></span>
+<input type=submit value="Convert">
+</div>
+</form>
+</div></div>
+<div class=homearea>
+<div style="margin:0 auto;width:300px;"><div class='ac' style='width:300px;height:250px;overflow:hidden;'><div id='div-gpt-ad-1373415697962-0'>
+<script type='text/javascript'>
+googletag.cmd.push(function() { googletag.display('div-gpt-ad-1373415697962-0'); });
+</script>
+</div></div></div>
+</div>
+<div class=homearea>
+<h3>All Currencies</h3>
+<div class="frontpagebox frontpagetall manylinks" style="margin:0 auto;hidden;width:2.5in;">
+<ul>
+<li><a href="/ZRX_calculator.html">0x</a></li>
+<li><a href="/AFN_calculator.html">Afghan Afghani</a></li>
+<li><a href="/ALL_calculator.html">Albanian Lek</a></li>
+<li><a href="/DZD_calculator.html">Algerian Dinar</a></li>
+<li><a href="/AOA_calculator.html">Angolan Kwanza</a></li>
+<li><a href="/ANC_calculator.html">Anoncoin</a></li>
+<li><a href="/ARDR_calculator.html">Ardor</a></li>
+<li><a href="/ARS_calculator.html">Argentine Peso</a></li>
+<li><a href="/ARG_calculator.html">Argentum</a></li>
+<li><a href="/AMD_calculator.html">Armenian Dram</a></li>
+<li><a href="/AWG_calculator.html">Aruban Florin</a></li>
+<li><a href="/REP_calculator.html">Augur</a></li>
+<li><a href="/AUR_calculator.html">Auroracoin</a></li>
+<li><a href="/AUD_calculator.html">Australian Dollar</a></li>
+<li><a href="/AZN_calculator.html">Azerbaijani Manat</a></li>
+<li><a href="/BSD_calculator.html">Bahamian Dollar</a></li>
+<li><a href="/BHD_calculator.html">Bahraini Dinar</a></li>
+<li><a href="/BDT_calculator.html">Bangladeshi Taka</a></li>
+<li><a href="/BBD_calculator.html">Barbados Dollar</a></li>
+<li><a href="/BYN_calculator.html">Belarusian Ruble</a></li>
+<li><a href="/BZD_calculator.html">Belize Dollar</a></li>
+<li><a href="/BMD_calculator.html">Bermuda Dollar</a></li>
+<li><a href="/BET_calculator.html">BetaCoin</a></li>
+<li><a href="/BTN_calculator.html">Bhutanese Ngultrum</a></li>
+<li><a href="/BNB_calculator.html">Binance Coin</a></li>
+<li><a href="/BTB_calculator.html">BitBar</a></li>
+<li><a href="/BTS_calculator.html">BitShare</a></li>
+<li><a href="/BTC_calculator.html">Bitcoin</a></li>
+<li><a href="/BCH_calculator.html">Bitcoin Cash</a></li>
+<li><a href="/BTG_calculator.html">Bitcoin Gold</a></li>
+<li><a href="/XMR_calculator.html">Bitmonero</a></li>
+<li><a href="/BLC_calculator.html">BlackCoin</a></li>
+<li><a href="/BOB_calculator.html">Bolivian Boliviano</a></li>
+<li><a href="/BAM_calculator.html">Bosnia-Herzegovina Convertible Mark</a></li>
+<li><a href="/BWP_calculator.html">Botswana Pula</a></li>
+<li><a href="/BRL_calculator.html">Brazilian Real</a></li>
+<li><a href="/BND_calculator.html">Brunei Dollar</a></li>
+<li><a href="/BGN_calculator.html">Bulgarian Lev</a></li>
+<li><a href="/BIF_calculator.html">Burundian Franc</a></li>
+<li><a href="/BCN_calculator.html">Bytecoin (BCN)</a></li>
+<li><a href="/KHR_calculator.html">Cambodian Riel</a></li>
+<li><a href="/CAD_calculator.html">Canadian Dollar</a></li>
+<li><a href="/CVE_calculator.html">Cape Verde Escudo</a></li>
+<li><a href="/ADA_calculator.html">Cardano</a></li>
+<li><a href="/KYD_calculator.html">Cayman Islands Dollar</a></li>
+<li><a href="/XAF_calculator.html">Central African CFA</a></li>
+<li><a href="/CLP_calculator.html">Chilean Peso</a></li>
+<li><a href="/CLF_calculator.html">Chilean Unidad de Fomento</a></li>
+<li><a href="/CNH_calculator.html">Chinese Offshore Yuan</a></li>
+<li><a href="/CNY_calculator.html">Chinese Yuan</a></li>
+<li><a href="/COP_calculator.html">Colombian Peso</a></li>
+<li><a href="/KMF_calculator.html">Comorian Franc</a></li>
+<li><a href="/CRC_calculator.html">Costa Rican Colon</a></li>
+<li><a href="/ZCP_calculator.html">Counterparty</a></li>
+<li><a href="/XCC_calculator.html">CraftCoin</a></li>
+<li><a href="/HRK_calculator.html">Croatian Kuna</a></li>
+<li><a href="/CUC_calculator.html">Cuban Convertible Peso</a></li>
+<li><a href="/CYP_calculator.html">Cypriot Pound</a></li>
+<li><a href="/CZK_calculator.html">Czech Koruna</a></li>
+<li><a href="/DKK_calculator.html">Danish Krone</a></li>
+<li><a href="/DASH_calculator.html">Dash</a></li>
+<li><a href="/DEE_calculator.html">Deutsche eMark</a></li>
+<li><a href="/DMD_calculator.html">DiamondCoins</a></li>
+<li><a href="/DGC_calculator.html">Digitalcoin</a></li>
+<li><a href="/DJF_calculator.html">Djiboutian Franc</a></li>
+<li><a href="/XDG_calculator.html">DogeCoin</a></li>
+<li><a href="/DOP_calculator.html">Dominican Peso</a></li>
+<li><a href="/EOS_calculator.html">EOS</a></li>
+<li><a href="/XCD_calculator.html">East Caribbean Dollar</a></li>
+<li><a href="/EGP_calculator.html">Egyptian Pound</a></li>
+<li><a href="/EFL_calculator.html">Electronic Gulden</a></li>
+<li><a href="/ERN_calculator.html">Eritrean Nakfa</a></li>
+<li><a href="/ETH_calculator.html">Ethereum</a></li>
+<li><a href="/ETC_calculator.html">Ethereum Classic</a></li>
+<li><a href="/ETB_calculator.html">Ethiopian Birr</a></li>
+<li><a href="/EUR_calculator.html">Euro</a></li>
+<li><a href="/FKP_calculator.html">Falkland Islands Pound</a></li>
+<li><a href="/FST_calculator.html">Fastcoin</a></li>
+<li><a href="/FTC_calculator.html">Feathercoin</a></li>
+<li><a href="/FJD_calculator.html">Fiji Dollar</a></li>
+<li><a href="/FLO_calculator.html">FlorinCoin</a></li>
+<li><a href="/FLT_calculator.html">FlutterCoin</a></li>
+<li><a href="/CDF_calculator.html">Franc Congolais</a></li>
+<li><a href="/FRK_calculator.html">Franko</a></li>
+<li><a href="/FRC_calculator.html">Freicoin</a></li>
+<li><a href="/XPF_calculator.html">French Pacific Franc</a></li>
+<li><a href="/GMD_calculator.html">Gambian Dalasi</a></li>
+<li><a href="/GEL_calculator.html">Georgian Lari</a></li>
+<li><a href="/GHS_calculator.html">Ghanaian Cedi</a></li>
+<li><a href="/GIP_calculator.html">Gibraltar Pound</a></li>
+<li><a href="/GLC_calculator.html">GlobalCoin</a></li>
+<li><a href="/GLD_calculator.html">GoldCoin</a></li>
+<li><a href="/GTQ_calculator.html">Guatemalan Quetzal</a></li>
+<li><a href="/GNF_calculator.html">Guinean Franc</a></li>
+<li><a href="/GYD_calculator.html">Guyanese Dollar</a></li>
+<li><a href="/HTG_calculator.html">Haitian Gourde</a></li>
+<li><a href="/HBN_calculator.html">HoboNickel</a></li>
+<li><a href="/HNL_calculator.html">Honduran Lempira</a></li>
+<li><a href="/HKD_calculator.html">Hong Kong Dollar</a></li>
+<li><a href="/HUF_calculator.html">Hungarian Forint</a></li>
+<li><a href="/XIC_calculator.html">I0Coin</a></li>
+<li><a href="/ICX_calculator.html">ICON</a></li>
+<li><a href="/MIOTA_calculator.html">IOTA</a></li>
+<li><a href="/ISK_calculator.html">Icelandic Krona</a></li>
+<li><a href="/INR_calculator.html">Indian Rupee</a></li>
+<li><a href="/IDR_calculator.html">Indonesian Rupiah</a></li>
+<li><a href="/IRR_calculator.html">Iranian Rial</a></li>
+<li><a href="/IQD_calculator.html">Iraqi Dinar</a></li>
+<li><a href="/ILS_calculator.html">Israeli New Shekel</a></li>
+<li><a href="/IXC_calculator.html">Ixcoin</a></li>
+<li><a href="/JMD_calculator.html">Jamaican Dollar</a></li>
+<li><a href="/JPY_calculator.html">Japanese Yen</a></li>
+<li><a href="/JEP_calculator.html">Jersey Pound</a></li>
+<li><a href="/JOD_calculator.html">Jordanian Dinar</a></li>
+<li><a href="/XJO_calculator.html">Joulecoin</a></li>
+<li><a href="/KZT_calculator.html">Kazakhstani Tenge</a></li>
+<li><a href="/KES_calculator.html">Kenyan Shilling</a></li>
+<li><a href="/KRW_calculator.html">Korean Won</a></li>
+<li><a href="/KWD_calculator.html">Kuwaiti Dinar</a></li>
+<li><a href="/KGS_calculator.html">Kyrgyzstani Som</a></li>
+<li><a href="/LAK_calculator.html">Lao Kip</a></li>
+<li><a href="/LBP_calculator.html">Lebanese Pound</a></li>
+<li><a href="/LSL_calculator.html">Lesotho Loti</a></li>
+<li><a href="/LRD_calculator.html">Liberian Dollar</a></li>
+<li><a href="/LYD_calculator.html">Libyan Dinar</a></li>
+<li><a href="/LSK_calculator.html">Lisk</a></li>
+<li><a href="/LTC_calculator.html">Litecoin</a></li>
+<li><a href="/LTL_calculator.html">Lithuanian Litas</a></li>
+<li><a href="/MOP_calculator.html">Macau Pataca</a></li>
+<li><a href="/MKD_calculator.html">Macedonia Denar</a></li>
+<li><a href="/XMS_calculator.html">MaidSafeCoin</a></li>
+<li><a href="/MKR_calculator.html">Maker</a></li>
+<li><a href="/MGA_calculator.html">Malagasy Ariary</a></li>
+<li><a href="/MWK_calculator.html">Malawian Kwacha</a></li>
+<li><a href="/MYR_calculator.html">Malaysian Ringgit</a></li>
+<li><a href="/MVR_calculator.html">Maldives Rufiyaa</a></li>
+<li><a href="/MRO_calculator.html">Mauritania Ouguiya</a></li>
+<li><a href="/MUR_calculator.html">Mauritian Rupee</a></li>
+<li><a href="/MAX_calculator.html">MaxCoin</a></li>
+<li><a href="/MEC_calculator.html">Megacoin</a></li>
+<li><a href="/MXN_calculator.html">Mexican Peso</a></li>
+<li><a href="/MXV_calculator.html">Mexican Unidad De Inversion</a></li>
+<li><a href="/MNC_calculator.html">Mincoin</a></li>
+<li><a href="/XMT_calculator.html">Mintcoin</a></li>
+<li><a href="/MDL_calculator.html">Moldovan Leu</a></li>
+<li><a href="/MNT_calculator.html">Mongolian Tugrik</a></li>
+<li><a href="/MAD_calculator.html">Moroccan Dirham</a></li>
+<li><a href="/MMK_calculator.html">Myanmar Kyat</a></li>
+<li><a href="/XEM_calculator.html">NEM</a></li>
+<li><a href="/NEO_calculator.html">NEO</a></li>
+<li><a href="/NMC_calculator.html">Namecoin</a></li>
+<li><a href="/NAD_calculator.html">Namibian Dollar</a></li>
+<li><a href="/NANO_calculator.html">Nano</a></li>
+<li><a href="/NAS_calculator.html">Nas</a></li>
+<li><a href="/NPR_calculator.html">Nepalese Rupee</a></li>
+<li><a href="/NET_calculator.html">NetCoin</a></li>
+<li><a href="/ANG_calculator.html">Netherlands Antillean Guilder</a></li>
+<li><a href="/MZN_calculator.html">New Mozambican Metical</a></li>
+<li><a href="/TWD_calculator.html">New Taiwan Dollar</a></li>
+<li><a href="/NZD_calculator.html">New Zealand Dollar</a></li>
+<li><a href="/NIO_calculator.html">Nicaraguan Cordoba Oro</a></li>
+<li><a href="/NGN_calculator.html">Nigerian Naira</a></li>
+<li><a href="/KPW_calculator.html">North Korean Won</a></li>
+<li><a href="/NOK_calculator.html">Norwegian Krone</a></li>
+<li><a href="/NVC_calculator.html">Novacoin</a></li>
+<li><a href="/NXT_calculator.html">Nxt</a></li>
+<li><a href="/OMR_calculator.html">Omani Rial</a></li>
+<li><a href="/OMG_calculator.html">OmiseGO</a></li>
+<li><a href="/ORB_calculator.html">Orbitcoin</a></li>
+<li><a href="/XAL_calculator.html">Ounces of Aluminum</a></li>
+<li><a href="/XCP_calculator.html">Ounces of Copper</a></li>
+<li><a href="/XAU_calculator.html">Ounces of Gold</a></li>
+<li><a href="/XPD_calculator.html">Ounces of Palladium</a></li>
+<li><a href="/XPT_calculator.html">Ounces of Platinum</a></li>
+<li><a href="/XAG_calculator.html">Ounces of Silver</a></li>
+<li><a href="/PKR_calculator.html">Pakistan Rupee</a></li>
+<li><a href="/PAB_calculator.html">Panamanian Balboa</a></li>
+<li><a href="/PGK_calculator.html">Papua New Guinea Kina</a></li>
+<li><a href="/PYG_calculator.html">Paraguay Guarani</a></li>
+<li><a href="/PPC_calculator.html">Peercoin</a></li>
+<li><a href="/PEN_calculator.html">Peruvian Nuevo Sol</a></li>
+<li><a href="/PTC_calculator.html">Pesetacoin</a></li>
+<li><a href="/PHP_calculator.html">Philippine Peso</a></li>
+<li><a href="/PHS_calculator.html">Philosopher Stones</a></li>
+<li><a href="/PXC_calculator.html">Phoenixcoin</a></li>
+<li><a href="/PLN_calculator.html">Polish Zloty</a></li>
+<li><a href="/PPT_calculator.html">Populous</a></li>
+<li><a href="/POT_calculator.html">PotCoin</a></li>
+<li><a href="/GBP_calculator.html">Pound Sterling</a></li>
+<li><a href="/XPM_calculator.html">Primecoin</a></li>
+<li><a href="/QAR_calculator.html">Qatari Riyal</a></li>
+<li><a href="/QTUM_calculator.html">Qtum</a></li>
+<li><a href="/QRK_calculator.html">QuarkCoin</a></li>
+<li><a href="/RDD_calculator.html">ReddCoin</a></li>
+<li><a href="/XRP_calculator.html">Ripple</a></li>
+<li><a href="/RON_calculator.html">Romanian Leu</a></li>
+<li><a href="/RUB_calculator.html">Russian Ruble</a></li>
+<li><a href="/RWF_calculator.html">Rwandan Franc</a></li>
+<li><a href="/SHP_calculator.html">Saint Helena Pound</a></li>
+<li><a href="/WST_calculator.html">Samoa Tala</a></li>
+<li><a href="/STD_calculator.html">Sao Tome Dobra</a></li>
+<li><a href="/SAR_calculator.html">Saudi Arabian Riyal</a></li>
+<li><a href="/RSD_calculator.html">Serbian Dinar</a></li>
+<li><a href="/SXC_calculator.html">Sexcoin</a></li>
+<li><a href="/SCR_calculator.html">Seychelles Rupee</a></li>
+<li><a href="/XSC_calculator.html">Siacoin</a></li>
+<li><a href="/SLL_calculator.html">Sierra Leonean Leone</a></li>
+<li><a href="/SGD_calculator.html">Singapore Dollar</a></li>
+<li><a href="/SLR_calculator.html">SolarCoin</a></li>
+<li><a href="/SBD_calculator.html">Solomon Islands Dollar</a></li>
+<li><a href="/SOS_calculator.html">Somali Shilling</a></li>
+<li><a href="/ZAR_calculator.html">South African Rand</a></li>
+<li><a href="/SDR_calculator.html">Special Drawing Right</a></li>
+<li><a href="/LKR_calculator.html">Sri Lankan Rupee</a></li>
+<li><a href="/SNT_calculator.html">Status</a></li>
+<li><a href="/STEEM_calculator.html">Steem</a></li>
+<li><a href="/XLM_calculator.html">Stellar</a></li>
+<li><a href="/STRAT_calculator.html">Stratis</a></li>
+<li><a href="/SDG_calculator.html">Sudanese Pound</a></li>
+<li><a href="/SRD_calculator.html">Suriname Dollar</a></li>
+<li><a href="/SZL_calculator.html">Swazi Lilangeni</a></li>
+<li><a href="/SEK_calculator.html">Swedish Krona</a></li>
+<li><a href="/CHF_calculator.html">Swiss Franc</a></li>
+<li><a href="/SYP_calculator.html">Syrian Pound</a></li>
+<li><a href="/TRX_calculator.html">TRON</a></li>
+<li><a href="/TAG_calculator.html">TagCoin</a></li>
+<li><a href="/TJS_calculator.html">Tajikistan Somoni</a></li>
+<li><a href="/TZS_calculator.html">Tanzanian Shilling</a></li>
+<li><a href="/TRC_calculator.html">Terracoin</a></li>
+<li><a href="/USDT_calculator.html">Tether</a></li>
+<li><a href="/THB_calculator.html">Thai Baht</a></li>
+<li><a href="/TIX_calculator.html">Tickets</a></li>
+<li><a href="/TGC_calculator.html">Tigercoin</a></li>
+<li><a href="/TOP_calculator.html">Tongan Pa&#39;Anga</a></li>
+<li><a href="/TTD_calculator.html">Trinidad and Tobago Dollar</a></li>
+<li><a href="/TND_calculator.html">Tunisian Dinar</a></li>
+<li><a href="/TRY_calculator.html">Turkish Lira</a></li>
+<li><a href="/TMT_calculator.html">Turkmenistan Manat</a></li>
+<li><a href="/UGX_calculator.html">Uganda Shilling</a></li>
+<li><a href="/UAH_calculator.html">Ukrainian Hryvnia</a></li>
+<li><a href="/AED_calculator.html">United Arab Emirates Dirham</a></li>
+<li><a href="/USD_calculator.html">United States Dollar</a></li>
+<li><a href="/UNO_calculator.html">Unobtanium</a></li>
+<li><a href="/UYU_calculator.html">Uruguayan peso</a></li>
+<li><a href="/UZS_calculator.html">Uzbekistani Som</a></li>
+<li><a href="/VUV_calculator.html">Vanuatu Vatu</a></li>
+<li><a href="/VEN_calculator.html">VeChain</a></li>
+<li><a href="/VEF_calculator.html">Venezuelan Bolivar Fuerte</a></li>
+<li><a href="/XVG_calculator.html">Verge</a></li>
+<li><a href="/VRC_calculator.html">VeriCoin</a></li>
+<li><a href="/VERI_calculator.html">Veritaseum</a></li>
+<li><a href="/VTC_calculator.html">Vertcoin</a></li>
+<li><a href="/VND_calculator.html">Viet Nam Dong</a></li>
+<li><a href="/WTC_calculator.html">Walton</a></li>
+<li><a href="/XOF_calculator.html">West African CFA</a></li>
+<li><a href="/WDC_calculator.html">WorldCoin</a></li>
+<li><a href="/YAC_calculator.html">Yacoin</a></li>
+<li><a href="/YER_calculator.html">Yemeni Rial</a></li>
+<li><a href="/ZMW_calculator.html">Zambian Kwacha</a></li>
+<li><a href="/ZEC_calculator.html">Zcash</a></li>
+<li><a href="/ZTC_calculator.html">Zeitcoin</a></li>
+<li><a href="/ZET_calculator.html">Zetacoin</a></li>
+</ul>
+</div></div>
+<div class=homearea>
+<h3>Text Calculator</h3>
+<div class="frontpagebox frontpagetall" style="margin:0 auto;width:2in;text-align:center">
+<p style="padding:4px;">Enter your calculation below:</p>
+<form name=freeformconvert action="/search" method=GET style="margin:10px;">
+<textarea name=q onfocus="this.select();" style="width:1.4in;height:1.5in;font-size:1.5em;font-weight:bold;padding:5px;">80 &euro; to &yen;</textarea>
+<input style="margin-top:15px" type=submit value="Convert">
+</form>
+</div>
+</div>
+<div class=homearea>
+<h3>Tools</h3>
+<div class="frontpagebox frontpagetall" style="width:200px;">
+<div>
+<h4>Personal Currency Calculator</h4>
+<a href="/my_calculator.html">Customize a currency converter, pick and choose just the currencies you want.</a>
+<h4>Webmaster Options</h4>
+<a href="/webmaster_options.html">Add currency calculators or rates to your website</a>
+</div>
+</div></div>
+<div class="homearea frontpagebox">
+<h3>Coinmill.com alternatives</h3>
+<p>Is coinmill.com not what you were hoping for?  Here are some related sites to help you find what you need.</p>
+<ul>
+<li><a href="http://dmoz.org/Recreation/Travel/Preparation/Currencies/Exchange_Rates/">Dmoz: Exchange Rates</a> - Open directory of exchange rate sites</li>
+<li><a href="http://en.wikipedia.org/wiki/Currency">Wikipedia: Currency</a> - Explanation about currency and foreign exchange</li>
+<li><a href="http://finance.yahoo.com/currency">Yahoo Finance Currency</a> - Track currencies including historical graphs</li>
+<li><a href="http://oanda.com/">Oanda</a> - Currency trading, forex training, converter, history, and tables</li>
+<li><a href="http://www.bloomberg.com/analysis/calculators/currency.html">Bloomberg Currency Calculator</a> - Currency trading with calculator</li>
+<li><a href="http://www.fxclub.com/">Currency trading</a> - fxclub.com 24 hour online currency trading</li>
+<li><a href="http://www.imf.org/external/fin.htm">International Monetary Fund Finances</a> - Exchange rates, international lending, and world debt management</li>
+<li><a href="http://www.xe.com/ucc/">XE.com</a> - Universal currency converter</li>
+</ul>
+
+</div>
+<br clear=all></div>
+<div id=footer class=headfoot>
+<p>This currency calculator is provided in the hope that it will be useful, but WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.</p>
+<p>
+<a href="/calculator.html">Global Conversion</a>: 
+<a href="https://ar.coinmill.com/">انجليزية</a> | <a href="https://be.coinmill.com/">Англійская</a> | <a href="https://bg.coinmill.com/">Български</a> | <a href="https://ca.coinmill.com/">Català</a> | <a href="https://cs.coinmill.com/">Český</a> | <a href="https://da.coinmill.com/">Dansk</a> | <a href="https://de.coinmill.com/">Deutsch</a> | <a href="https://el.coinmill.com/">Ελληνικά</a> | <a href="https://coinmill.com/">English</a> | <a href="https://es.coinmill.com/">Español</a> | <a href="https://et.coinmill.com/">Eesti</a> | <a href="https://fi.coinmill.com/">Suomi</a> | <a href="https://fr.coinmill.com/">Français</a> | <a href="https://ga.coinmill.com/">Gaeilge</a> | <a href="https://hi.coinmill.com/">हिंदी</a> | <a href="https://hr.coinmill.com/">Bosanski jezik</a> | <a href="https://hu.coinmill.com/">Magyar</a> | <a href="https://in.coinmill.com/">Indonesia</a> | <a href="https://is.coinmill.com/">Íslenska</a> | <a href="https://it.coinmill.com/">Italiano</a> | <a href="https://iw.coinmill.com/">עברית</a> | <a href="https://ja.coinmill.com/">日本語</a> | <a href="https://ko.coinmill.com/">한국어</a> | <a href="https://lt.coinmill.com/">Lietuviškai</a> | <a href="https://lv.coinmill.com/">Latvijas</a> | <a href="https://mk.coinmill.com/">Македонски</a> | <a href="https://ms.coinmill.com/">Melayu</a> | <a href="https://mt.coinmill.com/">Maltija</a> | <a href="https://nl.coinmill.com/">Nederlands</a> | <a href="https://no.coinmill.com/">Norske</a> | <a href="https://pl.coinmill.com/">Polski</a> | <a href="https://pt.coinmill.com/">Português</a> | <a href="https://ro.coinmill.com/">Română</a> | <a href="https://ru.coinmill.com/">Русский</a> | <a href="https://sk.coinmill.com/">Slovensky</a> | <a href="https://sl.coinmill.com/">Slovenski</a> | <a href="https://sq.coinmill.com/">Shqiptar</a> | <a href="https://sr.coinmill.com/">Српски</a> | <a href="https://sv.coinmill.com/">Svenska</a> | <a href="https://th.coinmill.com/">ภาษาไทย</a> | <a href="https://tr.coinmill.com/">Türkçe</a> | <a href="https://uk.coinmill.com/">Українська</a> | <a href="https://vi.coinmill.com/">Tiếng Anh</a> | <a href="https://zh.coinmill.com/">中文（简体）</a> | <a href="https://zt.coinmill.com/">繁體中文</a></p>
+<p><a href="/webmaster_options.html">Add currency calculators or rates to your website</a> | <a href="https://www.facebook.com/coinmillcurrency">Like Coinmill on Facebook</a></p><p>Copyright (C) 2003-2023 <a href="/contact">Stephen Ostermiller</a> | <a href="/privacy.html">Privacy Policy</a></p>
+</div>
+</body>
+</html>

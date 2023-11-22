@@ -1,0 +1,1228 @@
+ï»¿<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+<title>ã¿ã¤ã»ãã³ã³ã¯(ã·ã¼ã­ã )ã®æ ¼å®ã¬ã³ã¿ã«ãªãã£ã¹/ãã¼ãã£ã«ãªãã£ã¹</title>
+<meta name="description" content="ã·ã¼ã­ã ããå¾æ­©5åä»¥åã®ã¬ã³ã¿ã«ãªãã£ã¹ ã¿ã¤ã»ãã³ã³ã¯ã§ãå©ç¨å¯è½ãªæ ¼å®ã¬ã³ã¿ã«ãªãã£ã¹/ãã¼ãã£ã«ãªãã£ã¹ãæ¢ãã®æ¹ã¯ãæ°è»½ã«ãåãåãããã ãã">
+<meta name="keywords" content="ã¢ã½ã¼ã¯,ã¹ã¯ã³ããã,ã¬ã³ã¿ã«ãªãã£ã¹,ã¿ã¤,ãã³ã³ã¯,æ ¼å®,ãã¼ãã£ã«ãªãã£ã¹">
+
+<!-- Bootstrap Core CSS
+<link href="css/bootstrap.min.css" rel="stylesheet">
+<link href="css/bootstrap-theme.min.css" rel="stylesheet">
+
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css"> -->
+<!-- Custom CSS
+<link href="css/one-page-wonder.css" rel="stylesheet"> 
+<link rel="stylesheet" href="css/style.css">-->
+<link rel="stylesheet" href="css/style.css">
+<link rel="stylesheet" href="css/swiper.min.css">
+<link rel="stylesheet" href="css/validationEngine.jquery.css">
+<link href="css/validationEngine.jquery.css" rel="stylesheet" type="text/css" />
+<!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+<!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+<!--[if lt IE 9]>
+        <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+        <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+
+    <script>
+      window.addEventListener('load', function(){
+      //é¢æ°å®ç¾©
+      const myFunc = function (src) {
+        //Promiseãªãã¸ã§ã¯ããçæãã¦è¿ã
+        return new Promise(function (resolve, reject) {
+          //Imageãªãã¸ã§ã¯ããçæ
+          const image = new Image();
+          //èª­ã¿è¾¼ãç»åãè¨­å®ï¼é¢æ°ã®å¼æ°ã§åå¾ããç»åãã¹ãä»£å¥ï¼
+          image.src = src;
+          //onloadã§ç»åèª­ã¿è¾¼ã¿å®äºå¾ã«å¦ç
+          image.onload = function () {
+            //æåæã«thenã®å¦çã¸
+            resolve(image);
+          }
+          //onerrorã§ç»åèª­ã¿è¾¼ã¿ã¨ã©ã¼æã«å¦ç
+          image.onerror = function (error) {
+            //å¤±ææã«catchã®å¦çã¸
+            reject(error);
+          }
+        });
+      }
+    
+      //ãã¼ã¸åã®imgè¦ç´ ãåå¾
+      const imgs = document.getElementsByTagName('img');
+    
+      //imgè¦ç´ ã®æ°ã ãç¹°ãè¿ãå¦ç
+      for (const img of imgs) {
+        //imgè¦ç´ ã®srcå±æ§ã®å¤ãåå¾
+        const src = img.getAttribute('src');
+    
+        //é¢æ°å®è¡
+        myFunc(src)
+          //èª­ã¿è¾¼ã¿ãå®äºããï¼ç»åãè¨­å®ãããï¼Imageãªãã¸ã§ã¯ããåãåã£ã¦å¦ç
+          .then(function (res) {
+    
+            //ãè¿½å ãimgè¦ç´ ã«widthå±æ§ãè¨­å®ããã¦ããªããã°å¦ç
+            if (!img.hasAttribute('width')) {
+              //imgè¦ç´ ã®widthå±æ§ã«å¤ãè¨­å®
+              img.setAttribute('width', res.width);
+            }
+    
+            //ãè¿½å ãimgè¦ç´ ã«heightå±æ§ãè¨­å®ããã¦ããªããã°å¦ç
+            if (!img.hasAttribute('height')) {
+              //imgè¦ç´ ã®heightå±æ§ã«å¤ãè¨­å®
+              img.setAttribute('height', res.height);
+            }
+    
+            //ãè¿½å ãimgè¦ç´ ã«loadingå±æ§ãè¨­å®ããã¦ããªããã°å¦ç
+            if (!img.hasAttribute('loading')) {
+              //imgè¦ç´ ã®loadingå±æ§ã«å¤ãè¨­å®
+              img.setAttribute('loading', 'lazy ');
+            }
+          })
+          //ç»åèª­ã¿è¾¼ã¿ã¨ã©ã¼æã®å¦ç
+          .catch(function (error) {
+            console.log(error);
+          });
+      }
+    });
+    
+    </script>
+</head>
+<body>
+
+<!--ã¹ããç¨ããã²ã¼ã·ã§ã³-->
+<nav class="mainNav">
+<!--ãã¼ãã£ã«ãªãã£ã¹-->
+         <dl class="sp-nav">
+         	<dt>ãã¼ãã£ã«ãªãã£ã¹</dt>
+			<dd><a href="virtual.html">ãã¼ãã£ã«ãªãã£ã¹ãã©ã³</a></dd>
+         </dl>
+                    
+          
+<!--ã¬ã³ã¿ã«ãªãã£ã¹-->
+         <dl class="sp-nav">
+            <dt>ã¬ã³ã¿ã«ãªãã£ã¹</dt>
+     		<dd><a href="freedesk.html">ããªã¼ãã¹ã¯ãã©ã³</a></dd>
+			<dd><a href="regulardesk.html">åºå®ãã¹ã¯ãã©ã³</a></dd>
+			<dd><a href="exclusivedesk.html">åå®¤ãã¹ã¯ãã©ã³</a></dd>
+			<dd><a href="monthly_mansion.html">å±ä½åãªãã£ã¹ãã©ã³</a></dd>
+           	<dd><a href="meetingroom.html">ã¬ã³ã¿ã«ä¼è­°å®¤ãã©ã³</a></dd>
+          </dl>    
+          
+          
+                
+<!--ã¿ã¤é²åºã»èµ·æ¥­æ¯æ´-->
+          <dl class="sp-nav">
+            <dt>ã¿ã¤é²åºã»èµ·æ¥­æ¯æ´</dt>
+            <dd><a href="advance.html">ã¿ã¤é²åºã»èµ·æ¥­æ¯æ´</a></dd>
+            <dd><a href="visa.html">ã¿ã¤ã®ãã¶åå¾ä»£è¡</a></dd>
+            <dd><a href="translation.html">ã¿ã¤èªç¿»è¨³ãµã¼ãã¹</a></dd>				
+            <dd><a href="interpreter.html">ã¿ã¤èªéè¨³ãµã¼ãã¹</a></dd>
+            <dd><a href="https://my-job.asia/" target="_blank">äººææ¡ç¨ãµãã¼ã<br>ï¼å¤é¨ãµã¤ãï¼</a></dd>
+          </dl>     
+          
+          
+<!--ãªãã·ã§ã³-->
+         <dl class="sp-nav">
+             <dt>ãªãã·ã§ã³</dt>
+             <dd><a href="locker.html">ã¬ã³ã¿ã«ã­ãã«ã¼ãã©ã³</a></dd>
+         </dl>
+         
+         
+<!--ãåãåããã»ä¼ç¤¾ã¤ã³ãã©-->
+         <p class="sp-contact"><a href="index.html#section-contact">ãåãåãã&nbsp;(&nbsp;ãã©ã¼ã &nbsp;)</a></p>
+         <div class="sp-nav-about">
+              <figure><a href="index.html"><img src="images/sp-nav-logo.png" align="ã¿ã¤ã®ã¬ã³ã¿ã«ãªãã£ã¹ï¼¤ï¼¡ï¼©ï¼£ï¼¨ï¼©" width="84" height="17" /></a></figure>
+              <p>ã¿ã¤ã®ã¬ã³ã¿ã«ãªãã£ã¹ãªãDAICHIã«ãä»»ããã ããã<br>æè»ãªå¯¾å¿ã§ãå®¢æ§ã®ãå¸æã«å¿ãã¾ãã</p>
+		</div>
+</nav>
+<!--/.mainNav ã¹ããç¨ããã²ã¼ã·ã§ã³-->
+
+
+
+
+
+<div class="pageWrap">
+    <header id="page-header">
+            <div class="col-nav">
+                    <div class="col-left margin-50">
+                       <h1>ã¬ã³ã¿ã«ãªãã£ã¹/ãã¼ãã£ã«ãªãã£ã¹ ã¿ã¤ã»ãã³ã³ã¯(ã·ã¼ã­ã ) DAICHI</h1>
+                    </div>
+                    <div class="col-right">
+                        <ul>
+                           <li><a href="index.html">ãã¼ã </a></li>
+                           <li><a href="company.html">ä¼ç¤¾æ¦è¦</a></li>
+							<li><a href="faq.html"><span>ããããè³ªåã¨ç­ã</span></a></li>
+                           <li><a href="#section-contact">ãåãåãã</a></li>
+                        </ul>
+                    </div>
+            </div>
+<div class="col-header">
+                <div class="header-left">
+                    <a href="index.html"><img src="images/logotop.png" alt="ã­ã´ ã¿ã¤ã»ãã³ã³ã¯(ã·ã¼ã­ã )ã®æ ¼å®ã¬ã³ã¿ã«ãªãã£ã¹/ãã¼ãã£ã«ãªãã£ã¹" width="150" height="30"></a><p id="pageSlideToggle"><img src="images/sp-nav.gif" alt="" width="40" height="40"></p>
+                </div>
+            <div class="header-right">
+                 <div class="tel-left"><a href="tel:02-661-7953">
+                <h4>ã¿ã¤ã§ã®ãåãåãã</h4>
+                <p>02-661-7953</p>
+                <span>åä»æé&nbsp;9:30ãã18:30&nbsp;(åæ¥ã»ç¥é¤ï¼</span></a>
+                </div>
+                <div class="tel-right"><a href="tel:03-3562-7238"><h4>æ¥æ¬ã§ã®ãåãåãã</h4>
+                <p>03-3562-7238</p>
+                <span>åä»æé&nbsp;10:00ãã19:00&nbsp;(åæ¥ã»ç¥é¤ï¼</span></a>
+                </div>
+            </div>
+           </div>
+     </header>
+<!--ã¹ããç¨ããããã¼ã¸ã¡ã¤ã³ç»å-->
+    <div class="top-sp pc-clear">
+    	<figure class="sp-campaign"><a href="monthly_mansion.html" onClick="ga('send' , 'event' , 'click' , 'contact' , 'campaign-sp');"><img src="images/campaign-sp.png" alt="ãã³ã·ã§ã³ã¿ã¤ãã®ã¬ã³ã¿ã«ãªãã£ã¹" width="640" height="152"></a></figure>
+        
+    
+    
+    </div>
+<!--//ã¹ããç¨ããããã¼ã¸ã¡ã¤ã³ç»åçµãã-->
+<!--ã¹ããã«ã«ã¼ã»ã«-->
+<h2 class="sp-category pc-clear pad-15">ã¿ã¤ã®ã¬ã³ã¿ã«ãªãã£ã¹ãµã¼ãã¹</h2>
+
+ 
+
+<div class="inner sp">
+    <div class="swiper-container bg-gray">
+        <ul class="swiper-wrapper">
+        
+<!--ãã¼ãã£ã«-->
+<li class="swiper-slide">
+<!--ã¹ããã«ã«ã¼ã»ã«ãã©ã³åå¥-->
+<div class="sp-box">
+	<a href="virtual.html">
+		<img src="images/sp-img-virtual.jpg" width="256" height="150" alt="ãã¼ãã£ã«ãªãã£ã¹">
+		<h3 class="sp-box-title"><span>âãã¼ãã£ã«ãªãã£ã¹â</span>ãã¼ãã£ã«ãªãã£ã¹</h3>
+			<div class="sp-box-info">           
+				<dl class="place-list">
+					<dd>ã¢ã½ã¼ã¯</dd>
+					<dd>ã·ã¼ã­ã </dd>
+                </dl>
+				<p class="sp-box-price">2,000<span>&nbsp;B&nbsp;ï½&nbsp;/&nbsp;æ</span></p>
+			</div>        
+    </a>       
+</div>        
+<!--/ã¹ããã«ã«ã¼ã»ã«ãã©ã³åå¥-->
+</li>         
+
+<!--ããªã¼ãã¹ã¯-->
+<li class="swiper-slide">
+<!--ã¹ããã«ã«ã¼ã»ã«ãã©ã³åå¥-->
+<div class="sp-box">
+	<a href="freedesk.html">
+		<img src="images/sp-img-free.jpg" width="256" height="150"  alt="ããªã¼ãã¹ã¯">
+		<h3 class="sp-box-title"><span>âã¬ã³ã¿ã«ãªãã£ã¹â</span>ããªã¼ãã¹ã¯</h3>
+			<div class="sp-box-info">           
+				<dl class="place-list">
+					<dd>ã¢ã½ã¼ã¯</dd>
+					<dd>ã·ã¼ã­ã </dd>
+                </dl>
+				<p class="sp-box-price">300<span>&nbsp;B&nbsp;ï½&nbsp;/&nbsp;æ¥</span></p>
+			</div>        
+    </a>       
+</div>        
+<!--/ã¹ããã«ã«ã¼ã»ã«ãã©ã³åå¥-->
+</li>        
+            
+<!--åºå®ãã¹ã¯-->
+
+<li class="swiper-slide">
+<!--ã¹ããã«ã«ã¼ã»ã«ãã©ã³åå¥-->
+<div class="sp-box">
+	<a href="regulardesk.html">
+		<img src="images/sp-img-regulard.jpg" width="256" height="150" alt="åºå®ãã¹ã¯">
+		<h3 class="sp-box-title"><span>âã¬ã³ã¿ã«ãªãã£ã¹â</span>åºå®ãã¹ã¯</h3>
+			<div class="sp-box-info">           
+				<dl class="place-list">
+					<dd>ã¢ã½ã¼ã¯</dd>
+					<dd>ã·ã¼ã­ã </dd>
+                </dl>
+				<p class="sp-box-price">6,000<span>&nbsp;B&nbsp;ï½&nbsp;/&nbsp;æ</span></p>
+			</div>        
+    </a>       
+</div>        
+<!--/ã¹ããã«ã«ã¼ã»ã«ãã©ã³åå¥-->
+</li> 
+         
+<!--åå®¤ãã¹ã¯-->
+
+
+
+
+<li class="swiper-slide">
+<!--ã¹ããã«ã«ã¼ã»ã«ãã©ã³åå¥-->
+<div class="sp-box">
+	<a href="exclusivedesk.html">
+		<img src="images/sp-img-exclusivedesk.jpg" width="256" height="150" alt="åå®¤ãã©ã³">
+		<h3 class="sp-box-title"><span>âã¬ã³ã¿ã«ãªãã£ã¹â</span>åå®¤ãã©ã³</h3>
+			<div class="sp-box-info">           
+				<dl class="place-list">
+					<dd>ã¢ã½ã¼ã¯</dd>
+					<dd>ã·ã¼ã­ã </dd>
+                </dl>
+				<p class="sp-box-price">9,000<span>&nbsp;B&nbsp;ï½&nbsp;/&nbsp;æ</span></p>
+			</div>        
+    </a>       
+</div>        
+<!--/ã¹ããã«ã«ã¼ã»ã«ãã©ã³åå¥-->
+</li> 
+          
+<!--ãã³ã·ã§ã³ã¿ã¤ã-->
+        
+<li class="swiper-slide">
+<!--ã¹ããã«ã«ã¼ã»ã«ãã©ã³åå¥-->
+<div class="sp-box">
+	<a href="monthly_mansion.html">
+		<img src="images/sp-img-mansion.jpg" width="256" height="150" alt="å±ä½åãªãã£ã¹">
+		<h3 class="sp-box-title"><span>âã¬ã³ã¿ã«ãªãã£ã¹â</span>å±ä½åãªãã£ã¹</h3>
+			<div class="sp-box-info">           
+				<dl class="place-list">
+					<dd>ã¢ã½ã¼ã¯</dd>
+                </dl>
+				<p class="sp-box-price">30,000<span>&nbsp;B&nbsp;ï½&nbsp;/&nbsp;æ</span></p>
+			</div>        
+    </a>       
+</div>        
+<!--/ã¹ããã«ã«ã¼ã»ã«ãã©ã³åå¥-->
+</li>       	        
+<!--ã¬ã³ã¿ã«ä¼è­°å®¤ãã©ã³--> 
+
+
+        
+<li class="swiper-slide">
+<!--ã¹ããã«ã«ã¼ã»ã«ãã©ã³åå¥-->
+<div class="sp-box">
+	<a href="meetingroom.html">
+		<img src="images/sp-img-meetingroom.jpg" width="263" height="150" alt="ã¬ã³ã¿ã«ä¼è­°å®¤">
+		<h3 class="sp-box-title"><span>âã¬ã³ã¿ã«ãªãã£ã¹â</span>ã¬ã³ã¿ã«ä¼è­°å®¤</h3>
+			<div class="sp-box-info">           
+				<dl class="place-list">
+					<dd>ã¢ã½ã¼ã¯</dd>
+					<dd>ã·ã¼ã­ã </dd>
+                </dl>
+				<p class="sp-box-price">500<span>&nbsp;B&nbsp;ï½&nbsp;/&nbsp;1æé</span></p>
+			</div>        
+    </a>       
+</div>        
+<!--/ã¹ããã«ã«ã¼ã»ã«ãã©ã³åå¥-->
+</li>       
+<!--ã¿ã¤é²åºã»èµ·æ¥­æ¯æ´-->
+
+
+<li class="swiper-slide">
+<!--ã¹ããã«ã«ã¼ã»ã«ãã©ã³åå¥-->
+<div class="sp-box">
+	<a href="advance.html">
+		<img src="images/sp-img-advance.jpg" width="263" height="150" alt="ã¢ã¸ã¢é²åºã»èµ·æ¥­æ¯æ´">
+		<h3 class="sp-box-title"><span>âã¿ã¤é²åºãµãã¼ãâ</span>ã¢ã¸ã¢é²åºã»èµ·æ¥­æ¯æ´</h3>
+			<div class="sp-box-info">           
+				<dl class="place-list">
+					<dd>ã¢ã½ã¼ã¯</dd>
+                </dl>
+				<p class="sp-box-ex">ãã¶åå¾ä»£è¡ã»ã¿ã¤èªç¿»è¨³ã»éè¨³</p>
+			</div>        
+    </a>       
+</div>        
+<!--/ã¹ããã«ã«ã¼ã»ã«ãã©ã³åå¥-->
+</li>  
+<!--ã«ã«ã¼ã»ã«ãªãã·ã§ã³-->
+	</ul>
+    
+        <div class="swiper-pagination"></div> 
+        <div class="swiper-button-prev"></div>
+        <div class="swiper-button-next"></div>   
+       <!-- <div class="swiper-scrollbar"></div>-->
+    </div>
+</div>
+<!--ã¡ã¤ã³ãã¸ã¥ã¢ã«éå§-->
+<div id="main">
+	<div class="main-inner">
+		<div id="main-bg">
+            <div class="main-cta">	     
+                <a href="index.html#section-contact"><img src="images/btn-blue-girl.png" width="374" height="107" alt="ãè³ªåç­ããæ°è»½ã«ãåãåãããã ããããåãåãããã©ã¼ã ã¸"></a> 
+            </div>
+			<figure class="main-campaign"><a href="monthly_mansion.html" onClick="ga('send' , 'event' , 'click' , 'contact' , 'campaign-mansion');">						<img src="images/campaign.png" width="189" height="189" alt="DAICHIã®ã¬ã³ã¿ã«ãªãã£ã¹ã«ãã³ã·ã§ã³ã¿ã¤ãæ°ç»å ´" class="campaign-anime"></a></figure>
+		</div>
+	</div>  
+</div>
+<!---ã°ã­ã¼ãã«ããã²ã¼ã·ã§ã³--> 
+<nav id="global-nav">
+	<ul id="menu">
+		<li><a href="virtual.html"><span>ãã¼ãã£ã«ãªãã£ã¹</span></a></li>
+        <li><a href="office.html"><span>ã¬ã³ã¿ã«ãªãã£ã¹</span></a></li>
+        <li><a href="meetingroom.html">ã¬ã³ã¿ã«ä¼è­°å®¤</a></li>        
+        <!--li><a href="locker.html">ã¬ã³ã¿ã«ã­ãã«ã¼</a></li-->
+ 		<li><a href="advance.html"><span>ã¿ã¤é²åºã»èµ·æ¥­æ¯æ´</span></a></li>
+		<li><a href="company.html">ä¼ç¤¾æ¦è¦</a></li>
+    </ul>
+</nav>
+<!---//ã°ã­ã¼ãã«ããã²ã¼ã·ã§ã³-->
+
+
+
+<div class="first-view-inner sp-clear">
+
+
+
+		<h2 class="first-view-title sp-clear">ãã¼ãã£ã«ãªãã£ã¹&nbsp;/&nbsp;ã¬ã³ã¿ã«ãªãã£ã¹ãµã¼ãã¹ã<span class="break">ãã©ã³ããé¸ã¶</span></h2>
+		<p class="first-view-lead sp-clear">ã¢ã¸ã¢ãã¸ãã¹ã®ç¬¬ä¸æ­©ã«ã¯æé©ãªã¬ã³ã¿ã«ãªãã£ã¹ã§ãã<br /> ä¸è¨ãã©ã³ãããè¦æã«ãã£ãã¬ã³ã¿ã«ãªãã£ã¹ãé¸æé ãã¾ãã <br />
+        <!--ãã®ä»ãä¼ç¤¾ç»è¨ä¼ç¤¾ã®ç´¹ä»ããã¼ã ãã¼ã¸å¶ä½ãé¡§å®¢ç´¹ä»ãªã©ãµã¼ãã¹ãåå®ãã¦ããã¾ãã<br />-->
+        æ¥æ¬äººã¹ã¿ãããä¸å¯§ã«ãµãã¼ããããã¾ãã®ã§ãã¾ãã¯ãæ°è»½ã«ãåãåããããã ããã</p>
+    <img src="images/first-view01.png" width="351" height="210" alt="ã¿ã¤ã®å»ºç©" class="first-view-position01">
+    <img src="images/first-view02.png" width="351" height="210" alt="ã¿ã¤ã®å»ºç©" class="first-view-position02">
+        
+</div>        
+        
+        
+        
+<section class="first-view-position">
+	<div class="plan-inner">
+
+
+<ul class="cf pc-main-list none-sp">
+	<li>
+
+<!--pcããªã¼ãã¹ã¯-->
+<div class="pc-box">
+	<a href="freedesk.html">
+    <h3 class="pc-box-title"><span>âã¬ã³ã¿ã«ãªãã£ã¹â</span>ããªã¼ãã¹ã¯ãã©ã³</h3>
+    <img src="images/pc-img-free.jpg" width="300" height="170" alt="ããªã¼ãã¹ã¯ãã©ã³">
+		
+        <div class="pc-box-txt">
+        	<p>æç­1æ¥ããé·æã®ãå©ç¨ã¾ã§æè»ãªåãæ¹ããããæ¹ã«ãã¹ã¹ã¡ã§ãã</p>
+        
+        </div>
+			<div class="pc-box-info">
+				<dl class="place-list">
+					<dd>ã¢ã½ã¼ã¯</dd>
+					<dd>ã·ã¼ã­ã </dd>
+                </dl>
+                <dl class="pc-price-list">
+                	<dd>300<span>&nbsp;B&nbsp;/&nbsp;æ¥</span></dd>
+                	<dd>2,000<span>&nbsp;B&nbsp;/&nbsp;é±</span></dd>
+                	<dd>4,000<span>&nbsp;B&nbsp;/&nbsp;æ</span></dd>                
+                </dl>    
+			</div>        
+    </a>
+</div>        
+<!--/pcããªã¼ãã¹ã¯-->
+
+
+
+	</li>
+	<li>
+
+<!--pcåºå®ãã©ã³-->
+<div class="pc-box">
+	<a href="regulardesk.html">
+    <h3 class="pc-box-title"><span>âã¬ã³ã¿ã«ãªãã£ã¹â</span>åºå®ãã¹ã¯ãã©ã³</h3>
+    <img src="images/pc-img-regular.jpg" width="300" height="170" alt="åºå®ãã©ã³">
+        <img src="images/badge.png" width="53" height="55" alt="ãããããã©ã³" class="position-badge">
+
+		
+        <div class="pc-box-txt">
+        	<p>èªåå°ç¨ã®ãã¹ã¯ãä½¿ç¨ãã¦ãã¹ã¯ã¯ã¼ã¯ãè¡ãããæ¹ã«ãã¹ã¹ã¡ã§ãã</p>
+        
+        </div>
+			<div class="pc-box-info">
+				<dl class="place-list">
+					<dd>ã¢ã½ã¼ã¯</dd>
+					<dd>ã·ã¼ã­ã </dd>
+                </dl>
+                <dl class="pc-price-list">
+                	<dd>&nbsp;</dd>
+                	<dd>&nbsp;</dd>
+                	<dd>6,000<span>&nbsp;B&nbsp;/&nbsp;æ</span></dd>                
+                </dl>    
+			</div>        
+    </a>       
+</div>        
+<!--/pcåå¥-->
+
+	</li>
+	<li>
+<!--pcåå®¤ãã©ã³-->
+<div class="pc-box">
+	<a href="exclusivedesk.html">
+    <h3 class="pc-box-title"><span>âã¬ã³ã¿ã«ãªãã£ã¹â</span>åå®¤ãã¹ã¯ãã©ã³</h3>
+    <img src="images/pc-top-exclusivedesk.jpg" width="300" height="170" alt="åå®¤ãã¹ã¯ãã©ã³">
+		
+        <div class="pc-box-txt">
+        	<p>ãã½ã³ã³å¸¸è¨­ã®ãã©ã¤ãã¼ãã¹ãã¼ã¹ã§ãã¹ã¯ã¯ã¼ã¯ãè¡ãããæ¹ã«ãã¹ã¹ã¡ã§ãã</p>
+        
+        </div>
+			<div class="pc-box-info">
+				<dl class="place-list">
+					<dd>ã¢ã½ã¼ã¯</dd>
+					<dd>ã·ã¼ã­ã </dd>
+                </dl>
+                <dl class="pc-price-list">
+                	<dd>&nbsp;</dd>
+                	<dd><span>ãã¼ãã«ã¿ã¤ã</span>&nbsp;9,000<span>&nbsp;B&nbsp;ï½&nbsp;/&nbsp;æ</span></dd>
+                	<dd><span>ã¯ã¤ãã¿ã¤ã</span>&nbsp;18,000<span>&nbsp;B&nbsp;ï½&nbsp;/&nbsp;æ</span></dd>                
+                </dl>    
+			</div>        
+    </a>       
+</div>        
+<!--/pcåå¥-->
+
+
+	</li>
+    
+	<li>
+<!--pcãã³ã·ã§ã³-->
+<div class="pc-box">
+	<a href="monthly_mansion.html">
+    <h3 class="pc-box-title"><span>âã¬ã³ã¿ã«ãªãã£ã¹â</span>å±ä½åãªãã£ã¹ãã©ã³</h3>
+    <img src="images/pc-img-mansion.jpg" width="300" height="170" alt="å±ä½ãã©ã³">
+		
+        <div class="pc-box-txt">
+        	<p>ãã¸ãã¹ã ãã§ãªããä½å±ã¨ãã¦ããå©ç¨ãããæ¹ã«ãã¹ã¹ã¡ã§ãã</p>
+        
+        </div>
+			<div class="pc-box-info">
+				<dl class="place-list">
+					<dd>ã¢ã½ã¼ã¯</dd>
+					
+                </dl>
+                <dl class="pc-price-list">
+                	<dd>&nbsp;</dd>
+                	<dd><span>1LDK</span>&nbsp;35,000&nbsp;<span>B&nbsp;/&nbsp;æ</span></dd>
+                	<dd><span>ã¯ã³ã«ã¼ã ã¿ã¤ã</span>&nbsp;30,000&nbsp;<span>B&nbsp;/&nbsp;æ</span></dd>
+            
+                </dl>    
+			</div>        
+    </a>       
+</div>        
+<!--/pcãã³ã·ã§ã³-->
+	</li>
+    
+	<li>
+
+<!--pcãã¼ãã£ã«ãªãã£ã¹-->
+<div class="pc-box">
+	<a href="virtual.html">
+    <h3 class="pc-box-title"><span>âã¬ã³ã¿ã«ãªãã£ã¹â</span>ãã¼ãã£ã«ãªãã£ã¹</h3>
+    <img src="images/pc-top-virtual.jpg" width="300" height="170" alt="ãã¼ãã£ã«ãªãã£ã¹">
+		
+        <div class="pc-box-txt">
+        	<p>HPãååºã«ãã¿ã¤ã»ãã³ã³ã¯ããªãã£ã¹ã®ä½æãè¨è¼ãããæ¹ã«ãã¹ã¹ã¡ã§ãã</p>
+        
+        </div>
+			<div class="pc-box-info">
+				<dl class="place-list">
+					<dd>ã¢ã½ã¼ã¯</dd>
+					<dd>ã·ã¼ã­ã </dd>
+                </dl>
+                <dl class="pc-price-list">
+                	<dd>&nbsp;</dd>
+                	<dd>&nbsp;</dd>
+                	<dd>2,000<span>&nbsp;B&nbsp;ï½&nbsp;/&nbsp;æ</span></dd>                
+                </dl>    
+			</div>        
+    </a>       
+</div>        
+<!--/pcãã¼ãã£ã«ãªãã£ã¹-->
+
+	</li>
+	<li>
+<!--pcã¬ã³ã¿ã«ä¼è­°å®¤ãã©ã³-->
+<div class="pc-box">
+	<a href="meetingroom.html">
+    <h3 class="pc-box-title"><span>âã¬ã³ã¿ã«ãªãã£ã¹â</span>ã¬ã³ã¿ã«ä¼è­°å®¤ãã©ã³</h3>
+    <img src="images/pc-top-meetingroom.jpg" width="300" height="170" alt="ã¬ã³ã¿ã«ä¼è­°å®¤ãã©ã³">
+		
+        <div class="pc-box-txt">
+        	<p>åè«ãä¼è­°ã¯ãã¡ãããå°è¦æ¨¡ã»ããã¼ãªã©ã«ããªã¹ã¹ã¡ã§ãã</p>
+        
+        </div>
+			<div class="pc-box-info">
+				<dl class="place-list">
+					<dd>ã¢ã½ã¼ã¯</dd>
+					<dd>ã·ã¼ã­ã </dd>
+                </dl>
+                <dl class="pc-price-list">
+                	<dd>&nbsp;</dd>
+                	<dd><span>åºæ¬æé</span>&nbsp;500&nbsp;<span>B&nbsp;/&nbsp;1æé</span></dd>
+                	<dd><span>è¿½å æé</span>&nbsp;300&nbsp;<span>B&nbsp;/&nbsp;1æéãã¨</span></dd>             
+                </dl>    
+			</div>        
+    </a>       
+</div>        
+<!--/pcã¬ã³ã¿ã«ä¼è­°å®¤ãã©ã³-->
+
+
+	</li>
+
+</ul>
+
+</div>
+
+</section>
+<section>
+<div class="inner">
+      <h2>åãæ¹ã«åããã¦é¸ã¹ã<br>
+ã¬ã³ã¿ã«ãªãã£ã¹ãã©ã³æ¯è¼è¡¨</h2>
+<div class="scroll">
+          <table class="plan-table">
+            <tr>
+              <th class="none">&nbsp;</th>
+              <td>ãã¼ãã£ã«ãªãã£ã¹</td>
+              <td colspan="3">ã¬ã³ã¿ã«ãªãã£ã¹</td>
+             <td colspan="2">ãã³ã·ã§ã³ã¿ã¤ãï¼å±ä½åï¼</td>
+            </tr>          
+            <tr>
+              <th>ãã©ã³å</th>
+              <th><a href="virtual.html">ãã¼ãã£ã«ãªãã£ã¹</a></th>
+              <th><a href="freedesk.html">ããªã¼ãã¹ã¯</a></th>
+              <th><a href="regulardesk.html">åºå®ãã¹ã¯</a></th>
+			  <th><a href="exclusivedesk.html">åå®¤</a></th>
+			  <th><a href="monthly_mansion.html">1LDK</a></th>
+			  <th><a href="monthly_mansion.html">ã¯ã³ã«ã¼ã <br>ï¼ã¹ã¿ã¸ãªï¼</a></th>
+            </tr>
+            <tr>
+              <th><a href="asoke-office.html">ã¢ã½ã¼ã¯</a></th>
+              <td>â</td>
+              <td colspan="3">â</td>
+              <td colspan="2">â</td>
+            </tr>
+            <tr>
+              <th><a href="silom-office.html">ã·ã¼ã­ã </a></th>
+              <td>â</td>
+              <td colspan="3">â</td>
+              <td colspan="2">Ã</td>
+            </tr>
+            <tr>
+              <th>å©ç¨æ</th>
+              <td>2,000&nbsp;B&nbsp;/&nbsp;æ</td>
+              <td>300&nbsp;B&nbsp;/&nbsp;æ¥<span>(ãã¤ãªã¼ãã©ã³)</span>2,000&nbsp;B&nbsp;/&nbsp;é±<span>(ã¦ã£ã¼ã¯ãªã¼ãã©ã³)</span>4,000&nbsp;B&nbsp;/&nbsp;æ<span>(ãã³ã¹ãªã¼ãã©ã³)</span></td>
+              <td>6,000&nbsp;B&nbsp;/&nbsp;æ</td>
+			  <td>9,000&nbsp;B / æ<span>(ãã¼ãã«ã¿ã¤ã)</span>18,000&nbsp;B / æ<span>(ã¯ã¤ãã¿ã¤ã)</span></td>
+			  <td>35,000&nbsp;B<span>(1ãµæå¥ç´)</span>33,000&nbsp;B<span>(åå¹´å¥ç´)</span>31,000&nbsp;B<span>(1å¹´å¥ç´)</span></td>
+			  <td>30,000&nbsp;B<span>(1ãµæå¥ç´)</span>28,000&nbsp;B<span>(åå¹´å¥ç´)</span>26,000&nbsp;B<span>(1å¹´å¥ç´)</span></td>
+            </tr>
+            <tr>
+              <th>æä½å¥ç´æé</th>
+              <td>6ã¶æ</td>
+              <td>1æ¥<span>(ãã¤ãªã¼ãã©ã³)</span>1é±é<span>(ã¦ã£ã¼ã¯ãªã¼ãã©ã³)</span>1ã¶æ<span>(ãã³ã¹ãªã¼ãã©ã³)</span></td>
+              <td>1ã¶æ</td>
+			  <td>3ã¶æ</td>
+			  <td colspan="2">1ã¶æ<span>(1ã¶æå¥ç´)</span>6ã¶æ<span>(åå¹´å¥ç´)</span>12ã¶æ<span>(1å¹´å¥ç´)</span></td>
+            </tr>
+            <tr>
+              <th>ããã¸ãã<span>ï¼ä¿è¨¼éï¼</span></th>
+              <td>-</td>
+              <td>-</td>
+              <td>6,000&nbsp;B</td>
+			ã<td>9,000&nbsp;B<span>(ãã¼ãã«ã¿ã¤ã)</span>18,000&nbsp;B<span>(ã¯ã¤ãã¿ã¤ã)</span></td>
+			  <td>70,000&nbsp;B<span>(1ãµæå¥ç´)</span>66,000&nbsp;B<span>(åå¹´å¥ç´)</span>62,000&nbsp;B<span>(1å¹´å¥ç´)</span></td>
+			  <td>60,000&nbsp;B<span>(1ãµæå¥ç´)</span>56,000&nbsp;B<span>(åå¹´å¥ç´)</span>52,000&nbsp;B<span>(1å¹´å¥ç´)</span></td>
+            </tr>
+            <tr>
+              <th>åãã©ã³ã®ç¹å¾´</th>
+              <td>ä½æè¡¨è¨ã®ã¿ä½¿ç¨å¯</td>
+              <td>ããªã¼ã¹ãã¼ã¹</td>
+			ã<td>åºå®ã¹ãã¼ã¹</td>
+              <td>åå®¤ã¹ãã¼ã¹</td>
+			  <td colspan="2">ãã³ã·ã§ã³ã®1å®¤</td>
+            </tr>
+            <tr>
+              <th>ä½ææ²è¼</th>
+              <td>â</td>
+              <td colspan="3">â</td>
+              <td colspan="2">â</td>
+            </tr>
+           <tr>
+              <th>ä¼ç¤¾ç»è¨</th>
+              <td>å¥éãç¸è«ä¸ãã<span class="break"><a href="advance.html">(é²åºã»èµ·æ¥­æ¯æ´ãµã¼ãã¹)</a></span></td>
+              <td colspan="3">å¥éãç¸è«ä¸ãã<span class="break"><a href="advance.html">(é²åºã»èµ·æ¥­æ¯æ´ãµã¼ãã¹)</a></span></td>
+              <td colspan="2">å¥éãç¸è«ä¸ãã<span class="break"><a href="advance.html">(é²åºã»èµ·æ¥­æ¯æ´ãµã¼ãã¹)</a></span></td>
+            </tr>
+            <tr>
+              <th>ãã¹ã¯</th>
+              <td>-</td>
+              <td>ããªã¼ãã¹ã¯</td>
+              <td colspan="2">åºå®ãã¹ã¯</td>
+			  <td colspan="2">ãã¼ãã«ã»å®¶å·ä»ã</td>
+            </tr>
+            <tr>
+              <th><a href="meetingroom.html">ä¼è­°å®¤</a></th>
+              <td>â</td>
+              <td colspan="3">â</td>
+			  <td colspan="2">â</td>
+            </tr>
+            <tr>
+              <th>ããªã¼ããªã³ã¯</th>
+              <td>â</td>
+              <td colspan="3">â</td>
+			  <td colspan="2">-</td>
+            </tr>
+            <tr>
+              <th>Wi-Fi</th>
+              <td>â</td>
+              <td colspan="3">â</td>
+			  <td colspan="2">-</td>
+            </tr>
+            <tr>
+              <th><a href="locker.html">ã­ãã«ã¼</a></th>
+              <td>300&nbsp;Bï½&nbsp;/&nbsp;æ</td>
+              <td>50&nbsp;Bï½&nbsp;/&nbsp;æ¥<span class="break">(ãã¤ãªã¼ãã©ã³)</span>
+                    200&nbsp;Bï½&nbsp;/&nbsp;é±<span class="break">(ã¦ã£ã¼ã¯ãªã¼ãã©ã³)</span>
+                    500&nbsp;Bï½&nbsp;/&nbsp;æ<span class="break">(ãã³ã¹ãªã¼ãã©ã³)</span></td>
+              <td>300&nbsp;Bï½&nbsp;/&nbsp;æ</td>
+              <td>å°ã®ã¿1æ ç¡æ<span>(ãã¼ãã«ã¿ã¤ã)</span>å¤§ã®ã¿1æ ç¡æ<span>(ã¯ã¤ãã¿ã¤ã)</span></td>
+			  <td colspan="2">-</td>
+           	</tr>
+            <tr>
+              <th>ç½é»ããªã³ã¿ã³ãã¼
+               </th>
+              <td>3&nbsp;B&nbsp;/&nbsp; æ</td>
+              <td colspan="3">3&nbsp;B&nbsp;/&nbsp; æ</td>
+			  <td colspan="2">-</td>
+            </tr>
+            <tr>
+              <th>ã«ã©ã¼ããªã³ã¿ã³ãã¼ </th>
+              <td>7&nbsp;B&nbsp;/&nbsp; æ</td>
+              <td colspan="3">7&nbsp;B&nbsp;/&nbsp; æ</td>
+			  <td colspan="2">-</td>
+            </tr>
+           <tr>
+              <th>FAX&nbsp;å½å</th>
+              <td>30&nbsp;Bï½</td>
+              <td colspan="3">30&nbsp;Bï½</td>
+			  <td colspan="2">-</td>
+            </tr>
+            <tr>
+              <th>FAX&nbsp;å½å¤</th>
+              <td>70&nbsp;Bï½</td>
+              <td colspan="3">70&nbsp;Bï½</td>
+			  <td colspan="2">-</td>
+            </tr>            
+          </table>
+</div>
+</div>
+</section>
+
+
+
+<section>
+<div class="inner">
+<!--ãåãåããCTA(first)-->
+<div class="contact-box">
+    <div class="contact-left">
+        <div class="tel-left">
+        <h4>ã¿ã¤ã§ã®ãåãåãã</h4>
+        <p>02-661-7953</p>
+        <span>åä»æé&nbsp;9:30ãã18:30&nbsp;(åæ¥ã»ç¥é¤ï¼</span>
+        </div>
+        <div class="tel-right"><h4>æ¥æ¬ã§ã®ãåãåãã</h4>
+        <p>03-3562-7238</p>
+        <span>åä»æé&nbsp;10:00ãã19:00&nbsp;(åæ¥ã»ç¥é¤ï¼</span>
+        </div>
+    </div>
+<!--//ãåãåããå·¦å´-->
+<div class="contact-right">
+<h3>ãè¦æã«å¿ãããããããæè»ãªå¯¾å¿ãããã¦é ãã¾ãã</h3>
+
+    <div class="cols">
+        <div class="form-left">
+                    <a href="faq.html"><img src="images/cta-faq.gif" alt="ãããããè³ªå" width="215" height="52"></a>
+        </div>        
+        <div class="form-right">
+                <a href="#section-contact"><img src="images/cta-light.gif" alt="ãåãåããã¯ãã¡ã" width="215" height="52"></a>
+        </div>              
+    </div>        
+</div>
+<!--//ãåãåããå³å´-->
+</div>
+<!--//ãåãåãã-->
+</section> 
+
+
+<!--å ´æããé¸ã¶added1205s-->
+
+<section class="border">
+	<div class="inner">
+		<h2>ã¿ã¤ã»ãã³ã³ã¯ã®ã¬ã³ã¿ã«ãªãã£ã¹ã<span class="break">å ´æããé¸ã¶</span></h2>
+        <p class="text text-center">ãã³ã³ã¯åã®ã¬ã³ã¿ã«ãªãã£ã¹ã¯ãã¹ã¦åæéã§ãå©ç¨é ãã¾ãã</p>
+      
+        <ul class="place-select cf">
+        <!--ã¢ã½ã¼ã¯ãªãã£ã¹
+        	<li>
+                <div class="office-box">
+                      <a href="asoke-office.html"> 
+                          <p class="office-box-center">âãã³ã³ã¯ãä»£è¡¨ããé½ä¼çãªã¨ãªã¢â</p>
+                          <figure><img src="images/office-img-asoke.jpg" alt="ã¢ã½ã¼ã¯ãªãã£ã¹" width="300" height="96"></figure>
+                          <h4>ã¢ã½ã¼ã¯ <span>asoke-office</span></h4>
+                              <p class="office-box-adress">ã·ã¼ã­ã é§ã¾ã§å¾æ­©5å</p>
+                              <p class="detail">è©³ç´°ã¯ãã¡ã</p>
+                      </a>
+                </div>
+      		</li>            -->
+        <!--ã·ã¼ã­ã ãªãã£ã¹-->
+        	<li>
+                <div class="office-box">
+                      <a href="silom-office.html"> 
+                         <p class="office-box-center">âãã³ã³ã¯æå¤§ã®ãã¸ãã¹è¡â</p>
+                          <figure><img src="images/office-img-silom.jpg" alt="ã·ã¼ã­ã ãªãã£ã¹" width="300" height="96"></figure>
+                          <h4>ã·ã¼ã­ã  <span>silom-office</span></h4>
+                              <p class="office-box-adress">ï¼¢ï¼´ï¼³ãµã©ãã¼ã³é§ã¾ã§å¾æ­©5å</p>
+                              <p class="detail">è©³ç´°ã¯ãã¡ã</p>
+                      </a>
+                </div>
+      		</li>
+        </ul>
+      </div>
+        <div class="inner">
+          <br /><br /><br />
+          <h2>æ²ç¸é£è¦ã®ã¬ã³ã¿ã«ãªãã£ã¹ãæ¢ãã¦ããæ¹ã¯ãã¡ã</span></h2>
+            
+              <ul class="place-select cf">
+          <!--æ²ç¸ãªãã£ã¹-->
+            <li>
+                  <div class="office-box">
+                        <a href="https://rj-works.jp/"> 
+                           <p class="office-box-center">âæ²ç¸æå¤§ã®ãã¸ãã¹è¡â</p>
+                            <figure><img src="https://rj-works.jp/img/img_mv03.jpg" alt="æ²ç¸çé£è¦å¸ã¬ã³ã¿ã«ãªãã£ã¹" width="300" height="96"></figure>
+                            <h4>æ²ç¸çé£è¦å¸ <span>naha-office</span></h4>
+                                <p class="office-box-adress">æ²ç¸çé£è¦å¸ããã¬ã¼ã«ç§å¿é§ã¾ã§å¾æ­©5å</p>
+                                <p class="detail">è©³ç´°ã¯ãã¡ã</p>
+                        </a>
+                  </div>
+            </li>
+        </ul>
+        
+	</div>
+</section>
+
+<section>
+	<div class="inner">
+<!--ã¬ã³ã¿ã«ãªãã£ã¹ã®è¨­å-->
+		<div class="sp-clear">  
+          <h2>æé«ã®ã¬ã³ã¿ã«ãªãã£ã¹è¨­åã¨ãµã¼ãã¹ã§<span class="break">ããªãã®ãã¸ãã¹ããµãã¼ã</span></h2>
+      	  <p class="text text-center">ç«å°ã ãã§ã¯ãªããè¨­åã¨ãµã¼ãã¹ã®è¯ããããDAICHIã®å¼·ã¿ã§ãã <br>
+       		 æ¥æ¬äººã¨ã¿ã¤äººããã®ç¶æ³ã«å¿ããæé©ãªäººæã«ããå¯¾å¿ã§ã <br>
+        	ãå®¢æ§ã®ã¯ã©ã¤ã¢ã³ãã«ããã£ã¨ãæºè¶³ããã ãããµã¼ãã¹ãæä¾ãããã¾ãã
+          </p>
+          
+          
+	<div class="col">
+      <div class="option-box"><figure><img src="images/uketuke.jpg" alt="åä»ã»é»è©±å¿å¯¾ãµã¼ãã¹"></figure>
+        <h3>åä»ã»é»è©±å¿å¯¾ãµã¼ãã¹</h3>
+        <p>ã¯ã©ã¤ã¢ã³ãããã®ãé»è©±ã«ã¯ãå®¢æ§ã®ä¼ç¤¾åã§ããã¤ãªã³ã¬ã«ã®åä»ã¹ã¿ãããæ¥æ¬èªã»ã¿ã¤èªã®ä¸¡æ¹ã§å¯¾å¿è´ãã¾ãã</p>
+      </div>
+      
+      <div class="option-box option-center"><figure><img src="images/hisyo.jpg" alt="ç§æ¸ä»£è¡ãµã¼ãã¹"></figure>
+        <h3>ç¿»è¨³ã»éè¨³ä»£è¡ãµã¼ãã¹</h3>
+        <p>ãå®¢æ§ã®éè¨³ã¨ãã¦ãææ¸ä½æãç¿»è¨³éè¨³ãªã©ã®ãµã¼ãã¹ããå©ç¨ããã ãã¾ããã¾ãã¤ã³ã¿ã¼ãããã®ãã©ãã«ã«ãçµé¨è±ããªITãã¼ã ãããªã³ãµã¤ãã§ã®ãã¯ãã«ã«ãµãã¼ãããæä¾è´ãã¾ãã</p>
+      </div>
+      
+      <div class="option-box"><figure><a href="advance.html"><img src="images/advance-img.jpg" alt="ã¿ã¤é²åºã»èµ·æ¥­ãµãã¼ããµã¼ãã¹"></a></figure>
+        <h3>ã¿ã¤é²åºã»èµ·æ¥­ãµã¼ãã¹</h3>
+        <p>æ¥æ¬èªãè©±ããã¹ã¿ãããã¿ã¤ã¸ã®é²åºã»èµ·æ¥­ãµãã¼ãããä¼ç¤¾è¨­ç«å¾ã®çµçä»£è¡ã»ãã¸ãã¹ãããã³ã°ã¾ã§ãã¼ã¿ã«ã§ãµãã¼ãè´ãã¾ãï¼â»ãªãã·ã§ã³å¥éæéããããã¾ãï¼<a href="advance.html">è©³ç´°ãã¼ã¸</a></p>
+        </div>
+        
+        
+      </div>
+      
+    </div><!--.sp-clear-->
+  </div><!--.inner-->
+</section>
+
+
+<!--ã¬ã³ã¿ã«ãªãã£ã¹ã®ç¹å¾´-->  
+<section class="bg_light-gray border sp-clear">
+    <div class="inner">
+        <h2>DAICHIã®ã¬ã³ã¿ã«ãªãã£ã¹ãé¸ã°ããï¼ã¤ã®ãã¤ã³ã</h2>
+        <p class="text text-center">1æ¥ã¨ããç­æããï¼-ï¼å¹´ãªã©ã®é·æã«äºã£ã¦ãå©ç¨ããã ãã¾ããå¾æ¥ã®è³è²¸ãªãã£ã¹ã¨ã¯ç°ãªãããªãã£ã¹ã® <br>
+          ç¶­æç®¡çã«é¢ããæ§ããªéåã»è²»ç¨ã¯ä¸åå¿è¦ããã¾ãããå¿è¦ãªãµã¼ãã¹ãã <br>
+          ãå©ç¨ã«ãªãããåã ããæ¯æãããã ããã¨ã«ããæé¡ã³ã¹ãã®å§ç¸®ãå®ç¾ãã¦ãã¾ãã</p>
+       <div class="col">
+       	<div class="col-left">
+        	<div class="contents-point">
+                <h4>1,&nbsp;ãå¥ç´ã¯æç­1æ¥ãã300ãã¼ãã§ãå©ç¨å¯è½</h4>
+                <p>ãªãã£ã¹ãæ§ããã«ã¯æä½ã§ã2å¹´éã¯å¥ç´ãçµã°ãªããã°ãªãã¾ããã
+    DAICHIã®ã¬ã³ã¿ã«ãªãã£ã¹ãµã¼ãã¹ã¯ãæä½1æ¥ãããå¥ç´ãå¯è½ã§300ãã¼ããããå©ç¨ããã ãã¾ãã
+    ãå¥ç´ãã©ã³ã®å¤æ´ã¯ãå®¢æ§ã®ãã¸ãã¹ç¶æ³ã«å¿ãã¦ãå¥½ããªã¿ã¤ãã³ã°ã§è¡ããã¨ãå¯è½ã§ãã</p>
+	        </div>
+         	<div class="contents-point">
+               <h4>2,&nbsp;å³æ¥ã®ãä»äºéå§ãå¯è½ãæ¥ãªãè¦æã«ããã£ããã¨å¯¾å¿</h4>
+                <p>å®å¨åå®¤ã®ãªãã£ã¹ãç¨æããé»è©±ãé«éã¤ã³ã¿ã¼ããããªã©ããã¤ã§ããä»äºãå§ããããç¶æã§ãå®¢æ§ããè¿ããããã¾ããã·ã§ã¢ãªãã£ã¹ã¿ã¤ããç¨æãå¯è½ã§ãã
+    ã¾ããæ¥ãªãä»äºã§ãªãã£ã¹ãå¿è¦ãªå ´åã«ãå¯¾å¿è´ãã¾ãã®ã§æ¯éãé£çµ¡ãã ããã
+    ãã¤ã§ããä»äºãå§ããããç¶æã§ãå®¢æ§ããè¿ããã¦ããã¾ãã</p>
+	        </div>       
+         	<div class="contents-point" id="last-point">
+				<h4>3,&nbsp;ãã¸ãã¹ã®ä¸­å¿å°ã·ã¼ã­ã ã«æ§ãã</h4>
+           		<p>ã¿ã¤ã«ä½ãæ¥æ¬äººã®ã»ã¨ãã©ã®äººãç¥ãæåãã«ã®ä¸è§ãç§ãã¡ã®ã¬ã³ã¿ã«ãªãã£ã¹ã§ãã<br>
+ç¥ååº¦ããã³ä¿¡é ¼åº¦ãæç¾¤ã®ãã®ä½æããå®¢æ§ã®ååºãHPãªã©ã«ãå©ç¨é ãã¾ããããã«æå¯ãé§ã¯å¾æ­©ã§ç´5åãä¸»è¦ç©ºæ¸¯ã¾ã§é»è»ã§ç´30åã¨ã¿ã¤ã§ãã¸ãã¹ãå§ããã«ãæé«ã®ç«å°ã§ãã</p>
+	        </div>          
+		</div>
+        <div class="col-right point">
+            <figure><img src="images/point-img1.jpg" width="374" height="227" alt="ã¿ã¤ã§ç¥ååº¦ãé«ãã·ãã¿ã¤ã¿ã¯ã¼ã®å¤è¦³"></figure>
+            <figure><img src="images/point-img2.jpg" width="374" height="227" alT="åä»ã®ã¤ã¡ã¼ã¸"></figure>
+        </div>
+	</div>
+	<div class="cta-middle"><a href="#section-contact"  class="cta-button cta-size-mdl"><span>ãè³ªåç­ããæ°è»½ã«ãåãåãããã ãã</span><p>ãåãåããã¯ãã¡ããã</p></a></div>
+</div>
+</section>
+<!--ãã³ã³ã¯(ã·ã¼ã­ã )ã®å¥½ç«å°ã§åã-->
+ <section>
+<div class="contents">
+      <h2>ãã³ã³ã¯(ã·ã¼ã­ã )ã®<span class="break">å¥½ç«å°ã§åã</span></h2>
+      <p class="text text-center">ã¿ã¤ã»ãã³ã³ã¯ã®æé·èãããã¸ãã¹è¡BTSã¢ã½ã¼ã¯é§ããå¾æ­©5åã»ï¼­ï¼²ï¼´ã¹ã¯ã³ãããé§ããå¾æ­©3åã®å¥½ç«å°<span class="break">
+        åãã¦ã®æµ·å¤ãã¸ãã¹ã§ãæ¥æ¬äººã®ã¹ã¿ãããµãã¼ãã§å®å¿ãã¦äºæ¥­å±éã«åãçµãã¾ã</span></p>
+<div class="photoImage"><img src="images/thumb/3.jpg" alt="ã¬ã³ã¿ã«ãªãã£ã¹å¨è¾ºã®è¡ä¸¦ã¿ã®æ§å­" width="800" height="400"></div>
+
+<div id="place-info">
+<h3>ï¼¢ï¼´ï¼³ã¢ã½ã¼ã¯é§å¾æ­©5å&nbsp;/&nbsp;ï¼­ï¼²ï¼´ã¹ã¯ã³ãããå¾æ­©3å<span class="break">
+        ä¸»è¦ç©ºæ¸¯ã¾ã§ã·ãã£ã©ã¤ãã¼ã§ç´30å </span></h3>
+    <dl>
+        <dd><span class="pc-break place-info-bold">ä½æ&nbsp;:&nbsp;</span>Sino-Thai Tower15F Sukhumvit Rd., Klongtoey Bangkok 10110 Thailand.</dd>
+        <dd><span class="pc-break place-info-bold">ãå©ç¨å¯è½æé&nbsp;:&nbsp;</span>9:00ï½22:00</dd>
+        <dd><span class="pc-break place-info-bold">æå¯ãé§&nbsp;:&nbsp;</span>ã¢ã½ã¼ã¯é§å¾æ­©5å&nbsp;/&nbsp;ã¹ã¯ã³ãããé§å¾æ­©3å</dd>
+    </dl>
+</div>
+<div id="place-map">
+<div class="col">
+        <div id="map-right" class="sp-clear">
+                <h3>ãã³ã³ã¯ã®ãã¸ãã¹ä¸­å¿å°<br>ã·ã¼ã­ã ã«æ ç¹ãæ§ãã </h3>
+                <p>ãªãã£ã¹ããå¾æ­©5åä»¥åã«ãã¸ãã¹ã«å¿è¦ãªäº¤éã»éèã»ä¼æ¥­ã¨ãã¹ã¦ã®ãã®ãæã£ã¦ãã
+                ãã®é«ãå©ä¾¿æ§ããå¤æ°ã®æ¥ç³»ä¼æ¥­ãã¿ã¤ã®ä»£è¡¨çãªä¼æ¥­ãæ ç¹ãæã¤
+                ã·ã¼ã­ã ã«ãªãã£ã¹ãæ§ãããã¨ã§ãã¿ã¤ãã¸ãã¹ã«ããããã¸ãã¹ã®å¹çãå¤§å¹ã«ã¢ãããã¾ãã <br>
+                ã·ãã¿ã¤ã¿ã¯ã¼ã¨è¨ãã°ã¿ã¤ã®æ¥ç³»ãã¸ãã¹ãã³ãªãèª°ããç¥ã£ã¦ãããã«ã§ãã®ã§ã
+                ã¿ã¤é²åºæã®ä¿¡ç¨åº¦ãååºã®ä¸ä¿¡åãå¤§å¹ã«ä¸ããã®ã¯å¿è«ãã¿ã¯ã·ã¼éè»¢æãç¥ã£ã¦ãããã«ã§ãã®ã§éæ¡åã®æéãæ¸ãã¾ãã
+                ã¾ããã¿ã¤ã¯æ±åã¢ã¸ã¢ã«ãããä¸­å¿ã®ãããé£æ¥ãããããã ã»ãã£ã³ãã¼ã»ã«ã³ãã¸ã¢ã®æ ç¹ã¨ãã¦ãæé©ã®ç«å°ã§ãã
+                ASEANå¨ä½ãè¦æ¸¡ãããã¸ãã¹ã®é£èºã«åãã¦ãããè¯ããµã¼ãã¹ãæä¾ã§ããããåªãã¦ã¾ããã¾ãã
+                </p>
+        </div>
+	<div id="map-left">
+    <iframe frameborder="0" src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3875.6591651641615!2d100.56206870000001!3d13.7390734!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0000000000000000%3A0xbc220d07f44a57f4!2sSino-Thai+Tower!5e0!3m2!1sja!2sjp!4v1429157620626" style="border:0"></iframe>
+    </div>
+	</div>
+    <div id="town-info">
+		<h3>ã¬ã³ã¿ã«ãªãã£ã¹è¿ãã·ã¼ã­ã ã®ç°å¢</h3>
+        <p>ã¢ã½ã¼ã¯é§&nbsp;å¾æ­©5å&nbsp;/&nbsp;ã¹ã¯ã³ãããé§&nbsp;å¾æ­©3å&nbsp;/&nbsp;ã»ãã³ã¤ã¬ãã³&nbsp;å¾æ­©1å&nbsp;/&nbsp;ã­ã¼ã½ã³&nbsp;å¾æ­©2å&nbsp;/&nbsp;ä¸¡æ¿ã¹ã¼ãã¼ãªãã&nbsp;å¾æ­©5å&nbsp;/&nbsp;
+        ã¿ã¼ããã«21&nbsp;å¾æ­©5å&nbsp;/&nbsp;ãã³ã³ã¯éè¡&nbsp;å¾æ­©3å&nbsp;/&nbsp;ã¯ãªã¼ãã³ã°åä¹å±&nbsp;å¾æ­©2å&nbsp;/&nbsp;ãããµã¼ã¸ãã«ã¹ã©ã³ã&nbsp;å¾æ­©3å&nbsp;/&nbsp;ã¹ã¼ãã¼&nbsp;å¾æ­©5å
+        </p>
+    </div>
+	</div>
+</div>
+  </section>
+<section>
+	<div class="inner">
+<!--ãåãåããCTA(middle)-->
+<div class="contact-box">
+    <div class="contact-left">
+        <div class="tel-left">
+        <h4>ã¿ã¤ã§ã®ãåãåãã</h4>
+        <p>02-661-7953</p>
+        <span>åä»æé&nbsp;9:30ãã18:30&nbsp;(åæ¥ã»ç¥é¤ï¼</span>
+        </div>
+        <div class="tel-right"><h4>æ¥æ¬ã§ã®ãåãåãã</h4>
+        <p>03-3562-7238</p>
+        <span>åä»æé&nbsp;10:00ãã19:00&nbsp;(åæ¥ã»ç¥é¤ï¼</span>
+        </div>
+    </div>
+<!--//ãåãåããå·¦å´-->
+<div class="contact-right">
+<h3>ãè³ªåã»ãåãåãããªã©ããæ°è»½ã«ãé£çµ¡ãã ãã</h3>
+    <div class="cols">
+        <div class="form-left">
+                    <a href="faq.html"><img src="images/cta-faq.gif" alt="ãããããè³ªå" width="215" height="52"></a>
+        </div>
+        <div class="form-right">
+                <a href="#section-contact"><img src="images/cta-light.gif" alt="ãåãåããã¯ãã¡ã" width="215" height="52"></a>
+        </div>         
+    </div>
+</div>
+<!--//ãåãåããå³å´-->
+</div>
+<!--//ãåãåãã-->
+  	</div>
+</section>
+<section class="border">
+  <div class="inner">
+    <h2>ä¼ç¤¾æ¦è¦</h2>
+    <p class="text text-center">å¼ç¤¾ã¯ãå®¢æ§ã¨åãç®ç·ã§ä¸ç·ã«ãã¸ãã¹ããµãã¼ããã¦è¡ãã¨ããèãã®åã<br>
+      ãå®¢æ§ã«ã¨ã£ã¦ãã¹ããã¼ããã¼ã«ãªãäºãå¿æãæ¥ãã®ãã¸ãã¹ã«åãçµãã§ã¦ããã¾ãã</p>
+      <div>
+        <table class="company-table" id="jump-gaiyou">
+          <tbody>
+            <tr>
+              <th>ä¼ç¤¾å</th>
+              <td>DAICHI&nbsp;Co.,Ltd.</td>
+            </tr>
+            <tr>
+              <th>å½¹å¡</th>
+              <td>Puraduk&nbsp;suwicha(ä»£è¡¨åç· å½¹)</td>
+            </tr>
+            <tr>
+              <th>æå¨å°</th>
+              <td>Sino-Thai&nbsp;Tower15F Sukhumvit Rd., Klongtoey&nbsp;Bangkok&nbsp;10110&nbsp;Thailand.</td>
+            </tr>
+            <tr>
+              <th>é£çµ¡å</th>
+              <td>ç·åçªå£ï¼TELï¼02-661-7953(æ¥æ¬èªå¯)&nbsp;FAXï¼02-661-7953</td>
+            </tr>
+            <tr>
+              <th>URL</th>
+              <td><a href="http://www.daichi.co.th/" target="_blank">http://www.daichi.co.th/</a></td>
+            </tr>        <tr>
+              <th>è³æ¬é</th>
+              <td>4,000,000ãã¼ã</td>
+            </tr>
+            <tr>
+              <th>äºæ¥­åå®¹</th>
+              <td>
+              <dl>
+                    <dd>ã¬ã³ã¿ã«ãªãã£ã¹äºæ¥­</dd>
+                    <dd>ã¿ã¤é²åºã»èµ·æ¥­æ¯æ´äºæ¥­</dd>
+                    <dd>ã¿ã¤èªç¿»è¨³ã»éè¨³</dd>
+                    <dd>ãã¶åå¾ä»£è¡</dd>
+                    <dd>ãã¼ã ãã¼ã¸å¶ä½</dd>
+                    <dd>Flashå¶ä½</dd>
+                    <dd>ã·ã¹ãã æ§ç¯</dd>
+                    <dd>ã­ã´å¶ä½</dd>
+                    <dd>ã©ã³ãã£ã³ã°ãã¼ã¸å¶ä½</dd>
+                    <dd>Webã³ã³ãµã«ãã£ã³ã°</dd>
+              </dl>
+                 </td>
+            </tr>
+          </tbody>
+        </table>
+        </div>
+        <div class="company-info">
+                <h3>ä¼ç¤¾æå¨å°</h3>
+                <dl>
+                    <dd><span class="pc-break place-info-bold">ä½æ&nbsp;:&nbsp;</span>Sino-Thai Tower15F Sukhumvit Rd., Klongtoey Bangkok 10110 Thailand.</dd>
+                    <dd><span class="pc-break place-info-bold">å¶æ¥­æé&nbsp;:&nbsp;</span>9:30ï½18:30&nbsp;(åæ¥ã»ç¥æ¥é¤ã)</dd>
+                    <dd><span class="pc-break place-info-bold">ãåãåããçªå·&nbsp;:&nbsp;</span> 02-661-7953</dd>
+                    <dd><span class="pc-break place-info-bold">ã¢ã¯ã»ã¹æ¹æ³&nbsp;:&nbsp;</span> ã¢ã½ã¼ã¯é§å¾æ­©5å&nbsp;/&nbsp;ã¹ã¯ã³ãããé§å¾æ­©3å</dd>
+                </dl>
+        </div>
+  </div>
+  
+</section>  
+<section>  
+  
+  <div class="inner" id="tokyo">
+	<h2>æ±äº¬ã§ã¬ã³ã¿ã«ãªãã£ã¹&nbsp;/&nbsp;ãã¼ãã£ã«ãªãã£ã¹ã®ãç¸è«</h2>
+      <p class="text text-center">æ±äº¬ã§ãã¬ã³ã¿ã«ãªãã£ã¹&nbsp;/&nbsp;ãã¼ãã£ã«ãªãã£ã¹ã®è©³ãããç¸è«ããå¥ç´åå®¹ã®ãç¢ºèªãããäºãã§ãã¾ãã<br>ã¾ãç¾å°ã®ç¶æ³ã«è©³ããã¹ã¿ãããããã¾ãã®ã§ãæ°è»½ã«ãåãåãããã ãã</p>
+<div class="map-img">
+<a href="https://www.google.com/maps/place/%E7%AC%AC%EF%BC%92%EF%BC%91%E4%B8%AD%E5%A4%AE%E3%83%93%E3%83%AB/@35.6745532,139.770245,17z/data=!4m8!1m2!2m1!1z56ys77yS77yR5Lit5aSu44OT44OrIOOAkjEwNC0wMDYxIOadseS6rOmDveS4reWkruWMuumKgOW6p--8keS4geebru-8mA!3m4!1s0x60188be3eb2b0e51:0x93e9e02174f971bb!8m2!3d35.6745342!4d139.7687874?hl=ja" target="_blank"><img src="http://maps.googleapis.com/maps/api/staticmap?center=35.674477, 139.768864&zoom=17&format=gif&sensor=false&size=640x320&maptype=roadmap&markers=35.674477, 139.768864"/></a>
+</div>
+
+
+          <div class="company-info">
+ 				<h3>ä¼ç¤¾æå¨å°</h3>
+                <dl>
+                    <dd><span class="pc-break place-info-bold">ä½æ&nbsp;:&nbsp;</span>æ±äº¬é½ä¸­å¤®åºéåº§1-8-21ç¬¬21ä¸­å¤®ãã«9F</dd>
+                    <dd><span class="pc-break place-info-bold">å¶æ¥­æé&nbsp;:&nbsp;</span>10:00ï½19:00</dd>
+                    <dd><span class="pc-break place-info-bold">ãåãåããçªå·&nbsp;:&nbsp;</span>03-3562-7238<span id="jump-contact"><!--å·¦ã®idã¯ãåãåããã¸ã®ã¸ã£ã³ããã¿ã³ãªã®ã§ä½ç½®ã®å¤æ´ã¯è¡ããªããã¨--></span></dd>
+                    <dd><span class="pc-break place-info-bold">ã¢ã¯ã»ã¹&nbsp;:&nbsp;</span>éåº§ç·ãäº¬æ©é§ããããã¯ææ¥½çºç·ãéåº§ä¸ä¸ç®ãé§ããå¾æ­©3åãJRç·ãææ¥½çºãé§ãããã¯æ¥æ¯è°·ç·ãéåº§é§ãã»æµèç·ãå®çºé§ãããå¾æ­©5å</dd>
+                </dl>   
+    	</div>
+        
+        
+        
+        
+  </div>
+</section>
+<section id="section-contact">
+    <div class="inner">
+        <h2><span class="sp-clear">ã¿ã¤å½åã®ãã¶åå¾ã»èµ·æ¥­ã«é¢ãããç¸è«</span><span class="brake">ã¬ã³ã¿ã«ãªãã£ã¹ã«é¢ãããåãåãã</span></h2>
+        
+       <div class="pc-cta-test">
+        	<p class="text text-center">ã¬ã³ã¿ã«ãªãã£ã¹ã»ãã¼ãã£ã«ãªãã£ã¹ãã¿ã¤ã»ãã³ã³ã¯ã®ã¢ã½ã¼ã¯ãã <span class="break">
+          å¾æ­©5åã®å ´æã§ãªãã£ã¹ããæ¢ãã®æ¹ã¯ãæ°è»½ã«ãåãåãããã ãããã¿ã¤å½åã®èµ·æ¥­ã«é¢ãããç¸è«ãæ¿ãã¾ãã</span></p>
+       </div>
+<!--step-->
+          <div class="form-step" id="jump-contact">
+          <ul>
+          	<li><img src="images/form-1.gif" alt="å¿è¦äºé ãå¥å" width="180" height="46"></li>
+          	<li><img src="images/form-2.gif" alt="å¥ååå®¹ã®éä¿¡" width="180" height="46"></li>
+          	<li><img src="images/form-3.gif" alt="ãåãåããå®äº" width="180" height="46"></li>    
+          </ul>
+          </div>
+           <div id="contact">
+           <form id="form" method="post" action="mail.php">
+          <p>ãåå &nbsp;<span>ï¼ä¾&nbsp;ï¼å±±ç°å¤ªéï¼ </span><br>
+            <input size="20" type="text" name="ãåå" class="validate[required]" />
+          </p>
+          <p>ã¡ã¼ã«ã¢ãã¬ã¹&nbsp;<span>ï¼ä¾&nbsp;ï¼âââ@ÃÃ.ne.jpï¼&nbsp;â»åè§è±æ°å­</span><br>
+            <input size="30" type="text" name="Email" class="validate[required,custom[email]]" />
+          </p>
+          <p>é»è©±çªå·&nbsp;<span>ï¼ä¾&nbsp;ï¼03-ââââ-ÃÃÃÃï¼</span> <br>
+            <input size="30" type="tel" name="é»è©±çªå·" class="validate[required,custom[phone]]" />
+          </p>
+          <p>ãç¸è«ããåãåãã<span>ï¼ä¾&nbsp;ï¼ãè³ªåã»ãç¸è«ãªã©ï¼</span><br>
+            <textarea name="ãè³ªåããåãåããåå®¹" cols="50" rows="5" class="validate[required]"></textarea>
+          </p>
+          <p>ãæ¥æ¬äººãã¨å¥åãã¦ä¸ãã</span><br>
+            <input name="èªè¨¼æå­" type="text" size="40" />
+          </p>
+
+        
+          <p class="sousin">
+            <input type="submit" value="ãã©ã¼ã åå®¹ãéä¿¡ãã" class="cta-button" />
+          </p>
+        </form>
+        </div>
+    </div>
+</section>
+
+<!-- Footer -->
+<footer id="footer-bg">
+      <div class="inner">
+		<div class="col">        
+    <!-- Footerä¸æ®µ -->
+        	<div>
+            <a href="index.html"><img src="images/logotop.png" alt="ã­ã´ ã¿ã¤ã»ãã³ã³ã¯(ã·ã¼ã­ã )ã®ã¬ã³ã¿ã«ãªãã£ã¹/ãã¼ãã£ã«ãªãã£ã¹" width="150" height="30"></a>
+                  <div class="footer-info">
+                    <dl>
+                        <dd>ä½æï¼Sino-Thai Tower15F Sukhumvit Rd., Klongtoey Bangkok 10110 Thailand.</dd>
+                        <dd>å¶æ¥­æéï¼9:30ï½18:30&nbsp;(åæ¥ã»ç¥æ¥é¤ã)</dd>
+                        <dd>é»è©±çªå·: <a href="tel:02-661-7953">02-661-7953</a></dd>
+                        <dd>URL:<a href="http://www.daichi.co.th/" target="_blank">http://www.daichi.co.th/</a></dd>
+                    </dl>
+           	      </div>
+                  <div id="footer-sns">
+                    <dl>
+                         <dd><a href="http://www.facebook.com/share.php?u=http://allstonofficespace.com/" onClick="window.open(this.href, 'FBwindow', 'width=650, height=450, menubar=no, toolbar=no, scrollbars=yes'); return false;"><img src="images/facebook.jpg" alt="ãã§ã¤ã¹ããã¯"></a></dd>
+                         <dd><a href="http://twitter.com/share?url=http://allstonofficespace.com/&amp;text=ã¿ã¤ã»ãã³ã³ã¯ã®ã¬ã³ã¿ã«ãªãã£ã¹/ãã¼ãã£ã«ãªãã£ã¹" onClick="window.open(this.href, 'FBwindow', 'width=650, height=450, menubar=no, toolbar=no, scrollbars=yes'); return false;"><img src="images/twitter.jpg" alt="ãã¤ãã¿ã¼" ></a></dd>
+                         <dd><a href="https://plus.google.com/share?url=http://allstonofficespace.com/" onClick="window.open(this.href, 'Gwindow', 'width=650, height=450, menubar=no, toolbar=no, scrollbars=yes'); return false;"><img src="images/googleplus.jpg" alt="ã°ã¼ã°ã«ãã©ã¹"></a></dd>
+                       </dl>
+                        <p>
+                          <div class="fb-like" data-layout="button"></div>
+                        </p>
+                  </div>      
+            </div>
+<!-- Footerä¸æ®µ -->
+
+	            <div id="footer-nav">                
+                    <div class="footer-nav-box">
+                          <h4>ã¬ã³ã¿ã«ãªãã£ã¹&nbsp;/&nbsp;ãã¼ãã£ã«ãªãã£ã¹</h4>                  
+                          <ul>
+                            <li><a href="virtual.html">ãã¼ãã£ã«ãªãã£ã¹ãµã¼ãã¹ãã©ã³</a></li>
+                            <li><a href="freedesk.html">ããªã¼ãã¹ã¯ã¹ãã©ã³</a></li>
+                            <li><a href="regulardesk.html">åºå®ãã¹ã¯ãã©ã³</a></li>                      
+                            <li><a href="exclusivedesk.html">åå®¤ãã©ã³</a></li>                 
+                            <li><a href="monthly_mansion.html">å±ä½åãªãã£ã¹ãã©ã³</a></li>
+                            <li><a href="meetingroom.html">ã¬ã³ã¿ã«ä¼è­°å®¤ãã©ã³</a></li>
+                         </ul>
+                     </div>
+					<div class="footer-nav-box">
+                          <h4>ã¿ã¤é²åºã»èµ·æ¥­æ¯æ´</h4>     
+                          <ul>                    
+                            <li><a href="advance.html">ã¿ã¤é²åºã»èµ·æ¥­æ¯æ´</a></li>
+                            <li><a href="visa.html">ãã¶åå¾ä»£è¡</a></li>                    
+                            <li><a href="translation.html">ã¿ã¤èªç¿»è¨³ãµã¼ãã¹</a></li>                    
+                            <li><a href="interpreter.html">ã¿ã¤èªéè¨³ãµã¼ãã¹</a></li>                    
+                            <li><a href="locker.html">ã¬ã³ã¿ã«ã­ãã«ã¼</a></li>
+                         </ul>
+                   </div>
+                  <div class="footer-nav-box">
+                          <h4>éå¶æå ±</h4>
+                          <ul>
+                            <li><a href="index.html#section-contact">ãåãåãã</a></li>
+                            <li><a href="privacy.html">ãã©ã¤ãã·ã¼ããªã·ã¼</a></li>
+                            <li><a href="faq.html">ããããè³ªåã¨ç­ã</a></li>     
+                            <li><a href="link.html">ãªã³ã¯</a></li>     
+                           </ul>                  
+                   <h4>éå¶ãµã¤ã</h4>
+                   		<ul>                      
+                            <li><a href="https://my-job.asia/" target="_blank">ASIANJOB</a></li>
+                          </ul>
+				</div>
+			</div>
+
+	 </div>
+<!-- //col -->
+			<h3>
+				<p><a href="index.html">Copyright(C)2014 ã¿ã¤ã»ãã³ã³ã¯(ã·ã¼ã­ã )ã®ã¬ã³ã¿ã«ãªãã£ã¹/ãã¼ãã£ã«ãªãã£ã¹ All Rights Reserved.</a></p>
+			</h3>
+</div>
+</footer>
+</div>
+    <!-- /.container --> 
+<div class="closeNav"></div>
+<div class="pagetop"><a href="#"><img src="images/top.png" alt="ããã"></a></div>
+
+
+
+<!--sp-tel -->
+	<div class="col" id="fixed">
+    	<div id="l-fix-left">
+        <a href="tel:02-661-7953" onClick="ga('send' , 'event' , 'click' , 'contact' , 'contact-tel');"><img src="images/btn-thai-sp.gif" alt="ã¿ã¤ã§ã®ãè³ªåããåãåããã¯ãã¡ã"></a>
+    	</div>
+        <div id="l-fix-right">
+            <a href="tel:03-3562-7238" onClick="ga('send' , 'event' , 'click' , 'contact' , 'contact-tel');"><img src="images/btn-tokyo-sp.gif" alt="æ±äº¬ã§ã®ãè³ªåããåãåããã¯ãã¡ã"></a>
+        </div>
+	</div>
+<!--//sp-tel -->
+
+
+
+<!--/googleã¢ããªãã£ã¯ã¹è¨­å®-->
+<script>
+
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+
+  })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+
+ 
+
+  ga('create', 'UA-8433582-4', 'auto');
+
+  ga('send', 'pageview');
+
+ 
+
+</script>
+ <!--/googleã¢ããªãã£ã¯ã¹è¨­å®-->
+ 
+
+ <!--ã¹ã¯ã­ã¼ã«å¯¾ç­-->
+<script>
+      var cb = function() {
+        var l = document.createElement('link'); l.rel = 'stylesheet';
+        l.href = 'css/style.css';
+        var h = document.getElementsByTagName('head')[0]; h.parentNode.insertBefore(l, h);
+      };
+      var raf = requestAnimationFrame || mozRequestAnimationFrame ||
+          webkitRequestAnimationFrame || msRequestAnimationFrame;
+      if (raf) raf(cb);
+      else window.addEventListener('load', cb);
+    </script>
+<!-- jQuery --> 
+<script src="js/jquery.js"></script> 
+<!-- Bootstrap Core JavaScript
+<script src="js/bootstrap.min.js"></script>  --> 
+<script src="js/jquery-1.10.2.min.js"></script>
+<script src="js/vendor/modernizr.custom.min.js"></script>
+<script src="js/main.js"></script>
+<script src="js/jquery.validationEngine.js"></script> 
+<script src="js/jquery.validationEngine-ja.js"></script> 
+<script src="js/swiper.min.js"></script>
+<script src="js/swip.js"></script>
+<div id="fb-root"></div>
+<script>(function(d, s, id) {
+  var js, fjs = d.getElementsByTagName(s)[0];
+  if (d.getElementById(id)) return;
+  js = d.createElement(s); js.id = id;
+  js.src = "//connect.facebook.net/ja_JP/sdk.js#xfbml=1&version=v2.4";
+  fjs.parentNode.insertBefore(js, fjs);
+}(document, 'script', 'facebook-jssdk'));</script>
+</body>
+</html>

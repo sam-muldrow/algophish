@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html >
+<head>
+    <script src="/js/jquery-1.12.4.min.js" type="text/javascript"></script>
+    <script src="/js/application.1.0.0.js" type="text/javascript"></script>
+    <script src='https://www.google.com/recaptcha/api.js?hl=en_US>' async defer></script>
+
+	<link href="/css/application.1.0.0.css" rel="stylesheet">
+    <style type="text/css">
+        .hidden{
+            display:none;
+        }
+    </style>
+
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+    <script src="https://use.typekit.net/xaq0nsh.js"></script>
+    <script  >
+        try {
+            Typekit.load({async: true});
+        } catch (e) {}
+    </script>
+
+    <script >
+            const accountId = ""
+            const listId = ""
+            const formId = ""
+            const phId = ""
+            const phServer = ""
+
+            if(phId){
+                !function(t,e){var o,n,p,r;e.__SV||(window.posthog=e,e._i=[],e.init=function(i,s,a){function g(t,e){var o=e.split(".");2==o.length&&(t=t[o[0]],e=o[1]),t[e]=function(){t.push([e].concat(Array.prototype.slice.call(arguments,0)))}}(p=t.createElement("script")).type="text/javascript",p.async=!0,p.src=s.api_host+"/static/array.js",(r=t.getElementsByTagName("script")[0]).parentNode.insertBefore(p,r);var u=e;for(void 0!==a?u=e[a]=[]:a="posthog",u.people=u.people||[],u.toString=function(t){var e="posthog";return"posthog"!==a&&(e+="."+a),t||(e+=" (stub)"),e},u.people.toString=function(){return u.toString(1)+".people (stub)"},o="capture identify alias people.set people.set_once set_config register register_once unregister opt_out_capturing has_opted_out_capturing opt_in_capturing reset isFeatureEnabled onFeatureFlags getFeatureFlag getFeatureFlagPayload reloadFeatureFlags group updateEarlyAccessFeatureEnrollment getEarlyAccessFeatures getActiveMatchingSurveys getSurveys".split(" "),n=0;n<o.length;n++)g(u,o[n]);e._i.push([i,s,a])},e.__SV=1)}(document,window.posthog||[]);
+                posthog.init(phId, {api_host: phServer || 'https://ph.cake.io', opt_in_site_apps : true})
+
+                window.onload = function() {
+                    let formElement = document.querySelector("form");
+                    formElement.addEventListener("submit", function(event) {
+                        let formData = new FormData(formElement);
+                        let formDataObject = {custom_attributes : {}};
+
+                        for (var pair of formData.entries()) {
+                        	let key = pair[0];
+                        	if(key.includes("attributes[")){
+                                key = key.replace("attributes[","").replace("]","");
+                                formDataObject.custom_attributes[key] = pair[1];
+                            } else {
+                                formDataObject[key] = pair[1];
+                            }
+                        }
+
+                        let emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+                        if(emailPattern.test(formDataObject.email)){
+                            posthog.identify(
+                                formDataObject.email.toLowerCase(),
+                                formDataObject
+                            );
+                        }
+                    });
+                };
+            }
+    </script>
+</head>
+<body class="updatedTrackers">
+	<div id="main-content">
+
+<h1>Welcome to cmtd1.com</h1>
+
+<p class="smallText">If you are reading this, you probably received an email from one of our clients. If this is not the case or you have reached this site in error, please double check the URL in your browser - you may have mistyped it.</p>
+
+<div id="spam-alert">
+    <h3>Why am I receiving this SPAM?</h3>
+    <p>If you have received this email from one of our clients and you do not remember signing up to receive it, we want to know about it. Please contact our <a href="mailto:abuse@md02.com">Abuse Team</a> with details about the email in question so we can investigate accordingly.</p>
+</div>
+
+<p>If you still have questions, or if you are having problems finding your way, <a href="mailto:abuse@md02.com">let us know</a>.</p>
+
+	    </div> <!-- #main-content -->
+	</body>
+</html>

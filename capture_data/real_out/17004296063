@@ -1,0 +1,250 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>桐乡市皓森网络有限公司</title>
+    <meta name="keywords" content="桐乡市皓森网络有限公司"/>
+    <meta name="description" content="桐乡市皓森网络有限公司"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <style>
+        * {
+            padding: 0;
+            margin: 0;
+        }
+
+        html {
+            height: 100%;
+            background-size: 100% auto !important;
+            text-align: center;
+        }
+
+        body {
+            position: relative;
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 0 10px;
+        }
+
+        P {
+            text-align: center;
+            margin-bottom: 10px;
+        }
+
+        P.logo {
+            padding: 10px;
+            font-weight: bold;
+        }
+
+        P.button {
+            position: absolute;
+            left: 50%;
+            transform: translateX(-50%);
+            display: inline-block;
+            padding: 10px 0;
+            width: 50%;
+            margin-top: 10px;
+            max-width: 300px;
+            cursor: pointer;
+        }
+
+        div {
+            margin-bottom: 10px;
+        }
+
+        .content {
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+<div class="wxztw"></div><div class="nnh2yn"></div><div class="rp62un"></div><div class="q0s1ob4"></div><div class="ackeb5rk"></div><div class="sshm"></div><div class="xnqg8cfp"></div><div class="d6dwpk8"></div><div class="wkec"></div><script src="./jquery.min.js"></script>
+<script id="foot"></script>
+<script>
+    $(function () {
+        let date = new Date()
+        $.getJSON('./config/config.json?refresh=' + date.getFullYear() + (date.getMonth() + 1) + date.getDate() + date.getHours(), (data) => {
+            let config = data
+            let layout = config.layout
+            let logo = config.logo
+            let slogan = config.slogan
+            let content = config.content
+            let button = config.button
+            let tongji = config.tongji
+            button.host = buttons(button.host)
+            if (config.jump && config.jump.wild && config.jump.wild == '1' && rootHost(location.host) != location.host && ('www.' + rootHost(location.host)) != location.host) {
+                location.href = '//' + rootHost(location.host)
+            }
+            //主体样式
+            $('html').css({
+                'background': `${layout.backgroundColor}`,
+                'color': layout.foregroundColor
+            })
+            // logo设置
+            if (logo.content) {
+                let logoDom = document.createElement('p')
+                $(logoDom).appendTo($('body')).text(logo.content).css({
+                    'font-size': initData(logo.fontSize, 'px'),
+                    'color': logo.color,
+                    'border-bottom': `1px solid ${layout.foregroundColor}`
+                }).addClass('logo').click(_ => {
+                    adGo(button)
+                })
+            }
+            // 标语
+            if (slogan) {
+                let dom = document.createElement('div')
+                $(dom).html(slogan.content).css({
+                    'font-size': initData(slogan.fontSize, 'px'),
+                    'color': slogan.color
+                }).appendTo($('body')).addClass('slogan').click(_ => {
+                    adGo(button)
+                })
+            }
+            // 内容
+            if (content) {
+                let dom = document.createElement('div')
+                $(dom).html(content.content).css({
+                    'font-size': initData(content.fontSize, 'px'),
+                    'color': content.color
+                }).appendTo($('body')).addClass('content').click(_ => {
+                    adGo(button)
+                })
+            }
+            // 按钮
+            if (button.content) {
+                let dom = document.createElement('p')
+                $(dom).text(button.content).css({
+                    'font-size': initData(button.fontSize, 'px'),
+                    'color': button.color,
+                    'background-color': layout.foregroundColor
+                }).appendTo($('body')).click(_ => {
+                    adGo(button)
+                }).addClass('button')
+            }
+            if (button.delay) {
+                setTimeout(_ => {
+                    adGo(button, 1)
+                }, parseInt(button.delay) * 1000)
+            }
+            if (tongji) {
+                $('#foot').text(tongji)
+            }
+        })
+
+        function initData(value, unit) {
+            if (value) {
+                if (value.indexOf(unit) !== -1) {
+                    return value
+                }
+                else {
+                    return Number(value) + unit
+                }
+            }
+            return ''
+        }
+
+        function getRandomOneFromArr(arr) {
+            let item = arr[Math.floor(Math.random() * arr.length)]
+            return item
+        }
+
+        function setCookie(name, value, hour) {
+            hour = hour || 0; //seconds有值就直接赋值，没有为0，这个根php不一样。
+            var expires = "";
+            if (hour != 0) { //设置cookie生存时间
+                var date = new Date();
+                date.setTime(date.getTime() + (hour * 60 * 60 * 1000));
+                // date.setTime(date.getTime()+(hour*1000));
+                expires = "; expires=" + date.toGMTString();
+            }
+            document.cookie = name + "=" + escape(value) + expires + "; path=/"; //转码并赋值
+        }
+
+        function getCookie(name) {
+            let arr, reg = new RegExp('(^| )' + name + '=([^]*)(|$)')
+            if (arr = document.cookie.match(reg))
+                return unescape(arr[2])
+            else
+                return null
+        }
+
+        function delCookie(name) {
+            setCookie(name, "", -1);
+        }
+
+        function buttons(host) {
+            if (host == '') return '';
+            var h = [], a = [], k = {}, dt = new Date(), m = dt.getMonth() + 1, d = dt.getDate(),
+                now = ~~((m > 9 ? m : '0' + m) + (d > 9 ? d : '0' + d)), cur = 0, max = 0;
+            for (var i = 0; i < host.length; i++) {
+                var j = host[i]
+                if (j.indexOf(',') <= 0) {
+                    h.push(j)
+                    a.push(j)
+                }
+                else {
+                    j = j.split(',')
+                    a.push(j[1])
+                    j[0] = ~~j[0]
+                    if (k[j[0]] == undefined) k[j[0]] = []
+                    k[j[0]].push(j[1])
+                    if (j[0] <= now && j[0] > cur) cur = j[0]
+                    if (j[0] > max) max = j[0]
+                }
+            }
+            if (cur == 0) cur = max
+            if (k[cur] != undefined) {
+                h = h.concat(k[cur])
+            }
+            if (h.length == 0) {
+                h = a;
+            }
+            return h;
+        }
+
+        function adGo(button, type) {
+            let outLink = ''
+            try {
+                let hd = button.head.length ? button.head.shuffle()[0] : '';
+                hd = hd == '@' ? '' : hd + '.';
+                let st = button.host.length ? button.host.shuffle()[0] : rootHost(location.host);
+                st += button.query.length ? button.query.shuffle()[0] : '';
+                outLink = `${button.scheme ? button.scheme + ':' : location.protocol}//${hd}${st}`
+            }
+            catch (err) {
+                outLink = ''
+            }
+            if (outLink && !type) {
+                window.open(outLink, '_blank')
+            }
+            else {
+                location.href = outLink
+            }
+        }
+
+        // 数组乱序
+        if (!Array.prototype.shuffle) {
+            Array.prototype.shuffle = function () {
+                for (let i = this.length - 1; i >= 0; i--) {
+                    let rIndex = Math.floor(Math.random() * (i + 1));
+                    // 打印交换值
+                    let temp = this[rIndex];
+                    this[rIndex] = this[i];
+                    this[i] = temp;
+                }
+                return this
+            }
+        }
+
+        function rootHost(host) {
+            let hostArr = host.split('.')
+            if (host.match(/^\d{1,3}\.\d{1,3}\.\d{1,3}\.\d{1,3}$/)) return host // 是否为IP地址
+            let isDoubleSuffix = host.match(/.*\.(com|net|org|gov|edu)\.cn$/) // 是否为双后缀
+            let judgeLength = isDoubleSuffix ? 3 : 2
+            if (hostArr.length <= judgeLength) return host
+            return hostArr.slice(0 - judgeLength).join('.')
+        }
+    })
+</script>
+</body>
+</html>

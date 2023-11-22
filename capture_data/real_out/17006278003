@@ -1,0 +1,1124 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+
+<head>
+<meta content="ja" http-equiv="content-language" />
+<meta content="text/html; charset=utf-8" http-equiv="Content-Type" />
+<meta content="text/css" http-equiv="Content-Style-Type" />
+<meta content="text/javascript" http-equiv="Content-Script-Type" />
+<title>戦国IXA（イクサ）公式サイト - オンライン戦国体感ゲーム -</title>
+<meta content="Yahoo!×スクウェア・エニックス オンライン戦国体感ゲーム！「戦国時代を体感せよ！」戦国武将となり、戦国を駆け抜けろ！" name="description" />
+<meta content="インターネット,ブラウザゲーム,ブラゲ,ネトゲ,オンラインゲーム,ゲーム,Webゲーム,ダウンロード不要,Mac,ネットブック,RPG,シミュレーション,育成,城主,武将,武将カード,他人数同時参加,戦国,戦国ゲーム" name="keywords" />
+<link media="screen,print" href="https://cache.sengokuixa.jp/www/150220/css/base.css" type="text/css" rel="stylesheet" />
+<link media="screen,print" href="https://cache.sengokuixa.jp/www/150220/css/common.css" type="text/css" rel="stylesheet" />
+<link media="screen,print" href="https://cache.sengokuixa.jp/www/150220/css/fontstyle.css" type="text/css" rel="stylesheet" />
+<link media="screen,print" href="https://cache.sengokuixa.jp/www/150220/js/thickbox/thickbox.css" type="text/css" rel="stylesheet" />
+<script src="https://cache.sengokuixa.jp/www/150220/js/plugin.js" type="text/javascript"></script>
+<script src="https://cache.sengokuixa.jp/www/150220/js/thickbox/thickbox.js" type="text/javascript"></script>
+<script src="https://cache.sengokuixa.jp/www/150220/js/run.js" type="text/javascript"></script>
+<script src="https://cache.sengokuixa.jp/www/150220/js/jquery.cookie.js" type="text/javascript"></script>
+<link media="screen,print" href="https://cache.sengokuixa.jp/www/150220/css/s3.css?ver=20221102" type="text/css" rel="stylesheet" />
+<link href="https://sengokuixa.jp/" rel="start" />
+
+<script type="text/javascript">
+//<![CDATA[
+$('body').ready(function(){
+	var topBg = [
+		'001_takeda',         '002_uesugi',        '003_houzyou',
+		'004_takedanobutora', '005_ashinamoriuzi', '006_satake',
+		'007_asakura',        '008_asai',          '009_satomi',
+		'010_honganji',       '011_tachibana',     '012_nagano',
+		'013_saburou',
+	];
+	var leng = topBg.length;
+	$('body').css('background-image','url(https://cache.sengokuixa.jp/www/150220/img/s3/tonobg_s26/'+topBg[Math.floor(Math.random()*leng)]+'.jpg?d=20230810)');
+});
+
+$(document).ready(function(){
+	var bannerNum = $('#bannerArea ul#bannerSlide li').length;//件数
+	var dNum = 3;//表示の数
+	var bPa=dNum-(bannerNum%dNum) + 1;//最後が半個なので+1
+	for (i=bPa; 0<i; i--){
+		$('#bannerArea ul#bannerSlide').append('<li>&nbsp;</li>');
+	}
+	var bannerNumPage = bannerNum / dNum - 1;//ボタンでめくりたい数
+	//
+	var bannerHei = bannerNum * 57;
+	if (bannerHei<194){bannerHei=194;}
+	$('#bannerArea ul#bannerSlide').css({'height':bannerHei+'px'});//縦幅
+	slideChange('#obt #bannerSlide',171,'#obt #btnBnUp a','#obt #btnBnDown a','top',bannerNumPage);//実行
+});
+
+$(document).ready(function(){
+	$('#newsBox dl a').hover(function(){
+		$(this).parent().prev().css('backgroundPosition','8.5em bottom');
+	},function(){
+		$(this).parent().prev().css('backgroundPosition','8.5em top');
+	});
+});
+
+$(document).ready(function(){
+	var bgImg=['new','info','event','mainte','up','fix'];
+	var imgLoad=[];
+	for (var i=0; i<bgImg.length; i++){
+		imgLoad[i]=new Image();
+		imgLoad[i].src='https://cache.sengokuixa.jp/www/150220/img/s3/s3_news_bg_'+bgImg[i]+'.gif';
+	}
+	$('#newsNavi a').click(function(){
+		var newsId = $(this).parent().attr('id');
+		var mStr = newsId.replace('nBtn','');
+		$('[id^=newsBody]').css('display','none');
+		$('#newsBody'+mStr).css('display','block');
+		return false;
+	});
+	$('[id^=newsBody]').css('display','none');
+	$('#newsBodyNew').css('display','block');
+});
+
+$(document).ready(function(){//カードポップアップ
+	var cardPopNone = function(){//カード非表示
+		$('.popCardIn').css('display','none');
+	};
+	var cardPopNum = $('.popCardIn').length - 1;
+	$('.popCardIn .number p').each(function(index){//カードページ表示
+		var idx = index;
+		var idxp = index + 1;
+		var cpNum = cardPopNum + 1
+		$(this).append(idxp + '/' + cpNum);
+	});
+	$('.btnRightAr a').each(function(index){//右ボタン
+		var idx = index + 1;
+		if (idx > cardPopNum) idx = 0;
+		$(this).click(function(){
+			cardPopNone();
+			$('.popCardIn').eq(idx).css('display','block');
+			return false;
+		});
+	});
+	$('.btnLeftAr a').each(function(index){//左ボタン
+		var idx = index - 1;
+		if (idx < 0) idx = cardPopNum;
+		$(this).click(function(){
+			cardPopNone();
+			$('.popCardIn').eq(idx).css('display','block');
+			return false;
+		});
+	});
+	cardPopNone();
+	$('.popCardIn').eq(0).css('display','block');
+});
+//]]>
+</script>
+
+<meta property="fb:admins" content="100004076244758" />
+<!-- ogp -->
+<meta property="og:title" content="戦国IXA（イクサ）公式サイト - オンライン戦国体感ゲーム -" />
+<meta property="og:type" content="game"/>
+<meta property="og:url" content="https://sengokuixa.jp/" />
+<meta property="og:image" content="https://cache.sengokuixa.jp/www/150220/img/s3/ixa_ogp.png?20231023" />
+<meta property="og:site_name" content="戦国IXA（イクサ）公式サイト - オンライン戦国体感ゲーム -" />
+<meta property="og:description" content="オンライン戦国体感ゲーム！「戦国時代を体感せよ！」戦国武将となり、戦国を駆け抜けろ！" />
+<!-- /ogp -->
+</head>
+<body id="obt">
+<!-- wrapper -->
+<div id="wrapper">
+
+<!-- header start -->
+<div id="header">
+<div id="headerIn">
+<div id="logoBox">
+<p id="sqexLogo"><a href="https://www.jp.square-enix.com/" title="SQUARE ENIX"><img src="https://cache.sengokuixa.jp/www/150220/img/common/logo_sqex.png?time=20151114" alt="SQUARE ENIX" width="154" height="16" /></a></p>
+</div>
+
+<ul id="menuBox">
+<li id="btnOut">
+
+</li>
+<li id="btnSound">
+<div id="soundSwf">
+<script language="javascript" type="text/javascript">
+//<![CDATA[
+var flashvars = {soundPath:"https://cache.sengokuixa.jp/www/150220/img/sound/bgm.mp3"};
+var params = {wmode: "transparent"};
+var attributes = {};
+swfobject.embedSWF("https://cache.sengokuixa.jp/www/150220/img/sound/bgm.swf", "soundSwf", "125", "20", "9.0.0","", flashvars, params, attributes);
+//]]>
+</script>
+<div id="noflash"></div>
+</div>
+</li>
+<li id="btnYahooGame"><a href="https://games.yahoo.co.jp/" target="_blank" title="yahoo! ゲーム"><img src="https://cache.sengokuixa.jp/www/150220/img/common/logo_yahoo_n.png?time=20151114" alt="yahoo! ゲーム" width="169" height="35" /></a></li>
+</ul>
+
+<!-- bridge-gametitle-list -->
+<script type="text/javascript" src="https://cache.sqex-bridge.jp/ajax/js/bridge_titlelist.js" charset="utf-8" id="bridge-titlelist-script"></script>
+<!--<script type="text/javascript">SQEX_BRIDGE.titlelist();</script>-->
+<!-- //bridge-gametitle-list -->
+
+</div>
+</div>
+<!-- header end -->
+
+<!-- contents -->
+<div id="contents">
+<h1><img src="https://cache.sengokuixa.jp/www/150220/img/s3/s3_logo.png?20231023" alt="戦国IXA（イクサ）" width="264" height="145" /></h1>
+
+<!-- mainCont -->
+<div id="mainCont">
+
+<!-- entryCont -->
+<div id="entryCont">
+
+
+<!-- 合戦マーク -->
+<div id="btlMark" style="background-image:url(https://cache.sengokuixa.jp/www/150220/img/s3/top_s3_mark.png?ver=20221102);" class="vote">投票中</div>
+<!-- /合戦マーク -->
+
+
+<!-- entryBox -->
+<div id="entryBox">
+
+<!-- Yahoo! JAPAN IDでログインする -->
+<input type="hidden" name="TOKEN" value="0" />
+<p id="btnObtEntry"><a href="javascript:void(0)" id="yahoo_login_btn" title="Yahoo! JAPAN IDをお持ちでない方もこちら　登録は5秒でOK！　ゲームスタート" style="background-image:url(https://cache.sengokuixa.jp/www/150220/img/s3/s3_btn_entry_c.png)">Yahoo! JAPAN IDをお持ちでない方もこちら　登録は5秒でOK！　ゲームスタート</a></p>
+<p style="position:absolute; left:52px; top:638px; width:154px; z-index:99;"><img src="https://cache.sengokuixa.jp/www/150220/img/s3/attention.png" alt="一部コンテンツは有料です。" width="154" height="17" /></p>
+<!-- Yahoo! JAPAN IDでログインする -->
+
+
+
+
+
+
+</div>
+
+<!-- /entryBox -->
+</div>
+<!-- /entryCont -->
+
+<!-- naviCont -->
+<div id="naviCont">
+<!-- naviBox -->
+<div id="naviBox">
+<ul id="globalNavi">
+<li id="btnWhats"><a href="https://cache.sengokuixa.jp/www/230809/whats.html" target="ixawindow" title="戦国IXAとは">戦国IXAとは</a></li>
+<li id="btnFAQ"><a href="https://support.jp.square-enix.com/main.php?id=1297" target="ixawindow" title="FAQ">FAQ</a></li>
+<li id="btnWallPaper"><a href="../wallpaper/" target="ixawindow" title="壁紙">壁紙</a></li>
+<li id="btnSitekit"><a href="../sitekit/" target="ixawindow" title="ファンサイトキット">ファンサイトキット</a></li>
+<li id="btnRule"><a href="https://sengokuixa.jp/rule.php" target="ixawindow" title="利用規約">利用規約</a></li>
+<li id="btnPrivacy"><a href="https://www.jp.square-enix.com/privacy/" target="ixawindow" title="プライバシーポリシー">プライバシーポリシー</a></li>
+</ul>
+</div>
+<!-- /naviBox -->
+<!-- mainBanner -->
+<div id="mainBanner">
+<ul>
+
+<li><a href="https://sengokuixa.jp/lp/event/shiroEXPO2023/" class="btnEffect" target="_blank" title="横浜EXPO"><img src="image.php?f=1&i=21acea9174bbdeb6bf03d9516fd9cda3" alt="横浜EXPO" width="138" height="100" /></a></li>
+
+<li><a href="https://sengokuixa.jp/taimen_update_2023/" class="btnEffect" target="_blank" title="合戦アップデート"><img src="image.php?f=1&i=1d6fa5f59e21c67d312930718a5e65a4" alt="合戦アップデート" width="138" height="100" /></a></li>
+
+<li><a href="https://sengokuixa.jp/lp/event/kanto_jinbure_2024/" class="btnEffect" target="_blank" title="関東陣触"><img src="image.php?f=1&i=504c0d6332cec9c28822b8c97485ca84" alt="関東陣触" width="138" height="100" /></a></li>
+
+</ul>
+</div>
+<!-- /mainBanner -->
+
+<!-- newsBox -->
+<div id="newsBox">
+<div id="newsBoxIn">
+<!-- newsNavi -->
+<div id="newsNavi">
+<ul>
+<li id="nBtnNew"><a href="javascript:void(0);">新着</a></li>
+<li id="nBtnInfo"><a href="javascript:void(0);">お知らせ</a></li>
+<li id="nBtnEvent"><a href="javascript:void(0);">イベント</a></li>
+<li id="nBtnMainte"><a href="javascript:void(0);">メンテナンス</a></li>
+<li id="nBtnUp"><a href="javascript:void(0);">アップデート</a></li>
+<li id="nBtnFix"><a href="javascript:void(0);">修正履歴</a></li>
+</ul>
+</div>
+<!-- /newsNavi -->
+
+<!-- newsBody Set -->
+<div id="newsBodyNew" class="newsBody">
+
+<div class="newsText">
+
+<dl><dt>2023年11月22日</dt><dd><a href="info.php?news_id=n65534b5868124" target="ixawindow">【エントリー受付開始】公式オフ会「関東…</a></dd></dl>
+
+<dl><dt>2023年11月21日</dt><dd><a href="info.php?news_id=n655c4ad32a525" target="ixawindow">【11月21日】メンテナンス終了のお知らせ</a></dd></dl>
+
+<dl><dt>2023年11月21日</dt><dd><a href="info.php?news_id=n655c4ae54ac83" target="ixawindow">「お城EXPO2023」出展！</a></dd></dl>
+
+<dl><dt>2023年11月20日</dt><dd><a href="info.php?news_id=n655b2b01e6e85" target="ixawindow">合戦対戦表の不具合について</a></dd></dl>
+
+<dl><dt>2023年11月20日</dt><dd><a href="info.php?news_id=n655aeb91a75bb" target="ixawindow">【追記】合戦アップデート情報！</a></dd></dl>
+
+<dl><dt>2023年11月19日</dt><dd><a href="info.php?news_id=n6557217aa3094" target="ixawindow">【11月21日】メンテナンスのお知らせ</a></dd></dl>
+
+<dl><dt>2023年11月15日</dt><dd><a href="info.php?news_id=n654f41de5c8f8" target="ixawindow">【追記】「逆転 弱者の戦略」イベントの合…</a></dd></dl>
+
+<dl><dt>2023年11月15日</dt><dd><a href="info.php?news_id=n65546a4dcc71e" target="ixawindow">【11月15日】メンテナンス終了のお知らせ</a></dd></dl>
+
+<dl><dt>2023年11月14日</dt><dd><a href="info.php?news_id=n655356c5ef3a8" target="ixawindow">【11月15日】メンテナンスのお知らせ</a></dd></dl>
+
+<dl><dt>2023年11月14日</dt><dd><a href="info.php?news_id=n65532be91f527" target="ixawindow">【追記】陣触の中止について</a></dd></dl>
+
+</div>
+
+</div>
+<!-- /newsBody Set -->
+
+<!-- newsBody Set -->
+<div id="newsBodyInfo" class="newsBody">
+
+<div class="newsText">
+
+<dl><dt>2023年11月21日</dt><dd><a href="info.php?news_id=n655c4ae54ac83" target="ixawindow">「お城EXPO2023」出展！</a></dd></dl>
+
+<dl><dt>2023年11月20日</dt><dd><a href="info.php?news_id=n655aeb91a75bb" target="ixawindow">【追記】合戦アップデート情報！</a></dd></dl>
+
+<dl><dt>2023年11月13日</dt><dd><a href="info.php?news_id=n65518cd0b2940" target="ixawindow">「わんだふる杯（仮）&beta;1」アンケートご協力のお願い</a></dd></dl>
+
+<dl><dt>2023年11月08日</dt><dd><a href="info.php?news_id=n654b1ab2d548d" target="ixawindow">わんだふる杯（仮）&beta;1開催！！</a></dd></dl>
+
+<dl><dt>2023年10月24日</dt><dd><a href="info.php?news_id=n65379d2c25f5e" target="ixawindow">新合戦「わんだふる杯（仮）」第一回　ベータテスト開催！</a></dd></dl>
+
+<dl><dt>2023年08月31日</dt><dd><a href="info.php?news_id=n64ec7de6c0847" target="ixawindow">【追記】運営チームからのお知らせ</a></dd></dl>
+
+<dl><dt>2023年08月29日</dt><dd><a href="info.php?news_id=n64edae7e2411c" target="ixawindow">金・琥珀くじ半額キャンペーンは本日8月29日迄！（ワールド19）</a></dd></dl>
+
+<dl><dt>2023年08月25日</dt><dd><a href="info.php?news_id=n64e88156aeb85" target="ixawindow">初合戦向けのアップデートについて</a></dd></dl>
+
+<dl><dt>2023年08月21日</dt><dd><a href="info.php?news_id=n64e34824624af" target="ixawindow">「No.2822【極】禰津常安」につきまして</a></dd></dl>
+
+<dl><dt>2023年08月17日</dt><dd><a href="info.php?news_id=n64dda7b37912d" target="ixawindow">武将カード排出停止のお知らせ</a></dd></dl>
+
+</div>
+
+</div>
+<!-- /newsBody Set -->
+
+<!-- newsBody Set -->
+<div id="newsBodyEvent" class="newsBody">
+
+<div class="newsText">
+
+<dl><dt>2023年11月22日</dt><dd><a href="info.php?news_id=n65534b5868124" target="ixawindow">【エントリー受付開始】公式オフ会「関東陣触」開催のお知らせ</a></dd></dl>
+
+<dl><dt>2023年10月23日</dt><dd><a href="info.php?news_id=n653604ee26fbb" target="ixawindow">PayPayキャンペーン開催！</a></dd></dl>
+
+<dl><dt>2023年08月21日</dt><dd><a href="info.php?news_id=n64e30ac844a1a" target="ixawindow">「特別版 お城EXPO in 姫路」出展！</a></dd></dl>
+
+<dl><dt>2023年08月10日</dt><dd><a href="info.php?news_id=n64d496a1cfc67" target="ixawindow">【13周年記念】金くじ・琥珀くじで【天】武将カードをゲットのチャンス！</a></dd></dl>
+
+<dl><dt>2023年07月24日</dt><dd><a href="info.php?news_id=n64be20514fdea" target="ixawindow">「あやめと！雪之丞の！武将育成集中講座」開催☆</a></dd></dl>
+
+<dl><dt>2023年07月07日</dt><dd><a href="info.php?news_id=n64a276cfb183d" target="ixawindow">【追記】新章の大殿予想「ロト大殿」開催＆生配信の大喜利回答を大募集！</a></dd></dl>
+
+<dl><dt>2023年06月01日</dt><dd><a href="info.php?news_id=n6478258d88121" target="ixawindow">「戦国IXA&times;ビットキャッシュ 2023初夏キャンペーン」開催！</a></dd></dl>
+
+<dl><dt>2023年06月01日</dt><dd><a href="info.php?news_id=n647825b2eb25c" target="ixawindow">【24時間開催＆エントリー必須】"もれなく"購入金額の最大10％相当が戻ってくるキャンペーン開催！</a></dd></dl>
+
+<dl><dt>2023年06月01日</dt><dd><a href="info.php?news_id=n6477fe10537d0" target="ixawindow">連載半年記念！#つれづれIXAキャンペーン開催！</a></dd></dl>
+
+<dl><dt>2023年04月29日</dt><dd><a href="info.php?news_id=n644b1fec950f8" target="ixawindow">「黄金尽くしのIXA月間～金色に輝くさんまと金色の猫～」開催！</a></dd></dl>
+
+</div>
+
+</div>
+<!-- /newsBody Set -->
+
+<!-- newsBody Set -->
+<div id="newsBodyMainte" class="newsBody">
+
+<div class="newsText">
+
+<dl><dt>2023年11月21日</dt><dd><a href="info.php?news_id=n655c4ad32a525" target="ixawindow">【11月21日】メンテナンス終了のお知らせ</a></dd></dl>
+
+<dl><dt>2023年11月19日</dt><dd><a href="info.php?news_id=n6557217aa3094" target="ixawindow">【11月21日】メンテナンスのお知らせ</a></dd></dl>
+
+<dl><dt>2023年11月15日</dt><dd><a href="info.php?news_id=n65546a4dcc71e" target="ixawindow">【11月15日】メンテナンス終了のお知らせ</a></dd></dl>
+
+<dl><dt>2023年11月14日</dt><dd><a href="info.php?news_id=n655356c5ef3a8" target="ixawindow">【11月15日】メンテナンスのお知らせ</a></dd></dl>
+
+<dl><dt>2023年11月11日</dt><dd><a href="info.php?news_id=n654ed8b7000db" target="ixawindow">【お詫び配布】緊急メンテナンスのお知らせ（W1、W9）</a></dd></dl>
+
+<dl><dt>2023年11月02日</dt><dd><a href="info.php?news_id=n65434ebb20bd5" target="ixawindow">【11月2日】メンテナンス終了のお知らせ</a></dd></dl>
+
+<dl><dt>2023年10月31日</dt><dd><a href="info.php?news_id=n6540ac4acaf73" target="ixawindow">【11月2日】メンテナンスのお知らせ</a></dd></dl>
+
+<dl><dt>2023年10月23日</dt><dd><a href="info.php?news_id=n653604f2e4739" target="ixawindow">【10月23日】メンテナンス終了のお知らせ</a></dd></dl>
+
+<dl><dt>2023年10月21日</dt><dd><a href="info.php?news_id=n6532327fc0d81" target="ixawindow">【10月23日】メンテナンスのお知らせ</a></dd></dl>
+
+<dl><dt>2023年10月05日</dt><dd><a href="info.php?news_id=n651be9956d964" target="ixawindow">【10月5日】メンテナンス終了のお知らせ</a></dd></dl>
+
+</div>
+
+</div>
+<!-- /newsBody Set -->
+
+<!-- newsBody Set -->
+<div id="newsBodyUp" class="newsBody">
+
+<div class="newsText">
+
+<dl><dt>2023年11月01日</dt><dd><a href="info.php?news_id=n6540a95ed91bf" target="ixawindow">11月新武将カード追加！</a></dd></dl>
+
+<dl><dt>2023年10月04日</dt><dd><a href="info.php?news_id=n651be9baf3a93" target="ixawindow">10月新武将カード追加！</a></dd></dl>
+
+<dl><dt>2023年09月28日</dt><dd><a href="info.php?news_id=n65155076f365a" target="ixawindow">金くじ・琥珀くじのラインナップ更新について</a></dd></dl>
+
+<dl><dt>2023年09月15日</dt><dd><a href="info.php?news_id=n6503c683eac53" target="ixawindow">合戦に関するバランス調整につきまして</a></dd></dl>
+
+<dl><dt>2023年09月13日</dt><dd><a href="info.php?news_id=n65017a71d6d7e" target="ixawindow">取引および位階に関する仕様変更と注意喚起</a></dd></dl>
+
+<dl><dt>2023年09月13日</dt><dd><a href="info.php?news_id=n65017a2ac2665" target="ixawindow">離反の仕様変更について</a></dd></dl>
+
+<dl><dt>2023年09月04日</dt><dd><a href="info.php?news_id=n64f5809ba2194" target="ixawindow">9月新武将カード追加！	</a></dd></dl>
+
+<dl><dt>2023年09月02日</dt><dd><a href="info.php?news_id=n64f19b9fcc403" target="ixawindow">本丸防御ボーナスの仕様変更について</a></dd></dl>
+
+<dl><dt>2023年08月20日</dt><dd><a href="info.php?news_id=n64df155d5b8c1" target="ixawindow">8月新武将カード追加！</a></dd></dl>
+
+<dl><dt>2023年07月02日</dt><dd><a href="info.php?news_id=n649e9d08731c3" target="ixawindow">7月新武将カード追加！</a></dd></dl>
+
+</div>
+
+</div>
+<!-- /newsBody Set -->
+
+<!-- newsBody Set -->
+<div id="newsBodyFix" class="newsBody">
+
+<div class="newsText">
+
+<dl><dt>2023年11月20日</dt><dd><a href="info.php?news_id=n655b2b01e6e85" target="ixawindow">合戦対戦表の不具合について</a></dd></dl>
+
+<dl><dt>2023年11月15日</dt><dd><a href="info.php?news_id=n654f41de5c8f8" target="ixawindow">【追記】「逆転 弱者の戦略」イベントの合戦クエストについて</a></dd></dl>
+
+<dl><dt>2023年11月14日</dt><dd><a href="info.php?news_id=n65532be91f527" target="ixawindow">【追記】陣触の中止について</a></dd></dl>
+
+<dl><dt>2023年11月13日</dt><dd><a href="info.php?news_id=n655224ffc047f" target="ixawindow">「わんだふる杯(仮)&beta;1」に関連する複数の不具合について</a></dd></dl>
+
+<dl><dt>2023年11月13日</dt><dd><a href="info.php?news_id=n6551a04a2fa36" target="ixawindow">【追記】合戦対戦表の不具合について</a></dd></dl>
+
+<dl><dt>2023年11月13日</dt><dd><a href="info.php?news_id=n65520850060cc" target="ixawindow">「秘境地での大殿討伐」の不具合について</a></dd></dl>
+
+<dl><dt>2023年11月13日</dt><dd><a href="info.php?news_id=n65519110d24d5" target="ixawindow">「果心異境」の不具合について</a></dd></dl>
+
+<dl><dt>2023年11月11日</dt><dd><a href="info.php?news_id=n654d8a9783b92" target="ixawindow"> 【追記⑧】わんだふる杯（仮）&beta;1で発生している不具合につきまして</a></dd></dl>
+
+<dl><dt>2023年11月04日</dt><dd><a href="info.php?news_id=n65461706b3254" target="ixawindow">【追記】スキル追加合成の不具合について</a></dd></dl>
+
+<dl><dt>2023年11月03日</dt><dd><a href="info.php?news_id=n6543bd88a60c0" target="ixawindow">【追記】「新城主応援！戦国くじ【金】拾連」の不具合について</a></dd></dl>
+
+</div>
+
+</div>
+<!-- /newsBody Set -->
+
+<div class="newsRss"><a href="rss/news.php"><img src="https://cache.sengokuixa.jp/www/150220/img/s3/s3_news_btn_rss.png" alt="RSS" width="54" height="26" /></a></div>
+</div>
+</div>
+<!-- newsBox -->
+
+</div>
+<!-- /naviCont -->
+
+</div>
+<!-- /mainCont -->
+
+<div id="bannerCont">
+
+<!-- bannerCard -->
+<div id="bannerCard">
+<p><a href="#TB_inline?height=380&width=457&inlineId=popCard&modal=true" class="thickbox" title="今月の追加新武将カード">今月の追加新武将カード</a></p>
+</div>
+<!-- /bannerCard -->
+
+<!-- bannerArea -->
+<div id="bannerArea">
+<div id="bannerMask">
+<ul id="bannerSlide">
+
+<li><a href="https://blog.jp.square-enix.com/ixa/tsuredure/" target="_blank" class="btnEffect" title="『戦国IXA』コメディ漫画「#つれづれIXA」ブログ"><img src="image.php?i=39cab8cef6be3f757621ba234a53b640" alt="『戦国IXA』コメディ漫画「#つれづれIXA」ブログ" width="200" height="50" /></a></li>
+
+<li><a href="https://sengokuixa.jp/event_gten_202311/" target="_blank" class="btnEffect" title="逆転 弱者の戦略"><img src="image.php?i=0fde2d871218fd3b3e9be8674468a864" alt="逆転 弱者の戦略" width="200" height="50" /></a></li>
+
+<li><a href="https://games.yahoo.co.jp/campaign/mission/2023-6" target="_blank" class="btnEffect" title="【Yahoo!ゲーム限定】ミッションクリアキャンペーン！"><img src="image.php?i=5fc249b832dddc649a5cf71fb8a98f73" alt="【Yahoo!ゲーム限定】ミッションクリアキャンペーン！" width="200" height="50" /></a></li>
+
+<li><a href="https://sengokuixa.jp/new_war_beta/" target="_blank" class="btnEffect" title="わんだふる杯β1"><img src="image.php?i=f2bf3deb0d716d5cab1af128682c3045" alt="わんだふる杯β1" width="200" height="50" /></a></li>
+
+<li><a href="https://sengokuixa.jp/event_202310/" target="_blank" class="btnEffect" title="戦!!武田塾"><img src="image.php?i=da9c94504043006d91212defee777ae5" alt="戦!!武田塾" width="200" height="50" /></a></li>
+
+<li><a href="https://sengokuixa.jp/new_rarity/" target="_blank" class="btnEffect" title="新レアリティ傑登場！"><img src="image.php?i=f22cacb28ece5f8fc73c66f8e4b77c6b" alt="新レアリティ傑登場！" width="200" height="50" /></a></li>
+
+<li><a href="https://blog.jp.square-enix.com/ixa/" target="_blank" class="btnEffect" title="佐藤Pは天下統一の夢を見るか？"><img src="image.php?i=2145933850fd167fcefd33614a525fb5" alt="佐藤Pは天下統一の夢を見るか？" width="200" height="50" /></a></li>
+
+<li><a href="https://sengokuixa.jp/season26/" target="_blank" class="btnEffect" title="新章「虎王咆哮」"><img src="image.php?i=fbf620cd1c08bb7d46c9319ed71efe9f" alt="新章「虎王咆哮」" width="200" height="50" /></a></li>
+
+<li><a href="https://sengokuixa.jp/ikai/" target="_blank" class="btnEffect" title="位階制度"><img src="image.php?i=22fa830554303da9485969de289b7f13" alt="位階制度" width="200" height="50" /></a></li>
+
+<li><a href="https://sengokuixa.jp/young_warrior/" target="_blank" class="btnEffect" title="戦国 若武者包み"><img src="image.php?i=57b1f1617bb0ab41156419b1d632e291" alt="戦国 若武者包み" width="200" height="50" /></a></li>
+
+<li><a href="https://sengokuixa.jp/skill_kaikou/" target="_blank" class="btnEffect" title="スキル合成講座 開講！"><img src="image.php?i=deb93e4f67ef5a1f5eb997a050d680bf" alt="スキル合成講座 開講！" width="200" height="50" /></a></li>
+
+<li><a href="https://sengokuixa.jp/skill_kouza/" target="_blank" class="btnEffect" title="『スキル必勝攻略講座！』"><img src="image.php?i=bde213fe9bef53e6994fff11b577433d" alt="『スキル必勝攻略講座！』" width="200" height="50" /></a></li>
+
+<li><a href="https://sengokuixa.jp/omake/" target="_blank" class="btnEffect" title="『戦国くじでおまけがついてくる！？』"><img src="image.php?i=43f5a79731f083b3533d8688549750bd" alt="『戦国くじでおまけがついてくる！？』" width="200" height="50" /></a></li>
+
+<li><a href="https://sengokuixa.jp/count/" target="_blank" class="btnEffect" title="「勘定」誕生"><img src="image.php?i=6c718aa8d5e3dcc2b110b94895e096ec" alt="「勘定」誕生" width="200" height="50" /></a></li>
+
+<li><a href="https://cache.sengokuixa.jp/www/2021tengen/20230810.html" target="_blank" class="btnEffect" title="天限突破解禁"><img src="image.php?i=7f6bedee24d182e2ff595dabcd8e05ac" alt="天限突破解禁" width="200" height="50" /></a></li>
+
+<li><a href="https://sengokuixa.jp/gokusen/" target="_blank" class="btnEffect" title="戦国くじ「極選」"><img src="image.php?i=74f6400fc99efcd9bc9762fecfc72434" alt="戦国くじ「極選」" width="200" height="50" /></a></li>
+
+<li><a href="https://cache.sengokuixa.jp/www/attention/20230810.html" target="_blank" class="btnEffect" title="重要なお知らせ"><img src="image.php?i=49b22efc47cc1c48797a9956df13c777" alt="重要なお知らせ" width="200" height="50" /></a></li>
+
+<li><a href="https://sengokuixa.jp/info.php?news_id=n50c9c0ee77f2f" target="_blank" class="btnEffect" title="【重要】IDやパスワードの流出にご注意ください。"><img src="image.php?i=4d96a4697a119e41eb94c9c25d12e851" alt="【重要】IDやパスワードの流出にご注意ください。" width="200" height="50" /></a></li>
+
+<li><a href="http://sengokuixa.jp/kyokugen_skill/" target="_blank" class="btnEffect" title="極限スキル登場!!"><img src="image.php?i=ebd69aa3176d6cca78a0c4320ea5a866" alt="極限スキル登場!!" width="200" height="50" /></a></li>
+
+</ul>
+</div>
+<ul id="bannerNavi">
+<li id="btnBnUp"><a href="javascript:void(0);">↑</a></li>
+<li id="btnBnDown"><a href="javascript:void(0);">↓</a></li>
+</ul>
+</div>
+<!-- /bannerArea -->
+
+<div id="socialBox">
+<a href="https://twitter.com/share" class="twitter-share-button" data-text="戦国IXA(イクサ) https://sengokuixa.jp/ #sengokuixa" data-count="none" data-lang="ja">ツイート</a><script type="text/javascript" src="https://platform.twitter.com/widgets.js"></script>
+<iframe src="https://www.facebook.com/plugins/like.php?href=http%3A%2F%2Fsengokuixa.jp%2F&amp;send=false&amp;layout=button_count&amp;width=120&amp;show_faces=false&amp;action=like&amp;colorscheme=light&amp;font&amp;height=21" scrolling="no" frameborder="0" style="border:none; overflow:hidden; width:120px; height:21px;" allowTransparency="true"></iframe>
+</div>
+
+<a class="twitter-timeline" data-height="293" href="https://twitter.com/noroshi_ixa?ref_src=twsrc%5Etfw">Tweets by noroshi_ixa</a> <script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
+
+</div>
+
+<!-- topFooter -->
+<div id="topFooter">
+
+<p class="notes">対応ブラウザ以外では、登録ボタンやゲームの表示・動作が正常でない場合があります。<br />対応ブラウザ：Microsoft Edge95.0、FireFox65.0、GoogleChrome72.0以降</p>
+<p style="font-size:10px; padding-top:10px">本ゲームはスクウェア・エニックスが制作・運営し、<a href="https://about.yahoo.co.jp/info/" target="_blank">Yahoo! JAPAN</a>のサービスYahoo!ゲームで展開しています<br />
+<a href="https://games.yahoo.co.jp/docs/notice/" target="_blank">LINEヤフー株式会社等によるcookie情報等の利用について</a></p>
+<p id="copyright">&copy; SQUARE ENIX</p>
+</div>
+<!-- /topFooter -->
+
+</div>
+<!-- /contents -->
+
+</div>
+<!-- /wrapper -->
+
+
+<!-- 応募するポップアップ -->
+<div id="popOBTEntry">
+<div id="popEntryGroup">
+<div id="popEntryTop"></div>
+<div id="popEntryIn">
+<h2>戦国IXA利用規約</h2>
+<div class="textArea">
+<p>◆ゲームスタートには、以下の「戦国IXA利用規約」に同意していただく必要があります。</p>
+</div>
+
+<textarea name="" rows="" cols="" readonly="readonly" id="ruleArea">
+≪戦国IXA利用規約≫
+第１条　目的
+本規約は、株式会社スクウェア・エニックスが運営するブラウザゲーム「戦国IXA」における利用条件を定めるものです。なお、本規約をお読みいただき、同意の上、ユーザー登録を行った方に限り、本サービスの提供を受けることができるものとします。また、未成年の方が本サービスをご利用になる場合には、保護者の同意が必要です。なお、未成年の方は、保護者の同意を得たうえで、本規約に同意してください。
+第２条　定義
+本規約において、用語の定義は以下の各号のほか、本規約の他の規定のとおりとします。
+(1)「本規約」とは、この「戦国IXA利用規約」をいいます。
+(2)「個別規約」とは、本サイト内に別途定める本規約以外のポリシー、ご利用上の注意等本サービスの利用方法・利用条件の一切をいいます。
+(3)「当社」とは、株式会社スクウェア・エニックスをいいます。
+(4)「本サービス」とは、「戦国IXA」及び当社が「戦国IXA」に関連してユーザーに提供する一切のサービスをいいます。
+(5)「ユーザー」とは、本サービスを利用するため、本規約に同意の上、当社所定の手続に従い本サービスの利用を申し込み、当社が本サービスの利用者としてユーザー登録した方をいいます。
+(6)「ユーザー情報」とは、ユーザー登録やユーザーサービスの提供を受ける目的で、ユーザーが当社に提供した一切の情報をいいます。（登録ID、パスワード、性別、生年月日等）
+(7)「個人情報」とは、ユーザー情報のうち、個人に関する情報であって、氏名、生年月日等、特定の個人を識別できる情報をいいます（他の情報と容易に照合することができ、それにより特定の個人を識別することができることとなるものを含みます。）。
+(8)「登録ID」とは、ユーザー登録希望者及びユーザーが、当社が指定する第三者より発行を受け又は取得した自己を認証するための会員ID又は当該会員IDに類似のものをいいます。
+(9)「パスワード」とは、ユーザーの認証のために使用される、ユーザーがユーザー登録時に使用した登録IDに使用される英文字、数字等の組み合わせをいいます。
+(10)「重要なお知らせ」とは、当社がユーザーに通知する必要があると判断する、本サービスにかかる重要な情報をいいます。
+(11)「サポートメール」とは、当社がユーザーからの質問に対する返信等で使うメールをいいます。
+(12)「マイページ」とは、ユーザー登録時に当社がユーザーに提供する簡易ホームページをいいます。
+(13)「本サイト」とは、当社又は当社の指定する第三者のサーバに開設する本サービスを提供するためのウェブサイトをいいます。
+(14)「銅銭」又は「銀銭」とは、当社からユーザーに無償で発行する戦国IXA内でのみ使用することができるポイントをいいます。なお、本サービス上、銅銭又は銀銭を「無償ポイント」と称することがあります。
+(15)「金」とは、当社からユーザーに有償で発行する戦国IXA内でのみ使用することができるポイントをいいます。なお、前文の定めにかかわらず、金は当社から無償で発行されることもあります。また、本サービス上、金（無償で発行されたものを含む。）を「有償ポイント」と称することがあります。
+(16)「書込情報」とは、ユーザーが本サービスの利用に際して本サイト又はメールにおいて当社に提供した情報（ユーザー情報を除きます。）をいいます。書込情報には、ユーザーが自己のプレイヤー（以下に定めます）に設定するニックネーム等の情報を含むものとします。
+(17)「本データ」とは、ユーザーが本サービスを利用することにより、発生・記録・蓄積された情報の一切をいいます。本データには、書込情報も含まれます。
+(18)「退会」とは、本サービスのユーザー登録を抹消することをいいます。
+第３条　本規約の適用
+1.本規約及び個別規約は、ユーザーが本サービスを利用する一切の場合に適用するものとします。
+2.ユーザーは、本サービスの利用に当たっては、本規約及び個別規約を遵守するものとします。
+3.本規約の定めと個別規約の定めとの間に矛盾が生じる場合は、個別規約の定めが優先して適用されるものとします。
+第４条　登録ID
+1.ユーザー登録希望者及びユーザーは、登録IDを保有する必要があります。
+2.ユーザー登録希望者及びユーザーは、自己の責任及び負担において、登録IDを取得するものとします。登録IDの発行・取得又は失効につき、ユーザーは自己の責任及び負担において対応するものとします。
+3.登録IDの発行者とユーザーとの間に生じた紛争については、ユーザーと登録ID発行者間で解決するものとします。
+第５条　本サービスのユーザー登録
+1.本サービスのユーザーとして登録を希望する方は、本規約及び個別規約の全てに同意した上、本規約及び当社が定める方法によりユーザー登録するものとします。なお、ユーザー登録に当たり、登録IDが必要となります。
+2.未成年者は、保護者の同意を得た上で、ユーザー登録を行うものとします。
+3.ユーザーは、ユーザー登録された場合、ユーザーが当該登録ID発行者に登録しているユーザーのメールアドレスにつき、当社が登録IDの発行者より開示を受け、当社からユーザーへの連絡に利用すること及び登録IDの発行者を通じて当該メールアドレス宛に当社からユーザーへ連絡することを承諾します。ユーザーが、当社からユーザー宛の連絡用メールアドレスの変更を希望する場合、ユーザー登録後又は当該希望が生じた時点において、登録IDの発行者に登録しているアドレスを、ユーザー自らの責任及び負担で変更するものとします。なお、当社は、マイページ上において、ユーザーが当社からのメール受信を了承していない場合であっても、重要なお知らせを通知することができるものとします。
+4.当社は、次の事項に該当すると当社が判断した場合、ユーザー登録を留保又は否認することができます。
+(1)他人の名義による登録（年齢・性別の虚偽登録を含む。）の場合
+(2)未成年者による保護者等の同意を得ない登録の場合
+(3)過去において、本サービス又は当社の別のサービス（本サービスを含むすべてのサービスをいいます）の利用に際して、各々の規約違反、利用に関する登録の抹消、利用停止等の措置を受けたことがある場合
+(4)当社又は他のユーザーとトラブルを起こしたことがある場合（“荒らし”等を含む）
+(5)その他、当社が不適切と判断する場合
+5.ユーザーは、ユーザー情報が本人の情報であること及び虚偽でないことを保証します。但し、当社は、他のユーザーに対し、当該ユーザーのユーザー情報が本人の情報であること及び虚偽でないことを保証するものではありません。
+第６条　本サービスの利用
+1.本サービスの内容、態様、頻度、提供期間等、本サービスにかかる一切の事項は、当社の任意の判断により決定いたします。
+2.当社は当社の裁量で、本サービスの一部又は全部の変更をすることができるものとします。なお、重要な変更については、予めユーザーに掲示、その他の方法にて通知するものとします。
+3.本サービスの内容のうち、一部のサービスについては、有償サービスとして利用料金をお支払い頂く場合があります（金の利用によるものを含む。）。有償サービスの利用を希望するユーザーは、当社所定の手続に従い、当該有償サービスを利用するものとします。
+4.本サービスは、本サイト等で定める動作推奨環境に適した形で提供されるものとします。但し、それ以外の環境での利用を妨げるものではありません。なお、動作推奨環境を満たしている場合であっても、その他の要因により、本サービスを適切に利用できない場合があります。この場合、当社は、当社の責めに帰すべき事由がある場合を除き、これによりユーザーが受ける不利益を補償するものではありません。
+5.本サービスを提供するゲームサーバが複数存在する場合、ユーザーは、各ゲームサーバにつき、最大で、城主と称するひとつのプレイヤー（以下「城主」という）、影城主と称するひとつのプレイヤー（以下「影城主」といい、城主と併せて、以下「プレイヤー」といいます）を作成することができるものとし、以下の各号に定める事項を遵守又は承諾するものとします。
+(1)複数の登録IDを用いて同一ゲームサーバ内に自己が作成・管理するプレイヤーを複数作成しないこと。
+(2)同一人物が同一ゲームサーバ内に複数のプレイヤーを作成・管理している場合、当該プレイヤー、当該プレイヤーにかかる本データ及び当該プレイヤーに紐付くユーザーのユーザー資格を、通知又は承諾を要することなく抹消できること。
+(3)プレイヤーが6か月を超えてゲームサーバ内で活動を行っていない場合、当該ゲームサーバに作成された当該プレイヤー及び当該プレイヤーにかかる本データが通知又は承諾を要することなく削除されること。但し、金を保有するプレイヤーの本データについては、金の消費期限まで削除されないものとします。
+(4)当社が、本サービス内の仕様である場合を除き、理由の如何を問わず、各プレイヤーにかかる本データの全て又は一部について、他のプレイヤーへの移し変えに応じないこと。
+(5)ユーザーが、プレイヤーにかかる本データの一部又は全てを目的の如何を問わず第三者に貸与、販売、転売し、現金並びに電子通貨を含むその他の通貨を得てはならないこと。
+6.当社は、ユーザーに対して、当社、当社の関連会社及び当社のパートナー企業の商品・サービス・イベント開催・アンケート実施等についてのキャンペーン情報を、本サービスの一部として、本サイト、電子メール、その他の手段により提供します。当該提供は、当社自ら行う場合のみならず、当社が登録IDの発行者に委託し、当該登録IDの発行者により、当該発行者が有するユーザー情報に基づき、実施される場合があります（当該登録IDの発行者がユーザーから承諾を得ている場合に限ります。）。
+7.当社は、本サービスに関連して、パートナー企業と相互リンク、又は収益モデルを含んだ事業提携を実施することができるものとします。
+8.当社は、本サービスの運営のため、書込情報をユーザーに事前に通知することなく添削若しくは修正し、本サイトに掲載すること、掲載しないこと若しくは一旦掲載した情報を修正、削除することができるものとし、ユーザーはこれらを予め承諾するものとします。なお、当社は書込情報の監視、削除又は改変を行う義務を負いませんが、ユーザーからの問い合わせ等に対応し、当該ユーザー及びその相手方ユーザーの書込情報に関するログ解析を任意に行うことがあります。
+9.当社は、以下の各号の目的を達成するため、cookie情報を利用し、ユーザーはこれを承諾するものとします。
+(1)ユーザーが登録情報の一部を入力することにより、全部を入力する手間を省くため
+(2)ユーザー動向を分析し、よりよいサービスを企画、提供するため
+(3)複数回にわたって、同一キャンペーン情報（懸賞、広告含む）を露出しないよう調整するため
+(4)ユーザーは、ユーザーのパーソナルコンピュータ等cookieの受理が可能な機器端末で本サービスを利用する場合、cookieの受理を承諾するものとします。ブラウザの設定によりcookieの受け渡しが拒否される場合、当社はユーザーの情報を正しく認識できない可能性があり、その結果により生じた損害につき、当社の責めに帰すべき事由による損害を除き責任を負わないものとします。
+第７条　本サービスの利用責任
+1.ユーザーは、本規約及び個別規約等に従って、本サービスを利用するものとします。
+2.ユーザーは、本サービスを利用するにあたり、必要なパーソナルコンピュータ、通信機器やソフトウェア、その他これらに付随して必要となるすべての機器、インターネットサービスプロバイダーへの加入、電力等を、自己の費用と責任において準備し、本サービスを利用可能な状態におくものとします。また、本サービスを受ける側に発生する携帯電話を含む情報通信機器等によるメール受信、ウェブサイト閲覧その他に必要な通信費用の一切はユーザーが負担するものとします。
+3.本サービスの利用に関連してユーザーが第三者（他のユーザーを含み、以下も同様とします）に対して損害を与えた場合又は紛争を生じた場合、当該ユーザーは自らその紛争を解決し、また、その損害を賠償するものとします。
+4.当社は、登録されたユーザー情報又は問い合わせ等により提供されたユーザー情報が、当該情報に係るユーザー本人の情報であるとみなします。ユーザーは、自己の責任と費用負担によって、以下の各号のユーザー情報の管理を行うものとし、ユーザー情報を第三者に利用させ、又は貸与、譲渡、譲受、売買、質入、公開等及び当該行為を幇助する行為を行ってはならないものとします。
+(1)ユーザー情報を登録する際は、最新、完全、正確な状態で提供すること。
+(2)登録したユーザー情報を、常に最新、完全、正確な状態に保つこと。
+(3)ユーザー情報の管理不十分による情報の漏洩、使用上の過誤、第三者の使用、不正アクセス等による損害の責任はユーザーが負うものとします。
+(4)ユーザーは、ユーザー情報に変更が生じた場合本規約及び当社が定める方法により、直ちに当社にその旨連絡すると共に、当社の指示がある場合にはこれに従うものとします。
+(5)ユーザーが前号の連絡をしなかったことにより、本サービスを利用できない等の不利益を被った場合、当社は、当社の責めに帰すべき事由がある場合を除き責任を負わないものとします。
+第８条　銅銭・銀銭
+1.銅銭及び銀銭は、ユーザーが本サービス内で行った活動に応じて当社からユーザーへ付与されます。また、本サービスのうち無料サービスについて所定の必要数を使用して利用することができます。当社は、ユーザーに対し、銅銭及び銀銭に関して永続的あるいは物理的な所有権を与えるものではなく、一定条件の下で管理し、残数を照会し、使用する許諾を与えるものとします。
+(1)銅銭及び銀銭は、ゲームサーバごとに且つ城主、影城主ごとに固有のものとして取り扱われ、ユーザーは登録された銅銭及び銀銭を第三者に譲渡、譲受、貸与、売買、名義変更等（これらに準じる行為及び直接的にはこれらの行為には該当しない行為であっても実質的にこれらの行為に該当する行為を含みます。）及び当該行為を幇助する行為を行ってはならないものとします。ゲームサーバの統合による措置などの当社が別途決定した例外を除き、登録されているユーザーが同一人物であっても異なるゲームサーバ、各城主、各影城主に登録された銅銭又は銀銭を合算して使用することもできません。
+(2)銅銭及び銀銭は、ユーザーのマイページ等で照会できます。
+(3)利用された銅銭及び銀銭の返還を求めることはできません。
+(4)銅銭及び銀銭は、当社が認めた用途のみに使用が可能で、換金等は行えません。
+2.６条４項その他本規約に定めるとおり、動作環境、不可抗力、その他の要因により、活動（コミュニティ活動、ゲーム等含む）により増減される銅銭又は銀銭の数量等が正確に登録されない場合があります。この場合、ユーザーに損害等が発生した場合であっても、当社は、銅銭又は銀銭の補填を含め、当社の責めに帰すべき事由による損害を除き責任を負わないものとします。
+第９条　金
+1.金は、本サービスのうち有償サービスを利用するために、当社所定の手続により購入することができます。
+2.金の購入単位、支払時期、決済方法その他金の利用等に関する条件は、別途当社が定めるところによるものとします。係る条件には、当社の指定するところにより、他社の定める規約等が適用される場合があります。ユーザーが未成年の場合、ユーザーは、都度、保護者の同意を得たうえで、購入するものとします。
+3.ユーザーは、金の購入にあたり自己が選択した決済方法にかかる約定に従うものとします。当社の責めに帰すべからざる事由により、ユーザーと決済会社との間で問題が生じた場合、ユーザーと決済会社とで当該問題を解決するものとします。
+4.一度購入した金は、特に法令に定める場合を除き、払い戻すことはできません。
+5.当社は、ユーザーに対し、金に関して永続的あるいは物理的な所有権を与えるものではなく、次の条件のもとに管理し、残数を照会し、使用する許諾を与えるものとします。
+(1)金は、ゲームサーバごとに且つ城主、影城主ごとに固有のものとして取り扱われ、ユーザーは登録された金を第三者に譲渡、譲受、貸与、売買、名義変更等（これらに準じる行為及び直接的にはこれらの行為には該当しない行為であっても実質的にこれらの行為に該当する行為を含みます。）及び当該行為を幇助する行為を行ってはならないものとします。ゲームサーバの統合による措置などの当社が別途決定した例外を除き、登録されているユーザーが同一人物であっても異なるゲームサーバ、各城主、各影城主に登録された金を合算して使用することはできません。
+(2)金は、マイページ等で照会できます。
+(3)利用された金の返還を求めることはできません。
+(4)金は、当社が認めた用途のみに使用が可能で、返金・換金等は行えません。
+6.金の有効期間は、ユーザーが金を購入した日から６ケ月間とします。当該期間を経過した時点において、事前の通知又は催告することなく、登録IDに登録された有効期間を経過した当該金は失効します。ユーザーは、当該有効期間に留意し金を使用するものとします。
+7.理由を問わず、ユーザーがユーザーの資格を失った場合（登録IDの資格を喪失した場合を含みます）、ユーザーの資格を失うと同時に、金も消失するものとします。ユーザーは、退会にあたり金の消失が伴うことを認識するものとします。
+8.当社は、ユーザーが購入代金を滞納した場合、ユーザーに対し、以下の措置をとることができるものとします。
+(1)滞納した日の翌日から滞納した購入代金を完済した日まで、購入代金に加えて年利14.6％の遅延損害金の請求
+(2)事前の通知なく、本サービスの利用停止、制限又は退会の措置を取ること
+第１０条　テスト稼働
+1.当社は、本サービスの機能・動作・サーバ負荷テスト等を目的としたテストサービス（αサービス、βサービスと称しますが、これに限りません。）を実施することがあり、当該サービスも本サービスに含まれるものとします。
+2.当社は、テスト稼動の性質上、当社の判断により、テスト期間中の本データを削除する場合があり、当該削除によりユーザーは予め同意するものとします。
+3.当社は、テスト期間中の不具合等によりテストサービスを利用したユーザー情報、本データ、ユーザーが提供するコンテンツ及び情報等の損失及び消失等が発生した場合でも、当社の責めに帰すべき事由がある場合を除き、当該情報等に対して責任を負いません。
+4.テストサービスを利用するユーザーは、所定の方法にて当社に伝達し、問題の修正がなされるよう協力するものとします。
+5.ユーザーは、テストサービスが、ユーザーの希望・目的に適合することを保証するものではないことに合意のうえ利用するものとし、前項の伝達を除き、当社の信用を失墜させる言動をしないものとします。
+第１１条　自己責任の原則
+1.ユーザーは、本サービスの利用及びその結果（本サービスの利用を通じて発信される情報に対しての影響）について、一切の責任を負うものとします。
+2.ユーザーは、常に本サイト上に告知される当社からのお知らせを確認するものとします。ユーザーが当該お知らせの内容を確認せず、そのことによりユーザーに生じた不利益・損害について、当社は、当社の責めに帰すべき事由がある場合を除き、責任を負わないものとします。
+3.ユーザーは、本サービスの利用により他のユーザーとの思わぬトラブルに巻き込まれる危険性があることを十分に認識するものとします。かかる危険性に鑑み、ユーザーは他のユーザーとの接触に十分に注意するものとします。また、かかるトラブルに対し、ユーザーは自己責任の原則を以って、ユーザー当事者間で解決にあたるものとします。
+4.ユーザーは、本サービスの利用を通じて発信する情報が、第三者の著作権、商標権、肖像権、パブリシティ権等の権利を侵害し、また、第三者のプライバシー、名誉、信用を毀損する危険性があることを十分に認識するとともに、かかる侵害を発生させることがないよう、情報の発信に際しては十分に注意するものとします。
+第１２条　知的財産権等
+1.本サービスに関して当社のサイト、又は本サイトにて提供する、画像、文章、その他著作物、肖像、標章、情報、データ及び表現に係わる著作権、商標権、工業所有権、その他一切の知的財産権及びノウハウ（以下「当社コンテンツ」といいます）は、当社又は正当な権利を有する権利者に帰属するものとし、ユーザーは当社コンテンツ等を本サービス以外の用途に使用すること、及び有償・無償を問わず第三者に利用させることはできません。
+2.当社がユーザーより新しい商品、技術、デザイン、宣伝広告等に関して提案（以下「提案」といいます）を受けた場合、当社は提案を秘密にする義務を負わず、また、かかる提案を検討・評価、採用する義務を負わないものとします。
+3.前項の提案に関する日本を含む全世界における著作権、商標権、工業所有権、その他一切の知的財産権及びノウハウは当社に帰属するものとし、提案の全部又は一部と同一又は類似する商品又はサービス等を当社又はグループ各社が採用した場合でも、当社は提案の提供者であるユーザーに対して、対価、報酬等の支払い義務を負わないものとします。
+4.ユーザーが本サービスの利用を通じて当社に提供した一切のコンテンツ、情報等（ブログの記事やコメント等を含みます）の著作権（著作隣接権を含みます。）及びその他一切の知的財産権であって、提供時に当該知的財産権がユーザーに帰属するもの又はユーザーが許諾を受けた第三者に帰属するものについては、ユーザーが当社に提供する行為をもって当社に権利移転するものではなく、ユーザーまたは当該第三者に帰属するものとします。但し、ユーザーは、当該コンテンツを当社に提供することにより、当社に対して、当該コンテンツを無償で非独占的に使用する権利（複製権、公衆送信権、領布権、貸与権、譲渡権、翻訳権、上映権、翻案権等を含みます。また、これらに限りません。）を許諾し、当社及び当社が指定する第三者による当該コンテンツの使用に対して著作者人格権を一切行使せず、又はユーザー以外の第三者が権利者として存在する場合には、当該権利者に係る権利を行使させないものとします。また、ユーザーは当該コンテンツの知的財産権について、いかなる第三者に対しても譲渡、譲受、担保設定その他一切の処分をせず、又は第三者たる権利者についてもかかる処分をさせないものとします。
+5.当社は、ユーザーの事前の承諾を必要とせず、本サービスの広告・宣伝を目的として、前項の当該コンテンツを自由に利用できる権利を有します。
+6.ユーザーによる当社に対する前項の当該コンテンツの提供行為、又は当社による利用行為により、当社と第三者との間で紛争が発生し、当社が当該第三者から請求、クレーム、警告書の受領、仮処分又は起訴提訴を受けた場合、ユーザーは当該紛争を自己の責任と費用をもって解決するものとし、当該紛争によって当社に発生した一切の損害（間接損害、派生的損害、結果損害、逸失損害及び弁護士費用を含みます。）を賠償するものとします。但し、当該損害が当社の故意又は重過失による場合は、この限りではないものとします。
+第１３条　禁止事項及び処分について
+1.ユーザーは、本サービスの利用にあたって、以下の各号の行為又はそのおそれがある行為を行ってはならないものとします。なお、本サービス内のサービスを利用した行為であっても、当該サービスの利用を装った以下の各号の行為もこれに該当します。
+(1)他人の登録ID、パスワード及びその他ユーザー情報を使用してユーザー登録する行為又は他人（当社、又は当社関連企業及び協力企業を含む）になりすます行為
+(2)自己の登録ID、パスワード、ユーザー情報、本データ等を、他のユーザーを含む自分以外の第三者に使用させる行為
+(3)不正に入手又は生成した登録ID、パスワード及びその他ユーザー情報を使用してユーザー登録する行為
+(4)マルチ投稿、ジャンクメール、スパムメール、チェーンメール等迷惑メールを送信する行為、及びコンピュータのソフトウェア、ハードウェア、通信機器等の機能を妨害、破壊、制限、操作するコンピュータウイルス、ファイル、プログラム等を送信又は書き込む行為
+(5)わいせつ・残虐・差別その他第三者に不快感を与える表現を送信又は書き込む行為
+(6)本サービスにおいて利用しうるコンテンツ、ポイント等の交換や、インターネットオークション等を利用した売買、譲渡、譲受その他の取引（有償又は無償を問いません）及び当該取引等に関連・付随する行為（いわゆるRMT（リアルマネートレード）を含みますが、これに限られません。）並びに当該行為を幇助する行為。本サービス内の仕組みを利用した場合であっても本規定に該当すると判断されるものは禁止行為といたします。
+(7)当社、他のユーザー又はその他の第三者の所有権、知的財産権、名誉、信用、肖像、プライバシー等の権利を侵害する行為（当社からのサポートメールをブログに転記するなどの方法で他に開示する行為も含まれます）
+(8)当社、他のユーザー又はその他の第三者に不利益、損害を与える行為
+(9)犯罪目的、公序良俗を害する目的、及び青少年保護法の趣旨に反する目的等で本サービスを利用する行為
+(10)法律、法令等に違反する行為
+(11)当社の承認なく、本サービスに関連した本サービス内又は本サービス外における営利を目的とする行為
+(12)特定の商品又はサービスの販売、売り込み行為等の営業行為
+(13)選挙活動、特定の政党に勧誘する行為等の政治活動
+(14)特定の宗教の布教、勧誘等の宗教活動
+(15)当社のシステムに障害を発生させる行為（プログラム等によりシステムの仕様に沿った動きを阻害する行為を含む）、当社が設計した通りに動かないプログラム（バグ等）を故意に利用し、自己の利益を得る行為又は他者に不利益を与える行為、ユーティリティの作成・配布等の行為等、本サービスの運営を妨害する行為
+(16)当社のシステム（プログラム、ツール等そのものを含む）の改変、結合、リバースエンジニアリング、解析等の行為
+(17)本サービスに対する不満を流布する行為
+(18)本サービスの信用を失墜、毀損させる行為
+(19)ユーザーを扇動し、本サービスにかかるサポート運営の負担を増大させる行為
+(20)本規約及び個別規約に違反する行為
+(21)その他第三者が不快と感じる行為
+(22)正当な理由なくチャージバック等を行うことによる利得行為
+(23)当社が本サービスの提供に悪影響を及ぼすと判断する行為
+2.前項に違反したと当社が判断した場合、当社は違反したユーザーに対して以下の処分をすることができるものとします。これらの処分により利用者に不利益・損害が発生した場合においても、当社の責めに帰すべき事由がある場合を除き、当社はその責任を負いません。
+(1)注意又は警告
+(2)書込情報の全部又は一部の公開停止又は削除
+(3)本サービスの全部又は一部サービスの利用停止
+(4)ユーザーが獲得したポイント等の剥奪
+(5)本サービス内公開記録の変更（マイページ、プロフィール、掲示板、コメント、書状等）
+(6)退会
+(7)銅銭、銀銭及び金の使用停止
+(8)有償サービスの全部又は一部の利用停止
+(9)本データの全部又は一部の削除
+第１４条　退会について
+1.ユーザーが本サービスの退会を希望するときは、本サイト内の退会フォームから当社所定の手続を行うことにより、いつでも退会できるものとします。
+2.ユーザーの登録IDが失効した場合、ユーザーは自動的に本サービスを退会したものとみなされます。
+3.本サービスのシステムの都合上、退会手続が完了してから、その手続がシステム上反映されるまで所定の時間を必要とし、ユーザーはこれを承諾するものとします。
+4.当社は、ユーザーが以下のいずれかの事由に該当する場合、又はそのおそれがあると当社が合理的な理由に基づき判断した場合、事前の通知・催告なく、当該ユーザーを退会させることができるものとします。
+(1)ユーザー宛に発送した郵便物が当社宛に返送された場合
+(2)新規登録又は再登録したユーザーが、過去に当社から退会させられたユーザーであると判明した場合
+(3)ユーザーが死亡した時
+(4)当該ユーザーの登録IDが本サービスにおいて最後にログインを行った日から換算して６ヶ月以上が経過した場合
+(5)その他ユーザーとして不適当である場合
+5.当社は、ユーザーが退会によって被った損害につき、当社の責めに帰すべき事由がある場合を除き、責任を負いません。
+第１５条　ユーザーの個人情報等の取扱い
+1.当社は、ユーザー情報のうち個人情報に該当する情報を、当社のプライバシーポリシーに従い適切に取り扱うものとします。
+2.当社は、個人情報を含むユーザー情報を、プライバシーポリシーに定める目的のほか、下記の目的にのみ使用するものとします。なお、統計資料等、個人を特定できない形式に加工された情報は個人情報に含みません。
+(1)本サービスの実施
+(2)お問い合わせ対応などのサポートサービス
+(3)アンケート調査の実施、ならびにアンケートに基づく商品及び販売企画上の統計資料の作成
+(4)希望者へメールニュースの配信、及びキャンペーン情報の配信
+(5)プレゼント及び景品等の発送
+(6)重要なお知らせの通知
+(7)上記以外に、当社がユーザーから個別に同意を得た場合
+3.当社は、ユーザーの個人情報を、プライバシーポリシーに定める場合のほか、以下のいずれかに該当する場合を除いて、第三者に開示、提供しないものとします。
+(1)ユーザーにお知らせした使用目的のために事業協力会社又は提携先企業に対する開示が必要な場合
+(2)本サービスにおける商品や金の購入等において、クレジットカード等による代金決済を行う場合に、クレジットカード等の有効性を確認するため、当社及びクレジットカード会社間で個人情報の交換を行う場合、また、クレジットカード会社又は金融機関から、個人情報の開示要請があり、かつ開示が必要であると当社が判断した場合
+(3)上記以外に、当社がユーザーから個別に同意を得た場合
+4.本サイト上で、ユーザーが自発的に自己の個人情報、その他ユーザー情報を開示する場合、自己の責任において行うものとします。
+5.当社は、運営管理責任上及び法令上の要求等に基づき、本サービス利用期間中及び退会後の一定期間、本データ及びユーザー情報を保管します。なお、期間経過後において、当社は任意に、当該本データ及びユーザー情報を削除することができます。
+第１６条　本サービスの停止・中止
+1.当社は、以下のいずれかの事由が生じた場合には、ユーザーに事前に通知することなく、いつでも本サービスの全部又は一部の提供を停止することができるものとします。
+(1)本サービスの提供にかかる設備等の保守を定期的又は緊急に行う場合
+(2)システムや通信回線等の障害、火災、停電その他の不慮の事故、又は天災地変等の不可抗力により本サービスの提供ができなくなった場合
+(3)運営上又は技術上、当社が本サービスの停止が必要と判断した場合
+(4)法律、法令等に基づく措置により本サービスが提供できない場合
+(5)その他、当社が止むを得ないと判断した場合
+2.前項の規定に関わらず、当社は、ユーザーに事前に通知した上で、本サービスの全部又は一部の提供を中止することができるものとします。
+3.当社は、本条に基づく本サービスの全部又は一部の提供の停止又は中止に起因してユーザーに損害が発生したとしても、当社の責めに帰すべき事由がある場合を除き、責任を負わないものとします。
+第１７条　免責事項
+当社は、ユーザーに対して、ユーザーが本サービスの全部又は一部を利用したことに関連して、以下のいずれも保証せず、かつ、以下のいずれかの事由の発生により当該ユーザー又は当該ユーザー以外の第三者に発生した紛争及び損害について、当社の責めに帰すべき事由がある場合を除き、責任を負わないものとします。
+(1)本サービスが第三者による不正攻撃を受けないこと
+(2)本サービスがウイルスその他の有害な要素を含まないこと
+(3)本サービスの利用不能・接続不能が生じないこと
+(4)本サービス提供のためのインフラ、システム、ソフトウェア若しくはハードウェア等に、故障、不具合、誤作動又は通信回線の障害を含む一切の瑕疵がないこと
+(5)本サービスにてリンクを提供する（キャンペーン情報含む）第三者のサイトの利用によってユーザーに不利益又は損害が生じないこと
+(6)本サービスにて知りえた内容により損害が誘発され又は発生しないこと
+(7)本サービスにより得た成果、又は、その情報自体の合法、道徳的又は正確であること
+(8)当社が提供するサービスに於いて、ユーザー間又はユーザーと第三者間で生じたトラブル（違法又は公序良俗に反する行為の提案、名誉毀損、侮辱、プライバシー侵害、脅迫、誹謗中傷、いやがらせ等）に関しての損害
+(9)ユーザーの本サービスの利用による及びその結果が、ユーザーの希望・目的などに適合すること
+第１８条　当社の責任
+当社が本サービスに関連してユーザーに対して責任を負う場合には、当社の故意又は重大な過失による場合を除き、その損害の性質に基づく当社の合理的な選択により、次の各号に定める範囲を賠償額の上限とします。
+(1)100円又はユーザーが本サービスに対して、損害の生じた日の属する月に当社に支払った額に相当する額のいずれか高い額
+(2)本サービス内で利用可能な一定のクオリティを持つアイテム（アイテム等）のコンテンツ若しくは相当ポイント
+第１９条　規約の改定
+1.当社は、本規約及び個別規約を随時改定することができるものとします。
+2.本規約の改定情報は、本サイトに掲載してユーザーに通知するものとします。
+第２０条　準拠法、合意管轄
+本規約は日本法に基づき解釈されるものとし、本規約に関し訴訟の必要が生じた場合には、東京地方裁判所を第一審の専属的合意管轄裁判所とします。
+第２１条　ユーザー情報の外部送信について
+本サービスにおいては、以下の外部サービスを利用しています。これらの外部サービスの提供者、利用目的及び提供されるユーザーの情報は、以下のとおりです。
+
+　外部サービス名称（提供者）：Google Analytics(Google LLC)
+　提供するユーザーの情報：アプリ内の行動履歴
+　利用目的：アプリの利用状況の把握、解析、利用環境の調査、マーケティング
+
+　外部サービス名称（提供者）：True View(Google LLC)
+　提供するユーザーの情報：サイト訪問ユーザー情報
+　利用目的：サイト訪問ユーザーのリターゲティング広告配信
+
+　外部サービス名称（提供者）：New Relic(New Relic, Inc.)
+　提供するユーザーの情報：アプリ内の行動履歴
+　利用目的：アプリの負荷状況の解析
+
+　外部サービス名称（提供者）：Yahoo！/YDA(LINEヤフー株式会社)
+　提供するユーザーの情報：サイト訪問ユーザー情報
+　利用目的：サイト訪問ユーザーのリターゲティング広告配信
+
+　外部サービス名称（提供者）：Yahoo!タグマネージャー(LINEヤフー株式会社)
+　提供するユーザーの情報：アプリ内の行動履歴
+　利用目的：カスタマイズされた広告配信
+
+以上
+2023年10月5日改定
+</textarea>
+
+<form method="POST" name="frm" action="">
+<div class="checkArea"><p class="centertxt"><input name="checkBoxed" type="checkbox" id="checkBoxed" value="1" />&nbsp;「戦国IXA利用規約」に同意します。</p></div>
+<div class="checkArea"><p class="centertxt"><input name="yahooCheck" type="checkbox" id="yahooCheck" value="1" checked="checked" />&nbsp;メールマガジンを受け取ります。</p></div>
+<div class="hearLine"><hr /></div>
+<div class="submitArea"><p id="submitBox"><a href="javascript:void(0);" onclick="document.frm.submit();return false;" title="ゲームスタート">ゲームスタート</a></p></div>
+</form>
+<div class="hearLine"><hr /></div>
+<div class="close"><a href="javascript:void(0);" onclick="tb_remove();" title="CLOSE">CLOSE</a></div>
+</div>
+<div id="popEntryBottom"></div>
+</div>
+</div>
+<!-- 応募するポップアップ -->
+
+
+
+<!-- カードのポップアップ -->
+<div id="popCard">
+
+<div class="popCardIn"><!-- 武将 -->
+<div class="popCardBg">
+<div class="floatSet">
+<div class="cardImg"><img src="image.php?b=1&i=306f78ca3c997a299148e6e285ca3e66" alt="" width="205" height="290" /></div>
+<div class="cardTxt">
+<h2 style="padding-bottom:3px;">片倉喜多<br/>(かたくらきた)</h2>
+<p>カードNo.2356<br />
+レア度　【極】<br />
+コスト　2<br />
+ＨＰ　100<br />
+指揮兵数　2600<br />
+兵法　520 （LvUp加算量　2.5）<br />
+攻撃力　1030 （LvUp加算量　30）<br />
+防御力　1120 （LvUp加算量　45）<br />
+槍兵統率　A<br />
+弓兵統率　A<br />
+騎馬統率　B<br />
+兵器統率　S<br />
+スキル名　黒鐘天鳴<br />
+作家名　小森ニコ</p>
+</div>
+</div>
+</div>
+<div class="number"><p class="centertxt"></p></div>
+<ul>
+<li class="btnLeftAr"><a href="javascript:void(0);">＜</a></li>
+<li class="close"><a href="javascript:void(0);" onclick="tb_remove();" title="CLOSE">CLOSE</a></li>
+<li class="btnRightAr"><a href="javascript:void(0);">＞</a></li>
+</ul>
+<!-- /武将 --></div>
+
+<div class="popCardIn"><!-- 武将 -->
+<div class="popCardBg">
+<div class="floatSet">
+<div class="cardImg"><img src="image.php?b=1&i=ada1fcfa84216890d841fe0d31058032" alt="" width="205" height="290" /></div>
+<div class="cardTxt">
+<h2 style="padding-bottom:3px;">毛利隆元<br/>(もうりたかもと)</h2>
+<p>カードNo.2357<br />
+レア度　【極】<br />
+コスト　4<br />
+ＨＰ　100<br />
+指揮兵数　3950<br />
+兵法　530 （LvUp加算量　2.5）<br />
+攻撃力　1040 （LvUp加算量　32）<br />
+防御力　1110 （LvUp加算量　46）<br />
+槍兵統率　A<br />
+弓兵統率　A<br />
+騎馬統率　A<br />
+兵器統率　A<br />
+スキル名　不撓ノ仁将<br />
+作家名　Natto-7</p>
+</div>
+</div>
+</div>
+<div class="number"><p class="centertxt"></p></div>
+<ul>
+<li class="btnLeftAr"><a href="javascript:void(0);">＜</a></li>
+<li class="close"><a href="javascript:void(0);" onclick="tb_remove();" title="CLOSE">CLOSE</a></li>
+<li class="btnRightAr"><a href="javascript:void(0);">＞</a></li>
+</ul>
+<!-- /武将 --></div>
+
+<div class="popCardIn"><!-- 武将 -->
+<div class="popCardBg">
+<div class="floatSet">
+<div class="cardImg"><img src="image.php?b=1&i=232eee85060b8ea49803538e241c17dc" alt="" width="205" height="290" /></div>
+<div class="cardTxt">
+<h2 style="padding-bottom:3px;">向井正綱<br/>(むかいまさつな)</h2>
+<p>カードNo.2472<br />
+レア度　【極】<br />
+コスト　4<br />
+ＨＰ　150<br />
+指揮兵数　4280<br />
+兵法　540 （LvUp加算量　3）<br />
+攻撃力　1180 （LvUp加算量　64）<br />
+防御力　1060 （LvUp加算量　46）<br />
+槍兵統率　A<br />
+弓兵統率　A<br />
+騎馬統率　S<br />
+兵器統率　A<br />
+スキル名　国一丸<br />
+作家名　正子公也</p>
+</div>
+</div>
+</div>
+<div class="number"><p class="centertxt"></p></div>
+<ul>
+<li class="btnLeftAr"><a href="javascript:void(0);">＜</a></li>
+<li class="close"><a href="javascript:void(0);" onclick="tb_remove();" title="CLOSE">CLOSE</a></li>
+<li class="btnRightAr"><a href="javascript:void(0);">＞</a></li>
+</ul>
+<!-- /武将 --></div>
+
+<div class="popCardIn"><!-- 武将 -->
+<div class="popCardBg">
+<div class="floatSet">
+<div class="cardImg"><img src="image.php?b=1&i=49b90c2b0dae113f3eecfb0bd2069966" alt="" width="205" height="290" /></div>
+<div class="cardTxt">
+<h2 style="padding-bottom:3px;">俵屋宗達<br/>(たわらやそうたつ)</h2>
+<p>カードNo.2825<br />
+レア度　【極】<br />
+コスト　3<br />
+ＨＰ　150<br />
+指揮兵数　3350<br />
+兵法　620 （LvUp加算量　3）<br />
+攻撃力　850 （LvUp加算量　20）<br />
+防御力　850 （LvUp加算量　20）<br />
+槍兵統率　A<br />
+弓兵統率　A<br />
+騎馬統率　A<br />
+兵器統率　S<br />
+スキル名　嵐下墨炎<br />
+作家名　鏑木康隆</p>
+</div>
+</div>
+</div>
+<div class="number"><p class="centertxt"></p></div>
+<ul>
+<li class="btnLeftAr"><a href="javascript:void(0);">＜</a></li>
+<li class="close"><a href="javascript:void(0);" onclick="tb_remove();" title="CLOSE">CLOSE</a></li>
+<li class="btnRightAr"><a href="javascript:void(0);">＞</a></li>
+</ul>
+<!-- /武将 --></div>
+
+<div class="popCardIn"><!-- 武将 -->
+<div class="popCardBg">
+<div class="floatSet">
+<div class="cardImg"><img src="image.php?b=1&i=f56aba77334622362b8aa41cb051f2e7" alt="" width="205" height="290" /></div>
+<div class="cardTxt">
+<h2 style="padding-bottom:3px;">宇喜多忠家<br/>(うきたただいえ)</h2>
+<p>カードNo.3558<br />
+レア度　【特】<br />
+コスト　2.5<br />
+ＨＰ　100<br />
+指揮兵数　2670<br />
+兵法　480 （LvUp加算量　2）<br />
+攻撃力　860 （LvUp加算量　25）<br />
+防御力　890 （LvUp加算量　30）<br />
+槍兵統率　B<br />
+弓兵統率　B<br />
+騎馬統率　C<br />
+兵器統率　A<br />
+スキル名　黒鎖ノ悌道<br />
+作家名　nabe</p>
+</div>
+</div>
+</div>
+<div class="number"><p class="centertxt"></p></div>
+<ul>
+<li class="btnLeftAr"><a href="javascript:void(0);">＜</a></li>
+<li class="close"><a href="javascript:void(0);" onclick="tb_remove();" title="CLOSE">CLOSE</a></li>
+<li class="btnRightAr"><a href="javascript:void(0);">＞</a></li>
+</ul>
+<!-- /武将 --></div>
+
+<div class="popCardIn"><!-- 武将 -->
+<div class="popCardBg">
+<div class="floatSet">
+<div class="cardImg"><img src="image.php?b=1&i=22e2acf520452f15dcd1cd0b31121f5c" alt="" width="205" height="290" /></div>
+<div class="cardTxt">
+<h2 style="padding-bottom:3px;">曽根昌世<br/>(そねまさただ)</h2>
+<p>カードNo.3559<br />
+レア度　【特】<br />
+コスト　3<br />
+ＨＰ　100<br />
+指揮兵数　3050<br />
+兵法　470 （LvUp加算量　2）<br />
+攻撃力　860 （LvUp加算量　26）<br />
+防御力　910 （LvUp加算量　32）<br />
+槍兵統率　C<br />
+弓兵統率　B<br />
+騎馬統率　A<br />
+兵器統率　B<br />
+スキル名　虎眼慧明<br />
+作家名　isuZu</p>
+</div>
+</div>
+</div>
+<div class="number"><p class="centertxt"></p></div>
+<ul>
+<li class="btnLeftAr"><a href="javascript:void(0);">＜</a></li>
+<li class="close"><a href="javascript:void(0);" onclick="tb_remove();" title="CLOSE">CLOSE</a></li>
+<li class="btnRightAr"><a href="javascript:void(0);">＞</a></li>
+</ul>
+<!-- /武将 --></div>
+
+<div class="popCardIn"><!-- 武将 -->
+<div class="popCardBg">
+<div class="floatSet">
+<div class="cardImg"><img src="image.php?b=1&i=f956ff8aa15db54051c9a6ca2e8a7cba" alt="" width="205" height="290" /></div>
+<div class="cardTxt">
+<h2 style="padding-bottom:3px;">蒲生郷舎<br/>(がもうさといえ)</h2>
+<p>カードNo.3560<br />
+レア度　【特】<br />
+コスト　2.5<br />
+ＨＰ　100<br />
+指揮兵数　2660<br />
+兵法　480 （LvUp加算量　2）<br />
+攻撃力　880 （LvUp加算量　30）<br />
+防御力　880 （LvUp加算量　30）<br />
+槍兵統率　A<br />
+弓兵統率　B<br />
+騎馬統率　C<br />
+兵器統率　B<br />
+スキル名　争鶴ノ囀り<br />
+作家名　ツヤイルカ</p>
+</div>
+</div>
+</div>
+<div class="number"><p class="centertxt"></p></div>
+<ul>
+<li class="btnLeftAr"><a href="javascript:void(0);">＜</a></li>
+<li class="close"><a href="javascript:void(0);" onclick="tb_remove();" title="CLOSE">CLOSE</a></li>
+<li class="btnRightAr"><a href="javascript:void(0);">＞</a></li>
+</ul>
+<!-- /武将 --></div>
+
+<div class="popCardIn"><!-- 武将 -->
+<div class="popCardBg">
+<div class="floatSet">
+<div class="cardImg"><img src="image.php?b=1&i=e18704be413da98ac5ba6a4355d87fd9" alt="" width="205" height="290" /></div>
+<div class="cardTxt">
+<h2 style="padding-bottom:3px;">木下家定<br/>(きのしたいえさだ)</h2>
+<p>カードNo.4289<br />
+レア度　【上】<br />
+コスト　2<br />
+ＨＰ　100<br />
+指揮兵数　1930<br />
+兵法　450 （LvUp加算量　2）<br />
+攻撃力　540 （LvUp加算量　16）<br />
+防御力　650 （LvUp加算量　18）<br />
+槍兵統率　B<br />
+弓兵統率　C<br />
+騎馬統率　C<br />
+兵器統率　C<br />
+スキル名　槍隊堅陣<br />
+作家名　匡吉</p>
+</div>
+</div>
+</div>
+<div class="number"><p class="centertxt"></p></div>
+<ul>
+<li class="btnLeftAr"><a href="javascript:void(0);">＜</a></li>
+<li class="close"><a href="javascript:void(0);" onclick="tb_remove();" title="CLOSE">CLOSE</a></li>
+<li class="btnRightAr"><a href="javascript:void(0);">＞</a></li>
+</ul>
+<!-- /武将 --></div>
+
+<div class="popCardIn"><!-- 武将 -->
+<div class="popCardBg">
+<div class="floatSet">
+<div class="cardImg"><img src="image.php?b=1&i=51ae9495bd43277efd877da57343ec98" alt="" width="205" height="290" /></div>
+<div class="cardTxt">
+<h2 style="padding-bottom:3px;">原昌胤<br/>(はらまさたね)</h2>
+<p>カードNo.5237<br />
+レア度　【序】<br />
+コスト　1.5<br />
+ＨＰ　100<br />
+指揮兵数　1290<br />
+兵法　410 （LvUp加算量　2）<br />
+攻撃力　490 （LvUp加算量　18）<br />
+防御力　470 （LvUp加算量　17）<br />
+槍兵統率　C<br />
+弓兵統率　D<br />
+騎馬統率　D<br />
+兵器統率　D<br />
+スキル名　槍隊挟撃<br />
+作家名　影由</p>
+</div>
+</div>
+</div>
+<div class="number"><p class="centertxt"></p></div>
+<ul>
+<li class="btnLeftAr"><a href="javascript:void(0);">＜</a></li>
+<li class="close"><a href="javascript:void(0);" onclick="tb_remove();" title="CLOSE">CLOSE</a></li>
+<li class="btnRightAr"><a href="javascript:void(0);">＞</a></li>
+</ul>
+<!-- /武将 --></div>
+
+
+</div>
+<!-- カードのポップアップ -->
+
+<!-- Google Tag Manager -->
+<noscript><iframe src="//www.googletagmanager.com/ns.html?id=GTM-KK989P"
+height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+<script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+'//www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+})(window,document,'script','dataLayer','GTM-KK989P');</script>
+<!-- End Google Tag Manager -->
+<!--SiteStratos Version 1.0-->
+<script type="text/javascript"><!--
+var _ANid = "sengokuixajp";
+var _ANadd = "";
+var _ANprm = "";
+//--></script>
+<script type="text/javascript" src="/sitestratos/ss_sengokuixajp.js"></script>
+<noscript><ins><img src="//a3.ogt.jp/plog?id=sengokuixajp&guid=ON" width="2" height="1" alt="" /></ins></noscript>
+<!--END OF SiteStratos-->
+<script type="text/javascript">
+<!--
+var targetURL = location.href;
+var targetStr = "param=mailto";
+var result = targetURL.search(targetStr);
+if(result > -1){
+	location.href = "mailto:?subject=%90%ed%8d%91IXA%8c%f6%8e%ae%83T%83C%83g&body=%96%b3%97%bf%82%c5%97V%82%d7%82%e9%90%ed%8d%91%83Q%81%5b%83%80%81w%90%ed%8d%91IXA%81x%0d%0a%0d%0a%0d%0a%0d%0a%93o%98%5e%82%e0%83v%83%8c%83C%82%e0%82%b7%82%ae%81I%81%40%81%cb%81%40http%3a%2f%2fsengokuixa%2ejp%2f";
+}
+-->
+</script>
+<script type="text/javascript" src="/js/hukuaka.js"></script>
+<script type="text/javascript">
+<!--
+//set_hukuaka('');
+-->
+</script>
+<script id="tagjs" type="text/javascript">
+  var ytag_verify = "";
+  (function () {
+    var tagjs = document.createElement("script");
+    var s = document.getElementsByTagName("script")[0];
+    tagjs.async = true;
+    tagjs.src = "//s.yjtag.jp/tag.js#site=jdvwBAD,jmYaCrH";
+    s.parentNode.insertBefore(tagjs, s);
+  }());
+</script>
+<noscript>
+  <iframe src="//b.yjtag.jp/iframe?c=jdvwBAD,jmYaCrH" width="1" height="1" frameborder="0" scrolling="no" marginheight="0" marginwidth="0"></iframe>
+</noscript>
+<div id="ytm_cv"></div>
+<script type="text/javascript">
+    (function() {
+        var TOP_URL = 'https://sengokuixa.jp/';
+        $('a#yahoo_login_btn').click(function () {
+            $('<iframe/>', { style: 'display:none', src: TOP_URL + 'ytm_login_cv.html' })
+                .appendTo('div#ytm_cv')
+                .ready(function() {
+                    location.href = TOP_URL + 'index.php?event=OAuth';
+                })
+        })
+    }());
+</script>
+</body>
+
+</html>

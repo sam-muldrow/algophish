@@ -1,0 +1,670 @@
+<!doctype html>
+<html lang="en-US">
+<head><meta charset="UTF-8"><script>if(navigator.userAgent.match(/MSIE|Internet Explorer/i)||navigator.userAgent.match(/Trident\/7\..*?rv:11/i)){var href=document.location.href;if(!href.match(/[?&]nowprocket/)){if(href.indexOf("?")==-1){if(href.indexOf("#")==-1){document.location.href=href+"?nowprocket=1"}else{document.location.href=href.replace("#","?nowprocket=1#")}}else{if(href.indexOf("#")==-1){document.location.href=href+"&nowprocket=1"}else{document.location.href=href.replace("#","&nowprocket=1#")}}}}</script><script>class RocketLazyLoadScripts{constructor(){this.v="1.2.3",this.triggerEvents=["keydown","mousedown","mousemove","touchmove","touchstart","touchend","wheel"],this.userEventHandler=this._triggerListener.bind(this),this.touchStartHandler=this._onTouchStart.bind(this),this.touchMoveHandler=this._onTouchMove.bind(this),this.touchEndHandler=this._onTouchEnd.bind(this),this.clickHandler=this._onClick.bind(this),this.interceptedClicks=[],window.addEventListener("pageshow",t=>{this.persisted=t.persisted}),window.addEventListener("DOMContentLoaded",()=>{this._preconnect3rdParties()}),this.delayedScripts={normal:[],async:[],defer:[]},this.trash=[],this.allJQueries=[]}_addUserInteractionListener(t){if(document.hidden){t._triggerListener();return}this.triggerEvents.forEach(e=>window.addEventListener(e,t.userEventHandler,{passive:!0})),window.addEventListener("touchstart",t.touchStartHandler,{passive:!0}),window.addEventListener("mousedown",t.touchStartHandler),document.addEventListener("visibilitychange",t.userEventHandler)}_removeUserInteractionListener(){this.triggerEvents.forEach(t=>window.removeEventListener(t,this.userEventHandler,{passive:!0})),document.removeEventListener("visibilitychange",this.userEventHandler)}_onTouchStart(t){"HTML"!==t.target.tagName&&(window.addEventListener("touchend",this.touchEndHandler),window.addEventListener("mouseup",this.touchEndHandler),window.addEventListener("touchmove",this.touchMoveHandler,{passive:!0}),window.addEventListener("mousemove",this.touchMoveHandler),t.target.addEventListener("click",this.clickHandler),this._renameDOMAttribute(t.target,"onclick","rocket-onclick"),this._pendingClickStarted())}_onTouchMove(t){window.removeEventListener("touchend",this.touchEndHandler),window.removeEventListener("mouseup",this.touchEndHandler),window.removeEventListener("touchmove",this.touchMoveHandler,{passive:!0}),window.removeEventListener("mousemove",this.touchMoveHandler),t.target.removeEventListener("click",this.clickHandler),this._renameDOMAttribute(t.target,"rocket-onclick","onclick"),this._pendingClickFinished()}_onTouchEnd(t){window.removeEventListener("touchend",this.touchEndHandler),window.removeEventListener("mouseup",this.touchEndHandler),window.removeEventListener("touchmove",this.touchMoveHandler,{passive:!0}),window.removeEventListener("mousemove",this.touchMoveHandler)}_onClick(t){t.target.removeEventListener("click",this.clickHandler),this._renameDOMAttribute(t.target,"rocket-onclick","onclick"),this.interceptedClicks.push(t),t.preventDefault(),t.stopPropagation(),t.stopImmediatePropagation(),this._pendingClickFinished()}_replayClicks(){window.removeEventListener("touchstart",this.touchStartHandler,{passive:!0}),window.removeEventListener("mousedown",this.touchStartHandler),this.interceptedClicks.forEach(t=>{t.target.dispatchEvent(new MouseEvent("click",{view:t.view,bubbles:!0,cancelable:!0}))})}_waitForPendingClicks(){return new Promise(t=>{this._isClickPending?this._pendingClickFinished=t:t()})}_pendingClickStarted(){this._isClickPending=!0}_pendingClickFinished(){this._isClickPending=!1}_renameDOMAttribute(t,e,r){t.hasAttribute&&t.hasAttribute(e)&&(event.target.setAttribute(r,event.target.getAttribute(e)),event.target.removeAttribute(e))}_triggerListener(){this._removeUserInteractionListener(this),"loading"===document.readyState?document.addEventListener("DOMContentLoaded",this._loadEverythingNow.bind(this)):this._loadEverythingNow()}_preconnect3rdParties(){let t=[];document.querySelectorAll("script[type=rocketlazyloadscript]").forEach(e=>{if(e.hasAttribute("src")){let r=new URL(e.src).origin;r!==location.origin&&t.push({src:r,crossOrigin:e.crossOrigin||"module"===e.getAttribute("data-rocket-type")})}}),t=[...new Map(t.map(t=>[JSON.stringify(t),t])).values()],this._batchInjectResourceHints(t,"preconnect")}async _loadEverythingNow(){this.lastBreath=Date.now(),this._delayEventListeners(this),this._delayJQueryReady(this),this._handleDocumentWrite(),this._registerAllDelayedScripts(),this._preloadAllScripts(),await this._loadScriptsFromList(this.delayedScripts.normal),await this._loadScriptsFromList(this.delayedScripts.defer),await this._loadScriptsFromList(this.delayedScripts.async);try{await this._triggerDOMContentLoaded(),await this._triggerWindowLoad()}catch(t){console.error(t)}window.dispatchEvent(new Event("rocket-allScriptsLoaded")),this._waitForPendingClicks().then(()=>{this._replayClicks()}),this._emptyTrash()}_registerAllDelayedScripts(){document.querySelectorAll("script[type=rocketlazyloadscript]").forEach(t=>{t.hasAttribute("data-rocket-src")?t.hasAttribute("async")&&!1!==t.async?this.delayedScripts.async.push(t):t.hasAttribute("defer")&&!1!==t.defer||"module"===t.getAttribute("data-rocket-type")?this.delayedScripts.defer.push(t):this.delayedScripts.normal.push(t):this.delayedScripts.normal.push(t)})}async _transformScript(t){return new Promise((await this._littleBreath(),navigator.userAgent.indexOf("Firefox/")>0||""===navigator.vendor)?e=>{let r=document.createElement("script");[...t.attributes].forEach(t=>{let e=t.nodeName;"type"!==e&&("data-rocket-type"===e&&(e="type"),"data-rocket-src"===e&&(e="src"),r.setAttribute(e,t.nodeValue))}),t.text&&(r.text=t.text),r.hasAttribute("src")?(r.addEventListener("load",e),r.addEventListener("error",e)):(r.text=t.text,e());try{t.parentNode.replaceChild(r,t)}catch(i){e()}}:async e=>{function r(){t.setAttribute("data-rocket-status","failed"),e()}try{let i=t.getAttribute("data-rocket-type"),n=t.getAttribute("data-rocket-src");t.text,i?(t.type=i,t.removeAttribute("data-rocket-type")):t.removeAttribute("type"),t.addEventListener("load",function r(){t.setAttribute("data-rocket-status","executed"),e()}),t.addEventListener("error",r),n?(t.removeAttribute("data-rocket-src"),t.src=n):t.src="data:text/javascript;base64,"+window.btoa(unescape(encodeURIComponent(t.text)))}catch(s){r()}})}async _loadScriptsFromList(t){let e=t.shift();return e&&e.isConnected?(await this._transformScript(e),this._loadScriptsFromList(t)):Promise.resolve()}_preloadAllScripts(){this._batchInjectResourceHints([...this.delayedScripts.normal,...this.delayedScripts.defer,...this.delayedScripts.async],"preload")}_batchInjectResourceHints(t,e){var r=document.createDocumentFragment();t.forEach(t=>{let i=t.getAttribute&&t.getAttribute("data-rocket-src")||t.src;if(i){let n=document.createElement("link");n.href=i,n.rel=e,"preconnect"!==e&&(n.as="script"),t.getAttribute&&"module"===t.getAttribute("data-rocket-type")&&(n.crossOrigin=!0),t.crossOrigin&&(n.crossOrigin=t.crossOrigin),t.integrity&&(n.integrity=t.integrity),r.appendChild(n),this.trash.push(n)}}),document.head.appendChild(r)}_delayEventListeners(t){let e={};function r(t,r){!function t(r){!e[r]&&(e[r]={originalFunctions:{add:r.addEventListener,remove:r.removeEventListener},eventsToRewrite:[]},r.addEventListener=function(){arguments[0]=i(arguments[0]),e[r].originalFunctions.add.apply(r,arguments)},r.removeEventListener=function(){arguments[0]=i(arguments[0]),e[r].originalFunctions.remove.apply(r,arguments)});function i(t){return e[r].eventsToRewrite.indexOf(t)>=0?"rocket-"+t:t}}(t),e[t].eventsToRewrite.push(r)}function i(t,e){let r=t[e];Object.defineProperty(t,e,{get:()=>r||function(){},set(i){t["rocket"+e]=r=i}})}r(document,"DOMContentLoaded"),r(window,"DOMContentLoaded"),r(window,"load"),r(window,"pageshow"),r(document,"readystatechange"),i(document,"onreadystatechange"),i(window,"onload"),i(window,"onpageshow")}_delayJQueryReady(t){let e;function r(r){if(r&&r.fn&&!t.allJQueries.includes(r)){r.fn.ready=r.fn.init.prototype.ready=function(e){return t.domReadyFired?e.bind(document)(r):document.addEventListener("rocket-DOMContentLoaded",()=>e.bind(document)(r)),r([])};let i=r.fn.on;r.fn.on=r.fn.init.prototype.on=function(){if(this[0]===window){function t(t){return t.split(" ").map(t=>"load"===t||0===t.indexOf("load.")?"rocket-jquery-load":t).join(" ")}"string"==typeof arguments[0]||arguments[0]instanceof String?arguments[0]=t(arguments[0]):"object"==typeof arguments[0]&&Object.keys(arguments[0]).forEach(e=>{let r=arguments[0][e];delete arguments[0][e],arguments[0][t(e)]=r})}return i.apply(this,arguments),this},t.allJQueries.push(r)}e=r}r(window.jQuery),Object.defineProperty(window,"jQuery",{get:()=>e,set(t){r(t)}})}async _triggerDOMContentLoaded(){this.domReadyFired=!0,await this._littleBreath(),document.dispatchEvent(new Event("rocket-DOMContentLoaded")),await this._littleBreath(),window.dispatchEvent(new Event("rocket-DOMContentLoaded")),await this._littleBreath(),document.dispatchEvent(new Event("rocket-readystatechange")),await this._littleBreath(),document.rocketonreadystatechange&&document.rocketonreadystatechange()}async _triggerWindowLoad(){await this._littleBreath(),window.dispatchEvent(new Event("rocket-load")),await this._littleBreath(),window.rocketonload&&window.rocketonload(),await this._littleBreath(),this.allJQueries.forEach(t=>t(window).trigger("rocket-jquery-load")),await this._littleBreath();let t=new Event("rocket-pageshow");t.persisted=this.persisted,window.dispatchEvent(t),await this._littleBreath(),window.rocketonpageshow&&window.rocketonpageshow({persisted:this.persisted})}_handleDocumentWrite(){let t=new Map;document.write=document.writeln=function(e){let r=document.currentScript;r||console.error("WPRocket unable to document.write this: "+e);let i=document.createRange(),n=r.parentElement,s=t.get(r);void 0===s&&(s=r.nextSibling,t.set(r,s));let a=document.createDocumentFragment();i.setStart(a,0),a.appendChild(i.createContextualFragment(e)),n.insertBefore(a,s)}}async _littleBreath(){Date.now()-this.lastBreath>45&&(await this._requestAnimFrame(),this.lastBreath=Date.now())}async _requestAnimFrame(){return document.hidden?new Promise(t=>setTimeout(t)):new Promise(t=>requestAnimationFrame(t))}_emptyTrash(){this.trash.forEach(t=>t.remove())}static run(){let t=new RocketLazyLoadScripts;t._addUserInteractionListener(t)}}RocketLazyLoadScripts.run();</script>
+	
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<link rel="profile" href="https://gmpg.org/xfn/11">
+	<title>123limited &#8211; Official Website</title><link rel="preload" as="style" href="https://fonts.googleapis.com/css?family=Roboto%3A100%2C100italic%2C200%2C200italic%2C300%2C300italic%2C400%2C400italic%2C500%2C500italic%2C600%2C600italic%2C700%2C700italic%2C800%2C800italic%2C900%2C900italic%7CRoboto%20Slab%3A100%2C100italic%2C200%2C200italic%2C300%2C300italic%2C400%2C400italic%2C500%2C500italic%2C600%2C600italic%2C700%2C700italic%2C800%2C800italic%2C900%2C900italic%7CKanit%3A100%2C100italic%2C200%2C200italic%2C300%2C300italic%2C400%2C400italic%2C500%2C500italic%2C600%2C600italic%2C700%2C700italic%2C800%2C800italic%2C900%2C900italic%7CPrompt%3A100%2C100italic%2C200%2C200italic%2C300%2C300italic%2C400%2C400italic%2C500%2C500italic%2C600%2C600italic%2C700%2C700italic%2C800%2C800italic%2C900%2C900italic&#038;display=swap" /><link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto%3A100%2C100italic%2C200%2C200italic%2C300%2C300italic%2C400%2C400italic%2C500%2C500italic%2C600%2C600italic%2C700%2C700italic%2C800%2C800italic%2C900%2C900italic%7CRoboto%20Slab%3A100%2C100italic%2C200%2C200italic%2C300%2C300italic%2C400%2C400italic%2C500%2C500italic%2C600%2C600italic%2C700%2C700italic%2C800%2C800italic%2C900%2C900italic%7CKanit%3A100%2C100italic%2C200%2C200italic%2C300%2C300italic%2C400%2C400italic%2C500%2C500italic%2C600%2C600italic%2C700%2C700italic%2C800%2C800italic%2C900%2C900italic%7CPrompt%3A100%2C100italic%2C200%2C200italic%2C300%2C300italic%2C400%2C400italic%2C500%2C500italic%2C600%2C600italic%2C700%2C700italic%2C800%2C800italic%2C900%2C900italic&#038;display=swap" media="print" onload="this.media='all'" /><noscript><link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto%3A100%2C100italic%2C200%2C200italic%2C300%2C300italic%2C400%2C400italic%2C500%2C500italic%2C600%2C600italic%2C700%2C700italic%2C800%2C800italic%2C900%2C900italic%7CRoboto%20Slab%3A100%2C100italic%2C200%2C200italic%2C300%2C300italic%2C400%2C400italic%2C500%2C500italic%2C600%2C600italic%2C700%2C700italic%2C800%2C800italic%2C900%2C900italic%7CKanit%3A100%2C100italic%2C200%2C200italic%2C300%2C300italic%2C400%2C400italic%2C500%2C500italic%2C600%2C600italic%2C700%2C700italic%2C800%2C800italic%2C900%2C900italic%7CPrompt%3A100%2C100italic%2C200%2C200italic%2C300%2C300italic%2C400%2C400italic%2C500%2C500italic%2C600%2C600italic%2C700%2C700italic%2C800%2C800italic%2C900%2C900italic&#038;display=swap" /></noscript>
+<meta name='robots' content='max-image-preview:large' />
+<link href='https://fonts.gstatic.com' crossorigin rel='preconnect' />
+<link rel="alternate" type="application/rss+xml" title="123limited &raquo; Feed" href="https://boarder-zone.net/feed/" />
+<link rel="alternate" type="application/rss+xml" title="123limited &raquo; Comments Feed" href="https://boarder-zone.net/comments/feed/" />
+<link rel="alternate" type="application/rss+xml" title="123limited &raquo; Home Comments Feed" href="https://boarder-zone.net/home-2/feed/" />
+<style id='wp-emoji-styles-inline-css'>
+
+	img.wp-smiley, img.emoji {
+		display: inline !important;
+		border: none !important;
+		box-shadow: none !important;
+		height: 1em !important;
+		width: 1em !important;
+		margin: 0 0.07em !important;
+		vertical-align: -0.1em !important;
+		background: none !important;
+		padding: 0 !important;
+	}
+</style>
+<link rel='stylesheet' id='wp-block-library-css' href='https://boarder-zone.net/wp-includes/css/dist/block-library/style.min.css?ver=6.4.1' media='all' />
+<style id='classic-theme-styles-inline-css'>
+/*! This file is auto-generated */
+.wp-block-button__link{color:#fff;background-color:#32373c;border-radius:9999px;box-shadow:none;text-decoration:none;padding:calc(.667em + 2px) calc(1.333em + 2px);font-size:1.125em}.wp-block-file__button{background:#32373c;color:#fff;text-decoration:none}
+</style>
+<style id='global-styles-inline-css'>
+body{--wp--preset--color--black: #000000;--wp--preset--color--cyan-bluish-gray: #abb8c3;--wp--preset--color--white: #ffffff;--wp--preset--color--pale-pink: #f78da7;--wp--preset--color--vivid-red: #cf2e2e;--wp--preset--color--luminous-vivid-orange: #ff6900;--wp--preset--color--luminous-vivid-amber: #fcb900;--wp--preset--color--light-green-cyan: #7bdcb5;--wp--preset--color--vivid-green-cyan: #00d084;--wp--preset--color--pale-cyan-blue: #8ed1fc;--wp--preset--color--vivid-cyan-blue: #0693e3;--wp--preset--color--vivid-purple: #9b51e0;--wp--preset--gradient--vivid-cyan-blue-to-vivid-purple: linear-gradient(135deg,rgba(6,147,227,1) 0%,rgb(155,81,224) 100%);--wp--preset--gradient--light-green-cyan-to-vivid-green-cyan: linear-gradient(135deg,rgb(122,220,180) 0%,rgb(0,208,130) 100%);--wp--preset--gradient--luminous-vivid-amber-to-luminous-vivid-orange: linear-gradient(135deg,rgba(252,185,0,1) 0%,rgba(255,105,0,1) 100%);--wp--preset--gradient--luminous-vivid-orange-to-vivid-red: linear-gradient(135deg,rgba(255,105,0,1) 0%,rgb(207,46,46) 100%);--wp--preset--gradient--very-light-gray-to-cyan-bluish-gray: linear-gradient(135deg,rgb(238,238,238) 0%,rgb(169,184,195) 100%);--wp--preset--gradient--cool-to-warm-spectrum: linear-gradient(135deg,rgb(74,234,220) 0%,rgb(151,120,209) 20%,rgb(207,42,186) 40%,rgb(238,44,130) 60%,rgb(251,105,98) 80%,rgb(254,248,76) 100%);--wp--preset--gradient--blush-light-purple: linear-gradient(135deg,rgb(255,206,236) 0%,rgb(152,150,240) 100%);--wp--preset--gradient--blush-bordeaux: linear-gradient(135deg,rgb(254,205,165) 0%,rgb(254,45,45) 50%,rgb(107,0,62) 100%);--wp--preset--gradient--luminous-dusk: linear-gradient(135deg,rgb(255,203,112) 0%,rgb(199,81,192) 50%,rgb(65,88,208) 100%);--wp--preset--gradient--pale-ocean: linear-gradient(135deg,rgb(255,245,203) 0%,rgb(182,227,212) 50%,rgb(51,167,181) 100%);--wp--preset--gradient--electric-grass: linear-gradient(135deg,rgb(202,248,128) 0%,rgb(113,206,126) 100%);--wp--preset--gradient--midnight: linear-gradient(135deg,rgb(2,3,129) 0%,rgb(40,116,252) 100%);--wp--preset--font-size--small: 13px;--wp--preset--font-size--medium: 20px;--wp--preset--font-size--large: 36px;--wp--preset--font-size--x-large: 42px;--wp--preset--spacing--20: 0.44rem;--wp--preset--spacing--30: 0.67rem;--wp--preset--spacing--40: 1rem;--wp--preset--spacing--50: 1.5rem;--wp--preset--spacing--60: 2.25rem;--wp--preset--spacing--70: 3.38rem;--wp--preset--spacing--80: 5.06rem;--wp--preset--shadow--natural: 6px 6px 9px rgba(0, 0, 0, 0.2);--wp--preset--shadow--deep: 12px 12px 50px rgba(0, 0, 0, 0.4);--wp--preset--shadow--sharp: 6px 6px 0px rgba(0, 0, 0, 0.2);--wp--preset--shadow--outlined: 6px 6px 0px -3px rgba(255, 255, 255, 1), 6px 6px rgba(0, 0, 0, 1);--wp--preset--shadow--crisp: 6px 6px 0px rgba(0, 0, 0, 1);}:where(.is-layout-flex){gap: 0.5em;}:where(.is-layout-grid){gap: 0.5em;}body .is-layout-flow > .alignleft{float: left;margin-inline-start: 0;margin-inline-end: 2em;}body .is-layout-flow > .alignright{float: right;margin-inline-start: 2em;margin-inline-end: 0;}body .is-layout-flow > .aligncenter{margin-left: auto !important;margin-right: auto !important;}body .is-layout-constrained > .alignleft{float: left;margin-inline-start: 0;margin-inline-end: 2em;}body .is-layout-constrained > .alignright{float: right;margin-inline-start: 2em;margin-inline-end: 0;}body .is-layout-constrained > .aligncenter{margin-left: auto !important;margin-right: auto !important;}body .is-layout-constrained > :where(:not(.alignleft):not(.alignright):not(.alignfull)){max-width: var(--wp--style--global--content-size);margin-left: auto !important;margin-right: auto !important;}body .is-layout-constrained > .alignwide{max-width: var(--wp--style--global--wide-size);}body .is-layout-flex{display: flex;}body .is-layout-flex{flex-wrap: wrap;align-items: center;}body .is-layout-flex > *{margin: 0;}body .is-layout-grid{display: grid;}body .is-layout-grid > *{margin: 0;}:where(.wp-block-columns.is-layout-flex){gap: 2em;}:where(.wp-block-columns.is-layout-grid){gap: 2em;}:where(.wp-block-post-template.is-layout-flex){gap: 1.25em;}:where(.wp-block-post-template.is-layout-grid){gap: 1.25em;}.has-black-color{color: var(--wp--preset--color--black) !important;}.has-cyan-bluish-gray-color{color: var(--wp--preset--color--cyan-bluish-gray) !important;}.has-white-color{color: var(--wp--preset--color--white) !important;}.has-pale-pink-color{color: var(--wp--preset--color--pale-pink) !important;}.has-vivid-red-color{color: var(--wp--preset--color--vivid-red) !important;}.has-luminous-vivid-orange-color{color: var(--wp--preset--color--luminous-vivid-orange) !important;}.has-luminous-vivid-amber-color{color: var(--wp--preset--color--luminous-vivid-amber) !important;}.has-light-green-cyan-color{color: var(--wp--preset--color--light-green-cyan) !important;}.has-vivid-green-cyan-color{color: var(--wp--preset--color--vivid-green-cyan) !important;}.has-pale-cyan-blue-color{color: var(--wp--preset--color--pale-cyan-blue) !important;}.has-vivid-cyan-blue-color{color: var(--wp--preset--color--vivid-cyan-blue) !important;}.has-vivid-purple-color{color: var(--wp--preset--color--vivid-purple) !important;}.has-black-background-color{background-color: var(--wp--preset--color--black) !important;}.has-cyan-bluish-gray-background-color{background-color: var(--wp--preset--color--cyan-bluish-gray) !important;}.has-white-background-color{background-color: var(--wp--preset--color--white) !important;}.has-pale-pink-background-color{background-color: var(--wp--preset--color--pale-pink) !important;}.has-vivid-red-background-color{background-color: var(--wp--preset--color--vivid-red) !important;}.has-luminous-vivid-orange-background-color{background-color: var(--wp--preset--color--luminous-vivid-orange) !important;}.has-luminous-vivid-amber-background-color{background-color: var(--wp--preset--color--luminous-vivid-amber) !important;}.has-light-green-cyan-background-color{background-color: var(--wp--preset--color--light-green-cyan) !important;}.has-vivid-green-cyan-background-color{background-color: var(--wp--preset--color--vivid-green-cyan) !important;}.has-pale-cyan-blue-background-color{background-color: var(--wp--preset--color--pale-cyan-blue) !important;}.has-vivid-cyan-blue-background-color{background-color: var(--wp--preset--color--vivid-cyan-blue) !important;}.has-vivid-purple-background-color{background-color: var(--wp--preset--color--vivid-purple) !important;}.has-black-border-color{border-color: var(--wp--preset--color--black) !important;}.has-cyan-bluish-gray-border-color{border-color: var(--wp--preset--color--cyan-bluish-gray) !important;}.has-white-border-color{border-color: var(--wp--preset--color--white) !important;}.has-pale-pink-border-color{border-color: var(--wp--preset--color--pale-pink) !important;}.has-vivid-red-border-color{border-color: var(--wp--preset--color--vivid-red) !important;}.has-luminous-vivid-orange-border-color{border-color: var(--wp--preset--color--luminous-vivid-orange) !important;}.has-luminous-vivid-amber-border-color{border-color: var(--wp--preset--color--luminous-vivid-amber) !important;}.has-light-green-cyan-border-color{border-color: var(--wp--preset--color--light-green-cyan) !important;}.has-vivid-green-cyan-border-color{border-color: var(--wp--preset--color--vivid-green-cyan) !important;}.has-pale-cyan-blue-border-color{border-color: var(--wp--preset--color--pale-cyan-blue) !important;}.has-vivid-cyan-blue-border-color{border-color: var(--wp--preset--color--vivid-cyan-blue) !important;}.has-vivid-purple-border-color{border-color: var(--wp--preset--color--vivid-purple) !important;}.has-vivid-cyan-blue-to-vivid-purple-gradient-background{background: var(--wp--preset--gradient--vivid-cyan-blue-to-vivid-purple) !important;}.has-light-green-cyan-to-vivid-green-cyan-gradient-background{background: var(--wp--preset--gradient--light-green-cyan-to-vivid-green-cyan) !important;}.has-luminous-vivid-amber-to-luminous-vivid-orange-gradient-background{background: var(--wp--preset--gradient--luminous-vivid-amber-to-luminous-vivid-orange) !important;}.has-luminous-vivid-orange-to-vivid-red-gradient-background{background: var(--wp--preset--gradient--luminous-vivid-orange-to-vivid-red) !important;}.has-very-light-gray-to-cyan-bluish-gray-gradient-background{background: var(--wp--preset--gradient--very-light-gray-to-cyan-bluish-gray) !important;}.has-cool-to-warm-spectrum-gradient-background{background: var(--wp--preset--gradient--cool-to-warm-spectrum) !important;}.has-blush-light-purple-gradient-background{background: var(--wp--preset--gradient--blush-light-purple) !important;}.has-blush-bordeaux-gradient-background{background: var(--wp--preset--gradient--blush-bordeaux) !important;}.has-luminous-dusk-gradient-background{background: var(--wp--preset--gradient--luminous-dusk) !important;}.has-pale-ocean-gradient-background{background: var(--wp--preset--gradient--pale-ocean) !important;}.has-electric-grass-gradient-background{background: var(--wp--preset--gradient--electric-grass) !important;}.has-midnight-gradient-background{background: var(--wp--preset--gradient--midnight) !important;}.has-small-font-size{font-size: var(--wp--preset--font-size--small) !important;}.has-medium-font-size{font-size: var(--wp--preset--font-size--medium) !important;}.has-large-font-size{font-size: var(--wp--preset--font-size--large) !important;}.has-x-large-font-size{font-size: var(--wp--preset--font-size--x-large) !important;}
+.wp-block-navigation a:where(:not(.wp-element-button)){color: inherit;}
+:where(.wp-block-post-template.is-layout-flex){gap: 1.25em;}:where(.wp-block-post-template.is-layout-grid){gap: 1.25em;}
+:where(.wp-block-columns.is-layout-flex){gap: 2em;}:where(.wp-block-columns.is-layout-grid){gap: 2em;}
+.wp-block-pullquote{font-size: 1.5em;line-height: 1.6;}
+</style>
+<link rel='stylesheet' id='hello-elementor-css' href='https://boarder-zone.net/wp-content/themes/hello-elementor/style.min.css?ver=2.7.1' media='all' />
+<link rel='stylesheet' id='hello-elementor-theme-style-css' href='https://boarder-zone.net/wp-content/themes/hello-elementor/theme.min.css?ver=2.7.1' media='all' />
+<link rel='stylesheet' id='elementor-frontend-css' href='https://boarder-zone.net/wp-content/plugins/elementor/assets/css/frontend-lite.min.css?ver=3.14.0' media='all' />
+<style id='elementor-frontend-inline-css'>
+.elementor-135 .elementor-element.elementor-element-512d6963:not(.elementor-motion-effects-element-type-background), .elementor-135 .elementor-element.elementor-element-512d6963 > .elementor-motion-effects-container > .elementor-motion-effects-layer{background-color:#212300;}.elementor-135 .elementor-element.elementor-element-abc3ab1 .elementor-nav-menu--main .elementor-item{color:#FFFF11;fill:#FFFF11;}.elementor-135 .elementor-element.elementor-element-abc3ab1 .elementor-nav-menu--main .elementor-item:hover,
+					.elementor-135 .elementor-element.elementor-element-abc3ab1 .elementor-nav-menu--main .elementor-item.elementor-item-active,
+					.elementor-135 .elementor-element.elementor-element-abc3ab1 .elementor-nav-menu--main .elementor-item.highlighted,
+					.elementor-135 .elementor-element.elementor-element-abc3ab1 .elementor-nav-menu--main .elementor-item:focus{color:#ffffff;fill:#ffffff;}.elementor-135 .elementor-element.elementor-element-abc3ab1 .elementor-nav-menu--main .elementor-item.elementor-item-active{color:#FFFF11;}.elementor-135 .elementor-element.elementor-element-abc3ab1 .elementor-nav-menu--dropdown a, .elementor-135 .elementor-element.elementor-element-abc3ab1 .elementor-menu-toggle{color:#ffffff;}.elementor-135 .elementor-element.elementor-element-abc3ab1 .elementor-nav-menu--dropdown{background-color:#212300;}.elementor-135 .elementor-element.elementor-element-abc3ab1 .elementor-nav-menu--dropdown a:hover,
+					.elementor-135 .elementor-element.elementor-element-abc3ab1 .elementor-nav-menu--dropdown a.elementor-item-active,
+					.elementor-135 .elementor-element.elementor-element-abc3ab1 .elementor-nav-menu--dropdown a.highlighted,
+					.elementor-135 .elementor-element.elementor-element-abc3ab1 .elementor-menu-toggle:hover{color:#ffffff;}.elementor-135 .elementor-element.elementor-element-abc3ab1 .elementor-nav-menu--dropdown a:hover,
+					.elementor-135 .elementor-element.elementor-element-abc3ab1 .elementor-nav-menu--dropdown a.elementor-item-active,
+					.elementor-135 .elementor-element.elementor-element-abc3ab1 .elementor-nav-menu--dropdown a.highlighted{background-color:#212300;}.elementor-135 .elementor-element.elementor-element-abc3ab1 .elementor-nav-menu--dropdown a.elementor-item-active{color:#ffffff;background-color:#212300;}.elementor-135 .elementor-element.elementor-element-abc3ab1 div.elementor-menu-toggle{color:#FFFF11;}.elementor-135 .elementor-element.elementor-element-abc3ab1 div.elementor-menu-toggle svg{fill:#FFFF11;}.elementor-135 .elementor-element.elementor-element-abc3ab1 div.elementor-menu-toggle:hover{color:#ffffff;}.elementor-135 .elementor-element.elementor-element-abc3ab1 div.elementor-menu-toggle:hover svg{fill:#ffffff;}.elementor-135 .elementor-element.elementor-element-18673022 .elementor-button{fill:#ffffff;color:#ffffff;background-color:#212300;}.elementor-135 .elementor-element.elementor-element-11b9bafc:not(.elementor-motion-effects-element-type-background), .elementor-135 .elementor-element.elementor-element-11b9bafc > .elementor-motion-effects-container > .elementor-motion-effects-layer{background-color:#212300;}.elementor-135 .elementor-element.elementor-element-3b45d992 .elementor-button{fill:#ffffff;color:#ffffff;background-color:#212300;}.elementor-135 .elementor-element.elementor-element-3cecdfb6 .elementor-nav-menu--main .elementor-item{color:#FFFF11;fill:#FFFF11;}.elementor-135 .elementor-element.elementor-element-3cecdfb6 .elementor-nav-menu--main .elementor-item:hover,
+					.elementor-135 .elementor-element.elementor-element-3cecdfb6 .elementor-nav-menu--main .elementor-item.elementor-item-active,
+					.elementor-135 .elementor-element.elementor-element-3cecdfb6 .elementor-nav-menu--main .elementor-item.highlighted,
+					.elementor-135 .elementor-element.elementor-element-3cecdfb6 .elementor-nav-menu--main .elementor-item:focus{color:#ffffff;fill:#ffffff;}.elementor-135 .elementor-element.elementor-element-3cecdfb6 .elementor-nav-menu--main .elementor-item.elementor-item-active{color:#FFFF11;}.elementor-135 .elementor-element.elementor-element-3cecdfb6 .elementor-nav-menu--dropdown a, .elementor-135 .elementor-element.elementor-element-3cecdfb6 .elementor-menu-toggle{color:#ffffff;}.elementor-135 .elementor-element.elementor-element-3cecdfb6 .elementor-nav-menu--dropdown{background-color:#212300;}.elementor-135 .elementor-element.elementor-element-3cecdfb6 .elementor-nav-menu--dropdown a:hover,
+					.elementor-135 .elementor-element.elementor-element-3cecdfb6 .elementor-nav-menu--dropdown a.elementor-item-active,
+					.elementor-135 .elementor-element.elementor-element-3cecdfb6 .elementor-nav-menu--dropdown a.highlighted,
+					.elementor-135 .elementor-element.elementor-element-3cecdfb6 .elementor-menu-toggle:hover{color:#ffffff;}.elementor-135 .elementor-element.elementor-element-3cecdfb6 .elementor-nav-menu--dropdown a:hover,
+					.elementor-135 .elementor-element.elementor-element-3cecdfb6 .elementor-nav-menu--dropdown a.elementor-item-active,
+					.elementor-135 .elementor-element.elementor-element-3cecdfb6 .elementor-nav-menu--dropdown a.highlighted{background-color:#212300;}.elementor-135 .elementor-element.elementor-element-3cecdfb6 .elementor-nav-menu--dropdown a.elementor-item-active{color:#ffffff;background-color:#212300;}.elementor-135 .elementor-element.elementor-element-3cecdfb6 div.elementor-menu-toggle{color:#FFFF11;}.elementor-135 .elementor-element.elementor-element-3cecdfb6 div.elementor-menu-toggle svg{fill:#FFFF11;}.elementor-135 .elementor-element.elementor-element-3cecdfb6 div.elementor-menu-toggle:hover{color:#ffffff;}.elementor-135 .elementor-element.elementor-element-3cecdfb6 div.elementor-menu-toggle:hover svg{fill:#ffffff;}.elementor-135 .elementor-element.elementor-element-4760401c .elementor-button{fill:#ffffff;color:#ffffff;background-color:#212300;}
+.elementor-131 .elementor-element.elementor-element-8e94f27:not(.elementor-motion-effects-element-type-background), .elementor-131 .elementor-element.elementor-element-8e94f27 > .elementor-motion-effects-container > .elementor-motion-effects-layer{background-color:#222012;}.elementor-131 .elementor-element.elementor-element-27b49ad1 .elementor-heading-title{color:#FFFF11;}.elementor-131 .elementor-element.elementor-element-413bb0d{color:#ffffff;}.elementor-131 .elementor-element.elementor-element-5d5e04d0 .elementor-nav-menu--main .elementor-item{color:#ffffff;fill:#ffffff;}.elementor-131 .elementor-element.elementor-element-5d5e04d0 .elementor-nav-menu--main .elementor-item:hover,
+					.elementor-131 .elementor-element.elementor-element-5d5e04d0 .elementor-nav-menu--main .elementor-item.elementor-item-active,
+					.elementor-131 .elementor-element.elementor-element-5d5e04d0 .elementor-nav-menu--main .elementor-item.highlighted,
+					.elementor-131 .elementor-element.elementor-element-5d5e04d0 .elementor-nav-menu--main .elementor-item:focus{color:#ffffff;fill:#ffffff;}.elementor-131 .elementor-element.elementor-element-5d5e04d0 .elementor-nav-menu--main .elementor-item.elementor-item-active{color:#ffffff;}.elementor-131 .elementor-element.elementor-element-3876c23c .elementor-heading-title{color:#ffffff;}
+.elementor-269 .elementor-element.elementor-element-59ec3394:not(.elementor-motion-effects-element-type-background), .elementor-269 .elementor-element.elementor-element-59ec3394 > .elementor-motion-effects-container > .elementor-motion-effects-layer{background-color:#222012;}.elementor-269 .elementor-element.elementor-element-31b83470 .elementor-heading-title{color:#FFFF11;}.elementor-269 .elementor-element.elementor-element-2c247b7b:not(.elementor-motion-effects-element-type-background), .elementor-269 .elementor-element.elementor-element-2c247b7b > .elementor-motion-effects-container > .elementor-motion-effects-layer{background-color:#222012;}.elementor-269 .elementor-element.elementor-element-2c247b7b > .elementor-shape-bottom .elementor-shape-fill{fill:#ffffff;}.elementor-269 .elementor-element.elementor-element-2de918c2 .elementor-heading-title{color:#FFFF11;}.elementor-269 .elementor-element.elementor-element-2de918c2 > .elementor-widget-container{background-color:#212300;border-color:#ffffff;}.elementor-269 .elementor-element.elementor-element-45d9b619{color:#ffffff;}.elementor-269 .elementor-element.elementor-element-5fa3a546 .elementor-heading-title{color:#FFFF11;}.elementor-269 .elementor-element.elementor-element-5fa3a546 > .elementor-widget-container{background-color:#212300;border-color:#ffffff;}.elementor-269 .elementor-element.elementor-element-780d4675{color:#ffffff;}.elementor-269 .elementor-element.elementor-element-35468086:not(.elementor-motion-effects-element-type-background), .elementor-269 .elementor-element.elementor-element-35468086 > .elementor-motion-effects-container > .elementor-motion-effects-layer{background-color:#222012;}.elementor-269 .elementor-element.elementor-element-35468086 > .elementor-shape-top .elementor-shape-fill{fill:#ffffff;}.elementor-269 .elementor-element.elementor-element-35468086 > .elementor-shape-bottom .elementor-shape-fill{fill:#ffffff;}.elementor-269 .elementor-element.elementor-element-5d2ee8b9 .elementor-heading-title{color:#FFFF11;}.elementor-269 .elementor-element.elementor-element-5d2ee8b9 > .elementor-widget-container{background-color:#212300;border-color:#ffffff;}.elementor-269 .elementor-element.elementor-element-2188e3c8{color:#ffffff;}.elementor-269 .elementor-element.elementor-element-e08f64c .elementor-heading-title{color:#FFFF11;}.elementor-269 .elementor-element.elementor-element-e08f64c > .elementor-widget-container{background-color:#212300;border-color:#ffffff;}.elementor-269 .elementor-element.elementor-element-c256d6{color:#ffffff;}.elementor-269 .elementor-element.elementor-element-1f922eb0:not(.elementor-motion-effects-element-type-background), .elementor-269 .elementor-element.elementor-element-1f922eb0 > .elementor-motion-effects-container > .elementor-motion-effects-layer{background-color:#222012;}.elementor-269 .elementor-element.elementor-element-1f922eb0 > .elementor-shape-top .elementor-shape-fill{fill:#ffffff;}.elementor-269 .elementor-element.elementor-element-5eb584ba .elementor-heading-title{color:#FFFF11;}.elementor-269 .elementor-element.elementor-element-5eb584ba > .elementor-widget-container{background-color:#212300;border-color:#ffffff;}.elementor-269 .elementor-element.elementor-element-3d38bef3{color:#ffffff;}.elementor-269 .elementor-element.elementor-element-3c761f85 .elementor-heading-title{color:#FFFF11;}.elementor-269 .elementor-element.elementor-element-3c761f85 > .elementor-widget-container{background-color:#212300;border-color:#ffffff;}.elementor-269 .elementor-element.elementor-element-53bd1fce{color:#ffffff;}.elementor-269 .elementor-element.elementor-element-81787f8 .elementor-heading-title{color:#FFFF11;}.elementor-269 .elementor-element.elementor-element-81787f8 > .elementor-widget-container{background-color:#212300;border-color:#ffffff;}.elementor-269 .elementor-element.elementor-element-1a40e680{color:#ffffff;}.elementor-269 .elementor-element.elementor-element-5e5854af .elementor-heading-title{color:#FFFF11;}.elementor-269 .elementor-element.elementor-element-5e5854af > .elementor-widget-container{background-color:#212300;border-color:#ffffff;}.elementor-269 .elementor-element.elementor-element-1251ce54{color:#ffffff;}.elementor-269 .elementor-element.elementor-element-45f15c9b:not(.elementor-motion-effects-element-type-background) > .elementor-widget-wrap, .elementor-269 .elementor-element.elementor-element-45f15c9b > .elementor-widget-wrap > .elementor-motion-effects-container > .elementor-motion-effects-layer{background-color:#222012;}.elementor-269 .elementor-element.elementor-element-21e1b097 .elementor-heading-title{color:#212300;}.elementor-269 .elementor-element.elementor-element-21e1b097 > .elementor-widget-container{background-color:#ffffff;border-color:#ffffff;}.elementor-269 .elementor-element.elementor-element-7fb91061 .elementor-toggle-title, .elementor-269 .elementor-element.elementor-element-7fb91061 .elementor-toggle-icon{color:#FFFF11;}.elementor-269 .elementor-element.elementor-element-7fb91061 .elementor-toggle-icon svg{fill:#FFFF11;}.elementor-269 .elementor-element.elementor-element-7fb91061 .elementor-tab-title.elementor-active a, .elementor-269 .elementor-element.elementor-element-7fb91061 .elementor-tab-title.elementor-active .elementor-toggle-icon{color:#ffffff;}.elementor-269 .elementor-element.elementor-element-7fb91061 .elementor-tab-content{color:#ffffff;}
+</style>
+<link rel='stylesheet' id='elementor-post-5-css' href='https://boarder-zone.net/wp-content/uploads/elementor/css/post-5.css?ver=1687409880' media='all' />
+<link data-minify="1" rel='stylesheet' id='elementor-icons-css' href='https://boarder-zone.net/wp-content/cache/min/1/wp-content/plugins/elementor/assets/lib/eicons/css/elementor-icons.min.css?ver=1693888341' media='all' />
+<link rel='stylesheet' id='swiper-css' href='https://boarder-zone.net/wp-content/plugins/elementor/assets/lib/swiper/css/swiper.min.css?ver=5.3.6' media='all' />
+<link rel='stylesheet' id='elementor-pro-css' href='https://boarder-zone.net/wp-content/plugins/elementor-pro/assets/css/frontend-lite.min.css?ver=3.12.3' media='all' />
+<link rel='stylesheet' id='elementor-global-css' href='https://boarder-zone.net/wp-content/uploads/elementor/css/global.css?ver=1687409881' media='all' />
+<link rel='stylesheet' id='elementor-post-135-css' href='https://boarder-zone.net/wp-content/uploads/elementor/css/post-135.css?ver=1687409881' media='all' />
+<link rel='stylesheet' id='elementor-post-131-css' href='https://boarder-zone.net/wp-content/uploads/elementor/css/post-131.css?ver=1687409881' media='all' />
+<link rel='stylesheet' id='elementor-post-269-css' href='https://boarder-zone.net/wp-content/uploads/elementor/css/post-269.css?ver=1687410220' media='all' />
+
+<link rel='stylesheet' id='elementor-icons-shared-0-css' href='https://boarder-zone.net/wp-content/plugins/elementor/assets/lib/font-awesome/css/fontawesome.min.css?ver=5.15.3' media='all' />
+<link data-minify="1" rel='stylesheet' id='elementor-icons-fa-solid-css' href='https://boarder-zone.net/wp-content/cache/min/1/wp-content/plugins/elementor/assets/lib/font-awesome/css/solid.min.css?ver=1693888341' media='all' />
+<link rel="preconnect" href="https://fonts.gstatic.com/" crossorigin><script type="rocketlazyloadscript" data-rocket-src="https://boarder-zone.net/wp-includes/js/jquery/jquery.min.js?ver=3.7.1" id="jquery-core-js" defer></script>
+<script type="rocketlazyloadscript" data-rocket-src="https://boarder-zone.net/wp-includes/js/jquery/jquery-migrate.min.js?ver=3.4.1" id="jquery-migrate-js" defer></script>
+<link rel="https://api.w.org/" href="https://boarder-zone.net/wp-json/" /><link rel="alternate" type="application/json" href="https://boarder-zone.net/wp-json/wp/v2/pages/259" /><link rel="EditURI" type="application/rsd+xml" title="RSD" href="https://boarder-zone.net/xmlrpc.php?rsd" />
+<meta name="generator" content="WordPress 6.4.1" />
+<link rel="canonical" href="https://boarder-zone.net/" />
+<link rel='shortlink' href='https://boarder-zone.net/' />
+<link rel="alternate" type="application/json+oembed" href="https://boarder-zone.net/wp-json/oembed/1.0/embed?url=https%3A%2F%2Fboarder-zone.net%2F" />
+<link rel="alternate" type="text/xml+oembed" href="https://boarder-zone.net/wp-json/oembed/1.0/embed?url=https%3A%2F%2Fboarder-zone.net%2F&#038;format=xml" />
+<!-- start Simple Custom CSS and JS -->
+<script type="rocketlazyloadscript">
+    if ((document.addEventListener != null) && (document.querySelector != null)) {
+        document.addEventListener( 'DOMContentLoaded', function() {
+            var b = document.querySelector('button.wp-hide-pw');
+            if (b != null) b.remove();
+        });
+    }
+    </script>
+    
+    <!-- end Simple Custom CSS and JS -->
+		<meta name="ssp-url" content="">
+		<meta name="ssp-origin-url" content="aHR0cHM6Ly9ib2FyZGVyLXpvbmUubmV0">
+
+					<meta name="ssp-config-url" content="/wp-content/uploads/simply-static/configs/">
+		
+				<meta name="generator" content="Elementor 3.14.0; features: e_dom_optimization, e_optimized_assets_loading, e_optimized_css_loading, a11y_improvements, additional_custom_breakpoints; settings: css_print_method-external, google_font-enabled, font_display-swap">
+<link rel="icon" href="https://boarder-zone.net/wp-content/uploads/2023/06/cropped-boarder-zone.net_-32x32.png" sizes="32x32" />
+<link rel="icon" href="https://boarder-zone.net/wp-content/uploads/2023/06/cropped-boarder-zone.net_-192x192.png" sizes="192x192" />
+<link rel="apple-touch-icon" href="https://boarder-zone.net/wp-content/uploads/2023/06/cropped-boarder-zone.net_-180x180.png" />
+<meta name="msapplication-TileImage" content="https://boarder-zone.net/wp-content/uploads/2023/06/cropped-boarder-zone.net_-270x270.png" />
+<noscript><style id="rocket-lazyload-nojs-css">.rll-youtube-player, [data-lazy-src]{display:none !important;}</style></noscript></head>
+<body class="home page-template-default page page-id-259 elementor-default elementor-kit-5 elementor-page-269">
+
+
+<a class="skip-link screen-reader-text" href="#content">Skip to content</a>
+
+		<div data-elementor-type="header" data-elementor-id="135" class="elementor elementor-135 elementor-location-header">
+								<section class="elementor-section elementor-top-section elementor-element elementor-element-512d6963 elementor-hidden-desktop elementor-hidden-tablet elementor-section-boxed elementor-section-height-default elementor-section-height-default" data-id="512d6963" data-element_type="section" data-settings="{&quot;background_background&quot;:&quot;classic&quot;,&quot;sticky&quot;:&quot;top&quot;,&quot;motion_fx_motion_fx_scrolling&quot;:&quot;yes&quot;,&quot;motion_fx_devices&quot;:[&quot;desktop&quot;,&quot;tablet&quot;,&quot;mobile&quot;],&quot;sticky_on&quot;:[&quot;desktop&quot;,&quot;tablet&quot;,&quot;mobile&quot;],&quot;sticky_offset&quot;:0,&quot;sticky_effects_offset&quot;:0}">
+						<div class="elementor-container elementor-column-gap-no">
+					<div class="elementor-column elementor-col-100 elementor-top-column elementor-element elementor-element-583ebe97" data-id="583ebe97" data-element_type="column">
+			<div class="elementor-widget-wrap elementor-element-populated">
+								<section class="elementor-section elementor-inner-section elementor-element elementor-element-2fa50c36 elementor-section-boxed elementor-section-height-default elementor-section-height-default" data-id="2fa50c36" data-element_type="section">
+						<div class="elementor-container elementor-column-gap-default">
+					<div class="elementor-column elementor-col-50 elementor-inner-column elementor-element elementor-element-2582b7d1" data-id="2582b7d1" data-element_type="column">
+			<div class="elementor-widget-wrap elementor-element-populated">
+								<div class="elementor-element elementor-element-abc3ab1 elementor-nav-menu__align-center elementor-nav-menu__text-align-center elementor-nav-menu--dropdown-mobile elementor-nav-menu--stretch elementor-nav-menu--toggle elementor-nav-menu--burger elementor-widget elementor-widget-nav-menu" data-id="abc3ab1" data-element_type="widget" data-settings="{&quot;toggle_icon_hover_animation&quot;:&quot;grow&quot;,&quot;full_width&quot;:&quot;stretch&quot;,&quot;layout&quot;:&quot;horizontal&quot;,&quot;submenu_icon&quot;:{&quot;value&quot;:&quot;&lt;i class=\&quot;fas fa-caret-down\&quot;&gt;&lt;\/i&gt;&quot;,&quot;library&quot;:&quot;fa-solid&quot;},&quot;toggle&quot;:&quot;burger&quot;}" data-widget_type="nav-menu.default">
+				<div class="elementor-widget-container">
+			<link rel="stylesheet" href="https://boarder-zone.net/wp-content/plugins/elementor-pro/assets/css/widget-nav-menu.min.css">			<nav class="elementor-nav-menu--main elementor-nav-menu__container elementor-nav-menu--layout-horizontal e--pointer-text e--animation-none">
+				<ul id="menu-1-abc3ab1" class="elementor-nav-menu"><li class="menu-item menu-item-type-custom menu-item-object-custom current-menu-item current_page_item menu-item-home menu-item-152"><a href="https://boarder-zone.net" aria-current="page" class="elementor-item elementor-item-active">หน้าแรก</a></li>
+<li class="menu-item menu-item-type-custom menu-item-object-custom menu-item-153"><a href="https://boarder-zone.net/register" class="elementor-item">โปรโมชั่น</a></li>
+<li class="menu-item menu-item-type-custom menu-item-object-custom menu-item-154"><a href="https://boarder-zone.net/register" class="elementor-item">ทางเข้าเกม</a></li>
+<li class="menu-item menu-item-type-custom menu-item-object-custom menu-item-155"><a href="https://boarder-zone.net/line" class="elementor-item">ติดต่อเรา</a></li>
+</ul>			</nav>
+					<div class="elementor-menu-toggle" role="button" tabindex="0" aria-label="Menu Toggle" aria-expanded="false">
+			<i aria-hidden="true" role="presentation" class="elementor-menu-toggle__icon--open elementor-animation-grow eicon-menu-bar"></i><i aria-hidden="true" role="presentation" class="elementor-menu-toggle__icon--close elementor-animation-grow eicon-close"></i>			<span class="elementor-screen-only">Menu</span>
+		</div>
+					<nav class="elementor-nav-menu--dropdown elementor-nav-menu__container" aria-hidden="true">
+				<ul id="menu-2-abc3ab1" class="elementor-nav-menu"><li class="menu-item menu-item-type-custom menu-item-object-custom current-menu-item current_page_item menu-item-home menu-item-152"><a href="https://boarder-zone.net" aria-current="page" class="elementor-item elementor-item-active" tabindex="-1">หน้าแรก</a></li>
+<li class="menu-item menu-item-type-custom menu-item-object-custom menu-item-153"><a href="https://boarder-zone.net/register" class="elementor-item" tabindex="-1">โปรโมชั่น</a></li>
+<li class="menu-item menu-item-type-custom menu-item-object-custom menu-item-154"><a href="https://boarder-zone.net/register" class="elementor-item" tabindex="-1">ทางเข้าเกม</a></li>
+<li class="menu-item menu-item-type-custom menu-item-object-custom menu-item-155"><a href="https://boarder-zone.net/line" class="elementor-item" tabindex="-1">ติดต่อเรา</a></li>
+</ul>			</nav>
+				</div>
+				</div>
+					</div>
+		</div>
+				<div class="elementor-column elementor-col-50 elementor-inner-column elementor-element elementor-element-5646eb65" data-id="5646eb65" data-element_type="column">
+			<div class="elementor-widget-wrap elementor-element-populated">
+								<div class="elementor-element elementor-element-18673022 elementor-widget__width-auto elementor-widget elementor-widget-button" data-id="18673022" data-element_type="widget" data-widget_type="button.default">
+				<div class="elementor-widget-container">
+					<div class="elementor-button-wrapper">
+			<a class="elementor-button elementor-button-link elementor-size-xl elementor-animation-grow" href="https://boarder-zone.net/register/">
+						<span class="elementor-button-content-wrapper">
+						<span class="elementor-button-text">สมัครสมาชิก</span>
+		</span>
+					</a>
+		</div>
+				</div>
+				</div>
+					</div>
+		</div>
+							</div>
+		</section>
+					</div>
+		</div>
+							</div>
+		</section>
+				<section class="elementor-section elementor-top-section elementor-element elementor-element-11b9bafc elementor-hidden-mobile elementor-section-boxed elementor-section-height-default elementor-section-height-default" data-id="11b9bafc" data-element_type="section" data-settings="{&quot;background_background&quot;:&quot;classic&quot;,&quot;sticky&quot;:&quot;top&quot;,&quot;motion_fx_motion_fx_scrolling&quot;:&quot;yes&quot;,&quot;motion_fx_devices&quot;:[&quot;desktop&quot;,&quot;tablet&quot;,&quot;mobile&quot;],&quot;sticky_on&quot;:[&quot;desktop&quot;,&quot;tablet&quot;,&quot;mobile&quot;],&quot;sticky_offset&quot;:0,&quot;sticky_effects_offset&quot;:0}">
+						<div class="elementor-container elementor-column-gap-no">
+					<div class="elementor-column elementor-col-100 elementor-top-column elementor-element elementor-element-4ad4078e" data-id="4ad4078e" data-element_type="column">
+			<div class="elementor-widget-wrap elementor-element-populated">
+								<section class="elementor-section elementor-inner-section elementor-element elementor-element-22ba853b elementor-section-boxed elementor-section-height-default elementor-section-height-default" data-id="22ba853b" data-element_type="section">
+						<div class="elementor-container elementor-column-gap-default">
+					<div class="elementor-column elementor-col-33 elementor-inner-column elementor-element elementor-element-6b80ac04" data-id="6b80ac04" data-element_type="column">
+			<div class="elementor-widget-wrap elementor-element-populated">
+								<div class="elementor-element elementor-element-3b45d992 elementor-widget__width-auto elementor-widget elementor-widget-button" data-id="3b45d992" data-element_type="widget" data-widget_type="button.default">
+				<div class="elementor-widget-container">
+					<div class="elementor-button-wrapper">
+			<a class="elementor-button elementor-button-link elementor-size-xl elementor-animation-grow" href="https://boarder-zone.net/register/">
+						<span class="elementor-button-content-wrapper">
+						<span class="elementor-button-text">สมัครสมาชิก</span>
+		</span>
+					</a>
+		</div>
+				</div>
+				</div>
+					</div>
+		</div>
+				<div class="elementor-column elementor-col-33 elementor-inner-column elementor-element elementor-element-1835df76" data-id="1835df76" data-element_type="column">
+			<div class="elementor-widget-wrap elementor-element-populated">
+								<div class="elementor-element elementor-element-3cecdfb6 elementor-nav-menu__align-center elementor-nav-menu__text-align-center elementor-nav-menu--dropdown-mobile elementor-nav-menu--stretch elementor-nav-menu--toggle elementor-nav-menu--burger elementor-widget elementor-widget-nav-menu" data-id="3cecdfb6" data-element_type="widget" data-settings="{&quot;toggle_icon_hover_animation&quot;:&quot;grow&quot;,&quot;full_width&quot;:&quot;stretch&quot;,&quot;layout&quot;:&quot;horizontal&quot;,&quot;submenu_icon&quot;:{&quot;value&quot;:&quot;&lt;i class=\&quot;fas fa-caret-down\&quot;&gt;&lt;\/i&gt;&quot;,&quot;library&quot;:&quot;fa-solid&quot;},&quot;toggle&quot;:&quot;burger&quot;}" data-widget_type="nav-menu.default">
+				<div class="elementor-widget-container">
+						<nav class="elementor-nav-menu--main elementor-nav-menu__container elementor-nav-menu--layout-horizontal e--pointer-text e--animation-none">
+				<ul id="menu-1-3cecdfb6" class="elementor-nav-menu"><li class="menu-item menu-item-type-custom menu-item-object-custom current-menu-item current_page_item menu-item-home menu-item-152"><a href="https://boarder-zone.net" aria-current="page" class="elementor-item elementor-item-active">หน้าแรก</a></li>
+<li class="menu-item menu-item-type-custom menu-item-object-custom menu-item-153"><a href="https://boarder-zone.net/register" class="elementor-item">โปรโมชั่น</a></li>
+<li class="menu-item menu-item-type-custom menu-item-object-custom menu-item-154"><a href="https://boarder-zone.net/register" class="elementor-item">ทางเข้าเกม</a></li>
+<li class="menu-item menu-item-type-custom menu-item-object-custom menu-item-155"><a href="https://boarder-zone.net/line" class="elementor-item">ติดต่อเรา</a></li>
+</ul>			</nav>
+					<div class="elementor-menu-toggle" role="button" tabindex="0" aria-label="Menu Toggle" aria-expanded="false">
+			<i aria-hidden="true" role="presentation" class="elementor-menu-toggle__icon--open elementor-animation-grow eicon-menu-bar"></i><i aria-hidden="true" role="presentation" class="elementor-menu-toggle__icon--close elementor-animation-grow eicon-close"></i>			<span class="elementor-screen-only">Menu</span>
+		</div>
+					<nav class="elementor-nav-menu--dropdown elementor-nav-menu__container" aria-hidden="true">
+				<ul id="menu-2-3cecdfb6" class="elementor-nav-menu"><li class="menu-item menu-item-type-custom menu-item-object-custom current-menu-item current_page_item menu-item-home menu-item-152"><a href="https://boarder-zone.net" aria-current="page" class="elementor-item elementor-item-active" tabindex="-1">หน้าแรก</a></li>
+<li class="menu-item menu-item-type-custom menu-item-object-custom menu-item-153"><a href="https://boarder-zone.net/register" class="elementor-item" tabindex="-1">โปรโมชั่น</a></li>
+<li class="menu-item menu-item-type-custom menu-item-object-custom menu-item-154"><a href="https://boarder-zone.net/register" class="elementor-item" tabindex="-1">ทางเข้าเกม</a></li>
+<li class="menu-item menu-item-type-custom menu-item-object-custom menu-item-155"><a href="https://boarder-zone.net/line" class="elementor-item" tabindex="-1">ติดต่อเรา</a></li>
+</ul>			</nav>
+				</div>
+				</div>
+					</div>
+		</div>
+				<div class="elementor-column elementor-col-33 elementor-inner-column elementor-element elementor-element-ffc7654" data-id="ffc7654" data-element_type="column">
+			<div class="elementor-widget-wrap elementor-element-populated">
+								<div class="elementor-element elementor-element-4760401c elementor-align-right elementor-widget__width-auto elementor-widget elementor-widget-button" data-id="4760401c" data-element_type="widget" data-widget_type="button.default">
+				<div class="elementor-widget-container">
+					<div class="elementor-button-wrapper">
+			<a class="elementor-button elementor-button-link elementor-size-xl elementor-animation-grow" href="https://boarder-zone.net/register/">
+						<span class="elementor-button-content-wrapper">
+						<span class="elementor-button-text">เข้าสู่ระบบ</span>
+		</span>
+					</a>
+		</div>
+				</div>
+				</div>
+					</div>
+		</div>
+							</div>
+		</section>
+					</div>
+		</div>
+							</div>
+		</section>
+						</div>
+				<div data-elementor-type="single-post" data-elementor-id="269" class="elementor elementor-269 elementor-location-single post-259 page type-page status-publish has-post-thumbnail hentry">
+								<section class="elementor-section elementor-top-section elementor-element elementor-element-59ec3394 elementor-section-full_width elementor-section-height-default elementor-section-height-default" data-id="59ec3394" data-element_type="section" data-settings="{&quot;background_background&quot;:&quot;classic&quot;}">
+						<div class="elementor-container elementor-column-gap-no">
+					<div class="elementor-column elementor-col-100 elementor-top-column elementor-element elementor-element-2afd73c4" data-id="2afd73c4" data-element_type="column">
+			<div class="elementor-widget-wrap elementor-element-populated">
+								<div class="elementor-element elementor-element-6bd46366 elementor-widget elementor-widget-theme-post-featured-image elementor-widget-image" data-id="6bd46366" data-element_type="widget" data-widget_type="theme-post-featured-image.default">
+				<div class="elementor-widget-container">
+			<style>/*! elementor - v3.14.0 - 18-06-2023 */
+.elementor-widget-image{text-align:center}.elementor-widget-image a{display:inline-block}.elementor-widget-image a img[src$=".svg"]{width:48px}.elementor-widget-image img{vertical-align:middle;display:inline-block}</style>												<img width="1536" height="768" src="data:image/svg+xml,%3Csvg%20xmlns='http://www.w3.org/2000/svg'%20viewBox='0%200%201536%20768'%3E%3C/svg%3E" class="attachment-full size-full wp-image-261" alt="123limited" data-lazy-srcset="https://boarder-zone.net/wp-content/uploads/2023/05/123limited-boarder-zoneet.webp 1536w, https://boarder-zone.net/wp-content/uploads/2023/05/123limited-boarder-zoneet-300x150.webp 300w, https://boarder-zone.net/wp-content/uploads/2023/05/123limited-boarder-zoneet-1024x512.webp 1024w, https://boarder-zone.net/wp-content/uploads/2023/05/123limited-boarder-zoneet-768x384.webp 768w" data-lazy-sizes="(max-width: 1536px) 100vw, 1536px" data-lazy-src="https://boarder-zone.net/wp-content/uploads/2023/05/123limited-boarder-zoneet.webp" /><noscript><img width="1536" height="768" src="https://boarder-zone.net/wp-content/uploads/2023/05/123limited-boarder-zoneet.webp" class="attachment-full size-full wp-image-261" alt="123limited" srcset="https://boarder-zone.net/wp-content/uploads/2023/05/123limited-boarder-zoneet.webp 1536w, https://boarder-zone.net/wp-content/uploads/2023/05/123limited-boarder-zoneet-300x150.webp 300w, https://boarder-zone.net/wp-content/uploads/2023/05/123limited-boarder-zoneet-1024x512.webp 1024w, https://boarder-zone.net/wp-content/uploads/2023/05/123limited-boarder-zoneet-768x384.webp 768w" sizes="(max-width: 1536px) 100vw, 1536px" /></noscript>															</div>
+				</div>
+				<section class="elementor-section elementor-inner-section elementor-element elementor-element-28031a9c elementor-section-boxed elementor-section-height-default elementor-section-height-default" data-id="28031a9c" data-element_type="section">
+						<div class="elementor-container elementor-column-gap-default">
+					<div class="elementor-column elementor-col-100 elementor-inner-column elementor-element elementor-element-37cca21" data-id="37cca21" data-element_type="column">
+			<div class="elementor-widget-wrap elementor-element-populated">
+								<div class="elementor-element elementor-element-31b83470 elementor-widget elementor-widget-heading" data-id="31b83470" data-element_type="widget" data-widget_type="heading.default">
+				<div class="elementor-widget-container">
+			<style>/*! elementor - v3.14.0 - 18-06-2023 */
+.elementor-heading-title{padding:0;margin:0;line-height:1}.elementor-widget-heading .elementor-heading-title[class*=elementor-size-]>a{color:inherit;font-size:inherit;line-height:inherit}.elementor-widget-heading .elementor-heading-title.elementor-size-small{font-size:15px}.elementor-widget-heading .elementor-heading-title.elementor-size-medium{font-size:19px}.elementor-widget-heading .elementor-heading-title.elementor-size-large{font-size:29px}.elementor-widget-heading .elementor-heading-title.elementor-size-xl{font-size:39px}.elementor-widget-heading .elementor-heading-title.elementor-size-xxl{font-size:59px}</style><h3 class="elementor-heading-title elementor-size-default">Game</h3>		</div>
+				</div>
+					</div>
+		</div>
+							</div>
+		</section>
+				<section class="elementor-section elementor-inner-section elementor-element elementor-element-3b5ddbb7 elementor-section-boxed elementor-section-height-default elementor-section-height-default" data-id="3b5ddbb7" data-element_type="section">
+						<div class="elementor-container elementor-column-gap-default">
+					<div class="elementor-column elementor-col-16 elementor-inner-column elementor-element elementor-element-d874d5a" data-id="d874d5a" data-element_type="column">
+			<div class="elementor-widget-wrap elementor-element-populated">
+								<div class="elementor-element elementor-element-26fe226d elementor-widget elementor-widget-text-editor" data-id="26fe226d" data-element_type="widget" data-widget_type="text-editor.default">
+				<div class="elementor-widget-container">
+			<style>/*! elementor - v3.14.0 - 18-06-2023 */
+.elementor-widget-text-editor.elementor-drop-cap-view-stacked .elementor-drop-cap{background-color:#69727d;color:#fff}.elementor-widget-text-editor.elementor-drop-cap-view-framed .elementor-drop-cap{color:#69727d;border:3px solid;background-color:transparent}.elementor-widget-text-editor:not(.elementor-drop-cap-view-default) .elementor-drop-cap{margin-top:8px}.elementor-widget-text-editor:not(.elementor-drop-cap-view-default) .elementor-drop-cap-letter{width:1em;height:1em}.elementor-widget-text-editor .elementor-drop-cap{float:left;text-align:center;line-height:1;font-size:50px}.elementor-widget-text-editor .elementor-drop-cap-letter{display:inline-block}</style>				<a href="https://boarder-zone.net/register/" target="_blank" rel="noopener"><img src="data:image/svg+xml,%3Csvg%20xmlns='http://www.w3.org/2000/svg'%20viewBox='0%200%20300%20300'%3E%3C/svg%3E" alt="" width="300" height="300" data-lazy-src="https://boarder-zone.net/wp-content/uploads/image-acf/jili-boarder-zoneet.webp" /><noscript><img src="https://boarder-zone.net/wp-content/uploads/image-acf/jili-boarder-zoneet.webp" alt="" width="300" height="300" /></noscript></a>						</div>
+				</div>
+					</div>
+		</div>
+				<div class="elementor-column elementor-col-16 elementor-inner-column elementor-element elementor-element-70be070a" data-id="70be070a" data-element_type="column">
+			<div class="elementor-widget-wrap elementor-element-populated">
+								<div class="elementor-element elementor-element-53052ef0 elementor-widget elementor-widget-text-editor" data-id="53052ef0" data-element_type="widget" data-widget_type="text-editor.default">
+				<div class="elementor-widget-container">
+							<a href="https://boarder-zone.net/register/" target="_blank" rel="noopener"><img src="data:image/svg+xml,%3Csvg%20xmlns='http://www.w3.org/2000/svg'%20viewBox='0%200%20300%20300'%3E%3C/svg%3E" alt="" width="300" height="300" data-lazy-src="https://boarder-zone.net/wp-content/uploads/image-acf/joker-boarder-zoneet.webp" /><noscript><img src="https://boarder-zone.net/wp-content/uploads/image-acf/joker-boarder-zoneet.webp" alt="" width="300" height="300" /></noscript></a>						</div>
+				</div>
+					</div>
+		</div>
+				<div class="elementor-column elementor-col-16 elementor-inner-column elementor-element elementor-element-40cb50c8" data-id="40cb50c8" data-element_type="column">
+			<div class="elementor-widget-wrap elementor-element-populated">
+								<div class="elementor-element elementor-element-389dea17 elementor-widget elementor-widget-text-editor" data-id="389dea17" data-element_type="widget" data-widget_type="text-editor.default">
+				<div class="elementor-widget-container">
+							<a href="https://boarder-zone.net/register/" target="_blank" rel="noopener"><img src="data:image/svg+xml,%3Csvg%20xmlns='http://www.w3.org/2000/svg'%20viewBox='0%200%20300%20300'%3E%3C/svg%3E" alt="" width="300" height="300" data-lazy-src="https://boarder-zone.net/wp-content/uploads/image-acf/microgaming-boarder-zoneet.webp" /><noscript><img src="https://boarder-zone.net/wp-content/uploads/image-acf/microgaming-boarder-zoneet.webp" alt="" width="300" height="300" /></noscript></a>						</div>
+				</div>
+					</div>
+		</div>
+				<div class="elementor-column elementor-col-16 elementor-inner-column elementor-element elementor-element-7b47d4db" data-id="7b47d4db" data-element_type="column">
+			<div class="elementor-widget-wrap elementor-element-populated">
+								<div class="elementor-element elementor-element-37ff4b69 elementor-widget elementor-widget-text-editor" data-id="37ff4b69" data-element_type="widget" data-widget_type="text-editor.default">
+				<div class="elementor-widget-container">
+							<a href="https://boarder-zone.net/register/" target="_blank" rel="noopener"><img src="data:image/svg+xml,%3Csvg%20xmlns='http://www.w3.org/2000/svg'%20viewBox='0%200%20300%20300'%3E%3C/svg%3E" alt="" width="300" height="300" data-lazy-src="https://boarder-zone.net/wp-content/uploads/image-acf/pg-boarder-zoneet.webp" /><noscript><img src="https://boarder-zone.net/wp-content/uploads/image-acf/pg-boarder-zoneet.webp" alt="" width="300" height="300" /></noscript></a>						</div>
+				</div>
+					</div>
+		</div>
+				<div class="elementor-column elementor-col-16 elementor-inner-column elementor-element elementor-element-66ba82ec" data-id="66ba82ec" data-element_type="column">
+			<div class="elementor-widget-wrap elementor-element-populated">
+								<div class="elementor-element elementor-element-5e45ce27 elementor-widget elementor-widget-text-editor" data-id="5e45ce27" data-element_type="widget" data-widget_type="text-editor.default">
+				<div class="elementor-widget-container">
+							<a href="https://boarder-zone.net/register/" target="_blank" rel="noopener"><img src="data:image/svg+xml,%3Csvg%20xmlns='http://www.w3.org/2000/svg'%20viewBox='0%200%20300%20300'%3E%3C/svg%3E" alt="" width="300" height="300" data-lazy-src="https://boarder-zone.net/wp-content/uploads/image-acf/playstar-boarder-zoneet.webp" /><noscript><img src="https://boarder-zone.net/wp-content/uploads/image-acf/playstar-boarder-zoneet.webp" alt="" width="300" height="300" /></noscript></a>						</div>
+				</div>
+					</div>
+		</div>
+				<div class="elementor-column elementor-col-16 elementor-inner-column elementor-element elementor-element-7c26e100" data-id="7c26e100" data-element_type="column">
+			<div class="elementor-widget-wrap elementor-element-populated">
+								<div class="elementor-element elementor-element-172747b elementor-widget elementor-widget-text-editor" data-id="172747b" data-element_type="widget" data-widget_type="text-editor.default">
+				<div class="elementor-widget-container">
+							<a href="https://boarder-zone.net/register/" target="_blank" rel="noopener"><img src="data:image/svg+xml,%3Csvg%20xmlns='http://www.w3.org/2000/svg'%20viewBox='0%200%20300%20300'%3E%3C/svg%3E" alt="" width="300" height="300" data-lazy-src="https://boarder-zone.net/wp-content/uploads/image-acf/pragmatic-boarder-zoneet.webp" /><noscript><img src="https://boarder-zone.net/wp-content/uploads/image-acf/pragmatic-boarder-zoneet.webp" alt="" width="300" height="300" /></noscript></a>						</div>
+				</div>
+					</div>
+		</div>
+							</div>
+		</section>
+					</div>
+		</div>
+							</div>
+		</section>
+				<section class="elementor-section elementor-top-section elementor-element elementor-element-2c247b7b elementor-section-full_width elementor-section-height-default elementor-section-height-default" data-id="2c247b7b" data-element_type="section" data-settings="{&quot;background_background&quot;:&quot;classic&quot;,&quot;shape_divider_bottom&quot;:&quot;zigzag&quot;}">
+					<div class="elementor-shape elementor-shape-bottom" data-negative="false">
+			<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1800 5.8" preserveAspectRatio="none">
+  <path class="elementor-shape-fill" d="M5.4.4l5.4 5.3L16.5.4l5.4 5.3L27.5.4 33 5.7 38.6.4l5.5 5.4h.1L49.9.4l5.4 5.3L60.9.4l5.5 5.3L72 .4l5.5 5.3L83.1.4l5.4 5.3L94.1.4l5.5 5.4h.2l5.6-5.4 5.5 5.3 5.6-5.3 5.4 5.3 5.6-5.3 5.5 5.3 5.6-5.3 5.5 5.4h.2l5.6-5.4 5.4 5.3L161 .4l5.4 5.3L172 .4l5.5 5.3 5.6-5.3 5.4 5.3 5.7-5.3 5.4 5.4h.2l5.6-5.4 5.5 5.3 5.6-5.3 5.5 5.3 5.6-5.3 5.4 5.3 5.6-5.3 5.5 5.4h.2l5.6-5.4 5.5 5.3L261 .4l5.4 5.3L272 .4l5.5 5.3 5.6-5.3 5.5 5.3 5.6-5.3 5.5 5.4h.1l5.7-5.4 5.4 5.3 5.6-5.3 5.5 5.3 5.6-5.3 5.4 5.3 5.7-5.3 5.4 5.4h.2l5.6-5.4 5.5 5.3L361 .4l5.5 5.3 5.6-5.3 5.4 5.3 5.6-5.3 5.5 5.3 5.6-5.3 5.5 5.4h.1l5.7-5.4 5.4 5.3 5.6-5.3 5.5 5.3 5.6-5.3 5.5 5.3 5.6-5.3 5.5 5.4h.1l5.6-5.4 5.5 5.3L461 .4l5.5 5.3 5.6-5.3 5.4 5.3 5.7-5.3 5.4 5.3 5.6-5.3 5.5 5.4h.2l5.6-5.4 5.5 5.3 5.6-5.3 5.4 5.3 5.6-5.3 5.5 5.3 5.6-5.3 5.5 5.4h.1L550 .4l5.4 5.3L561 .4l5.5 5.3 5.6-5.3 5.5 5.3 5.6-5.3 5.4 5.3 5.6-5.3 5.5 5.4h.2l5.6-5.4 5.5 5.3 5.6-5.3 5.4 5.3 5.7-5.3 5.4 5.3 5.6-5.3 5.5 5.4h.2L650 .4l5.5 5.3 5.6-5.3 5.4 5.3 5.6-5.3 5.5 5.3 5.6-5.3 5.5 5.3 5.6-5.3 5.4 5.4h.2l5.6-5.4 5.5 5.3 5.6-5.3 5.5 5.3 5.6-5.3 5.4 5.3 5.6-5.3 5.5 5.4h.2L750 .4l5.5 5.3 5.6-5.3 5.4 5.3 5.7-5.3 5.4 5.3 5.6-5.3 5.5 5.3 5.6-5.3 5.5 5.4h.1l5.7-5.4 5.4 5.3 5.6-5.3 5.5 5.3 5.6-5.3 5.5 5.3 5.6-5.3 5.4 5.4h.2L850 .4l5.5 5.3 5.6-5.3 5.5 5.3 5.6-5.3 5.4 5.3 5.6-5.3 5.5 5.3 5.6-5.3 5.5 5.4h.2l5.6-5.4 5.4 5.3 5.7-5.3 5.4 5.3 5.6-5.3 5.5 5.3 5.6-5.3 5.5 5.4h.1l5.7-5.4 5.4 5.3 5.6-5.3 5.5 5.3 5.6-5.3 5.5 5.3 5.6-5.3 5.4 5.3 5.6-5.3 5.5 5.4h.2l5.6-5.4 5.5 5.3 5.6-5.3 5.4 5.3 5.6-5.3 5.5 5.3 5.6-5.3 5.5 5.4h.2l5.6-5.4 5.4 5.3 5.7-5.3 5.4 5.3 5.6-5.3 5.5 5.3 5.6-5.3 5.5 5.3 5.6-5.3 5.4 5.4h.2l5.6-5.4 5.5 5.3 5.6-5.3 5.5 5.3 5.6-5.3 5.4 5.3 5.6-5.3 5.5 5.4h.2l5.6-5.4 5.5 5.3 5.6-5.3 5.4 5.3 5.6-5.3 5.5 5.3 5.6-5.3 5.5 5.3 5.6-5.3 5.5 5.4h.1l5.7-5.4 5.4 5.3 5.6-5.3 5.5 5.3 5.6-5.3 5.5 5.3 5.6-5.3 5.4 5.4h.2l5.6-5.4 5.5 5.3 5.6-5.3 5.5 5.3 5.6-5.3 5.4 5.3 5.6-5.3 5.5 5.3 5.6-5.3 5.5 5.4h.2l5.6-5.4 5.4 5.3 5.6-5.3 5.5 5.3 5.6-5.3 5.5 5.3 5.6-5.3 5.5 5.4h.1l5.7-5.4 5.4 5.3 5.6-5.3 5.5 5.3 5.6-5.3 5.5 5.3 5.6-5.3 5.4 5.3 5.6-5.3 5.5 5.4h.2l5.6-5.4 5.5 5.3 5.6-5.3 5.4 5.3 5.6-5.3 5.5 5.3 5.6-5.3 5.5 5.4h.2l5.6-5.4 5.4 5.3 5.6-5.3 5.5 5.3 5.6-5.3 5.5 5.3 5.6-5.3 5.4 5.3 5.7-5.3 5.4 5.4h.2l5.6-5.4 5.5 5.3 5.6-5.3 5.5 5.3 5.6-5.3 5.4 5.3 5.6-5.3 5.5 5.4h.2l5.6-5.4 5.5 5.3 5.6-5.3 5.4 5.3 5.6-5.3 5.5 5.3 5.6-5.3 5.5 5.3 5.6-5.3 5.5 5.4h.1l5.6-5.4 5.5 5.3 5.6-5.3 5.5 5.3 5.6-5.3 5.4 5.3 5.7-5.3 5.4 5.4h.2l5.6-5.4 5.5 5.3 5.6-5.3 5.5 5.3 5.6-5.3 5.4 5.3 5.6-5.3 5.5 5.3 5.6-5.3 5.5 5.4h.1l5.7-5.4 5.4 5.3 5.6-5.3 5.5 5.3 5.6-5.3 5.5 5.3 5.6-5.3 5.5 5.4h.1l5.6-5.4 5.5 5.3 5.6-5.3 5.5 5.3 5.6-5.3 5.4 5.3 5.7-5.3 5.4 5.3 5.6-5.3 5.5 5.4V0H-.2v5.8z"/>
+</svg>
+		</div>
+					<div class="elementor-container elementor-column-gap-no">
+					<div class="elementor-column elementor-col-100 elementor-top-column elementor-element elementor-element-e8e93e7" data-id="e8e93e7" data-element_type="column">
+			<div class="elementor-widget-wrap elementor-element-populated">
+								<section class="elementor-section elementor-inner-section elementor-element elementor-element-6f41cd1a elementor-section-boxed elementor-section-height-default elementor-section-height-default" data-id="6f41cd1a" data-element_type="section" data-settings="{&quot;background_background&quot;:&quot;classic&quot;}">
+						<div class="elementor-container elementor-column-gap-default">
+					<div class="elementor-column elementor-col-100 elementor-inner-column elementor-element elementor-element-7edd0ef" data-id="7edd0ef" data-element_type="column" data-settings="{&quot;background_background&quot;:&quot;classic&quot;}">
+			<div class="elementor-widget-wrap elementor-element-populated">
+								<div class="elementor-element elementor-element-2de918c2 elementor-widget elementor-widget-heading" data-id="2de918c2" data-element_type="widget" data-widget_type="heading.default">
+				<div class="elementor-widget-container">
+			<h1 class="elementor-heading-title elementor-size-default"><a href="https://boarder-zone.net">123limited ค้นพบประโยชน์ของการทำงานกับ 123 จำกัด สำหรับความต้องการทางธุรกิจของคุณ</a></h1>		</div>
+				</div>
+				<div class="elementor-element elementor-element-45d9b619 elementor-widget elementor-widget-text-editor" data-id="45d9b619" data-element_type="widget" data-widget_type="text-editor.default">
+				<div class="elementor-widget-container">
+							<span style="color: #FFFF11"><strong>123limited</strong></span>หากคุณกำลังมองหาพันธมิตรที่เชื่อถือได้และมีประสิทธิภาพเพื่อช่วยคุณในความต้องการทางธุรกิจของคุณอย่ามองไปไกลเกิน 123 จำกัด ทีมผู้เชี่ยวชาญของเราทุ่มเทเพื่อให้บริการชั้นยอดที่สามารถช่วยให้ธุรกิจของคุณเติบโตและเจริญเติบโต <span style="color: #FFFF11">ทางเข้า เว็บ 123</strong></span> เรานำเสนอโซลูชั่นที่หลากหลายรวมถึงการออกแบบเว็บการตลาดดิจิทัลและการสนับสนุนด้านไอทีเพื่อให้แน่ใจว่าธุรกิจของคุณจะอยู่ข้างหน้าการแข่งขัน ด้วยประสบการณ์ที่ผ่านมาหลายปีและบันทึกการติดตามคุณสามารถไว้วางใจเราให้ส่งผลลัพธ์ที่เกินความคาดหมายของคุณ
+<br> <br>
+
+
+หนึ่งในผลประโยชน์ที่ยิ่งใหญ่ที่สุดของการทำงานกับ 123 ที่ถูก จำกัด คือความมุ่งมั่นของเราต่อความพึงพอใจของลูกค้า เราเข้าใจว่าทุกธุรกิจมีเอกลักษณ์และเราใช้เวลาในการทำความเข้าใจความต้องการและเป้าหมายเฉพาะของคุณ ทีมผู้เชี่ยวชาญของเราจะทำงานร่วมกับคุณเพื่อพัฒนาแผนการปรับแต่งที่เหมาะกับธุรกิจของคุณเพื่อให้มั่นใจว่าคุณจะได้รับผลลัพธ์ที่คุณต้องการเพื่อให้ประสบความสำเร็จ ไม่ว่าคุณจะต้องการเพิ่มสถานะออนไลน์ของคุณปรับปรุงโครงสร้างพื้นฐานด้านไอทีของคุณหรือปรับปรุงการดำเนินงานของคุณเรามีความเชี่ยวชาญและทรัพยากรเพื่อช่วยให้คุณบรรลุเป้าหมาย แล้วทำไมต้องรอ? ค้นพบประโยชน์ของการทำงานกับ <span style="color: #FFFF11">123บาคาร่า</strong></span> 123 จำกัด วันนี้และนำธุรกิจของคุณไปสู่อีกระดับ						</div>
+				</div>
+					</div>
+		</div>
+							</div>
+		</section>
+				<section class="elementor-section elementor-inner-section elementor-element elementor-element-7abe56fe elementor-section-boxed elementor-section-height-default elementor-section-height-default" data-id="7abe56fe" data-element_type="section">
+						<div class="elementor-container elementor-column-gap-default">
+					<div class="elementor-column elementor-col-100 elementor-inner-column elementor-element elementor-element-3326d9be" data-id="3326d9be" data-element_type="column" data-settings="{&quot;background_background&quot;:&quot;classic&quot;}">
+			<div class="elementor-widget-wrap elementor-element-populated">
+								<div class="elementor-element elementor-element-5fa3a546 elementor-widget elementor-widget-heading" data-id="5fa3a546" data-element_type="widget" data-widget_type="heading.default">
+				<div class="elementor-widget-container">
+			<h2 class="elementor-heading-title elementor-size-default">123limited 123 จำกัด : โซลูชันแบบครบวงจรสำหรับความต้องการทางธุรกิจทั้งหมดของคุณ</h2>		</div>
+				</div>
+				<div class="elementor-element elementor-element-780d4675 elementor-widget elementor-widget-text-editor" data-id="780d4675" data-element_type="widget" data-widget_type="text-editor.default">
+				<div class="elementor-widget-container">
+							<span style="color: #FFFF11"><strong>123limited</strong></span>123-Limited เป็นโซลูชันแบบครบวงจรที่ดีที่สุดสำหรับทุกความต้องการทางธุรกิจของคุณ ไม่ว่าคุณกำลังมองหาการจัดตั้ง บริษัท บริการบัญชีหรือที่ปรึกษาทางธุรกิจ 123 <span style="color: #FFFF11">https //www.123goal.link https //123dic.com/# / https //123bet.link/# /</strong></span> -Limited ทำให้คุณได้รับความคุ้มครอง ด้วยประสบการณ์หลายปีในอุตสาหกรรม บริษัท ได้รับชื่อเสียงในการส่งมอบบริการชั้นนำให้กับลูกค้าจากทุกภาคส่วน ทีมผู้เชี่ยวชาญที่ 123 -Limited มุ่งมั่นที่จะจัดหาโซลูชั่นส่วนบุคคลที่ตอบสนองความต้องการเฉพาะของธุรกิจของคุณ จากการเริ่มต้นธุรกิจไปจนถึงองค์กรที่จัดตั้งขึ้น บริษัท ได้ช่วยให้ลูกค้าจำนวนมากบรรลุเป้าหมายทางธุรกิจด้วยบริการที่ครอบคลุม
+<br> <br>
+
+
+เมื่อวันที่ 123 เราเข้าใจว่าทุกธุรกิจมีความโดดเด่นและนั่นคือเหตุผลที่เราเสนอโซลูชั่นที่กำหนดเองซึ่งได้รับการปรับให้เหมาะกับความต้องการเฉพาะของธุรกิจของคุณ ทีมผู้เชี่ยวชาญของเรามีความเข้าใจอย่างลึกซึ้งเกี่ยวกับอุตสาหกรรมและมีความพร้อมที่จะให้คำแนะนำและการสนับสนุนที่คุณต้องนำธุรกิจของคุณไปสู่อีกระดับ ไม่ว่าคุณต้องการความช่วยเหลือเกี่ยวกับการจัดตั้ง <span style="color: #FFFF11">123 rich</strong></span> บริษัท บริการบัญชีหรือที่ปรึกษาทางธุรกิจเรามีความเชี่ยวชาญและประสบการณ์เพื่อช่วยให้คุณประสบความสำเร็จ ด้วยโซลูชันแบบครบวงจรของเราคุณสามารถมุ่งเน้นไปที่สิ่งที่คุณทำได้ดีที่สุด-ดำเนินธุรกิจของคุณ-ในขณะที่เราดูแลส่วนที่เหลือ แล้วทำไมต้องรอ? ติดต่อเราวันนี้เพื่อเรียนรู้เพิ่มเติมเกี่ยวกับวิธีที่เราสามารถช่วยให้คุณบรรลุเป้าหมายทางธุรกิจของคุณ						</div>
+				</div>
+				<div class="elementor-element elementor-element-234dafb5 elementor-widget elementor-widget-text-editor" data-id="234dafb5" data-element_type="widget" data-widget_type="text-editor.default">
+				<div class="elementor-widget-container">
+							<a href="https://boarder-zone.net/register/" target="_blank" rel="noopener"><img src="data:image/svg+xml,%3Csvg%20xmlns='http://www.w3.org/2000/svg'%20viewBox='0%200%20800%20400'%3E%3C/svg%3E" alt="123rich" width="800" height="400" data-lazy-src="https://boarder-zone.net/wp-content/uploads/image-acf/123rich-boarder-zoneet.webp" /><noscript><img src="https://boarder-zone.net/wp-content/uploads/image-acf/123rich-boarder-zoneet.webp" alt="123rich" width="800" height="400" /></noscript></a>						</div>
+				</div>
+					</div>
+		</div>
+							</div>
+		</section>
+					</div>
+		</div>
+							</div>
+		</section>
+				<section class="elementor-section elementor-top-section elementor-element elementor-element-35468086 elementor-section-boxed elementor-section-height-default elementor-section-height-default" data-id="35468086" data-element_type="section" data-settings="{&quot;background_background&quot;:&quot;classic&quot;,&quot;shape_divider_top&quot;:&quot;zigzag&quot;,&quot;shape_divider_bottom&quot;:&quot;opacity-tilt&quot;}">
+					<div class="elementor-shape elementor-shape-top" data-negative="false">
+			<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1800 5.8" preserveAspectRatio="none">
+  <path class="elementor-shape-fill" d="M5.4.4l5.4 5.3L16.5.4l5.4 5.3L27.5.4 33 5.7 38.6.4l5.5 5.4h.1L49.9.4l5.4 5.3L60.9.4l5.5 5.3L72 .4l5.5 5.3L83.1.4l5.4 5.3L94.1.4l5.5 5.4h.2l5.6-5.4 5.5 5.3 5.6-5.3 5.4 5.3 5.6-5.3 5.5 5.3 5.6-5.3 5.5 5.4h.2l5.6-5.4 5.4 5.3L161 .4l5.4 5.3L172 .4l5.5 5.3 5.6-5.3 5.4 5.3 5.7-5.3 5.4 5.4h.2l5.6-5.4 5.5 5.3 5.6-5.3 5.5 5.3 5.6-5.3 5.4 5.3 5.6-5.3 5.5 5.4h.2l5.6-5.4 5.5 5.3L261 .4l5.4 5.3L272 .4l5.5 5.3 5.6-5.3 5.5 5.3 5.6-5.3 5.5 5.4h.1l5.7-5.4 5.4 5.3 5.6-5.3 5.5 5.3 5.6-5.3 5.4 5.3 5.7-5.3 5.4 5.4h.2l5.6-5.4 5.5 5.3L361 .4l5.5 5.3 5.6-5.3 5.4 5.3 5.6-5.3 5.5 5.3 5.6-5.3 5.5 5.4h.1l5.7-5.4 5.4 5.3 5.6-5.3 5.5 5.3 5.6-5.3 5.5 5.3 5.6-5.3 5.5 5.4h.1l5.6-5.4 5.5 5.3L461 .4l5.5 5.3 5.6-5.3 5.4 5.3 5.7-5.3 5.4 5.3 5.6-5.3 5.5 5.4h.2l5.6-5.4 5.5 5.3 5.6-5.3 5.4 5.3 5.6-5.3 5.5 5.3 5.6-5.3 5.5 5.4h.1L550 .4l5.4 5.3L561 .4l5.5 5.3 5.6-5.3 5.5 5.3 5.6-5.3 5.4 5.3 5.6-5.3 5.5 5.4h.2l5.6-5.4 5.5 5.3 5.6-5.3 5.4 5.3 5.7-5.3 5.4 5.3 5.6-5.3 5.5 5.4h.2L650 .4l5.5 5.3 5.6-5.3 5.4 5.3 5.6-5.3 5.5 5.3 5.6-5.3 5.5 5.3 5.6-5.3 5.4 5.4h.2l5.6-5.4 5.5 5.3 5.6-5.3 5.5 5.3 5.6-5.3 5.4 5.3 5.6-5.3 5.5 5.4h.2L750 .4l5.5 5.3 5.6-5.3 5.4 5.3 5.7-5.3 5.4 5.3 5.6-5.3 5.5 5.3 5.6-5.3 5.5 5.4h.1l5.7-5.4 5.4 5.3 5.6-5.3 5.5 5.3 5.6-5.3 5.5 5.3 5.6-5.3 5.4 5.4h.2L850 .4l5.5 5.3 5.6-5.3 5.5 5.3 5.6-5.3 5.4 5.3 5.6-5.3 5.5 5.3 5.6-5.3 5.5 5.4h.2l5.6-5.4 5.4 5.3 5.7-5.3 5.4 5.3 5.6-5.3 5.5 5.3 5.6-5.3 5.5 5.4h.1l5.7-5.4 5.4 5.3 5.6-5.3 5.5 5.3 5.6-5.3 5.5 5.3 5.6-5.3 5.4 5.3 5.6-5.3 5.5 5.4h.2l5.6-5.4 5.5 5.3 5.6-5.3 5.4 5.3 5.6-5.3 5.5 5.3 5.6-5.3 5.5 5.4h.2l5.6-5.4 5.4 5.3 5.7-5.3 5.4 5.3 5.6-5.3 5.5 5.3 5.6-5.3 5.5 5.3 5.6-5.3 5.4 5.4h.2l5.6-5.4 5.5 5.3 5.6-5.3 5.5 5.3 5.6-5.3 5.4 5.3 5.6-5.3 5.5 5.4h.2l5.6-5.4 5.5 5.3 5.6-5.3 5.4 5.3 5.6-5.3 5.5 5.3 5.6-5.3 5.5 5.3 5.6-5.3 5.5 5.4h.1l5.7-5.4 5.4 5.3 5.6-5.3 5.5 5.3 5.6-5.3 5.5 5.3 5.6-5.3 5.4 5.4h.2l5.6-5.4 5.5 5.3 5.6-5.3 5.5 5.3 5.6-5.3 5.4 5.3 5.6-5.3 5.5 5.3 5.6-5.3 5.5 5.4h.2l5.6-5.4 5.4 5.3 5.6-5.3 5.5 5.3 5.6-5.3 5.5 5.3 5.6-5.3 5.5 5.4h.1l5.7-5.4 5.4 5.3 5.6-5.3 5.5 5.3 5.6-5.3 5.5 5.3 5.6-5.3 5.4 5.3 5.6-5.3 5.5 5.4h.2l5.6-5.4 5.5 5.3 5.6-5.3 5.4 5.3 5.6-5.3 5.5 5.3 5.6-5.3 5.5 5.4h.2l5.6-5.4 5.4 5.3 5.6-5.3 5.5 5.3 5.6-5.3 5.5 5.3 5.6-5.3 5.4 5.3 5.7-5.3 5.4 5.4h.2l5.6-5.4 5.5 5.3 5.6-5.3 5.5 5.3 5.6-5.3 5.4 5.3 5.6-5.3 5.5 5.4h.2l5.6-5.4 5.5 5.3 5.6-5.3 5.4 5.3 5.6-5.3 5.5 5.3 5.6-5.3 5.5 5.3 5.6-5.3 5.5 5.4h.1l5.6-5.4 5.5 5.3 5.6-5.3 5.5 5.3 5.6-5.3 5.4 5.3 5.7-5.3 5.4 5.4h.2l5.6-5.4 5.5 5.3 5.6-5.3 5.5 5.3 5.6-5.3 5.4 5.3 5.6-5.3 5.5 5.3 5.6-5.3 5.5 5.4h.1l5.7-5.4 5.4 5.3 5.6-5.3 5.5 5.3 5.6-5.3 5.5 5.3 5.6-5.3 5.5 5.4h.1l5.6-5.4 5.5 5.3 5.6-5.3 5.5 5.3 5.6-5.3 5.4 5.3 5.7-5.3 5.4 5.3 5.6-5.3 5.5 5.4V0H-.2v5.8z"/>
+</svg>
+		</div>
+				<div class="elementor-shape elementor-shape-bottom" data-negative="false">
+			<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 2600 131.1" preserveAspectRatio="none">
+	<path class="elementor-shape-fill" d="M0 0L2600 0 2600 69.1 0 0z"/>
+	<path class="elementor-shape-fill" style="opacity:0.5" d="M0 0L2600 0 2600 69.1 0 69.1z"/>
+	<path class="elementor-shape-fill" style="opacity:0.25" d="M2600 0L0 0 0 130.1 2600 69.1z"/>
+</svg>		</div>
+					<div class="elementor-container elementor-column-gap-default">
+					<div class="elementor-column elementor-col-100 elementor-top-column elementor-element elementor-element-26872e3e" data-id="26872e3e" data-element_type="column">
+			<div class="elementor-widget-wrap elementor-element-populated">
+								<section class="elementor-section elementor-inner-section elementor-element elementor-element-2e9f158e elementor-section-boxed elementor-section-height-default elementor-section-height-default" data-id="2e9f158e" data-element_type="section">
+						<div class="elementor-container elementor-column-gap-default">
+					<div class="elementor-column elementor-col-100 elementor-inner-column elementor-element elementor-element-5f18d482" data-id="5f18d482" data-element_type="column" data-settings="{&quot;background_background&quot;:&quot;classic&quot;}">
+			<div class="elementor-widget-wrap elementor-element-populated">
+								<div class="elementor-element elementor-element-5d2ee8b9 elementor-widget elementor-widget-heading" data-id="5d2ee8b9" data-element_type="widget" data-widget_type="heading.default">
+				<div class="elementor-widget-container">
+			<h2 class="elementor-heading-title elementor-size-default">app 123 วิธีเลือกบริการที่ดีที่สุดที่เสนอโดย 123 จำกัด สำหรับธุรกิจของคุณ</h2>		</div>
+				</div>
+				<div class="elementor-element elementor-element-2188e3c8 elementor-widget elementor-widget-text-editor" data-id="2188e3c8" data-element_type="widget" data-widget_type="text-editor.default">
+				<div class="elementor-widget-container">
+							<span style="color: #FFFF11"><strong>123limited</strong></span>หากคุณกำลังมองหาผู้ให้บริการที่เชื่อถือได้และมีประสิทธิภาพสำหรับธุรกิจของคุณ 123 -Limited นั้นคุ้มค่าที่จะตรวจสอบอย่างแน่นอน ด้วยบริการที่หลากหลายที่มีให้คุณสามารถเลือกสิ่งที่ดีที่สุดสำหรับความต้องการของคุณ หนึ่งในสิ่งแรกที่ต้องพิจารณาคือเป้าหมายและวัตถุประสงค์ทางธุรกิจของคุณ คุณต้องการเพิ่มสถานะออนไลน์ของคุณปรับปรุงการทำงานของเว็บไซต์หรือปรับปรุงการดำเนินธุรกิจของคุณหรือไม่? <span style="color: #FFFF11">123goal</strong></span> เมื่อคุณมีความคิดที่ชัดเจนเกี่ยวกับสิ่งที่คุณต้องการบรรลุคุณสามารถสำรวจบริการต่าง ๆ ที่นำเสนอโดย 123 -Limited และดูว่าอันไหนสอดคล้องกับเป้าหมายของคุณ
+<br> <br>
+
+
+ปัจจัยสำคัญอีกประการหนึ่งที่ควรพิจารณาเมื่อเลือกบริการที่ดีที่สุดที่เสนอโดย 123 จำกัด คืองบประมาณของคุณ ในขณะที่มันดึงดูดให้เลือกแพ็คเกจที่แพงที่สุด แต่สิ่งสำคัญคือต้องแน่ใจว่าคุณได้รับความคุ้มค่าสำหรับเงินของคุณ ใช้เวลาในการเปรียบเทียบแพ็คเกจที่แตกต่างกันและดูว่าอันไหนมีความสมดุลที่ดีที่สุดของคุณสมบัติและความสามารถในการจ่าย นอกจากนี้สิ่งสำคัญคือการอ่านบทวิจารณ์และคำรับรองจากธุรกิจอื่น ๆ ที่ใช้บริการของ 123 Limited <span style="color: #FFFF11">app 123</strong></span> สิ่งนี้สามารถให้ความคิดที่ดีขึ้นเกี่ยวกับสิ่งที่คาดหวังและช่วยให้คุณตัดสินใจอย่างชาญฉลาด ด้วยบริการที่เหมาะสมจาก 123 -Limited คุณสามารถนำธุรกิจของคุณไปสู่ระดับต่อไปและบรรลุเป้าหมายของคุณ						</div>
+				</div>
+					</div>
+		</div>
+							</div>
+		</section>
+				<section class="elementor-section elementor-inner-section elementor-element elementor-element-3776e6a4 elementor-section-boxed elementor-section-height-default elementor-section-height-default" data-id="3776e6a4" data-element_type="section">
+						<div class="elementor-container elementor-column-gap-default">
+					<div class="elementor-column elementor-col-100 elementor-inner-column elementor-element elementor-element-45cbd1d3" data-id="45cbd1d3" data-element_type="column" data-settings="{&quot;background_background&quot;:&quot;classic&quot;}">
+			<div class="elementor-widget-wrap elementor-element-populated">
+								<div class="elementor-element elementor-element-e08f64c elementor-widget elementor-widget-heading" data-id="e08f64c" data-element_type="widget" data-widget_type="heading.default">
+				<div class="elementor-widget-container">
+			<h2 class="elementor-heading-title elementor-size-default">ltdrich 123 จำกัด : จุดหมายปลายทางที่ดีที่สุดสำหรับการเติบโตและการพัฒนาธุรกิจ</h2>		</div>
+				</div>
+				<div class="elementor-element elementor-element-c256d6 elementor-widget elementor-widget-text-editor" data-id="c256d6" data-element_type="widget" data-widget_type="text-editor.default">
+				<div class="elementor-widget-container">
+							<span style="color: #FFFF11"><strong>123limited</strong></span>123 -Limited เป็นจุดหมายปลายทางที่ดีที่สุดสำหรับการเติบโตและการพัฒนาธุรกิจ ด้วยบริการและโซลูชั่นที่หลากหลาย บริษัท นี้ทุ่มเทเพื่อช่วยเหลือธุรกิจทุกขนาดให้บรรลุเป้าหมาย <span style="color: #FFFF11">lion123</strong></span> ตั้งแต่การตลาดและการสร้างแบรนด์ไปจนถึงการออกแบบและพัฒนาเว็บไซต์ 123 -Limited มีความเชี่ยวชาญและประสบการณ์เพื่อช่วยให้ธุรกิจประสบความสำเร็จในตลาดการแข่งขันในปัจจุบัน ทีมผู้เชี่ยวชาญของพวกเขาเข้าใจถึงความท้าทายที่ไม่เหมือนใครที่เผชิญกับธุรกิจในปัจจุบันและทำงานอย่างใกล้ชิดกับลูกค้าเพื่อพัฒนาโซลูชันที่กำหนดเองซึ่งตอบสนองความต้องการเฉพาะของพวกเขา ไม่ว่าคุณกำลังมองหาการเพิ่มสถานะออนไลน์ของคุณปรับปรุงกลยุทธ์การตลาดของคุณหรือปรับปรุงการดำเนินงานของคุณ 123 -Limited เป็นพันธมิตรที่คุณต้องนำธุรกิจของคุณไปสู่ระดับต่อไป
+<br> <br>
+
+
+เมื่อวันที่ 123 พวกเขาเชื่อว่าทุกธุรกิจมีศักยภาพที่จะประสบความสำเร็จ นั่นเป็นเหตุผลที่พวกเขาเสนอบริการที่หลากหลายที่ออกแบบมาเพื่อช่วยให้ธุรกิจเติบโตและเจริญเติบโต ตั้งแต่การออกแบบและพัฒนาเว็บไปจนถึงการตลาดโซเชียลมีเดียและการเพิ่มประสิทธิภาพกลไกค้นหา 123-Limited มีเครื่องมือและความเชี่ยวชาญเพื่อช่วยให้ธุรกิจประสบความสำเร็จในโลกดิจิตอลที่รวดเร็วในปัจจุบัน <span style="color: #FFFF11">ltdrich</strong></span> ด้วยการมุ่งเน้นไปที่นวัตกรรมและความคิดสร้างสรรค์ทีมผู้เชี่ยวชาญของพวกเขาทำงานอย่างใกล้ชิดกับลูกค้าเพื่อพัฒนาโซลูชันที่กำหนดเองซึ่งตอบสนองความต้องการและเป้าหมายที่ไม่ซ้ำกันของพวกเขา ดังนั้นหากคุณกำลังมองหาคู่ค้าเพื่อช่วยให้คุณนำธุรกิจไปสู่อีกระดับให้มองไม่ไกลเกิน 123 จำกัด ด้วยประวัติที่พิสูจน์แล้วของความสำเร็จและความมุ่งมั่นสู่ความเป็นเลิศพวกเขาเป็นจุดหมายปลายทางที่ดีที่สุดสำหรับการเติบโตและการพัฒนาธุรกิจ						</div>
+				</div>
+				<div class="elementor-element elementor-element-784e39fc elementor-widget elementor-widget-text-editor" data-id="784e39fc" data-element_type="widget" data-widget_type="text-editor.default">
+				<div class="elementor-widget-container">
+							<a href="https://boarder-zone.net/register/" target="_blank" rel="noopener"><img src="data:image/svg+xml,%3Csvg%20xmlns='http://www.w3.org/2000/svg'%20viewBox='0%200%20800%20400'%3E%3C/svg%3E" alt="ltdrich" width="800" height="400" data-lazy-src="https://boarder-zone.net/wp-content/uploads/image-acf/ltdrich-boarder-zoneet.webp" /><noscript><img src="https://boarder-zone.net/wp-content/uploads/image-acf/ltdrich-boarder-zoneet.webp" alt="ltdrich" width="800" height="400" /></noscript></a>						</div>
+				</div>
+					</div>
+		</div>
+							</div>
+		</section>
+				<div class="elementor-element elementor-element-33f6451d elementor-widget elementor-widget-spacer" data-id="33f6451d" data-element_type="widget" data-widget_type="spacer.default">
+				<div class="elementor-widget-container">
+			<style>/*! elementor - v3.14.0 - 18-06-2023 */
+.elementor-column .elementor-spacer-inner{height:var(--spacer-size)}.e-con{--container-widget-width:100%}.e-con-inner>.elementor-widget-spacer,.e-con>.elementor-widget-spacer{width:var(--container-widget-width,var(--spacer-size));--align-self:var(--container-widget-align-self,initial);--flex-shrink:0}.e-con-inner>.elementor-widget-spacer>.elementor-widget-container,.e-con-inner>.elementor-widget-spacer>.elementor-widget-container>.elementor-spacer,.e-con>.elementor-widget-spacer>.elementor-widget-container,.e-con>.elementor-widget-spacer>.elementor-widget-container>.elementor-spacer{height:100%}.e-con-inner>.elementor-widget-spacer>.elementor-widget-container>.elementor-spacer>.elementor-spacer-inner,.e-con>.elementor-widget-spacer>.elementor-widget-container>.elementor-spacer>.elementor-spacer-inner{height:var(--container-widget-height,var(--spacer-size))}</style>		<div class="elementor-spacer">
+			<div class="elementor-spacer-inner"></div>
+		</div>
+				</div>
+				</div>
+					</div>
+		</div>
+							</div>
+		</section>
+				<section class="elementor-section elementor-top-section elementor-element elementor-element-1f922eb0 elementor-section-boxed elementor-section-height-default elementor-section-height-default" data-id="1f922eb0" data-element_type="section" data-settings="{&quot;background_background&quot;:&quot;classic&quot;,&quot;shape_divider_top&quot;:&quot;opacity-tilt&quot;}">
+					<div class="elementor-shape elementor-shape-top" data-negative="false">
+			<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 2600 131.1" preserveAspectRatio="none">
+	<path class="elementor-shape-fill" d="M0 0L2600 0 2600 69.1 0 0z"/>
+	<path class="elementor-shape-fill" style="opacity:0.5" d="M0 0L2600 0 2600 69.1 0 69.1z"/>
+	<path class="elementor-shape-fill" style="opacity:0.25" d="M2600 0L0 0 0 130.1 2600 69.1z"/>
+</svg>		</div>
+					<div class="elementor-container elementor-column-gap-default">
+					<div class="elementor-column elementor-col-100 elementor-top-column elementor-element elementor-element-41c8756a" data-id="41c8756a" data-element_type="column">
+			<div class="elementor-widget-wrap elementor-element-populated">
+								<div class="elementor-element elementor-element-3ff301ce elementor-widget elementor-widget-spacer" data-id="3ff301ce" data-element_type="widget" data-widget_type="spacer.default">
+				<div class="elementor-widget-container">
+					<div class="elementor-spacer">
+			<div class="elementor-spacer-inner"></div>
+		</div>
+				</div>
+				</div>
+				<section class="elementor-section elementor-inner-section elementor-element elementor-element-3df0151d elementor-section-boxed elementor-section-height-default elementor-section-height-default" data-id="3df0151d" data-element_type="section">
+						<div class="elementor-container elementor-column-gap-default">
+					<div class="elementor-column elementor-col-100 elementor-inner-column elementor-element elementor-element-5d30939c" data-id="5d30939c" data-element_type="column" data-settings="{&quot;background_background&quot;:&quot;classic&quot;}">
+			<div class="elementor-widget-wrap elementor-element-populated">
+								<div class="elementor-element elementor-element-5eb584ba elementor-widget elementor-widget-heading" data-id="5eb584ba" data-element_type="widget" data-widget_type="heading.default">
+				<div class="elementor-widget-container">
+			<h2 class="elementor-heading-title elementor-size-default">123k. app 123 จำกัด : พันธมิตรที่เชื่อถือได้สำหรับความสำเร็จทางธุรกิจของคุณ</h2>		</div>
+				</div>
+				<div class="elementor-element elementor-element-3d38bef3 elementor-widget elementor-widget-text-editor" data-id="3d38bef3" data-element_type="widget" data-widget_type="text-editor.default">
+				<div class="elementor-widget-container">
+							<span style="color: #FFFF11"><strong>123limited</strong></span>123 -Limited เป็นพันธมิตรที่เชื่อถือได้สำหรับธุรกิจที่ต้องการประสบความสำเร็จในอุตสาหกรรมของตน บริษัท ให้บริการที่หลากหลายรวมถึงการจัดตั้ง บริษัท <span style="color: #FFFF11">goal123 เข้าสู่ระบบ</strong></span> การบัญชีการให้คำปรึกษาด้านภาษีและการให้คำปรึกษาทางธุรกิจ ด้วยประสบการณ์หลายปีและทีมงานมืออาชีพที่มีทักษะสูง 123 Limited มุ่งมั่นที่จะให้บริการโซลูชั่นที่ดีที่สุดที่เป็นไปได้เพื่อช่วยให้พวกเขาบรรลุเป้าหมายทางธุรกิจ บริษัท มีประวัติที่พิสูจน์แล้วว่าส่งมอบบริการที่มีคุณภาพให้กับลูกค้าและชื่อเสียงด้านความเป็นเลิศทำให้เป็นพันธมิตรที่มุ่งไปสู่ธุรกิจที่ต้องการเติบโตและประสบความสำเร็จ
+<br> <br>
+
+
+123 -limited เข้าใจว่าทุกธุรกิจมีเอกลักษณ์และนั่นคือเหตุผลที่มีการแก้ปัญหาที่ปรับแต่งเองเพื่อตอบสนองความต้องการเฉพาะของลูกค้าแต่ละราย ไม่ว่าคุณจะเริ่มต้นหรือธุรกิจที่จัดตั้งขึ้น บริษัท มีความเชี่ยวชาญและทรัพยากรเพื่อช่วยให้คุณบรรลุวัตถุประสงค์ ด้วยการมุ่งเน้นไปที่นวัตกรรมและความพึงพอใจของลูกค้า 123 -Limited ทุ่มเทเพื่อให้บริการแก่ลูกค้าในระดับสูงสุดของบริการและการสนับสนุน หากคุณกำลังมองหาพันธมิตรที่เชื่อถือได้เพื่อช่วยให้คุณนำธุรกิจของคุณไปสู่อีกระดับให้มองไม่ไกลเกิน <span style="color: #FFFF11">123k. app</strong></span> 123 จำกัด ติดต่อ บริษัท วันนี้เพื่อเรียนรู้เพิ่มเติมเกี่ยวกับบริการและวิธีที่จะช่วยให้คุณบรรลุเป้าหมายทางธุรกิจของคุณ						</div>
+				</div>
+					</div>
+		</div>
+							</div>
+		</section>
+				<section class="elementor-section elementor-inner-section elementor-element elementor-element-57418dae elementor-section-boxed elementor-section-height-default elementor-section-height-default" data-id="57418dae" data-element_type="section">
+						<div class="elementor-container elementor-column-gap-default">
+					<div class="elementor-column elementor-col-100 elementor-inner-column elementor-element elementor-element-670f0fd4" data-id="670f0fd4" data-element_type="column" data-settings="{&quot;background_background&quot;:&quot;classic&quot;}">
+			<div class="elementor-widget-wrap elementor-element-populated">
+								<div class="elementor-element elementor-element-3c761f85 elementor-widget elementor-widget-heading" data-id="3c761f85" data-element_type="widget" data-widget_type="heading.default">
+				<div class="elementor-widget-container">
+			<h2 class="elementor-heading-title elementor-size-default">123limited รับโซลูชั่นธุรกิจที่ดีที่สุดด้วยความเชี่ยวชาญและประสบการณ์ของ 123 -Limited</h2>		</div>
+				</div>
+				<div class="elementor-element elementor-element-53bd1fce elementor-widget elementor-widget-text-editor" data-id="53bd1fce" data-element_type="widget" data-widget_type="text-editor.default">
+				<div class="elementor-widget-container">
+							<span style="color: #FFFF11"><strong>123limited</strong></span>123 -Limited เป็นผู้ให้บริการโซลูชั่นธุรกิจชั้นนำที่ช่วยให้ บริษัท บรรลุเป้าหมายและวัตถุประสงค์ของพวกเขา ด้วยทีมผู้เชี่ยวชาญที่มีประสบการณ์หลายปีในอุตสาหกรรม <span style="color: #FFFF11">goal123 เว็บ ตรง</strong></span> 123 -Limited เสนอบริการที่หลากหลายซึ่งได้รับการปรับให้เหมาะกับความต้องการเฉพาะของลูกค้าแต่ละราย ไม่ว่าคุณต้องการความช่วยเหลือเกี่ยวกับการบัญชีการวางแผนภาษีหรือการให้คำปรึกษาทางธุรกิจ 123 -Limited มีความเชี่ยวชาญและประสบการณ์ในการส่งมอบผลลัพธ์ที่คุณต้องการ ด้วยการมุ่งเน้นไปที่คุณภาพและความพึงพอใจของลูกค้า 123 -Limited มุ่งมั่นที่จะช่วยให้ธุรกิจประสบความสำเร็จในตลาดการแข่งขันในปัจจุบัน
+<br> <br>
+
+
+เมื่อวันที่ 123 เราเข้าใจว่าทุกธุรกิจมีเอกลักษณ์และต้องใช้วิธีการที่กำหนดเองเพื่อให้บรรลุความสำเร็จ นั่นเป็นเหตุผลที่เราเสนอบริการที่หลากหลายซึ่งได้รับการปรับให้เหมาะกับความต้องการเฉพาะของลูกค้าแต่ละราย ทีมผู้เชี่ยวชาญของเรามีประสบการณ์หลายปีในอุตสาหกรรมและทุ่มเทเพื่อให้บริการระดับสูงสุดแก่ลูกค้าของเรา <span style="color: #FFFF11">ทางเข้า เล่น https app 123dic link vip. login</strong></span> ไม่ว่าคุณต้องการความช่วยเหลือเกี่ยวกับการบัญชีการวางแผนภาษีหรือการให้คำปรึกษาทางธุรกิจเรามีความเชี่ยวชาญและประสบการณ์ในการส่งมอบผลลัพธ์ที่คุณต้องการ ด้วยการมุ่งเน้นไปที่คุณภาพและความพึงพอใจของลูกค้าเรามุ่งมั่นที่จะช่วยให้ธุรกิจบรรลุเป้าหมายและวัตถุประสงค์ของพวกเขา ดังนั้นหากคุณกำลังมองหาโซลูชั่นทางธุรกิจที่ดีที่สุดให้มองไม่ไกลเกิน 123 จำกัด						</div>
+				</div>
+					</div>
+		</div>
+							</div>
+		</section>
+				<section class="elementor-section elementor-inner-section elementor-element elementor-element-6f475918 elementor-section-boxed elementor-section-height-default elementor-section-height-default" data-id="6f475918" data-element_type="section">
+						<div class="elementor-container elementor-column-gap-default">
+					<div class="elementor-column elementor-col-100 elementor-inner-column elementor-element elementor-element-e6f0527" data-id="e6f0527" data-element_type="column" data-settings="{&quot;background_background&quot;:&quot;classic&quot;}">
+			<div class="elementor-widget-wrap elementor-element-populated">
+								<div class="elementor-element elementor-element-81787f8 elementor-widget elementor-widget-heading" data-id="81787f8" data-element_type="widget" data-widget_type="heading.default">
+				<div class="elementor-widget-container">
+			<h2 class="elementor-heading-title elementor-size-default">123vega 123 -Limited: ผู้ให้บริการชั้นนำด้านบริการธุรกิจที่ครอบคลุม</h2>		</div>
+				</div>
+				<div class="elementor-element elementor-element-e1aee27 elementor-widget elementor-widget-text-editor" data-id="e1aee27" data-element_type="widget" data-widget_type="text-editor.default">
+				<div class="elementor-widget-container">
+							<a href="https://boarder-zone.net/register/" target="_blank" rel="noopener"><img src="data:image/svg+xml,%3Csvg%20xmlns='http://www.w3.org/2000/svg'%20viewBox='0%200%20800%20400'%3E%3C/svg%3E" alt="123vega" width="800" height="400" data-lazy-src="https://boarder-zone.net/wp-content/uploads/image-acf/123vega-boarder-zoneet.webp" /><noscript><img src="https://boarder-zone.net/wp-content/uploads/image-acf/123vega-boarder-zoneet.webp" alt="123vega" width="800" height="400" /></noscript></a>						</div>
+				</div>
+				<div class="elementor-element elementor-element-1a40e680 elementor-widget elementor-widget-text-editor" data-id="1a40e680" data-element_type="widget" data-widget_type="text-editor.default">
+				<div class="elementor-widget-container">
+							<span style="color: #FFFF11"><strong>123limited</strong></span>123 -Limited เป็นผู้ให้บริการที่เชื่อถือได้และเชื่อถือได้ของบริการธุรกิจที่ครอบคลุม ด้วยประสบการณ์หลายปีในอุตสาหกรรม บริษัท ได้สร้างชื่อเสียงที่แข็งแกร่งในการส่งมอบโซลูชั่นชั้นนำที่ตอบสนองความต้องการเฉพาะของธุรกิจทุกขนาด ตั้งแต่การจัดตั้ง บริษัท <span style="color: #FFFF11">ติดต่อ123goal</strong></span> และการลงทะเบียนไปจนถึงบริการบัญชีและภาษี 123 -Limited ให้บริการที่หลากหลายซึ่งออกแบบมาเพื่อช่วยให้ธุรกิจต่างๆเติบโตและประสบความสำเร็จ ด้วยทีมงานมืออาชีพที่มีทักษะสูงและมีประสบการณ์ บริษัท มุ่งมั่นที่จะให้บริการลูกค้าและการสนับสนุนที่ยอดเยี่ยมเพื่อให้แน่ใจว่าลูกค้าได้รับโซลูชั่นที่ดีที่สุดสำหรับความต้องการทางธุรกิจของพวกเขา
+<br> <br>
+
+
+หนึ่งในข้อได้เปรียบที่สำคัญของการทำงานกับ 123 -limited คือการมุ่งเน้นของ บริษัท ในการส่งมอบโซลูชันที่กำหนดเองซึ่งได้รับการปรับให้เหมาะกับความต้องการเฉพาะของลูกค้าแต่ละราย ไม่ว่าคุณจะเป็นเจ้าของธุรกิจขนาดเล็กหรือ บริษัท ขนาดใหญ่ บริษัท มีความเชี่ยวชาญและทรัพยากรเพื่อช่วยให้คุณบรรลุเป้าหมาย ด้วยบริการที่ครอบคลุมซึ่งรวมถึงการจัดตั้ง บริษัท <span style="color: #FFFF11">123vega</strong></span> การบัญชีภาษีและบริการทางกฎหมาย 123-Limited เป็นร้านค้าครบวงจรสำหรับทุกความต้องการทางธุรกิจของคุณ ดังนั้นหากคุณกำลังมองหาพันธมิตรที่เชื่อถือได้และเชื่อถือได้เพื่อช่วยให้คุณเติบโตและประสบความสำเร็จในภูมิทัศน์ทางธุรกิจในปัจจุบันให้มองไม่ไกลเกิน 123 จำกัด						</div>
+				</div>
+					</div>
+		</div>
+							</div>
+		</section>
+				<section class="elementor-section elementor-inner-section elementor-element elementor-element-69ea72ce elementor-section-boxed elementor-section-height-default elementor-section-height-default" data-id="69ea72ce" data-element_type="section">
+						<div class="elementor-container elementor-column-gap-default">
+					<div class="elementor-column elementor-col-100 elementor-inner-column elementor-element elementor-element-2175d591" data-id="2175d591" data-element_type="column" data-settings="{&quot;background_background&quot;:&quot;classic&quot;}">
+			<div class="elementor-widget-wrap elementor-element-populated">
+								<div class="elementor-element elementor-element-5e5854af elementor-widget elementor-widget-heading" data-id="5e5854af" data-element_type="widget" data-widget_type="heading.default">
+				<div class="elementor-widget-container">
+			<h2 class="elementor-heading-title elementor-size-default">123limited เปลี่ยนธุรกิจของคุณด้วยโซลูชั่นที่เป็นนวัตกรรมของ 123 Limited</h2>		</div>
+				</div>
+				<div class="elementor-element elementor-element-1251ce54 elementor-widget elementor-widget-text-editor" data-id="1251ce54" data-element_type="widget" data-widget_type="text-editor.default">
+				<div class="elementor-widget-container">
+							<span style="color: #FFFF11"><strong>123limited</strong></span>การเปลี่ยนธุรกิจของคุณอาจเป็นงานที่น่ากลัว แต่ด้วยโซลูชั่นที่เป็นนวัตกรรมของ 123 Limited มันอาจเป็นการเปลี่ยนแปลงที่ราบรื่น <span style="color: #FFFF11">รบกวนลูกค้าลองคัดลอกลิ้งค์ https://app.123goal.link/login ไปเปิดใน google chrome นะคะ</strong></span> ทีมผู้เชี่ยวชาญของเราทุ่มเทให้กับการจัดหาโซลูชั่นที่เหมาะกับความต้องการทางธุรกิจเฉพาะของคุณ จากการออกแบบเว็บไซต์และการพัฒนาไปจนถึงการตลาดดิจิทัลและ SEO เรามีเครื่องมือและความเชี่ยวชาญในการนำธุรกิจของคุณไปสู่อีกระดับ โซลูชันของเราได้รับการออกแบบมาเพื่อเพิ่มการมองเห็นออนไลน์ของคุณผลักดันปริมาณการเข้าชมเว็บไซต์ของคุณและเพิ่มรายได้ในที่สุด ด้วย 123 จำกัด คุณสามารถเชื่อมั่นว่าธุรกิจของคุณอยู่ในมือที่ดี
+<br> <br>
+
+
+เมื่อวันที่ 123 เราเชื่อว่านวัตกรรมเป็นกุญแจสำคัญในการอยู่ข้างหน้าในภูมิทัศน์ทางธุรกิจที่มีการพัฒนาตลอดเวลา นั่นเป็นเหตุผลที่เรานำเสนอโซลูชั่นที่เป็นนวัตกรรมที่ออกแบบมาเพื่อเปลี่ยนธุรกิจของคุณ ทีมผู้เชี่ยวชาญของเรากำลังค้นคว้าและนำเทคโนโลยีและกลยุทธ์ล่าสุดมาใช้อย่างต่อเนื่องเพื่อให้แน่ใจว่าธุรกิจของคุณจะอยู่ข้างหน้าการแข่งขัน เราเข้าใจว่าทุกธุรกิจมีเอกลักษณ์ซึ่งเป็นเหตุผลที่เรานำเสนอโซลูชั่นที่เหมาะกับความต้องการเฉพาะของคุณ ไม่ว่าคุณจะต้องการปรับปรุงเว็บไซต์ของคุณเพิ่มการมองเห็นออนไลน์หรือปรับปรุงกลยุทธ์การตลาดดิจิทัลของคุณเรามีความเชี่ยวชาญและเครื่องมือเพื่อช่วยให้คุณบรรลุเป้าหมาย <span style="color: #FFFF11">123plus</strong></span> ด้วย 123 จำกัด คุณสามารถเชื่อมั่นว่าธุรกิจของคุณอยู่ในมือที่ดี						</div>
+				</div>
+					</div>
+		</div>
+							</div>
+		</section>
+				<section class="elementor-section elementor-inner-section elementor-element elementor-element-39964984 elementor-section-boxed elementor-section-height-default elementor-section-height-default" data-id="39964984" data-element_type="section">
+						<div class="elementor-container elementor-column-gap-default">
+					<div class="elementor-column elementor-col-100 elementor-inner-column elementor-element elementor-element-45f15c9b" data-id="45f15c9b" data-element_type="column" data-settings="{&quot;background_background&quot;:&quot;classic&quot;}">
+			<div class="elementor-widget-wrap elementor-element-populated">
+								<div class="elementor-element elementor-element-21e1b097 elementor-widget elementor-widget-heading" data-id="21e1b097" data-element_type="widget" data-widget_type="heading.default">
+				<div class="elementor-widget-container">
+			<h3 class="elementor-heading-title elementor-size-default">คำถามที่พบบ่อย</h3>		</div>
+				</div>
+				<div class="elementor-element elementor-element-7fb91061 elementor-widget elementor-widget-toggle" data-id="7fb91061" data-element_type="widget" data-widget_type="toggle.default">
+				<div class="elementor-widget-container">
+			<style>/*! elementor - v3.14.0 - 18-06-2023 */
+.elementor-toggle{text-align:left}.elementor-toggle .elementor-tab-title{font-weight:700;line-height:1;margin:0;padding:15px;border-bottom:1px solid #d5d8dc;cursor:pointer;outline:none}.elementor-toggle .elementor-tab-title .elementor-toggle-icon{display:inline-block;width:1em}.elementor-toggle .elementor-tab-title .elementor-toggle-icon svg{-webkit-margin-start:-5px;margin-inline-start:-5px;width:1em;height:1em}.elementor-toggle .elementor-tab-title .elementor-toggle-icon.elementor-toggle-icon-right{float:right;text-align:right}.elementor-toggle .elementor-tab-title .elementor-toggle-icon.elementor-toggle-icon-left{float:left;text-align:left}.elementor-toggle .elementor-tab-title .elementor-toggle-icon .elementor-toggle-icon-closed{display:block}.elementor-toggle .elementor-tab-title .elementor-toggle-icon .elementor-toggle-icon-opened{display:none}.elementor-toggle .elementor-tab-title.elementor-active{border-bottom:none}.elementor-toggle .elementor-tab-title.elementor-active .elementor-toggle-icon-closed{display:none}.elementor-toggle .elementor-tab-title.elementor-active .elementor-toggle-icon-opened{display:block}.elementor-toggle .elementor-tab-content{padding:15px;border-bottom:1px solid #d5d8dc;display:none}@media (max-width:767px){.elementor-toggle .elementor-tab-title{padding:12px}.elementor-toggle .elementor-tab-content{padding:12px 10px}}.e-con-inner>.elementor-widget-toggle,.e-con>.elementor-widget-toggle{width:var(--container-widget-width);--flex-grow:var(--container-widget-flex-grow)}</style>		<div class="elementor-toggle">
+							<div class="elementor-toggle-item">
+					<div id="elementor-tab-title-2141" class="elementor-tab-title" data-tab="1" role="button" aria-controls="elementor-tab-content-2141" aria-expanded="false">
+												<span class="elementor-toggle-icon elementor-toggle-icon-left" aria-hidden="true">
+															<span class="elementor-toggle-icon-closed"><i class="fas fa-caret-right"></i></span>
+								<span class="elementor-toggle-icon-opened"><i class="elementor-toggle-icon-opened fas fa-caret-up"></i></span>
+													</span>
+												<a class="elementor-toggle-title" tabindex="0">123limited 123 -limited เป็นประสบการณ์คาสิโนออนไลน์ที่ดีที่สุดหรือไม่?</a>
+					</div>
+
+					<div id="elementor-tab-content-2141" class="elementor-tab-content elementor-clearfix" data-tab="1" role="region" aria-labelledby="elementor-tab-title-2141">123limitedในฐานะที่เป็นผู้ที่ชื่นชอบคาสิโนออนไลน์ตัวยงฉันสามารถพูดได้อย่างมั่นใจว่า 123 -Limited เป็นประสบการณ์คาสิโนออนไลน์ที่ดีที่สุด จากช่วงเวลาที่ฉันเข้าสู่เว็บไซต์ของพวกเขาฉันรู้สึกประทับใจกับอินเทอร์เฟซที่ทันสมัยและใช้งานง่าย ความหลากหลายของเกมที่มีอยู่นั้นไม่มีใครเทียบได้พร้อมตัวเลือกตั้งแต่เกมโต๊ะคลาสสิกไปจนถึงเครื่องสล็อตล่าสุด กราฟิกและเอฟเฟกต์เสียงเป็นสิ่งที่ยอดเยี่ยมทำให้เกิดประสบการณ์การเล่นเกมที่ดื่มด่ำ
+
+สิ่งที่กำหนดไว้ที่ 123. นอกเหนือจากคาสิโนออนไลน์อื่น ๆ คือความมุ่งมั่นในการเล่นและความปลอดภัยที่ยุติธรรม ฉันขอขอบคุณที่พวกเขาใช้เทคโนโลยีการเข้ารหัสมาตรฐานอุตสาหกรรมเพื่อปกป้องข้อมูลส่วนบุคคลและการเงินของฉัน นอกจากนี้เกมของพวกเขาได้รับการตรวจสอบเป็นประจำโดย บริษัท บุคคลที่สามเพื่อให้แน่ใจว่าพวกเขามีความยุติธรรมและเป็นกลาง
+
+ทีมสนับสนุนลูกค้าที่ 123 -Limited นั้นยอดเยี่ยมเช่นกัน มีให้บริการตลอด 24 ชั่วโมงทุกวันผ่านการแชทสดอีเมลและโทรศัพท์เพื่อช่วยเหลือคำถามหรือข้อสงสัยใด ๆ ฉันพบว่าพวกเขามีความรู้เป็นมิตรและมีประสิทธิภาพ
+
+โดยรวมแล้วฉันขอแนะนำให้ทุกคนที่กำลังมองหาประสบการณ์คาสิโนออนไลน์ชั้นนำ ด้วยการเลือกเกมที่กว้างขวางความมุ่งมั่นในการเล่นที่เป็นธรรมและความปลอดภัยและการสนับสนุนลูกค้าที่ยอดเยี่ยมพวกเขาเป็นคาสิโนออนไลน์ที่ดีที่สุดอย่างแท้จริง</div>
+				</div>
+							<div class="elementor-toggle-item">
+					<div id="elementor-tab-title-2142" class="elementor-tab-title" data-tab="2" role="button" aria-controls="elementor-tab-content-2142" aria-expanded="false">
+												<span class="elementor-toggle-icon elementor-toggle-icon-left" aria-hidden="true">
+															<span class="elementor-toggle-icon-closed"><i class="fas fa-caret-right"></i></span>
+								<span class="elementor-toggle-icon-opened"><i class="elementor-toggle-icon-opened fas fa-caret-up"></i></span>
+													</span>
+												<a class="elementor-toggle-title" tabindex="0">123limited คุณสามารถชนะ Big ที่ 123 -Limited Casino ได้หรือไม่?</a>
+					</div>
+
+					<div id="elementor-tab-content-2142" class="elementor-tab-content elementor-clearfix" data-tab="2" role="region" aria-labelledby="elementor-tab-title-2142">123limitedใช่คุณสามารถชนะได้อย่างยิ่งใหญ่ที่ 123 -Limited Casino! คาสิโนออนไลน์นี้มีเกมที่หลากหลายรวมถึงสล็อตยอดนิยมเกมโต๊ะและตัวเลือกตัวแทนจำหน่ายสดซึ่งทั้งหมดมีศักยภาพที่จะจ่ายแจ็คพอตขนาดใหญ่ ไซต์นี้ยังมีโบนัสและโปรโมชั่นมากมายทำให้ผู้เล่นมีโอกาสมากขึ้นในการตีมันครั้งใหญ่ นอกจากนี้คาสิโน 123 ที่มีชื่อเสียงเป็นที่รู้จักกันดีในแพลตฟอร์มที่ปลอดภัยและเชื่อถือได้ซึ่งหมายความว่าคุณสามารถไว้วางใจได้ว่าการชนะของคุณจะได้รับการจ่ายทันทีและไม่มีปัญหา ดังนั้นหากคุณกำลังมองหาโอกาสที่จะได้รับรางวัลใหญ่ให้มองดูคาสิโนที่ จำกัด 123!</div>
+				</div>
+								</div>
+				</div>
+				</div>
+					</div>
+		</div>
+							</div>
+		</section>
+					</div>
+		</div>
+							</div>
+		</section>
+						</div>
+				<div data-elementor-type="footer" data-elementor-id="131" class="elementor elementor-131 elementor-location-footer">
+								<section class="elementor-section elementor-top-section elementor-element elementor-element-8e94f27 elementor-section-boxed elementor-section-height-default elementor-section-height-default" data-id="8e94f27" data-element_type="section" data-settings="{&quot;background_background&quot;:&quot;classic&quot;}">
+						<div class="elementor-container elementor-column-gap-default">
+					<div class="elementor-column elementor-col-100 elementor-top-column elementor-element elementor-element-24c31a64" data-id="24c31a64" data-element_type="column">
+			<div class="elementor-widget-wrap elementor-element-populated">
+								<div class="elementor-element elementor-element-27b49ad1 elementor-widget elementor-widget-theme-site-title elementor-widget-heading" data-id="27b49ad1" data-element_type="widget" data-widget_type="theme-site-title.default">
+				<div class="elementor-widget-container">
+			<h2 class="elementor-heading-title elementor-size-default"><a href="https://boarder-zone.net">123limited</a></h2>		</div>
+				</div>
+				<div class="elementor-element elementor-element-413bb0d elementor-widget elementor-widget-text-editor" data-id="413bb0d" data-element_type="widget" data-widget_type="text-editor.default">
+				<div class="elementor-widget-container">
+							123limited&#8221;ก้าวขึ้นมาและใช้โอกาสกับ123-Limited!แพลตฟอร์มออนไลน์นี้จะทำให้คุณรู้สึกเหมือนอยู่ในหัวใจของคาสิโน&#8221;						</div>
+				</div>
+				<div class="elementor-element elementor-element-5d5e04d0 elementor-nav-menu__align-center elementor-nav-menu--dropdown-none elementor-widget elementor-widget-nav-menu" data-id="5d5e04d0" data-element_type="widget" data-settings="{&quot;layout&quot;:&quot;horizontal&quot;,&quot;submenu_icon&quot;:{&quot;value&quot;:&quot;&lt;i class=\&quot;fas fa-caret-down\&quot;&gt;&lt;\/i&gt;&quot;,&quot;library&quot;:&quot;fa-solid&quot;}}" data-widget_type="nav-menu.default">
+				<div class="elementor-widget-container">
+						<nav class="elementor-nav-menu--main elementor-nav-menu__container elementor-nav-menu--layout-horizontal e--pointer-text e--animation-none">
+				<ul id="menu-1-5d5e04d0" class="elementor-nav-menu"><li class="menu-item menu-item-type-post_type menu-item-object-page menu-item-150"><a href="https://boarder-zone.net/sitemap/" class="elementor-item">Sitemap</a></li>
+<li class="menu-item menu-item-type-post_type menu-item-object-page menu-item-privacy-policy menu-item-151"><a rel="privacy-policy" href="https://boarder-zone.net/privacy-policy/" class="elementor-item">Privacy Policy</a></li>
+</ul>			</nav>
+						<nav class="elementor-nav-menu--dropdown elementor-nav-menu__container" aria-hidden="true">
+				<ul id="menu-2-5d5e04d0" class="elementor-nav-menu"><li class="menu-item menu-item-type-post_type menu-item-object-page menu-item-150"><a href="https://boarder-zone.net/sitemap/" class="elementor-item" tabindex="-1">Sitemap</a></li>
+<li class="menu-item menu-item-type-post_type menu-item-object-page menu-item-privacy-policy menu-item-151"><a rel="privacy-policy" href="https://boarder-zone.net/privacy-policy/" class="elementor-item" tabindex="-1">Privacy Policy</a></li>
+</ul>			</nav>
+				</div>
+				</div>
+				<div class="elementor-element elementor-element-3876c23c elementor-widget elementor-widget-heading" data-id="3876c23c" data-element_type="widget" data-widget_type="heading.default">
+				<div class="elementor-widget-container">
+			<span class="elementor-heading-title elementor-size-default">2023 © BOARDER-ZONE.NET ALL RIGHTS RESERVED</span>		</div>
+				</div>
+					</div>
+		</div>
+							</div>
+		</section>
+						</div>
+		
+		<span class="ssp-id" style="display:none">259</span>
+		<link rel='stylesheet' id='e-animations-css' href='https://boarder-zone.net/wp-content/plugins/elementor/assets/lib/animations/animations.min.css?ver=3.14.0' media='all' />
+<script type="rocketlazyloadscript" id="rocket-browser-checker-js-after">
+"use strict";var _createClass=function(){function defineProperties(target,props){for(var i=0;i<props.length;i++){var descriptor=props[i];descriptor.enumerable=descriptor.enumerable||!1,descriptor.configurable=!0,"value"in descriptor&&(descriptor.writable=!0),Object.defineProperty(target,descriptor.key,descriptor)}}return function(Constructor,protoProps,staticProps){return protoProps&&defineProperties(Constructor.prototype,protoProps),staticProps&&defineProperties(Constructor,staticProps),Constructor}}();function _classCallCheck(instance,Constructor){if(!(instance instanceof Constructor))throw new TypeError("Cannot call a class as a function")}var RocketBrowserCompatibilityChecker=function(){function RocketBrowserCompatibilityChecker(options){_classCallCheck(this,RocketBrowserCompatibilityChecker),this.passiveSupported=!1,this._checkPassiveOption(this),this.options=!!this.passiveSupported&&options}return _createClass(RocketBrowserCompatibilityChecker,[{key:"_checkPassiveOption",value:function(self){try{var options={get passive(){return!(self.passiveSupported=!0)}};window.addEventListener("test",null,options),window.removeEventListener("test",null,options)}catch(err){self.passiveSupported=!1}}},{key:"initRequestIdleCallback",value:function(){!1 in window&&(window.requestIdleCallback=function(cb){var start=Date.now();return setTimeout(function(){cb({didTimeout:!1,timeRemaining:function(){return Math.max(0,50-(Date.now()-start))}})},1)}),!1 in window&&(window.cancelIdleCallback=function(id){return clearTimeout(id)})}},{key:"isDataSaverModeOn",value:function(){return"connection"in navigator&&!0===navigator.connection.saveData}},{key:"supportsLinkPrefetch",value:function(){var elem=document.createElement("link");return elem.relList&&elem.relList.supports&&elem.relList.supports("prefetch")&&window.IntersectionObserver&&"isIntersecting"in IntersectionObserverEntry.prototype}},{key:"isSlowConnection",value:function(){return"connection"in navigator&&"effectiveType"in navigator.connection&&("2g"===navigator.connection.effectiveType||"slow-2g"===navigator.connection.effectiveType)}}]),RocketBrowserCompatibilityChecker}();
+</script>
+<script id="rocket-preload-links-js-extra">
+var RocketPreloadLinksConfig = {"excludeUris":"\/(?:.+\/)?feed(?:\/(?:.+\/?)?)?$|\/(?:.+\/)?embed\/|\/(index.php\/)?(.*)wp-json(\/.*|$)|\/refer\/|\/go\/|\/recommend\/|\/recommends\/","usesTrailingSlash":"1","imageExt":"jpg|jpeg|gif|png|tiff|bmp|webp|avif|pdf|doc|docx|xls|xlsx|php","fileExt":"jpg|jpeg|gif|png|tiff|bmp|webp|avif|pdf|doc|docx|xls|xlsx|php|html|htm","siteUrl":"https:\/\/boarder-zone.net","onHoverDelay":"100","rateThrottle":"3"};
+</script>
+<script type="rocketlazyloadscript" id="rocket-preload-links-js-after">
+(function() {
+"use strict";var r="function"==typeof Symbol&&"symbol"==typeof Symbol.iterator?function(e){return typeof e}:function(e){return e&&"function"==typeof Symbol&&e.constructor===Symbol&&e!==Symbol.prototype?"symbol":typeof e},e=function(){function i(e,t){for(var n=0;n<t.length;n++){var i=t[n];i.enumerable=i.enumerable||!1,i.configurable=!0,"value"in i&&(i.writable=!0),Object.defineProperty(e,i.key,i)}}return function(e,t,n){return t&&i(e.prototype,t),n&&i(e,n),e}}();function i(e,t){if(!(e instanceof t))throw new TypeError("Cannot call a class as a function")}var t=function(){function n(e,t){i(this,n),this.browser=e,this.config=t,this.options=this.browser.options,this.prefetched=new Set,this.eventTime=null,this.threshold=1111,this.numOnHover=0}return e(n,[{key:"init",value:function(){!this.browser.supportsLinkPrefetch()||this.browser.isDataSaverModeOn()||this.browser.isSlowConnection()||(this.regex={excludeUris:RegExp(this.config.excludeUris,"i"),images:RegExp(".("+this.config.imageExt+")$","i"),fileExt:RegExp(".("+this.config.fileExt+")$","i")},this._initListeners(this))}},{key:"_initListeners",value:function(e){-1<this.config.onHoverDelay&&document.addEventListener("mouseover",e.listener.bind(e),e.listenerOptions),document.addEventListener("mousedown",e.listener.bind(e),e.listenerOptions),document.addEventListener("touchstart",e.listener.bind(e),e.listenerOptions)}},{key:"listener",value:function(e){var t=e.target.closest("a"),n=this._prepareUrl(t);if(null!==n)switch(e.type){case"mousedown":case"touchstart":this._addPrefetchLink(n);break;case"mouseover":this._earlyPrefetch(t,n,"mouseout")}}},{key:"_earlyPrefetch",value:function(t,e,n){var i=this,r=setTimeout(function(){if(r=null,0===i.numOnHover)setTimeout(function(){return i.numOnHover=0},1e3);else if(i.numOnHover>i.config.rateThrottle)return;i.numOnHover++,i._addPrefetchLink(e)},this.config.onHoverDelay);t.addEventListener(n,function e(){t.removeEventListener(n,e,{passive:!0}),null!==r&&(clearTimeout(r),r=null)},{passive:!0})}},{key:"_addPrefetchLink",value:function(i){return this.prefetched.add(i.href),new Promise(function(e,t){var n=document.createElement("link");n.rel="prefetch",n.href=i.href,n.onload=e,n.onerror=t,document.head.appendChild(n)}).catch(function(){})}},{key:"_prepareUrl",value:function(e){if(null===e||"object"!==(void 0===e?"undefined":r(e))||!1 in e||-1===["http:","https:"].indexOf(e.protocol))return null;var t=e.href.substring(0,this.config.siteUrl.length),n=this._getPathname(e.href,t),i={original:e.href,protocol:e.protocol,origin:t,pathname:n,href:t+n};return this._isLinkOk(i)?i:null}},{key:"_getPathname",value:function(e,t){var n=t?e.substring(this.config.siteUrl.length):e;return n.startsWith("/")||(n="/"+n),this._shouldAddTrailingSlash(n)?n+"/":n}},{key:"_shouldAddTrailingSlash",value:function(e){return this.config.usesTrailingSlash&&!e.endsWith("/")&&!this.regex.fileExt.test(e)}},{key:"_isLinkOk",value:function(e){return null!==e&&"object"===(void 0===e?"undefined":r(e))&&(!this.prefetched.has(e.href)&&e.origin===this.config.siteUrl&&-1===e.href.indexOf("?")&&-1===e.href.indexOf("#")&&!this.regex.excludeUris.test(e.href)&&!this.regex.images.test(e.href))}}],[{key:"run",value:function(){"undefined"!=typeof RocketPreloadLinksConfig&&new n(new RocketBrowserCompatibilityChecker({capture:!0,passive:!0}),RocketPreloadLinksConfig).init()}}]),n}();t.run();
+}());
+</script>
+<script type="rocketlazyloadscript" data-rocket-src="https://boarder-zone.net/wp-content/themes/hello-elementor/assets/js/hello-frontend.min.js?ver=1.0.0" id="hello-theme-frontend-js" defer></script>
+<script type="rocketlazyloadscript" data-rocket-src="https://boarder-zone.net/wp-content/plugins/elementor-pro/assets/lib/smartmenus/jquery.smartmenus.min.js?ver=1.0.1" id="smartmenus-js" defer></script>
+<script type="rocketlazyloadscript" data-rocket-src="https://boarder-zone.net/wp-content/plugins/elementor-pro/assets/js/webpack-pro.runtime.min.js?ver=3.12.3" id="elementor-pro-webpack-runtime-js" defer></script>
+<script type="rocketlazyloadscript" data-rocket-src="https://boarder-zone.net/wp-content/plugins/elementor/assets/js/webpack.runtime.min.js?ver=3.14.0" id="elementor-webpack-runtime-js" defer></script>
+<script type="rocketlazyloadscript" data-rocket-src="https://boarder-zone.net/wp-content/plugins/elementor/assets/js/frontend-modules.min.js?ver=3.14.0" id="elementor-frontend-modules-js" defer></script>
+<script type="rocketlazyloadscript" data-rocket-src="https://boarder-zone.net/wp-includes/js/dist/vendor/wp-polyfill-inert.min.js?ver=3.1.2" id="wp-polyfill-inert-js" defer></script>
+<script type="rocketlazyloadscript" data-rocket-src="https://boarder-zone.net/wp-includes/js/dist/vendor/regenerator-runtime.min.js?ver=0.14.0" id="regenerator-runtime-js" defer></script>
+<script type="rocketlazyloadscript" data-rocket-src="https://boarder-zone.net/wp-includes/js/dist/vendor/wp-polyfill.min.js?ver=3.15.0" id="wp-polyfill-js"></script>
+<script type="rocketlazyloadscript" data-rocket-src="https://boarder-zone.net/wp-includes/js/dist/hooks.min.js?ver=c6aec9a8d4e5a5d543a1" id="wp-hooks-js"></script>
+<script type="rocketlazyloadscript" data-rocket-src="https://boarder-zone.net/wp-includes/js/dist/i18n.min.js?ver=7701b0c3857f914212ef" id="wp-i18n-js"></script>
+<script type="rocketlazyloadscript" id="wp-i18n-js-after">
+wp.i18n.setLocaleData( { 'text direction\u0004ltr': [ 'ltr' ] } );
+</script>
+<script type="rocketlazyloadscript" id="elementor-pro-frontend-js-before">
+var ElementorProFrontendConfig = {"ajaxurl":"https:\/\/boarder-zone.net\/wp-admin\/admin-ajax.php","nonce":"5e56d66d0c","urls":{"assets":"https:\/\/boarder-zone.net\/wp-content\/plugins\/elementor-pro\/assets\/","rest":"https:\/\/boarder-zone.net\/wp-json\/"},"shareButtonsNetworks":{"facebook":{"title":"Facebook","has_counter":true},"twitter":{"title":"Twitter"},"linkedin":{"title":"LinkedIn","has_counter":true},"pinterest":{"title":"Pinterest","has_counter":true},"reddit":{"title":"Reddit","has_counter":true},"vk":{"title":"VK","has_counter":true},"odnoklassniki":{"title":"OK","has_counter":true},"tumblr":{"title":"Tumblr"},"digg":{"title":"Digg"},"skype":{"title":"Skype"},"stumbleupon":{"title":"StumbleUpon","has_counter":true},"mix":{"title":"Mix"},"telegram":{"title":"Telegram"},"pocket":{"title":"Pocket","has_counter":true},"xing":{"title":"XING","has_counter":true},"whatsapp":{"title":"WhatsApp"},"email":{"title":"Email"},"print":{"title":"Print"}},"facebook_sdk":{"lang":"en_US","app_id":""},"lottie":{"defaultAnimationUrl":"https:\/\/boarder-zone.net\/wp-content\/plugins\/elementor-pro\/modules\/lottie\/assets\/animations\/default.json"}};
+</script>
+<script type="rocketlazyloadscript" data-rocket-src="https://boarder-zone.net/wp-content/plugins/elementor-pro/assets/js/frontend.min.js?ver=3.12.3" id="elementor-pro-frontend-js" defer></script>
+<script type="rocketlazyloadscript" data-rocket-src="https://boarder-zone.net/wp-content/plugins/elementor/assets/lib/waypoints/waypoints.min.js?ver=4.0.2" id="elementor-waypoints-js" defer></script>
+<script type="rocketlazyloadscript" data-rocket-src="https://boarder-zone.net/wp-includes/js/jquery/ui/core.min.js?ver=1.13.2" id="jquery-ui-core-js" defer></script>
+<script type="rocketlazyloadscript" id="elementor-frontend-js-before">
+var elementorFrontendConfig = {"environmentMode":{"edit":false,"wpPreview":false,"isScriptDebug":false},"i18n":{"shareOnFacebook":"Share on Facebook","shareOnTwitter":"Share on Twitter","pinIt":"Pin it","download":"Download","downloadImage":"Download image","fullscreen":"Fullscreen","zoom":"Zoom","share":"Share","playVideo":"Play Video","previous":"Previous","next":"Next","close":"Close","a11yCarouselWrapperAriaLabel":"Carousel | Horizontal scrolling: Arrow Left & Right","a11yCarouselPrevSlideMessage":"Previous slide","a11yCarouselNextSlideMessage":"Next slide","a11yCarouselFirstSlideMessage":"This is the first slide","a11yCarouselLastSlideMessage":"This is the last slide","a11yCarouselPaginationBulletMessage":"Go to slide"},"is_rtl":false,"breakpoints":{"xs":0,"sm":480,"md":768,"lg":1025,"xl":1440,"xxl":1600},"responsive":{"breakpoints":{"mobile":{"label":"Mobile Portrait","value":767,"default_value":767,"direction":"max","is_enabled":true},"mobile_extra":{"label":"Mobile Landscape","value":880,"default_value":880,"direction":"max","is_enabled":false},"tablet":{"label":"Tablet Portrait","value":1024,"default_value":1024,"direction":"max","is_enabled":true},"tablet_extra":{"label":"Tablet Landscape","value":1200,"default_value":1200,"direction":"max","is_enabled":false},"laptop":{"label":"Laptop","value":1366,"default_value":1366,"direction":"max","is_enabled":false},"widescreen":{"label":"Widescreen","value":2400,"default_value":2400,"direction":"min","is_enabled":false}}},"version":"3.14.0","is_static":false,"experimentalFeatures":{"e_dom_optimization":true,"e_optimized_assets_loading":true,"e_optimized_css_loading":true,"a11y_improvements":true,"additional_custom_breakpoints":true,"theme_builder_v2":true,"hello-theme-header-footer":true,"landing-pages":true,"page-transitions":true,"notes":true,"loop":true,"form-submissions":true,"e_scroll_snap":true},"urls":{"assets":"https:\/\/boarder-zone.net\/wp-content\/plugins\/elementor\/assets\/"},"swiperClass":"swiper-container","settings":{"page":[],"editorPreferences":[]},"kit":{"active_breakpoints":["viewport_mobile","viewport_tablet"],"global_image_lightbox":"yes","lightbox_enable_counter":"yes","lightbox_enable_fullscreen":"yes","lightbox_enable_zoom":"yes","lightbox_enable_share":"yes","lightbox_title_src":"title","lightbox_description_src":"description","hello_header_logo_type":"title","hello_header_menu_layout":"horizontal","hello_footer_logo_type":"logo"},"post":{"id":259,"title":"123limited%20%E2%80%93%20Official%20Website","excerpt":"","featuredImage":"https:\/\/boarder-zone.net\/wp-content\/uploads\/2023\/05\/123limited-boarder-zoneet-1024x512.webp"}};
+</script>
+<script type="rocketlazyloadscript" data-rocket-src="https://boarder-zone.net/wp-content/plugins/elementor/assets/js/frontend.min.js?ver=3.14.0" id="elementor-frontend-js" defer></script>
+<script type="rocketlazyloadscript" data-rocket-src="https://boarder-zone.net/wp-content/plugins/elementor-pro/assets/js/elements-handlers.min.js?ver=3.12.3" id="pro-elements-handlers-js" defer></script>
+<script type="rocketlazyloadscript" data-rocket-src="https://boarder-zone.net/wp-content/plugins/elementor-pro/assets/lib/sticky/jquery.sticky.min.js?ver=3.12.3" id="e-sticky-js" defer></script>
+<script>window.lazyLoadOptions=[{elements_selector:"img[data-lazy-src],.rocket-lazyload",data_src:"lazy-src",data_srcset:"lazy-srcset",data_sizes:"lazy-sizes",class_loading:"lazyloading",class_loaded:"lazyloaded",threshold:300,callback_loaded:function(element){if(element.tagName==="IFRAME"&&element.dataset.rocketLazyload=="fitvidscompatible"){if(element.classList.contains("lazyloaded")){if(typeof window.jQuery!="undefined"){if(jQuery.fn.fitVids){jQuery(element).parent().fitVids()}}}}}},{elements_selector:".rocket-lazyload",data_src:"lazy-src",data_srcset:"lazy-srcset",data_sizes:"lazy-sizes",class_loading:"lazyloading",class_loaded:"lazyloaded",threshold:300,}];window.addEventListener('LazyLoad::Initialized',function(e){var lazyLoadInstance=e.detail.instance;if(window.MutationObserver){var observer=new MutationObserver(function(mutations){var image_count=0;var iframe_count=0;var rocketlazy_count=0;mutations.forEach(function(mutation){for(var i=0;i<mutation.addedNodes.length;i++){if(typeof mutation.addedNodes[i].getElementsByTagName!=='function'){continue}
+if(typeof mutation.addedNodes[i].getElementsByClassName!=='function'){continue}
+images=mutation.addedNodes[i].getElementsByTagName('img');is_image=mutation.addedNodes[i].tagName=="IMG";iframes=mutation.addedNodes[i].getElementsByTagName('iframe');is_iframe=mutation.addedNodes[i].tagName=="IFRAME";rocket_lazy=mutation.addedNodes[i].getElementsByClassName('rocket-lazyload');image_count+=images.length;iframe_count+=iframes.length;rocketlazy_count+=rocket_lazy.length;if(is_image){image_count+=1}
+if(is_iframe){iframe_count+=1}}});if(image_count>0||iframe_count>0||rocketlazy_count>0){lazyLoadInstance.update()}});var b=document.getElementsByTagName("body")[0];var config={childList:!0,subtree:!0};observer.observe(b,config)}},!1)</script><script data-no-minify="1" async src="https://boarder-zone.net/wp-content/plugins/wp-rocket/assets/js/lazyload/17.8.3/lazyload.min.js"></script>
+<script>class RocketElementorAnimation{constructor(){this.deviceMode=document.createElement("span"),this.deviceMode.id="elementor-device-mode-wpr",this.deviceMode.setAttribute("class","elementor-screen-only"),document.body.appendChild(this.deviceMode)}_detectAnimations(){let t=getComputedStyle(this.deviceMode,":after").content.replace(/"/g,"");this.animationSettingKeys=this._listAnimationSettingsKeys(t),document.querySelectorAll(".elementor-invisible[data-settings]").forEach(t=>{const e=t.getBoundingClientRect();if(e.bottom>=0&&e.top<=window.innerHeight)try{this._animateElement(t)}catch(t){}})}_animateElement(t){const e=JSON.parse(t.dataset.settings),i=e._animation_delay||e.animation_delay||0,n=e[this.animationSettingKeys.find(t=>e[t])];if("none"===n)return void t.classList.remove("elementor-invisible");t.classList.remove(n),this.currentAnimation&&t.classList.remove(this.currentAnimation),this.currentAnimation=n;let s=setTimeout(()=>{t.classList.remove("elementor-invisible"),t.classList.add("animated",n),this._removeAnimationSettings(t,e)},i);window.addEventListener("rocket-startLoading",function(){clearTimeout(s)})}_listAnimationSettingsKeys(t="mobile"){const e=[""];switch(t){case"mobile":e.unshift("_mobile");case"tablet":e.unshift("_tablet");case"desktop":e.unshift("_desktop")}const i=[];return["animation","_animation"].forEach(t=>{e.forEach(e=>{i.push(t+e)})}),i}_removeAnimationSettings(t,e){this._listAnimationSettingsKeys().forEach(t=>delete e[t]),t.dataset.settings=JSON.stringify(e)}static run(){const t=new RocketElementorAnimation;requestAnimationFrame(t._detectAnimations.bind(t))}}document.addEventListener("DOMContentLoaded",RocketElementorAnimation.run);</script></body>
+</html>
+
+<!-- This website is like a Rocket, isn't it? Performance optimized by WP Rocket. Learn more: https://wp-rocket.me - Debug: cached@1700467362 -->

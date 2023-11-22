@@ -1,0 +1,114 @@
+
+
+
+
+
+
+<!DOCTYPE html>
+<html class="is_adaptive">
+    <head>
+        <meta charset="utf-8" />
+        <title>Этот домен продаётся</title>
+        <link rel="stylesheet" href="https://parking.reg.ru/shopfront/parking-shopfront.css" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <link rel="icon" href="/favicon.ico" type="image/x-icon" />
+        <script src="https://parking.reg.ru/shopfront/manifest.js"></script>
+        <script src="https://parking.reg.ru/shopfront/head-scripts-content.js"></script>
+        <script src="https://parking.reg.ru/shopfront/head-scripts.js"></script>
+    </head>
+    <body class="b-page">
+        <div class="b-parking-shopfront">
+            <header class="b-parking-shopfront__header">
+                <div class="b-page__content-wrapper">
+                    <span class="b-parking-shopfront__header-text">
+                        Домен зарегистрирован в
+                        <a href="https://www.reg.ru/" class="b-parking-shopfront__header-logo">
+                            <span class="b-parking-shopfront__header-logo-img"></span>
+                        </a>
+                    </span>
+                    <span class="b-parking-shopfront__header-text b-parking-shopfront__header-text_mode_additional tooltip" title="по&nbsp;данным StatOnline.ru, занимает первое место по&nbsp;количеству зарегистрированных доменов и&nbsp;размещённых сайтов в&nbsp;национальных зонах .RU и .РФ.">
+                        Хостинг-провайдер и регистратор доменных имён №1 в России
+                    </span>
+
+                </div>
+            </header>
+
+            <div class="b-parking-shopfront__domain">
+                <div class="b-page__content-wrapper">
+                    <span class="b-icon b-icon_style_domain b-parking-shopfront__domain-icon"></span>
+                    <strong class="b-parking-shopfront__domain-name">
+                        verek.ru
+                    </strong>
+                    <p class="b-parking-shopfront__domain-info">
+                        Этот домен продаётся
+                        <span class="b-parking-shopfront__domain-price"></span>
+                    </p>
+                    <a class="b-button b-button_color_primary b-button_height_auto b-button_size_big b-parking-shopfront__domain-button" href="https://www.reg.ru/domain/shop/lot/"><i class="b-icon b-icon_button_cart b-button__icon-left"></i>Купить</a>
+                </div>
+                <div class="b-parking-shopfront__bg"></div>
+            </div>
+
+            <div id="b-parking-shopfront-form"></div>
+        </div>
+
+        <div class="b-footer-static b-footer-static_type_right-side">
+            <div class="b-footer-static__wrapper b-footer-static__wrapper_type_right-side">
+                <div class="b-footer-static__item b-footer-static__item_type_link b-link b-link_style_text" data-link="https://www.reg.ru/hosting">
+                    <span class="b-footer-static__icon b-footer-static__icon_type_hosting"></span>
+                    <a class="b-link b-link_style_text" href="https://www.reg.ru/hosting">Хостинг</a>
+                </div>
+                <div class="b-footer-static__item b-footer-static__item_type_link b-link b-link_style_text" data-link="https://www.reg.ru/vps">
+                    <span class="b-footer-static__icon b-footer-static__icon_type_vps"></span>
+                    <a class="b-link b-link_style_text" href="https://www.reg.ru/vps">VPS</a>
+                </div>
+                <div class="b-footer-static__item b-footer-static__item_type_link b-link b-link_style_text" data-link="https://www.reg.ru/dedicated">
+                    <a href="https://www.reg.ru/dedicated" class="b-footer-static__icon b-footer-static__icon_type_dedicated"></a>
+                    <p class="b-link b-link_style_text">Dedicated</p>
+                </div>
+            </div>
+        </div>
+
+        <script>
+            var Config = {
+                dname      : 'verek.ru',
+                captchaKey : '6LeOBCUUAAAAAH12B8bXjdRxiKCPyhBtqdP1DkUE',
+                formAction : 'https://www.reg.ru/whois/parking_admin_contact'
+            };
+        </script>
+        <script src="https://parking.reg.ru/shopfront/parking-shopfront.js"></script>
+        <script src="https://www.google.com/recaptcha/api.js?onload=vueRecaptchaApiLoaded&amp;render=explicit" async defer></script>
+        <script>
+            function ondata( data ) {
+                var domainInfo  = document.querySelector('.b-parking-shopfront__domain-info'),
+                    domainPrice = document.querySelector('.b-parking-shopfront__domain-price'),
+                    buyButton   = document.querySelector('.b-parking-shopfront__domain-button'),
+                    formattedPrice;
+
+                if ( data.error_code ) {
+                    return false;
+                }
+
+                if ( data.domain_in_shop ) {
+                    domainInfo.style.display = 'block';
+
+                    buyButton.href += encodeURIComponent( data.dname );
+                    buyButton.style.display = 'inline-block';
+
+                    if ( data.domain_shop_price ) {
+                        formattedPrice = data.domain_shop_price.replace(/\s/g, '&nbsp');
+
+                        domainPrice.innerHTML = 'за ' + formattedPrice + '&nbsp;р.';
+                        domainPrice.style.display = 'inline';
+                    }
+                }
+            }
+
+            var script = document.createElement('script');
+            var head   = document.getElementsByTagName('head')[0];
+            script.src = 'https://parking.reg.ru/script/get_domain_data?domain_name=verek.ru&rand=' + Math.random() + '&callback=ondata';
+            script.async = 1;
+            head.appendChild( script );
+        </script>
+    </body>
+</html>

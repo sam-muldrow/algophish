@@ -1,0 +1,400 @@
+<!DOCTYPE html>
+<html lang="fa">
+<head>
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="user-scalable=no, width=device-width, initial-scale=1, maximum-scale=1">
+	<title>ورود به پنل مشتریان</title>
+	<link rel="shortcut icon" id="favicon" href="https://erp.dadetejarat.com/uploads/company/favicon.png">
+<link rel="apple-touch-icon”" id="favicon-apple-touch-icon" href="https://erp.dadetejarat.com/uploads/company/favicon.png">
+<link rel="stylesheet" type="text/css" id="reset-css" href="https://erp.dadetejarat.com/assets/css/reset.css?v=2.8.4">
+<link rel="stylesheet" type="text/css" id="bootstrap-css" href="https://erp.dadetejarat.com/assets/plugins/bootstrap/css/bootstrap.min.css?v=2.8.4">
+<link rel="stylesheet" type="text/css" id="roboto-css" href="https://erp.dadetejarat.com/assets/plugins/roboto/roboto.css?v=2.8.4">
+<link rel="stylesheet" type="text/css" id="bootstrap-rtl-css" href="https://erp.dadetejarat.com/assets/plugins/bootstrap-arabic/css/bootstrap-arabic.min.css?v=2.8.4">
+<link rel="stylesheet" type="text/css" id="datatables-css" href="https://erp.dadetejarat.com/assets/plugins/datatables/datatables.min.css?v=2.8.4">
+<link rel="stylesheet" type="text/css" id="fontawesome-css" href="https://erp.dadetejarat.com/assets/plugins/font-awesome/css/font-awesome.min.css?v=2.8.4">
+<link rel="stylesheet" type="text/css" id="datetimepicker-css" href="https://erp.dadetejarat.com/assets/plugins/datetimepicker/jquery.datetimepicker.min.css?v=2.8.4">
+<link rel="stylesheet" type="text/css" id="bootstrap-select-css" href="https://erp.dadetejarat.com/assets/plugins/bootstrap-select/css/bootstrap-select.min.css?v=2.8.4">
+<link rel="stylesheet" type="text/css" id="lightbox-css" href="https://erp.dadetejarat.com/assets/plugins/lightbox/css/lightbox.min.css?v=2.8.4">
+<link rel="stylesheet" type="text/css" id="colorpicker-css" href="https://erp.dadetejarat.com/assets/plugins/bootstrap-colorpicker/css/bootstrap-colorpicker.min.css?v=2.8.4">
+<link rel="stylesheet" type="text/css" id="bootstrap-overrides-css" href="https://erp.dadetejarat.com/assets/css/bs-overides.css?v=2.8.4">
+<link rel="stylesheet" type="text/css" id="theme-css" href="https://erp.dadetejarat.com/assets/themes/kavak/css/style.css?v=2.8.4">
+<link rel="stylesheet" type="text/css" id="kavak-custom-css" href="https://erp.dadetejarat.com/assets/themes/kavak/css/custom.css?v=1.0.1">
+<link rel="stylesheet" type="text/css" id="persiandatetimepicker-css" href="https://erp.dadetejarat.com/modules/dt/assets/plugins/MdBootstrapPersianDateTimePicker/jquery.Bootstrap-PersianDateTimePicker.css">
+<link rel="stylesheet" type="text/css" id="formbuilder_custom_client_style" href="https://erp.dadetejarat.com/modules/formbuilder/assets/css/custom_client_style.css">
+	<script src="https://erp.dadetejarat.com/assets/plugins/jquery/jquery.min.js"></script>
+	    <script>
+        if (typeof(jQuery) === 'undefined' && !window.deferAfterjQueryLoaded) {
+            window.deferAfterjQueryLoaded = [];
+            Object.defineProperty(window, "$", {
+                set: function(value) {
+                    window.setTimeout(function() {
+                        $.each(window.deferAfterjQueryLoaded, function(index, fn) {
+                            fn();
+                        });
+                    }, 0);
+                    Object.defineProperty(window, "$", {
+                        value: value
+                    });
+                },
+                configurable: true
+            });
+        }
+
+        var csrfData = {"formatted":{"csrf_token_name":"dec490c33e80f467c70bd85e67a6725f"},"token_name":"csrf_token_name","hash":"dec490c33e80f467c70bd85e67a6725f"};
+
+        if (typeof(jQuery) == 'undefined') {
+            window.deferAfterjQueryLoaded.push(function() {
+                csrf_jquery_ajax_setup();
+            });
+            window.addEventListener('load', function() {
+                csrf_jquery_ajax_setup();
+            }, true);
+        } else {
+            csrf_jquery_ajax_setup();
+        }
+
+        function csrf_jquery_ajax_setup() {
+            $.ajaxSetup({
+                data: csrfData.formatted
+            });
+
+            $(document).ajaxError(function(event, request, settings) {
+                if (request.status === 419) {
+                    alert_float('warning', 'Page expired, refresh the page make an action.')
+                }
+            });
+        }
+    </script>
+    <script>
+        function custom_fields_hyperlink(){
+         var cf_hyperlink = $('body').find('.cf-hyperlink');
+         if(cf_hyperlink.length){
+             $.each(cf_hyperlink,function(){
+                var cfh_wrapper = $(this);
+                var cfh_field_to = cfh_wrapper.attr('data-fieldto');
+                var cfh_field_id = cfh_wrapper.attr('data-field-id');
+                var textEl = $('body').find('#custom_fields_'+cfh_field_to+'_'+cfh_field_id+'_popover');
+                var hiddenField = $("#custom_fields\\\["+cfh_field_to+"\\\]\\\["+cfh_field_id+"\\\]");
+                var cfh_value = cfh_wrapper.attr('data-value');
+                hiddenField.val(cfh_value);
+
+                if($(hiddenField.val()).html() != ''){
+                    textEl.html($(hiddenField.val()).html());
+                }
+                var cfh_field_name = cfh_wrapper.attr('data-field-name');
+                textEl.popover({
+                    html: true,
+                    trigger: "manual",
+                    placement: "top",
+                    title:cfh_field_name,
+                    content:function(){
+                        return $(cfh_popover_templates[cfh_field_id]).html();
+                    }
+                }).on("click", function(e){
+                    var $popup = $(this);
+                    $popup.popover("toggle");
+                    var titleField = $("#custom_fields_"+cfh_field_to+"_"+cfh_field_id+"_title");
+                    var urlField = $("#custom_fields_"+cfh_field_to+"_"+cfh_field_id+"_link");
+                    var ttl = $(hiddenField.val()).html();
+                    var cfUrl = $(hiddenField.val()).attr("href");
+                    if(cfUrl){
+                        $('#cf_hyperlink_open_'+cfh_field_id).attr('href',(cfUrl.indexOf('://') === -1 ? 'http://' + cfUrl : cfUrl));
+                    }
+                    titleField.val(ttl);
+                    urlField.val(cfUrl);
+                    $("#custom_fields_"+cfh_field_to+"_"+cfh_field_id+"_btn-save").click(function(){
+                        hiddenField.val((urlField.val() != '' ? '<a href="'+urlField.val()+'" target="_blank">' + titleField.val() + '</a>' : ''));
+                        textEl.html(titleField.val() == "" ? "جهت افزودن لینک اینجا کلیک کنید" : titleField.val());
+                        $popup.popover("toggle");
+                    });
+                    $("#custom_fields_"+cfh_field_to+"_"+cfh_field_id+"_btn-cancel").click(function(){
+                        if(urlField.val() == ''){
+                            hiddenField.val('');
+                        }
+                        $popup.popover("toggle");
+                    });
+                });
+            });
+         }
+     }
+ </script>
+     <script>
+        
+        var site_url = 'https://erp.dadetejarat.com/',
+        app = {},
+        cfh_popover_templates  = {};
+
+        app.isRTL = 'true';
+        app.is_mobile = '';
+        app.months_json = '["\u0698\u0627\u0646\u0648\u06cc\u0647","\u0641\u0648\u0631\u06cc\u0647","\u0645\u0627\u0631\u0633","\u0622\u0648\u0631\u06cc\u0644","\u0645\u06cc","\u0698\u0648\u0626\u0646","\u062c\u0648\u0644\u0627\u06cc","\u0622\u06af\u0648\u0633\u062a","\u0633\u067e\u062a\u0627\u0645\u0628\u0631","\u0627\u06a9\u062a\u0628\u0631","\u0646\u0648\u0627\u0645\u0628\u0631","\u062f\u0633\u0627\u0645\u0628\u0631"]';
+
+        app.browser = "";
+        app.max_php_ini_upload_size_bytes = "67108864";
+        app.locale = "fa";
+
+        app.options = {
+            calendar_events_limit: "4",
+            calendar_first_day: "1",
+            tables_pagination_limit: "25",
+            enable_google_picker: "0",
+            google_client_id: "",
+            google_api: "",
+            default_view_calendar: "dayGridMonth",
+            timezone: "UTC",
+            allowed_files: ".png,.jpg,.pdf,.doc,.docx,.xls,.xlsx,.zip,.rar,.txt,.jpeg,.mp4,.mp3,.m4a,.pptx,.xlsm,.csv,.json,.svg,.wav",
+            date_format: "Y/m/d",
+            time_format: "24",
+        };
+
+        app.lang = {
+            file_exceeds_maxfile_size_in_form: "فایل بارگذاری شده از حداکثر اندازه فایلی که در فرم اچ تی ام ال مشخص شده تجاوز کرده است." + ' (64 MB)',
+            file_exceeds_max_filesize: "فایل بارگذاری شده از حداکثر اندازه فایلی که در php.ini مشخص شده تجاوز کرده است." + ' (64 MB)',
+            validation_extension_not_allowed: "پسوند فایل مجاز نیست",
+            sign_document_validation: "لطفاً سند را امضاء کنید.",
+            dt_length_menu_all: "همه",
+            drop_files_here_to_upload: "فایل‌ها را برای بارگذاری اینجا رها کنید",
+            browser_not_support_drag_and_drop: "مرورگر شما روش کشیدن و رها کردن فایل برای بارگذاری را پشتیبانی نمی‌کند",
+            confirm_action_prompt: "آیا مطمئن هستید که می‌خواهید این کار را انجام دهید؟",
+            datatables: {"emptyTable":"\u0647\u06cc\u0686 \u0645\u0648\u0631\u062f\u06cc \u06cc\u0627\u0641\u062a \u0646\u0634\u062f","info":"\u0646\u0645\u0627\u06cc\u0634 _START_ \u062a\u0627 _END_ \u0627\u0632 _TOTAL_ \u0645\u0648\u0631\u062f","infoEmpty":"\u0646\u0645\u0627\u06cc\u0634 0 \u062a\u0627 0 \u0627\u0632 0 \u0645\u0648\u0631\u062f","infoFiltered":"(\u0641\u06cc\u0644\u062a\u0631 \u0634\u062f\u0647 \u0627\u0632 \u0645\u062c\u0645\u0648\u0639 _MAX_ \u0645\u0648\u0631\u062f)","lengthMenu":"_MENU_","loadingRecords":"\u062f\u0631 \u062d\u0627\u0644 \u0628\u0627\u0631\u06af\u0630\u0627\u0631\u06cc ...","processing":"<div class=\"dt-loader\"><\/div>","search":"<div class=\"input-group\"><span class=\"input-group-addon\"><span class=\"fa fa-search\"><\/span><\/span>","searchPlaceholder":"\u062c\u0633\u062a\u062c\u0648:","zeroRecords":"\u0647\u06cc\u0686 \u0631\u06a9\u0648\u0631\u062f \u0645\u0646\u0637\u0628\u0642\u06cc \u06cc\u0627\u0641\u062a \u0646\u0634\u062f","paginate":{"first":"\u0627\u0648\u0644\u06cc\u0646","last":"\u0622\u062e\u0631\u06cc\u0646","next":"\u0628\u0639\u062f\u06cc","previous":"\u0642\u0628\u0644\u06cc"},"aria":{"sortAscending":"\u0641\u0639\u0627\u0644\u200c\u0633\u0627\u0632\u06cc \u0645\u0631\u062a\u0628\u200c\u0633\u0627\u0632\u06cc \u0635\u0639\u0648\u062f\u06cc \u0633\u062a\u0648\u0646","sortDescending":"\u0641\u0639\u0627\u0644\u200c\u0633\u0627\u0632\u06cc \u0645\u0631\u062a\u0628\u200c\u0633\u0627\u0632\u06cc \u0646\u0632\u0648\u0644\u06cc \u0633\u062a\u0648\u0646"}},
+            discussions_lang: {"discussion_add_comment":"\u0627\u0636\u0627\u0641\u0647 \u06a9\u0631\u062f\u0646 \u0646\u0638\u0631","discussion_newest":"\u062c\u062f\u06cc\u062f\u062a\u0631\u06cc\u0646","discussion_oldest":"\u0642\u062f\u06cc\u0645\u06cc\u200c\u062a\u0631\u06cc\u0646","discussion_attachments":"\u067e\u06cc\u0648\u0633\u062a\u200c\u0647\u0627","discussion_send":"\u0627\u0631\u0633\u0627\u0644","discussion_reply":"\u067e\u0627\u0633\u062e","discussion_edit":"\u0648\u06cc\u0631\u0627\u06cc\u0634","discussion_edited":"\u062a\u063a\u06cc\u06cc\u0631\u06cc\u0627\u0641\u062a\u0647","discussion_you":"\u0634\u0645\u0627","discussion_save":"\u0630\u062e\u06cc\u0631\u0647","discussion_delete":"\u062d\u0630\u0641","discussion_view_all_replies":"\u0646\u0645\u0627\u06cc\u0634 \u0647\u0645\u0647 \u067e\u0627\u0633\u062e\u200c\u0647\u0627","discussion_hide_replies":"\u067e\u0646\u0647\u0627\u0646 \u06a9\u0631\u062f\u0646 \u067e\u0627\u0633\u062e\u200c\u0647\u0627","discussion_no_comments":"\u0628\u062f\u0648\u0646 \u0646\u0638\u0631","discussion_no_attachments":"\u0628\u062f\u0648\u0646 \u067e\u06cc\u0648\u0633\u062a","discussion_attachments_drop":"\u0628\u0631\u0627\u06cc \u0628\u0627\u0631\u06af\u0630\u0627\u0631\u06cc \u0641\u0627\u06cc\u0644 \u0622\u0646 \u0631\u0627 \u0628\u06a9\u0634\u06cc\u062f \u0648 \u0631\u0647\u0627 \u06a9\u0646\u06cc\u062f"},
+        };
+        window.addEventListener('load',function(){
+            custom_fields_hyperlink();
+        });
+    </script>
+        <script>
+        /**
+         * @deprecated 2.3.2
+         * Do not use any of these below as will be removed in future updates.
+         */
+        var isRTL = 'true';
+
+        var calendar_events_limit = "4";
+        var maximum_allowed_ticket_attachments = "10";
+
+        var max_php_ini_upload_size_bytes  = "67108864";
+
+        var file_exceeds_maxfile_size_in_form = "فایل بارگذاری شده از حداکثر اندازه فایلی که در فرم اچ تی ام ال مشخص شده تجاوز کرده است." + ' (64 MB)';
+        var file_exceeds_max_filesize = "فایل بارگذاری شده از حداکثر اندازه فایلی که در php.ini مشخص شده تجاوز کرده است." + ' (64 MB)';
+
+        var validation_extension_not_allowed = "پسوند فایل مجاز نیست";
+        var sign_document_validation = "لطفاً سند را امضاء کنید.";
+        var dt_length_menu_all = "همه";
+
+        var drop_files_here_to_upload = "فایل‌ها را برای بارگذاری اینجا رها کنید";
+        var browser_not_support_drag_and_drop = "مرورگر شما روش کشیدن و رها کردن فایل برای بارگذاری را پشتیبانی نمی‌کند";
+        var remove_file = "حذف فایل";
+        var tables_pagination_limit = "25";
+        var enable_google_picker = "0";
+        var google_client_id = "";
+        var google_api = "";
+        var acceptable_mimes = ".png,.jpg,.pdf,.doc,.docx,.xls,.xlsx,.zip,.rar,.txt,.jpeg,.mp4,.mp3,.m4a,.pptx,.xlsm,.csv,.json,.svg,.wav, image/png, image/jpeg, application/pdf, application/msword, application/vnd.openxmlformats-officedocument.wordprocessingml.document, application/vnd.ms-excel, application/vnd.openxmlformats-officedocument.spreadsheetml.sheet, application/x-zip, application/x-rar, text/plain, image/jpeg, video/mp4, audio/mpeg, audio/x-m4a, application/vnd.openxmlformats-officedocument.presentationml.presentation, , text/x-comma-separated-values, application/json, image/svg+xml, audio/x-wav";
+        var date_format = "Y/m/d";
+        var time_format = "24";
+        var default_view_calendar = "dayGridMonth";
+        var dt_lang = {"emptyTable":"\u0647\u06cc\u0686 \u0645\u0648\u0631\u062f\u06cc \u06cc\u0627\u0641\u062a \u0646\u0634\u062f","info":"\u0646\u0645\u0627\u06cc\u0634 _START_ \u062a\u0627 _END_ \u0627\u0632 _TOTAL_ \u0645\u0648\u0631\u062f","infoEmpty":"\u0646\u0645\u0627\u06cc\u0634 0 \u062a\u0627 0 \u0627\u0632 0 \u0645\u0648\u0631\u062f","infoFiltered":"(\u0641\u06cc\u0644\u062a\u0631 \u0634\u062f\u0647 \u0627\u0632 \u0645\u062c\u0645\u0648\u0639 _MAX_ \u0645\u0648\u0631\u062f)","lengthMenu":"_MENU_","loadingRecords":"\u062f\u0631 \u062d\u0627\u0644 \u0628\u0627\u0631\u06af\u0630\u0627\u0631\u06cc ...","processing":"<div class=\"dt-loader\"><\/div>","search":"<div class=\"input-group\"><span class=\"input-group-addon\"><span class=\"fa fa-search\"><\/span><\/span>","searchPlaceholder":"\u062c\u0633\u062a\u062c\u0648:","zeroRecords":"\u0647\u06cc\u0686 \u0631\u06a9\u0648\u0631\u062f \u0645\u0646\u0637\u0628\u0642\u06cc \u06cc\u0627\u0641\u062a \u0646\u0634\u062f","paginate":{"first":"\u0627\u0648\u0644\u06cc\u0646","last":"\u0622\u062e\u0631\u06cc\u0646","next":"\u0628\u0639\u062f\u06cc","previous":"\u0642\u0628\u0644\u06cc"},"aria":{"sortAscending":"\u0641\u0639\u0627\u0644\u200c\u0633\u0627\u0632\u06cc \u0645\u0631\u062a\u0628\u200c\u0633\u0627\u0632\u06cc \u0635\u0639\u0648\u062f\u06cc \u0633\u062a\u0648\u0646","sortDescending":"\u0641\u0639\u0627\u0644\u200c\u0633\u0627\u0632\u06cc \u0645\u0631\u062a\u0628\u200c\u0633\u0627\u0632\u06cc \u0646\u0632\u0648\u0644\u06cc \u0633\u062a\u0648\u0646"}};
+        var discussions_lang = {"discussion_add_comment":"\u0627\u0636\u0627\u0641\u0647 \u06a9\u0631\u062f\u0646 \u0646\u0638\u0631","discussion_newest":"\u062c\u062f\u06cc\u062f\u062a\u0631\u06cc\u0646","discussion_oldest":"\u0642\u062f\u06cc\u0645\u06cc\u200c\u062a\u0631\u06cc\u0646","discussion_attachments":"\u067e\u06cc\u0648\u0633\u062a\u200c\u0647\u0627","discussion_send":"\u0627\u0631\u0633\u0627\u0644","discussion_reply":"\u067e\u0627\u0633\u062e","discussion_edit":"\u0648\u06cc\u0631\u0627\u06cc\u0634","discussion_edited":"\u062a\u063a\u06cc\u06cc\u0631\u06cc\u0627\u0641\u062a\u0647","discussion_you":"\u0634\u0645\u0627","discussion_save":"\u0630\u062e\u06cc\u0631\u0647","discussion_delete":"\u062d\u0630\u0641","discussion_view_all_replies":"\u0646\u0645\u0627\u06cc\u0634 \u0647\u0645\u0647 \u067e\u0627\u0633\u062e\u200c\u0647\u0627","discussion_hide_replies":"\u067e\u0646\u0647\u0627\u0646 \u06a9\u0631\u062f\u0646 \u067e\u0627\u0633\u062e\u200c\u0647\u0627","discussion_no_comments":"\u0628\u062f\u0648\u0646 \u0646\u0638\u0631","discussion_no_attachments":"\u0628\u062f\u0648\u0646 \u067e\u06cc\u0648\u0633\u062a","discussion_attachments_drop":"\u0628\u0631\u0627\u06cc \u0628\u0627\u0631\u06af\u0630\u0627\u0631\u06cc \u0641\u0627\u06cc\u0644 \u0622\u0646 \u0631\u0627 \u0628\u06a9\u0634\u06cc\u062f \u0648 \u0631\u0647\u0627 \u06a9\u0646\u06cc\u062f"};
+        var confirm_action_prompt = "آیا مطمئن هستید که می‌خواهید این کار را انجام دهید؟";
+        var cf_translate_input_link_tip = "جهت افزودن لینک اینجا کلیک کنید";
+
+        var locale = 'fa';
+        var timezone = "UTC";
+        var allowed_files = ".png,.jpg,.pdf,.doc,.docx,.xls,.xlsx,.zip,.rar,.txt,.jpeg,.mp4,.mp3,.m4a,.pptx,.xlsm,.csv,.json,.svg,.wav";
+        var calendar_first_day = '1';
+        var months_json = '["\u0698\u0627\u0646\u0648\u06cc\u0647","\u0641\u0648\u0631\u06cc\u0647","\u0645\u0627\u0631\u0633","\u0622\u0648\u0631\u06cc\u0644","\u0645\u06cc","\u0698\u0648\u0626\u0646","\u062c\u0648\u0644\u0627\u06cc","\u0622\u06af\u0648\u0633\u062a","\u0633\u067e\u062a\u0627\u0645\u0628\u0631","\u0627\u06a9\u062a\u0628\u0631","\u0646\u0648\u0627\u0645\u0628\u0631","\u062f\u0633\u0627\u0645\u0628\u0631"]';
+    </script>
+        
+	<script>
+		app.options.base_currency_symbol = "ریال";
+		app.options.base_currency_name = "IRR";
+		app.options.base_currency_placement = "after";
+	</script></head>
+<body class="customers  customers_login" dir="rtl">
+	
+<div id="wrapper">
+   <div id="content">
+       <div id="global-loader">
+            <img src="https://erp.dadetejarat.com/assets/images/loader.svg" class="loader-img" alt="Loader"> 
+        </div>
+        
+        <div class="container">
+            <div class="row">
+                            </div>
+        </div>
+                <div class="container">
+                        <div class="row">
+                
+<div class="mtop40">
+    <div class="col-md-4 col-md-offset-4 text-center">
+        <h1 class="text-uppercase mbot20 login-heading">
+        ورود به پنل مشتریان        </h1>
+    </div>
+    <div class="col-md-4 col-md-offset-4 col-sm-8 col-sm-offset-2">
+        <form action="https://erp.dadetejarat.com/authentication/login" class="login-form" id="form" data-form-number="form1" method="post" accept-charset="utf-8">
+ <input type="hidden" name="csrf_token_name" value="dec490c33e80f467c70bd85e67a6725f" />
+                <div class="panel_s">
+            <div class="panel-body">
+                <a href="https://erp.dadetejarat.com/" class="logo img-responsive navbar-brand logo">
+        <img src="https://erp.dadetejarat.com/uploads/company/20dc01394bf76c68147f2a6efc722be9.png" class="img-responsive" alt="شرکت داده تجارت">
+        </a>                <div id="mobile_field" class="form-group">
+                    <label for="mobile">موبایل</label>
+                    <input type="text" autofocus="true" class="form-control" name="mobile" id="mobile" dir="ltr" maxlength="11" value="">
+                                    </div>
+
+                <div style="display: none" id="code_field" class="form-group">
+                    <label for="code">کد احراز هویت</label>
+                    <input type="text" autofocus="true" class="form-control" name="code" id="code" dir="ltr" maxlength="6" value="">
+                                    </div>
+
+                
+                                    <div style="display: none" id="rem" class="checkbox">
+                        <input type="checkbox" name="remember" id="remember">
+                        <label for="remember">
+                            مرا به خاطر بسپار                        </label>
+                    </div>
+                
+                <div class="form-group">
+                    <div id="timer"></div>
+                    <button style="display: none;" type="submit" id="reset_password" name="reset_password" value="1" class="btn btn-info btn-block">ورود</button>
+                    <button type="submit" id="send_code" name="send_code" value="1" class="btn btn-info btn-block">دریافت پیامک حاوی کد ورود</button>
+                </div>
+                                </form>            </div>
+        </div>
+    </div>
+</div>
+<script>
+
+    $(document).ready(function() {
+        $('form').on('submit', function(e) {
+            e.preventDefault();
+            var form_number = $("#form").attr('data-form-number');
+
+            let urlSuffix = '';
+            const urlParams = new URLSearchParams(window.location.search);
+            if (urlParams.has('ref')) {
+                urlSuffix = '?ref=' + urlParams.get('ref');
+            }
+            if (urlParams.has('redirect')) {
+                urlSuffix =  urlSuffix + '&redirect=' + urlParams.get('redirect');
+            }
+
+            if (form_number == 'form1') {
+                $.ajax({
+                    url: site_url + 'dt_mobile_login/login',
+                    type: 'post',
+                    dataType: 'json',
+                    data: {
+                        send_code: 'send_code', 
+                        mobile: $("#mobile").val()
+                    },
+                    beforeSend: function() {
+                        $("#send_code").prop('disabled', true);
+                        $("#send_code").html('در حال ارسال ...');
+                    },
+                    success: function(result) {
+                        if (!result.status) {
+                            alert_float('danger', result.message);
+                            $("#send_code").prop('disabled', false);
+                            $("#send_code").html('دریافت پیامک حاوی کد ورود');
+                        } else {
+                            alert_float('success', result.message);
+                            $("#mobile").prop('disabled', true);
+                            $("#form").attr('data-form-number', 'form2');
+                            $("#send_code").css('display', 'none');
+                            $("#code_field").css('display', 'block');
+                            $("#reset_password").css('display', 'block');
+                            $("#rem").css('display', 'block');
+                            var countDownDate = new Date().getTime() + 120000;
+                            var x = setInterval(function() {
+                                var now = new Date().getTime();
+                                var distance = countDownDate - now;
+                                var minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+                                var seconds = Math.floor((distance % (1000 * 60)) / 1000);
+                                document.getElementById("timer").innerHTML = "<p style='text-align: center'>" + tr_num_fa(minutes) + " دقیقه و  " + tr_num_fa(seconds) + " ثانیه " + "</p>";
+                                if (distance < 0) {
+                                    clearInterval(x);
+                                    document.getElementById("timer").innerHTML = "<p style='text-align: center'>وقت تمام شد دوباره سعی کنید</p>";
+                                }
+                            }, 1000);
+                        }
+                    }
+                });
+            } else {
+                $.ajax({
+                    url: site_url + 'dt_mobile_login/login' + urlSuffix,
+                    type: 'post',
+                    dataType: 'json',
+                    data: {
+                        reset_password: 'send',
+                        mobile: $("#mobile").val(),
+                        code: $("#code").val(),
+                        remember: $("#remember").is('checked')
+                    },
+                    headers: { 
+                        'X-Requested-With-App': ''
+                    },
+                    beforeSend: function() {
+                        $("#reset_password").html('در حال بررسی ...');
+                        $("#code").prop('disabled', true);
+                        $("#reset_password").prop('disabled', true);
+                    },
+                    success: function(result) {
+                        if (!result.status) {
+                            alert_float('danger', result.message);
+                            $("#reset_password").html('بررسی مجدد');
+                            $("#code").prop('disabled', false);
+                            $("#reset_password").prop('disabled', false);
+                        } else {
+                            alert_float('success', result.message);
+                            var redirect = result.redirect;
+                            setTimeout(function() {
+                                window.location.href = redirect;
+                            }, 1500);
+                        }
+                    }
+                });
+            }
+
+        });
+
+    });
+
+    $(function() {
+        var message = '';
+        if ('' != message) {
+            message = JSON.parse(message);
+            alert_float(message.type, message.text);
+        }
+    });
+</script>            </div>
+        </div>
+    </div>
+</div>
+<footer class="footer">
+	<div class="container">
+		<div class="row">
+			<div class="col-md-12 text-center">
+				<span class="copyright-footer">2023 حق نشر شرکت داده تجارت</span>
+											</div>
+		</div>
+	</div>
+</footer>
+<script type="text/javascript" id="bootstrap-js" src="https://erp.dadetejarat.com/assets/plugins/bootstrap/js/bootstrap.min.js?v=2.8.4"></script>
+<script type="text/javascript" id="datatables-js" src="https://erp.dadetejarat.com/assets/plugins/datatables/datatables.min.js?v=2.8.4"></script>
+<script type="text/javascript" id="jquery-validation-js" src="https://erp.dadetejarat.com/assets/plugins/jquery-validation/jquery.validate.min.js?v=2.8.4"></script>
+<script type="text/javascript" id="jquery-validation-lang-js" src="https://erp.dadetejarat.com/assets/plugins/jquery-validation/localization/messages_fa.min.js?v=2.8.4"></script>
+<script type="text/javascript" id="bootstrap-select-js" src="https://erp.dadetejarat.com/assets/builds/bootstrap-select.min.js?v=2.8.4"></script>
+<script type="text/javascript" id="datetimepicker-js" src="https://erp.dadetejarat.com/assets/plugins/datetimepicker/jquery.datetimepicker.full.min.js?v=2.8.4"></script>
+<script type="text/javascript" id="chart-js" src="https://erp.dadetejarat.com/assets/plugins/Chart.js/Chart.min.js?v=2.8.4"></script>
+<script type="text/javascript" id="colorpicker-js" src="https://erp.dadetejarat.com/assets/plugins/bootstrap-colorpicker/js/bootstrap-colorpicker.min.js?v=2.8.4"></script>
+<script type="text/javascript" id="lightbox-js" src="https://erp.dadetejarat.com/assets/plugins/lightbox/js/lightbox.min.js?v=2.8.4"></script>
+<script type="text/javascript" id="common-js" src="https://erp.dadetejarat.com/assets/builds/common.js?v=2.8.4"></script>
+<script type="text/javascript" id="theme-global-js" src="https://erp.dadetejarat.com/assets/themes/kavak/js/global.js?v=2.8.4"></script>
+<script type="text/javascript" id="app-form-validation" src="https://erp.dadetejarat.com/assets/plugins/internal/validation/app-form-validation.min.js?v=2.8.4"></script>
+<script type="text/javascript" id="persiandate" src="https://erp.dadetejarat.com/modules/dt/assets/plugins/PersianDate/persian-date.min.js"></script>
+<script type="text/javascript" id="jalali" src="https://erp.dadetejarat.com/modules/dt/assets/plugins/MdBootstrapPersianDateTimePicker/jalaali.js"></script>
+<script type="text/javascript" id="persiandatetimepicker" src="https://erp.dadetejarat.com/modules/dt/assets/plugins/MdBootstrapPersianDateTimePicker/jquery.Bootstrap-PersianDateTimePicker.js?version=1.1.2"></script>
+<script type="text/javascript" id="dt-clients-custom" src="https://erp.dadetejarat.com/modules/dt/assets/js/clients-custom.js?v=1.1.2"></script>
+</body>
+</html>

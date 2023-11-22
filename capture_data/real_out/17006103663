@@ -1,0 +1,556 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>ç¾éç©æµâä¸æ³¨æå¡äºä¸ªäººæµ·æ·ä¸è·¨å¢åå®¶çè½¬è¿å¬å¸</title>
+	<meta name="keywords" content="æµ·æ·ï¼æµ·æ·è½¬è¿ï¼ç¾å½è½¬è¿ï¼å¾·å½è½¬è¿ï¼å½éç©æµ" />
+	<meta name="description" content="ç¾éç©æµæä¾ç¾å½ãå¾·å½å°ä¸­å½çæµ·æ·è½¬è¿æå¡ãä¸è®ºä½ æ¯ä¸ªäººæµ·æ·è¿æ¯åå®¶ï¼å¨ç¾å½ä¹°ä»»ä½ååï¼é¤è¿ç¦åå¤ï¼ï¼åªéå°è´§ç©åå°æä»¬ç¾éä»åºï¼é½å¯ä»¥å¸®ä½ è½¬è¿åå½ã" />
+    <link rel="stylesheet" href="/js/layui/css/layui.css">
+    <link rel="stylesheet" href="/css/NewIndexMain.css?v=20200113">
+	<style>
+	 .nav_fixed_list {
+  position: fixed;
+  right: 30px;
+  top: 50%;
+  width: 60px;
+  height: 195px;
+  margin-top: -130px;
+  border-radius: 10px;
+  box-shadow: -2px 2px 10px #bababa;
+  background: white;
+  padding: 8px 3px;
+  z-index:10;
+}
+
+@media (max-width: 768px) {
+  .nav_fixed_list {
+    display: none;
+  }
+}
+
+ .nav_fixed_list img {
+  width: 40px;
+  height: 40px;
+  margin-left: 10px;
+  margin-top: 5px;
+  cursor: pointer;
+}
+
+.nav_fixed_list div {
+  font-size: 10px;
+  color: grey;
+  text-align: center;
+}
+.css_register .layui-btn-disabled{
+	padding-left: 1px !important;
+	color:#333 !important;
+}
+	</style>
+</head>
+<body>
+<div class="nav_fixed_list">
+                          <a target="_blank" href="https://wpa.qq.com/msgrd?v=3&uin=2219457685&site=qq&menu=yes">
+                <img src="https://www.buytong.cn/images/20181106/img/qq.png" alt="ç¾éqq">
+            </a>
+            <div>å¨çº¿å®¢æ</div>
+            <img src="https://www.buytong.cn/images/20181106/img/wechat.png" alt="ç¾éå¾®ä¿¡äºç»´ç " class="js_show_qr_old" onclick="show_service_cs_qr();" >
+            <div>å¾®ä¿¡å®¢æ</div>
+            <img src="https://www.buytong.cn/images/20181106/img/code.png" alt="ç¾éå¾®ä¿¡äºç»´ç " class="js_show_qr_old" onclick="show_service_qr();">
+            <div>ç¾éå¬ä¼å·</div>
+        </div>
+<div class="css_login js_login_layer">
+    <form class="layui-form" action="" lay-filter="js_login_filter">
+        <div class="layui-form-item">
+            <label class="layui-form-label">è´¦å·</label>
+            <div class="layui-input-inline">
+                <input type="text"  name="account" required  lay-verify="required" placeholder="é®ç®±æèç¨æ·å" autocomplete="off" class="js_username layui-input">
+            </div>
+        </div>
+        <div class="layui-form-item">
+            <label class="layui-form-label">å¯ç </label>
+            <div class="layui-input-inline">
+                <input type="password" name="password" required lay-verify="required" placeholder="è¯·è¾å¥å¯ç " autocomplete="off" class="js_password_tips layui-input">
+            </div>
+
+        </div>
+
+        <div class="layui-form-item">
+            <div class="layui-input-block" style="margin-left: 0px;text-align: center">
+                <button class="layui-btn layui-btn-normal" lay-submit lay-filter="js_newhome_login_btn" style="width: 45%;">ç«å³æäº¤</button>
+            </div>
+        </div>
+    </form>
+    <div class="css_newhome_login_reg_sms">
+        <a href="#this" class="js_newhome_smslogin_btn">ç­ä¿¡ç»å½</a>
+
+        <a href="#this" class="js_newhome_register" style="margin-left: 45px">æ³¨å</a>
+        <a href="/FindPassword/forget" target="_blank" style="float: right">å¿è®°å¯ç ?</a>
+    </div>
+    <div class="css_newhome_login_quicklogin">
+        <fieldset class="layui-elem-field">
+            <legend>å¿«æ·ç»å½</legend>
+            <div class="layui-field-box">
+                <a href="#this" class="js_quicklogin_alipay">
+                    <img src="https://www.buytong.cn/images/alipay.png">
+                </a>
+                <a href="/index/QQLogin" target="_blank">
+                    <img src="https://www.buytong.cn/images/QQConnect.jpg">
+                </a>
+            </div>
+        </fieldset>
+
+    </div>
+</div>
+<div class="css_login css_register js_newhome_register_layer">
+    <form class="layui-form" action="" lay-filter="js_reg_filter">
+        <div class="layui-form-item">
+            <label class="layui-form-label">ç¨æ·å</label>
+            <div class="layui-input-inline">
+				    <input type="text"  name="regusername" required value=""  lay-verify="required" placeholder="è¯·è¾å¥ç¨æ·å" autocomplete="off" class="js_regusername layui-input">
+            </div>
+        </div>
+        <div class="layui-form-item">
+            <label class="layui-form-label">ææºå·</label>
+            <div class="layui-input-inline">
+                <input type="text" placeholder="è¯·è¾å¥ææºå·" autocomplete="new-password" class="js_regvmobile layui-input">
+            </div>
+        </div>
+		<div class="layui-form-item">
+            <label class="layui-form-label">éªè¯ç </label>
+            <div class="layui-input-inline">
+                <input type="text" name="code" placeholder="è¯·è¾å¥éªè¯ç " autocomplete="new-password" class="layui-input" style="width:100px;display: inline-block;">
+				<button type="button" class="layui-btn layui-btn-normal layui-btn-sm js_ptreg_getmobilecode" style="width:80px;height:38px;margin-left: 6px;">è·åéªè¯ç </button>
+            </div>
+        </div>
+        <div class="layui-form-item">
+            <label class="layui-form-label">å¯ç </label>
+            <div class="layui-input-inline">
+                <input type="password" name="regpassword" required lay-verify="required" placeholder="è¯·è¾å¥å¯ç " autocomplete="new-password" class="layui-input js_checkpw">
+            </div>
+        </div>
+        <div class="layui-form-item">
+            <label class="layui-form-label">ç¡®è®¤å¯ç </label>
+            <div class="layui-input-inline">
+                <input type="password" name="regrepassword" required lay-verify="required|checkTwicepw" placeholder="è¯·è¾å¥å¯ç " autocomplete="new-password" class="layui-input">
+            </div>
+        </div>
+
+        <div class="layui-form-item">
+            <div class="layui-input-block" style="margin-left: 0px;text-align: center">
+                <button class="layui-btn layui-btn-normal" lay-submit lay-filter="js_newhome_reg_btn" style="width: 45%;">ç«å³æäº¤</button>
+            </div>
+        </div>
+    </form>
+    <div class="css_newhome_login_reg_sms">
+        <a href="#this" class="js_newhome_smsreg_btn">ææºå·å¿«éæ³¨å</a>
+        <a href="#this" class="js_newhome_login" style="float: right">ç»å½</a>
+    </div>
+
+</div>
+<script type="text/javascript">
+        
+    var show_service_cs_qr=function(){
+        layer.open({
+          type: 1,
+          title:'ç¾éå®¢æVIP',
+          shadeClose:true,
+          area: "auto", //å®½é«
+          content: '<img src="/images/20181106/img/wchatcs.jpg" width="258" height="258" />'
+        });
+    }
+    var show_service_qr=function(){
+        layer.open({
+          type: 1,
+          title:'å¾®ä¿¡äºç»´ç ',
+          shadeClose:true,
+          area: ['259px', '310px'], //å®½é«
+          content: '<img src="/images/20181106/img/wechat_qr_11108.jpg" />'
+        });
+    }
+    var show_notice=function(){
+        document.getElementById('loginfrm').click();
+        layer.open({
+          type: 1,
+          title:'éç¥',
+          shadeClose:true,
+          area: ['400px', '410px'], //å®½é«
+          content: '<div style="text-align:left; line-height:20px;margin-left: 20px;margin-right: 20px;">å°æ¬çç¾éç¨æ·ï¼<br>æè°¢ä¸ç´ä»¥æ¥ç»äºç¾éçå¤§åæ¯æï¼ä¸ºäºéåºå¬å¸ä¸å¡åå±çéè¦ï¼ç¾éNBåDEä»åºå°åå¹¶ä¸ºç¾éåç¨ä»ã<br>æ°å°åä¸ºï¼7 Lewis Circle, Wilmington, DE 19804ã<br>åä»åºå°åæ¶è´§æªè³åäº¬æ¶é´2022å¹´05æ15æ¥ã<br><br>å¦æé¢å®æªåè´§åè£¹ï¼è¯·åæ¶èç³»åå®¶ä¿®æ¹æ¶è´§å°åã<br>å¨éåè£¹ï¼å¦æä¸è½ææ¶å°è¾¾ï¼è¯·èç³»å®¢ææ²éå¤çã<br><br>DEä»æ°å°åé¢ç§¯æ´å¤§ï¼å°æ´æå©äºè½¬è¿ä¸å¡ï¼æå¨ç¥ã<br><br><br>ç¾éç©æµ<br>2022å¹´5æ10æ¥</div>'
+           
+        });      
+    }
+</script><div class="css_top" style="height:60px;">
+	<!-- <div class='css_content_width css_top_content' style='text-align: center;background: #FF5722;color: #fff;width:100%;'>
+		éç¥ : <b>æ¹åç</b>åå®¢æ·æ¨å¥½ï¼å ä¸ºç½ç«è¿­ä»£æ´æ°ï¼éè¦éæ°å¤æ¡ï¼å¤æ¡æé´ www.buytong.cn <b">çåæ æ³è®¿é®</b>ï¼å±æ¶è¯·ä½¿ç¨ <a href="https://hb.buytong.cn"> hb.buytong.cn </a> è®¿é®ï¼æè°¢æ¨å¯¹ç¾éç©æµçæ¯æï¼
+	</div> -->
+    <div class="css_content_width css_top_content">
+        <span class="css_top_content_left">
+            <img src="/images/20181106/img/notice_logo.png" style="width: 20px; margin-top: 5px;">
+                       <a href="/index/content/type/buytongquicknews/id/573"" target="_blank">ãéç¥ãç¾éåå¼æ±çè°æ´-2023å¹´11æ17æ¥</a>&nbsp&nbsp<a href="/index/notice" target="_blank">æ¥çæ´å¤å¬å>></a>
+        </span>
+        <span class="css_top_content_right">
+            <a href="/newindex/waybillquery" style="color:red;" target="_blank">ç©æµæ¥è¯¢</a>
+            <a href="/newindex/ytjyquery" target="_blank">YTJYæ¥è¯¢</a>
+            <a href="/about/index" target="_blank">å³äºç¾é</a>
+            <a href="#" target="_blank">ä¸é®æµ·æ·</a>
+            <a href="/about/contact" target="_blank">èç³»æä»¬</a>
+            <a href="/linkapply/index" target="_blank">åæé¾æ¥</a>
+        </span>
+    </div>
+    <div style="width:100%;height:30px;background:#ee3300;text-align:center;line-height:30px;color:#fff">
+    	å°æ¬çç¨æ·æ¨å¥½ï¼ç¾ééè¿æ­£è§æ¸ éæ¸å³ï¼å¦æä¸¢ä»¶æèçèµï¼è¯·ä¸å®æ¹å®¢æèç³»ï¼è¯·ä¸è¦å éå®æ¹æ¸ éçä»»ä½èç³»æ¹å¼æ²éï¼è°¨é²ä¸å½åéªã
+    </div>
+</div>
+<div class="css_nav_div css_content_width">
+    <div class="css_nav_logo">
+        <img src="/images/20181106/img/logo.jpg" alt="ç¾éç©æµLogo">
+    </div>
+    <div class="css_nav_login_register">
+			<a href="#this" class="" onclick='show_notice()'>ç»å½</a><span id='loginfrm' class="js_newhome_login"></span> <span>|</span>
+        <a href="#this" class="js_newhome_register">æ³¨å</a>
+	        
+    </div>
+
+    <div class="css_nav">
+        <ul class="layui-nav" lay-filter="">
+                	 <li class="layui-nav-item layui-this"> <!--layui-this-->
+        		<a target="_blank" href="/index/index">é¦é¡µ</a>            </li>
+                	 <li class="layui-nav-item "> <!--layui-this-->
+        		<a target="_blank" href="/about/activity">æ´»å¨ä¸åº</a>            </li>
+                	 <li class="layui-nav-item "> <!--layui-this-->
+        		<a href="javascript:;">çº¿è·¯æå¡</a><dl class="layui-nav-child"><dd><a target="_blank" href="/index/service">æå¡ä¸ä»·æ ¼</a></dd><dd><a target="_blank" href="/index/ban_illustrate">ç¦è¿ç©å</a></dd></dl>            </li>
+                	 <li class="layui-nav-item "> <!--layui-this-->
+        		<a href="javascript:;">è·¨å¢åä½</a><dl class="layui-nav-child"><dd><a target="_blank" href="/index/backup">ç¾å½å¤è´§</a></dd><dd><a target="_blank" href="/index/return">äºé©¬ééè´§</a></dd></dl>            </li>
+                	 <li class="layui-nav-item "> <!--layui-this-->
+        		<a href="javascript:;">å¸®å©ä¸­å¿</a><dl class="layui-nav-child"><dd><a target="_blank" href="/index/FAQ">å¸¸è§é®é¢</a></dd><dd><a target="_blank" href="/index/FAQ?nindex=6">ä»£è´­é®é¢</a></dd><dd><a target="_blank" href="/index/FAQ?nindex=5">è´¢å¡é®é¢</a></dd></dl>            </li>
+                	 <li class="layui-nav-item "> <!--layui-this-->
+        		<a href="javascript:;">æ°ææå</a><dl class="layui-nav-child"><dd><a target="_blank" href="/index/course?nindex=9">è½¬è¿æµç¨</a></dd><dd><a target="_blank" href="/index/course?nindex=10">è´­ç©æµç¨</a></dd><dd><a target="_blank" href="/index/course?nindex=11">èµä»æ¡æ¬¾</a></dd></dl>            </li>
+                   
+        </ul>
+    </div>
+	<div style="margin-top: 60px;float: right;margin-right: 40px;font-size:12px;color:red;cursor: pointer;" class="js_show_qr1">
+		<i class="layui-icon layui-icon-fire" style="font-size:12px;"></i> ç¾éCEOç­çº¿
+	</div>
+    <div class="layui-clear"></div>
+</div>
+ 
+ 
+        
+<script>
+    var is_mobile='0';
+    if(is_mobile=='1'){
+        window.location.href ='https://m.buytong.cn/';
+    }
+</script>
+<!--Banner å¾çè¦æ± 1920x500 å¾çä¸¤è¾¹æ¸åç½è²-->
+<div class="css_banner">
+    <div class="layui-carousel" id="indexbanner">
+        <div carousel-item>
+                            <div style="background:">
+                    <a href="https://www.buytong.cn/index/content/type/buytongquicknews/id/549" target="_blank"><img alt="ä»åºå°ååæ´" src="/uploads/ue/image/20220510/1652167867538327.jpg"></a>
+                </div>
+                        </div>
+    </div>
+</div>
+<div class="layui-clear"></div>
+<div class="css_main_content css_content_width">
+    <div class="css_main_content_left">
+        <p class="css_main_content_left_title">ç¾å½åå®¶Top10</p>
+        <ul class="css_main_content_left_ul">
+                                <li>
+                        <div>1</div>
+                        <div>
+                            <a href="https://www.amazon.com/" target="_blank"><img alt="ç¾å½äºé©¬é" lay-src="/uploads/ue/image/20191123/1574476517596420.jpg" ></a>
+                            <p>
+                                <a href="https://www.amazon.com/" target="_blank"><span>ç¾å½äºé©¬é</span></a><br>
+                                <a href="https://www.amazon.com/" target="_blank"><span class="css_main_content_left_li_tips">å¨çæå¤§çè´­ç©ç½ç«</span></a>
+                            </p>
+                        </div>
+                    </li>
+                                        <li>
+                        <div>2</div>
+                        <div>
+                            <a href="https://slooks.top/3cld/65" target="_blank"><img alt="ç¾å½ebay" lay-src="/uploads/ue/image/20191123/1574476842122119.png" ></a>
+                            <p>
+                                <a href="https://slooks.top/3cld/65" target="_blank"><span>ç¾å½ebay</span></a><br>
+                                <a href="https://slooks.top/3cld/65" target="_blank"><span class="css_main_content_left_li_tips">ç¾å½æ·å® éåèå¸æº</span></a>
+                            </p>
+                        </div>
+                    </li>
+                                        <li>
+                        <div>3</div>
+                        <div>
+                            <a href="https://www.6pm.com/" target="_blank"><img alt="6pm" lay-src="/uploads/ue/image/20191123/1574477081118122.png" ></a>
+                            <p>
+                                <a href="https://www.6pm.com/" target="_blank"><span>6pm</span></a><br>
+                                <a href="https://www.6pm.com/" target="_blank"><span class="css_main_content_left_li_tips">ç¾å½ç¥åéåæé¥°ç½è</span></a>
+                            </p>
+                        </div>
+                    </li>
+                                        <li>
+                        <div>4</div>
+                        <div>
+                            <a href="https://slooks.top/22Mi/65" target="_blank"><img alt="Macys" lay-src="/uploads/ue/image/20191123/1574477375130115.png" ></a>
+                            <p>
+                                <a href="https://slooks.top/22Mi/65" target="_blank"><span>Macys</span></a><br>
+                                <a href="https://slooks.top/22Mi/65" target="_blank"><span class="css_main_content_left_li_tips">ç¾å½åå¤§ç¾è´§ä¹ä¸</span></a>
+                            </p>
+                        </div>
+                    </li>
+                                        <li>
+                        <div>5</div>
+                        <div>
+                            <a href="https://slooks.top/3lYR/65" target="_blank"><img alt="iHerb" lay-src="/uploads/ue/image/20191123/1574477572160422.png" ></a>
+                            <p>
+                                <a href="https://slooks.top/3lYR/65" target="_blank"><span>iHerb</span></a><br>
+                                <a href="https://slooks.top/3lYR/65" target="_blank"><span class="css_main_content_left_li_tips">æå¤§ä¿å¥åè´­ç©ç½ç«ä¹ä¸</span></a>
+                            </p>
+                        </div>
+                    </li>
+                                        <li>
+                        <div>6</div>
+                        <div>
+                            <a href="https://slooks.top/3lYS/65" target="_blank"><img alt="éè¯å°é»ç¾å½å®ç½" lay-src="/uploads/ue/image/20191123/1574477670121345.png" ></a>
+                            <p>
+                                <a href="https://slooks.top/3lYS/65" target="_blank"><span>éè¯å°é»ç¾å½å®ç½</span></a><br>
+                                <a href="https://slooks.top/3lYS/65" target="_blank"><span class="css_main_content_left_li_tips">ä¸çå®ï¼ä¸ç®æµ·æ·äºº</span></a>
+                            </p>
+                        </div>
+                    </li>
+                                        <li>
+                        <div>7</div>
+                        <div>
+                            <a href="https://slooks.top/3lYT/65" target="_blank"><img alt="Finishline ç»ç¹çº¿" lay-src="/uploads/ue/image/20191123/1574477806833310.png" ></a>
+                            <p>
+                                <a href="https://slooks.top/3lYT/65" target="_blank"><span>Finishline ç»ç¹çº¿</span></a><br>
+                                <a href="https://slooks.top/3lYT/65" target="_blank"><span class="css_main_content_left_li_tips">ç¾å½ä¹°éå¤§ç« </span></a>
+                            </p>
+                        </div>
+                    </li>
+                                        <li>
+                        <div>8</div>
+                        <div>
+                            <a href="https://slooks.top/3lZ6/65" target="_blank"><img alt="å½ªé©¬ç¾å½å®ç½" lay-src="/uploads/ue/image/20191230/1577669976965547.png" ></a>
+                            <p>
+                                <a href="https://slooks.top/3lZ6/65" target="_blank"><span>å½ªé©¬ç¾å½å®ç½</span></a><br>
+                                <a href="https://slooks.top/3lZ6/65" target="_blank"><span class="css_main_content_left_li_tips">æ°æ¬¾ç­æ¬¾  ä»·æ ¼å®æ </span></a>
+                            </p>
+                        </div>
+                    </li>
+                                        <li>
+                        <div>9</div>
+                        <div>
+                            <a href="https://slooks.top/3lZa/65" target="_blank"><img alt="Nordstrom" lay-src="/uploads/ue/image/20191230/1577669514127985.png" ></a>
+                            <p>
+                                <a href="https://slooks.top/3lZa/65" target="_blank"><span>Nordstrom</span></a><br>
+                                <a href="https://slooks.top/3lZa/65" target="_blank"><span class="css_main_content_left_li_tips">ç¥åé«æ¡£ç¾è´§ï¼ éæ¢¯å­</span></a>
+                            </p>
+                        </div>
+                    </li>
+                                        <li>
+                        <div>10</div>
+                        <div>
+                            <a href="https://slooks.top/3lYX/65" target="_blank"><img alt="ç¾å½ç¬¬äºå¤§é" lay-src="/uploads/ue/image/20191230/1577669717116065.png" ></a>
+                            <p>
+                                <a href="https://slooks.top/3lYX/65" target="_blank"><span>ç¾å½ç¬¬äºå¤§é</span></a><br>
+                                <a href="https://slooks.top/3lYX/65" target="_blank"><span class="css_main_content_left_li_tips">ç¬ç¹åå      åçææ</span></a>
+                            </p>
+                        </div>
+                    </li>
+                            </ul>
+    </div>
+    <div class="css_main_content_mid">
+        <div class="css_main_content_mid_today_hot">
+            <p class="css_main_content_left_title">ä»æ¥ç­é¨</p>
+            <div class="Scroll-left">
+                <div class="hd"> <a class="next"><</a> <a class="prev">></a> </div>
+                <div class="bd">
+                    <ul class="picList">
+                                                        <li>
+                                    <a href="/newindex/show?id=694" target="_blank">
+                                        <img src="/uploads/ue/image/20210730/1627626393441850.jpg"  alt="Kirkland Almondsåå³çå¤§æä»ææ¡ä»å·´æ¦æ¨ åæ1360g" >
+                                        <p>Kirkland Almondsåå³çå¤§æä»ææ¡ä»å·´æ¦æ¨ åæ1360g</p>
+                                    </a>
+                                </li>
+                                                                <li>
+                                    <a href="/newindex/show?id=695" target="_blank">
+                                        <img src="/uploads/ue/image/20210730/1627626426107932.jpg"  alt="Kirkland ç¢§æ ¹æ ååé¿å¯¿æå±±æ ¸æ¡ä»908g ç´é®å°æ" >
+                                        <p>Kirkland ç¢§æ ¹æ ååé¿å¯¿æå±±æ ¸æ¡ä»908g ç´é®å°æ</p>
+                                    </a>
+                                </li>
+                                                                <li>
+                                    <a href="/newindex/show?id=693" target="_blank">
+                                        <img src="/uploads/ue/image/20210730/1627626355132094.png"  alt="CONVERSE å¡å¨ é»è²å¢é«ååºæ¾ç³å¥³éä¼é²å¸å¸é éçæ ç" >
+                                        <p>CONVERSE å¡å¨ é»è²å¢é«ååºæ¾ç³å¥³éä¼é²å¸å¸é éçæ ç</p>
+                                    </a>
+                                </li>
+                                                                <li>
+                                    <a href="/newindex/show?id=692" target="_blank">
+                                        <img src="/uploads/ue/image/20210730/1627626224475415.png"  alt=" Burberry å·´å®èæå¼å¾å¥çä¸æ¬¾WOCææå å°çº¢ä¹¦çæ¬¾" >
+                                        <p> Burberry å·´å®èæå¼å¾å¥çä¸æ¬¾WOCææå å°çº¢ä¹¦çæ¬¾</p>
+                                    </a>
+                                </li>
+                                                                <li>
+                                    <a href="/newindex/show?id=688" target="_blank">
+                                        <img src="/uploads/ue/image/20210722/1626936440754347.png"  alt="Clarks Women's Karsea Strap Leather Flat Sandals - Black" >
+                                        <p>Clarks Women's Karsea Strap Leather Flat Sandals - Black</p>
+                                    </a>
+                                </li>
+                                                                <li>
+                                    <a href="/newindex/show?id=687" target="_blank">
+                                        <img src="/uploads/ue/image/20210722/1626936381102777.png"  alt="Clarks Men's Stanford Walk Leather Derby Shoes - Black" >
+                                        <p>Clarks Men's Stanford Walk Leather Derby Shoes - Black</p>
+                                    </a>
+                                </li>
+                                                                <li>
+                                    <a href="/newindex/show?id=686" target="_blank">
+                                        <img src="/uploads/ue/image/20210722/1626936318117450.png"  alt="Clarks Women's Hamble Leather Loafers - Tan" >
+                                        <p>Clarks Women's Hamble Leather Loafers - Tan</p>
+                                    </a>
+                                </li>
+                                                                <li>
+                                    <a href="/newindex/show?id=685" target="_blank">
+                                        <img src="/uploads/ue/image/20210722/1626936248122416.png"  alt="Clarks Women's Pure Block Loafers - White Interest" >
+                                        <p>Clarks Women's Pure Block Loafers - White Interest</p>
+                                    </a>
+                                </li>
+                                                                <li>
+                                    <a href="/newindex/show?id=684" target="_blank">
+                                        <img src="/uploads/ue/image/20210722/1626935973745869.png"  alt="Clarinsåèç²¾åå¥è£" >
+                                        <p>Clarinsåèç²¾åå¥è£</p>
+                                    </a>
+                                </li>
+                                                                <li>
+                                    <a href="/newindex/show?id=683" target="_blank">
+                                        <img src="/uploads/ue/image/20210722/1626935752129766.png"  alt="Sisley Parisé»ç«ç°æè¡°å¥è£" >
+                                        <p>Sisley Parisé»ç«ç°æè¡°å¥è£</p>
+                                    </a>
+                                </li>
+                                                                <li>
+                                    <a href="/newindex/show?id=682" target="_blank">
+                                        <img src="/uploads/ue/image/20210722/1626935580100345.png"  alt="Estee Lauderæ£ç¶ä¿®å¤ç²¾åå¥è£" >
+                                        <p>Estee Lauderæ£ç¶ä¿®å¤ç²¾åå¥è£</p>
+                                    </a>
+                                </li>
+                                                                <li>
+                                    <a href="/newindex/show?id=681" target="_blank">
+                                        <img src="/uploads/ue/image/20210722/1626935467674996.png"  alt="La Mer Softé¢éå¥è£" >
+                                        <p>La Mer Softé¢éå¥è£</p>
+                                    </a>
+                                </li>
+                                                    </ul>
+                </div>
+            </div>
+        </div>
+        <div class="css_content_width" >
+            <fieldset class="layui-elem-field">
+                <legend>æ¥è¯¢è¿å</legend>
+                <div class="layui-field-box">
+                    <form class="layui-form">
+                        <div class="layui-form-item">
+                            <label class="layui-form-label">è¿åå·:</label>
+                            <div class="layui-input-block">
+                                <input type="text" name="Consignment" required  lay-verify="required" placeholder="è¯·è¾å¥è¿åå·" autocomplete="new-password" class="layui-input">
+                            </div>
+                        </div>
+                        <div class="layui-form-item" style="text-align:center">
+                            <div class="layui-input-line">
+                                <button class="layui-btn layui-btn-primary js_waybillquery_load_btn" lay-submit lay-filter="waybillquery">å è½½ä¸­...</button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </fieldset>
+
+            <div class="layer_gj_div" style="margin-top:30px">
+                <ul class="layui-timeline">
+
+                </ul>
+            </div>
+
+
+        </div>
+    </div>
+    <div class="css_main_content_right">
+        <p class="css_main_content_left_title">çä½ æ³ç</p>
+        <ul>
+                                <li>
+                        <a target="_blank" href="/newindex/show?id=64"><img src="/uploads/ue/image/20191126/1574755928237578.jpeg"  alt="ä¸ä¼ä¹°ï¼è´¦æ·è¢«å°ï¼æ²¡ç¾å¡ï¼ç¹æï¼åè´¹å¸®ä½ ä¹°"></a>
+                        <a target="_blank" href="/newindex/show?id=64"><p>ä¸ä¼ä¹°ï¼è´¦æ·è¢«å°ï¼æ²¡ç¾å¡ï¼ç¹æï¼åè´¹å¸®ä½ ä¹°</p></a>
+                    </li>
+                                        <li>
+                        <a target="_blank" href="/newindex/show?id=84"><img src="/uploads/ue/image/20191225/1577244654729388.jpg"  alt="éæ©ç¾éè½è§£å³ä»ä¹é®é¢ï¼ä½¿ç¨ä½ ä»¬æä»ä¹ä¿éï¼æ¥è¿éäºè§£ä¸ï¼"></a>
+                        <a target="_blank" href="/newindex/show?id=84"><p>éæ©ç¾éè½è§£å³ä»ä¹é®é¢ï¼ä½¿ç¨ä½ ä»¬æä»ä¹ä¿éï¼æ¥è¿éäºè§£ä¸ï¼</p></a>
+                    </li>
+                                        <li>
+                        <a target="_blank" href="/newindex/show?id=65"><img src="/uploads/ue/image/20191126/1574757603108065.jpeg"  alt="æµ·æ·æ¯ä»ï¼ä¸ä¸ªå°æä½è½è®©ä½ çå åçè³ä¸ç¾å and èµæ·±åå¾ä½¬çè´­ç©ç»éª"></a>
+                        <a target="_blank" href="/newindex/show?id=65"><p>æµ·æ·æ¯ä»ï¼ä¸ä¸ªå°æä½è½è®©ä½ çå åçè³ä¸ç¾å and èµæ·±åå¾ä½¬çè´­ç©ç»éª</p></a>
+                    </li>
+                                        <li>
+                        <a target="_blank" href="/newindex/show?id=122"><img src="/uploads/ue/image/20200409/1586401306135386.jpg"  alt="ç»æµçº¿æ´»å¨è´¹ç¨è¿è¿"></a>
+                        <a target="_blank" href="/newindex/show?id=122"><p>ç»æµçº¿æ´»å¨è´¹ç¨è¿è¿</p></a>
+                    </li>
+                                        <li>
+                        <a target="_blank" href="/newindex/show?id=573"><img src=""  alt="VIPç­çº§å¹³ç§»åé9ç¾åä¼æ å¸ï¼"></a>
+                        <a target="_blank" href="/newindex/show?id=573"><p>VIPç­çº§å¹³ç§»åé9ç¾åä¼æ å¸ï¼</p></a>
+                    </li>
+                    
+        </ul>
+    </div>
+
+    <div class="layui-clear"></div>
+</div>
+<div class="css_content_width css_index_friendslink" style="height:40px;line-height:40px;text-align:center;margin-top: 100px;">
+
+    <ul>
+        <li>åæé¾æ¥ : </li>
+                        <li><a target="_blank" title="æ·æµ·æ·" href="https://www.taohaitao.com">æ·æµ·æ·</a></li>
+                                <li><a target="_blank" title="å¿«éæ¥è¯¢" href="https://www.kuaidi100.com/">å¿«éæ¥è¯¢</a></li>
+                                <li><a target="_blank" title="58ååæ´æç¶ç«" href="https://g.58.com/j-gllosangeles/?qq-pf-to=pcqq.c2c">58ååæ´æç¶ç«</a></li>
+                                <li><a target="_blank" title="ebatesæµ·æ·è¿å©" href="https://www.ebates.cn/">ebatesæµ·æ·è¿å©</a></li>
+                                <li><a target="_blank" title="MaxRebatesæµ·æ·è¿å©" href="https://www.maxrebates.com">MaxRebatesæµ·æ·è¿å©</a></li>
+                
+    </ul>
+</div>
+<div style="text-align:center;margin-top:150px;height:50px;line-height:50px;color:#ee3300">
+    <a href="https://beian.miit.gov.cn" target="_blank" title="å·¥ä¿¡é¨å¤æ¡" style="color:#ee3300">éICPå¤2022015176å·-1</a>
+</div>
+</body>
+<script src="/js/layui/layui.js"></script>
+<script>
+    window.layerlogin=0;
+    window.layerreg=0;
+    window.pager_total=495;
+
+</script>
+<script src="/js/NewIndexMain.js?v=220419"></script>
+<script>
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "https://hm.baidu.com/hm.js?ae722774e9ea3820aeda3aec6247c48d";
+      var s = document.getElementsByTagName("script")[0]; 
+      s.parentNode.insertBefore(hm, s);
+  })();
+
+  !function(e,t,n,g,i){e[i]=e[i]||function(){(e[i].q=e[i].q||[]).push(arguments)},n=t.createElement("script"),tag=t.getElementsByTagName("script")[0],n.async=1,n.src=('https:'==document.location.protocol?'https://':'https://')+g,tag.parentNode.insertBefore(n,tag)}(window,document,"script","assets.giocdn.com/2.1/gio.js","gio");
+  gio('init', '1P6jKkXP', {});
+  
+  //custom page code begin here
+
+  //custom page code end here
+
+  gio('send');
+</script>
+<script type="text/javascript">
+    $(".js_show_qr").click(function(){
+        layer.open({
+          type: 1,
+          title:'å¾®ä¿¡äºç»´ç ',
+          shadeClose:true,
+          area: ['259px', '310px'], //å®½é«
+          content: '<img src="https://www.buytong.cn/images/20181106/img/wechat_qr_11108.jpg" />'
+      });
+        return false; 
+    })
+</script>
+</html>

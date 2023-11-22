@@ -1,0 +1,402 @@
+
+
+
+
+
+           <!DOCTYPE html>
+<html xmlns="//www.w3.org/1999/xhtml">
+<head prefix="og: http://ogp.me/ns# fb: http://ogp.me/ns/fb# books: http://ogp.me/ns/books#">
+<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1" /> <title>Livros, autores, histórias e amigos, todos conectados no SKOOB</title>
+<meta name="keywords" content="livros, ebooks,quadrinhos, mangá, harry potter, crepúsculo, autores, 50 tons de cinza, editoras" /><meta name="description" content="Crie sua estante virtual, compartilhe com seus amigos e descubra os novos livros e novos autores!" /> <meta name="language" content="pt-br" />
+<meta name="google-site-verification" content="h_F9-djAws40JfpX_W4juzsPjd9YZ2v-s0YvOG-D388" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<meta name="apple-itunes-app" content="app-id=904670263" />
+<meta name="google-play-app" content="app-id=com.gaudium.skoob" />
+<meta name="msapplication-config" content="none" />
+
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-KT8Z35D20V"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-KT8Z35D20V');
+</script>
+<script type="text/javascript">
+  var googletag = googletag || {};
+  googletag.cmd = googletag.cmd || [];
+  (function() {
+    var gads = document.createElement('script');
+    gads.async = true;
+    gads.type = 'text/javascript';
+    var useSSL = 'https:' == document.location.protocol;
+    gads.src = (useSSL ? 'https:' : 'http:') +
+      '//www.googletagservices.com/tag/js/gpt.js';
+    var node = document.getElementsByTagName('script')[0];
+    node.parentNode.insertBefore(gads, node);
+  })();
+</script>
+<script type="text/javascript">
+  googletag.cmd.push(function() {
+    googletag.defineSlot('/101690757/SK-HOME-BOX', [250, 250], 'div-gpt-ad-1432305651296-0').addService(googletag.pubads());
+    googletag.defineSlot('/101690757/SK-HOME-MIDDLE-1', [[728, 90], [960, 110], [970, 90]], 'div-gpt-ad-1432317211110-0').addService(googletag.pubads());
+    //googletag.defineSlot('/101690757/SK-HOME-MIDDLE-2', [[728, 90], [960, 110], [970, 90]], 'div-gpt-ad-1432317211110-1').addService(googletag.pubads());
+    googletag.pubads().enableSingleRequest();
+    googletag.enableServices();
+  });
+</script>
+<script type="text/javascript" src="https://www.skoob.com.br/js/angularjs/base.min.js?1637270067"></script><script type="text/javascript" src="https://www.skoob.com.br/js/angularjs/main.min.js?1639030176"></script><link rel="stylesheet" type="text/css" href="https://www.skoob.com.br/css/ver2/main.min.css?1639030170" /><link rel="stylesheet" type="text/css" href="/css/dist-final-2019/geral.min.css?1637268866" />
+</head>
+<body id="ng-app" ng-app="skoob" style="border:0px solid red;">
+<div style="display: flex; flex-direction: column; flex: 1; border: 0px solid green;">
+<div id="topo" class="navbar navbar-fixed-top" style="height:48px;">
+<div id="topoInterno" class="container" style>
+<a href="/">
+<img src="https://static-sp.skoob.com.br/img/v2/base/skoob-logo-topo.gif" class="logo" alt="logo Skoob" title="logo Skoob" width="109" height="33" /> </a>
+<div id="tbusca" data-ng-controller="SearchCtrl" data-ng-mouseleave="leave = true">
+<form class="form-inline" action="/livro/lista/" method="post" id="topo-menu-search">
+<span data-ng-cloak data-ng-show="search_total > 0" class="busca-loading-container" data-ng-bind="search_total | numberDecimal"></span>
+<div data-ng-cloak data-ng-show="search_loading" id="suggestions_loadingmessage">
+<img src="//static-sp.skoob.com.br/img/v2/base/load-padrao.gif" alt="loading">
+</div>
+<div class="input-append">
+<input type="text" id="search" class="form-control" name="data[Busca][tag]" placeholder="Busque por título, autor, editora, ISBN..." data-ng-model="busca" data-ng-blur="searchExit()" autocomplete="off">
+<span class="input-group-btn">
+<button class="btn btn-default btn-form-lupa" type="submit"><i class="fa fa-search"></i></button>
+</span>
+</div>
+</form>
+<div data-ng-cloak data-ng-show="search_result" id="suggestions" data-ng-mouseover="leave = false">
+<ul id="searchresults" style="list-style: none;">
+<li data-ng-repeat="book in books" class="item-master">
+<div class="capa">
+<a rel="nofollow" data-ng-href="/livro/{{book.livro_id}}ED{{book.id}}" title="{{book.nome_portugues}}" ng-cloack><img data-ng-src="{{book.img_url}}" alt ng-cloack></a>
+</div>
+<div class="search-item-links">
+<div class="search-item-links-base">
+<strong>
+
+<a rel="nofollow" data-ng-href="/livro/{{book.livro_id}}ED{{book.id}}" class="l13ab" ng-cloack>
+<book-name-format name="book.nome_portugues" serie="book.serie" volume="book.volume" max="50"></book-name-format>
+</a>
+</strong>
+<div class="busca-subtitulo"><span data-ng-bind="book.subtitulo_portugues| limitTo:60" ng-cloack></span></div>
+<div class="busca-autor"><span data-ng-bind="book.autor| limitTo:60" ng-cloack></span></div>
+</div>
+<div class="mini">
+
+<img data-ng-if="book.idioma === 'es'" src="//static-sp.skoob.com.br/flag/es.gif" alt="espanha" title="espanha" class="bandeira">
+<img data-ng-if="book.idioma === 'us'" src="//static-sp.skoob.com.br/flag/us.gif" alt="ingles" title="ingles" class="bandeira">
+<img data-ng-if="book.idioma === 'al'" src="//static-sp.skoob.com.br/flag/ge.gif" alt="alemanha" title="alemanha" class="bandeira">
+<img data-ng-if="book.idioma === 'rs'" src="//static-sp.skoob.com.br/flag/ru.gif" alt="russia" title="russia" class="bandeira">
+<img data-ng-if="book.idioma === 'jp'" src="//static-sp.skoob.com.br/flag/jp.gif" alt="japao" title="japao" class="bandeira">
+<img data-ng-if="book.idioma === 'hl'" src="//static-sp.skoob.com.br/flag/nl.gif" alt="holanda" title="holanda" class="bandeira">
+<img data-ng-if="book.idioma === 'fr'" src="//static-sp.skoob.com.br/flag/fr.gif" alt="franca" title="franca" class="bandeira">
+<img data-ng-if="book.idioma === 'pt'" src="//static-sp.skoob.com.br/flag/pt.gif" alt="portugal" title="portugual" class="bandeira">
+<img data-ng-if="book.idioma === 'it'" src="//static-sp.skoob.com.br/flag/it.gif" alt="italia" title="italia" class="bandeira">
+<img data-ng-if="book.idioma === 'ep'" src="//static-sp.skoob.com.br/flag/ep.gif" alt="esperanto" title="esperanto" class="bandeira">
+<img data-ng-if="book.idioma === 'br'" src="//static-sp.skoob.com.br/flag/br.gif" alt="brasil" title="brasil" class="bandeira">
+
+<a data-ng-if="book.editora_id > 0" data-ng-href="/editora/{{book.editora_id}}-{{book.editora}}" class="l11" ng-cloack> {{book.editora}}</a>
+<span data-ng-if="book.editora_id === 0"> {{book.editora}}</span>
+
+<span data-ng-if="book.qt_edicoes <= 1">| edições: <span data-ng-bind="book.qt_edicoes"></span></span>
+<span data-ng-if="book.qt_edicoes > 1">| edições: <a data-ng-href="/livro/edicoes/{{book.livro_id}}" data-ng-bind="book.qt_edicoes" class="l11" ng-cloack></a></span>
+
+<span>| leitores: <span data-ng-bind="book.qt_estantes | numberDecimal"></span></span>
+</div>
+</div>
+<br clear="all">
+</li>
+<li data-ng-cloak>
+<form action="/livro/lista" method="post">
+<input type="hidden" name="data[Busca][tag]" value="&quot;{{busca}}&quot;" ng-cloack />
+<input type="hidden" name="data[Busca][tipo]" value="livro" />
+<button type="submit">Ver todos os (<span data-ng-bind="search_total | numberDecimal" ng-cloack></span>) resultados</button>
+</form>
+</li>
+</ul>
+</div>
+</div>
+<div id="topo-menu-dinamico">
+<div id="topo-menu-login"><a href="/login/" rel="nofollow" class="l13" title="Acesse">Entrar</a></div> <ul id="topo-menu-explorar" class="nav nav-pills" style="float:left; margin-right: 0px; border:0px solid red; height: 36px; padding: 0px; margin: 0px;">
+<li class="dropdown" style="margin-top: -2px;">
+<a class="dropdown-toggle--" data-toggle="dropdown" href="#" style="border-bottom:4px solid #fff; margin-top:5px;">
+Explorar
+<b class="caret"></b>
+</a>
+<ul id="topo-menu-explorar-hover" class="dropdown-menu" role="menu" aria-labelledby="dLabel" style="margin-top: 5px;  border:0px solid black;">
+<li><a href="/livro/lista/" title="Livros">Livros</a></li>
+<li><a href="/autor/recentes/" title="Autores">Autores</a></li>
+<li><a href="/editoras/" title="Editoras">Editoras</a></li>
+<li><a href="/usuario/lista" title="Leitores">Leitores</a></li>
+<li><a href="/grupo/atualizados/" title="Grupos" rel="nofollow">Grupos</a></li>
+<li><a href="/plus/" title="Trocas" rel="nofollow">Plus - Trocas</a></li>
+<li><a href="/cortesia/" title="Cortesias">Cortesias</a></li>
+<li><a href="/livro/lancamentos/" title="Lançamentos">Lançamentos</a></li>
+<li><a href="/livro/top_mais/lidos/" title="Top Mais">Top Mais</a></li>
+<li><a href="/booktubers/" title="Booktubers">Booktubers</a></li>
+<li><a href="/meta/ano/2023/" title="Meta de Leitura 2023">Meta de Leitura 2023</a></li>
+
+</ul>
+</li>
+</ul>
+</div>
+<br clear="all" />
+</div>
+</div>
+<div style="margin-top:52px;"> <div style="width:950px;margin:auto;">
+</div>
+<div id="container-full" class>
+<div id="corpo" data-ng-controller="mainCtrl as main">
+<link href="/css/bootstrap.carousel.css" rel="stylesheet">
+<style>
+    #corpo { padding:0px; margin:0 auto; text-align:center; height:auto; width:100%; background-color: #fff;}
+</style>
+<div style="height:240px; background: #0087BF; border:red 0px solid; margin: 0px; margin-top: -4px; padding: 10px 0px 10px 0px;">
+<div ng-controller="BannerSlideCtrl" style="width:960px;height:240px;margin:auto;padding:0px; overflow: hidden;">
+<carousel interval="slideInterval">
+<slide ng-repeat="slide in slides" active="slide.active" ng-cloak>
+<a ng-href="{{slide.url}}" target="_blank">
+<img ng-src="{{slide.image}}" style="margin:auto;">
+</a>
+<div class="carousel-caption">
+</div>
+</slide>
+</carousel>
+</div>
+</div>
+<div id="home-conteudo" style="border:0px solid blue; padding: 0px; margin-top: 0px !important;">
+<div class="home-box-linear" style="border:0px solid red; margin-bottom: 0px; margin-top: 25px;">
+<div class="home-col-01" style="border:0px solid green;">
+<div style="width:285px;float:left; border: 0px solid green;">
+<a href="/usuario/3162805-charles.fonseca" style="width:55px;height:55px;display:block;float:left; margin:0px; margin-right:15px;" tooltip="Charles.Fonseca"><img src="https://img.skoob.com.br/nloby7_qZQrzlAk9MRBOT_VKjZc=/55x55/center/top/smart/filters:format(jpeg)/https://skoob.s3.amazonaws.com/usuarios/3162805/3162805SK1457002829G.jpg" width="55" height="55" class="img-rounded"></a><a href="/usuario/5454961-rita.pozzo" style="width:55px;height:55px;display:block;float:left; margin:0px; margin-right:15px;" tooltip="Rita.Pozzo"><img src="https://img.skoob.com.br/Rx85tMVzVaYJSaVpuiPFyEnCrik=/55x55/center/top/smart/filters:format(jpeg)/https://skoob.s3.amazonaws.com/usuarios/5454961/5454961SK1531172306G.jpg" width="55" height="55" class="img-rounded"></a><a href="/usuario/570362-maria.nieves" style="width:55px;height:55px;display:block;float:left; margin:0px; margin-right:15px;" tooltip="Maria.Nieves"><img src="https://img.skoob.com.br/zOlFccuGuUz0j1zUpdC120iUfes=/55x55/center/top/smart/filters:format(jpeg)/https://skoob.s3.amazonaws.com/usuarios/570362/570362SK-V11648672786G.jpg" width="55" height="55" class="img-rounded"></a><a href="/usuario/761850-anacrst" style="width:55px;height:55px;display:block;float:left; margin:0px; margin-right:15px;" tooltip="AnaCRST"><img src="https://img.skoob.com.br/oRe7WapF21AXxPlEys0DE0ra6yU=/55x55/center/top/smart/filters:format(jpeg)/https://skoob.s3.amazonaws.com/usuarios/761850/76185098T35XA976185087KJ38G.jpg" width="55" height="55" class="img-rounded"></a> </div>
+<div style="width:370px;margin:0px;float:right; border:0px solid blue;">
+<strong>Junte-se à maior rede social para leitores do Brasil.</strong>
+<p style="font-size:12px;">Este é um lugar criado para quem ama ler. Descubra novos livros, autores, editoras e amigos. </p>
+</div>
+</div>
+<div class="home-col-02" style="border:0px solid greenyellow; height: 55px; margin-top: 5px;">
+<a href="/login/facebook/" class="btn btn-primary btn-lg btn-block" role="button" style="font-size: 20px; font-weight: bold;">Cadastre-se! É grátis</a>
+</div>
+<br clear="all" />
+</div> <div class="home-box-linear" style="border:0px solid red; padding:0px !important; height: 250px; margin-top: 20px !important;">
+<div class="home-col-01 home-box-01-border">
+<div id="box-cortesias">
+<div style="width:115px;height:173px; float:left;margin-right:15px;"><a href="/cortesia/detalhes/5687"><img src="https://img.skoob.com.br/bCRguQgG8kG3eVf9ImHIElS0BP4=/120x178/center/top/smart/filters:format(jpeg)/https://skoob.s3.amazonaws.com/livros/122369043/CASAMENTO_EM_DEZEMBRO_1696573141122369043SK-V11696573142B.jpg" style="border:1px solid #e4e4e4;width:115px;height:173px;" alt /></a></div><div style="width:115px;height:173px; float:left;margin-right:15px;"><a href="/cortesia/detalhes/5689"><img src="https://img.skoob.com.br/8o9ZvXA5BSB2TxmGhRBJcVulMTI=/120x178/center/top/smart/filters:format(jpeg)/https://skoob.s3.amazonaws.com/livros/122366654/XEQUEMATE_1695902378122366654SK-V11695902379B.jpg" style="border:1px solid #e4e4e4;width:115px;height:173px;" alt /></a></div><div style="width:115px;height:173px; float:left;margin-right:15px;"><a href="/cortesia/detalhes/5641"><img src="https://img.skoob.com.br/LNNoo7PXGUMHxEH5deC_zo9Bk8Y=/120x178/center/top/smart/filters:format(jpeg)/https://skoob.s3.amazonaws.com/livros/736/O_LADRAO_DE_RAIOS_1692104205736SK-V11692104220B.jpg" style="border:1px solid #e4e4e4;width:115px;height:173px;" alt /></a></div><div style="width:115px;height:173px; float:left;margin-right:15px;"><a href="/cortesia/detalhes/5686"><img src="https://img.skoob.com.br/6mwUQO5xc9Zmyfw6cAC19HXTjPU=/120x178/center/top/smart/filters:format(jpeg)/https://skoob.s3.amazonaws.com/livros/122361100/A_LUZ_BRILHA_SOMENTE_AGORA_1696309799122361100SK-V11696309800B.jpg" style="border:1px solid #e4e4e4;width:115px;height:173px;" alt /></a></div><div style="width:115px;height:173px; float:left;margin:0px;"><a href="/cortesia/detalhes/5679"><img src="https://img.skoob.com.br/dJtkzkjmatRCazcD-vblFrqqPWI=/120x178/center/top/smart/filters:format(jpeg)/https://skoob.s3.amazonaws.com/livros/122338666/A_PEQUENA_SEREIA__CONTRA_A_MA_1696967009122338666SK-V11696967009B.jpg" style="border:1px solid #e4e4e4;width:115px;height:173px;" alt /></a></div>
+<br clear="all">
+</div>
+<div style="border:0px solid red; margin-top: 2px;">
+<a href="/cortesia/finalizando" class="btn btn-primary" style="float:right;">Participar dos sorteios</a>
+<strong>Sorteio de milhares de cortesias</strong>
+<p style="margin:0px;">Seja um dos primeiros a ler os principais lançamentos editoriais</p>
+</div>
+</div>
+<div class="home-col-02">
+<div style="width:250px;height:250px; overflow:hidden;border:0px solid #ccc;">
+
+<div id="div-gpt-ad-1432305651296-0" style="height:250px; width:250px;">
+<script type="text/javascript">
+                              googletag.cmd.push(function () {
+                                   googletag.display('div-gpt-ad-1432305651296-0');
+                              });
+                         </script>
+</div>
+</div>
+</div>
+<br clear="all" />
+</div>
+<div style="border: 0px solid green; margin-top: 35px;">
+<div style="margin:18px 0px;"><style>
+        .banner-livro-home-container {
+                background-color: #f0f0f0; 
+                /* padding: 8px 0px; */
+                border:0px solid #e4e4e4;  
+                /*text-align: center; */
+                /* margin-top: -10px; */
+                /* margin-bottom: 20px; */
+                /*min-height:90px;*/
+                height: auto;
+                -webkit-transition: width 2s, height 2s; /* For Safari 3.1 to 6.0 */
+                transition: width 2s, height 2s;
+                display: flex; 
+                flex-direction: row; justify-content: center; align-content: center; align-items: center;
+        }
+</style>
+<div class="banner-livro-home-container">
+<script async="async" src="https://www.googletagservices.com/tag/js/gpt.js"></script>
+<script>
+  var googletag = googletag || {};
+  googletag.cmd = googletag.cmd || [];
+</script>
+<script>
+  googletag.cmd.push(function() {
+    googletag.defineSlot('/101690757/SK-TOP-ADX-970X250', [970, 250], 'div-gpt-ad-1543064829481-0').addService(googletag.pubads());
+    googletag.pubads().enableSingleRequest();
+    googletag.pubads().collapseEmptyDivs();
+    googletag.enableServices();
+  });
+</script>
+
+<div id="div-gpt-ad-1543064829481-0" style="height:250px; width:970px;">
+<script>
+googletag.cmd.push(function() { googletag.display('div-gpt-ad-1543064829481-0'); });
+</script>
+</div>
+</div></div> </div>
+<div class="home-box-linear" style="border:0px solid red; margin-top: 35px;">
+<a href="/livro/lancamentos" class="label label-warning right">ver mais</a>
+<h3>Últimos lançamentos</h3>
+<style>
+            .ul-lancamentos { list-style: none; margin: 0px; padding:0px; margin-top: 15px;}
+            .ul-lancamentos li {float:left; margin: 0px; padding: 0px;}
+</style>
+<div id="box-lancamentos">
+<ul class="ul-lancamentos">
+<li><div style="width:120px;height:178px;float:left;margin-right:20px;" class="clivro" id="122371464"><a href="/madame-122364253ed122371464.html" class="capa-link-item"><img src="https://img.skoob.com.br/pTEH756-5IeivWIddBxFXVriGBc=/120x178/center/top/smart/filters:format(jpeg)/https://skoob.s3.amazonaws.com/livros/122364253/MADAME_1695311263122364253SK-V11695311264B.jpg" style="width:120px;height:178px;" /></a><div class="lancamento-editora-float"><img src="https://skoob.s3.amazonaws.com/editoras/11/111306426867Mini.jpg" rel="11" width="34" height="34" /></div></div></li><li><div style="width:120px;height:178px;float:left;margin-right:20px;" class="clivro" id="122388890"><a href="/pais-conscientes-vinculos-indestrutiveis-122380758ed122388890.html" class="capa-link-item"><img src="https://img.skoob.com.br/YrP8ZNUM8l6VGVLwKSlPBCJhyVA=/120x178/center/top/smart/filters:format(jpeg)/https://skoob.s3.amazonaws.com/livros/122380758/PAIS_CONSCIENTESN_VINCULOS_IND_1699551510122380758SK-V11699551511B.jpg" style="width:120px;height:178px;" /></a><div class="lancamento-editora-float"><img src="https://skoob.s3.amazonaws.com/editoras/41/41SK1607547083Mini.jpg" rel="41" width="34" height="34" /></div></div></li><li><div style="width:120px;height:178px;float:left;margin-right:20px;" class="clivro" id="122385176"><a href="/sentir-um-pensamento-122377243ed122385176.html" class="capa-link-item"><img src="https://img.skoob.com.br/I8tK75UMLfvFqBaX0XlUwtnsf3c=/120x178/center/top/smart/filters:format(jpeg)/https://skoob.s3.amazonaws.com/livros/122377243/SENTIR_UM_PENSAMENTO_1698620767122377243SK-V11698620768B.jpg" style="width:120px;height:178px;" /></a><div class="lancamento-editora-float"><img src="https://skoob.s3.amazonaws.com/editoras/41/41SK1607547083Mini.jpg" rel="41" width="34" height="34" /></div></div></li><li><div style="width:120px;height:178px;float:left;margin-right:20px;" class="clivro" id="122344442"><a href="/a-pequena-sereia--contra-a-mare-122338666ed122344442.html" class="capa-link-item"><img src="https://img.skoob.com.br/dJtkzkjmatRCazcD-vblFrqqPWI=/120x178/center/top/smart/filters:format(jpeg)/https://skoob.s3.amazonaws.com/livros/122338666/A_PEQUENA_SEREIA__CONTRA_A_MA_1696967009122338666SK-V11696967009B.jpg" style="width:120px;height:178px;" /></a><div class="lancamento-editora-float"><img src="https://skoob.s3.amazonaws.com/editoras/102/102SK1537905821Mini.jpg" rel="102" width="34" height="34" /></div></div></li><li><div style="width:120px;height:178px;float:left;margin-right:20px;" class="clivro" id="122389306"><a href="/harry-potter-e-o-calice-de-fogo-355ed122389306.html" class="capa-link-item"><img src="https://img.skoob.com.br/2lTAEBpuPDpXAD4nouYJytMn1pY=/120x178/center/top/smart/filters:format(jpeg)/https://skoob.s3.amazonaws.com/livros/355/HARRY_POTTER_E_O_CLICE_DE_FOGO_2052159336B.jpg" style="width:120px;height:178px;" /></a><div class="lancamento-editora-float"><img src="https://skoob.s3.amazonaws.com/editoras/41/41SK1607547083Mini.jpg" rel="41" width="34" height="34" /></div></div></li><li><div style="width:120px;height:178px;float:left;margin-right:20px;" class="clivro" id="122377608"><a href="/os-frageis-fios-do-poder-122370090ed122377608.html" class="capa-link-item"><img src="https://img.skoob.com.br/8jAyFljzJJCZVme7Nuvx-tjFSX8=/120x178/center/top/smart/filters:format(jpeg)/https://skoob.s3.amazonaws.com/livros/122370090/OS_FRAGEIS_FIOS_DO_PODER_1696865057122370090SK-V11696865058B.jpg" style="width:120px;height:178px;" /></a><div class="lancamento-editora-float"><img src="https://skoob.s3.amazonaws.com/editoras/25/251428962933Mini.jpg" rel="25" width="34" height="34" /></div></div></li><li><div style="width:120px;height:178px;float:left;margin:0px;" class="clivro" id="122378917"><a href="/arder-na-agua-afundar-no-fogo-122371346ed122378917.html" class="capa-link-item"><img src="https://img.skoob.com.br/iu4aQ1PIocAf9urxDnTnEkRfIpc=/120x178/center/top/smart/filters:format(jpeg)/https://skoob.s3.amazonaws.com/livros/122371346/ARDER_NA_AGUAN_AFUNDAR_NO_FOGO_1697167445122371346SK-V11697167446B.jpg" style="width:120px;height:178px;" /></a><div class="lancamento-editora-float"><img src="https://skoob.s3.amazonaws.com/editoras/100/100SK1607469549Mini.jpg" rel="100" width="34" height="34" /></div></div></li> </ul>
+</div> </div>
+<div class="home-box-linear" style="border:0px solid red; margin-top: 35px;">
+<a href="/livro/lista/" class="label label-warning right">ver mais</a>
+<h3>Mais procurados de hoje</h3>
+<br clear="all" />
+<div style="width:120px;height:178px;float:left;margin-right:20px;margin-bottom:5px;" class="clivro" id="11963581"><a href="/a-biblioteca-da-meia-noite-11927296ed11963581.html" class="capa-link-item"><img src="https://img.skoob.com.br/W3n3ENwdvM4r6mRMqPNpGZMonyM=/120x178/center/top/smart/filters:format(jpeg)/https://skoob.s3.amazonaws.com/livros/11927296/A_BIBLIOTECA_DA_MEIANOITE_167245772611927296SK-V11672457729B.jpg" style="width:120px;height:178px;" /></a></div><div style="width:120px;height:178px;float:left;margin-right:20px;margin-bottom:5px;" class="clivro" id="967690"><a href="/os-sete-maridos-de-evelyn-hugo-866308ed967690.html" class="capa-link-item"><img src="https://img.skoob.com.br/zGRup0b1kgkkWf9ypZMtt4B-QgA=/120x178/center/top/smart/filters:format(jpeg)/https://skoob.s3.amazonaws.com/livros/866308/OS_SETE_MARIDOS_DE_EVELYN_HUGO_1568165284866308SK1568165284B.jpg" style="width:120px;height:178px;" /></a></div><div style="width:120px;height:178px;float:left;margin-right:20px;margin-bottom:5px;" class="clivro" id="1197900"><a href="/a-cantiga-dos-passaros-e-das-serpentes-1201615ed1197900.html" class="capa-link-item"><img src="https://img.skoob.com.br/GhLhTHAQKgXvdDGjHI6hP6-fgf0=/120x178/center/top/smart/filters:format(jpeg)/https://skoob.s3.amazonaws.com/livros/1201615/A_CANTIGA_DOS_PASSAROS_E_DAS_S_15896653941201615SK1589665394B.jpg" style="width:120px;height:178px;" /></a></div><div style="width:120px;height:178px;float:left;margin-right:20px;margin-bottom:5px;" class="clivro" id="989508"><a href="/mais-forte-que-o-mar-988069ed989508.html" class="capa-link-item"><img src="https://img.skoob.com.br/p799rFhJeRJf1BROlqqbxlb0JBc=/120x178/center/top/smart/filters:format(jpeg)/https://skoob.s3.amazonaws.com/livros/988069/MAIS_FORTE_QUE_O_MAR_1579393108988069SK1579393109B.jpg" style="width:120px;height:178px;" /></a></div><div style="width:120px;height:178px;float:left;margin-right:20px;margin-bottom:5px;" class="clivro" id="11802730"><a href="/tudo-e-rio-435848ed11802730.html" class="capa-link-item"><img src="https://img.skoob.com.br/hAdZGk_8OgUuOBprzDNBUbV7Hr4=/120x178/center/top/smart/filters:format(jpeg)/https://skoob.s3.amazonaws.com/livros/435848/TUDO_E_RIO_1613010644435848SK-V11613010644B.jpg" style="width:120px;height:178px;" /></a></div><div style="width:120px;height:178px;float:left;margin-right:20px;margin-bottom:5px;" class="clivro" id="118175"><a href="/jogos-vorazes-106468ed118175.html" class="capa-link-item"><img src="https://img.skoob.com.br/lFP3j3A58PnZv-L795qsMTPDk9o=/120x178/center/top/smart/filters:format(jpeg)/https://skoob.s3.amazonaws.com/livros/106468/JOGOS_VORAZES_1447803914106468SK1447803914B.jpg" style="width:120px;height:178px;" /></a></div><div style="width:120px;height:178px;float:left;margin-right:0px;" class="clivro" id="122294336"><a href="/a-empregada-122289146ed122294336.html" class="capa-link-item"><img src="https://img.skoob.com.br/zwzWVaDUzN7qztzcjGLx-bR3qBg=/120x178/center/top/smart/filters:format(jpeg)/https://skoob.s3.amazonaws.com/livros/122289146/A_EMPREGADA_1684380168122289146SK-V11684380169B.jpg" style="width:120px;height:178px;" /></a></div> <br clear="all" />
+</div>
+<div class="home-box-linear" style="height:115px; margin-bottom: 15px; border:0px solid red; margin-top: 35px; height: 130px;">
+<a href="/editoras" class="label label-warning right">ver mais</a>
+<h3>As melhores editoras</h3>
+<br clear="all" />
+<div id="home-slide-editoras">
+<div class="viewport">
+<ul class="overview">
+<li><a href="/editora/18-harlequin"><img src="https://skoob.s3.amazonaws.com/editoras/18/181325684771P.jpg" /></a></li><li><a href="/editora/135-the-gift-box-editora"><img src="https://skoob.s3.amazonaws.com/editoras/135/135SK1541012830P.jpg" /></a></li><li><a href="/editora/98-verus"><img src="https://skoob.s3.amazonaws.com/editoras/98/981424789931P.jpg" /></a></li><li><a href="/editora/148-trama"><img src="https://skoob.s3.amazonaws.com/editoras/148/148SK-V11624977292P.jpg" /></a></li><li><a href="/editora/78-nova-fronteira"><img src="https://skoob.s3.amazonaws.com/editoras/78/78SK-V11626897627P.jpg" /></a></li><li><a href="/editora/102-universo-dos-livros"><img src="https://skoob.s3.amazonaws.com/editoras/102/102SK1537905821P.jpg" /></a></li><li><a href="/editora/25-galera-record"><img src="https://skoob.s3.amazonaws.com/editoras/25/251428962933P.jpg" /></a></li><li><a href="/editora/168-izyncor"><img src="https://skoob.s3.amazonaws.com/editoras/168/168SK-V11686160523P.jpg" /></a></li><li><a href="/editora/121-universo-geek"><img src="https://skoob.s3.amazonaws.com/editoras/121/121SK1560546568P.jpg" /></a></li><li><a href="/editora/19-sextante"><img src="https://skoob.s3.amazonaws.com/editoras/19/191307125117P.jpg" /></a></li> </ul>
+</div>
+</div>
+<br clear="all" />
+</div>
+<div class="home-box-linear" style="border:0px solid red; margin-top: 35px;">
+<div class=" home-col-01" style="border:0px solid green; width: 678px; margin: 0px;">
+<div style="border:0px solid green; margin-bottom: 10px;">
+<h3 style="border:0px solid red; float:left; margin:0px; padding: 0px;">Livros em destaque</h3>
+<a href="/livro/destaques" class="label label-warning right">ver mais</a>
+<br clear="all">
+</div>
+<div class="home-destaque" style="border:0px solid red;padding: 0px; margin: 0px; padding:15px; width:670px; padding-right: 0px;">
+<div style="float:left;margin-right:5px;" class="clivro" id="122246766"><a href="/amigos-amores-e-aquela-coisa-terrivel-12219299ed122246766.html"><img src="https://img.skoob.com.br/ZEvzg49zDY45XT6g84bx16OiC3o=/145x208/center/top/smart/filters:format(jpeg)/https://skoob.s3.amazonaws.com/livros/12219299/AMIGOSN_AMORES_E_AQUELA_COISA__167068589912219299SK-V11670685900B.jpg" style="width:145px;height:208px;" /></a></div><div class="patrocinado-box" style="width:155px; border:0px solid green; padding:0px; margin:0px 10px; 0px 15px"><h4 style="font-size:14px; margin:0px; padding:0px; height:33px;">Amigos, amores e aquela coisa terrível</h4><i>Matthew Perry</i><br/><br/><div class="sinopse" style="border:0px solid red; font-size:11px; height:130px; width:150px;">O amado astro de Friends nos conduz aos bastidores dessa série de sucesso e narra a luta que enfrentou contra o vício neste sincero livro de memórias. Divertido e revelador, Amigos, amores e aquela coisa terrível traz uma poderosa mensagem ...</div><div style="margin-top:0px;"><a href="https://amzn.to/461AoYv" target="_blank" style="font-size:13px;"><i class="icon-cart" style="color:#333;margin-right:5px;font-size:13px;"></i> comprar</a><br clear="all"></div></div><div style="float:left;margin-right:5px;" class="clivro" id="122378991"><a href="/o-segredo-da-medusa-122371422ed122378991.html"><img src="https://img.skoob.com.br/y5A0vjnPvMNOUMHdoHa5NMmspYU=/145x208/center/top/smart/filters:format(jpeg)/https://skoob.s3.amazonaws.com/livros/122371422/O_SEGREDO_DA_MEDUSA_1697197527122371422SK-V11697197528B.jpg" style="width:145px;height:208px;" /></a></div><div class="patrocinado-box" style="width:155px; border:0px solid green; padding:0px; margin:0px 10px; 0px 15px"><h4 style="font-size:14px; margin:0px; padding:0px; height:33px;">O segredo da Medusa</h4><i>Hannah Lynn</i><br/><br/><div class="sinopse" style="border:0px solid red; font-size:11px; height:130px; width:150px;">Primeiro, eles a amaram. Depois, a abusaram. Por fim, a transformaram em vilã.
+Dotada e sobrecarregada com uma beleza deslumbrante, a jovem Medusa busca refúgio com a Deusa Atena. Mas, quando atrai o olhar cobiçador, porém poderoso, de Pos...</div><div style="margin-top:0px;"><a href="https://amzn.to/47crMPG" target="_blank" style="font-size:13px;"><i class="icon-cart" style="color:#333;margin-right:5px;font-size:13px;"></i> comprar</a><br clear="all"></div></div>
+<style>
+     #destaque-interno-item a img{border:1px solid #e4e4e4;float:left;}
+     #destaque-interno-item a img{}
+</style>
+<br clear="all" />
+</div>
+</div>
+<div class="home-col-02" style="margin: 0px; margin-top: 33px; float:right;">
+<iframe src="//www.facebook.com/plugins/likebox.php?href=http%3A%2F%2Fwww.facebook.com%2Fpages%2FSkoob-O-que-voce-anda-lendo%2F216169690840&amp;width=255&amp;colorscheme=light&amp;connections=8&amp;stream=false&amp;header=true&amp;height=290" scrolling="no" frameborder="0" style="border:none; overflow:hidden; width:255px; height:290px;"></iframe>
+</div>
+<br clear="all" />
+</div>
+</div>
+</div>
+</div>
+</div>
+<footer class="footer footer-skoob" style="margin-top: 15px; border:0px solid red;">
+<div class="footer-skoob-main">
+<div class="footer-container">
+<div class="footer-logo-icons-container">
+<div class="footer-logo-info">
+<div class="footer-logo">
+<img src="https://static-sp.skoob.com.br/img/v2/logo-footer.png" class="logo-footer" style="margin-bottom: 5px;margin-right: 15px; width:70px;" alt />
+</div>
+<div class="footer-info">
+Somos a maior rede social do Brasil criada especialmente para quem ama ler.
+Junte-se aos mais de 9 milhões de leitores e compartilhe experiências literárias.
+</div>
+</div>
+<div>
+<div class="footer-icons">
+<a class="footer-icons-link" href="//www.facebook.com/skoobnews" alt="Facebook - Skoob" title="Facebook - Skoob" target="_blank"><i class="fa fa-facebook-square"></i></a>
+<a class="footer-icons-link" href="//www.youtube.com/user/skoobnews" alt="Youtube - Skoob" title="Youtube - Skoob" target="_blank"><i class="fa fa-youtube-square"></i></a>
+<a class="footer-icons-link" href="//twitter.com/skoobnews" rel="nofollow" alt="Twitter - Skoob" title="Twitter - Skoob" target="_blank"><i class="fa fa-twitter-square"></i></a>
+<a class="footer-icons-link" href="//instagram.com/skoobnews" rel="nofollow" alt="Instagram - Skoob" title="Instagram - Skoob" target="_blank"><i class="fa fa-instagram"></i></a>
+</div>
+<div class="footer-icons-container">
+<div class="footer-app-stores">
+<h5 style="font-weight:600; margin:10px 0px !important; font-size: 14px;">Baixe nosso app</h5>
+<div class="apps">
+<a href="https://itunes.apple.com/br/app/skoob/id904670263?l=pt&amp;ls=1&amp;mt=8"><img src="https://static-sp.skoob.com.br/img/mkt/2015-SET/app-store.jpg" alt="Baixe para iPhone" style="height:33px;" class="mb-2"></a>
+<a href="https://play.google.com/store/apps/details?id=com.gaudium.skoob&amp;hl=pt_BR"><img src="https://static-sp.skoob.com.br/img/mkt/2015-SET/google-play.jpg" alt="Baixe para Android" style="height:33px;" class="mb-2"></a>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="footer-links-icons-container">
+<div class="footer-links-container">
+<ul class="footer-ul">
+<li class="footer-li"><a class="footer-li-link" href="/ajuda/faq">FAQ</a></li>
+<li class="footer-li"><a class="footer-li-link" href="/inicio/quem_somos">Quem Somos</a></li>
+<li class="footer-li"><a class="footer-li-link" href="//blog.skoob.com.br/">Blog</a></li>
+<li class="footer-li"><a class="footer-li-link" href="/acervo/adicionar/">Cadastro de livros</a></li>
+<li class="footer-li"><a class="footer-li-link" href="/autor/checar/">Cadastro de autores</a></li>
+<li class="footer-li"><a class="footer-li-link" href="/downloads/">Downloads</a></li>
+<li class="footer-li"><a class="footer-li-link" href="/ajuda/faq">Fale Conosco</a></li>
+</ul>
+</div>
+</div>
+</div>
+</div>
+<div class="footer-last-container">
+<div class="footer-last-links-container">
+<ul class="footer-last-ul">
+<li style="list-style: none;display: inline;padding: 0 12px;border-right: 1px solid #fff;font-size: 14px;margin: 0;"><a style="color:#fff;" title="Livros" href="/livro/lista/">Livros</a></li>
+<li style="list-style: none;display: inline;padding: 0 12px;border-right: 1px solid #fff;font-size: 14px;margin: 0;"><a style="color:#fff;" title="Autores" href="/autor/recentes/">Autores</a></li>
+<li style="list-style: none;display: inline;padding: 0 12px;border-right: 1px solid #fff;font-size: 14px;margin: 0;"><a style="color:#fff;" title="Editoras" href="/editoras/">Editoras</a></li>
+<li style="list-style: none;display: inline;padding: 0 12px;border-right: 1px solid #fff;font-size: 14px;margin: 0;"><a style="color:#fff;" title="Leitores" href="/usuario/lista">Leitores</a></li>
+<li style="list-style: none;display: inline;padding: 0 12px;border-right: 1px solid #fff;font-size: 14px;margin: 0;"><a style="color:#fff;" title="Cortesias" href="/cortesia/">Cortesias</a></li>
+<li style="list-style: none;display: inline;padding: 0 12px;border-right: 1px solid #fff;font-size: 14px;margin: 0;"><a style="color:#fff;" title="Lançamentos" href="/livro/lancamentos/">Lançamentos</a></li>
+<li style="list-style: none;display: inline;padding: 0 12px;border-right: 1px solid #fff;font-size: 14px;margin: 0;"><a style="color:#fff;" title="Meta de Leitura" href="/meta/ano/2023/">Meta de Leitura 2023</a></li>
+<li style="list-style: none;display: inline;padding: 0 12px;border-right: 1px solid #fff;font-size: 14px;margin: 0;"><a style="color:#fff;" title="Termo de Uso" href="https://skoob-sp.s3-sa-east-1.amazonaws.com/app-files/termo_de_uso_skoob.pdf" target="_blank">Termo de Uso</a></li>
+<li style="list-style: none;display: inline;padding: 0 12px;border-right: 0px solid #fff;font-size: 14px;margin: 0;"><a style="color:#fff;" title="Privacidade" href="https://www.skoob.com.br/ajuda/privacidade" target="_blank">Privacidade</a></li>
+</ul>
+</div>
+</div>
+</footer>
+
+<style>
+    .container-lgpd {
+        border-radius: 10px; 
+        padding: 20px; 
+        position: fixed; 
+        bottom: 40px;
+        width: 250px;
+        display: flex;
+        flex-direction: column;
+        right: 50px;
+        border: #3189C8 solid 6px;
+        background-color: #fbf3bc;
+         
+    }
+    
+    .content-text-lgpd {
+        font-size: 15px; 
+        color: #333;
+        margin-bottom: 15px;
+    }
+    
+    .link-lgpd:link, .link-lgpd:hover, .link-lgpd:visited  {
+        font-size: 15px;
+        font-weight: normal;
+        color: #0069D9;
+    }
+</style>
+<div class="container-lgpd">
+<span class="content-text-lgpd">
+Utilizamos cookies e tecnologia para aprimorar sua experiência de navegação de acordo com a
+<a class="link-lgpd" href="https://www.skoob.com.br/ajuda/privacidade" target="_blank">
+Política de Privacidade.
+</a>
+</span>
+<a class="btn btn-success" href="?privacy-agree=true">ACEITAR</a>
+</div>
+</body>
+<script type="text/javascript" src="//www.google.com/jsapi"></script>
+</html>

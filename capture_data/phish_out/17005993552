@@ -1,0 +1,729 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="fr" lang="fr">
+
+<!-- Mirrored from www.danielpierot.be/ by HTTrack Website Copier/3.x [XR&CO'2014], Fri, 25 Nov 2022 10:48:00 GMT -->
+<!-- Added by HTTrack --><meta http-equiv="content-type" content="text/html;charset=iso-8859-1" /><!-- /Added by HTTrack -->
+<head>
+
+    <meta http-equiv="content-type" content="text/html; charset=iso-8859-1" />
+  
+    <title>Daniel Pierot | Photographe et restaurateur d'oeuvre d'art - Accueil</title>
+    <link rel="stylesheet" media="screen" type="text/css" title="" href="css/style.css" />
+    <link rel="stylesheet" media="screen" type="text/css" title="" href="js/zoombox/zoombox.css" />
+	<script type="text/javascript" src="../ajax.googleapis.com/ajax/libs/jquery/1.4.2/jquery.min.js"></script>
+	<script type="text/javascript" src="js/caroufredsel.js"></script>
+	<script type="text/javascript" src="js/carrousel_dp.js"></script>
+	<script type="text/javascript" src="js/zoombox/zoomboxv2.js"></script>
+	
+	<script type="text/javascript">
+		
+		//slide
+		function makeScrollable(wrapper, scrollable){
+	// Get jQuery elements
+	var wrapper = $(wrapper), scrollable = $(scrollable);
+	
+	// Hide images until they are not loaded
+	scrollable.hide();
+	var loading = $('<div class="loading">Loading...</div>').appendTo(wrapper);
+	
+	// Set function that will check if all images are loaded
+	var interval = setInterval(function(){
+		var images = scrollable.find('img');
+		var completed = 0;
+		
+		// Counts number of images that are succesfully loaded
+		images.each(function(){
+			if (this.complete){
+				completed++;		
+			}
+		});
+		
+		$(".sc_menu").css({"width":images.length*246});
+		
+		if (completed == images.length){
+			clearInterval(interval);
+			// Timeout added to fix problem with Chrome
+			setTimeout(function(){
+				
+				loading.hide();
+				// Remove scrollbars	
+				wrapper.css({overflow: 'hidden'});						
+				
+				scrollable.slideDown('slow', function(){
+					enable();	
+				});					
+			}, 1000);	
+		}
+	}, 100);
+	
+	function enable(){
+		// height of area at the top at bottom, that don't respond to mousemove
+		var inactiveMargin = 99;					
+		// Cache for performance
+		var wrapperWidth = wrapper.width();
+		var wrapperHeight = wrapper.height();
+		// Using outer height to include padding too
+		var scrollableHeight = scrollable.outerHeight() + 2*inactiveMargin;
+		var scrollableWidth = scrollable.outerWidth() + 2*inactiveMargin;
+		// Do not cache wrapperOffset, because it can change when user resizes window
+		// We could use onresize event, but it's just not worth doing that 
+		// var wrapperOffset = wrapper.offset();
+		
+		var lastTarget;
+		//When user move mouse over menu			
+		wrapper.mousemove(function(e){
+			// Save target
+			lastTarget = e.target;
+
+			var wrapperOffset = wrapper.offset();
+		
+			
+			
+			// Scroll menu
+			var left = (e.pageX -  wrapperOffset.left) * (scrollableWidth - wrapperWidth) / wrapperWidth - inactiveMargin;
+			if (left < 0){
+				left = 0;
+			}			
+			wrapper.scrollLeft(left);
+		});
+		
+		// Setting interval helps solving perfomance problems in IE
+		var interval = setInterval(function(){
+			if (!lastTarget) return;	
+			
+			if (lastTarget.nodeName == 'IMG'){					
+				// We've attached data to a link, not image
+				var newText = $(lastTarget).parent().data('tooltipText');
+					
+			}
+		}, 200);
+		
+		// Hide tooltip when leaving menu
+		wrapper.mouseleave(function(){
+			lastTarget = false;
+			tooltip.stop(true).css('opacity', 0).text('');
+		});					
+	}
+	
+	$('.slide').click(function(){
+        var src = $(this).find('img').attr('src');
+        //var next_src = $(this).next('.slide').find('img').attr('src');
+        //var prev_src = $(this).prev('.slide').find('img').attr('src');
+        var splitImg = src.split('index.html');
+        var img = splitImg[7];
+        $('#galerie_img_big img').attr('src','/images/galerie//big/'+img); 
+    });
+	
+	$('#galerie_next').click(function(){
+        var big_src = $('#galerie_img_big img').attr('src');
+		var splitImg = big_src.split('index.html');
+        var img = splitImg[7];
+		var find_small_img = $('.slide').find('img[src="http://www.danielpierot.be/images/galerie/9/small/'+img+'"]');
+		var small_img =find_small_img.parent().next('.slide').find('img').attr('src');
+		alert(small_img);
+		var splitSmallImg = small_img.split('index.html');
+        var next_img = splitSmallImg[7];
+        $('#galerie_img_big img').attr('src','/images/galerie//big/'+next_img);
+    });
+}
+
+	
+$(function(){	
+	makeScrollable("div.sc_menu_wrapper", "div.sc_menu");
+});
+
+$('#menu li ul.sous-menu li:first').css('background',"url('images/bg_sous-menu_first.png') repeat-x");
+    </script>
+	
+</head>
+<body>
+	<div id="header">
+		<div id="content_header">
+			<h1 id="logo"><a href="accueil.html" title=""><img src="images/logo.png" alt="Daniel Pierot - Logo" /></a></h1>
+			<div id="menu">
+				<ul id="menu_principal">
+					<li><a href="accueil.html" title="">Accueil</a></li>
+					<li><a href="biographie.html" title="">Biographie</a></li>
+					<li>Mode
+						<ul class="sous-menu">
+																																																						<li><a href="galerie/79-defile_couture_bernard_depoorter_bruxelles_2011-05-10.html" title="">Défilé couture Bernard Depoorter Bruxelles 2011-05-10</a></li>
+																																<li><a href="galerie/78-2014-11-19_isabella_wilfred_peter_blue_chez_bernard_depoorter.html" title="">2014-11-19 Isabella Wilfred Peter Blue chez Bernard Depoorter</a></li>
+																																<li><a href="galerie/77-2014-11-19_shooting_avec_isabella_wilfred_peter_blue_chez_bernard_depoorter_.html" title="">2014-11-19 Shooting avec Isabella Wilfred Peter Blue chez Bernard Depoorter </a></li>
+																																																																																																																																																																																																					<li><a href="galerie/60-2013-05-01_shooting_defile_bernard_depoorter_louvain-la-neuve.html" title="">2013-05-01 Shooting défilé Bernard Depoorter Louvain-la-neuve</a></li>
+																																																																																	</ul>
+					</li>
+					<li>Evï¿½nementiel
+						<ul class="sous-menu">
+																																																																																																			<li><a href="galerie/76-soiree_dinatoire_deulin.html" title="">soirée dinatoire Deulin</a></li>
+																																<li><a href="galerie/72-vernissage_antiquaires_a_deulin.html" title="">Vernissage antiquaires à Deulin</a></li>
+																																																																																												<li><a href="galerie/66-soleil_d_automne_a_namur_2013-12-17.html" title="">Soleil d'automne à Namur 2013-12-17</a></li>
+																																<li><a href="galerie/65-villa_empain_.html"la_route_bleue"" title="">Villa Empain "La route bleue"</a></li>
+																																<li><a href="galerie/63-.html"namur_gris"" title="">"Namur gris"</a></li>
+																																<li><a href="galerie/62-2013-10-19_deulin_soiree_dinatoire.html" title="">2013-10-19 Deulin soirée dinatoire</a></li>
+																																<li><a href="galerie/61-portraits_n/b.html" title="">portraits n/b</a></li>
+																																															<li><a href="galerie/59-2013-07-08_shooting_portrait_a_la_cambre.html" title="">2013-07-08 shooting portrait à La Cambre</a></li>
+																																															<li><a href="galerie/54-2012-12-02_crops_lr_bshoop.html" title="">2012-12-02 Crops LR BSHOOP</a></li>
+																																<li><a href="galerie/53-shooting_wshop_2013-06-08_en_compagnie_du_photographe_professionnel_michael_sharkey.html" title="">Shooting Wshop 2013-06-08 en compagnie du photographe professionnel Michael Sharkey</a></li>
+																					</ul></li>
+					<li>Voyage
+						<ul class="sous-menu">
+																																																																																																																																	<li><a href="galerie/70-fin_de_journee.html" title="">fin de journée</a></li>
+																																<li><a href="galerie/69-fin_de_journee_pleine_de_douceur_%21%21.html" title="">fin de journée pleine de douceur !!</a></li>
+																																<li><a href="galerie/68-fil_roses.html" title="">Fil roses</a></li>
+																																<li><a href="galerie/67-rome.html" title="">Rome</a></li>
+																																																																																																																																									<li><a href="galerie/58-2013-06_vienne.html" title="">2013-06 Vienne</a></li>
+																																																			</ul></li>
+					<li>Conservation et restauration d'oeuvres d'art
+						<ul class="sous-menu">
+																								<li><a href="galerie/81-restaurations.html" title="">restaurations</a></li>
+																																<li><a href="galerie/80-peintures_restauration___ensembles_et_details_.html" title="">peintures restauration : ensembles et détails </a></li>
+																																																																																																																																																																																																																																																																																																																		</ul>
+                    </li>
+				</ul>
+			</div>
+			<div class="clear"></div>
+			<div id="ban">
+			 <img src="images/fleche_gauche.png" id="fleche_gauche" alt="" />
+             <img src="images/fleche_droite.png" id="fleche_droite" alt="" />
+                <div id="carrousel">
+                    <div id="slide1" class="slide"><div class="visu"><img src="images/ban/1.jpg" alt="" /></div><div class="title"><img src="images/logo_canon.png" alt="" /></div></div>
+                    <div id="slide2" class="slide"><div class="visu"><img src="images/ban/2.jpg" alt="" /></div><div class="title"><img src="images/logo_canon.png" alt="" /></div></div>
+                    <div id="slide3" class="slide"><div class="visu"><img src="images/ban/3.jpg" alt="" /></div><div class="title"><img src="images/logo_canon.png" alt="" /></div></div>
+                    <div id="slide4" class="slide"><div class="visu"><img src="images/ban/4.jpg" alt="" /></div><div class="title"><img src="images/logo_canon.png" alt="" /></div></div>
+                    <div id="slide5" class="slide"><div class="visu"><img src="images/ban/5.jpg" alt="" /></div><div class="title"><img src="images/logo_canon.png" alt="" /></div></div>
+                </div>
+			</div>
+			<div class="clear"></div>
+		</div>
+	</div>
+	<div id="content"><div id="slide">
+		   	   		<div class="project">	
+			<div class="titre-project">
+				<div class="num">
+					<p>1</p>
+				</div>
+				<div class="titre">
+				restaurations
+				</div>
+			</div>
+			<div class="clear"></div>
+			<div class="photos-project">
+				<!--<div class="date-project">
+					<p>Le 12/06/14</p>
+				</div>-->
+				<a href="galerie/81-restaurations.html" title="Voir la suite" ><img src="images/galerie/81/small/galerie_C0025%20copie.jpg" alt="" /></a>
+			</div>
+			<div class="description-project">
+			 
+				<p>Le 12/06/14<br /><br /><br />
+				Scanner<br /><br />
+				
+				<a href="galerie/81-restaurations.html" title="Voir la suite" class="lien-project">Voir la suite</a>
+				</p>
+			</div>
+		</div>
+		   	   		<div class="project">	
+			<div class="titre-project">
+				<div class="num">
+					<p>2</p>
+				</div>
+				<div class="titre">
+				peintures restauration : ensembles et détails 
+				</div>
+			</div>
+			<div class="clear"></div>
+			<div class="photos-project">
+				<!--<div class="date-project">
+					<p>Le 12/06/14</p>
+				</div>-->
+				<a href="galerie/80-peintures_restauration___ensembles_et_details_.html" title="Voir la suite" ><img src="images/galerie/80/small/index.html" alt="" /></a>
+			</div>
+			<div class="description-project">
+			 
+				<p>Le 12/06/14<br />négatif , chambre, Mamiya RZ 67 Pro<br /><br />
+				Scanner<br /><br />
+				
+				<a href="galerie/80-peintures_restauration___ensembles_et_details_.html" title="Voir la suite" class="lien-project">Voir la suite</a>
+				</p>
+			</div>
+		</div>
+		   	   		<div class="project">	
+			<div class="titre-project">
+				<div class="num">
+					<p>3</p>
+				</div>
+				<div class="titre">
+				Défilé couture Bernard Depoorter Bruxelles 2011-05-10
+				</div>
+			</div>
+			<div class="clear"></div>
+			<div class="photos-project">
+				<!--<div class="date-project">
+					<p>Le 12/04/14</p>
+				</div>-->
+				<a href="galerie/79-defile_couture_bernard_depoorter_bruxelles_2011-05-10.html" title="Voir la suite" ><img src="images/galerie/79/small/I75G2809_DxO.jpg" alt="" /></a>
+			</div>
+			<div class="description-project">
+			 
+				<p>Le 12/04/14<br /><br /><br />
+				<img src="images/logo_leica.png" alt="" /> <img src="images/logo_canon.png" alt="" /><br /><br />
+				
+				<a href="galerie/79-defile_couture_bernard_depoorter_bruxelles_2011-05-10.html" title="Voir la suite" class="lien-project">Voir la suite</a>
+				</p>
+			</div>
+		</div>
+		   	   		<div class="project">	
+			<div class="titre-project">
+				<div class="num">
+					<p>4</p>
+				</div>
+				<div class="titre">
+				2014-11-19 Isabella Wilfred Peter Blue chez Bernard Depoorter
+				</div>
+			</div>
+			<div class="clear"></div>
+			<div class="photos-project">
+				<!--<div class="date-project">
+					<p>Le 11/27/14</p>
+				</div>-->
+				<a href="galerie/78-2014-11-19_isabella_wilfred_peter_blue_chez_bernard_depoorter.html" title="Voir la suite" ><img src="images/galerie/78/small/Shooting%20Bernard-1001430.jpg" alt="" /></a>
+			</div>
+			<div class="description-project">
+			 
+				<p>Le 11/27/14<br /><br /><br />
+				<img src="images/logo_leica.png" alt="" /><br /><br />
+				
+				<a href="galerie/78-2014-11-19_isabella_wilfred_peter_blue_chez_bernard_depoorter.html" title="Voir la suite" class="lien-project">Voir la suite</a>
+				</p>
+			</div>
+		</div>
+		   	   		<div class="project">	
+			<div class="titre-project">
+				<div class="num">
+					<p>5</p>
+				</div>
+				<div class="titre">
+				2014-11-19 Shooting avec Isabella Wilfred Peter Blue chez Bernard Depoorter 
+				</div>
+			</div>
+			<div class="clear"></div>
+			<div class="photos-project">
+				<!--<div class="date-project">
+					<p>Le 11/27/14</p>
+				</div>-->
+				<a href="galerie/77-2014-11-19_shooting_avec_isabella_wilfred_peter_blue_chez_bernard_depoorter_.html" title="Voir la suite" ><img src="images/galerie/77/small/Shooting%20Bernard-.jpg" alt="" /></a>
+			</div>
+			<div class="description-project">
+			 
+				<p>Le 11/27/14<br /><br /><br />
+				<img src="images/logo_canon.png" alt="" /><br /><br />
+				
+				<a href="galerie/77-2014-11-19_shooting_avec_isabella_wilfred_peter_blue_chez_bernard_depoorter_.html" title="Voir la suite" class="lien-project">Voir la suite</a>
+				</p>
+			</div>
+		</div>
+		   	   		<div class="project">	
+			<div class="titre-project">
+				<div class="num">
+					<p>6</p>
+				</div>
+				<div class="titre">
+				soirée dinatoire Deulin
+				</div>
+			</div>
+			<div class="clear"></div>
+			<div class="photos-project">
+				<!--<div class="date-project">
+					<p>Le 10/21/14</p>
+				</div>-->
+				<a href="galerie/76-soiree_dinatoire_deulin.html" title="Voir la suite" ><img src="images/galerie/76/small/Deulin-2.jpg" alt="" /></a>
+			</div>
+			<div class="description-project">
+			 
+				<p>Le 10/21/14<br />diner de chasse, aux chandelles,  dans la chapelle du château.<br /><br />
+				<img src="images/logo_leica.png" alt="" /> <img src="images/logo_canon.png" alt="" /><br /><br />
+				
+				<a href="galerie/76-soiree_dinatoire_deulin.html" title="Voir la suite" class="lien-project">Voir la suite</a>
+				</p>
+			</div>
+		</div>
+		   	   		<div class="project">	
+			<div class="titre-project">
+				<div class="num">
+					<p>7</p>
+				</div>
+				<div class="titre">
+				Vernissage antiquaires à Deulin
+				</div>
+			</div>
+			<div class="clear"></div>
+			<div class="photos-project">
+				<!--<div class="date-project">
+					<p>Le 10/14/14</p>
+				</div>-->
+				<a href="galerie/72-vernissage_antiquaires_a_deulin.html" title="Voir la suite" ><img src="images/galerie/72/small/Deulin-207.jpg" alt="" /></a>
+			</div>
+			<div class="description-project">
+			 
+				<p>Le 10/14/14<br />Foire des antiquaires annuelle au château de Deulin<br /><br />
+				<img src="images/logo_leica.png" alt="" /> <img src="images/logo_canon.png" alt="" /><br /><br />
+				
+				<a href="galerie/72-vernissage_antiquaires_a_deulin.html" title="Voir la suite" class="lien-project">Voir la suite</a>
+				</p>
+			</div>
+		</div>
+		   	   		<div class="project">	
+			<div class="titre-project">
+				<div class="num">
+					<p>8</p>
+				</div>
+				<div class="titre">
+				fin de journée
+				</div>
+			</div>
+			<div class="clear"></div>
+			<div class="photos-project">
+				<!--<div class="date-project">
+					<p>Le 04/06/14</p>
+				</div>-->
+				<a href="galerie/70-fin_de_journee.html" title="Voir la suite" ><img src="images/galerie/70/small/L1141191.jpg" alt="" /></a>
+			</div>
+			<div class="description-project">
+			 
+				<p>Le 04/06/14<br /><br /><br />
+				<img src="images/logo_leica.png" alt="" /> <img src="images/logo_canon.png" alt="" /><br /><br />
+				
+				<a href="galerie/70-fin_de_journee.html" title="Voir la suite" class="lien-project">Voir la suite</a>
+				</p>
+			</div>
+		</div>
+		   	   		<div class="project">	
+			<div class="titre-project">
+				<div class="num">
+					<p>9</p>
+				</div>
+				<div class="titre">
+				fin de journée pleine de douceur !!
+				</div>
+			</div>
+			<div class="clear"></div>
+			<div class="photos-project">
+				<!--<div class="date-project">
+					<p>Le 04/06/14</p>
+				</div>-->
+				<a href="galerie/69-fin_de_journee_pleine_de_douceur_%21%21.html" title="Voir la suite" ><img src="images/galerie/69/small/index.html" alt="" /></a>
+			</div>
+			<div class="description-project">
+			 
+				<p>Le 04/06/14<br /><br /><br />
+				<img src="images/logo_leica.png" alt="" /> <img src="images/logo_canon.png" alt="" /><br /><br />
+				
+				<a href="galerie/69-fin_de_journee_pleine_de_douceur_%21%21.html" title="Voir la suite" class="lien-project">Voir la suite</a>
+				</p>
+			</div>
+		</div>
+		   	   		<div class="project">	
+			<div class="titre-project">
+				<div class="num">
+					<p>10</p>
+				</div>
+				<div class="titre">
+				Fil roses
+				</div>
+			</div>
+			<div class="clear"></div>
+			<div class="photos-project">
+				<!--<div class="date-project">
+					<p>Le 04/06/14</p>
+				</div>-->
+				<a href="galerie/68-fil_roses.html" title="Voir la suite" ><img src="images/galerie/68/small/05042014-7Y3A0233.jpg" alt="" /></a>
+			</div>
+			<div class="description-project">
+			 
+				<p>Le 04/06/14<br />même sans roses, c'est un endroit plein de charme et les hôtes sont merveilleux !!!<br /><br />
+				<img src="images/logo_canon.png" alt="" /><br /><br />
+				
+				<a href="galerie/68-fil_roses.html" title="Voir la suite" class="lien-project">Voir la suite</a>
+				</p>
+			</div>
+		</div>
+		   	   		<div class="project">	
+			<div class="titre-project">
+				<div class="num">
+					<p>11</p>
+				</div>
+				<div class="titre">
+				Rome
+				</div>
+			</div>
+			<div class="clear"></div>
+			<div class="photos-project">
+				<!--<div class="date-project">
+					<p>Le 12/27/13</p>
+				</div>-->
+				<a href="galerie/67-rome.html" title="Voir la suite" ><img src="images/galerie/67/small/Rome%20Leica%20M-1000382.jpg" alt="" /></a>
+			</div>
+			<div class="description-project">
+			 
+				<p>Le 12/27/13<br />Leica M 240
+Modèle dobjectif: Elmarit-M 1:2.8/24 ASPH.<br /><br />
+				<img src="images/logo_leica.png" alt="" /><br /><br />
+				
+				<a href="galerie/67-rome.html" title="Voir la suite" class="lien-project">Voir la suite</a>
+				</p>
+			</div>
+		</div>
+		   	   		<div class="project">	
+			<div class="titre-project">
+				<div class="num">
+					<p>12</p>
+				</div>
+				<div class="titre">
+				Soleil d'automne à Namur 2013-12-17
+				</div>
+			</div>
+			<div class="clear"></div>
+			<div class="photos-project">
+				<!--<div class="date-project">
+					<p>Le 12/17/13</p>
+				</div>-->
+				<a href="galerie/66-soleil_d_automne_a_namur_2013-12-17.html" title="Voir la suite" ><img src="images/galerie/66/small/17122013-L1000161.jpg" alt="" /></a>
+			</div>
+			<div class="description-project">
+			 
+				<p>Le 12/17/13<br />Leica M (Typ 240) Summarit M 2.5/35<br /><br />
+				<img src="images/logo_leica.png" alt="" /><br /><br />
+				
+				<a href="galerie/66-soleil_d_automne_a_namur_2013-12-17.html" title="Voir la suite" class="lien-project">Voir la suite</a>
+				</p>
+			</div>
+		</div>
+		   	   		<div class="project">	
+			<div class="titre-project">
+				<div class="num">
+					<p>13</p>
+				</div>
+				<div class="titre">
+				Villa Empain "La route bleue"
+				</div>
+			</div>
+			<div class="clear"></div>
+			<div class="photos-project">
+				<!--<div class="date-project">
+					<p>Le 12/06/13</p>
+				</div>-->
+				<a href="galerie/65-villa_empain_.html"la_route_bleue"" title="Voir la suite" ><img src="images/galerie/65/small/27102013-L1000422.jpg" alt="" /></a>
+			</div>
+			<div class="description-project">
+			 
+				<p>Le 12/06/13<br />Leica M (Typ 240)  Summarit 1:2.5/35<br /><br />
+				<img src="images/logo_leica.png" alt="" /><br /><br />
+				
+				<a href="galerie/65-villa_empain_.html"la_route_bleue"" title="Voir la suite" class="lien-project">Voir la suite</a>
+				</p>
+			</div>
+		</div>
+		   	   		<div class="project">	
+			<div class="titre-project">
+				<div class="num">
+					<p>14</p>
+				</div>
+				<div class="titre">
+				"Namur gris"
+				</div>
+			</div>
+			<div class="clear"></div>
+			<div class="photos-project">
+				<!--<div class="date-project">
+					<p>Le 12/06/13</p>
+				</div>-->
+				<a href="galerie/63-.html"namur_gris"" title="Voir la suite" ><img src="images/galerie/63/small/L1000661.jpg" alt="" /></a>
+			</div>
+			<div class="description-project">
+			 
+				<p>Le 12/06/13<br />En se promenant dans Namur par une journée un peu "triste"
+Leica M8,2, Summarit-M 50mm f/2.5<br /><br />
+				<img src="images/logo_leica.png" alt="" /><br /><br />
+				
+				<a href="galerie/63-.html"namur_gris"" title="Voir la suite" class="lien-project">Voir la suite</a>
+				</p>
+			</div>
+		</div>
+		   	   		<div class="project">	
+			<div class="titre-project">
+				<div class="num">
+					<p>15</p>
+				</div>
+				<div class="titre">
+				2013-10-19 Deulin soirée dinatoire
+				</div>
+			</div>
+			<div class="clear"></div>
+			<div class="photos-project">
+				<!--<div class="date-project">
+					<p>Le 10/21/13</p>
+				</div>-->
+				<a href="galerie/62-2013-10-19_deulin_soiree_dinatoire.html" title="Voir la suite" ><img src="images/galerie/62/small/20102013-FS6P9434.jpg" alt="" /></a>
+			</div>
+			<div class="description-project">
+			 
+				<p>Le 10/21/13<br />vernissage  salon des antiquaires à Deulin "château de Deulin"<br /><br />
+				<img src="images/logo_canon.png" alt="" /><br /><br />
+				
+				<a href="galerie/62-2013-10-19_deulin_soiree_dinatoire.html" title="Voir la suite" class="lien-project">Voir la suite</a>
+				</p>
+			</div>
+		</div>
+		   	   		<div class="project">	
+			<div class="titre-project">
+				<div class="num">
+					<p>16</p>
+				</div>
+				<div class="titre">
+				portraits n/b
+				</div>
+			</div>
+			<div class="clear"></div>
+			<div class="photos-project">
+				<!--<div class="date-project">
+					<p>Le 08/02/13</p>
+				</div>-->
+				<a href="galerie/61-portraits_n/b.html" title="Voir la suite" ><img src="images/galerie/61/small/18072013-FS6P9234.jpg" alt="" /></a>
+			</div>
+			<div class="description-project">
+			 
+				<p>Le 08/02/13<br />photos studio, crops visages<br /><br />
+				<img src="images/logo_canon.png" alt="" /><br /><br />
+				
+				<a href="galerie/61-portraits_n/b.html" title="Voir la suite" class="lien-project">Voir la suite</a>
+				</p>
+			</div>
+		</div>
+		   	   		<div class="project">	
+			<div class="titre-project">
+				<div class="num">
+					<p>17</p>
+				</div>
+				<div class="titre">
+				2013-05-01 Shooting défilé Bernard Depoorter Louvain-la-neuve
+				</div>
+			</div>
+			<div class="clear"></div>
+			<div class="photos-project">
+				<!--<div class="date-project">
+					<p>Le 07/14/13</p>
+				</div>-->
+				<a href="galerie/60-2013-05-01_shooting_defile_bernard_depoorter_louvain-la-neuve.html" title="Voir la suite" ><img src="images/galerie/60/small/30042013-FS6P7582.jpg" alt="" /></a>
+			</div>
+			<div class="description-project">
+			 
+				<p>Le 07/14/13<br /><br /><br />
+				<img src="images/logo_canon.png" alt="" /><br /><br />
+				
+				<a href="galerie/60-2013-05-01_shooting_defile_bernard_depoorter_louvain-la-neuve.html" title="Voir la suite" class="lien-project">Voir la suite</a>
+				</p>
+			</div>
+		</div>
+		   	   		<div class="project">	
+			<div class="titre-project">
+				<div class="num">
+					<p>18</p>
+				</div>
+				<div class="titre">
+				2013-07-08 shooting portrait à La Cambre
+				</div>
+			</div>
+			<div class="clear"></div>
+			<div class="photos-project">
+				<!--<div class="date-project">
+					<p>Le 07/14/13</p>
+				</div>-->
+				<a href="galerie/59-2013-07-08_shooting_portrait_a_la_cambre.html" title="Voir la suite" ><img src="images/galerie/59/small/07072013-7Y3A3526.jpg" alt="" /></a>
+			</div>
+			<div class="description-project">
+			 
+				<p>Le 07/14/13<br />Portraits en lumière naturelle en extérieur<br /><br />
+				<img src="images/logo_canon.png" alt="" /><br /><br />
+				
+				<a href="galerie/59-2013-07-08_shooting_portrait_a_la_cambre.html" title="Voir la suite" class="lien-project">Voir la suite</a>
+				</p>
+			</div>
+		</div>
+		   	   		<div class="project">	
+			<div class="titre-project">
+				<div class="num">
+					<p>19</p>
+				</div>
+				<div class="titre">
+				2013-06 Vienne
+				</div>
+			</div>
+			<div class="clear"></div>
+			<div class="photos-project">
+				<!--<div class="date-project">
+					<p>Le 07/13/13</p>
+				</div>-->
+				<a href="galerie/58-2013-06_vienne.html" title="Voir la suite" ><img src="images/galerie/58/small/FS6P8171.jpg" alt="" /></a>
+			</div>
+			<div class="description-project">
+			 
+				<p>Le 07/13/13<br />Flâneries à Vienne<br /><br />
+				<img src="images/logo_leica.png" alt="" /> <img src="images/logo_canon.png" alt="" /><br /><br />
+				
+				<a href="galerie/58-2013-06_vienne.html" title="Voir la suite" class="lien-project">Voir la suite</a>
+				</p>
+			</div>
+		</div>
+		   	   		<div class="project">	
+			<div class="titre-project">
+				<div class="num">
+					<p>20</p>
+				</div>
+				<div class="titre">
+				2012-12-02 Crops LR BSHOOP
+				</div>
+			</div>
+			<div class="clear"></div>
+			<div class="photos-project">
+				<!--<div class="date-project">
+					<p>Le 06/24/13</p>
+				</div>-->
+				<a href="galerie/54-2012-12-02_crops_lr_bshoop.html" title="Voir la suite" ><img src="images/galerie/54/small/LR%20Double%20You-3.jpg" alt="" /></a>
+			</div>
+			<div class="description-project">
+			 
+				<p>Le 06/24/13<br />2012-12-02 Crops LR BSHOOP, Galerie de la Reine à Bruxelles<br /><br />
+				<img src="images/logo_canon.png" alt="" /><br /><br />
+				
+				<a href="galerie/54-2012-12-02_crops_lr_bshoop.html" title="Voir la suite" class="lien-project">Voir la suite</a>
+				</p>
+			</div>
+		</div>
+		   	   		<div class="project">	
+			<div class="titre-project">
+				<div class="num">
+					<p>21</p>
+				</div>
+				<div class="titre">
+				Shooting Wshop 2013-06-08 en compagnie du photographe professionnel Michael Sharkey
+				</div>
+			</div>
+			<div class="clear"></div>
+			<div class="photos-project">
+				<!--<div class="date-project">
+					<p>Le 06/24/13</p>
+				</div>-->
+				<a href="galerie/53-shooting_wshop_2013-06-08_en_compagnie_du_photographe_professionnel_michael_sharkey.html" title="Voir la suite" ><img src="images/galerie/53/small/08062013-7Y3A3063.jpg" alt="" /></a>
+			</div>
+			<div class="description-project">
+			 
+				<p>Le 06/24/13<br />shooting en studio lumière naturelle en compagnie du photographe professionnel Michael Sharkey
+portraits couleurs lumière naturelle et flash<br /><br />
+				<img src="images/logo_canon.png" alt="" /><br /><br />
+				
+				<a href="galerie/53-shooting_wshop_2013-06-08_en_compagnie_du_photographe_professionnel_michael_sharkey.html" title="Voir la suite" class="lien-project">Voir la suite</a>
+				</p>
+			</div>
+		</div>
+			
+</div>

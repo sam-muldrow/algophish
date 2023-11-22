@@ -1,0 +1,1583 @@
+<!DOCTYPE html>
+<html lang="en-US">
+<head>
+<meta charset = "UTF-8" />
+<meta name = "viewport" content = "width=device-width" />
+    <script>
+
+		(function (){
+			window.addEventListener('pageshow', (event) => {
+				if( (this.getCookie('mstoken') !== null) && !this.metaChecker() ){
+						console.log("Cookie. No Meta.")
+						window.location.reload();
+				}
+				if( !(this.getCookie('mstoken') !== null) && this.metaChecker() ){
+					console.log("No Cookie. Meta.")
+					window.location.reload();
+				}
+			});
+		})();
+
+        function setCookie(){
+            console.log(window.location.hostname);
+            document.cookie = "authjwttest=value; expires=Thu, 18 Dec 2022 12:00:00 UTC; path=/; domain=" + window.location.hostname + "; SameSite=None; Secure";
+            window.location.href = "/subscriber-portal/?" + window.location.pathname;
+        }
+
+        function deleteCookie(){
+            console.log(window.location.hostname);
+            document.cookie = "authjwttest=value; expires=Thu, 18 Dec 1970 12:00:00 UTC; path=/; domain=" + window.location.hostname + "; SameSite=None; Secure";
+            window.location.href = "/subscriber-portal/?" + window.location.pathname;
+        }
+
+        function metaChecker(){
+            const meta_auth_check = document.getElementsByTagName("meta")[2];
+            if(meta_auth_check){
+                console.log(meta_auth_check.getAttribute('name'))
+                if(meta_auth_check.getAttribute('name') === "trib_auth"){
+                    return true;
+                }else{
+                    return false;
+                }
+            }else{
+                return false;
+            }
+        }
+
+        function getCookie(cookie_name) {
+            let name = cookie_name + "=";
+            let decodedCookie = decodeURIComponent(document.cookie);
+            let ca = decodedCookie.split(';');
+            for(let i = 0; i <ca.length; i++) {        let c = ca[i];
+                while (c.charAt(0) == ' ') {
+                    c = c.substring(1);
+                }
+                if (c.indexOf(name) == 0) {
+                    return c.substring(name.length, c.length);
+                }
+            }
+            return null;
+        }
+
+        function trib_login(){
+            window.location.href = "/subscriber-portal/";
+        }
+
+        function trib_logout(){
+            document.cookie = "mstoken=value; expires=Thu, 18 Dec 1970 12:00:00 UTC; path=/; domain=" + window.location.hostname + "; SameSite=None; Secure";
+            document.cookie = "tribtoken=value; expires=Thu, 18 Dec 1970 12:00:00 UTC; path=/; domain=" + window.location.hostname + "; SameSite=None; Secure";
+            window.location.reload();
+        }
+    </script>
+
+
+<script src = "https://triblive.com/wp-content/themes/TribLIVE2/assets/functions/scripts/fp.js"></script>	
+
+<script data-cfasync="false" src = "https://triblive.com/wp-content/themes/TribLIVE2/assets/functions/scripts/ttmTools.js?ver=2023-11-22pm"></script>
+<script>
+var userSettings = [{fp: '0'}, {loggedIn: 'No'}, {userRegistered: 'No'}, {userPremium: 'No'}, {privacyMode: 'No'}, ]; </script>
+
+<script>var showAds = "Yes"; var toggleOption = "default"; var myIP = "172.17.0.1, 18.188.175.152"; var myProductionFlag = "Yes"; var myShowWidgetsFlag = 'Yes'; var myIamPre = '';var meAlphaTopCategory = '';var meAlphaChildCategory = 'Home'; var myPageType = 'page'; myIamPre = ''; var meParentCategory = ''; var meChildCategory = 'Home'; var meGetTheTitle = 'triblive.com'; myShowWidgetsFlag = 'Page'; // change to show widget
+	var myIam = myIamPre;</script>
+<noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-PNZ6CV4" height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+
+<!-- OneTrust Cookies Consent Notice start -->
+<script data-cfasync="false" src="https://cookie-cdn.cookiepro.com/scripttemplates/otSDKStub.js" type="text/javascript" charset="UTF-8" data-domain-script="51cb34ae-6aa9-4f80-834a-1bf7ceab89ca"></script><script data-cfasync="false" type="text/javascript">function OptanonWrapper() { }</script><!-- / OneTrust Cookies Consent Notice end -->	
+
+<meta param1_adfree='' param2_admin='' param3_username='' param4_chartbeat='' param5_name=''><script defer data-cfasync="false" src="//tagan.adlightning.com/triblive/op.js"></script>
+
+<script type="text/javascript">
+var BigBox_ATF_2active; var BigBox_STF_1_NoAdxactive; var BigBox_BTF_1_NoAdxactive; var BigBox_BTF_4_NoAdxactive; var BigBox_BTF_2_NoAdxactive; var BigBox_BTF_3_NoAdxactive;
+var Sponsor_ATF_1active; var Leaderboard_ATF_1active;
+var Sponsor_BTF_1active; var Leaderboard_BTF_1_NoAdxactive;
+var Sponsor_BTF_2active; var Leaderboard_BTF_2active;
+var Sponsor_STF_1active; var Leaderboard_STF_1active;
+var BigBox_ATF_1active; var BigBox_BTF_1active;
+var BigBox_BTF_1_origamiactive; var BigBox_BTF_2_origamiactive;
+var richmediaactive; var Pencil_Leavebehind_ATFactive;
+</script>
+
+<script data-cfasync="false" src="https://www.googletagservices.com/tag/js/gpt.js"></script>
+<script>
+googletag.cmd.push(function() {
+//var type = "Desktop"; 
+let width = ""; if (document.documentElement && document.documentElement.clientWidth) {width = document.documentElement.clientWidth;} else {width = 1024;} let type = "";if ((width >0)&&(width <728)){type = "Mobile";} else if ((width>=728)&&(width<1024)){type = "Tablet";} else {type = "Desktop";}
+
+var Sponsor_BTF_1size;
+if (type == "Desktop") {Sponsor_BTF_1active = 1;Sponsor_BTF_1size = [224,90]; } else {Sponsor_BTF_1active = 0;Sponsor_BTF_1size = '224x90';}
+if (Sponsor_BTF_1active > 0){ slot8 = googletag.defineSlot('/207845991/Sponsor_BTF_1', Sponsor_BTF_1size, 'div-gpt-ad-1380843670843-8').setTargeting('test', 'lazyload').addService(googletag.pubads());}
+
+var Leaderboard_BTF_1_NoAdxsize;
+if (type == "Mobile") {Leaderboard_BTF_1_NoAdxactive = 1;Leaderboard_BTF_1_NoAdxsize = [[300,50],[320,50]]; } else if (type =="Tablet") {Leaderboard_BTF_1_NoAdxactive = 1;Leaderboard_BTF_1_NoAdxsize = [728,90]; } else if (type =="Desktop") {Leaderboard_BTF_1_NoAdxactive = 1;Leaderboard_BTF_1_NoAdxsize = [728,90]; } else {Leaderboard_BTF_1_NoAdxactive = 0;Leaderboard_BTF_1_NoAdxsize = '300x50,320x50,300x250,468x60,728x90';}
+if (Leaderboard_BTF_1_NoAdxactive > 0){ slot50 = googletag.defineSlot('/207845991/Leaderboard_BTF_1_NoAdx', Leaderboard_BTF_1_NoAdxsize, 'div-gpt-ad-1380843670843-50').setTargeting('test', 'lazyload').addService(googletag.pubads());}
+
+var Sponsor_STF_1size;
+if (type == "Desktop") {Sponsor_STF_1active = 1;Sponsor_STF_1size = [224,90]; } else {Sponsor_STF_1active = 0;Sponsor_STF_1size = '224x90';}
+if (Sponsor_STF_1active > 0){ slot53 = googletag.defineSlot('/207845991/Sponsor_STF_1', Sponsor_STF_1size, 'div-gpt-ad-1380843670843-53').setTargeting('test', 'lazyload').addService(googletag.pubads());}
+
+var Leaderboard_STF_1size;
+if (type == "Mobile") {Leaderboard_STF_1active = 1;Leaderboard_STF_1size = [[300,50],[320,50]]; } else if (type =="Tablet") {Leaderboard_STF_1active = 1;Leaderboard_STF_1size = [728,90]; } else if (type =="Desktop") {Leaderboard_STF_1active = 1;Leaderboard_STF_1size = [728,90]; } else {Leaderboard_STF_1active = 0;Leaderboard_STF_1size = '300x50,320x50,300x250,468x60,728x90';}
+if (Leaderboard_STF_1active > 0){ slot38 = googletag.defineSlot('/207845991/Leaderboard_STF_1', Leaderboard_STF_1size, 'div-gpt-ad-1380843670843-38').setTargeting('test', 'lazyload').addService(googletag.pubads());}
+
+
+var Sponsor_ATF_1size;
+if (type == "Desktop") {Sponsor_ATF_1active = 1;Sponsor_ATF_1size = [224,90]; } else {Sponsor_ATF_1active = 0;Sponsor_ATF_1size = '224x90';}
+if (Sponsor_ATF_1active > 0){ slot5 = googletag.defineSlot('/207845991/Sponsor_ATF_1', Sponsor_ATF_1size, 'div-gpt-ad-1380843670843-5').setTargeting('test', 'lazyload').addService(googletag.pubads());}
+
+var Leaderboard_ATF_1size;
+if (type == "Mobile") {Leaderboard_ATF_1active = 1;Leaderboard_ATF_1size = [[300,50],[320,50]]; } else if (type =="Tablet") {Leaderboard_ATF_1active = 1;Leaderboard_ATF_1size = [728,90]; } else if (type =="Desktop") {Leaderboard_ATF_1active = 1;Leaderboard_ATF_1size = [728,90]; } else {Leaderboard_ATF_1active = 0;Leaderboard_ATF_1size = '300x50,320x50,300x250,468x60,728x90';}
+if (Leaderboard_ATF_1active > 0){ slot35 = googletag.defineSlot('/207845991/Leaderboard_ATF_1', Leaderboard_ATF_1size, 'div-gpt-ad-1380843670843-35').setTargeting('test', 'lazyload').addService(googletag.pubads());}
+
+var Sponsor_BTF_2size;
+if (type == "Desktop") {Sponsor_BTF_2active = 1;Sponsor_BTF_2size = [224,90]; } else {Sponsor_BTF_2active = 0;Sponsor_BTF_2size = '224x90';}
+if (Sponsor_BTF_2active > 0){ slot9 = googletag.defineSlot('/207845991/Sponsor_BTF_2', Sponsor_BTF_2size, 'div-gpt-ad-1380843670843-9').setTargeting('test', 'lazyload').addService(googletag.pubads());}
+
+var Leaderboard_BTF_2size;
+if (type == "Mobile") {Leaderboard_BTF_2active = 1;Leaderboard_BTF_2size = [[300,50],[320,50]]; } else if (type =="Tablet") {Leaderboard_BTF_2active = 1;Leaderboard_BTF_2size = [728,90]; } else if (type =="Desktop") {Leaderboard_BTF_2active = 1;Leaderboard_BTF_2size = [728,90]; } else {Leaderboard_BTF_2active = 0;Leaderboard_BTF_2size = '300x50,320x50,300x250,468x60,728x90';}
+if (Leaderboard_BTF_2active > 0){ slot42 = googletag.defineSlot('/207845991/Leaderboard_BTF_2', Leaderboard_BTF_2size, 'div-gpt-ad-1380843670843-42').setTargeting('test', 'lazyload').addService(googletag.pubads());}
+
+var BigBox_ATF_1size;
+if (type == "Mobile") {BigBox_ATF_1active = 1;BigBox_ATF_1size = [300,250]	; } else if (type =="Tablet") {BigBox_ATF_1active = 1;BigBox_ATF_1size = [300,250]; } else if (type =="Desktop") {BigBox_ATF_1active = 1;BigBox_ATF_1size = [300,250]; } else {BigBox_ATF_1active = 0;BigBox_ATF_1size = '300x50,300x100,300x250';}
+if (BigBox_ATF_1active > 0){ slot11 = googletag.defineSlot('/207845991/BigBox_ATF_1', BigBox_ATF_1size, 'div-gpt-ad-1380843670843-11').setTargeting('test', 'lazyload').addService(googletag.pubads());}
+
+var BigBox_BTF_1size;
+if (type == "Mobile") {BigBox_BTF_1active = 1;BigBox_BTF_1size = [300,250]	; } else if (type =="Tablet") {BigBox_BTF_1active = 1;BigBox_BTF_1size = [300,250]; } else if (type =="Desktop") {BigBox_BTF_1active = 1;BigBox_BTF_1size = [300,250]; } else {BigBox_BTF_1active = 0;BigBox_BTF_1size = '300x50,300x100,300x250';}
+if (BigBox_BTF_1active > 0){ slot17 = googletag.defineSlot('/207845991/BigBox_BTF_1', BigBox_BTF_1size, 'div-gpt-ad-1380843670843-17').setTargeting('test', 'lazyload').addService(googletag.pubads());}
+
+var richmediasize;
+if (type == "Desktop" || type =="Tablet" || type == "Mobile") {richmediaactive = 1;richmediasize = [1,1]; } else {richmediaactive = 0;richmediasize = '[1,1]';}
+if (richmediaactive > 0){ slot3 = googletag.defineSlot('/207845991/richmedia', richmediasize, 'div-gpt-ad-1380843670843-3').setTargeting('test', 'lazyload').addService(googletag.pubads());}
+
+var Pencil_Leavebehind_ATFsize;
+if (type == "Desktop") {Pencil_Leavebehind_ATFactive = 1;Pencil_Leavebehind_ATFsize = [[978,106],[976,30],[976,300]]; } else {Pencil_Leavebehind_ATFactive = 0;Pencil_Leavebehind_ATFsize = '[[978,106],[976,30],[976,300],[976,106]]';}
+if (Pencil_Leavebehind_ATFactive > 0){ slot4 = googletag.defineSlot('/207845991/Pencil_Leavebehind_ATF', Pencil_Leavebehind_ATFsize, 'div-gpt-ad-1380843670843-4').addService(googletag.pubads()).setCollapseEmptyDiv(true,true);;}
+
+googletag.pubads().setTargeting("site","triblive.com");
+	googletag.pubads().setTargeting("cstmSctn","Homepage");
+googletag.pubads().setTargeting("conType","Page");
+googletag.pubads().setTargeting("content",["Home","ROS"]);
+googletag.pubads().setSafeFrameConfig({allowPushExpansion: true},{allowOverlayExpansion: true});
+googletag.pubads().enableAsyncRendering();
+googletag.pubads().enableSingleRequest();			
+googletag.pubads().enableLazyLoad({
+     // Fetch slots within 0 viewports.  // All slots should fetch due to above singleRequest.
+     fetchMarginPercent: 0,
+     // Render slots within 1 viewport(s).
+     renderMarginPercent: 100,
+     // 1.5x the above values on mobile, where viewports are smaller
+     // and users tend to scroll faster.
+     mobileScaling: 1.5
+});
+//DFP SB
+(function () {
+  var googletag = window.googletag = window.googletag || {};
+  googletag.cmd = googletag.cmd || [];
+
+  googletag.cmd.push(function () {
+    googletag.pubads().addEventListener('slotRenderEnded', function (event) {
+      if (!event.isEmpty) {
+        (window._matherq = window._matherq || []).push(['getTracker', function (tracker) {
+          tracker.trackUnstructEvent('Ad Impression', { eaid: event.lineItemId, ebuy: event.campaignId, eadv: event.advertiserId, ecid: event.creativeId, eenv: 'j', epid: event.slot.getAdUnitPath() || '', esid: null, size: event.size[0] + 'x' + event.size[1], rendered: event.isEmpty ? '0' : '1' });
+        }]);
+      }
+    });
+  });
+})();
+
+// Register event handlers to observe lazy loading behavior.
+googletag.pubads().addEventListener('slotRequested', function(event) {
+  updateSlotStatus(event.slot.getSlotElementId(), 'fetched');
+});
+
+googletag.pubads().addEventListener('slotOnload', function(event) {
+  updateSlotStatus(event.slot.getSlotElementId(), 'rendered');
+});
+
+googletag.pubads().addEventListener('impressionViewable', function(event) {
+      updateSlotStatus(event.slot.getSlotElementId(), ' became viewable');
+});	
+		
+// /DFP SB
+googletag.enableServices();
+});
+
+function updateSlotStatus(slotId, state) {
+	console.log(slotId + '-' + state);
+}
+</script>
+<meta name="robots" content=" follow "  data-sj-ignore />
+<!-- Google Tag Manager tags -->
+<script>
+  dataLayer = [{
+    'CMSId': '0', 'FullSection': 'home',
+    'CanonicalUrl': 'https://triblive.com/',
+    'Headline': '"Home"', 'Author': '""',
+	 'Category': '"Home"', 'SubCategory': '"Home"',	 
+    'Description': '"The Tribune-Review is a multi-platform news organization, covering the Steelers, Pirates, Penguins and Western Pennsylvania."',
+    'Published': '', 'Published_short': '', 'Updated': '',
+	 'StoryType': 'triblive',
+	 'Day_of_week': 'Wednesday', 'Month': 'November', 'Day': '22', 'Hour': '12', 'Year': '2023', 'Server': 'production', 'Domain': 'triblive.com','Testing': 'No', 'User': 'No', 'Logged': ''
+  }];
+</script>
+
+<script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':new Date().getTime(),event:'gtm.js'}); var f=d.getElementsByTagName(s)[0], j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+})(window,document,'script','dataLayer','GTM-PNZ6CV4');</script>
+<!--Google Analytics-->
+<meta name="google-site-verification" content="R3mr2OZRR41loz5akw_wESG0Mv9wUq2hZQ-nCtqnd4U" />
+<script defer data-cfasync="false" type="text/javascript">
+;(function(o) {
+        var w=window.top,a='apdAdmin',ft=w.document.getElementsByTagName('head')[0],
+        l=w.location.href,d=w.document;w.apd_options=o;
+        if(l.indexOf('disable_fi')!=-1) { console.error("disable_fi has been detected in URL. FI functionality is disabled for this page view."); return; }
+        var fiab=d.createElement('script'); fiab.type = 'text/javascript';
+        fiab.src=o.scheme+'ecdn.analysis.fi/static/js/fab.js';fiab.id='fi-'+o.websiteId;
+        ft.appendChild(fiab, ft); if(l.indexOf(a)!=-1) w.localStorage[a]=1; 
+        var aM = w.localStorage[a]==1, fi=d.createElement('script'); 
+        fi.type='text/javascript'; fi.async=true; if(aM) fi['data-cfasync']='false';
+        fi.src=o.scheme+(aM?'cdn':'ecdn') + '.firstimpression.io/' + (aM ? 'fi.js?id='+o.websiteId : 'fi_client.js');
+        ft.appendChild(fi);
+    })({ 
+        'websiteId': 6888, 
+        'scheme':    '//'
+    });
+	</script>
+<!--
+<script defer data-cfasync="false" type="text/javascript">
+    ;(function(p,l,o,w,i,n,g){if(!p[i]){p.GlobalAamNamespace=p.GlobalAamNamespace||[];
+    p.GlobalAamNamespace.push(i);p[i]=function(){(p[i].q=p[i].q||[]).push(arguments)
+    };p[i].q=p[i].q||[];n=l.createElement(o);g=l.getElementsByTagName(o)[0];n.async=1;
+    n.src=w;g.parentNode.insertBefore(n,g)}}(window,document,"script","//gadasource.storage.googleapis.com/aam.js","aamsitecertifier"));
+    window.aamsitecertifier('newTracker', 'cf', 'aamcf.aamsitecertifier.com', {idWeb: '483'});
+    window.aamsitecertifier('trackPageView');
+	</script>
+	-->
+<!--Meta tags-->
+<meta property="og:locale" content="en_US" /> 
+<meta property="og:type" content="website" />
+<meta property="og:site_name" content="TribLIVE.com" />
+<meta property="fb:app_id" content="144410955752326" />
+<meta property="article:publisher" content="https://www.facebook.com/triblive" />
+<meta name="apple-itunes-app" content="app-id=328217517" />
+<meta name="description" content="The Tribune-Review is a multi-platform news organization, covering the Steelers, Pirates, Penguins and Western Pennsylvania." />
+<meta name="keywords" content="" />
+<meta name="author" content="" />
+<meta name="mesearchType" content="page" />
+<meta name='pagetype' content='page'>
+<script defer src="https://tag.bounceexchange.com/3398/i.js"></script>
+
+
+<!--Meta property-->
+<meta property="og:title" content="Home"/>
+<meta property="og:url" content="https://triblive.com/"/>
+<meta property="og:description" content="The Tribune-Review is a multi-platform news organization, covering the Steelers, Pirates, Penguins and Western Pennsylvania." />
+<meta property="og:updated_time" content="" />
+<meta property="article:section" content="Home" />
+<meta property="article:published_time" content="" />
+<meta property="article:modified_time" content="" />
+<meta property="article:tag" content="" />
+
+
+<!--Meta name-->
+<meta name="headline" content="Home" />
+<meta name="docauthor" content="" />
+<meta name="pubdate" content=""/>
+<meta name="article:mainsection" content="Home" />
+<meta name="article:subsection" content="Home" />
+<meta name="article:category" content="Home" />
+<meta name="article:subcategory" content="Home" />
+<meta name="article:title" content="Home" />
+<meta name="article:author" content="" />
+<meta name="article:publishedtoweb" content="" />
+
+
+<!--Twitter Card-->
+<meta name="twitter:card" content="summary_large_image" />
+<meta name="twitter:image" content="https://triblive.com/wp-content/themes/TribLIVE2/assets/visuals/images/icons/head/TribLIVELogo.jpg" />
+<meta name="twitter:site" content="@triblive" />
+<meta name="twitter:site:id" content="20269833" />
+<meta name="twitter:creator" content="@triblive" />
+<meta name="twitter:title" content="Home" />
+<meta name="twitter:description" content="The Tribune-Review is a multi-platform news organization, covering the Steelers, Pirates, Penguins and Western Pennsylvania." />
+<meta name="twitter:app:name:iphone" content="TribLIVE News and Sports" />
+<meta name="twitter:app:id:iphone" content="328217517" />
+<meta name="twitter:app:url:iphone" content="tribbird://" />
+<meta name="twitter:app:name:ipad" content="TribLIVE News and Sports" />
+<meta name="twitter:app:id:ipad" content="328217517" />
+<meta name="twitter:app:url:ipad" content="tribbird:// "/>
+<link rel="canonical" href="https://triblive.com/" />
+
+<!--End meta tags-->
+
+
+<!--End Analytics module-->
+<meta name="theme-color" content="#b32025" />
+<link rel="shortcut icon" href="https://triblive.com/wp-content/themes/TribLIVE2/assets/visuals/images/icons/head/favicon.ico">
+<link rel="apple-touch-icon-precomposed" sizes="57x57" href="https://triblive.com/wp-content/themes/TribLIVE2/assets/visuals/images/icons/head/favicon-57x57.png">
+<link rel="apple-touch-icon-precomposed" sizes="60x60" href="https://triblive.com/wp-content/themes/TribLIVE2/assets/visuals/images/icons/head/favicon-60x60.png">
+<link rel="apple-touch-icon-precomposed" sizes="72x72" href="https://triblive.com/wp-content/themes/TribLIVE2/assets/visuals/images/icons/head/favicon-72x72.png">
+<link rel="apple-touch-icon-precomposed" sizes="114x114" href="https://triblive.com/wp-content/themes/TribLIVE2/assets/visuals/images/icons/head/favicon-114x114.png">
+<link rel="apple-touch-icon-precomposed" sizes="120x120" href="https://triblive.com/wp-content/themes/TribLIVE2/assets/visuals/images/icons/head/favicon-120x120.png">
+<link rel="apple-touch-icon-precomposed" sizes="144x144" href="https://triblive.com/wp-content/themes/TribLIVE2/assets/visuals/images/icons/head/favicon-144x144.png">
+<link rel="apple-touch-icon-precomposed" sizes="152x152" href="https://triblive.com/wp-content/themes/TribLIVE2/assets/visuals/images/icons/head/favicon-152x152.png">
+<link rel="icon" type="image/png" href="https://triblive.com/wp-content/themes/TribLIVE2/assets/visuals/images/icons/head/favicon-16x16.png" sizes="16x16">
+<link rel="icon" type="image/png" href="https://triblive.com/wp-content/themes/TribLIVE2/assets/visuals/images/icons/head/favicon-32x32.png" sizes="32x32">
+
+<!-- Start of TribLIVE custom styles-->
+<link href="https://triblive.com/wp-content/themes/TribLIVE2/assets/visuals/css/story.css" type="text/css" rel="stylesheet"/>
+<link href="https://triblive.com/wp-content/themes/TribLIVE2/assets/visuals/css/triblive.min.css" rel="stylesheet" type="text/css">
+<link href="https://triblive.com/wp-content/themes/TribLIVE2/assets/visuals/css/mesearch.css" rel="stylesheet" type="text/css">
+
+	<!--Internal-only style sheet-->
+<link href="https://triblive.com/wp-content/themes/TribLIVE2/assets/visuals/css/trib-custom.css" rel="stylesheet" type="text/css">
+	<!--Font license issues fixed below. First 2 echos were working until 10/22.-->
+<link href="//cloud.typenetwork.com/projects/367/fontface.css/" rel="stylesheet" type="text/css">
+
+
+<style>
+@font-face{font-family:'FontAwesome';
+src:url('https://triblive.com/wp-content/themes/TribLIVE2/assets/visuals/fonts/fontawesome-webfont.eot?v=4.6.3');
+src:url('https://triblive.com/wp-content/themes/TribLIVE2/assets/visuals/fonts/fontawesome-webfont.eot?#iefix&v=4.6.3') format('embedded-opentype'),
+url('https://triblive.com/wp-content/themes/TribLIVE2/assets/visuals/fonts/fontawesome-webfont.woff2?v=4.6.3') format('woff2'),
+url('https://triblive.com/wp-content/themes/TribLIVE2/assets/visuals/fonts/fontawesome-webfont.woff?v=4.6.3') format('woff'),
+url('https://triblive.com/wp-content/themes/TribLIVE2/assets/visuals/fonts/fontawesome-webfont.ttf?v=4.6.3') format('truetype'),
+url('https://triblive.com/wp-content/themes/TribLIVE2/assets/visuals/fonts/fontawesome-webfont.svg?v=4.6.3#fontawesomeregular') format('svg');
+
+font-weight:normal;font-style:normal}.fa{display:inline-block;font:normal normal normal 14px/1 FontAwesome;font-size:inherit;text-rendering:auto;-webkit-font-smoothing:antialiased;-moz-osx-font-smoothing:grayscale}.fa-bars:before{content:"\f0c9"}.fa-search:before{content:"\f002"}.fa-home:before{content:"\f015"}.fa-facebook:before{content:"\f09a"}.fa-print:before{content:"\f02f"}.fa-twitter:before{content:"\f099"}.fa-instagram:before{content:"\f16d"}.fa-rss:before{content:"\f09e"}.fa-chevron-right:before{content:"\f054"}.fa-chevron-down:before{content:"\f078"}.fa-chevron-left:before{content:"\f053"}.fa-newspaper-o:before{content:"\f1ea"}.fa-cloud-sun:before {content:"\f0c2";}@font-face{font-family:'open_sansregular';
+
+src:url('https://triblive.com/wp-content/themes/TribLIVE2/assets/visuals/fonts/opensans-regular-webfont.eot');
+src:url('https://triblive.com/wp-content/themes/TribLIVE2/assets/visuals/fonts/opensans-regular-webfont.eot?#iefix') format('embedded-opentype'),
+url('https://triblive.com/wp-content/themes/TribLIVE2/assets/visuals/fonts/opensans-regular-webfont.woff2') format('woff2'),
+url('https://triblive.com/wp-content/themes/TribLIVE2/assets/visuals/fonts/opensans-regular-webfont.woff') format('woff'),
+url('https://triblive.com/wp-content/themes/TribLIVE2/assets/visuals/fonts/opensans-regular-webfont.ttf') format('truetype'),
+url('https://triblive.com/wp-content/themes/TribLIVE2/assets/visuals/fonts/opensans-regular-webfont.svg#open_sansregular') format('svg');font-weight:normal; font-style:normal}@font-face{font-family:'open_sanslight';src:
+url('https://triblive.com/wp-content/themes/TribLIVE2/assets/visuals/fonts/opensans-light-webfont.eot');
+src:url('https://triblive.com/wp-content/themes/TribLIVE2/assets/visuals/fonts/opensans-light-webfont.eot?#iefix') format('embedded-opentype'),
+url('https://triblive.com/wp-content/themes/TribLIVE2/assets/visuals/fonts/opensans-light-webfont.woff2') format('woff2'),
+url('https://triblive.com/wp-content/themes/TribLIVE2/assets/visuals/fonts/opensans-light-webfont.woff') format('woff'),
+url('https://triblive.com/wp-content/themes/TribLIVE2/assets/visuals/fonts/opensans-light-webfont.ttf') format('truetype'),
+url('https://triblive.com/wp-content/themes/TribLIVE2/assets/visuals/fonts/opensans-light-webfont.svg#open_sanslight') format('svg');font-weight:normal;font-style:normal}.sl-comp-black{font-family:"Stainless Comp Bla";font-style:normal;font-weight:normal}.sl-cond-bold{font-family:"Stainless Cond Bd";font-style:normal;font-weight:normal}.sl-light{font-family:"Stainless Lt";font-style:normal;font-weight:normal}
+
+	
+/*Beginning of Fixing Logo Sizes*/
+
+/*For all instances*/
+@media all and (max-width:991.98px){
+	.extra-logo, .triblive-logo{
+		width:100%!important;
+		height:auto!important;
+	}
+}
+
+@media (min-width:992px){
+	.extra-logo{
+		width:130px!important;
+		height:auto!important;
+		max-width:100%!important;
+	}
+	.triblive-logo{
+		width:212px!important;
+		height:auto!important;
+	}
+}
+
+/*Trib Extra Instances Only*/
+@media all and (max-width:767px){
+	.header .head-min a.logo.extra-logo-link{
+		width:12%!important;
+	}
+}
+@media (min-width:768px) and (max-width:991px){
+	.header .head-min a.logo.extra-logo-link{
+		width:9%!important;
+	}
+}
+
+/*TribLIVE Instances Only*/
+@media all and (max-width:767px){
+	.header .head-min .triblive-logo-link{
+		width:20%!important;
+	}
+}
+@media (min-width:768px) and (max-width:991px){
+	.header .head-min .triblive-logo-link{
+		width:15%!important;
+	}
+}
+
+/*End of Fixing Logo Sizes*/
+	
+	
+</style>
+
+<!-- / TribLIVE custom styles-->
+
+
+
+	<!-- Chartbeat 2022 -->	
+	<script type='text/javascript'>
+    (function() {
+        /** CONFIGURATION START **/
+        var _sf_async_config = window._sf_async_config = (window._sf_async_config || {});
+        _sf_async_config.uid = 66938; 
+        _sf_async_config.domain = 'triblive.com'; // DON'T INCLUDE HTTP(S) OR WWW
+        _sf_async_config.useCanonical = true;
+        _sf_async_config.useCanonicalDomain = true;
+        _sf_async_config.sections = 'Home | Home/Home';
+		var _cbq = window._cbq = (window._cbq || []);
+        _cbq.push(['_acct', 'anon']);
+		//SET PAGE SECTION(S)
+        _sf_async_config.authors = ''; //SET PAGE AUTHOR(S)
+        /** CONFIGURATION END **/
+        function loadChartbeat() {
+            var e = document.createElement('script');
+            var n = document.getElementsByTagName('script')[0];
+            e.type = 'text/javascript';
+            e.async = true;
+            e.src = '//static.chartbeat.com/js/chartbeat.js';
+            n.parentNode.insertBefore(e, n);
+        }
+        loadChartbeat();
+     })();
+	</script>
+
+	<script async src="//static.chartbeat.com/js/chartbeat_mab.js"></script>
+	<!-- End Chartbeat 2022 -->	
+
+	
+	
+	
+	
+<!--normal header-->
+<header>
+	<div class="container">
+	  <div class="row head-top">
+  		<div class="pull-left" style="width:270px!important;">
+			<a class="btn" onclick="trib_login()"><strong>Login</strong></a>  
+		 	<a href="https://www.tribliveoffers.com/" target="_blank"><strong>SUBSCRIBE</strong></a>
+			<a href="https://signup.triblive.com/" target="_blank"><strong>NEWSLETTERS</strong></a>
+		</div>
+
+		<div class="pull-middle" style="width:270px!important; margin: 0;">
+		  	<a href="https://mediakit.triblive.com/" target="_blank">ADVERTISE</a><a style="padding-left:0px;padding-right:0px;">|</a>
+			<a href="https://pittsburghpennysaver.com/" target="_blank">CLASSIFIEDS</a><a style="padding-left:0px;padding-right:0px;">|</a>
+			<a href="https://jobs.triblive.com/" target="_blank">JOBS</a><a style="padding-left:0px;padding-right:0px;">|</a>
+			<a href="https://e.triblive.com/" target="_blank">E-TRIB</a>
+		</div>
+
+		<div class="pull-right" style="width:410px!important;">
+		  	<a href="https://tribhssn.triblive.com/" target="_blank">HIGH SCHOOL SPORTS NETWORK</a>
+			<a href="https://triblive.com/community/" target="_blank">TRIBLIVE LOCAL</a>
+		</div>
+
+
+
+	  </div>
+	</div>
+	<hr>
+
+	<div class="container">
+	  <div class="row head-mid">
+
+		<a class="mobile-menu fa fa-bars"></a>
+				<a class="logo triblive-logo-link" href="/">
+				  <img src="https://triblive.com/wp-content/themes/TribLIVE2/assets/visuals/images/icons/head/TribLIVElogo.png" alt="TribLive" width="212" class="triblive-logo" style="" >
+					<span class = "hidden-xs hidden-sm" style = "font-size: 12px !important; line-height: 1.6429; color: #727272 !important; font-family: 'open_sansregular';font-weight: normal; font-style: normal; padding: 5px 0 0 15px;"><br/>Wednesday, November 22, 2023</span>
+
+				</a>
+				<!--Start of search-->
+		<div class="search-in-head wawo wawo-ccpa" id="search-in-head">
+		  <form method="get" action="/search/" class="search-area">
+			<input class="form-control" type="text" tabindex="1" placeholder="SEARCH THE TRIB" style="text-transform:none;font-family: 'open_sansregular';" name="search" size="28" maxlength="75">
+            <div class="fa fa-search">
+			  <input class="search-now" type="submit" tabindex="2" value="Search">
+			</div>
+		  </form>
+			<span style = "font-size: 12px !important; line-height: 1.6429; color: #727272 !important; float: left; font-family: 'open_sansregular';font-weight: normal; font-style: normal; padding: 5px 0 0 15px;">Western Pennsylvania's trusted news source</span>
+		</div> <!--end of search-->
+
+
+
+
+	</div>
+
+<div class="row">
+<!--========================= PENCIL2 ============================-->
+<!-- Pencil_Leavebehind_ATF -->
+		<div id="div-gpt-ad-1380843670843-4">
+		<script defer data-cfasync = "false" >
+			// Is active?
+			//$(function() {
+				if ((typeof Pencil_Leavebehind_ATFactive !== 'undefined') &&
+					(Pencil_Leavebehind_ATFactive > 0))
+				{
+           		googletag.cmd.push(function() { googletag.display('div-gpt-ad-1380843670843-4'); });
+           	} // end active
+				//});
+		</script>
+	</div>
+      </div>
+			<!--========================= END PENCIL ============================-->
+		</div>
+	<!--</div>--> 
+  </header>
+<!--/ normal header-->
+<!--navigation-->
+<!--<div id="wrap">-->
+<!--Start head-->
+<title>Home | TribLIVE.com</title>
+		<style type="text/css">
+					.heateor_sss_button_instagram span.heateor_sss_svg,a.heateor_sss_instagram span.heateor_sss_svg{background:radial-gradient(circle at 30% 107%,#fdf497 0,#fdf497 5%,#fd5949 45%,#d6249f 60%,#285aeb 90%)}
+											.heateor_sss_horizontal_sharing .heateor_sss_svg,.heateor_sss_standard_follow_icons_container .heateor_sss_svg{
+							color: #fff;
+						border-width: 0px;
+			border-style: solid;
+			border-color: transparent;
+		}
+					.heateor_sss_horizontal_sharing .heateorSssTCBackground{
+				color:#666;
+			}
+					.heateor_sss_horizontal_sharing span.heateor_sss_svg:hover,.heateor_sss_standard_follow_icons_container span.heateor_sss_svg:hover{
+						border-color: transparent;
+		}
+		.heateor_sss_vertical_sharing span.heateor_sss_svg,.heateor_sss_floating_follow_icons_container span.heateor_sss_svg{
+							color: #fff;
+						border-width: 0px;
+			border-style: solid;
+			border-color: transparent;
+		}
+				.heateor_sss_vertical_sharing .heateorSssTCBackground{
+			color:#666;
+		}
+						.heateor_sss_vertical_sharing span.heateor_sss_svg:hover,.heateor_sss_floating_follow_icons_container span.heateor_sss_svg:hover{
+						border-color: transparent;
+		}
+		@media screen and (max-width:783px) {.heateor_sss_vertical_sharing{display:none!important}}div.heateor_sss_mobile_footer{display:none;}@media screen and (max-width:783px){div.heateor_sss_bottom_sharing .heateorSssTCBackground{background-color:white}div.heateor_sss_bottom_sharing{width:100%!important;left:0!important;}div.heateor_sss_bottom_sharing a{width:14.285714285714% !important;}div.heateor_sss_bottom_sharing .heateor_sss_svg{width: 100% !important;}div.heateor_sss_bottom_sharing div.heateorSssTotalShareCount{font-size:1em!important;line-height:24.5px!important}div.heateor_sss_bottom_sharing div.heateorSssTotalShareText{font-size:.7em!important;line-height:0px!important}div.heateor_sss_mobile_footer{display:block;height:35px;}.heateor_sss_bottom_sharing{padding:0!important;display:block!important;width:auto!important;bottom:-2px!important;top: auto!important;}.heateor_sss_bottom_sharing .heateor_sss_square_count{line-height:inherit;}.heateor_sss_bottom_sharing .heateorSssSharingArrow{display:none;}.heateor_sss_bottom_sharing .heateorSssTCBackground{margin-right:1.1em!important}}		</style>
+		<meta name='robots' content='max-image-preview:large' />
+<link rel='dns-prefetch' href='//ajax.googleapis.com' />
+<link rel='stylesheet' id='classic-theme-styles-css' href='https://triblive.com/wp-includes/css/classic-themes.min.css' type='text/css' media='all' />
+<style id='global-styles-inline-css' type='text/css'>
+body{--wp--preset--color--black: #000000;--wp--preset--color--cyan-bluish-gray: #abb8c3;--wp--preset--color--white: #ffffff;--wp--preset--color--pale-pink: #f78da7;--wp--preset--color--vivid-red: #cf2e2e;--wp--preset--color--luminous-vivid-orange: #ff6900;--wp--preset--color--luminous-vivid-amber: #fcb900;--wp--preset--color--light-green-cyan: #7bdcb5;--wp--preset--color--vivid-green-cyan: #00d084;--wp--preset--color--pale-cyan-blue: #8ed1fc;--wp--preset--color--vivid-cyan-blue: #0693e3;--wp--preset--color--vivid-purple: #9b51e0;--wp--preset--gradient--vivid-cyan-blue-to-vivid-purple: linear-gradient(135deg,rgba(6,147,227,1) 0%,rgb(155,81,224) 100%);--wp--preset--gradient--light-green-cyan-to-vivid-green-cyan: linear-gradient(135deg,rgb(122,220,180) 0%,rgb(0,208,130) 100%);--wp--preset--gradient--luminous-vivid-amber-to-luminous-vivid-orange: linear-gradient(135deg,rgba(252,185,0,1) 0%,rgba(255,105,0,1) 100%);--wp--preset--gradient--luminous-vivid-orange-to-vivid-red: linear-gradient(135deg,rgba(255,105,0,1) 0%,rgb(207,46,46) 100%);--wp--preset--gradient--very-light-gray-to-cyan-bluish-gray: linear-gradient(135deg,rgb(238,238,238) 0%,rgb(169,184,195) 100%);--wp--preset--gradient--cool-to-warm-spectrum: linear-gradient(135deg,rgb(74,234,220) 0%,rgb(151,120,209) 20%,rgb(207,42,186) 40%,rgb(238,44,130) 60%,rgb(251,105,98) 80%,rgb(254,248,76) 100%);--wp--preset--gradient--blush-light-purple: linear-gradient(135deg,rgb(255,206,236) 0%,rgb(152,150,240) 100%);--wp--preset--gradient--blush-bordeaux: linear-gradient(135deg,rgb(254,205,165) 0%,rgb(254,45,45) 50%,rgb(107,0,62) 100%);--wp--preset--gradient--luminous-dusk: linear-gradient(135deg,rgb(255,203,112) 0%,rgb(199,81,192) 50%,rgb(65,88,208) 100%);--wp--preset--gradient--pale-ocean: linear-gradient(135deg,rgb(255,245,203) 0%,rgb(182,227,212) 50%,rgb(51,167,181) 100%);--wp--preset--gradient--electric-grass: linear-gradient(135deg,rgb(202,248,128) 0%,rgb(113,206,126) 100%);--wp--preset--gradient--midnight: linear-gradient(135deg,rgb(2,3,129) 0%,rgb(40,116,252) 100%);--wp--preset--duotone--dark-grayscale: url('#wp-duotone-dark-grayscale');--wp--preset--duotone--grayscale: url('#wp-duotone-grayscale');--wp--preset--duotone--purple-yellow: url('#wp-duotone-purple-yellow');--wp--preset--duotone--blue-red: url('#wp-duotone-blue-red');--wp--preset--duotone--midnight: url('#wp-duotone-midnight');--wp--preset--duotone--magenta-yellow: url('#wp-duotone-magenta-yellow');--wp--preset--duotone--purple-green: url('#wp-duotone-purple-green');--wp--preset--duotone--blue-orange: url('#wp-duotone-blue-orange');--wp--preset--font-size--small: 13px;--wp--preset--font-size--medium: 20px;--wp--preset--font-size--large: 36px;--wp--preset--font-size--x-large: 42px;--wp--preset--spacing--20: 0.44rem;--wp--preset--spacing--30: 0.67rem;--wp--preset--spacing--40: 1rem;--wp--preset--spacing--50: 1.5rem;--wp--preset--spacing--60: 2.25rem;--wp--preset--spacing--70: 3.38rem;--wp--preset--spacing--80: 5.06rem;--wp--preset--shadow--natural: 6px 6px 9px rgba(0, 0, 0, 0.2);--wp--preset--shadow--deep: 12px 12px 50px rgba(0, 0, 0, 0.4);--wp--preset--shadow--sharp: 6px 6px 0px rgba(0, 0, 0, 0.2);--wp--preset--shadow--outlined: 6px 6px 0px -3px rgba(255, 255, 255, 1), 6px 6px rgba(0, 0, 0, 1);--wp--preset--shadow--crisp: 6px 6px 0px rgba(0, 0, 0, 1);}:where(.is-layout-flex){gap: 0.5em;}body .is-layout-flow > .alignleft{float: left;margin-inline-start: 0;margin-inline-end: 2em;}body .is-layout-flow > .alignright{float: right;margin-inline-start: 2em;margin-inline-end: 0;}body .is-layout-flow > .aligncenter{margin-left: auto !important;margin-right: auto !important;}body .is-layout-constrained > .alignleft{float: left;margin-inline-start: 0;margin-inline-end: 2em;}body .is-layout-constrained > .alignright{float: right;margin-inline-start: 2em;margin-inline-end: 0;}body .is-layout-constrained > .aligncenter{margin-left: auto !important;margin-right: auto !important;}body .is-layout-constrained > :where(:not(.alignleft):not(.alignright):not(.alignfull)){max-width: var(--wp--style--global--content-size);margin-left: auto !important;margin-right: auto !important;}body .is-layout-constrained > .alignwide{max-width: var(--wp--style--global--wide-size);}body .is-layout-flex{display: flex;}body .is-layout-flex{flex-wrap: wrap;align-items: center;}body .is-layout-flex > *{margin: 0;}:where(.wp-block-columns.is-layout-flex){gap: 2em;}.has-black-color{color: var(--wp--preset--color--black) !important;}.has-cyan-bluish-gray-color{color: var(--wp--preset--color--cyan-bluish-gray) !important;}.has-white-color{color: var(--wp--preset--color--white) !important;}.has-pale-pink-color{color: var(--wp--preset--color--pale-pink) !important;}.has-vivid-red-color{color: var(--wp--preset--color--vivid-red) !important;}.has-luminous-vivid-orange-color{color: var(--wp--preset--color--luminous-vivid-orange) !important;}.has-luminous-vivid-amber-color{color: var(--wp--preset--color--luminous-vivid-amber) !important;}.has-light-green-cyan-color{color: var(--wp--preset--color--light-green-cyan) !important;}.has-vivid-green-cyan-color{color: var(--wp--preset--color--vivid-green-cyan) !important;}.has-pale-cyan-blue-color{color: var(--wp--preset--color--pale-cyan-blue) !important;}.has-vivid-cyan-blue-color{color: var(--wp--preset--color--vivid-cyan-blue) !important;}.has-vivid-purple-color{color: var(--wp--preset--color--vivid-purple) !important;}.has-black-background-color{background-color: var(--wp--preset--color--black) !important;}.has-cyan-bluish-gray-background-color{background-color: var(--wp--preset--color--cyan-bluish-gray) !important;}.has-white-background-color{background-color: var(--wp--preset--color--white) !important;}.has-pale-pink-background-color{background-color: var(--wp--preset--color--pale-pink) !important;}.has-vivid-red-background-color{background-color: var(--wp--preset--color--vivid-red) !important;}.has-luminous-vivid-orange-background-color{background-color: var(--wp--preset--color--luminous-vivid-orange) !important;}.has-luminous-vivid-amber-background-color{background-color: var(--wp--preset--color--luminous-vivid-amber) !important;}.has-light-green-cyan-background-color{background-color: var(--wp--preset--color--light-green-cyan) !important;}.has-vivid-green-cyan-background-color{background-color: var(--wp--preset--color--vivid-green-cyan) !important;}.has-pale-cyan-blue-background-color{background-color: var(--wp--preset--color--pale-cyan-blue) !important;}.has-vivid-cyan-blue-background-color{background-color: var(--wp--preset--color--vivid-cyan-blue) !important;}.has-vivid-purple-background-color{background-color: var(--wp--preset--color--vivid-purple) !important;}.has-black-border-color{border-color: var(--wp--preset--color--black) !important;}.has-cyan-bluish-gray-border-color{border-color: var(--wp--preset--color--cyan-bluish-gray) !important;}.has-white-border-color{border-color: var(--wp--preset--color--white) !important;}.has-pale-pink-border-color{border-color: var(--wp--preset--color--pale-pink) !important;}.has-vivid-red-border-color{border-color: var(--wp--preset--color--vivid-red) !important;}.has-luminous-vivid-orange-border-color{border-color: var(--wp--preset--color--luminous-vivid-orange) !important;}.has-luminous-vivid-amber-border-color{border-color: var(--wp--preset--color--luminous-vivid-amber) !important;}.has-light-green-cyan-border-color{border-color: var(--wp--preset--color--light-green-cyan) !important;}.has-vivid-green-cyan-border-color{border-color: var(--wp--preset--color--vivid-green-cyan) !important;}.has-pale-cyan-blue-border-color{border-color: var(--wp--preset--color--pale-cyan-blue) !important;}.has-vivid-cyan-blue-border-color{border-color: var(--wp--preset--color--vivid-cyan-blue) !important;}.has-vivid-purple-border-color{border-color: var(--wp--preset--color--vivid-purple) !important;}.has-vivid-cyan-blue-to-vivid-purple-gradient-background{background: var(--wp--preset--gradient--vivid-cyan-blue-to-vivid-purple) !important;}.has-light-green-cyan-to-vivid-green-cyan-gradient-background{background: var(--wp--preset--gradient--light-green-cyan-to-vivid-green-cyan) !important;}.has-luminous-vivid-amber-to-luminous-vivid-orange-gradient-background{background: var(--wp--preset--gradient--luminous-vivid-amber-to-luminous-vivid-orange) !important;}.has-luminous-vivid-orange-to-vivid-red-gradient-background{background: var(--wp--preset--gradient--luminous-vivid-orange-to-vivid-red) !important;}.has-very-light-gray-to-cyan-bluish-gray-gradient-background{background: var(--wp--preset--gradient--very-light-gray-to-cyan-bluish-gray) !important;}.has-cool-to-warm-spectrum-gradient-background{background: var(--wp--preset--gradient--cool-to-warm-spectrum) !important;}.has-blush-light-purple-gradient-background{background: var(--wp--preset--gradient--blush-light-purple) !important;}.has-blush-bordeaux-gradient-background{background: var(--wp--preset--gradient--blush-bordeaux) !important;}.has-luminous-dusk-gradient-background{background: var(--wp--preset--gradient--luminous-dusk) !important;}.has-pale-ocean-gradient-background{background: var(--wp--preset--gradient--pale-ocean) !important;}.has-electric-grass-gradient-background{background: var(--wp--preset--gradient--electric-grass) !important;}.has-midnight-gradient-background{background: var(--wp--preset--gradient--midnight) !important;}.has-small-font-size{font-size: var(--wp--preset--font-size--small) !important;}.has-medium-font-size{font-size: var(--wp--preset--font-size--medium) !important;}.has-large-font-size{font-size: var(--wp--preset--font-size--large) !important;}.has-x-large-font-size{font-size: var(--wp--preset--font-size--x-large) !important;}
+.wp-block-navigation a:where(:not(.wp-element-button)){color: inherit;}
+:where(.wp-block-columns.is-layout-flex){gap: 2em;}
+.wp-block-pullquote{font-size: 1.5em;line-height: 1.6;}
+</style>
+<link rel='stylesheet' id='heateor_sss_frontend_css-css' href='https://triblive.com/wp-content/plugins/sassy-social-share/public/css/sassy-social-share-public.css' type='text/css' media='all' />
+<script type='text/javascript' src='//ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js' id='jquery-js'></script>
+<script defer src='https://tag.simpli.fi/sifitag/58c54340-9e85-0136-3ff3-06659b33d47c'></script>
+<script defer type="text/javascript" src="https://cdn1.opstag.com/standalone/1000001/index.js" charset="utf-8"></script>
+						 <!-- "richmedia" -->
+
+<!--<div id='div-gpt-ad-1380843670843-".$adid."' class=\"ad\">
+<script type=\"text/javascript\">
+if (".$adunitname."active > 0){
+	googletag.cmd.push(function() { 
+	googletag.display('div-gpt-ad-1380843670843-".$adid."'); });
+}</script></div>-->
+
+						
+<!--tut 2573 Yes/default-->
+<div id='div-gpt-ad-1380843670843-3' class="ad"  style='margin: 5px 0; padding: 0;'>
+						<script defer type="text/javascript">
+							if (richmediaactive > 0){
+								googletag.cmd.push(function() { 
+								googletag.display('div-gpt-ad-1380843670843-3'); });
+							}</script></div></head>
+
+<body class='news'>
+<noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-PNZ6CV4" height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+<div id='wrap'>
+<style>
+    nav .dropdown.hex-obituaries .nav-item.active, nav .dropdown.hex-tribextra .nav-item.open, nav .dropdown.hex-tribextra .mega-menu {
+    background: #4d1312eb;
+    border-bottom: none;
+}
+nav .nav-item {
+    padding: 10px 14px
+}
+
+.extramobile-show{display:none;}
+
+@media all and (max-width:991.98px){
+		.extra-hover, .chevron-hover{
+			display:none!important;
+		}
+    .extramobile-show{display:block;}
+	.fa-chevron-circle-up:link, .fa-chevron-circle-up:hover, .fa-chevron-circle-up:visited, .fa-chevron-circle-up:active {
+    margin-bottom: 40px;}
+	}
+
+/*
+div.titleBar {max-width:100% !important; overflow: hidden !important;}
+*/
+
+</style>
+<div class='menu-overlay'></div> 
+ <!--pencil removed from here-->		
+  <nav class='navbar'>
+	<div class='container'>
+	  <div class='row'>
+		<div class='search-in-nav'>
+<!--Start search form--><form method='get' action='/search/' class='search-area' id='search-area'>
+			<input class='form-control' type='text' tabindex='1' placeholder='SEARCH THE TRIB' style='text-transform:none;font-family: "open_sansregular";' name='search' size='28' maxlength='75'>
+			<div class='fa fa-search'>
+			  <input class='search-now' type='submit' tabindex='2' value='Search'>
+			</div>
+		  </form><!-- // search form-->
+		</div>
+<!--========================= HOME BUTTON ============================-->
+<div class='dropdown hex-home'>
+
+<a href='/' class='nav-item active
+' title='Home' >
+                <div class='label'>Home</div>
+                <div class='fa fa-home'></div>
+            </a>
+		</div>
+
+
+
+
+<!--========================= START OF LOCAL SECTION ============================-->
+		<div class='dropdown children hex-local'>
+		  <a href='/local/' class='nav-item
+' title='Local' >
+			<div class='label'>Local</div>
+			<div class='fa fa-chevron-right'></div>
+		  </a>
+		  <div class='mega-menu'>
+			<a href='/local/' class='front' title='Local' >Local Front</a>
+			<div class='column'>
+			  <div class='nav-sep'>- - - - -</div><a href='/local/pittsburgh/' class='' title='Pittsburgh' >Pittsburgh</a>
+<a href='/local/allegheny/' class='' title='Allegheny' >Allegheny</a>
+<a href='/local/westmoreland/' class='' title='Westmoreland' >Westmoreland</a>
+<a href='/local/westmoreland-250/' class='' title='Westmoreland 250' >Westmoreland 250</a><a href='/local/valley-news-dispatch/' class='' title='Valley News Dispatch' >Valley News Dispatch</a>
+<a href='/local/regional/' class='' title='Regional' >Regional</a>
+<a href='https://triblive.com/community/' class='' title='TribLIVE Local' ><img src="https://triblive.com/wp-content/themes/TribLIVE2/assets/visuals/images/icons/other/nnnicon.png" alt="TribLIVE Local" style = "width:25px; float:left; padding-right: 5px; padding-top: 4px;">
+TribLIVE Local</a>
+			  <div class='nav-sep'>- - - - -</div>
+			</div>
+			<div class='column'><a href='/community/bethel-park/' class='' title='Bethel Park' >Bethel Park</a><a href='/community/bridgeville/' class='' title='Bridgeville Signal Item' >Bridgeville Signal Item</a><a href='/community/fox-chapel/' class='' title='Fox Chapel Herald' >Fox Chapel Herald</a><a href='/community/hampton/' class='' title='Hampton Journal' >Hampton Journal</a><a href='/community/monroeville/' class='' title='Monroeville Times Express' >Monroeville Times Express</a>
+			</div>
+
+			<div class='column'><a href='/community/murrysville/' class='' title='Murrysville Star' >Murrysville Star</a><a href='/community/north-allegheny/' class='' title='North Allegheny Journal' >North Allegheny Journal</a><a href='/community/north-hills/' class='' title='North Hills' >North Hills</a><a href='/community/norwin/' class='' title='Norwin Star' >Norwin Star</a><a href='/community/penn-hills/' title='Penn Hills Progress'>Penn Hills Progress</a><a href='/community/penn-trafford/' class='' title='Penn-Trafford Star' >Penn-Trafford Star</a>
+			</div>
+
+			<div class='column'><a href='/community/pine-creek/' class='' title='Pine Creek Journal' >Pine Creek Journal</a><a href='/community/plum/' title='Plum Advance Leader'>Plum Advance Leader</a><a href='/local/plum-explosion/' title='Plum Explosion'>Plum Explosion</a><a href='/community/sewickley/' title='Sewickley Herald'>Sewickley Herald</a><a href='/community/shaler/' class='' title='Shaler' >Shaler</a><a href='/community/south-hills/' class='' title='South Hills' >South Hills</a>
+			</div>
+		  </div>
+		</div>
+
+
+
+
+
+<!--========================= START OF SPORTS SECTION ============================-->
+		<div class='dropdown children hex-sports'>
+		  <a href='/sports/' class='nav-item
+' title='Sports' >
+			<div class='label'>Sports</div>
+			<div class='fa fa-chevron-right'></div>
+		</a>
+		  <div class='mega-menu'>
+			<a href='/sports/' class='front' title='Sports' >Sports Front</a>
+			<div class='column'>
+			  <div class='nav-sep'>- - - - -</div><a href='/sports/steelers/' class='' title='Steelers' >Steelers/NFL</a>
+<a href='/sports/penguins/' class='' title='Penguins' >Penguins/NHL</a>
+<a href='/sports/pirates/' class='' title='Pirates' >Pirates/MLB</a>
+
+			  <div class='nav-sep'>- - - - -</div><a href='https://triblive.com/sports/sports-columnists/tim-benz/' title='Breakfast With Benz'>Breakfast With Benz</a><a href='/sports/sports-columnists/mark-madden/' class='' title='Mark Madden' >Mark Madden</a>
+
+			</div>
+
+			<div class='column'><a href='/sports/maulers/' class='' title='Maulers' >Maulers</a>
+<a href='/sports/riverhounds/' class='' title='Riverhounds' >Riverhounds</a>
+
+				  <div class='nav-sep'>- - - - -</div>
+			  <a href='https://tribhssn.triblive.com/' class='' title='High Schools' >High Schools</a>
+			  <div class='nav-sep'>- - - - -</div><a href='/sports/college/pitt/' class='' title='Pitt' >Pitt</a>
+<a href='/sports/college/penn-state/' class='' title='Penn State' >Penn State</a>
+
+			</div>
+
+			<div class='column'><a href='/sports/college/wvu/' class='' title='WVU' >WVU</a>
+<a href='/sports/college/duquesne/' class='' title='Duquesne' >Duquesne</a>
+<a href='/sports/college/robert-morris/' class='' title='Robert Morris' >Robert Morris</a>
+<a href='/sports/district-colleges/' class='' title='District Colleges' >District Colleges</a>
+
+
+			  <div class='nav-sep'>- - - - -</div><a href='/sports/outdoors/' class='' title='Outdoors' >Outdoors</a>
+
+			</div>
+
+			<div class='column'><a href='/sports/other-local/' class='' title='Other Local' >Other Local</a>
+<a href='/sports/nation-world-sports/' class='' title='Nation World Sports' >U.S./World Sports</a>
+
+					<a href='https://podcast.triblive.com/' title='Podcast Network'>Podcast Network</a> <a href='/sports/sportsbetting/' class='' title='Sports Betting' >Sports Betting</a>
+
+			</div>
+		  </div>
+		</div>
+
+
+
+
+
+<!--========================= START OF NEWS SECTION ============================-->
+
+		<div class='dropdown children hex-news'>
+		  <a href='/news/' class='nav-item
+' title='News' >
+		  <div class='label'>News</div><div class='fa fa-chevron-right'></div></a>
+
+		  <div class='mega-menu'>
+			<a href='/news/' class='front' title='News' >News Front</a>
+			<div class='column'>
+			  <div class='nav-sep'>- - - - -</div>
+<a href='https://triblive.com/local/pittsburgh/robert-bowers-trial/' class='' title='Synagogue Shooting Trial'>Synagogue Shooting Trial</a><a href='/news/pennsylvania/' class='' title='Pennsylvania' >Pennsylvania</a>
+<a href='/news/business/' class='' title='Business' >Business</a>
+<a href='/news/spotlight-pa/' class='' title='Spotlight PA' >Spotlight PA</a>
+<a href='/news/world/' class='' title='World' >U.S./World</a>
+<a href='/news/coronavirus/' class='' title='Coronavirus' >Coronavirus</a>
+<a href='/lifestyles/health-now/' class='' title='Health Now' >Health</a>
+<a href='/news/education/' class='' title='Education' >Education</a>
+
+			</div>
+
+			<div class='column'>
+<a href='/category/instagram/' title='Instagram'>Instagram</a><a href='/politics/' class='' title='Politics' >Politics</a>
+<a href='/video/' class='wawo-ccpa' title='Trib Videos' >Trib Videos</a><a href='/news/partner-news/' class='' title='Partner News' >Partner News</a>
+<a href='/news/all-stories/' class='' title='All Stories' >All Stories</a><a href='/news/videocharts/' class='wawo-ccpa' title='VideoCharts' >VideoCharts</a>
+<a href='/news/weather/' class='wawo-ccpa' title='Weather' >Weather</a>
+<a href='/news/specials/' class='' title='Special Projects' >Special Projects</a>
+			</div>
+		  </div>
+		</div>
+
+
+
+
+<!--========================= START OF OPINION SECTION ============================-->
+		<div class='dropdown children hex-opinion'>
+		  <a href='/opinion/' class='nav-item
+' title='Opinion' >
+			<div class='label'>Opinion</div>
+			<div class='fa fa-chevron-right'></div></a>
+
+		  <div class='mega-menu'>
+			<a href='/opinion/' class='front' title='Opinion' >Opinion Front</a>
+			<div class='column'>
+			  <div class='nav-sep'>- - - - -</div><a href='/opinion/opinion-columnists/' class='' title='Opinion Columnists' >Columnists</a>
+<a href='/opinion/editorials/' class='' title='Editorials' >Editorials</a>
+<a href='/opinion/cartoons/' class='' title='Cartoons' >Cartoons</a>
+
+			</div>
+
+			<div class='column'><a href='/opinion/featured-commentary/' class='' title='Featured Commentary' >Featured Commentary</a>
+<a href='/opinion/letters/' class='' title='Letters' >Letters to the Editor</a>
+<a href='/opinion/send-a-letter/' class='' title='Send a Letter' >Send a Letter</a>
+
+			</div>
+		  </div>
+		</div>
+
+
+
+
+
+<!--========================= START OF A&E SECTION ============================-->
+		<div class='dropdown children hex-a-e'>
+		<a href='/aande/' class='nav-item
+' title='A and E' >
+			<div class='label'>A&amp;E</div>
+			<div class='fa fa-chevron-right'></div></a>	  
+
+		  <div class='mega-menu'>
+			<a href='/aande/' class='front' title='A&amp;E Front' >A&amp;E Front</a>
+
+			<div class='column'>
+			  <div class='nav-sep'>- - - - -</div><a href='/aande/tv-talk-with-rob-owen/' class='' title='TV Talk with Rob Owen' >TV Talk with Rob Owen</a>
+<a href='/aande/theater-arts/' class='' title='Theater Arts' >Theater &amp; Arts</a>
+<a href='/aande/movies/' class='' title='Movies' >Movies &amp; TV</a>
+<a href='/events/' class='wawo-ccpa' title='Events' >Events</a>
+<a href='/aande/music/' class='' title='Music' >Music</a>
+
+			</div>
+
+			<div class='column'><a href='/aande/books/' class='' title='Books' >Books</a>
+<a href='/aande/more-aande/' class='' title='More AandE' >More A&amp;E</a>
+<a href='/aande/museums/' class='' title='Museums' >Art &amp; Museums</a>
+<a href='/aande/crosswords/' class='wawo-ccpa' title='Crosswords' >Crosswords</a>
+<a href='/aande/sudoku/' class='wawo-ccpa' title='Sudoku' >Sudoku</a>
+
+			</div>
+		  </div>
+		</div>
+
+
+
+
+
+<!--========================= START OF LIFESTYLES SECTION ============================-->
+		<div class='dropdown children hex-lifestyles'>
+		<a href='/lifestyles/' class='nav-item
+' title='Lifestyles' >
+			<div class='label'>Lifestyles</div>
+			<div class='fa fa-chevron-right'></div></a>	  
+
+		  <div class='mega-menu'>
+			<a href='/lifestyles/' class='front' title='Lifestyles' >Lifestyles Front</a>
+			<div class='column'>
+			  <div class='nav-sep'>- - - - -</div><a href='/lifestyles/food-drink/' class='' title='Food Drink' >Food &amp; Drink</a>
+<a href='/lifestyles/out-about/' class='' title='Out About' >Out &amp; About</a>
+<a href='/lifestyles/more-lifestyles/' class='' title='More Lifestyles' >More Lifestyles</a>
+
+			</div>
+
+			<div class='column'><a href='/lifestyles/home-garden/' class='' title='Home Garden' >Home &amp; Garden</a>
+<a href='/lifestyles/fashion/' class='' title='Fashion' >Fashion</a>
+<a href='/lifestyles/travel/' class='' title='Travel' >Travel</a>
+
+			</div>
+		  </div>
+		</div>
+
+
+
+ <!--========================= START OF VIDEO SECTION ============================-->
+	<div class='dropdown children hex-video wawo-ccpa'>
+
+		  <a href='https://video.triblive.com' class='nav-item' title='Video' >
+			<div class='label'>Video</div>
+			<div class='fa fa-chevron-right'></div></a>
+			<div class='mega-menu'>
+
+			<div class='column'>
+			  <div class='nav-sep'>- - - - -</div>
+				<a href='https://video.triblive.com' class='' title='Trib Videos' >Trib Videos</a>
+			</div>
+		  </div>
+	</div>
+
+<!--========================= START OF OBITS SECTION ============================-->
+		<div class='dropdown children hex-obituaries wawo-ccpa'>
+		  <a class='nav-item' href='https://obituaries.triblive.com/us/obituaries/triblive/browse' target='_new'>
+			<div class='label'>Obituaries</div>
+			<div class='fa fa-chevron-right'></div>
+		  </a>
+
+  		  <div class='mega-menu'>
+			<!--<a href='https://obituaries.triblive.com/obituaries/triblive/' class = 'front' title='Obituaries'><span>All Obits</span></a>-->
+			<div class='column'>
+		  <div class='nav-sep'>- - - - -</div>
+
+			<a href='https://obituaries.triblive.com/obituaries/triblive/' title='All Obituaries'><span>All Obituaries</span></a>
+
+         <a href='/obituary-stories/' class='' title='Obituary Stories' >Obituary Stories</a>
+				<!-- https://www.legacy.com/obituaries/triblive-online-only/ -->
+			<a href='https://obituaries.triblive.com/obituaries/triblive/' title='Pittsburgh Tribune-Review'><span>Pittsburgh Tribune-Review</span></a>
+				<!-- https://www.legacy.com/obituaries/triblive-tribune-review/ -->
+			<a href='https://obituaries.triblive.com/obituaries/triblive/' title='Greensburg Tribune-Review'><span>Tribune-Review</span></a>
+				<!-- -->
+			<a href='https://www.legacy.com/obituaries/triblive-valley-news-dispatch/' title='Valley News Dispatch'><span>Valley News Dispatch</span></a>
+
+			<!--Weeklies 5 -->
+
+			<!-- Carlynton https://www.legacy.com/obituaries/triblive-bridgeville/ -->
+			<a href='https://obituaries.triblive.com/obituaries/triblive/' title='Carlynton'><span>
+			Carnegie Signal Item</span></a>
+
+			<!-- Fox Chapel https://www.legacy.com/obituaries/triblive-the-herald/ -->
+			<a href='https://obituaries.triblive.com/obituaries/triblive/' title='Fox Chapel'><span>
+			Fox Chapel Herald</span></a>
+
+			<!-- Hampton https://www.legacy.com/obituaries/triblive-hampton-journal/ -->
+			<a href='https://obituaries.triblive.com/obituaries/triblive/' title='Hampton'><span>
+			Hampton Journal</span></a>
+
+			<!-- Monroeville  https://www.legacy.com/obituaries/triblive-times-express/ -->
+			<a href='https://obituaries.triblive.com/obituaries/triblive/' title='Monroeville'><span>
+			Monroeville Times Express</span></a>
+
+			<!-- Murrysville https://www.legacy.com/obituaries/triblive-murrysville-star/ -->
+			<a href='https://obituaries.triblive.com/obituaries/triblive/' title='Murrysville'><span>
+			Murrysville Star</span></a>
+			<!--End of first column-->
+</div> <div class='column'>
+			<!--Start of second column-->
+
+			<!-- North Hills https://www.legacy.com/obituaries/triblive-north-journal/ -->
+			<a href='https://obituaries.triblive.com/obituaries/triblive/' title='North Hills'><span>
+			North Journal</span></a>
+			<!-- Norwin https://www.legacy.com/obituaries/triblive-norwin-star/ -->
+			<a href='https://obituaries.triblive.com/obituaries/triblive/' title='Norwin'><span>
+			Norwin Star</span></a>
+
+			<!-- Penn Hills https://www.legacy.com/obituaries/triblive-penn-hills/ -->
+			<a href='https://obituaries.triblive.com/obituaries/triblive/' title='Penn Hills'><span>
+			Penn Hills Progress</span></a>
+
+			<!-- Penn-Trafford https://www.legacy.com/obituaries/triblive-penn-trafford-star/ -->
+			<a href='https://obituaries.triblive.com/obituaries/triblive/' title='Penn-Trafford'><span>
+			Penn-Trafford Star</span></a>
+
+			<!-- Pine Creek https://www.legacy.com/obituaries/triblive-pine-creek-journal/ -->
+			<a href='https://obituaries.triblive.com/obituaries/triblive/' title='Pine Creek'><span>
+			Pine Creek Journal</span></a>
+
+			<!-- Plum https://www.legacy.com/obituaries/triblive-advance-leader/ -->
+			<a href='https://obituaries.triblive.com/obituaries/triblive/' title='Plum'><span>
+			Plum Advance Leader</span></a>
+
+			<!-- Sewickley https://www.legacy.com/obituaries/triblive-sewickley-herald/ -->
+			<a href='https://obituaries.triblive.com/obituaries/triblive/' title='Sewickley'><span>
+			Sewickley Herald</span></a>
+
+			<!-- Shaler https://www.legacy.com/obituaries/triblive-shaler-journal/ -->
+			<a href='https://obituaries.triblive.com/obituaries/triblive/' title='Shaler'><span>
+			Shaler Journal</span></a>
+
+			<!-- South Hills https://www.legacy.com/obituaries/triblive-south-hills-record/ -->
+			<a href='https://obituaries.triblive.com/obituaries/triblive/' title='South Hills'><span>
+			South Hills Record</span></a>
+
+			<!--/ weeklies-->
+
+			</div>
+		</div>
+	</div>
+
+<!--========================= START OF RIGHT NAV ============================-->
+		<div class='navbar-right'>
+						<a class='nav-item fa fa-cloud-sun' href='/news/weather/' class = 'wawo-ccpa'></a>
+		  <a class='nav-item fa fa-facebook' href='https://www.facebook.com/triblive' target='_blank'></a>
+		  <a class='nav-item fa fa-twitter' href='https://twitter.com/TribLIVE' target='_blank'></a>
+		  <a class='nav-item fa fa-instagram' href='https://instagram.com/triblive/' target='_blank'></a>
+		</div>
+
+		<!-- touch menu additions-->
+		<div class='utility-nav'>
+			<!--location, date-->
+			<span style = "font-size: 10px !important; line-height: 1.6429; color: #727272 !important; float: left; font-family: 'open_sansregular';font-weight: normal; font-style: normal; padding: 5px 0 0 15px;">Western Pennsylvania's trusted news source<br/>Wednesday, November 22, 2023<hr/></span>
+                        <a style="font-weight:bold;font-family: 'open_sansregular';color:#2B2D2F !important;" onclick="trib_login()">Login</a>                        <a href="https://www.tribliveoffers.com/" target="_blank" style="font-weight:bold;font-family: 'open_sansregular';color:#2B2D2F !important;">SUBSCRIBE NOW</a>
+                        <a href="https://signup.triblive.com/" target="_blank" style="font-weight:bold;font-family: 'open_sansregular';color:#2B2D2F !important;">NEWSLETTERS</a>
+                        <a href="https://mediakit.triblive.com/" target="_blank" style="font-family: 'open_sansregular';color:#2B2D2F !important;">ADVERTISE</a>
+                        <a href="https://pittsburghpennysaver.com/" target="_blank" style="font-family: 'open_sansregular';color:#2B2D2F !important;">CLASSIFIEDS</a>
+                        <a href="https://jobs.triblive.com/" target="_blank" style="font-family: 'open_sansregular';color:#2B2D2F !important;">JOBS</a>
+                        <a href="https://e.triblive.com/" target="_blank" style="font-family: 'open_sansregular';color:#2B2D2F !important;">E-TRIB</a>
+                        <a href="https://tribhssn.triblive.com/" target="_blank" style="font-family: 'open_sansregular';color:#2B2D2F !important;">HIGH SCHOOL SPORTS NETWORK</a>
+                        <a href="https://triblive.com/community/" target="_blank" style="font-family: 'open_sansregular';color:#2B2D2F !important;">TRIBLIVE LOCAL</a>
+		</div>
+
+		<div class='extra-nav' style="background:black !important;">
+		  <a href='#aboutus' style="font-family: 'open_sansregular';">ABOUT US</a>
+		  <a href='#getthetrib' style="font-family: 'open_sansregular';">GET THE TRIB</a>
+		  <a href='#sections' style="font-family: 'open_sansregular';">SECTIONS</a>
+		  <a href='#termsofuse' style="font-family: 'open_sansregular';">TERMS OF USE</a>
+		  <!--<a href='http://tribtotalmedia.com/customercare/find/' target='_blank'>Where to Buy the Paper</a>-->
+		</div><!--  /obits and right-->
+		<!-- / touch menu additions-->
+	  </div>
+	</div>
+  </nav>
+<script>
+  $('.extra-nav a').on('click', function(){
+    $('.menu-overlay').removeClass( "active" );
+    $('.navbar').removeClass( "slide-in" );
+    $('body').removeClass( "lock" );
+});
+</script>
+<!--/ navigation-->
+<main><div class='container'>
+	<div class="row"><div class="col-xs-12"><div class="double-ads">
+							 <!-- "Sponsor_ATF_1" -->
+						
+<!--tut 1900 Yes/default-->
+<div id='div-gpt-ad-1380843670843-5' class="ad">
+						<script defer type="text/javascript">
+							if (Sponsor_ATF_1active > 0){
+								googletag.cmd.push(function() { 
+								googletag.display('div-gpt-ad-1380843670843-5'); });
+							}</script></div>						 <!-- "Leaderboard_ATF_1" -->
+						
+<!--tut 1900 Yes/default-->
+<div id='div-gpt-ad-1380843670843-35' class="ad">
+						<script defer type="text/javascript">
+							if (Leaderboard_ATF_1active > 0){
+								googletag.cmd.push(function() { 
+								googletag.display('div-gpt-ad-1380843670843-35'); });
+							}</script></div>	
+	</div></div></div>	
+	<!--========================= FIRST ROW (Carousel only) ======================================-->
+<div class='row'><div class='col-xs-12'>
+<!--Start of four-pack  carousel (Normal)-->
+<div class='four-pack'>
+<div class='showcase packed packed-1 section hex-news'>
+<a href='https://triblive.com/lifestyles/food-drink/turkey-rules-the-table-but-a-poll-finds-disagreement-over-other-thanksgiving-classics/'>
+<div class='photo'>
+<div class='hover' bg-srcset='https://assets-varnish.triblive.com/2023/11/6794145_web1_6794145-9ab41863b8724c8d817a4620c3301351.jpg'></div></div>
+<div class='headline'><h1 class='focus'>Turkey rules the table. But a poll finds disagreement over other Thanksgiving classics</h1>
+</div></a></div>
+<div class='showcase packed packed-2 section hex-news'>
+<a href='https://triblive.com/news/world/if-you-havent-started-your-thanksgiving-trip-youre-not-alone-the-busiest-days-are-still-to-come/'>
+<div class='photo'>
+<div class='hover' bg-srcset='https://assets-varnish.triblive.com/2023/11/6794112_web1_6794112-707d08bd82b64a9685697e5372420a96.jpg'></div></div>
+<div class='headline'><h2 class='focus'>If you haven't started your Thanksgiving trip, you're not alone</h2>
+</div></a></div>
+<div class='showcase packed packed-3 section hex-news'>
+<a href='https://triblive.com/local/westmoreland/westmoreland-250-10-things-to-see-in-rostraver/'>
+<div class='photo'>
+<div class='hover' bg-srcset='https://assets-varnish.triblive.com/2023/11/6790292_web1_gtr-250rostraver.jpg'></div></div>
+<div class='headline'><h2 class='focus'>Westmoreland 250: 10 things to see in Rostraver</h2>
+</div></a></div>
+<div class='showcase packed packed-4 section hex-news'>
+<a href='https://triblive.com/local/regional/triblive-front-pages-from-the-day-of-john-f-kennedys-assassination/'>
+<div class='photo'>
+<div class='hover' bg-srcset='https://assets-varnish.triblive.com/2023/11/6794172_web1_6794079-39517e6a57514154840a5756b2b8fe57.jpg'></div></div>
+<div class='headline'><h2 class='focus'>TribLive front pages from President John F. Kennedy's assassination</h2>
+</div></a></div>
+
+</div>
+<!-- / four-pack (carousel) -->
+</div></div><!-- / row --><!--/col-xs-12-->
+
+
+<!-- Begin Promo Area -->
+	<!-- End Promo Area -->
+
+
+<!-- Begin Promo Area -->
+<!-- End Promo Area -->
+
+
+<!--========================= SECOND ROW  ======================================-->
+<div class='row'>
+<div class='col-lg-6 col-md-6 col-sm-8 section hex-sports push-down hide-last-line'>
+<div class='top'><a href='/sports/'>Sports</a></div>
+<div style='width:100%;padding-bottom:10px;'> 
+<a href='https://triblive.com/sports/sports-columnists/tim-benz/'>
+<img src='https://triblive.com/wp-content/themes/TribLIVE2/assets/visuals/images/mugshots/BreakfastWithBenzPromo.jpg' title='Tim Benz' alt='Tim Benz' style='width:100%;padding-top:10px;'></a></div><!--/ Benz promo-->
+<div class='preview left-half '> <a href='https://triblive.com/sports/its-sad-hes-a-great-guy-steelers-players-react-to-firing-of-matt-canada/'> <div class='photo'>
+<div class='hover' bg-srcset='https://assets-varnish.triblive.com/2023/11/6794748_web1_ptr-Steelers05-052423.jpg'></div> </div>
+<div class='headline'> <h3 class='focus'>‘It’s sad. He’s a great guy’ – Steelers players react to firing of Matt Canada</h3><div class='byline'>Chris Adamski</div> </div> </a> </div>
+<div class='preview left-half '> <a href='https://triblive.com/sports/mark-madden-the-steelers-scapegoat-is-gone-but-will-that-make-kenny-pickett-play-better/'> <div class='photo'>
+<div class='hover' bg-srcset='https://assets-varnish.triblive.com/2023/11/6790185_web1_ptr-SteelersBrowns17-112023jpg.jpg'></div> </div>
+<div class='headline'> <h3 class='focus'>Mark Madden: The Steelers' scapegoat is gone, but will that make Kenny Pickett play better?</h3><div class='byline'>Mark Madden</div> </div> </a> </div>
+<div class='preview head-only'><a href='https://triblive.com/sports/tim-benz-matt-canada-fired-now-so-mike-tomlin-can-protect-kenny-pickett/'><h5 class='focus'>Tim Benz: Matt Canada fired now so Mike Tomlin can protect Kenny Pickett</h5></a></div>
+<div class='preview head-only'><a href='https://triblive.com/sports/after-firing-matt-canada-mike-tomlin-only-focused-on-short-term-results-with-qb-kenny-pickett/'><h5 class='focus'>After firing Matt Canada, Mike Tomlin only focused on short-term results with QB Kenny Pickett</h5></a></div>
+<div class='preview head-only'><a href='https://triblive.com/sports/first-call-odds-on-who-may-replace-matt-canada-as-steelers-offensive-coordinator-potential-ilb-candidate-for-steelers/'><h5 class='focus'>First Call: Odds on who may replace Matt Canada as Steelers offensive coordinator; potential ILB candidate for Steelers</h5></a></div>
+<div class='preview head-only'><a href='https://triblive.com/sports/eddie-faulkner-mike-sullivan-set-to-share-responsibilities-after-steelers-fire-oc-matt-canada/'><h5 class='focus'>Eddie Faulkner, Mike Sullivan to share responsibilities after Steelers fire OC Matt Canada</h5></a></div>
+<div class='preview head-only'><a href='https://triblive.com/sports/what-took-so-long-steeler-fans-praise-firing-of-offensive-coordinator-matt-canada/'><h5 class='focus'>'All for it,' Steelers fans praise Matt Canada firing</h5></a></div>
+<div class='preview head-only'><a href='https://triblive.com/sports/pirates-a-to-z-with-better-bat-gold-glove-3b-kebryan-hayes-becoming-a-complete-player/'><h5 class='focus'>Pirates A to Z: With better bat, Gold Glove 3B Ke'Bryan Hayes becoming a complete player</h5></a></div>
+<div class='preview head-only'><a href='https://triblive.com/sports/nate-yarnell-bub-means-hope-to-grow-their-unspoken-bond-when-pitt-concludes-season-at-duke/'><h5 class='focus'>Nate Yarnell, Bub Means hope to grow their unspoken bond when Pitt concludes season at Duke</h5></a></div>
+<a href='/sports/' class='button' alt='sports'>More sports ></a><br/><br/></div><!--/ left column col-lg-6-->
+<!-- Middle column - Top stories-->
+<div class='col-lg-2 col-md-2 col-sm-4'>
+<div class='section hex-news push-down hide-last-line'>
+<div class='top'><a href='https://triblive.com/news/top-stories/'>Top Stories</a></div><div class='pad-inside'>
+<div class='preview breaking'><a href='https://triblive.com/local/regional/holiday-spending-expected-to-grow-as-discounts-flexible-spending-plans-heat-up/'><div class='focus'>Holiday spending expected to grow as discounts, flexible spending plans heat up</div>
+</a></div>
+<div class='preview breaking'><a href='https://triblive.com/local/regional/what-local-stores-are-open-and-closed-on-thanksgiving/'><div class='focus'>What local stores are open and closed on Thanksgiving?</div>
+</a></div>
+<div class='preview breaking'><a href='https://triblive.com/news/world/israel-and-hamas-agree-on-truce-to-free-hostages-in-swap-raising-hopes-of-halting-war-in-gaza/'><div class='focus'>Israel and Hamas agree on truce to free hostages in swap, raising hopes of halting war in Gaza</div>
+</a></div>
+<div class='preview breaking'><a href='https://triblive.com/local/regional/bicyclist-killed-on-route-19-in-cranberry/'><div class='focus'>Bicyclist killed on Route 19 in Cranberry</div>
+</a></div>
+<div class='preview breaking'><a href='https://triblive.com/local/regional/morning-roundup-train-strikes-car-in-homestead-coyotes-in-pittsburgh-skid-steer-stolen-in-shaler/'><div class='focus'>Morning Roundup: Train strikes car in Homestead; coyotes in Pittsburgh; skid-steer stolen in Shaler</div>
+</a></div>
+<div class='preview breaking'><a href='https://triblive.com/local/valley-news-dispatch/western-pa-lawmakers-call-for-increased-service-at-locks-and-dams-on-allegheny-river/'><div class='focus'>Western Pa. lawmakers call for increased service at locks and dams on Allegheny River</div>
+</a></div>
+<div class='preview breaking'><a href='https://triblive.com/news/politics-election/federal-judge-mail-in-ballots-missing-handwritten-date-must-still-be-counted/'><div class='focus'>Federal judge: Mail-in ballots missing handwritten date must still be counted</div>
+</a></div>
+<div class='preview breaking'><a href='https://triblive.com/local/car-crashes-into-knoxville-home-and-catches-fire-displacing-residents/'><div class='focus'>Car crashes into Knoxville home and catches fire, displacing residents</div>
+</a></div>
+<div class='preview breaking'><a href='https://triblive.com/local/valley-news-dispatch/1-dead-in-kiski-township-crash/'><div class='focus'>1 dead in South Bend Township crash</div>
+</a></div>
+</div></div></div><!--/  Middle column - Breaking stories-->
+<!--Needed for mobile--><div class='col-sm-12 visible-sm-block'><hr/></div>
+<!--#######################Right column##################-->
+<!--first--><div class='col-lg-4 col-md-4 col-sm-12 col-xs-12'>
+<div style ='padding-top: 10px;'><a href='/aande/tv-talk-with-rob-owen/'><img src='https://triblive.com/wp-content/themes/TribLIVE2/assets/visuals/images/icons/other/tv-talk-banner.jpg' title='TV Talk with Rob Owen' alt='TV Talk with Rob Owen' style='min-width:90%;'></a><br />
+<a href='mailto:multimedia@triblive.com?subject=TribLIVE-UGC: News content from the public!&body=This is where you type your content. Please include all photos and video.'><img src='https://triblive.com/wp-content/themes/TribLIVE2/assets/visuals/images/icons/other/GotNewsBannerCamera.png' title='UGC' alt='UGC Here' style='padding-top: 10px;min-width:90%;'></a>
+</div><div class='ad'>
+	<!--<div class="ad push-down" style="padding-top:0px;"> -->
+							 <!-- "BigBox_ATF_1" -->
+						
+<!--tut 2061Yes/default-->
+<div id='div-gpt-ad-1380843670843-11' class="ad">
+						<script defer type="text/javascript">
+							if (BigBox_ATF_1active > 0){
+								googletag.cmd.push(function() { 
+								googletag.display('div-gpt-ad-1380843670843-11'); });
+							}</script></div>	<!--</div>-->
+	</div><!--</div>--><!-- / ad unit bits-->
+<script src="https://triblive.com/wp-content/themes/TribLIVE2/assets/visuals/players/handlebars.js"></script><!--Editor's picks 11/11-->
+<div class='section hex-news push-down hide-last-line'>
+<div class='top'><a href='https://triblive.com/news/editors-picks/'>Editor's Picks</a></div><!--Horizontal photo--><div class='preview  photo-above '  ><a href='https://triblive.com/local/north-hills/catch-of-the-day-kretzlers-famous-fish-sandwich-available-in-hampton-restaurant/'><div class='above'><div class='photo'><div class='hover' bg-srcset='https://assets-varnish.triblive.com/2023/11/6791757_web1_PTR-Kretzler-1.jpg'></div></div></div><h4 class='focus'>Catch of the day: Kretzler’s famous fish sandwich available in Hampton restaurant</h4></a></div><!-- //Horizontal photo--><div class='preview ' ><a class='standard' href='https://triblive.com/aande/music/bushs-gavin-rossdale-on-greatest-hits-album-glycerine-and-new-music/'><div class='focus'>Bush's Gavin Rossdale on greatest hits album, 'Glycerine' and new music&nbsp;<div class='fa fa-video-camera'></div></div></a></div><div class='preview ' ><a class='standard' href='https://triblive.com/local/westmoreland/westmoreland-250-10-things-to-see-in-rostraver/'><div class='focus'>Westmoreland 250: 10 things to see in Rostraver</div></a></div><div class='preview ' ><a class='standard' href='https://triblive.com/lifestyles/food-drink/6-tips-for-eating-as-much-as-you-can-on-thanksgiving/'><div class='focus'>6 tips for eating as much as you can on Thanksgiving</div></a></div><div class='preview ' ><a class='standard' href='https://triblive.com/aande/movies-tv/tv-talk-westen-pa-doctor-competes-on-squid-game-tamburitzans-back-on-wqed-tv/'><div class='focus'>TV Talk: Western Pa. doctor competes on ‘Squid Game;’ Tamburitzans back on WQED-TV&nbsp;<div class='fa fa-video-camera'></div></div></a></div><a href='https://triblive.com/news/editors-picks/' title='Editors Picks' class='button' style='margin-bottom: 10px;'>More Editor's Picks &gt;</a>
+</div>
+      </div> <!--/ closes hex-news-->
+</div><!-- closes col-md-12 col-sm-6 col-xs-12 -->
+<!-- END RIGHT #############################-->
+	<div class="row"><div class="col-xs-12"><div class="double-ads">
+							 <!-- "Sponsor_STF_1" -->
+						
+<!--tut 1900 Yes/default-->
+<div id='div-gpt-ad-1380843670843-53' class="ad">
+						<script defer type="text/javascript">
+							if (Sponsor_STF_1active > 0){
+								googletag.cmd.push(function() { 
+								googletag.display('div-gpt-ad-1380843670843-53'); });
+							}</script></div>						 <!-- "Leaderboard_STF_1" -->
+						
+<!--tut 1900 Yes/default-->
+<div id='div-gpt-ad-1380843670843-38' class="ad">
+						<script defer type="text/javascript">
+							if (Leaderboard_STF_1active > 0){
+								googletag.cmd.push(function() { 
+								googletag.display('div-gpt-ad-1380843670843-38'); });
+							}</script></div>	
+	</div></div></div>	
+	<!--========================= THIRD ROW  ======================================-->
+<div class='row'>
+<div class='col-md-4 col-sm-6 col-xs-12'>
+<div class='section hex-local push-down hide-last-line'>
+<!-- First module-->
+<div class='top'><a href='https://triblive.com/local/pittsburgh/'>Pittsburgh</a></div><!--Horizontal photo--><div class='preview  photo-above '  ><a href='https://triblive.com/local/pittsburgh-seeks-volunteer-snow-shovelers-to-help-keep-sidewalks-clear-in-winter/'><div class='above'><div class='photo'><div class='hover' bg-srcset='https://assets-varnish.triblive.com/2023/11/6791449_web1_ptr-snow004-011822.jpg'></div></div></div><h4 class='focus'>Pittsburgh seeks volunteer snow-shovelers to help keep sidewalks clear in winter</h4></a></div><!-- //Horizontal photo--><div class='preview ' ><a class='standard' href='https://triblive.com/local/car-crashes-into-knoxville-home-and-catches-fire-displacing-residents/'><div class='focus'>Car crashes into Knoxville home and catches fire, displacing residents</div></a></div><div class='preview ' ><a class='standard' href='https://triblive.com/news/politics-election/federal-judge-mail-in-ballots-missing-handwritten-date-must-still-be-counted/'><div class='focus'>Federal judge: Mail-in ballots missing handwritten date must still be counted</div></a></div><div class='preview ' ><a class='standard' href='https://triblive.com/local/valley-news-dispatch/pittsburgh-detectives-who-took-down-brackenridge-chiefs-killer-lauded-alongside-their-peers/'><div class='focus'>Pittsburgh detectives who took down Brackenridge chief's killer lauded alongside their peers</div></a></div><div class='preview ' ><a class='standard' href='https://triblive.com/local/pittsburgh-police-poised-to-open-new-downtown-substation-next-year/'><div class='focus'>Pittsburgh police poised to open new Downtown substation next year</div></a></div><a href='https://triblive.com/local/pittsburgh/' title='Pittsburgh' class='button' style='margin-bottom: 10px;'>More Pittsburgh &gt;</a>
+</div></div> <!-- / First module-->
+<!-- Second module-->
+<div class='col-md-4 col-sm-6 col-xs-12'>
+<div class='section hex-local push-down hide-last-line'>
+<div class='top'><a href='https://triblive.com/local/westmoreland/'>Westmoreland</a></div><!--Horizontal photo--><div class='preview  photo-above '  ><a href='https://triblive.com/local/westmoreland/greensburg-garden-center-gears-up-for-annual-holiday-sale/'><div class='above'><div class='photo'><div class='hover' bg-srcset='https://assets-varnish.triblive.com/2023/11/6791857_web1_gtr-GGCHolidaySale02-112323.jpg'></div></div></div><h4 class='focus'>Greensburg Garden Center gears up for annual holiday sale</h4></a></div><!-- //Horizontal photo--><div class='preview ' ><a class='standard' href='https://triblive.com/local/westmoreland/murrysville-man-receives-jail-sentence-for-assaulting-woman-in-2022/'><div class='focus'>Murrysville man receives jail sentence for assaulting woman in 2022</div></a></div><div class='preview ' ><a class='standard' href='https://triblive.com/local/westmoreland/yough-helping-hands-foundation-holds-thanksgiving-meal-distribution/'><div class='focus'>Yough Helping Hands Foundation holds Thanksgiving meal distribution</div></a></div><div class='preview ' ><a class='standard' href='https://triblive.com/local/westmoreland/westmoreland-250-10-things-to-see-in-rostraver/'><div class='focus'>Westmoreland 250: 10 things to see in Rostraver</div></a></div><div class='preview ' ><a class='standard' href='https://triblive.com/local/westmoreland/malfunctioning-machine-causes-minor-fire-at-arbco-industries-in-murrysville-no-one-hurt/'><div class='focus'>Malfunctioning machine causes minor fire at Arbco Industries in Murrysville, no one hurt</div></a></div><a href='https://triblive.com/local/westmoreland/' title='Westmoreland' class='button' style='margin-bottom: 10px;'>More Westmoreland &gt;</a>
+</div></div> <!-- / Second module-->
+<!-- Third module-->
+<div class='col-md-4 col-sm-6 col-xs-12'>
+<div class='section hex-local push-down hide-last-line'>
+<div class='top'><a href='https://triblive.com/local/valley-news-dispatch/'>Valley News Dispatch</a></div><!--Horizontal photo--><div class='preview  photo-above '  ><a href='https://triblive.com/local/valley-news-dispatch/western-pa-lawmakers-call-for-increased-service-at-locks-and-dams-on-allegheny-river/'><div class='above'><div class='photo'><div class='hover' bg-srcset='https://assets-varnish.triblive.com/2023/11/6791754_web1_vnd-kuklisriver.jpg'></div></div></div><h4 class='focus'>Western Pa. lawmakers call for increased service at locks and dams on Allegheny River</h4></a></div><!-- //Horizontal photo--><div class='preview ' ><a class='standard' href='https://triblive.com/local/valley-news-dispatch/allegheny-township-police-latest-to-accuse-contractor-of-taking-money-for-work-he-didnt-do/'><div class='focus'>Allegheny Township police latest to accuse contractor of taking money for work he didn't do</div></a></div><div class='preview ' ><a class='standard' href='https://triblive.com/local/valley-news-dispatch/1-dead-in-kiski-township-crash/'><div class='focus'>1 dead in South Bend Township crash</div></a></div><div class='preview ' ><a class='standard' href='https://triblive.com/local/valley-news-dispatch/west-deer-approves-leto-compressor-station-despite-resident-pushback/'><div class='focus'>West Deer approves Leto compressor station despite resident pushback</div></a></div><div class='preview ' ><a class='standard' href='https://triblive.com/local/valley-news-dispatch/no-tax-increase-in-oakmont-proposed-budget/'><div class='focus'>No tax increase in Oakmont proposed budget</div></a></div><a href='https://triblive.com/local/valley-news-dispatch/' title='Valley News Dispatch' class='button' style='margin-bottom: 10px;'>More Valley News Dispatch &gt;</a>
+</div></div> <!-- / Third module-->
+<div class='sm-hr'><hr></div>
+</div> <!--/ row-->
+<!--videos module - home page--><div class='row'><div class='col-xs-12'>
+<div class="section hex-sports push-down hide-last-line">
+</div>
+
+<!-- ########################-->
+<!-- START OF VIDEOS 10/16/20-->
+<!-- <div class='row'> --><div class='col-xs-12' style = 'margin-bottom: 20px;'>
+
+<!--SendToNews [Sports] for (Sports) -->
+<!--Home page player-->
+<div class='s2nPlayer vIM6lqgG s2nPlayer-vIM6lqgG' data-type='float' data-s2n-api='setupS2NApi'  style = ' padding-bottom: 20px; margin-bottom: 10px;'  ></div>
+<!-- </div> --></div><!-- /close row and 12-->
+<!-- END OF VIDEOS-->
+</div></div> <!--End videos module-->
+<!--========================= Events ROW  ======================================-->
+<!--evvnts module - home page-->
+<div class='row'><div class='col-xs-12'>
+<div class="section hex-a-e push-down hide-last-line">
+<div class = "top"><a href="/events/">Events</a></div></div>
+<!--evvnts enabled-->
+<div id="evvnt-calendar-widget"></div>
+</div></div> <!--End evvnts module-->
+<!--========================= FOURTH ROW  ======================================-->
+<div class='row'>
+<div class='col-md-4 col-sm-6 col-xs-12'>
+<div class='section hex-local push-down hide-last-line'>
+<!-- First module-->
+<div class='top'><a href='/local/allegheny/'>Allegheny</a></div><!--Horizontal photo--><div class='preview  photo-above '  ><a href='https://triblive.com/news/politics-election/federal-judge-mail-in-ballots-missing-handwritten-date-must-still-be-counted/'><div class='above'><div class='photo'><div class='hover' bg-srcset='https://assets-varnish.triblive.com/2023/11/6792069_web1_AP22136722532426.jpg'></div></div></div><h4 class='focus'>Federal judge: Mail-in ballots missing handwritten date must still be counted</h4></a></div><!-- //Horizontal photo--><div class='preview ' ><a class='standard' href='https://triblive.com/local/sewickley/quaker-valley-school-district-negotiating-new-contract-with-teachers/'><div class='focus'>Quaker Valley School District negotiating new contract with teachers</div></a></div><div class='preview ' ><a class='standard' href='https://triblive.com/news/partner-news/local-home-buying-company-goes-above-and-beyond-for-tired-landlord/'><div class='focus'>Local home-buying company goes above and beyond for tired landlord</div></a></div><div class='preview ' ><a class='standard' href='https://triblive.com/sports/steelers/cam-heyward-pittsburgh-steelers-hand-out-turkeys/'><div class='focus'>Cam Heyward, Steelers players hand out turkeys&nbsp;<div class='fa fa-video-camera'></div></div></a></div><div class='preview ' ><a class='standard' href='https://triblive.com/local/mckeesport-mayor-arrested-jailed-in-nashville/'><div class='focus'>McKeesport mayor arrested, jailed in Nashville</div></a></div><a href='https://triblive.com/local/allegheny/' title='Allegheny' class='button' style='margin-bottom: 10px;'>More Allegheny &gt;</a>
+</div></div> <!-- / First module-->
+<!-- Second module-->
+<div class='col-md-4 col-sm-6 col-xs-12'>
+<div class='section hex-news push-down hide-last-line'>
+<div class='top'><a href='https://triblive.com/local/regional/'>Regional</a></div><!--Horizontal photo--><div class='preview  photo-above '  ><a href='https://triblive.com/local/regional/bicyclist-killed-on-route-19-in-cranberry/'><div class='above'><div class='photo'><div class='hover' bg-srcset='https://assets-varnish.triblive.com/2023/11/6794491_web1_WEB-police-car-local-2021.jpg'></div></div></div><h4 class='focus'>Bicyclist killed on Route 19 in Cranberry</h4></a></div><!-- //Horizontal photo--><div class='preview ' ><a class='standard' href='https://triblive.com/local/regional/triblive-front-pages-from-the-day-of-john-f-kennedys-assassination/'><div class='focus'>TribLive front pages from the day of President John F. Kennedy's assassination</div></a></div><div class='preview ' ><a class='standard' href='https://triblive.com/local/regional/morning-roundup-train-strikes-car-in-homestead-coyotes-in-pittsburgh-skid-steer-stolen-in-shaler/'><div class='focus'>Morning Roundup: Train strikes car in Homestead; coyotes in Pittsburgh; skid-steer stolen in Shaler</div></a></div><div class='preview ' ><a class='standard' href='https://triblive.com/local/regional/holiday-spending-expected-to-grow-as-discounts-flexible-spending-plans-heat-up/'><div class='focus'>Holiday spending expected to grow as discounts, flexible spending plans heat up</div></a></div><div class='preview ' ><a class='standard' href='https://triblive.com/local/regional/upmc-reports-177m-loss-so-far-this-year/'><div class='focus'>UPMC reports $177M loss so far this year</div></a></div><a href='https://triblive.com/local/regional/' title='Regional' class='button' style='margin-bottom: 10px;'>More Regional &gt;</a>
+</div></div> <!-- / Second module-->
+<!-- Third module-->
+<div class='col-md-4 col-sm-6 col-xs-12'>
+<div class='section hex-news push-down hide-last-line'>
+<div class='top'><a href='https://triblive.com/news/pennsylvania/'>Pennsylvania</a></div><!--Horizontal photo--><div class='preview  photo-above '  ><a href='https://triblive.com/news/pennsylvania/pennsylvania-governor-appeals-decision-blocking-plan-to-make-power-plants-pay-for-greenhouse-gases/'><div class='above'><div class='photo'><div class='hover' bg-srcset='https://assets-varnish.triblive.com/2023/11/6793400_web1_6725497-21d7a48330d346e6a1e5e00d8084bdcb.jpg'></div></div></div><h4 class='focus'>Pennsylvania governor appeals decision blocking plan to make power plants pay for greenhouse gases</h4></a></div><!-- //Horizontal photo--><div class='preview ' ><a class='standard' href='https://triblive.com/news/pennsylvania/pa-lawmakers-to-get-early-holiday-gift-a-pay-increase-will-bump-base-salary-to-106k/'><div class='focus'>Pa. lawmakers to get early holiday gift: a pay increase will bump base salary to $106k</div></a></div><div class='preview ' ><a class='standard' href='https://triblive.com/news/pennsylvania/shapiro-says-unfinished-business-includes-vouchers-more-school-funding-and-higher-minimum-wage/'><div class='focus'>Shapiro says unfinished business includes vouchers, more school funding and higher minimum wage</div></a></div><div class='preview ' ><a class='standard' href='https://triblive.com/news/pennsylvania/satanic-temple-after-school-club-wins-200k-settlement-from-pennsylvania-school-district/'><div class='focus'>Satanic Temple after-school club wins $200k settlement from Pennsylvania school district</div></a></div><div class='preview ' ><a class='standard' href='https://triblive.com/news/world/bill-cosby-accuser-files-new-lawsuit-under-expiring-new-york-survivors-law/'><div class='focus'>Bill Cosby accuser files new lawsuit under expiring New York survivors law</div></a></div><a href='https://triblive.com/news/pennsylvania/' title='Pennsylvania' class='button' style='margin-bottom: 10px;'>More Pennsylvania &gt;</a>
+</div></div> <!-- / Third module-->
+<div class='sm-hr'><hr></div>
+</div> <!--/ row-->
+	<div class="row"><div class="col-xs-12"><div class="double-ads">
+							 <!-- "Sponsor_BTF_1" -->
+						
+<!--tut 1900 Yes/default-->
+<div id='div-gpt-ad-1380843670843-8' class="ad">
+						<script defer type="text/javascript">
+							if (Sponsor_BTF_1active > 0){
+								googletag.cmd.push(function() { 
+								googletag.display('div-gpt-ad-1380843670843-8'); });
+							}</script></div>						 <!-- "Leaderboard_BTF_1_NoAdx" -->
+						
+<!--tut 1900 Yes/default-->
+<div id='div-gpt-ad-1380843670843-50' class="ad">
+						<script defer type="text/javascript">
+							if (Leaderboard_BTF_1_NoAdxactive > 0){
+								googletag.cmd.push(function() { 
+								googletag.display('div-gpt-ad-1380843670843-50'); });
+							}</script></div>	
+	</div></div></div>	
+	<!--========================= FIFTH ROW  ======================================-->
+<div class='row'>
+<!-- First module-->
+<div class='col-md-4 col-sm-6 col-xs-12'>
+<div class='section hex-news push-down hide-last-line'>
+<!--Politics Election is an unknown page-->
+<div class='top'><a href='/news/politics/'>Politics</a></div><!--Horizontal photo--><div class='preview  photo-above '  ><a href='https://triblive.com/news/politics-election/federal-judge-mail-in-ballots-missing-handwritten-date-must-still-be-counted/'><div class='above'><div class='photo'><div class='hover' bg-srcset='https://assets-varnish.triblive.com/2023/11/6792069_web1_AP22136722532426.jpg'></div></div></div><h4 class='focus'>Federal judge: Mail-in ballots missing handwritten date must still be counted</h4></a></div><!-- //Horizontal photo--><div class='preview ' ><a class='standard' href='https://triblive.com/news/pennsylvania/shapiro-says-unfinished-business-includes-vouchers-more-school-funding-and-higher-minimum-wage/'><div class='focus'>Shapiro says unfinished business includes vouchers, more school funding and higher minimum wage</div></a></div><div class='preview ' ><a class='standard' href='https://triblive.com/news/pennsylvania/pa-lawmakers-to-get-early-holiday-gift-a-pay-increase-will-bump-base-salary-to-106k/'><div class='focus'>Pa. lawmakers to get early holiday gift: a pay increase will bump base salary to $106k</div></a></div><div class='preview ' ><a class='standard' href='https://triblive.com/news/politics-election/letter-calling-for-ceasefire-in-israel-hamas-war-draws-support-from-more-than-130-pittsburgh-jews/'><div class='focus'>Calls for ceasefire in Israel-Hamas war draws support from group of Pittsburgh Jews</div></a></div><div class='preview ' ><a class='standard' href='https://triblive.com/news/world/voters-back-abortion-rights-but-some-foes-wont-relent-is-the-commitment-to-democracy-in-question/'><div class='focus'>Voters back abortion rights, but some foes won’t relent. Is the commitment to democracy in question?</div></a></div><a href='https://triblive.com/politics/' title='Politics' class='button' style='margin-bottom: 10px;'>More Politics &gt;</a>
+</div></div> <!-- / Second module-->
+<!-- Second module-->
+<div class='col-md-4 col-sm-6 col-xs-12'>
+<div class='section hex-local push-down hide-last-line'>
+<div class='top'><a href='https://triblive.com/opinion/'>Opinion</a></div><!--Horizontal photo--><div class='preview  photo-above '  ><a href='https://triblive.com/opinion/mayor-ed-gainey-grateful-for-the-people-who-make-pittsburgh-the-greatest/'><div class='above'><div class='photo'><div class='hover' bg-srcset='https://assets-varnish.triblive.com/2023/11/6779502_web1_ptr-Gainey03-100623.jpg'></div></div></div><h4 class='focus'>Mayor Ed Gainey: Grateful for the people who make Pittsburgh the greatest</h4></a></div><!-- //Horizontal photo--><div class='preview ' ><a class='standard' href='https://triblive.com/opinion/editorial-thanksgiving-is-gratitude-and-empathy/'><div class='focus'>Editorial: Thanksgiving is gratitude and empathy</div></a></div><div class='preview ' ><a class='standard' href='https://triblive.com/opinion/elizabeth-stelle-dont-believe-the-hype-hydrogen-hubs-wont-create-jobs-or-green-energy/'><div class='focus'>Elizabeth Stelle: Don’t believe the hype — hydrogen hubs won’t create jobs or 'green' energy</div></a></div><div class='preview ' ><a class='standard' href='https://triblive.com/opinion/michael-evans-what-if-were-not-feeling-thankful/'><div class='focus'>Michael Evans: What if we're not feeling thankful?</div></a></div><div class='preview ' ><a class='standard' href='https://triblive.com/opinion/tom-purcell-the-delicious-history-of-pumpkin-pie/'><div class='focus'>Tom Purcell: The delicious history of pumpkin pie</div></a></div><a href='https://triblive.com/opinion/' title='Opinion' class='button' style='margin-bottom: 10px;'>More Opinion &gt;</a>
+</div></div> <!-- / First module-->
+<!-- Third module-->
+<div class='col-md-4 col-sm-6 col-xs-12'>
+<div class='section hex-news push-down hide-last-line'>
+<div class='top'><a href='https://triblive.com/news/world/'>U.S./World</a></div><!--Horizontal photo--><div class='preview  photo-above '  ><a href='https://triblive.com/news/world/bidens-plan-would-raise-salaries-for-head-start-teachers-but-could-leave-fewer-spots-for-kids/'><div class='above'><div class='photo'><div class='hover' bg-srcset='https://assets-varnish.triblive.com/2023/11/6794127_web1_6794127-78d177e77ddf43fcba1bd7dacf34ebe1.jpg'></div></div></div><h4 class='focus'>Biden's plan would raise salaries for Head Start teachers but could leave fewer spots for kids</h4></a></div><!-- //Horizontal photo--><div class='preview ' ><a class='standard' href='https://triblive.com/news/world/if-you-havent-started-your-thanksgiving-trip-youre-not-alone-the-busiest-days-are-still-to-come/'><div class='focus'>If you haven't started your Thanksgiving trip, you're not alone. The busiest days are still to come</div></a></div><div class='preview ' ><a class='standard' href='https://triblive.com/news/world/the-journey-of-minnesotas-rutt-the-moose-is-tracked-by-a-herd-of-fans/'><div class='focus'>The journey of Minnesota's Rutt the moose is tracked by a herd of fans</div></a></div><div class='preview ' ><a class='standard' href='https://triblive.com/news/world/jfk-assassination-remembered-60-years-later-by-surviving-witnesses-to-history-including-ap-reporter/'><div class='focus'>JFK assassination remembered 60 years later by surviving witnesses to history, including AP reporter</div></a></div><div class='preview ' ><a class='standard' href='https://triblive.com/news/world/israel-and-hamas-agree-on-truce-to-free-hostages-in-swap-raising-hopes-of-halting-war-in-gaza/'><div class='focus'>Israel and Hamas agree on truce to free hostages in swap, raising hopes of halting war in Gaza</div></a></div><a href='https://triblive.com/news/world/' title='World' class='button' style='margin-bottom: 10px;'>More World &gt;</a>
+</div></div> <!-- / Third module-->
+<div class='sm-hr'><hr></div>
+</div> <!--/ row-->
+<!--========================= SIXTH ROW  ======================================-->
+<div class='row'>
+<div class='col-md-4 col-sm-6 col-xs-12'>
+<div class='section hex-a-e push-down hide-last-line'>
+<!-- First module-->
+<div class='top'><a href='https://triblive.com/aande/'>Arts & Entertainment</a></div><!--Horizontal photo--><div class='preview  photo-above  playable'  ><a href='https://triblive.com/aande/music/bushs-gavin-rossdale-on-greatest-hits-album-glycerine-and-new-music/'><div class='above'><div class='photo'><div class='hover' bg-srcset='https://assets-varnish.triblive.com/2023/11/6779896_web1_ptr-Bush1-112023.jpg'></div></div></div><h4 class='focus'>Bush's Gavin Rossdale on greatest hits album, 'Glycerine' and new music</h4></a></div><!-- //Horizontal photo--><div class='preview ' ><a class='standard' href='https://triblive.com/aande/music/review-rock-orchestra-pulls-off-marriage-of-rock-classical-music-in-pittsburgh-show/'><div class='focus'>Review: Rock Orchestra pulls off marriage of rock, classical music in Pittsburgh show&nbsp;<div class='fa fa-video-camera'></div></div></a></div><div class='preview ' ><a class='standard' href='https://triblive.com/aande/movies-tv/tv-talk-westen-pa-doctor-competes-on-squid-game-tamburitzans-back-on-wqed-tv/'><div class='focus'>TV Talk: Western Pa. doctor competes on ‘Squid Game;’ Tamburitzans back on WQED-TV&nbsp;<div class='fa fa-video-camera'></div></div></a></div><div class='preview ' ><a class='standard' href='https://triblive.com/aande/music/public-enemy-r-e-m-blondie-heart-and-tracy-chapman-get-nods-for-songwriters-hall-of-fame/'><div class='focus'>Public Enemy, R.E.M., Blondie, Heart and Tracy Chapman get nods for Songwriters Hall of Fame</div></a></div><div class='preview ' ><a class='standard' href='https://triblive.com/aande/music/taylor-swifts-rio-tour-marred-by-deaths-muggings-and-a-dangerous-heat-wave/'><div class='focus'>Taylor Swift's Rio tour marred by deaths, muggings and a dangerous heat wave</div></a></div><a href='https://triblive.com/aande/' title='AandE' class='button' style='margin-bottom: 10px;'>More A &amp; E &gt;</a>
+</div></div> <!-- / First module-->
+<!-- Second module-->
+<div class='col-md-4 col-sm-6 col-xs-12'>
+<div class='section hex-lifestyles push-down hide-last-line'>
+<div class='top'><a href='https://triblive.com/lifestyles/'>Lifestyles</a></div><!--Horizontal photo--><div class='preview  photo-above '  ><a href='https://triblive.com/lifestyles/food-drink/6-tips-for-eating-as-much-as-you-can-on-thanksgiving/'><div class='above'><div class='photo'><div class='hover' bg-srcset='https://assets-varnish.triblive.com/2023/11/6790970_web1_Thanksgiving-dinner.jpg'></div></div></div><h4 class='focus'>6 tips for eating as much as you can on Thanksgiving</h4></a></div><!-- //Horizontal photo--><div class='preview ' ><a class='standard' href='https://triblive.com/lifestyles/food-drink/turkey-rules-the-table-but-a-poll-finds-disagreement-over-other-thanksgiving-classics/'><div class='focus'>Turkey rules the table. But a poll finds disagreement over other Thanksgiving classics</div></a></div><div class='preview ' ><a class='standard' href='https://triblive.com/local/regional/chosen-family-friendsgiving-continues-to-rise-in-popularity/'><div class='focus'>'Chosen family:' Friendsgiving continues to rise in popularity</div></a></div><div class='preview ' ><a class='standard' href='https://triblive.com/news/world/record-crowds-are-expected-to-take-to-the-air-and-roads-for-thanksgiving/'><div class='focus'>Record crowds are expected to take to the air and roads for Thanksgiving</div></a></div><div class='preview ' ><a class='standard' href='https://triblive.com/local/regional/planning-and-patience-required-when-traveling-with-children-over-the-holidays/'><div class='focus'>Planning and patience required when traveling with children over the holidays</div></a></div><a href='https://triblive.com/lifestyles/' title='Lifestyles' class='button' style='margin-bottom: 10px;'>More Lifestyles &gt;</a>
+</div></div> <!-- / Second module-->
+<!-- Third module-->
+<div class='col-md-4 col-sm-6 col-xs-12'>
+<div class='section hex-news push-down hide-last-line'>
+<div class='top'><a href='https://triblive.com/aande/tv-talk-with-rob-owen/'>TV Talk with Rob Owen</a></div><!--Horizontal photo--><div class='preview  photo-above  playable'  ><a href='https://triblive.com/aande/movies-tv/tv-talk-westen-pa-doctor-competes-on-squid-game-tamburitzans-back-on-wqed-tv/'><div class='above'><div class='photo'><div class='hover' bg-srcset='https://assets-varnish.triblive.com/2023/11/6789229_web1_ptr-TVTalk1-12202023-SquidGameTheChallenge.jpg'></div></div></div><h4 class='focus'>TV Talk: Western Pa. doctor competes on ‘Squid Game;’ Tamburitzans back on WQED-TV</h4></a></div><!-- //Horizontal photo--><div class='preview ' ><a class='standard' href='https://triblive.com/sports/tv-qa-is-sportsnet-pittsburgh-airing-more-local-collegiate-games/'><div class='focus'>TV Q&#038;A: Is SportsNet Pittsburgh airing more local collegiate games?</div></a></div><div class='preview ' ><a class='standard' href='https://triblive.com/aande/movies-tv/pittsburgh-pop-podcast-talking-mr-mcfeely-rustin-charissa-thompson-the-return-of-urkel-wolf-hall/'><div class='focus'>Pittsburgh Pop podcast: Talking Mr. McFeely, ‘Rustin,’ Charissa Thompson, the return of Urkel, ‘Wolf Hall’</div></a></div><div class='preview ' ><a class='standard' href='https://triblive.com/aande/movies-tv/tv-talk-david-newell-aka-mr-mcfeely-on-mister-rogers-neighborhood-to-receive-emmy-honor/'><div class='focus'>TV Talk: David Newell, aka Mr. McFeely on ‘Mister Rogers’ Neighborhood,’ to receive Emmy honor&nbsp;<div class='fa fa-video-camera'></div></div></a></div><div class='preview ' ><a class='standard' href='https://triblive.com/aande/movies-tv/tv-talk-fifth-fargo-tv-installment-explores-minnesota-nice-in-uncivil-society/'><div class='focus'>TV Talk: 5th ‘Fargo’ TV installment explores ‘Minnesota nice’ in uncivil society&nbsp;<div class='fa fa-video-camera'></div></div></a></div><a href='https://triblive.com/aande/tv-talk-with-rob-owen/' title='TV Talk with Rob Owen' class='button' style='margin-bottom: 10px;'>More TV Talk with Rob Owen &gt;</a>
+</div></div> <!-- / Third module-->
+<div class='sm-hr'><hr></div>
+</div> <!--/ row-->
+<!-- Flipp code-->
+<div class='row'><div class='col-xs-12'>
+<!--circulars--></div></div>
+<!--========================= SEVENTH ROW  ======================================-->
+<div class='row'>
+<!--News tips-->
+<div class='col-md-4 col-sm-6 col-xs-12'>
+<div class='section hex-a-e push-down hide-last-line'>
+
+<!--This is the home page version-->
+	<div class="top">
+   	<a class="fa fa-envelope" href="mailto:tips@triblive.com" title="Tips"> 
+   		<span style="font-family: 'Stainless Cond Bd';">Got a news tip?</span>
+	</a>
+	</div>
+
+	<div class="preview" align="" style="font-size: .875em;">The Tribune-Review encourages its readers to offer story ideas and tips. <a href="mailto:mailto:tips@triblive.com" style = "text-decoration:underline;">You can submit your news here</a>. Call us at<br/><br/>
+	<img src="https://triblive.com/wp-content/themes/TribLIVE2/assets/visuals/images/icons/other/WebNewsTip.png" style="float:left;width:75px;" /></a>
+	&bull; 724-836-6675 (Greensburg)<br/>
+	&bull; 724-226-4666 (Tarentum) <br/>
+	&bull; 412-320-7847 (Pittsburgh)<br/><br/>
+	You can also send an email <a class="fa fa-envelope"  href="mailto:tips@triblive.com"></a>. Information will remain confidential. For customer service and circulation inquiries, please call <a class="fa fa-phone"> 1-800-909-8742</a> .</div>
+ </div><!-- PN module-->
+<div class='section hex-news push-down hide-last-line'>
+<div class='top'><a href='https://triblive.com/news/partner-news/'>Partner News</a></div><!--Vertical photo--><div class='preview  photo-above '  ><a href='https://triblive.com/news/partner-news/local-home-buying-company-goes-above-and-beyond-for-tired-landlord/'><div class='above'><div class='photo verticalPhoto'><div class='hover verticalHover' bg-srcset='https://assets-varnish.triblive.com/2023/11/6790374_web1_part-urbancapHouse-112323.jpg'></div></div></div><h4 class='focus'>Local home-buying company goes above and beyond for tired landlord</h4></a></div><!-- //Vertical photo--><div class='preview ' ><a class='standard' href='https://triblive.com/local/sewickley/realty-one-group-horizon-the-brokerage-for-luxury-homes-like-this-emerald-fields-beauty-in-pine/'><div class='focus'>Realty One Group Horizon: The brokerage for luxury homes, like this Emerald Fields beauty in Pine</div></a></div><div class='preview ' ><a class='standard' href='https://triblive.com/news/partner-news/fda-issues-warning-for-contraceptive-nexplanon-if-youre-injured-robert-peirce-associates-can-provide-compassionate-legal-representation/'><div class='focus'>FDA issues warning for contraceptive Nexplanon. If you're injured, Robert Peirce &#038; Associates can provide compassionate legal representation</div></a></div><a href='https://triblive.com/news/partner-news/' title='Partner News' class='button' style='margin-bottom: 10px;'>More Partner News &gt;</a>
+</div><!-- / PN module-->
+</div>
+<div class='col-md-4 col-sm-6 col-xs-12'>
+<!--Polls with us-->
+<div class='preview'>
+<div id = '4975cdfb-f5d1-3674-a102-b0dfe3b22e02' class = 'cs-widget'></div><script defer type="text/javascript" src="https://www.civicscience.com/widget/jspoll/?elt=4975cdfb-f5d1-3674-a102-b0dfe3b22e02&tgtid=50f54dd8-00fa-11e2-bb87-12313809f6d1"></script>
+
+
+<!--meSearch widget for home--><div class="row"><div class="col-sm-12 sm-push-more mediv">
+<div id="meSearchBladeWidget"></div><!--/ meSearch widget home-->
+
+<!--meSearch compact widget for home--><div id="meSearchBladeWidgetCompact"></div><!--/ meSearch compact widget home-->
+</div></div><!-- // meserch widget divs-->
+<!--EveryBodyShops widget-->
+ <!--EveryBodyShops widget--></div></div>
+<div class='col-md-4 col-sm-6 col-xs-12'>
+<div class='section hex-news hide-last-line'>
+<div class='top'><a href='https://triblive.com/news/business/'>Business</a></div><!--Horizontal photo--><div class='preview  photo-above '  ><a href='https://triblive.com/local/regional/holiday-spending-expected-to-grow-as-discounts-flexible-spending-plans-heat-up/'><div class='above'><div class='photo'><div class='hover' bg-srcset='https://assets-varnish.triblive.com/2023/11/6788304_web1_ptr-holidashopping1-112323.jpg'></div></div></div><h4 class='focus'>Holiday spending expected to grow as discounts, flexible spending plans heat up</h4></a></div><!-- //Horizontal photo--><div class='preview ' ><a class='standard' href='https://triblive.com/local/valley-news-dispatch/western-pa-lawmakers-call-for-increased-service-at-locks-and-dams-on-allegheny-river/'><div class='focus'>Western Pa. lawmakers call for increased service at locks and dams on Allegheny River</div></a></div><div class='preview ' ><a class='standard' href='https://triblive.com/local/regional/upmc-reports-177m-loss-so-far-this-year/'><div class='focus'>UPMC reports $177M loss so far this year</div></a></div><div class='preview ' ><a class='standard' href='https://triblive.com/news/wire-stories/worlds-largest-cryptocurrency-exchange-to-pay-over-4-billion-in-agreement-with-u-s-ap-source-says/'><div class='focus'>Largest crypto exchange Binance fined $4 billion, CEO pleads guilty to not stopping money laundering&nbsp;<div class='fa fa-video-camera'></div></div></a></div><div class='preview ' ><a class='standard' href='https://triblive.com/news/wire-stories/millennial-money-how-to-set-good-money-examples-for-kids/'><div class='focus'>Millennial Money: How to set good money examples for kids</div></a></div><a href='https://triblive.com/news/business/' title='Business' class='button' style='margin-bottom: 10px;'>More Business &gt;</a>
+</div></div>
+</div><!-- /content-->
+	<div class="row"><div class="col-xs-12"><div class="double-ads">
+							 <!-- "Sponsor_BTF_2" -->
+						
+<!--tut 1900 Yes/default-->
+<div id='div-gpt-ad-1380843670843-9' class="ad">
+						<script defer type="text/javascript">
+							if (Sponsor_BTF_2active > 0){
+								googletag.cmd.push(function() { 
+								googletag.display('div-gpt-ad-1380843670843-9'); });
+							}</script></div>						 <!-- "Leaderboard_BTF_2" -->
+						
+<!--tut 1900 Yes/default-->
+<div id='div-gpt-ad-1380843670843-42' class="ad">
+						<script defer type="text/javascript">
+							if (Leaderboard_BTF_2active > 0){
+								googletag.cmd.push(function() { 
+								googletag.display('div-gpt-ad-1380843670843-42'); });
+							}</script></div>	
+	</div></div></div>	
+	</div><!--end container-->
+</main>
+<div id='push'></div>
+
+<!-- Sided Polls 20230525 -->
+	 <script type="text/javascript" src="https://cdn.sided.co/embed-assets/load.min.js" async></script> 
+
+<div class="clear"></div>
+</div>
+<!--<footer id="footer" role="contentinfo">-->
+<!--New Custom Footer menu-->
+<!--start of trib custom footer-->
+  <footer  class="ttmFooter" >
+     <div class="container-fluid">
+        <div class="row">
+            <div class="col-lg-2 footer-contact">
+                <img class="img-responsive ttm-logo" src="https://triblive.com/wp-content/themes/TribLIVE2/assets/visuals/images/icons/head/TTM-logo.png" alt="TRIB | Total Media" data-rjs="2" /><br />
+                <ul  class="pleft" style="padding-top:18px;">
+                    <li>
+                        <a class="fa fa-facebook" href="https://www.facebook.com/triblive" target="_blank"></a>&nbsp;
+                    </li>
+                    <li>
+                        <a class="fa fa-twitter" href="https://twitter.com/TribLIVE" target="_blank"></a>&nbsp;
+                    </li>
+                    <li>
+                        <a class="fa fa-instagram" href="https://instagram.com/triblive/" target="_blank"></a>
+                    </li>
+                </ul>
+				<p class="pleft"><a href="tel:18009098742">1-800-909-8742</a></p>
+				<p class="pleft">Fax (724) 779-8743</p>
+				<p class="pleft">210 Wood Street<br>Tarentum, PA 15084</p>
+				<p class="pleft">&copy; 2023 Trib Total Media | All Rights Reserved</p>
+			</div>
+			
+	
+			<div class="col-lg-3">
+				<div class="mobileheaderancor" id="aboutus"></div>
+					<div class="footer-headings">
+						<h4>About Us</h4>
+					</div>
+					
+					<div class="row">
+					<div class="col-sm-6">
+						<p><a href="https://mediakit.triblive.com/about/who-we-are/" target="_blank">About Us</a></p>
+						<p><a href="https://mediakit.triblive.com/advertising-services" target="_blank">Advertise</a></p>
+						<p><a href="https://tribtotalmedia.com/jobs/" target="_blank">Career Opportunities</a></p>
+						<p><a href="https://mediakit.triblive.com/contact-us/" target="_blank">Contact Advertising</a></p>
+						<!--<p><a href="mailto:ttmcustomercare@triblive.com" >Contact Circulation</a></p>-->
+						<p><a href="https://triblive.com/news/contactus/" >Contact Newsroom</a></p>
+						<p><a href="https://triblive.com/news/contactus/">Contact Us</a></p>
+						<p><a href="https://tribtotalmedia.com/subscriber-services/customer-feedback/" target="_blank">Feedback</a></p>
+					</div>
+					<div class="col-sm-6">
+						<p><a href="mailto:corrections@triblive.com" >Request Correction</a></p>
+						<p><a href="https://triblive.com/resource-center/">Resource Center</a></p>
+                                                <p><a href="https://tribtotalmedia.com/scholarship-for-diversity-in-media/" >Scholarship Opportunities</a></p>
+						<p><a href="https://triblive.com/opinion/send-a-letter/" >Send Letter to the Editor</a></p>
+						<p><a href="mailto:multimedia@triblive.com" >Send News Tip</a></p>
+						<p><a href="https://www.tribliveoffers.com/" target="_blank">Subscribe</a></p>
+						<p><a href="https://tribtotalmedia.com/subscriber-services/" target="_blank">Subscriber Services</a></p>
+					</div>
+				</div>
+				</div>
+			
+
+				
+				<div class="col-lg-3">
+					<div class="mobileheaderancor" id="getthetrib"></div>
+					<div class="footer-headings">
+						<h4>Get the Trib</h4>
+					</div>
+					
+					<div class="row">
+					<div class="col-sm-6">
+						<p><a href=" https://mediakit.triblive.com/blog/" target="_blank">Blog</a></p>
+						<p><a href="https://advertisers.triblive.com/onlineMagazines/">eFeatures</a></p>
+						<p><a href="https://signup.triblive.com/">Email Newsletters</a></p>
+						<p><a href="https://e.triblive.com/" target="_blank">eTrib</a></p>
+						<p><a href="https://www.facebook.com/triblive" target="_blank">Facebook</a></p>
+						<p><a href="https://www.tribliveoffers.com/" target="_blank">Home Delivery</a></p>
+                                                <p><a href="https://www.instagram.com/triblive/" target="_blank">Instagram</a></p>
+					</div>
+					<div class="col-sm-6">
+						<p><a href="https://www.linkedin.com/showcase/triblive" target="_blank">LinkedIn</a></p>
+						<p><a href="https://mediakit.triblive.com/marketing-minute/" target="_blank">Marketing Minute</a></p>
+						<p><a href=" https://tribtotalmedia.com/tribune-review-store-and-other-retail-sales-locations/" target="_blank">Store Locations</a></p>
+						<p><a href="https://apps.apple.com/us/app/triblive-news-sports/id328217517" target="_blank">TribLIVE App - App Store</a></p>
+						<p><a href="https://play.google.com/store/apps/details?id=com.tribtotalmedia.triblive&hl=en_US" target="_blank">TribLIVE App - Google Play</a></p>
+						<p><a href="https://twitter.com/TribLIVE" target="_blank">Twitter</a></p>
+					</div>
+				</div>
+				</div>
+				
+				<div class="col-lg-3">
+					<div class="mobileheaderancor" id="sections"></div>
+					<div class="footer-headings">
+						<h4>Sections</h4>
+					</div>
+					
+					<div class="row">
+					<div class="col-sm-6">
+						<p><a href="https://triblive.com/aande/">Arts &#38; Entertainment</a></p>
+						<p><a href="https://bestofthebest.triblive.com/" target="_blank">Best of the Best</a></p>
+						<p><a href="https://businessdirectory.triblive.com/" target="_blank">Business Directory</a></p>
+						<p><a href="https://triblive.com/circulars/">Circulars</a></p>
+                                                <p><a href="https://contests.triblive.com/">Contests</a></p>
+						<p><a href="https://triblive.com/news/coronavirus/">Coronavirus</a></p>
+						<p><a href="https://triblive.com/lifestyles/">Lifestyles</a></p>
+						<p><a href="https://triblive.com/local/">Local</a></p>
+						<p><a href="https://triblive.com/news/">News</a></p>
+					</div>
+					<div class="col-sm-6">
+						<p><a href="https://obituaries.triblive.com/obituaries/triblive/">Obituaries</a></p>
+						<p><a href="https://triblive.com/opinion/">Opinion</a></p>
+						<p><a href="https://mediakit.triblive.com/advertising-services/" target="_blank">Our Publications</a></p>
+                                               <!-- <p><a href="http://photos.triblive.com/mycapture/index.asp">Photos</a></p>-->
+						<p><a href="https://realestate.triblive.com/">Real Estate</a></p>
+						<p><a href="https://triblive.com/sports/">Sports</a></p>
+						<p><a href="https://video.triblive.com">Video</a></p>
+						<p><a href="https://triblive.com/news/weather/">Weather</a></p>
+					</div>
+				</div>
+				</div>
+
+				
+				<div class="col-lg-1">
+					<div class="mobileheaderancor" id="termsofuse"></div>
+					<div class="footer-headings">
+                     	<h4>Terms of Use</h4>
+					</div>
+					<div class="tablet-break-footer-items">
+					<p><a href="https://cookiepedia.co.uk/giving-consent-to-cookies">Cookie Settings</a></p>
+					<p><a href="https://triblive.com/termsofservice/" class="tablet-break-right-col" target="_blank">Privacy Policy</a></p>
+					<p><a href="https://triblive.com/termsofservice/">Terms of Service</a></p>
+					</div>
+				</div>
+			</div>
+		</div>
+<!--Custom footer includes go here-->
+<script src='https://triblive.com/wp-content/themes/TribLIVE2/assets/visuals/js/ThirtySix/clipboard.js'></script>
+<script src='https://triblive.com/wp-content/themes/TribLIVE2/assets/visuals/js/ThirtySix/scripts.min.js'></script>
+
+<!--meSearch widget-->
+<script src = "https://search-module.s3.us-east-2.amazonaws.com/pubs/trib/mesearch-trib3-min.js?ver=2023-11-22pm"></script>
+
+<!--adblade-->
+<script defer src='https://web.adblade.com/js/ads/async/show.js' type='text/javascript'></script>
+<!--evvnts home footer-->
+			<script async defer 
+			 src="//discovery.evvnt.com/prd/evvnt_discovery_plugin-latest.min.js"
+			 onload="evvntDiscoveryInit();">
+			</script>
+			<script>
+			  function evvntDiscoveryInit() {
+				evvnt_require("evvnt/discovery_plugin").init({
+				  api_key: "triblive",
+				  publisher_id:590,
+				  discovery: {
+					element: "#evvnt-calendar-widget",
+					detail_page_enabled: true,
+					widget: true,
+					virtual: false,
+					map: false,
+					category_id: null,
+					orientation: "landscape",
+					number: 3,
+				  },
+				  submission: {
+					partner_name: "Trib Live",
+					text: "Promote your event",
+				  }
+			   });
+			 }
+			</script>
+			<!-- /evvnts page footer-->
+<!--in-article repositionable civicscience widget -->
+<div id="civsci-id-599317404" data-civicscience-widget="3c059610-d0fb-87f4-a925-25a361f2f72e"></div>
+<script type="text/javascript" async src="https://get.civicscience.com/jspoll/5/csw-polyfills.js"></script>
+
+<!--viafoura include-->
+<script defer type='text/javascript' src='//embed.sendtonews.com/player3/embedcode.js?fk=vIM6lqgG&cid=6108&offsetx=0&offsety=0&floatwidth=400&floatposition=bottom-right' data-type='s2nScript'></script>
+		<script> 
+		function setupS2NApi(getS2NApiForPlayer) { 
+			const s2nPlayer = document.querySelector('.vIM6lqgG');
+			if (!s2nPlayer) { 
+				console.error('setupS2NApi: Embed code <div> not found.');
+				return; 
+			} 
+			const s2nApi = getS2NApiForPlayer(s2nPlayer); 
+			if(!s2nApi) { 
+				console.error('setupS2NApi: API request has been denied. See your STN contact for more details.'); 
+				return;
+			} 
+			const isUserSubscribed = true; 
+			s2nApi.float = true;
+		} 
+		</script>
+		
+
+<!--floating footer 10/2/20-->
+<style>.vf-tray-trigger--floating {display: none !important;}</style>
+<div class ='top_button'>
+<a href='' class='fa fa-chevron-circle-up' style = 'line-height: 19px;'><br/>
+<span style="font-size:15px;text-decoration:none; font-family: 'open_sansregular';">Top</span></a>
+</div>
+
+<script>
+jQuery(document).ready(function() {
+    var offset = 220;
+    var duration = 500;
+    jQuery(window).scroll(function() {
+        if (jQuery(this).scrollTop() > offset) {
+            jQuery('.fa-chevron-circle-up').fadeIn(duration);
+        }
+    });
+
+    jQuery('.fa-chevron-circle-up').click(function(event) {
+        event.preventDefault();
+        jQuery('html, body').animate({scrollTop: 0}, duration);
+        return false;
+    })
+});
+</script>
+
+<!-- /floating footer-->
+
+
+      </div>
+    </div>
+
+</footer>
+</div>
+<script type='text/javascript' src='https://triblive.com/wp-content/plugins/page-links-to/dist/new-tab.js' id='page-links-to-js'></script>
+<script type='text/javascript' id='heateor_sss_sharing_js-js-before'>
+function heateorSssLoadEvent(e) {var t=window.onload;if (typeof window.onload!="function") {window.onload=e}else{window.onload=function() {t();e()}}};	var heateorSssSharingAjaxUrl = 'https://triblive.com/wp-admin/admin-ajax.php', heateorSssCloseIconPath = 'https://triblive.com/wp-content/plugins/sassy-social-share/public/../images/close.png', heateorSssPluginIconPath = 'https://triblive.com/wp-content/plugins/sassy-social-share/public/../images/logo.png', heateorSssHorizontalSharingCountEnable = 0, heateorSssVerticalSharingCountEnable = 0, heateorSssSharingOffset = -10; var heateorSssMobileStickySharingEnabled = 1;var heateorSssCopyLinkMessage = "Link copied.";var heateorSssUrlCountFetched = [], heateorSssSharesText = 'Shares', heateorSssShareText = 'Share';function heateorSssPopup(e) {window.open(e,"popUpWindow","height=400,width=600,left=400,top=100,resizable,scrollbars,toolbar=0,personalbar=0,menubar=no,location=no,directories=no,status")}
+</script>
+<script type='text/javascript' src='https://triblive.com/wp-content/plugins/sassy-social-share/public/js/sassy-social-share-public.js' id='heateor_sss_sharing_js-js'></script>
+<script src="https://triblive.com/wp-content/themes/TribLIVE2/trib-extra/tribextra-portal-src/js/logout.js"></script>
+
+
+						 <!-- "richmedia" -->
+
+<!--<div id='div-gpt-ad-1380843670843-".$adid."' class=\"ad\">
+<script type=\"text/javascript\">
+if (".$adunitname."active > 0){
+	googletag.cmd.push(function() { 
+	googletag.display('div-gpt-ad-1380843670843-".$adid."'); });
+}</script></div>-->
+
+						
+<!--tut 2573 Yes/default-->
+<div id='div-gpt-ad-1380843670843-3' class="ad"  style='margin: 5px 0; padding: 0;'>
+						<script defer type="text/javascript">
+							if (richmediaactive > 0){
+								googletag.cmd.push(function() { 
+								googletag.display('div-gpt-ad-1380843670843-3'); });
+							}</script></div>
+</body>
+</html>
+
+</div>
+</body>

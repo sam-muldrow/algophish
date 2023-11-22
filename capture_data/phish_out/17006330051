@@ -1,0 +1,212 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"><!-- InstanceBegin template="/Templates/Modele.dwt.php" codeOutsideHTMLIsLocked="false" -->
+<head>
+<!-- InstanceBeginEditable name="doctitle" -->
+<title>Dynatech Industries - N&eacute;goce tous v&eacute;hicules - Eure et Loir</title>
+<!-- InstanceEndEditable -->
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <link href="/includes/css/dynatech.css" rel="stylesheet" type="text/css" />
+    <!-- Script Thickbox -->
+    <script type="text/javascript" src="includes/thickbox/jquery.js"></script>
+	<script type="text/javascript" src="includes/thickbox/thickbox.js"></script>
+    <script type="text/javascript" src="imgLiquid.js"></script>
+    <link rel="stylesheet" href="includes/thickbox/thickbox.css" type="text/css">
+    <!-- InstanceBeginEditable name="head" -->
+	<meta name="title" content="Dynatech Industries" />
+    <meta name="Description" content="Vente de pièces détachées occasion ou rénovées en eure et loir. Véhicules d'occasion ou accidentés. Utilitaires, TP, Camions" />
+    <meta name="Keywords" content="dynatech, occasions, véhicules, annonces, pièces détachées" />
+	<!--<meta name="google-site-verification" content="jzl7fh_qRAKKnOdOU2vqy2qqs8V9kEGgDICGn0HiG5I" />-->
+	<!-- InstanceEndEditable -->
+</head>
+<body onload="load()" onunload="GUnload()">
+<div id="conteneur">
+    <div id="header">
+		<div id="menu_abs">
+    <p>A partir du 01.01.2020 la vente de tous véhicules accidentés est exclusivement réservée aux professionnels d'automobile.</p>
+</div>
+
+
+<div id="titre_header">
+    <span class="negoce">N&eacute;goce tous v&eacute;hicules</span><br />
+    <span class="piece">Pi&egrave;ces d&eacute;tach&eacute;es  occasion et r&eacute;nov&eacute;es</span>
+</div>
+    </div>
+    <div id="navigation">
+		<div id="menu">
+    <ul>
+        <li><a href="/index.php" class="selected">Accueil</a></li>
+        <li><a href="/services.php" class="lg ">Services et prestations</a></li>
+        <li><a href="/annonce_list.php" class="">Véhicules</a></li>
+        <li><a href="/pieces_list.php" class="">Pièces détachées</a></li>
+        <li><a href="/plan.php" class="">Plan d'acc&egrave;s</a></li>
+        <li><a href="/contact.php" class="">Contact</a></li>
+    </ul>
+</div>    </div>
+    <!--<br class="nettoyeur" /> -->
+    <div id="contenu">
+    	<div id="recherche_offres">
+            <!-- Formulaire de recherche -->
+			<script type='text/javascript'>
+// JavaScript Document
+function getXhr(){
+                var xhr = null; 
+				if(window.XMLHttpRequest) // Firefox et autres
+				   xhr = new XMLHttpRequest(); 
+				else if(window.ActiveXObject){ // Internet Explorer 
+				   try {
+			            xhr = new ActiveXObject("Msxml2.XMLHTTP");
+			            } catch (e) {
+			            xhr = new ActiveXObject("Microsoft.XMLHTTP");
+			            }
+				}
+				else { // XMLHttpRequest non support� par le navigateur 
+				   alert("Votre navigateur ne supporte pas les objets XMLHTTPRequest..."); 
+				   xhr = false; 
+				}
+            return xhr;
+			}
+
+/*** M�thode qui sera appel�e sur le click du bouton*/
+			function go(){
+				var xhr = getXhr();
+				// On d�fini ce qu'on va faire quand on aura la r�ponse
+				xhr.onreadystatechange = function(){
+					// On ne fait quelque chose que si on a tout re�u et que le serveur est ok
+					if(xhr.readyState == 4 && xhr.status == 200){
+						// On se sert de innerHTML pour rajouter les options a la liste
+						var leselect;
+						leselect = xhr.responseText;
+						// On se sert de innerHTML pour rajouter les options a la liste
+						document.getElementById('choix_type').innerHTML = leselect;
+						//alert(xhr.responseText); 
+					}
+				}
+				// Ici on va voir comment faire du post
+				xhr.open("POST","/includes/select_types.php",true);
+				// ne pas oublier �a pour le post
+				xhr.setRequestHeader('Content-Type','application/x-www-form-urlencoded');
+				sel = document.getElementById('Marques');
+				vehicules = sel.options[sel.selectedIndex].value;
+				xhr.send("Marques="+vehicules);
+			}
+            
+<!--Lors de l'appui sur le bouton rechercher, la page "resultat_recherche.asp" est appel�e -->
+function resultat(bouton) {
+	if (bouton.name=="valider" )
+ 	{
+      document.recherche.action="annonce_list.php";
+      document.recherche.submit();
+ 	}
+}
+</script>
+ 
+
+<div id="titre_recherche">RECHERCHE RAPIDE</div>
+<div id="recherche_rapide">
+
+    	<form method="post" name="recherche">
+        <!-- Liste des marques disponibles dans les annonces -->
+			<label>Marques</label>
+            <select name="Marques" id="Marques" onclick="go()">
+            <option value=0>...</option>
+                             <option value="536">ETA</option>
+			                 <option value="220">IVECO</option>
+			                 <option value="521">KAISER</option>
+			                 <option value="531">LECITRAILER</option>
+			                 <option value="491">MAGYAR</option>
+			                 <option value="285">MAN</option>
+			                 <option value="363">RENAULT</option>
+			                 <option value="387">SCANIA</option>
+			                 <option value="403">SMART</option>
+			                 <option value="534">SPITZER</option>
+			                 <option value="444">VOLVO</option>
+			                 <option value="446">VW</option>
+				
+        	</select>
+            <br />
+            <!-- Liste des types de v�hicules dans les annonces et dans la marque -->
+        <label>Type v&eacute;hicule</label>  
+        <div id="choix_type">      
+            <select name="Vehicules" id="Vehicules">
+            	<option value="0">Choisir un type</option>
+            </select>
+        </div>
+        <input type="hidden" name="valid_ok" value="oui">
+    <input type="submit" value="" name="valider" id="rechercher" onclick="resultat(this)" class="submit"> 
+	<input name="search" type="hidden" id="search" value="OK" />
+  </form>
+ </div>
+            <br />
+            <!-- 2 dernières annonces -->
+			
+<span id="titre_offre">ANNONCES DE LA SEMAINE</span>
+<div id="offres">
+    <div id="damier">
+		        <a href="annonce_detail.php?id=2449"><img src="/retaille_new.php?chemin_img=/Medias/dynatech_annonces/2449/Vehicule-LECINENA-2006-4d37fed9cd60c2eb95d5f68d09705eb034d9e1f6bb753ea13a380249a2e91105.JPG&larg_ret=129&haut_ret=96&method=fill" alt="LECINENA"></a>
+        	</div>
+    <div id="damier">
+		        <a href="annonce_detail.php?id=2441"><img src="/retaille_new.php?chemin_img=/Medias/dynatech_annonces/2441/Vehicule-SPITZER-1996-5d85f8bba4539ba97d680a07a042b5baca05a73119796f3598a90c0bfcbff994.JPG&larg_ret=129&haut_ret=96&method=fill" alt="SPITZER"></a>
+        	</div>
+    <div id="damier">
+		        <a href="annonce_detail.php?id=2422"><img src="/retaille_new.php?chemin_img=/Medias/dynatech_annonces/2422/Vehicule-MAGYAR-2011-57eb622e649a544149241c3ed42dac76971579a0c36f0af4d104d8bf1346f887.jpg&larg_ret=129&haut_ret=96&method=fill" alt="33EFLS CITERNE ALIMENTAIRE"></a>
+        	</div>
+    <div id="damier">
+		        <a href="annonce_detail.php?id=2420"><img src="/retaille_new.php?chemin_img=/Medias/dynatech_annonces/2420/Vehicule-SCANIA-440-12-7-2006-0bb3c869ce727de17b43b2209f8ac9f41e6d81081b1777339d7dc401f420958b.JPG&larg_ret=129&haut_ret=96&method=fill" alt="Scania PRG 340-48"></a>
+        	</div>
+    <div id="damier">
+		        <a href="annonce_detail.php?id=2413"><img src="/retaille_new.php?chemin_img=/Medias/dynatech_annonces/2413/1.jpg&larg_ret=129&haut_ret=96&method=fill" alt="GOLF VII GTD"></a>
+        	</div>
+    <div id="damier">
+		        <a href="annonce_detail.php?id=2409"><img src="/retaille_new.php?chemin_img=/Medias/dynatech_annonces/2409/2127XD50 (2).JPG&larg_ret=129&haut_ret=96&method=fill" alt="PREMIUM 370 DXI"></a>
+        	</div>
+
+</div>        <!--<br class="nettoyeur" /> -->
+        </div>
+        <div id="page">
+        <!-- contenu de la page -->
+        <!-- InstanceBeginEditable name="Contenu" -->
+        	<img src="Design/services/casse.jpg" alt="vente v&eacute;hicules accident&eacute;s" width="300" height="225" style="float:right; margin:10px 10px 5px 10px;"/>
+			<h2>Dynatech Industries</h2>
+			<p>&nbsp;</p>
+			
+			<p>Entreprise cr&eacute;&eacute;e en 1990, Dynatech industries bas&eacute;e &agrave; Chartres (voir <a href="plan.php">plan d'acc&egrave;s</a>) propose :</p>
+			<p align="center"><img src="Design/moteur_camion.jpg" alt="moteur" width="200" height="150" /></p>
+			<img src="Design/services/vehicules_accidente.jpg" alt="parc v&eacute;hicules accident&eacute;s" style="float:right; margin:5px 10px 10px 10px;" />
+			<ul id="enumeration">
+			  <li><h3>- le n&eacute;goce de tous v&eacute;hicules,</h3></li>
+			  <li>
+				<h3>- la vente de pi&egrave;ces d&eacute;tach&eacute;es occasion ou r&eacute;nov&eacute;es,</h3>
+			  </li>
+			  <li><h3>- la vente de v&eacute;hicules d'occasion ou accident&eacute;s.</h3></li>
+			</ul>
+			<p>&nbsp;</p>
+			
+			<a href="annonce_list.php">NOS V&Eacute;HICULES ACCIDENT&Eacute;S</a>
+	<br />
+        <!--href="http://www.lacentrale.fr/pro/C018363/list.php?ID_PRO=C018363&amp;thema=13&amp;count_list=A:4;B:37;C:0;D:0;"-->
+        <a href="https://dynatec.espacevo.fr/" target="_blank">NOS V&Eacute;HICULES UTILITAIRES D'OCCASION</a>
+		    <p>&nbsp;</p>
+			<a href="services.php">Services et prestations automobiles de Dynatech industries</a>
+			<p>&nbsp;</p>
+			<a href="contact.php">Contactez Dynatech industries</a>
+        <!-- InstanceEndEditable -->
+		</div>
+        <br class="nettoyeur" />
+  </div>
+	<div id="bas_contenu"></div>
+    <div id="footer">
+		Vente pi&egrave;ces d&eacute;tach&eacute;es neuves et occasion. V&eacute;hicules accident&eacute;s. Eure et loir<br />
+<strong>Dynatech Indutries</strong> &copy; 2023 | <a href="mentions_legales.php">Mentions l&eacute;gales</a> | <a href="http://www.captusite.com/creation-site-internet.asp" target="_blank">Création du site</a> : <a href="http://www.captusite.com" target="_blank">Captusite.com</a> / <a href="http://www.thefabrik.fr" target="_blank">The Fabrik</a>
+
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-SXKJKV2F0V"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-SXKJKV2F0V');
+</script>    </div>
+</div>
+</body>
+<!-- InstanceEnd --></html>

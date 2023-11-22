@@ -1,0 +1,2298 @@
+<!DOCTYPE html>
+<html lang="hu">
+<head>
+<meta charset="UTF-8">
+<title>Budapest időjárás - Időkép</title>
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<link href="/css/bootstrap-5-2-3_v1.9.min.css" rel="stylesheet">
+<link href="/css/main_c102.min.css?t=1694187765" rel="stylesheet">
+<link href="/css/all.css?v5" rel="stylesheet">
+<link href="/css/simplebar.min.css" rel="stylesheet">
+<script src="/js/simplebar.min.js"></script>
+<script src="/js/jquery-3.7.1.min.js"></script>
+<link href="/fonts/Inter/inter_idokep.css" rel="stylesheet">
+<link href="/fonts/Oswald/oswald_idokep.css" rel="stylesheet">
+<link href="/css/select2.min.css" rel="stylesheet"> <link rel="preconnect" href="https://cdn.publisher1st.com">
+<link rel="preconnect" href="https://cdn.atmedia.hu">
+<link rel="preconnect" href="https://cmp.quantcast.com">
+<link rel="preconnect" href="https://secure.quantserve.com/">
+<link rel="dns-prefetch" href="https://securepubads.g.doubleclick.net">
+<link rel="apple-touch-icon" sizes="57x57" href="/apple-touch-icon-57x57.png">
+<link rel="apple-touch-icon" sizes="60x60" href="/apple-touch-icon-60x60.png">
+<link rel="apple-touch-icon" sizes="72x72" href="/apple-touch-icon-72x72.png">
+<link rel="apple-touch-icon" sizes="76x76" href="/apple-touch-icon-76x76.png">
+<link rel="apple-touch-icon" sizes="114x114" href="/apple-touch-icon-114x114.png">
+<link rel="apple-touch-icon" sizes="120x120" href="/apple-touch-icon-120x120.png">
+<link rel="apple-touch-icon" sizes="144x144" href="/apple-touch-icon-144x144.png">
+<link rel="apple-touch-icon" sizes="152x152" href="/apple-touch-icon-152x152.png">
+<link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon-180x180.png">
+<link rel="icon" type="image/png" href="/favicon-32x32.png" sizes="32x32">
+<link rel="icon" type="image/png" href="/favicon-194x194.png" sizes="194x194">
+<link rel="icon" type="image/png" href="/favicon-96x96.png" sizes="96x96">
+<link rel="icon" type="image/png" href="/android-chrome-192x192.png" sizes="192x192">
+<link rel="icon" type="image/png" href="/favicon-16x16.png" sizes="16x16">
+<link rel="manifest" href="/manifest.json">
+<meta name="msapplication-TileColor" content="#3B99D8">
+<meta name="msapplication-TileImage" content="/mstile-144x144.png">
+<meta name="theme-color" content="#3B99D8">
+<link rel="alternate" type="application/rss+xml" title="Időkép" href="https://adat.idokep.hu/rss/news.xml" />
+<meta name="Description" lang="hu" content="Kedd reggelre északon, északkeleten pára, köd, alacsonyszintű rétegfelhőzet alakul ki, ami helyenként tartósan megmaradhat." />
+<meta property="og:title" content="Budapest időjárás - Időkép" />
+<meta property="og:description" content="Kedd reggelre északon, északkeleten pára, köd, alacsonyszintű rétegfelhőzet alakul ki, ami helyenként tartósan megmaradhat." />
+<meta property="og:type" content="website" />
+<meta property="og:locale" content="hu_HU" />
+<meta property="og:site_name" content="Időkép" />
+<meta property="og:url" content="https://www.idokep.hu/" />
+<meta name="twitter:title" content="Budapest időjárás - Időkép" />
+<meta name="twitter:description" content="Kedd reggelre északon, északkeleten pára, köd, alacsonyszintű rétegfelhőzet alakul ki, ami helyenként tartósan megmaradhat." />
+<meta name="twitter:card" content="summary_large_image" />
+<meta name="twitter:site" content="@idokep" />
+<meta name="apple-itunes-app" content="app-id=538719791">
+<meta name="geo.region" content="HU" /><meta name="geo.placename" content="Budapest" />
+<meta name="geo.position" content="47.4984;19.0405" />
+<meta name="ICBM" content="47.4984, 19.0405" />
+<meta http-equiv="Content-Security-Policy" content="upgrade-insecure-requests">
+<script>
+        var target_custom_value = 'joido';
+        function getCookie(cname) {
+            var name = cname + "=";
+            var ca = document.cookie.split(';');
+            for (var i = 0; i < ca.length; i++) {
+                var c = ca[i];
+                while (c.charAt(0) == ' ') c = c.substring(1);
+                if (c.toString().indexOf(name) == 0) return c.substring(name.length, c.length);
+            }
+            return "";
+        }
+
+        function setCookie(cname, cvalue, exdays) {
+            var d = new Date();
+            d.setTime(d.getTime() + (exdays * 24 * 60 * 60 * 1000));
+            var expires = "expires=" + d.toUTCString();
+            document.cookie = cname + "=" + cvalue + "; " + expires + "; path=/";
+            document.cookie = cname + "=; expires=Thu, 01 Jan 1970 00:00:01 GMT; path=/; domain=.idokep.hu";
+        }
+
+        if (window.location.href.search("oldal") < 0) {
+            if (getCookie("lastvaros")) {
+                if (window.location.pathname == '/' || window.location.pathname == '/idojaras') {
+                    window.location.href = "/idojaras/" + getCookie("lastvaros");
+                } else if (window.location.pathname == '/elorejelzes') {
+                    window.location.href = "/elorejelzes/" + getCookie("lastvaros");
+                }
+            }
+            if (getCookie("lastvaros") == "undefined") {
+                setCookie("lastvaros", "", -1);
+            } else if ((window.location.pathname.split("/")[1] == "idojaras") || (window.location.pathname.split("/")[1] == "elorejelzes")) {
+                if (window.location.pathname.split("/")[2]) {
+					if (window.location.pathname.split("/")[2]!="Budapest") {
+						setCookie("lastvaros",window.location.pathname.split("/")[2], 7);
+					} else {
+						document.cookie = "lastvaros=; expires=Thu, 01 Jan 1970 00:00:01 GMT; path=/";
+					}
+                }
+            }
+            if (getCookie("lastvaros").length < 1) {
+                if (window.location.pathname == '/' || window.location.pathname == '/idojaras') {
+                    window.location.href = "/idojaras/Budapest";
+                }
+                if (window.location.pathname == '/elorejelzes') {
+                    window.location.href = "/elorejelzes/Budapest";
+                }
+            }
+        }
+	      </script>
+<noscript>
+        <style>
+            .simplebar-content-wrapper {
+                overflow: auto;
+            }
+        </style>
+    </noscript>
+<script src="https://cdn.atmedia.hu/idokep.hu.js?v=20231121"></script></head>
+<body class="ik wbg erosen_felhos_ejszaka">
+<div class="container ik top-frame">
+<div class="row g-0">
+<div class="col ik logoOuter">
+<div class="ik logo area">
+<div class="ik logo align-middle">
+<a href="/"></a>
+</div>
+</div>
+</div>
+<div class="col">
+<div class="ik ad-lockup-top-970">
+<div class="d-flex justify-content-center">
+<div class="ik vertical-info-small">Hirdetés</div>
+<div class="ik new-top-ad-inner" id="top970_container">
+<div id="idokep_nyito_970x90"></div> </div>
+</div>
+</div>
+</div>
+</div>
+</div>
+<script>
+	var geo=null;
+	function displayPosition(position) {
+		document.location.href="/setposition.php?x="+position.coords.latitude+"&y="+position.coords.longitude;
+	}
+	function displayError(positionError) {
+		document.location.href="/elorejelzes/Budapest";
+	}
+	function queryLocation () {
+		try {
+			if (typeof(navigator.geolocation)!='undefined') {
+				geo=navigator.geolocation;
+			} else {
+				document.location.href="/elorejelzes/Budapest";
+			}
+		} catch(e) {}
+		if (geo) {
+			geo.getCurrentPosition(displayPosition,displayError);
+		}
+	}
+	</script>
+<div id="menubarDesktop" class="container desktopmenu sticky-top ik white-color blue-bg menubar-desktop" data-toggle="affix">
+<div class="row">
+<div class="col">
+<nav class="ik desktop-nav" role="navigation">
+<ul>
+<li class="ik desktop-logo">
+<a href="/idojaras/Budapest" title="Címlap" id="fooldal"></a>
+</li>
+<li>
+<a href="/elorejelzes/Budapest" id="eloreoldal">Előrejelzés</a>
+<ul class="drop">
+<li><a href="#" onclick="queryLocation()"><i class="fas fa-fw fa-location-arrow"></i> Helyzetmeghatározás</a></li>
+<li><a href="/elorejelzes/Budapest">Budapest</a></li>
+<li><a href="/elorejelzes/Debrecen">Debrecen</a></li>
+<li><a href="/elorejelzes/Gy%C5%91r">Győr</a></li>
+<li><a href="/elorejelzes/Miskolc">Miskolc</a></li>
+<li><a href="/elorejelzes/P%C3%A9cs">Pécs</a></li>
+<li><a href="/elorejelzes/Si%C3%B3fok">Siófok</a></li>
+<li><a href="/elorejelzes/Szeged">Szeged</a></li>
+<li><a href="https://wrf.idokep.hu/">WRF előrejelző modell</a></li>
+
+<li><a href="/30napos/Budapest">30 napos előrejelzés</a></li>
+</ul>
+</li>
+<li>
+<a href="/idokep">Időkép</a>
+<ul class="drop">
+<li><a href="/idokep/agglomeracio">Agglomeráció</a></li>
+<li><a href="/idokep/balaton">Balaton</a></li>
+<li><a href="/idokep/budapest">Budapest</a></li>
+<li><a href="https://idokep.eu/">Európa</a></li>
+<li><a href="https://idokep.eu/ceu/idokep">Közép-Európa</a></li>
+<li><a href="/idokep">Magyarország</a></li>
+<li><a href="https://idokep.eu/nemet/idokep">Németország</a></li>
+</ul>
+</li>
+<li>
+<a href="/hoterkep">Hőtérkép</a>
+<ul class="drop">
+<li><a href="/valtozas">Változás</a></li>
+<li><a href="/hoterkep/agglomeracio">Agglomeráció</a></li>
+<li><a href="/hoterkep/balaton">Balaton</a></li>
+<li><a href="/hoterkep/budapest">Budapest</a></li>
+<li><a href="https://idokep.eu/cseh/hoterkep">Csehország</a></li>
+<li><a href="https://idokep.eu/horvat/hoterkep">Horvátország</a></li>
+<li><a href="https://idokep.eu/ceu/hoterkep">Közép-Európa</a></li>
+<li><a href="/hoterkep">Magyarország</a></li>
+<li><a href="https://idokep.eu/nemet/hoterkep">Németország</a></li>
+<li><a href="https://idokep.eu/roman/hoterkep">Románia</a></li>
+<li><a href="https://idokep.eu/szlovak/hoterkep">Szlovákia</a></li>
+</ul>
+</li>
+<li>
+<a href="/felhokep">Felhőkép</a>
+<ul class="drop">
+<li><a href="/felhokep/hu840"><i class="fas faw fa-exclamation-circle"></i> Régi felhőkép</a></li>
+<li><a href="/felhokep/agglomeracio">Agglomeráció</a></li>
+<li><a href="/felhokep/balaton">Balaton</a></li>
+<li><a href="/felhokep/budapest">Budapest</a></li>
+<li><a href="https://idokep.eu/cseh/felhokep">Csehország</a></li>
+<li><a href="https://idokep.eu/horvat/felhokep">Horvátország</a></li>
+<li><a href="https://idokep.eu/ceu/felhokep">Közép-Európa</a></li>
+<li><a href="/felhokep">Magyarország</a></li>
+<li><a href="https://idokep.eu/nemet/felhokep">Németország</a></li>
+<li><a href="https://idokep.eu/roman/felhokep">Románia</a></li>
+<li><a href="https://idokep.eu/szlovak/felhokep">Szlovákia</a></li>
+</ul>
+</li>
+<li class>
+<a href="/radar">Radar</a>
+<ul class="drop">
+<li><a href="/radar">Radarkép</a></li>
+<li><a href="/adria">Adria</a></li>
+<li><a href="/radar#video">Radarvideó</a></li>
+<li><a href="/radar#riasztas">Riasztás</a></li>
+<li><a href="https://idokep.eu/ceu/radar">Közép-Európa</a></li>
+</ul>
+</li>
+<li>
+<a href="/webkamera">Kamerák</a>
+<ul class="drop">
+<li><a href="/webkamera/tag/balaton">Balaton</a></li>
+<li><a href="/webkamera/tag/%C3%A9jjell%C3%A1t%C3%B3">Éjjellátó</a></li>
+<li><a href="/webkamera/tag/%C3%A9l%C5%91">Élő</a></li>
+<li><a href="/webkamera/tag/hegytet%C5%91">Hegytető</a></li>
+<li><a href="/webkamera/tag/rep%C3%BCl%C5%91t%C3%A9r">Repülőtér</a></li>
+<li><a href="/webkamera/tag/strand">Strand</a></li>
+<li><a href="/webkamera/tag/s%C3%ADp%C3%A1lya">Sípálya</a></li>
+<li><a href="/webkamera/mindegyik">Összes</a></li>
+</ul>
+</li>
+<li>
+<a href="/eszlel">Közösség</a>
+<ul class="drop">
+<li><a href="/keptar">Képtár</a></li>
+<li><a href="/eszlel">Észlelések</a></li>
+<li><a href="/tarsalgo">Társalgó</a></li>
+<li><a href="/eszlelo">Észlelés beküldése</a></li>
+<li><a href="/keptar/do/upload">Kép feltöltése</a></li>
+<li><a href="/automata">Automaták</a></li>
+<li><a href="https://shop.idokep.hu">Webshop</a></li>
+<li><a href="/alapismeretek">Alapismeretek</a></li>
+<li><a href="/hirek/gyakran-ismetelt-kerdesek">GYIK (Észlelés)</a></li>
+<li><a href="https://wiki.idokep.hu/">GYIK (Automata/Kamera)</a></li>
+</ul>
+</li>
+<li>
+<a href="/balaton">Tematikus</a>
+<ul class="drop">
+<li><a href="/balaton">Balaton</a></li>
+<li><a href="/erdomezo">Erdő-mező</a></li>
+<li><a href="/eskuvo">Esküvő</a></li>
+<li><a href="/horgasz">Horgász</a></li>
+<li><a href="/influenza">Influenza</a></li>
+<li><a href="/havazas"> Mennyi hó fog esni?</a></li>
+</ul>
+</li>
+<li>
+<a href="/muhold">Térképek</a>
+<ul class="drop">
+<li><a href="/csapadek">Csapadék</a></li>
+<li><a href="/ho">Hó és síelés</a></li>
+<li><a href="/influenza">Influenza</a></li>
+<li><a href="/legnyomas">Légnyomás</a></li>
+<li><a href="/minmax">Min/max</a></li>
+<li><a href="/muhold">Műhold</a></li>
+<li><a href="/nap">Napkitörés</a></li>
+<li><a href="/para">Pára</a></li>
+<li><a href="/pollen">Pollen</a></li>
+<li><a href="/szel">Szél</a></li>
+<li><a href="/szmog">Szmog</a></li>
+<li><a href="/tornado">Tornádó</a></li>
+<li><a href="/uv">UV</a></li>
+<li><a href="/villam">Villám</a></li>
+<li><a href="/vizho">Vízhőmérséklet</a></li>
+</ul>
+</li>
+<li>
+<a href="/bejelentkezes"><i class="fas fa-sign-in-alt"></i> <small class="d-none d-xl-inline">Bejelentkezés</small></a>
+<ul class="drop">
+<li>
+<a href="/bejelentkezes"><i class="fas fa-door-open"></i> Bejelentkezés</a>
+</li>
+<li>
+<a href="/regisztracio"><i class="fas fa-cogs"></i> Regisztráció</a>
+</li>
+</ul> </li>
+</ul>
+</nav>
+</div>
+</div>
+</div>
+<div id="menubarMobile" class="container ps-0 pe-0 pb-0 sticky-top ik menubar-mobile">
+<div class="row h-100 ms-2 me-2 o-y-s">
+<div class="col">
+<a class="ik mobile-menu-logo pt-2 d-block" href="/idojaras/Budapest" id="fooldal_mobil"></a>
+</div>
+<div class="col">
+<div class="text-end pt-2 pb-2">
+<button class="ik menuopener btn rounded item-large-toggler" data-ik-toggle="mobile-menu-collapsing">
+<div id="mobileMenuopener">
+<span></span>
+<span></span>
+<span></span>
+</div>
+<div class="ik mobile-menuopener-text">Menü</div>
+</button>
+</div>
+</div>
+</div>
+<div class="ik mobile-menu-collapsing">
+<nav>
+<ul class="ik mobile-menu-ul">
+<li class="ik mobile-menu-li">
+<a href="/elorejelzes" class="ik menu-item-toggler"><i class="fa fa-2x fa-chart-line ik hugeIcon"></i>
+Előrejelzés</a>
+</li>
+<li>
+<a href="/idokep"><i class="fa fa-2x fa-sun ik hugeIcon"></i> Időkép</a>
+</li>
+<li>
+<a href="/hoterkep" class="ik menu-item-toggler"><i class="fa fa-2x fa-thermometer-three-quarters ik hugeIcon"></i> Hőtérkép</a>
+</li>
+<li>
+<a href="/felhokep" class="ik menu-item-toggler"><i class="fa fa-2x fa-cloud ik hugeIcon"></i> Felhőkép</a>
+</li>
+<li>
+<a href="/radar" class="ik menu-item-toggler"><i class="fa fa-2x fa-satellite-dish ik hugeIcon"></i> Radar</a>
+</li>
+<li>
+<a href="javascript: return null;" class="ik menu-item-toggler" data-ik-toggle="kamerak-submenu"><i class="fa fa-2x fa-video ik hugeIcon"></i> Kamerák
+<i class="ik carret fas fa-angle-down fa-pull-right"></i></a>
+<div id="kamerak-submenu" class="ik kamerak-submenu submenu-collapsed">
+<ul class="ik mobile-submenu-ul">
+<li class="ik submenu">
+<a href="/webkamera/tag/balaton">Balaton</a>
+</li>
+<li class="ik submenu">
+<a href="/webkamera/tag/%C3%A9jjell%C3%A1t%C3%B3">Éjjellátó</a>
+</li>
+<li class="ik submenu">
+<a href="/webkamera/tag/%C3%A9l%C5%91">Élő</a>
+</li>
+<li class="ik submenu">
+<a href="/webkamera/tag/hegytet%C5%91">Hegytető</a>
+</li>
+<li class="ik submenu">
+<a href="/webkamera/tag/rep%C3%BCl%C5%91t%C3%A9r">Repülőtér</a>
+</li>
+<li class="ik submenu">
+<a href="/webkamera/tag/strand">Strand</a>
+</li>
+<li class="ik submenu">
+<a href="/webkamera/tag/s%C3%ADp%C3%A1lya">Sípálya</a>
+</li>
+<li class="ik submenu">
+<a href="/webkamera">Összes</a>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<a href="javascript: return null;" class="ik menu-item-toggler" data-ik-toggle="kozosseg-submenu"><i class="fa fa-2x fa-users ik hugeIcon"></i> Közösség
+<i class="ik carret fas fa-angle-down fa-pull-right"></i></a>
+<div id="kozosseg-submenu" class="ik kozosseg-submenu submenu-collapsed">
+<ul class="ik mobile-submenu-ul">
+<li class="ik submenu">
+<a href="/keptar">Képtár</a>
+</li>
+<li class="ik submenu">
+<a href="/eszlel">Észlelések</a>
+</li>
+<li class="ik submenu">
+<a href="/tarsalgo">Társalgó</a>
+</li>
+<li class="ik submenu">
+<a href="/eszlelo">Észlelés beküldése</a>
+</li>
+<li class="ik submenu">
+<a href="/automata">Automaták</a>
+</li>
+<li class="ik submenu">
+<a href="https://shop.idokep.hu/">Webshop</a>
+</li>
+<li class="ik submenu">
+<a href="/felhoatlasz">Felhőatlasz</a>
+</li>
+<li class="ik submenu">
+<a href="/alapismeretek">Alapismeretek</a>
+</li>
+<li class="ik submenu">
+<a href="/hirek/gyakran-ismetelt-kerdesek">GYIK (Észlelés)</a>
+</li>
+<li class="ik submenu">
+<a href="https://wiki.idokep.hu/">GYIK (Automata/Kamera)</a>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<a href="javascript: return null;" class="ik menu-item-toggler" data-ik-toggle="tematikus-submenu"><i class="fas fa-skating ik hugeIcon"></i> Tematikus
+<i class="ik carret fas fa-angle-down fa-pull-right"></i></a>
+<div id="tematikus-submenu" class="ik tematikus-submenu submenu-collapsed">
+<ul class="ik mobile-submenu-ul">
+<li class="ik submenu">
+<a href="/balaton">Balaton</a>
+</li>
+<li class="ik submenu">
+<a href="/erdomezo">Erdő-Mező</a>
+</li>
+<li class="ik submenu">
+<a href="/eskuvo">Esküvő</a>
+</li>
+<li class="ik submenu">
+<a href="/influenza">Influenza</a>
+</li>
+<li class="ik submenu">
+<a href="/koronavirus">Koronavírus</a>
+</li>
+<li class="ik submenu">
+<a href="/horgasz">Horgász</a>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<a href="javascript: return null;" class="ik menu-item-toggler" data-ik-toggle="terkepek-submenu"><i class="fas fa-map-marked ik hugeIcon"></i> Térképek
+<i class="ik carret fas fa-angle-down fa-pull-right"></i></a>
+<div id="terkepek-submenu" class="ik terkepek-submenu submenu-collapsed">
+<ul class="ik mobile-submenu-ul">
+<li class="ik submenu">
+<a href="/csapadek">Csapadék</a>
+</li>
+<li class="ik submenu">
+<a href="/havazas">Hó és síelés</a>
+</li>
+<li class="ik submenu">
+<a href="/influenza">Influenza</a>
+</li>
+<li class="ik submenu">
+<a href="/legnyomas">Légnyomás</a>
+</li>
+<li class="ik submenu">
+<a href="/minmax">Min/Max</a>
+</li>
+<li class="ik submenu">
+<a href="/muhold">Műhold</a>
+</li>
+<li class="ik submenu">
+<a href="/nap">Napkitörés</a>
+</li>
+<li class="ik submenu">
+<a href="/para">Pára</a>
+</li>
+<li class="ik submenu">
+<a href="/pollen">Pollen</a>
+</li>
+<li class="ik submenu">
+<a href="/szel">Szél</a>
+</li>
+<li class="ik submenu">
+<a href="/szmog">Szmog</a>
+</li>
+<li class="ik submenu">
+<a href="/tornado">Tornádó</a>
+</li>
+<li class="ik submenu">
+<a href="/uv">UV</a>
+</li>
+<li class="ik submenu">
+<a href="/villam">Villám</a>
+</li>
+<li class="ik submenu">
+<a href="/vizho">Vízhőmérséklet</a>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<a href="javascript: return null;" class="ik menu-item-toggler" data-ik-toggle="searchbox-mobile"><i class="fa fa-2x fa-search ik hugeIcon"></i> Keresés
+<i class="ik carret fas fa-angle-down fa-pull-right"></i></a>
+<div class="ik searchbox-mobile submenu-collapsed">
+<div class="input-bar">
+<div class="input-bar-item">
+<form class="form-control" action method="get" style="min-height: 52px;">
+<div class="input-group">
+<input class="form-control" id="searchPhrase" type="text" placeholder="pl.: vihar Szolnokon">
+<span class="input-group-btn">
+<button class="btn ik btn-ikblue">Keresés</button>
+</span>
+</div>
+</form>
+</div>
+</div>
+</div>
+</li>
+<li>
+<a href="javascript: return null;" class="ik menu-item-toggler" data-ik-toggle="loginbox-mobile"><i class="fas fa-2x fa-sign-in-alt ik hugeIcon"></i> Bejelentkezés <i class="ik carret fas fa-angle-down fa-pull-right"></i></a>
+<div class="ik loginbox-mobile pb-3 submenu-collapsed">
+<div class="input-bar">
+<div class="input-bar-item">
+<form class="form-control" action="/login.php" method="post" style="min-height: 52px;">
+<div class="input-group">
+<input class="form-control" name="user_login" id="userName" type="text" autocomplete="username" placeholder="felhasználónév">
+<input class="form-control" name="pass_login" id="password" type="password" autocomplete="current-password" placeholder="jelszó">
+<span class="input-group-btn">
+<button class="btn ik btn-ikblue"><i class="fa fa-sign-in-alt"></i></button>
+</span>
+</div>
+</form>
+</div>
+<ul class="ik mobile-submenu-ul">
+<li class="ik submenu">
+<a href="/bejelentkezes"><i class="fas fa-door-open"></i> Jelkulcsos belépés</a>
+</li>
+</ul>
+<ul class="ik mobile-submenu-ul">
+<li class="ik submenu">
+<a href="/regisztracio"><i class="fas fa-door-open"></i> Regisztráció</a>
+</li>
+</ul>
+</div>
+</div>
+</li>
+</ul>
+</nav>
+</div>
+</div>
+<script>
+		if (getCookie("lastvaros")!="") {
+		    $("#eloreoldal").attr("href","/elorejelzes/"+getCookie("lastvaros"));
+		    $("#fooldal").attr("href","/idojaras/"+getCookie("lastvaros"));
+		    $("#eloreoldal_mobil").attr("href","/elorejelzes/"+getCookie("lastvaros"));
+		    $("#fooldal_mobil").attr("href","/idojaras/"+getCookie("lastvaros"));
+	    }
+	</script>
+
+<div class="container ik content-fill collapsingLocationSelector" id="collapsingLocationSelector">
+<div class="row ik pt-20 pb-20">
+<div class="col-12 ik locationSelectorContainer">
+<div class="row ik pad-t-b-10">
+<div class="col-12 col-md-3">
+<div class="ik location-title"><b>Település</b></div>
+<form id="locationselectorform" autocomplete="off" method="get" action="/" onsubmit="window.location = '/idojaras/' + location.value; return false;">
+<div id="locationContainer">
+<div class="input-group mb-3">
+<input class="form-control locationAutoComplete" id="locationName" type="text" autocomplete="off" placeholder="település neve..." name="location">
+<div class="input-group-append">
+<button type="submit" class="btn ik btn-ikblue">
+<i class="fas fa-angle-right"></i>
+</button>
+</div>
+</div>
+</div>
+</form>
+</div>
+<div class="col-6 col-md-3">
+<b>Magyarországi városok</b>
+<div>
+<a href="/idojaras/Budapest" class="ik location-selector-item">Budapest</a><br>
+<a href="/idojaras/Debrecen" class="ik location-selector-item">Debrecen</a><br>
+<a href="/idojaras/Gy%C5%91r" class="ik location-selector-item">Győr</a><br>
+<a href="/idojaras/Kecskem%C3%A9t" class="ik location-selector-item">Kecskemét</a><br>
+<a href="/idojaras/Miskolc" class="ik location-selector-item">Miskolc</a><br>
+<a href="/idojaras/Ny%C3%ADregyh%C3%A1za" class="ik location-selector-item">Nyíregyháza</a><br>
+<a href="/idojaras/P%C3%A9cs" class="ik location-selector-item">Pécs</a><br>
+<a href="/idojaras/Szeged" class="ik location-selector-item">Szeged</a><br>
+<a href="/idojaras/Sz%C3%A9kesfeh%C3%A9rv%C3%A1r" class="ik location-selector-item">Székesfehérvár</a><br>
+<a href="/idojaras/Szombathely" class="ik location-selector-item">Szombathely</a>
+</div>
+</div>
+<div class="col-6 col-md-3">
+<b>Európai városok</b>
+<div>
+<a href="/idojaras/Amsterdam" class="ik location-selector-item">Amsterdam</a><br>
+<a href="/idojaras/Barcelona" class="ik location-selector-item">Barcelona</a><br>
+<a href="/idojaras/B%C3%A9cs" class="ik location-selector-item">Bécs</a><br>
+<a href="/idojaras/Berlin" class="ik location-selector-item">Berlin</a><br>
+<a href="/idojaras/London" class="ik location-selector-item">London</a><br>
+<a href="/idojaras/Madrid" class="ik location-selector-item">Madrid</a><br>
+<a href="/idojaras/R%C3%B3ma" class="ik location-selector-item">Róma</a><br>
+<a href="/idojaras/Paris" class="ik location-selector-item">Párizs</a><br>
+<a href="/idojaras/Bratislava" class="ik location-selector-item">Pozsony</a><br>
+<a href="/idojaras/Praha" class="ik location-selector-item">Prága</a>
+</div>
+</div>
+<div class="col-6 col-md-3">
+<b>Népszerű hazai üdülőhelyek</b>
+<div class="pb-2">
+<a href="/idojaras/Siófok" class="ik location-selector-item">Balaton</a><br>
+<a href="/idojaras/Velence" class="ik location-selector-item">Velencei-tó</a><br>
+<a href="/idojaras/Kisk%C3%B6re" class="ik location-selector-item">Tisza-tó</a>
+</div>
+<b>Népszerű európai üdülőhelyek</b>
+<div>
+<a href="/idojaras/Dubrovnik" class="ik location-selector-item">Dubrovnik</a><br>
+<a href="/idojaras/Rijeka" class="ik location-selector-item">Fiume</a><br>
+<a href="/idojaras/Split" class="ik location-selector-item">Split</a><br>
+<a href="/idojaras/Venice" class="ik location-selector-item">Velence</a><br>
+<a href="/idojaras/Zadar" class="ik location-selector-item">Zára</a>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="container">
+<div id="hourlyForecastRow" class="row wideLeftPad ik content-fill hourly-forecast-row erosen_felhos_ejszaka">
+<div class="col-12 col-lg-11 offset-lg-1 offset-xl-0 col-xl-8">
+<div class="row ik pb-20">
+<div class="col-12">
+<div class="mt-3 mb-2 text-start">
+<a class="ik location-selector collapseToggler wht-rounded-borders d-block text-center text-md-start d-md-inline-block" data-ik-toggle="collapsingLocationSelector" href="javascript: return null;"><i class="fas fa-location-arrow"></i> Budapest</a>
+<div class="ik current-weather-short-desc d-block d-md-inline ms-md-2 mt-2 mt-xl-0">Felhős, borongós lesz a kedd </div>
+</div>
+</div>
+</div>
+<div class="row g-0">
+
+<div class="order-0 order-xl-0 col-12 col-md-2 col-lg-2 col-xl-3">
+<div class="pt-md-1">
+<div class="row g-0 ik shortCurrentWeatherText">
+<div class="col-6 col-sm-4 col-md-12">
+<div class="ik current-weather-title">Jelenleg</div>
+<div class="ik current-weather">Erősen felhős</div>
+<div class="current-weather-lockup" style="display: flex; flex-direction: row;">
+<div class="leftSide">
+<div class="ik current-weather-icon text-end text-md-start">
+<img class="ik forecast-bigicon pe-2 pd-md-0" fetchpriority="high" src="/assets/forecast-icons/323.svg" alt="Erősen felhős" loading="lazy">
+</div>
+</div>
+<div class="rightSide">
+<div class="row h-100">
+<div class="col-12 my-auto">
+<div class="ik current-temperature">8˚C
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="col-6 col-sm-8 col-md-12 pt-4 pt-md-2">
+<div><img src="/assets/icons/sunrise.svg" width="20" height="20" loading="lazy" alt="Napkelte" class="ik small-icon">Napkelte 6:55</div>
+<div class="pt-2"><img src="/assets/icons/sunset.svg" width="20" height="20" loading="lazy" alt="Napnyugta" class="ik small-icon">Napnyugta 16:04 </div>
+
+<div class="pt-2">
+Kettősfronti hatás </div>
+</div>
+</div>
+</div>
+</div>
+
+<div class="ik hourly-hours-outer order-1 order-xl-1 col-12 col-md-10  offset-xl-0 col-lg-10 col-xl-9 mt-1">
+<div class="col-12 pb-2 ps-0 text-start d-md-none ik current-weather-title pt-3">
+A következő órákban
+</div>
+<div id="hourlyForecast" class="row g-0 ik sidescroll pb-10 ps-3">
+<div>
+<div class="ik hourly-forecast-header-container">
+<div class="ik hourly-forecast-header today">ma</div><div class="ik hourly-forecast-header"></div><div class="ik hourly-forecast-header"></div><div class="ik hourly-forecast-header"></div><div class="ik hourly-forecast-header"></div><div class="ik hourly-forecast-header"></div><div class="ik hourly-forecast-header"></div><div class="ik hourly-forecast-header tomorrow"></div> </div>
+<div class="ik hourly-forecast-header-ln"></div>
+<div class="ik hourly-forecast-card-container">
+<div class="ik hourly-forecast-card">
+<a href="/elorejelzes/Budapest">
+<div class="ik hourly-forecast-hour">3:00</div>
+</a>
+<div class="ik forecast-icon-container">
+<a tabindex="0" class="ik d-block w-100 interact" data-bs-toggle="popover" data-bs-placement="bottom" data-bs-content="erősen felhős">
+<img class="ik forecast-icon" src="/assets/forecast-icons/323.svg" fetchpriority="high" width="45" height="45" alt="erősen felhős">
+</a>
+</div>
+<a href="/elorejelzes/Budapest">
+<div class="ik temp-circle-container">
+<a tabindex="0" class="ik interact d-block" data-bs-toggle="popover" data-bs-placement="bottom" data-bs-content="Várható hőmérséklet: 7&deg;C">
+<div class="ik temperature-circled flex-v-m mx-auto">
+7
+</div>
+</a>
+</div>
+</a>
+</div>
+<div class="ik hourly-forecast-card">
+<a href="/elorejelzes/Budapest">
+<div class="ik hourly-forecast-hour">6:00</div>
+</a>
+<div class="ik forecast-icon-container">
+<a tabindex="0" class="ik d-block w-100 interact" data-bs-toggle="popover" data-bs-placement="bottom" data-bs-content="közepesen felhős">
+<img class="ik forecast-icon" src="/assets/forecast-icons/322.svg" fetchpriority="high" width="45" height="45" alt="közepesen felhős">
+</a>
+</div>
+<a href="/elorejelzes/Budapest">
+<div class="ik temp-circle-container">
+<a tabindex="0" class="ik interact d-block" data-bs-toggle="popover" data-bs-placement="bottom" data-bs-content="Várható hőmérséklet: 5&deg;C">
+<div class="ik temperature-circled flex-v-m mx-auto">
+5
+</div>
+</a>
+</div>
+</a>
+</div>
+<div class="ik hourly-forecast-card">
+<a href="/elorejelzes/Budapest">
+<div class="ik hourly-forecast-hour">9:00</div>
+</a>
+<div class="ik forecast-icon-container">
+<a tabindex="0" class="ik d-block w-100 interact" data-bs-toggle="popover" data-bs-placement="bottom" data-bs-content="gyenge eső">
+<img class="ik forecast-icon" src="/assets/forecast-icons/042.svg" fetchpriority="high" width="45" height="45" alt="gyenge eső">
+</a>
+</div>
+<a href="/elorejelzes/Budapest">
+<div class="ik temp-circle-container">
+<a tabindex="0" class="ik interact d-block" data-bs-toggle="popover" data-bs-placement="bottom" data-bs-content="Várható hőmérséklet: 7&deg;C">
+<div class="ik temperature-circled flex-v-m mx-auto">
+7
+</div>
+</a>
+</div>
+</a>
+</div>
+<div class="ik hourly-forecast-card">
+<a href="/elorejelzes/Budapest">
+<div class="ik hourly-forecast-hour">12:00</div>
+</a>
+<div class="ik forecast-icon-container">
+<a tabindex="0" class="ik d-block w-100 interact" data-bs-toggle="popover" data-bs-placement="bottom" data-bs-content="közepesen felhős">
+<img class="ik forecast-icon" src="/assets/forecast-icons/022.svg" fetchpriority="high" width="45" height="45" alt="közepesen felhős">
+</a>
+</div>
+<a href="/elorejelzes/Budapest">
+<div class="ik temp-circle-container">
+<a tabindex="0" class="ik interact d-block" data-bs-toggle="popover" data-bs-placement="bottom" data-bs-content="Várható hőmérséklet: 10&deg;C">
+<div class="ik temperature-circled flex-v-m mx-auto">
+10
+</div>
+</a>
+</div>
+</a>
+</div>
+<div class="ik hourly-forecast-card">
+<a href="/elorejelzes/Budapest">
+<div class="ik hourly-forecast-hour">15:00</div>
+</a>
+<div class="ik forecast-icon-container">
+<a tabindex="0" class="ik d-block w-100 interact" data-bs-toggle="popover" data-bs-placement="bottom" data-bs-content="közepesen felhős">
+<img class="ik forecast-icon" src="/assets/forecast-icons/022.svg" fetchpriority="high" width="45" height="45" alt="közepesen felhős">
+</a>
+</div>
+<a href="/elorejelzes/Budapest">
+<div class="ik temp-circle-container">
+<a tabindex="0" class="ik interact d-block" data-bs-toggle="popover" data-bs-placement="bottom" data-bs-content="Várható hőmérséklet: 11&deg;C">
+<div class="ik temperature-circled flex-v-m mx-auto">
+11
+</div>
+</a>
+</div>
+</a>
+</div>
+<div class="ik hourly-forecast-card">
+<a href="/elorejelzes/Budapest">
+<div class="ik hourly-forecast-hour">18:00</div>
+</a>
+<div class="ik forecast-icon-container">
+<a tabindex="0" class="ik d-block w-100 interact" data-bs-toggle="popover" data-bs-placement="bottom" data-bs-content="közepesen felhős">
+<img class="ik forecast-icon" src="/assets/forecast-icons/322.svg" fetchpriority="high" width="45" height="45" alt="közepesen felhős">
+</a>
+</div>
+<a href="/elorejelzes/Budapest">
+<div class="ik temp-circle-container">
+<a tabindex="0" class="ik interact d-block" data-bs-toggle="popover" data-bs-placement="bottom" data-bs-content="Várható hőmérséklet: 9&deg;C">
+<div class="ik temperature-circled flex-v-m mx-auto">
+9
+</div>
+</a>
+</div>
+</a>
+</div>
+<div class="ik hourly-forecast-card">
+<a href="/elorejelzes/Budapest">
+<div class="ik hourly-forecast-hour">21:00</div>
+</a>
+<div class="ik forecast-icon-container">
+<a tabindex="0" class="ik d-block w-100 interact" data-bs-toggle="popover" data-bs-placement="bottom" data-bs-content="gyengén felhős">
+<img class="ik forecast-icon" src="/assets/forecast-icons/321.svg" fetchpriority="high" width="45" height="45" alt="gyengén felhős">
+</a>
+</div>
+<a href="/elorejelzes/Budapest">
+<div class="ik temp-circle-container">
+<a tabindex="0" class="ik interact d-block" data-bs-toggle="popover" data-bs-placement="bottom" data-bs-content="Várható hőmérséklet: 7&deg;C">
+<div class="ik temperature-circled flex-v-m mx-auto">
+7
+</div>
+</a>
+</div>
+</a>
+</div>
+<div class="ik hourly-forecast-card">
+<a href="/elorejelzes/Budapest">
+<div class="ik hourly-forecast-hour">0:00</div>
+</a>
+<div class="ik forecast-icon-container">
+<a tabindex="0" class="ik d-block w-100 interact" data-bs-toggle="popover" data-bs-placement="bottom" data-bs-content="erősen felhős">
+<img class="ik forecast-icon" src="/assets/forecast-icons/323.svg" fetchpriority="high" width="45" height="45" alt="erősen felhős">
+</a>
+</div>
+<a href="/elorejelzes/Budapest">
+<div class="ik temp-circle-container">
+<a tabindex="0" class="ik interact d-block" data-bs-toggle="popover" data-bs-placement="bottom" data-bs-content="Várható hőmérséklet: 7&deg;C">
+<div class="ik temperature-circled flex-v-m mx-auto">
+7
+</div>
+</a>
+</div>
+</a>
+</div> </div>
+</div>
+</div>
+<div class="col-12 pb-2 pe-0 text-end">
+<a href="/elorejelzes/Budapest" class="ik more-link">Részletes
+előrejelzés</a>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="row wideLeftPad ik content-fill">
+<div class="col-12 col-lg-10 offset-lg-1 offset-xl-0 col-xl-8">
+<div class="row ik content-fill pt-3 d-block d-sm-none">
+<div class="col-12 col-md-12 offset-lg-1 offset-xl-0 col-lg-10 col-xl-8 ik pt-20">
+<div class="d-flex align-items-center">
+<div class="m-auto pb-1">
+<div id="idokep_nyito_mobil_1"></div> </div>
+</div>
+<div class="ik info-small text-center">Hirdetés</div>
+</div>
+</div>
+<div class="row pt-3">
+<div class="col-12">
+<div id="dailyForecast" class="row g-0 ik sidescroll">
+<div>
+<div class="ik daily-forecast-container">
+<div class="ik mitVegyekFelBox">
+<div class="ik mit-vegyek-fel-text">
+<span class="ik mit-vegyek-fel-header">Mit vegyek fel holnap?</span>
+<span class="ik what-to-wear">Őszi, réteges öltözet</span>
+</div>
+<div class="ik haute-couture">
+<img loading="lazy" src="/images/elore3/oltoz/lany_kalap_huvosebb_nagy.webp" width="109" height="178" alt="Őszi, réteges öltözet" class="img-fluid">
+<div class="ik info-small text-center">Hirdetés</div>
+</div>
+</div>
+<div class="ik dailyForecastCol">
+<div class="ik dfColHeader">
+<span class="ik dfDayNum">21</span>
+<span class="ik dfDay">K</span>
+</div>
+<div class="ik dfIconAlert">
+<a tabindex="0" class="ik d-block w-100 ik interact" data-bs-toggle="popover" data-bs-placement="bottom" title="Kedd<br>2023. november 21." data-bs-content="
+                    <div class='ik fc-line'>
+                        <img class='ik popover-icon' src='/assets/forecast-icons/023.svg'>erősen felhős
+                    </div>
+                    <div class='ik fc-line'>
+                        <img class='ik popover-icon' src='/images/elore3/figyikonok2/hidegfront_fejfajas.png'>Hidegfront
+                    </div>"><img class="ik forecast-icon" src="/assets/forecast-icons/023.svg" fetchpriority="high"><img class="ik forecast-alert-icon" src="/images/elore3/figyikonok2/hidegfront_fejfajas.png" fetchpriority="high"></a>
+</div>
+<div class="ik min-max-container">
+<div class="ik max" style="top: 10px;">
+<a class="w-100 d-block ik interact nofous" tabindex="0" data-bs-toggle="popover" data-bs-placement="right" data-bs-content="
+				<div class='ik min-max-line'>
+				    Napi rekord:<br>
+					<span class='ik daily-record-temp'>21,0°C</span>
+					<span class='ik daily-record-location'>Kecskemét (Miklóstelep) (1926)</span>
+				</div>">11</a>
+</div>
+<div class="ik min" style="top: 88px;">
+<a class="w-100 d-block ik interact nofous" tabindex="0" data-bs-toggle="popover" data-bs-placement="right" data-bs-content="
+				<div class='ik min-max-line'>
+				    Napi rekord:<br>
+					<span class='ik daily-record-temp'>-13,7°C</span>
+					<span class='ik daily-record-location'> (1956    Putnok)</span>
+				</div>">4</a>
+</div></div>
+<div class="ik dailyBadge">
+<a tabindex="0" class="d-block" data-bs-toggle="popover" data-bs-placement="top" data-bs-content="KFT - Big Band koncert<br/></strong>(hirdetés)<strong><br>" href="https://www.eventim.hu/hu/jegyek/kft-big-band-koncert-budapest-kongresszusi-koezpont-613921/event.html?utm_source=idokephu2023&utm_medium=KFT_ikon&utm_campaign=idokephu2023" target="_blank" title rel="sponsored"><img src="https://www.idokep.hu/images/nagyelore/jelesnap/tex_kft.png" alt="jeles nap"></a>
+</div>
+</div>
+<div class="ik dailyForecastCol">
+<div class="ik dfColHeader">
+<span class="ik dfDayNum">22</span>
+<span class="ik dfDay">Sz</span>
+</div>
+<div class="ik dfIconAlert">
+<a tabindex="0" class="ik d-block w-100 ik interact" data-bs-toggle="popover" data-bs-placement="bottom" title="Szerda<br>2023. november 22." data-bs-content="
+                    <div class='ik fc-line'>
+                        <img class='ik popover-icon' src='/assets/forecast-icons/021.svg'>gyengén felhős
+                    </div>
+                    <div class='ik fc-line'>
+                        <img class='ik popover-icon' src='/images/elore3/figyikonok2/szeles_nap.png'>Szeles nap
+                    </div>"><img class="ik forecast-icon" src="/assets/forecast-icons/021.svg" fetchpriority="high"><img class="ik forecast-alert-icon" src="/images/elore3/figyikonok2/szeles_nap.png" fetchpriority="high"></a>
+</div>
+<div class="ik min-max-container">
+<div class="ik max" style="top: 10px;">
+<a class="w-100 d-block ik interact nofous" tabindex="0" data-bs-toggle="popover" data-bs-placement="right" data-bs-content="
+				<div class='ik min-max-line'>
+				    Napi rekord:<br>
+					<span class='ik daily-record-temp'>20,3°C</span>
+					<span class='ik daily-record-location'>Szerep (1926)</span>
+				</div>">11</a>
+</div>
+<div class="ik min" style="top: 65px;">
+<a class="w-100 d-block ik interact nofous" tabindex="0" data-bs-toggle="popover" data-bs-placement="right" data-bs-content="
+				<div class='ik min-max-line'>
+				    Napi rekord:<br>
+					<span class='ik daily-record-temp'>-14,8°C</span>
+					<span class='ik daily-record-location'>Szolnok (Alcsisziget) (1971)</span>
+				</div>">6</a>
+</div></div>
+<div class="ik dailyBadge">
+</div>
+</div>
+<div class="ik dailyForecastCol">
+<div class="ik dfColHeader">
+<span class="ik dfDayNum">23</span>
+<span class="ik dfDay">Cs</span>
+</div>
+<div class="ik dfIconAlert">
+<a tabindex="0" class="ik d-block w-100 ik interact" data-bs-toggle="popover" data-bs-placement="bottom" title="Csütörtök<br>2023. november 23." data-bs-content="
+                    <div class='ik fc-line'>
+                        <img class='ik popover-icon' src='/assets/forecast-icons/022.svg'>közepesen felhős
+                    </div>
+                    <div class='ik fc-line'>
+                        <img class='ik popover-icon' src='/images/elore3/figyikonok2/melegfront_fejfajas.png'>Melegfront
+                    </div>"><img class="ik forecast-icon" src="/assets/forecast-icons/022.svg" fetchpriority="high"><img class="ik forecast-alert-icon" src="/images/elore3/figyikonok2/melegfront_fejfajas.png" fetchpriority="high"></a>
+</div>
+<div class="ik min-max-container">
+<div class="ik max" style="top: 32px;">
+<a class="w-100 d-block ik interact nofous" tabindex="0" data-bs-toggle="popover" data-bs-placement="right" data-bs-content="
+				<div class='ik min-max-line'>
+				    Napi rekord:<br>
+					<span class='ik daily-record-temp'>22,0°C</span>
+					<span class='ik daily-record-location'>Szombathely (1947)</span>
+				</div>">9</a>
+</div>
+<div class="ik min" style="top: 165px;">
+<a class="w-100 d-block ik interact nofous" tabindex="0" data-bs-toggle="popover" data-bs-placement="right" data-bs-content="
+				<div class='ik min-max-line'>
+				    Napi rekord:<br>
+					<span class='ik daily-record-temp'>-17,2°C</span>
+					<span class='ik daily-record-location'>Tatabánya (Bánhida) (1988)</span>
+				</div>">-3</a>
+</div></div>
+<div class="ik dailyBadge">
+</div>
+</div>
+<div class="ik dailyForecastCol">
+<div class="ik dfColHeader">
+<span class="ik dfDayNum">24</span>
+<span class="ik dfDay">P</span>
+</div>
+<div class="ik dfIconAlert">
+<a tabindex="0" class="ik d-block w-100 ik interact" data-bs-toggle="popover" data-bs-placement="bottom" title="Péntek<br>2023. november 24." data-bs-content="
+                    <div class='ik fc-line'>
+                        <img class='ik popover-icon' src='/assets/forecast-icons/081.svg'>zápor
+                    </div>
+                    <div class='ik fc-line'>
+                        <img class='ik popover-icon' src='/images/elore3/figyikonok2/hidegfront_eros_szel.png'>Hidegfront erős széllel
+                    </div>"><img class="ik forecast-icon" src="/assets/forecast-icons/081.svg" fetchpriority="high"><img class="ik forecast-alert-icon" src="/images/elore3/figyikonok2/hidegfront_eros_szel.png" fetchpriority="high"></a>
+</div>
+<div class="ik min-max-container">
+<div class="ik max" style="top: 43px;">
+<a class="w-100 d-block ik interact nofous" tabindex="0" data-bs-toggle="popover" data-bs-placement="right" data-bs-content="
+				<div class='ik min-max-line'>
+				    Napi rekord:<br>
+					<span class='ik daily-record-temp'>21,2°C</span>
+					<span class='ik daily-record-location'>Somogyszob (1984)</span>
+				</div>">8</a>
+</div>
+<div class="ik min" style="top: 88px;">
+<a class="w-100 d-block ik interact nofous" tabindex="0" data-bs-toggle="popover" data-bs-placement="right" data-bs-content="
+				<div class='ik min-max-line'>
+				    Napi rekord:<br>
+					<span class='ik daily-record-temp'>-23,0°C</span>
+					<span class='ik daily-record-location'>Baja (Csávoly) (1988)</span>
+				</div>">4</a>
+</div></div>
+<div class="ik rainlevel-container">
+<a tabindex="0" class="ik interact d-block" data-bs-toggle="popover" data-bs-placement="bottom" title="Csapadék" data-bs-content="2 mm">
+<span class="ik mm">2 mm</span>
+<div class="ik rainlevel blue" style="height: 5px;"></div>
+</a>
+</div>
+<div class="ik dailyBadge">
+<a tabindex="0" class="d-block" data-bs-toggle="popover" data-bs-placement="top" data-bs-content="Műfenyők és fényfüzérek<br/></strong>(hirdetés)<strong><br>" href="https://bit.ly/aqualing2023" target="_blank" title rel="sponsored"><img src="https://www.idokep.hu/images/nagyelore/jelesnap/aqualing2020.png" alt="jeles nap"></a>
+</div>
+</div>
+<div class="ik dailyForecastCol">
+<div class="ik dfColHeader">
+<span class="ik dfDayNum vacation">25</span>
+<span class="ik dfDay vacation">Sz</span>
+</div>
+<div class="ik dfIconAlert">
+<a tabindex="0" class="ik d-block w-100 ik interact" data-bs-toggle="popover" data-bs-placement="bottom" title="Szombat<br>2023. november 25." data-bs-content="
+                    <div class='ik fc-line'>
+                        <img class='ik popover-icon' src='/assets/forecast-icons/081.svg'>zápor
+                    </div>
+                    <div class='ik fc-line'>
+                        <img class='ik popover-icon' src='/images/elore3/figyikonok2/szeles_nap.png'>Szeles nap
+                    </div>"><img class="ik forecast-icon" src="/assets/forecast-icons/081.svg" fetchpriority="high"><img class="ik forecast-alert-icon" src="/images/elore3/figyikonok2/szeles_nap.png" fetchpriority="high"></a>
+</div>
+<div class="ik min-max-container">
+<div class="ik max" style="top: 54px;">
+<a class="w-100 d-block ik interact nofous" tabindex="0" data-bs-toggle="popover" data-bs-placement="right" data-bs-content="
+				<div class='ik min-max-line'>
+				    Napi rekord:<br>
+					<span class='ik daily-record-temp'>20,0°C</span>
+					<span class='ik daily-record-location'>Máza (2003)</span>
+				</div>">7</a>
+</div>
+<div class="ik min" style="top: 110px;">
+<a class="w-100 d-block ik interact nofous" tabindex="0" data-bs-toggle="popover" data-bs-placement="right" data-bs-content="
+				<div class='ik min-max-line'>
+				    Napi rekord:<br>
+					<span class='ik daily-record-temp'>-21,0°C</span>
+					<span class='ik daily-record-location'>Kalocsa (1988)</span>
+				</div>">2</a>
+</div></div>
+<div class="ik rainlevel-container">
+<a tabindex="0" class="ik interact d-block" data-bs-toggle="popover" data-bs-placement="bottom" title="Csapadék" data-bs-content="Elszórtan">
+<span class="ik mm">.</span>
+<div class="ik rainlevel blue" style="height: 3px;"></div>
+</a>
+</div>
+<div class="ik dailyBadge">
+<a tabindex="0" class="d-block" data-bs-toggle="popover" data-bs-placement="top" data-bs-content="XXIII. Tatai Vadlúd Sokadalom<br/></strong>(hirdetés)<strong><br>" href="https://bit.ly/3sD8Xqi" target="_blank" title rel="sponsored"><img src="https://www.idokep.hu/images/nagyelore/jelesnap/vadlud.png" alt="jeles nap"></a>
+</div>
+</div>
+<div class="ik dailyForecastCol">
+<div class="ik dfColHeader">
+<span class="ik dfDayNum vacation">26</span>
+<span class="ik dfDay vacation">V</span>
+</div>
+<div class="ik dfIconAlert">
+<a tabindex="0" class="ik d-block w-100 ik interact" data-bs-toggle="popover" data-bs-placement="bottom" title="Vasárnap<br>2023. november 26." data-bs-content="
+                    <div class='ik fc-line'>
+                        <img class='ik popover-icon' src='/assets/forecast-icons/083.svg'>hózápor
+                    </div>
+                    <div class='ik fc-line'>
+                        <img class='ik popover-icon' src='/images/elore3/figyikonok2/szeles_nap.png'>Szeles nap
+                    </div>"><img class="ik forecast-icon" src="/assets/forecast-icons/083.svg" fetchpriority="high"><img class="ik forecast-alert-icon" src="/images/elore3/figyikonok2/szeles_nap.png" fetchpriority="high"></a>
+</div>
+<div class="ik min-max-container">
+<div class="ik max" style="top: 76px;">
+<a class="w-100 d-block ik interact nofous" tabindex="0" data-bs-toggle="popover" data-bs-placement="right" data-bs-content="
+				<div class='ik min-max-line'>
+				    Napi rekord:<br>
+					<span class='ik daily-record-temp'>19,4°C</span>
+					<span class='ik daily-record-location'>Máza (2006)</span>
+				</div>">5</a>
+</div>
+<div class="ik min" style="top: 132px;">
+<a class="w-100 d-block ik interact nofous" tabindex="0" data-bs-toggle="popover" data-bs-placement="right" data-bs-content="
+				<div class='ik min-max-line'>
+				    Napi rekord:<br>
+					<span class='ik daily-record-temp'>-22,8°C</span>
+					<span class='ik daily-record-location'>Vámosmikola (1975)</span>
+				</div>">0</a>
+</div></div>
+<div class="ik rainlevel-container">
+<a tabindex="0" class="ik interact d-block" data-bs-toggle="popover" data-bs-placement="bottom" title="Csapadék" data-bs-content="Elszórtan">
+<span class="ik mm">.</span>
+<div class="ik rainlevel gray" style="height: 3px;"></div>
+</a>
+</div>
+<div class="ik dailyBadge">
+</div>
+</div>
+<div class="ik dailyForecastCol">
+<div class="ik dfColHeader">
+<span class="ik dfDayNum">27</span>
+<span class="ik dfDay">H</span>
+</div>
+<div class="ik dfIconAlert">
+<a tabindex="0" class="ik d-block w-100 ik interact" data-bs-toggle="popover" data-bs-placement="bottom" title="Hétfő<br>2023. november 27." data-bs-content="
+                    <div class='ik fc-line'>
+                        <img class='ik popover-icon' src='/assets/forecast-icons/023.svg'>erősen felhős
+                    </div>
+                    <div class='ik fc-line'>
+                        <img class='ik popover-icon' src='/images/elore3/figyikonok2/melegfront_fejfajas.png'>Melegfront
+                    </div>"><img class="ik forecast-icon" src="/assets/forecast-icons/023.svg" fetchpriority="high"><img class="ik forecast-alert-icon" src="/images/elore3/figyikonok2/melegfront_fejfajas.png" fetchpriority="high"></a>
+</div>
+<div class="ik min-max-container">
+<div class="ik max" style="top: 65px;">
+<a class="w-100 d-block ik interact nofous" tabindex="0" data-bs-toggle="popover" data-bs-placement="right" data-bs-content="
+				<div class='ik min-max-line'>
+				    Napi rekord:<br>
+					<span class='ik daily-record-temp'>19,5°C</span>
+					<span class='ik daily-record-location'>Sellye (2003)</span>
+				</div>">6</a>
+</div>
+<div class="ik min" style="top: 121px;">
+<a class="w-100 d-block ik interact nofous" tabindex="0" data-bs-toggle="popover" data-bs-placement="right" data-bs-content="
+				<div class='ik min-max-line'>
+				    Napi rekord:<br>
+					<span class='ik daily-record-temp'>-16,0°C</span>
+					<span class='ik daily-record-location'>Siófok (1902)</span>
+				</div>">1</a>
+</div></div>
+<div class="ik rainlevel-container">
+<a tabindex="0" class="ik interact d-block" data-bs-toggle="popover" data-bs-placement="bottom" title="Csapadék" data-bs-content="Elszórtan">
+<span class="ik mm">.</span>
+<div class="ik rainlevel blue" style="height: 3px;"></div>
+</a>
+</div>
+<div class="ik dailyBadge">
+<a tabindex="0" class="d-block" data-bs-toggle="popover" data-bs-placement="top" data-bs-content="Telihold<br>" href="#" target="_blank" title rel="sponsored"><img src="https://www.idokep.hu/images/nagyelore/jelesnap/hold.png" alt="jeles nap"></a>
+</div>
+</div>
+<div class="ik dailyForecastCol">
+<div class="ik dfColHeader">
+<span class="ik dfDayNum">28</span>
+<span class="ik dfDay">K</span>
+</div>
+<div class="ik dfIconAlert">
+<a tabindex="0" class="ik d-block w-100 ik interact" data-bs-toggle="popover" data-bs-placement="bottom" title="Kedd<br>2023. november 28." data-bs-content="
+                    <div class='ik fc-line'>
+                        <img class='ik popover-icon' src='/assets/forecast-icons/051.svg'>havas eső
+                    </div>"><img class="ik forecast-icon" src="/assets/forecast-icons/051.svg" fetchpriority="high"></a>
+</div>
+<div class="ik min-max-container">
+<div class="ik max" style="top: 76px;">
+<a class="w-100 d-block ik interact nofous" tabindex="0" data-bs-toggle="popover" data-bs-placement="right" data-bs-content="
+				<div class='ik min-max-line'>
+				    Napi rekord:<br>
+					<span class='ik daily-record-temp'>18,9°C</span>
+					<span class='ik daily-record-location'>Körösszakál (2003)</span>
+				</div>">5</a>
+</div>
+<div class="ik min" style="top: 110px;">
+<a class="w-100 d-block ik interact nofous" tabindex="0" data-bs-toggle="popover" data-bs-placement="right" data-bs-content="
+				<div class='ik min-max-line'>
+				    Napi rekord:<br>
+					<span class='ik daily-record-temp'>-16,0°C</span>
+					<span class='ik daily-record-location'>Mosonmagyaróvár (1902)</span>
+				</div>">2</a>
+</div></div>
+<div class="ik dailyBadge">
+</div>
+</div>
+<div class="ik dailyForecastCol">
+<div class="ik dfColHeader">
+<span class="ik dfDayNum">29</span>
+<span class="ik dfDay">Sz</span>
+</div>
+<div class="ik dfIconAlert">
+<a tabindex="0" class="ik d-block w-100 ik interact" data-bs-toggle="popover" data-bs-placement="bottom" title="Szerda<br>2023. november 29." data-bs-content="
+                    <div class='ik fc-line'>
+                        <img class='ik popover-icon' src='/assets/forecast-icons/022.svg'>közepesen felhős
+                    </div>"><img class="ik forecast-icon" src="/assets/forecast-icons/022.svg" fetchpriority="high"></a>
+</div>
+<div class="ik min-max-container">
+<div class="ik max" style="top: 88px;">
+<a class="w-100 d-block ik interact nofous" tabindex="0" data-bs-toggle="popover" data-bs-placement="right" data-bs-content="
+				<div class='ik min-max-line'>
+				    Napi rekord:<br>
+					<span class='ik daily-record-temp'>18,2°C</span>
+					<span class='ik daily-record-location'>Kaposvár (1930)</span>
+				</div>">4</a>
+</div>
+<div class="ik min" style="top: 143px;">
+<a class="w-100 d-block ik interact nofous" tabindex="0" data-bs-toggle="popover" data-bs-placement="right" data-bs-content="
+				<div class='ik min-max-line'>
+				    Napi rekord:<br>
+					<span class='ik daily-record-temp'>-20,0°C</span>
+					<span class='ik daily-record-location'>Ásotthalom (1915)</span>
+				</div>">-1</a>
+</div></div>
+<div class="ik dailyBadge">
+</div>
+</div>
+<div class="ik dailyForecastCol">
+<div class="ik dfColHeader">
+<span class="ik dfDayNum">30</span>
+<span class="ik dfDay">Cs</span>
+</div>
+<div class="ik dfIconAlert">
+<a tabindex="0" class="ik d-block w-100 ik interact" data-bs-toggle="popover" data-bs-placement="bottom" title="Csütörtök<br>2023. november 30." data-bs-content="
+                    <div class='ik fc-line'>
+                        <img class='ik popover-icon' src='/assets/forecast-icons/022.svg'>közepesen felhős
+                    </div>"><img class="ik forecast-icon" src="/assets/forecast-icons/022.svg" fetchpriority="high"></a>
+</div>
+<div class="ik min-max-container">
+<div class="ik max" style="top: 88px;">
+<a class="w-100 d-block ik interact nofous" tabindex="0" data-bs-toggle="popover" data-bs-placement="right" data-bs-content="
+				<div class='ik min-max-line'>
+				    Napi rekord:<br>
+					<span class='ik daily-record-temp'>18,1°C</span>
+					<span class='ik daily-record-location'>Kaposvár (1930)</span>
+				</div>">4</a>
+</div>
+<div class="ik min" style="top: 143px;">
+<a class="w-100 d-block ik interact nofous" tabindex="0" data-bs-toggle="popover" data-bs-placement="right" data-bs-content="
+				<div class='ik min-max-line'>
+				    Napi rekord:<br>
+					<span class='ik daily-record-temp'>-18,0°C</span>
+					<span class='ik daily-record-location'>Kecskemét (Miklóstelep) (1925)</span>
+				</div>">-1</a>
+</div></div>
+<div class="ik dailyBadge">
+</div>
+</div>
+<div class="ik dailyForecastCol">
+<div class="ik dfColHeader">
+<span class="ik dfDayNum">1</span>
+<span class="ik dfDay">P</span>
+</div>
+<div class="ik dfIconAlert">
+<a tabindex="0" class="ik d-block w-100 ik interact" data-bs-toggle="popover" data-bs-placement="bottom" title="Péntek<br>2023. december 1." data-bs-content="
+                    <div class='ik fc-line'>
+                        <img class='ik popover-icon' src='/assets/forecast-icons/022.svg'>közepesen felhős
+                    </div>"><img class="ik forecast-icon" src="/assets/forecast-icons/022.svg" fetchpriority="high"></a>
+</div>
+<div class="ik min-max-container">
+<div class="ik max" style="top: 76px;">
+<a class="w-100 d-block ik interact nofous" tabindex="0" data-bs-toggle="popover" data-bs-placement="right" data-bs-content="
+				<div class='ik min-max-line'>
+				    Napi rekord:<br>
+					<span class='ik daily-record-temp'>18,0°C</span>
+					<span class='ik daily-record-location'>Kőszeg (1939)</span>
+				</div>">5</a>
+</div>
+<div class="ik min" style="top: 132px;">
+<a class="w-100 d-block ik interact nofous" tabindex="0" data-bs-toggle="popover" data-bs-placement="right" data-bs-content="
+				<div class='ik min-max-line'>
+				    Napi rekord:<br>
+					<span class='ik daily-record-temp'>-22,0°C</span>
+					<span class='ik daily-record-location'>Jászberény (1925)</span>
+				</div>">0</a>
+</div></div>
+<div class="ik dailyBadge">
+</div>
+</div>
+<div class="ik dailyForecastCol">
+<div class="ik dfColHeader">
+<span class="ik dfDayNum vacation">2</span>
+<span class="ik dfDay vacation">Sz</span>
+</div>
+<div class="ik dfIconAlert">
+<a tabindex="0" class="ik d-block w-100 ik interact" data-bs-toggle="popover" data-bs-placement="bottom" title="Szombat<br>2023. december 2." data-bs-content="
+                    <div class='ik fc-line'>
+                        <img class='ik popover-icon' src='/assets/forecast-icons/051.svg'>havas eső
+                    </div>"><img class="ik forecast-icon" src="/assets/forecast-icons/051.svg" fetchpriority="high"></a>
+</div>
+<div class="ik min-max-container">
+<div class="ik max" style="top: 76px;">
+<a class="w-100 d-block ik interact nofous" tabindex="0" data-bs-toggle="popover" data-bs-placement="right" data-bs-content="
+				<div class='ik min-max-line'>
+				    Napi rekord:<br>
+					<span class='ik daily-record-temp'>17,4°C</span>
+					<span class='ik daily-record-location'>Békéscsaba (1959)</span>
+				</div>">5</a>
+</div>
+<div class="ik min" style="top: 132px;">
+<a class="w-100 d-block ik interact nofous" tabindex="0" data-bs-toggle="popover" data-bs-placement="right" data-bs-content="
+				<div class='ik min-max-line'>
+				    Napi rekord:<br>
+					<span class='ik daily-record-temp'>-19,4°C</span>
+					<span class='ik daily-record-location'>Poroszló (1973)</span>
+				</div>">0</a>
+</div></div>
+<div class="ik dailyBadge">
+</div>
+</div>
+<div class="ik dailyForecastCol">
+<div class="ik dfColHeader">
+<span class="ik dfDayNum vacation">3</span>
+<span class="ik dfDay vacation">V</span>
+</div>
+<div class="ik dfIconAlert">
+<a tabindex="0" class="ik d-block w-100 ik interact" data-bs-toggle="popover" data-bs-placement="bottom" title="Vasárnap<br>2023. december 3." data-bs-content="
+                    <div class='ik fc-line'>
+                        <img class='ik popover-icon' src='/assets/forecast-icons/083.svg'>hózápor
+                    </div>"><img class="ik forecast-icon" src="/assets/forecast-icons/083.svg" fetchpriority="high"></a>
+</div>
+<div class="ik min-max-container">
+<div class="ik max" style="top: 88px;">
+<a class="w-100 d-block ik interact nofous" tabindex="0" data-bs-toggle="popover" data-bs-placement="right" data-bs-content="
+				<div class='ik min-max-line'>
+				    Napi rekord:<br>
+					<span class='ik daily-record-temp'>18,4°C</span>
+					<span class='ik daily-record-location'>Békéscsaba (1959)</span>
+				</div>">4</a>
+</div>
+<div class="ik min" style="top: 132px;">
+<a class="w-100 d-block ik interact nofous" tabindex="0" data-bs-toggle="popover" data-bs-placement="right" data-bs-content="
+				<div class='ik min-max-line'>
+				    Napi rekord:<br>
+					<span class='ik daily-record-temp'>-26,4°C</span>
+					<span class='ik daily-record-location'>Putnok (1973)</span>
+				</div>">0</a>
+</div></div>
+<div class="ik dailyBadge">
+<a tabindex="0" class="d-block" data-bs-toggle="popover" data-bs-placement="top" data-bs-content="Advent első vasárnapja<br>" href="#" target="_blank" title rel="sponsored"><img src="https://www.idokep.hu/images/nagyelore/jelesnap/advent1.png" alt="jeles nap"></a>
+</div>
+</div>
+<div class="ik dailyForecastCol">
+<div class="ik dfColHeader">
+<span class="ik dfDayNum">4</span>
+<span class="ik dfDay">H</span>
+</div>
+<div class="ik dfIconAlert">
+<a tabindex="0" class="ik d-block w-100 ik interact" data-bs-toggle="popover" data-bs-placement="bottom" title="Hétfő<br>2023. december 4." data-bs-content="
+                    <div class='ik fc-line'>
+                        <img class='ik popover-icon' src='/assets/forecast-icons/022.svg'>közepesen felhős
+                    </div>"><img class="ik forecast-icon" src="/assets/forecast-icons/022.svg" fetchpriority="high"></a>
+</div>
+<div class="ik min-max-container">
+<div class="ik max" style="top: 99px;">
+<a class="w-100 d-block ik interact nofous" tabindex="0" data-bs-toggle="popover" data-bs-placement="right" data-bs-content="
+				<div class='ik min-max-line'>
+				    Napi rekord:<br>
+					<span class='ik daily-record-temp'>17,8°C</span>
+					<span class='ik daily-record-location'>Baja (1961)</span>
+				</div>">3</a>
+</div>
+<div class="ik min" style="top: 143px;">
+<a class="w-100 d-block ik interact nofous" tabindex="0" data-bs-toggle="popover" data-bs-placement="right" data-bs-content="
+				<div class='ik min-max-line'>
+				    Napi rekord:<br>
+					<span class='ik daily-record-temp'>-23,2°C</span>
+					<span class='ik daily-record-location'>Fügöd (Alsófügöd) (1925)</span>
+				</div>">-1</a>
+</div></div>
+<div class="ik dailyBadge">
+</div>
+</div>
+<div class="ik dailyForecastCol">
+<div class="ik dfColHeader">
+<span class="ik dfDayNum">5</span>
+<span class="ik dfDay">K</span>
+</div>
+<div class="ik dfIconAlert">
+<a tabindex="0" class="ik d-block w-100 ik interact" data-bs-toggle="popover" data-bs-placement="bottom" title="Kedd<br>2023. december 5." data-bs-content="
+                    <div class='ik fc-line'>
+                        <img class='ik popover-icon' src='/assets/forecast-icons/021.svg'>gyengén felhős
+                    </div>"><img class="ik forecast-icon" src="/assets/forecast-icons/021.svg" fetchpriority="high"></a>
+</div>
+<div class="ik min-max-container">
+<div class="ik max" style="top: 76px;">
+<a class="w-100 d-block ik interact nofous" tabindex="0" data-bs-toggle="popover" data-bs-placement="right" data-bs-content="
+				<div class='ik min-max-line'>
+				    Napi rekord:<br>
+					<span class='ik daily-record-temp'>18,5°C</span>
+					<span class='ik daily-record-location'>Balatonfenyves (1960)</span>
+				</div>">5</a>
+</div>
+<div class="ik min" style="top: 132px;">
+<a class="w-100 d-block ik interact nofous" tabindex="0" data-bs-toggle="popover" data-bs-placement="right" data-bs-content="
+				<div class='ik min-max-line'>
+				    Napi rekord:<br>
+					<span class='ik daily-record-temp'>-25,5°C</span>
+					<span class='ik daily-record-location'>Miskolc (1925)</span>
+				</div>">0</a>
+</div></div>
+<div class="ik dailyBadge">
+</div>
+</div>
+</div>
+</div>
+</div> </div>
+<div class="col-12 text-end mnar pt-md-0 pt-3">
+<a href="/30napos/Budapest" class="ik blue-more-link">30 napos előrejelzés</a>
+</div>
+</div>
+<div class="row d-none d-md-block">
+<div class="col-12">
+<div class="ik decor-border"></div>
+</div>
+</div>
+<div class="ik lockup-container d-none d-md-block">
+<div class="ik video-630 pt-20">
+<div class="text-center ik xad4 flex-v-m">
+<div id="idokep_nyito_600x360"></div> </div>
+</div>
+</div>
+<div class="ik info-small text-center d-none d-md-block">Hirdetés</div>
+<div class="row d-none d-md-block">
+<div class="col-12">
+<div class="ik decor-border"></div>
+</div>
+</div>
+<div class="row d-none d-md-block">
+<div class="col-12">
+<div class="ik category-header">Jelenlegi időjárás</div>
+</div>
+</div>
+<div class="row d-none d-md-block">
+<div class="col-12">
+<nav class="ik weatherpager">
+<ul class="ik nav nav-tabs" id="nav-tab" role="tablist">
+<li class="ik nav-item">
+<a class="ik nav-link interact active" id="a-ik-cur-weather-nav-idokep" data-bs-toggle="tab" href="#ik-cur-weather-nav-idokep" role="tab" aria-controls="ik-cur-weather-nav-idokep" aria-selected="true">
+<div class="ik nav-inner d-flex align-items-center justify-content-center">
+<i class="fas fa-cloud-sun ik tab-icon"></i> Időkép
+</div>
+<div class="ik arrow-down text-center"></div>
+</a>
+</li>
+<li class="ik nav-item">
+<a class="ik nav-link interact" id="a-ik-cur-weather-nav-felhokep" data-bs-toggle="tab" href="#ik-cur-weather-nav-felhokep" role="tab" aria-controls="ik-cur-weather-nav-felhokep" aria-selected="false">
+<div class="ik nav-inner d-flex align-items-center justify-content-center">
+<i class="fas fa-cloud ik tab-icon"></i> Felhőkép </div>
+<div class="ik arrow-down text-center"></div>
+</a>
+</li>
+<li class="ik nav-item">
+<a class="ik nav-link interact" id="a-ik-cur-weather-nav-hoterkep" data-bs-toggle="tab" href="#ik-cur-weather-nav-hoterkep" role="tab" aria-controls="ik-cur-weather-nav-hoterkep" aria-selected="false">
+<div class="ik nav-inner d-flex align-items-center justify-content-center">
+<i class="fas fa-thermometer-half fa-fw ik tab-icon"></i> Hőtérkép
+</div>
+<div class="ik arrow-down text-center"></div>
+</a>
+</li>
+</ul>
+</nav>
+<div class="ik weatherpager-content tab-content" id="nav-tabContent">
+<div class="tab-pane show active" id="ik-cur-weather-nav-idokep" role="tabpanel" aria-labelledby="ik-cur-weather-nav-idokep">
+<a href="/idokep">
+<picture loading="lazy" width="600" height="428" class="img-fluid w-100">
+<source srcset="/terkep/hu600/idokep2.webp" type="image/webp">
+<source srcset="/terkep/hu600/idokep2.jpg" type="image/jpeg">
+<img src="/terkep/hu600/idokep2.jpg" loading="lazy" width="600" height="428" class="img-fluid w-100" alt="Időkép térkép">
+</picture>
+</a>
+</div>
+<div class="tab-pane" id="ik-cur-weather-nav-felhokep" role="tabpanel" aria-labelledby="ik-cur-weather-nav-felhokep">
+<a href="/felhokep">
+<picture loading="lazy" class="img-fluid w-100">
+<source srcset="/terkep/hu600/felhokep2.webp" type="image/webp">
+<source srcset="/terkep/hu600/felhokep2.jpg" type="image/jpeg">
+<img src="/terkep/hu600/felhokep2.jpg" loading="lazy" class="img-fluid w-100" alt="Felhőkép">
+</picture>
+</a>
+</div>
+<div class="tab-pane" id="ik-cur-weather-nav-hoterkep" role="tabpanel" aria-labelledby="ik-cur-weather-nav-hoterkep">
+<a href="/hoterkep">
+<picture loading="lazy" class="img-fluid w-100">
+<source srcset="/terkep/hu970/hoterkep3.webp" type="image/webp">
+<source srcset="/terkep/hu970/hoterkep3.jpg" type="image/jpeg">
+<img src="/terkep/hu970/hoterkep3.jpg" loading="lazy" class="img-fluid w-100" alt="Hőtérkép">
+</picture>
+</a>
+</div>
+</div>
+</div>
+</div>
+<div class="d-md-none ik content-fill">
+<div class="row">
+<div class="col-12">
+<div class="ik decor-border"></div>
+</div>
+</div>
+<div class="row">
+<div class="col-12">
+<div class="ik category-header">Időkép</div>
+</div>
+</div>
+<div class="row">
+<div class="col-12">
+<a href="/idokep">
+<picture loading="lazy" class="img-fluid w-100">
+<source srcset="/terkep/hu600/idokep2.webp" type="image/webp">
+<source srcset="/terkep/hu600/idokep2.jpg" type="image/jpeg">
+<img src="/terkep/hu600/idokep2.jpg" loading="lazy" class="img-fluid w-100" alt="Időkép térkép">
+</picture>
+</a>
+</div>
+</div>
+<div class="row">
+<div class="col-12 text-end ik pad-t-b-20">
+<a href="/idokep" class="ik biglink blue-more-link text-end">Tovább az Időkép
+térképre</a>
+</div>
+</div>
+<div class="row">
+<div class="col-12">
+<div class="ik decor-border"></div>
+</div>
+</div>
+<div class="row">
+<div class="col-12">
+<div class="ik category-header">Hőtérkép</div>
+</div>
+</div>
+<div class="row">
+<div class="col-12">
+<a href="/hoterkep">
+<picture loading="lazy" class="img-fluid w-100">
+<source srcset="/terkep/hu970/hoterkep3.webp" type="image/webp">
+<source srcset="/terkep/hu970/hoterkep3.jpg" type="image/jpeg">
+<img src="/terkep/hu970/hoterkep3.jpg" loading="lazy" class="img-fluid w-100" alt="Hőtérkép">
+</picture>
+</a>
+</div>
+</div>
+<div class="row">
+<div class="col-12 text-end ik pad-t-b-20">
+<a href="/hoterkep" class="ik biglink blue-more-link text-end">Tovább a
+Hőtérképre</a>
+</div>
+</div>
+<div class="row">
+<div class="col-12">
+<div class="ik decor-border"></div>
+</div>
+</div>
+<div class="row">
+<div class="col-12">
+<div class="ik category-header">Felhőkép</div>
+</div>
+</div>
+<div class="row">
+<div class="col-12">
+<a href="/felhokep">
+<picture loading="lazy" class="img-fluid w-100">
+<source srcset="/terkep/hu600/felhokep2.webp" type="image/webp">
+<source srcset="/terkep/hu600/felhokep2.jpg" type="image/jpeg">
+<img src="/terkep/hu600/felhokep2.jpg" loading="lazy" class="img-fluid w-100" alt="Felhőkép">
+</picture>
+</a>
+</div>
+</div>
+<div class="row">
+<div class="col-12 text-end ik pad-t-b-20">
+<a href="/felhokep" class="ik biglink blue-more-link text-end">Tovább a
+Felhőképre</a>
+</div>
+</div>
+</div>
+<div class="row">
+<div class="col-12">
+<div class="ik decor-border"></div>
+</div>
+</div>
+<div class="row">
+<div class="col-12">
+<div class="ik category-header">Friss híreink</div>
+</div>
+</div>
+<div class="row">
+<div class="col-12 col-md-6 ik md-border-right">
+<div class="ik news-item l">
+<a href="/hirek/paratlan-alkonyati-fenyekkel-bucsuzott-a-nap-a-balatonnal">
+<div class="ik news-image">
+<img loading="lazy" src="https://www.idokep.hu/keptar/income/vago/vagas1700515613_thumb.jpg" class="img-fluid w-100">
+</div>
+<div class="ik news-title">Páratlan alkonyati fényekkel búcsúzott a nap a Balatonnál</div>
+<div class="ik news-lead">Annyira szép volt, hogy muszáj veletek is megosztanunk.</div>
+</a>
+</div>
+<div class="ik news-divider mb-4"></div>
+<div class="ik news-item l">
+<a href="/hirek/mar-39-ezer-vadlud-tanyazik-a-tatai-oreg-tavon">
+<div class="ik news-image">
+<img loading="lazy" src="https://www.idokep.hu/keptar/income/vago/vagas1700488079_thumb.jpg" width="370" height="175" class="img-fluid w-100">
+</div >
+<div class="ik news-title">Már 39 ezer vadlúd tanyázik a tatai Öreg-tavon</div>
+</a>
+</div>
+<div class="ik news-divider mb-4"></div>
+<div class="ik news-item l">
+<a href="/hirek/fenyek-jateka-a-kodos-dunakanyarban">
+<div class="ik news-image">
+<img loading="lazy" src="https://www.idokep.hu/keptar/income/vago/vagas1700474598_thumb.jpg" width="370" height="175" class="img-fluid w-100">
+</div >
+<div class="ik news-title">Fények játéka a ködös Dunakanyarban</div>
+</a>
+</div>
+<div class="ik news-item m">
+<a href="/hirek/zuzmaraba-bujt-a-matra">
+<div class="ik news-image">
+<img loading="lazy" src="https://www.idokep.hu/keptar/income/vago/vagas1700395714_thumb.jpg" width="370" height="175" class="img-fluid w-100">
+</div >
+<div class="ik news-title">Zúzmarába bújt a Mátra</div>
+</a>
+</div>
+<div class="ik news-divider mb-4"></div>
+<div class="ik news-item s">
+<a href="/hirek/nagy-pelyhes-havazas-nagy-hideg-hegyen">
+<div class="ik news-title">Nagypelyhes havazás Nagy-Hideg-hegyen</div>
+<div class="ik news-lead">Ugye tudjátok, mit mond a népi jóslat? Ha Erzsébet napján havazik, a karácsony is szép, hóval borított lesz.</div>
+</a>
+</div>
+</div>
+<div class="col-12 col-md-6">
+<div class="ik news-item l">
+<a href="/hirek/hol-holdkoszoru-hol-felho-takarja-a-hold-es-a-szaturnusz-parosat">
+<div class="ik news-image">
+<img loading="lazy" src="https://www.idokep.hu/keptar/income/vago/vagas1700511875_thumb.jpg" class="img-fluid w-100">
+</div>
+<div class="ik news-title">Hol holdkoszorú, hol felhő takarja a Hold és a Szaturnusz párosát</div>
+<div class="ik news-lead">Nem a legjobbak az időjárási feltételek a megfigyeléshez, de néhány szerencsésebb észlelő azért elkapta az együttállást.</div>
+</a>
+</div>
+<div class="ik news-divider mb-4"></div>
+<div class="ik news-item m">
+<a href="/hirek/kozel-17-fokig-melegitette-a-fon-a-levegot-delnyugaton">
+<div class="ik news-image">
+<img loading="lazy" src="https://www.idokep.hu/keptar/income/vago/vagas1700481424_thumb.jpg" width="370" height="175" class="img-fluid w-100">
+</div >
+<div class="ik news-title">Közel 17 fokig melegítette a főn a levegőt délnyugaton</div>
+</a>
+</div>
+<div class="ik news-divider mb-4"></div>
+<div style="background: #EE5143" class="ik news-item boxed l">
+<a href="/hirek/szerdan-tor-rank-ismet-a-fagyos-levego">
+<div class="ik news-title">Szerdán tör ránk ismét a fagyos levegő</div>
+</a>
+</div>
+<div class="ik news-divider mb-4"></div>
+<div class="ik news-item l">
+<a href="/hirek/szokatlan-fenyjelenseg-tunt-fel-este-a-nyugati-egbolton">
+<div class="ik news-image">
+<img loading="lazy" src="https://www.idokep.hu/keptar/income/vago/vagas1700395425_thumb.jpg" width="370" height="175" class="img-fluid w-100">
+</div >
+<div class="ik news-title">Szokatlan fényjelenség tűnt fel szombat este a nyugati égbolton</div>
+</a>
+</div>
+<div class="ik news-divider mb-4"></div>
+<div class="ik news-item s">
+<a href="/hirek/hetfo-este-ujra-talalkozik-a-hold-es-a-szaturnusz">
+<div class="ik news-title">Hétfő este újra találkozik a Hold és a Szaturnusz</div>
+</a>
+</div>
+</div>
+</div>
+<div class="row">
+<div class="col-12">
+<div class="ik decor-border"></div>
+</div>
+</div>
+<div class="row">
+<div class="col-12">
+<div class="ik category-header">Népszerű kameráink közül</div>
+</div>
+</div>
+<div class="row">
+<div class="col-12">
+<div class="row">
+<div class="col-12">
+<a href="/webkamera/hotelvictoria">
+<div class="ik camera-image-container">
+<div class="ik camera-image-osd">
+<div>
+<div class="ik camera-image-tag">Legnézettebb kamerák</div>
+</div>
+<div>
+<div class="ik camera-image-location">Budapest - Parlament</div>
+</div>
+</div>
+<div class="ik camera-image">
+<img loading="lazy" width="378" height="210" src="//cam.idokep.hu/cam/anim/hotelvictoria/1700527924.jpg" class="img-fluid w-100">
+</div>
+</div>
+</a>
+</div>
+</div>
+<div class="row g-0">
+<div class="col-md-6 ik camera-image-2-col">
+<a href="/webkamera/balatonlelle_del">
+<div class="ik camera-image-container">
+<div class="ik camera-image-osd">
+<div>
+<div class="ik camera-image-tag">Legnézettebb kamerák
+</div>
+</div>
+<div>
+<div class="ik camera-image-location">Balatonlelle</div>
+</div>
+</div>
+<div class="ik camera-image">
+<img loading="lazy" src="//cam.idokep.hu/cam/anim/balatonlelle_del/1700527918.jpg" class="img-fluid">
+</div>
+</div>
+</a>
+</div>
+<div class="col-md-6 ik camera-image-2-col">
+<a href="/webkamera/pomuczkft">
+<div class="ik camera-image-container">
+<div class="ik camera-image-osd">
+<div>
+<div class="ik camera-image-tag">Legnézettebb kamerák
+</div>
+</div>
+<div>
+<div class="ik camera-image-location">Siófok - Vitorláskikötő</div>
+</div>
+</div>
+<div class="ik camera-image">
+<img loading="lazy" src="//cam.idokep.hu/cam/anim/pomuczkft/1700527920.jpg" class="img-fluid">
+</div>
+</div>
+</a>
+</div>
+<div class="col-md-6 ik camera-image-2-col">
+<a href="/webkamera/lucenec">
+<div class="ik camera-image-container">
+<div class="ik camera-image-osd">
+<div>
+<div class="ik camera-image-tag">Legnézettebb kamerák
+</div>
+</div>
+<div>
+<div class="ik camera-image-location">Lucenec</div>
+</div>
+</div>
+<div class="ik camera-image">
+<img loading="lazy" src="//cam.idokep.hu/cam/anim/lucenec/1700527916.jpg" class="img-fluid">
+</div>
+</div>
+</a>
+</div>
+<div class="col-md-6 ik camera-image-2-col">
+<a href="/webkamera/hotellidosiofok">
+<div class="ik camera-image-container">
+<div class="ik camera-image-osd">
+<div>
+<div class="ik camera-image-tag">Legnézettebb kamerák
+</div>
+</div>
+<div>
+<div class="ik camera-image-location">Siófok - Hotel Lidó</div>
+</div>
+</div>
+<div class="ik camera-image">
+<img loading="lazy" src="//cam.idokep.hu/cam/anim/hotellidosiofok/1700527916.jpg" class="img-fluid">
+</div>
+</div>
+</a>
+</div>
+<div class="col-md-6 ik camera-image-2-col">
+<a href="/webkamera/predikaloszek">
+<div class="ik camera-image-container">
+<div class="ik camera-image-osd">
+<div>
+<div class="ik camera-image-tag">Legnézettebb kamerák
+</div>
+</div>
+<div>
+<div class="ik camera-image-location">Prédikálószék É</div>
+</div>
+</div>
+<div class="ik camera-image">
+<img loading="lazy" src="//cam.idokep.hu/cam/anim/predikaloszek/1700527916.jpg" class="img-fluid">
+</div>
+</div>
+</a>
+</div>
+<div class="col-md-6 ik camera-image-2-col">
+<a href="/webkamera/isiscom7">
+<div class="ik camera-image-container">
+<div class="ik camera-image-osd">
+<div>
+<div class="ik camera-image-tag">Legnézettebb kamerák
+</div>
+</div>
+<div>
+<div class="ik camera-image-location">Szombathely - Fő tér</div>
+</div>
+</div>
+<div class="ik camera-image">
+<img loading="lazy" src="//cam.idokep.hu/cam/anim/isiscom7/1700527914.jpg" class="img-fluid">
+</div>
+</div>
+</a>
+</div>
+</div>
+<div class="row">
+<div class="col-12 text-end ik pt-20">
+<a href="/webkamera" class="ik biglink blue-more-link text-end">Még több kamera</a>
+</div>
+</div>
+</div>
+</div>
+<div class="row">
+<div class="col-12">
+<div class="ik decor-border"></div>
+</div>
+</div>
+<div class="row">
+<div class="col-12">
+<div class="ik category-header">Legfrissebb képeinkből</div>
+</div>
+</div>
+<div class="row">
+<div class="col-12">
+<div id="ikNewestPhotosCarousel" class="carousel slide" data-bs-ride="carousel">
+<div class="carousel-indicators">
+<button type="button" data-bs-target="#ikNewestPhotosCarousel" data-bs-slide-to="0" aria-label="0. kép " class="active" aria-current="true"></button><button type="button" data-bs-target="#ikNewestPhotosCarousel" data-bs-slide-to="1" aria-label="1. kép "></button><button type="button" data-bs-target="#ikNewestPhotosCarousel" data-bs-slide-to="2" aria-label="2. kép "></button><button type="button" data-bs-target="#ikNewestPhotosCarousel" data-bs-slide-to="3" aria-label="3. kép "></button><button type="button" data-bs-target="#ikNewestPhotosCarousel" data-bs-slide-to="4" aria-label="4. kép "></button><button type="button" data-bs-target="#ikNewestPhotosCarousel" data-bs-slide-to="5" aria-label="5. kép "></button><button type="button" data-bs-target="#ikNewestPhotosCarousel" data-bs-slide-to="6" aria-label="6. kép "></button><button type="button" data-bs-target="#ikNewestPhotosCarousel" data-bs-slide-to="7" aria-label="7. kép "></button><button type="button" data-bs-target="#ikNewestPhotosCarousel" data-bs-slide-to="8" aria-label="8. kép "></button><button type="button" data-bs-target="#ikNewestPhotosCarousel" data-bs-slide-to="9" aria-label="9. kép "></button> </div>
+<div class="carousel-inner">
+<div class="carousel-item active">
+<a href="/keptar/album/Friss/kep/1043025" target="_self">
+<div class="ratio ratio-16x9">
+<picture loading="lazy" class="d-block mx-auto w-100">
+<source srcset="/keptar/users/simongyozo/simongyozo-dji0591pano.jpg-2023-11-19-18-46-51.jpg.webp" type="image/webp">
+<source srcset="/keptar/users/simongyozo/simongyozo-dji0591pano.jpg-2023-11-19-18-46-51.jpg" type="image/jpeg">
+<img class="d-block mx-auto w-100" src="/keptar/users/simongyozo/simongyozo-dji0591pano.jpg-2023-11-19-18-46-51.jpg" alt="simongyozo fotója" loading="lazy">
+</picture>
+</div>
+</a>
+</div><div class="carousel-item ">
+<a href="/keptar/album/Friss/kep/1043024" target="_self">
+<div class="ratio ratio-16x9">
+<picture loading="lazy" class="d-block mx-auto w-100">
+<source srcset="/keptar/users/simongyozo/simongyozo-dji05472pano.jpg-2023-11-19-18-46-14.jpg.webp" type="image/webp">
+<source srcset="/keptar/users/simongyozo/simongyozo-dji05472pano.jpg-2023-11-19-18-46-14.jpg" type="image/jpeg">
+<img class="d-block mx-auto w-100" src="/keptar/users/simongyozo/simongyozo-dji05472pano.jpg-2023-11-19-18-46-14.jpg" alt="simongyozo fotója" loading="lazy">
+</picture>
+</div>
+</a>
+</div><div class="carousel-item ">
+<a href="/keptar/album/Friss/kep/1042740" target="_self">
+<div class="ratio ratio-16x9">
+<picture loading="lazy" class="d-block mx-auto w-100">
+<source srcset="/keptar/users/atya42/atya42-44886.jpg-2023-11-18-19-56-56.jpg.webp" type="image/webp">
+<source srcset="/keptar/users/atya42/atya42-44886.jpg-2023-11-18-19-56-56.jpg" type="image/jpeg">
+<img class="d-block mx-auto w-100" src="/keptar/users/atya42/atya42-44886.jpg-2023-11-18-19-56-56.jpg" alt="atya42 fotója" loading="lazy">
+</picture>
+</div>
+</a>
+</div><div class="carousel-item ">
+<a href="/keptar/album/Friss/kep/1042455" target="_self">
+<div class="ratio ratio-16x9">
+<picture loading="lazy" class="d-block mx-auto w-100">
+<source srcset="/keptar/users/fkkaba/fkkaba-20231115144134.jpg-2023-11-17-19-10-43.jpg.webp" type="image/webp">
+<source srcset="/keptar/users/fkkaba/fkkaba-20231115144134.jpg-2023-11-17-19-10-43.jpg" type="image/jpeg">
+<img class="d-block mx-auto w-100" src="/keptar/users/fkkaba/fkkaba-20231115144134.jpg-2023-11-17-19-10-43.jpg" alt="fkkaba fotója" loading="lazy">
+</picture>
+</div>
+</a>
+</div><div class="carousel-item ">
+<a href="/keptar/album/Friss/kep/1042447" target="_self">
+<div class="ratio ratio-16x9">
+<picture loading="lazy" class="d-block mx-auto w-100">
+<source srcset="/keptar/users/regen/regen-dsc04124.jpg-2023-11-17-18-45-46.jpg.webp" type="image/webp">
+<source srcset="/keptar/users/regen/regen-dsc04124.jpg-2023-11-17-18-45-46.jpg" type="image/jpeg">
+<img class="d-block mx-auto w-100" src="/keptar/users/regen/regen-dsc04124.jpg-2023-11-17-18-45-46.jpg" alt="regen fotója" loading="lazy">
+</picture>
+</div>
+</a>
+</div><div class="carousel-item ">
+<a href="/keptar/album/Friss/kep/1042444" target="_self">
+<div class="ratio ratio-16x9">
+<picture loading="lazy" class="d-block mx-auto w-100">
+<source srcset="/keptar/users/krauszrita/krauszrita-64194.jpg-2023-11-17-18-02-36.jpg.webp" type="image/webp">
+<source srcset="/keptar/users/krauszrita/krauszrita-64194.jpg-2023-11-17-18-02-36.jpg" type="image/jpeg">
+<img class="d-block mx-auto w-100" src="/keptar/users/krauszrita/krauszrita-64194.jpg-2023-11-17-18-02-36.jpg" alt="krauszrita fotója" loading="lazy">
+</picture>
+</div>
+</a>
+</div><div class="carousel-item ">
+<a href="/keptar/album/Friss/kep/1042430" target="_self">
+<div class="ratio ratio-16x9">
+<picture loading="lazy" class="d-block mx-auto w-100">
+<source srcset="/keptar/users/rolandpinteer/rolandpinteer-son05184.fbai.png-2023-11-17-17-00-10.png.webp" type="image/webp">
+<source srcset="/keptar/users/rolandpinteer/rolandpinteer-son05184.fbai.png-2023-11-17-17-00-10.png" type="image/jpeg">
+<img class="d-block mx-auto w-100" src="/keptar/users/rolandpinteer/rolandpinteer-son05184.fbai.png-2023-11-17-17-00-10.png" alt="rolandpinteer fotója" loading="lazy">
+</picture>
+</div>
+</a>
+</div><div class="carousel-item ">
+<a href="/keptar/album/Friss/kep/1042421" target="_self">
+<div class="ratio ratio-16x9">
+<picture loading="lazy" class="d-block mx-auto w-100">
+<source srcset="/keptar/users/poccantyu/poccantyu-42019.jpg-2023-11-17-16-31-51.jpg.webp" type="image/webp">
+<source srcset="/keptar/users/poccantyu/poccantyu-42019.jpg-2023-11-17-16-31-51.jpg" type="image/jpeg">
+<img class="d-block mx-auto w-100" src="/keptar/users/poccantyu/poccantyu-42019.jpg-2023-11-17-16-31-51.jpg" alt="poccantyu fotója" loading="lazy">
+</picture>
+</div>
+</a>
+</div><div class="carousel-item ">
+<a href="/keptar/album/Friss/kep/1042384" target="_self">
+<div class="ratio ratio-16x9">
+<picture loading="lazy" class="d-block mx-auto w-100">
+<source srcset="/keptar/users/kieferb/kieferb-23nov17dsc08713.jpg-2023-11-17-12-49-32.jpg.webp" type="image/webp">
+<source srcset="/keptar/users/kieferb/kieferb-23nov17dsc08713.jpg-2023-11-17-12-49-32.jpg" type="image/jpeg">
+<img class="d-block mx-auto w-100" src="/keptar/users/kieferb/kieferb-23nov17dsc08713.jpg-2023-11-17-12-49-32.jpg" alt="kieferb fotója" loading="lazy">
+</picture>
+</div>
+</a>
+</div><div class="carousel-item ">
+<a href="/keptar/album/Friss/kep/1042339" target="_self">
+<div class="ratio ratio-16x9">
+<picture loading="lazy" class="d-block mx-auto w-100">
+<source srcset="/keptar/users/maccoyi/maccoyi-3981.jpg-2023-11-17-09-38-10.jpg.webp" type="image/webp">
+<source srcset="/keptar/users/maccoyi/maccoyi-3981.jpg-2023-11-17-09-38-10.jpg" type="image/jpeg">
+<img class="d-block mx-auto w-100" src="/keptar/users/maccoyi/maccoyi-3981.jpg-2023-11-17-09-38-10.jpg" alt="maccoyi fotója" loading="lazy">
+</picture>
+</div>
+</a>
+</div>
+</div>
+<button class="carousel-control-prev" type="button" data-bs-target="#ikNewestPhotosCarousel" data-bs-slide="prev">
+<span class="fas fa-2x fa-chevron-left" aria-hidden="true"></span>
+<span class="visually-hidden">Előző</span>
+</button>
+<button class="carousel-control-next" type="button" data-bs-target="#ikNewestPhotosCarousel" data-bs-slide="next">
+<span class="fas fa-2x fa-chevron-right" aria-hidden="true"></span>
+<span class="visually-hidden">Következő</span>
+</button>
+</div>
+</div>
+</div>
+<div class="row">
+<div class="col-12 text-end ik pad-t-b-20">
+<a href="/keptar" class="ik biglink blue-more-link text-end">Tovább a Képtárba</a>
+</div>
+</div>
+</div>
+<div class="col">
+<div class="ik sidePanelContainer d-none d-xl-flex">
+<div class="ik sidePanel">
+<div class="row g-0">
+<div class="col ik flex-v-m pad-t-b-20">
+<span class="ik d">Nálad milyen az idő?</span>
+</div>
+<div class="col ik flex-v-m text-end">
+<div>
+<a href="javascript:return null;" class="btn ik btn-blue login-first-mobile-opener item-toggler" data-ik-toggle="login-first-mobile">Észlelek</a>
+</div>
+</div>
+</div>
+<div class="row ik collapsed-item login-first-mobile">
+<div class="col-12">
+<div class="ps-4 pe-4">
+<span class="ik d">Az észleléshez jelentkezz be:</span>
+</div>
+</div>
+<div class="col-12">
+<div class="input-bar ps-4 pe-4">
+<div class="input-bar-item">
+<form class="form-control border-0 p-0 ik inner-form" action="/login.php" method="post" style="min-height: 52px;">
+<div class="input-group">
+<input class="form-control" id="eszlelesUserName" name="user_login" type="text" placeholder="felhasználónév">
+<input class="form-control" id="eszlelesPassword" name="pass_login" type="password" placeholder="jelszó">
+<span class="input-group-btn">
+<button class="btn ik btn-ikblue"><i class="fa fa-sign-in-alt"></i></button>
+</span>
+</div>
+</form>
+</div>
+</div>
+</div>
+<div class="col-12">
+<div class="ps-4 pe-4">
+<span class="ik d">Nincs még felhasználóneved?<br><a href="/regisztracio">Regisztrálj itt</a></span>
+</div>
+</div>
+</div>
+<div class="row g-0">
+<div class="col-7 ik flex-v-m pad-t-b-20">
+<span class="ik d">Van egy jó időjárás képed?</span>
+</div>
+<div class="col-5 ik flex-v-m text-end">
+<a href="/keptar/do/upload/album/%C3%89szlel%C3%A9si%2Bf%C3%A9nyk%C3%A9pek" class="btn ik btn-blue">Küldj fotót</a>
+</div>
+</div>
+<div class="row g-0">
+<div class="col-12">
+<div class="ik decor-border"></div>
+</div>
+</div>
+<div class="ik frontpage350OuterLockup">
+<div class="ik frontpage350lockup">
+<div class="mx-auto">
+<div id="idokep_nyito_300x250"></div> </div>
+<div class="ik info-small text-center">Hirdetés</div>
+<div class="row g-0">
+<div class="col-12">
+<div class="ik decor-border"></div>
+</div>
+</div>
+</div>
+</div>
+<div class="align-self-center">
+<div class="row g-0">
+<div class="col">
+<span class="ik header">Legfrissebb képeinkből</span>
+<a href="/keptar/album/Friss/kep/1043294#kep">
+<picture loading="lazy" width="330" height="232" class="img-fluid w-100 rounded mb-3">
+<source srcset="/keptar/users/agics4/agics4-dscn6544.jpg-2023-11-20-22-55-02.jpg_mid.jpg.webp" type="image/webp">
+<source srcset="/keptar/users/agics4/agics4-dscn6544.jpg-2023-11-20-22-55-02.jpg_mid.jpg" type="image/jpeg">
+<img src="/keptar/users/agics4/agics4-dscn6544.jpg-2023-11-20-22-55-02.jpg_mid.jpg" loading="lazy" alt="2023.11.20." width="330" height="232" class="img-fluid w-100 rounded mb-3">
+</picture>
+</a>
+<a href="/keptar/album/Friss/kep/1043293#kep">
+<picture loading="lazy" width="330" height="215" class="img-fluid w-100 rounded mb-3">
+<source srcset="/keptar/users/agics4/agics4-dscn6559a.jpg-2023-11-20-22-49-11.jpg_mid.jpg.webp" type="image/webp">
+<source srcset="/keptar/users/agics4/agics4-dscn6559a.jpg-2023-11-20-22-49-11.jpg_mid.jpg" type="image/jpeg">
+<img src="/keptar/users/agics4/agics4-dscn6559a.jpg-2023-11-20-22-49-11.jpg_mid.jpg" loading="lazy" alt="Hold és Szaturnusz :)" width="330" height="215" class="img-fluid w-100 rounded mb-3">
+</picture>
+</a>
+<a href="/keptar/album/Friss/kep/1043284#kep">
+<picture loading="lazy" width="330" height="465" class="img-fluid w-100 rounded mb-3">
+<source srcset="/keptar/users/meteorita/meteorita-attilaprikoszovics.jpg-2023-11-20-21-33-02.jpg_mid.jpg.webp" type="image/webp">
+<source srcset="/keptar/users/meteorita/meteorita-attilaprikoszovics.jpg-2023-11-20-21-33-02.jpg_mid.jpg" type="image/jpeg">
+<img src="/keptar/users/meteorita/meteorita-attilaprikoszovics.jpg-2023-11-20-21-33-02.jpg_mid.jpg" loading="lazy" alt="Antalya ✈️ London" width="330" height="465" class="img-fluid w-100 rounded mb-3">
+</picture>
+</a>
+<div class="text-end">
+<a href="/keptar/album/Friss" class="ik biglink blue-more-link text-end">Tovább az összes képhez</a>
+</div>
+</div>
+</div>
+<div class="row g-0">
+<div class="col-12">
+<div class="ik decor-border"></div>
+</div>
+</div>
+<div class="row g-0">
+<div class="col">
+<span class="ik header">Legutóbbi észlelések</span>
+<a class="ik user-forecast-card-link" href="/eszlel/telepules/Ercsi">
+<div class="ik user-forecast-card">
+<div class="row">
+<div class="col-9">
+<div class="ik user-container">
+<img src="/assets/icons/user-gray.svg" loading="lazy" alt="bj56 képe" class="user-avatar align-middle" width="29" height="24">
+bj56 </div>
+</div>
+<div class="col-3">
+<div class="ik latestReportTimestamp">7 perce</div>
+</div>
+</div>
+<div class="row">
+<div class="col-3 ik forecast-status-icon">
+<img src="/assets/forecast-icons/323.svg" loading="lazy" width="56" height="56" alt="erősen felhős">
+</div>
+<div class="col ik forecast-location">
+<strong>Ercsi<br></strong>
+<small>erősen felhős</small>
+</div>
+</div>
+</div>
+</a>
+<a class="ik user-forecast-card-link" href="/eszlel/telepules/Miskolc">
+<div class="ik user-forecast-card">
+<div class="row">
+<div class="col-9">
+<div class="ik user-container">
+<img src="/assets/icons/user-gray.svg" loading="lazy" alt="pamtya94 képe" class="user-avatar align-middle" width="29" height="24">
+pamtya94 </div>
+</div>
+<div class="col-3">
+<div class="ik latestReportTimestamp">12 perce</div>
+</div>
+</div>
+<div class="row">
+<div class="col-3 ik forecast-status-icon">
+<img src="/assets/forecast-icons/100.svg" loading="lazy" width="56" height="56" alt="köd">
+</div>
+<div class="col ik forecast-location">
+<strong>Miskolc<br></strong>
+<small>köd</small>
+</div>
+</div>
+</div>
+</a>
+<a class="ik user-forecast-card-link" href="/eszlel/telepules/Nagyk%C5%91r%C3%B6s">
+<div class="ik user-forecast-card">
+<div class="row">
+<div class="col-9">
+<div class="ik user-container">
+<img src="/assets/icons/user-gray.svg" loading="lazy" alt="szub képe" class="user-avatar align-middle" width="29" height="24">
+szub </div>
+</div>
+<div class="col-3">
+<div class="ik latestReportTimestamp">13 perce</div>
+</div>
+</div>
+<div class="row">
+<div class="col-3 ik forecast-status-icon">
+<img src="/assets/forecast-icons/321.svg" loading="lazy" width="56" height="56" alt="gyengén felhős">
+</div>
+<div class="col ik forecast-location">
+<strong>Nagykőrös<br></strong>
+<small>gyengén felhős</small>
+</div>
+</div>
+</div>
+</a>
+<a class="ik user-forecast-card-link" href="/eszlel/telepules/Szolnok">
+<div class="ik user-forecast-card">
+<div class="row">
+<div class="col-9">
+<div class="ik user-container">
+<img src="/assets/icons/user-gray.svg" loading="lazy" alt="mustafa képe" class="user-avatar align-middle" width="29" height="24">
+mustafa </div>
+</div>
+<div class="col-3">
+<div class="ik latestReportTimestamp">36 perce</div>
+</div>
+</div>
+<div class="row">
+<div class="col-3 ik forecast-status-icon">
+<img src="/assets/forecast-icons/321.svg" loading="lazy" width="56" height="56" alt="gyengén felhős">
+</div>
+<div class="col ik forecast-location">
+<strong>Szolnok<br></strong>
+<small>gyengén felhős</small>
+</div>
+</div>
+</div>
+</a>
+<div class="text-end ik pb-3">
+<a href="/eszlel" class="ik biglink blue-more-link text-end">Tovább az összes észleléshez</a>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+
+<footer>
+<div class="container ik content-fill">
+</div>
+<div class="container ik dark-bg white-color footer-height">
+<div class="row ik footer-min-height">
+<div class="col-12 col-lg ik d-block d-md-flex footer-height">
+<ul class="nav flex-column flex-md-row align-items-md-center pt-4 pt-md-0 ik footer footer-navigation-container">
+<li class="nav-item ik footer-menu-item">
+<a class="nav-link" href="/impresszum">Impresszum</a>
+</li>
+<li class="nav-item ik footer-menu-item">
+<a class="nav-link" href="/media">Médiaajánlat</a>
+</li>
+<li class="nav-item ik footer-menu-item">
+<a class="nav-link" href="/aszf">ÁSZF</a>
+</li>
+<li class="nav-item ik footer-menu-item">
+<a class="nav-link" href="/adatkezeles">Adatkezelési Tájékoztató</a>
+</li>
+<li class="nav-item ik footer-menu-item">
+<a class="nav-link" href="/thirdparty">Elvihető tartalmak</a>
+</li>
+</ul>
+</div>
+<div class="col-12 col-lg-3 pt-3 pt-md-0 d-flex">
+<div class="d-flex m-auto m-lg-0 mb-5 pb-lg-0 w-100 ik social-buttons justify-content-center justify-content-lg-end">
+<div class="text-center ik socials blue-circle flex-v-m">
+<a href="https://twitter.com/idokep" target="_blank"><img src="/assets/twitter.svg" alt="Twitter" loading="lazy"></a>
+</div>
+<div class="text-center ik socials blue-circle flex-v-m">
+<a href="https://www.instagram.com/idokep" target="_blank"><img src="/assets/instagram.svg" alt="Instagram" loading="lazy"></a>
+</div>
+<div class="text-center ik socials blue-circle flex-v-m">
+<a href="https://www.facebook.com/idokep" target="_blank"><img src="/assets/facebook.svg" alt="Facebook" loading="lazy"></a>
+</div>
+</div>
+</div>
+<div class="col-12 text-center text-md-end ik c-r pt-3 pt-md-0" style="text-transform: uppercase;">
+Kiadja az Időkép Kft. Minden jog fenntartva &copy; 2004-2023 </div>
+</div>
+</div>
+</footer>
+<script src="/js/bootstrap-513.bundle.min.js"></script>
+<script src="/js/site_functions_b01.min.js?t="></script>
+<script src="/js/select2.min.js"></script>
+<script src="/js/select2_tran_hu.min.js"></script>
+<script src="/js/site_functions_front_a04.min.js?t=1662150775"></script>
+<script src="/js/scrollbarfix_a01.min.js?t=1662150775"></script>
+<script src="/js/locationselector_a02.min.js?t=1662150775"></script>
+<script src="/js/typeahead.bundle.min.js"></script>
+<script>
+function callback_function(tcData, success) {
+  if (success) {
+    //console.log('tcData response:', tcData);
+	try {
+		if ((tcData.eventStatus=='useractioncomplete') || (tcData.eventStatus=='tcloaded')) {
+			if (tcData.addtlConsent=='1~') {
+
+				googletag.pubads().addEventListener('slotRenderEnded',
+				    function(event) {
+						var slot = event.slot;
+
+						var html970x250='<a href="/broker_ct.php?id=4" rel="sponsored nofollow" target="_blank"><img src="/images/banner/ct/shop_970x250.jpg?1700527928" alt="Hirdetés" width="970" height="250"></a>';
+						var html970x90='<a href="/broker_ct.php?id=5" rel="sponsored nofollow" target="_blank"><img src="/images/banner/ct/shop_970x90.jpg?1700527928" alt="Hirdetés" width="970" height="90"></a>';
+						//var html970x90='<iframe frameborder="0" width="970" height="90" src="/images/banner/ct/simian_970x90/index.html"></iframe>';
+						var html728x90='<a href="/broker_ct.php?id=3" rel="sponsored nofollow" target="_blank"><img src="/images/banner/ct/shop_728x90.jpg?1700527928" alt="Hirdetés" width="728" height="90"></a>';
+						//var html728x90='<iframe frameborder="0" width="728" height="90" src="/images/banner/ct/simian_728x90/index.html"></iframe>';
+						var html468x120='<a href="/broker_ct.php?id=2" rel="sponsored nofollow" target="_blank"><img src="/images/banner/ct/shop_468x120.jpg?1700527928" alt="Hirdetés" width="468" height="120"></a>';
+						//var html330x247='<a href="/broker_ct.php?id=19" rel="sponsored nofollow" target="_blank"><img src="/images/banner/ct/app_vihar_300x250.jpg?1700527928" alt="Időkép Shop" width="330" height="247"></a>';
+						//var html330x247='<iframe frameborder="0" width="336" height="280" src="/images/banner/ct/simian_336x280/index.html"></iframe>';
+						var html330x247='<iframe frameborder="0" width="336" height="280" src="/images/banner/ct/app_336x280/index.html"></iframe>';
+
+						var slot_top728=document.getElementById('idokep_nyito_970x90');
+						if (slot_top728 && slot_top728.hidden==false && (slot.getSlotElementId()=="idokep_nyito_970x90") && event.isEmpty==true) {
+							slot_top728.style.display="block";
+							if (slot_top728.clientWidth>=970) slot_top728.innerHTML=html970x90;
+							else if (slot_top728.clientWidth>=728) slot_top728.innerHTML=html728x90;
+						}
+
+						var slot_top728=document.getElementById('idokep_aloldal_970x90');
+						if (slot_top728 && slot_top728.hidden==false && (slot.getSlotElementId()=="idokep_aloldal_970x90") && event.isEmpty==true) {
+							slot_top728.style.display="block";
+							if (slot_top728.clientWidth>=970) slot_top728.innerHTML=html970x90;
+							else if (slot_top728.clientWidth>=728) slot_top728.innerHTML=html728x90;
+						}
+
+						var slot_jobb330=document.getElementById('idokep_nyito_300x250');
+						if (slot_jobb330 && slot_jobb330.hidden==false && (slot.getSlotElementId()=="idokep_nyito_300x250") && event.isEmpty==true) {
+							slot_jobb330.style.display="block";
+							slot_jobb330.innerHTML=html330x247;
+						}
+
+						var slot_jobb330=document.getElementById('idokep_aloldal_300x250_1');
+						if (slot_jobb330 && slot_jobb330.hidden==false && (slot.getSlotElementId()=="idokep_aloldal_300x250_1") && event.isEmpty==true) {
+							slot_jobb330.style.display="block";
+							slot_jobb330.innerHTML=html330x247;
+						}
+
+						var slot_mobilfent=document.getElementById('idokep_nyito_mobil_1');
+						if (slot_mobilfent && slot_mobilfent.hidden==false && (slot.getSlotElementId()=="idokep_nyito_mobil_1") && event.isEmpty==true) {
+							slot_mobilfent.style.display="block";
+							slot_mobilfent.innerHTML=html330x247;
+						}
+
+						var slot_mobilfent=document.getElementById('idokep_aloldal_mobil_1');
+						if (slot_mobilfent && slot_mobilfent.hidden==false && (slot.getSlotElementId()=="idokep_aloldal_mobil_1") && event.isEmpty==true) {
+							slot_mobilfent.style.display="block";
+							slot_mobilfent.innerHTML=html330x247;
+						}
+
+						var slot_mobillent=document.getElementById('idokep_nyito_mobil_2');
+						if (slot_mobillent && slot_mobillent.hidden==false && (slot.getSlotElementId()=="idokep_nyito_mobil_2") && event.isEmpty==true) {
+							slot_mobillent.style.display="block";
+							slot_mobillent.innerHTML=html330x247;
+						}
+
+						var slot_alul970=document.getElementById('idokep_nyito_970x250');
+						if (slot_alul970 && slot_alul970.hidden==false && (slot.getSlotElementId()=="idokep_nyito_970x250") && event.isEmpty==true) {
+							slot_alul970.style.display="block";
+							slot_alul970.innerHTML=html970x250;
+						}
+
+						var slot_alul970=document.getElementById('idokep_aloldal_970x250');
+						if (slot_alul970 && slot_alul970.hidden==false && (slot.getSlotElementId()=="idokep_aloldal_970x250") && event.isEmpty==true) {
+							slot_alul970.style.display="block";
+							slot_alul970.innerHTML=html970x250;
+						}
+
+						var slot_video=document.getElementById('idokep_nyito_600x360');
+						if (slot_video && slot_video.hidden==false && (slot.getSlotElementId()=="idokep_nyito_600x360") && event.isEmpty==true) {
+							slot_video.style.display="block";
+							slot_video.innerHTML=html468x120;
+						}
+				    }
+				);
+
+				fetch('/saveck.php?m=0', {
+                method: 'GET',
+                cache: 'no-cache',
+                credentials: 'omit'
+            });
+			} else {
+				fetch('/saveck.php?m=1', {
+                method: 'GET',
+                cache: 'no-cache',
+                credentials: 'omit'
+            });
+			}
+		}
+	} catch (error) {
+		console.error(error);
+	}
+  }
+};
+window.addEventListener('load', function() {
+	if (typeof __tcfapi !== 'undefined') __tcfapi('addEventListener', 2, callback_function);
+})
+</script><script defer src="https://static.cloudflareinsights.com/beacon.min.js/v84a3a4012de94ce1a686ba8c167c359c1696973893317" integrity="sha512-euoFGowhlaLqXsPWQ48qSkBSCFs3DPRyiwVu3FjR96cMPx+Fr+gpWRhIafcHwqwCqWS42RZhIudOvEI+Ckf6MA==" data-cf-beacon='{"rayId":"8294f3ab3d9e3b8e","b":1,"version":"2023.10.0","token":"badafc1f18b249e7b5230dbda12ffb5d"}' crossorigin="anonymous"></script>
+</body>
+</html>

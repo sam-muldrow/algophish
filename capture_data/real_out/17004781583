@@ -1,0 +1,1668 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "https://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="https://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+<meta property="fb:admins" content="724580831" />
+
+<meta http-equiv="content-type" content="text/html; charset=UTF-8" />
+<meta name="description" content="  News, tips, software, reviews, and more for Mac OS X, iPhone, iPad   "   />
+<meta name="keywords" content="OS X Daily, OSXDaily, Apple, Mac, iPhone, iPad, Mac OS X, MacOS, iOS, Mac, iPadOS, tips, tricks, tutorials, news" />
+<meta name="robots" content="max-snippet:-1, max-image-preview:large">
+
+<link rel="shortcut icon" href="/images/favicon.ico" />
+<link rel="stylesheet" type="text/css" href="https://cdn.osxdaily.com/wp-content/themes/osxdaily-left2/style.css" />
+<link rel="alternate" type="application/rss+xml" title="RSS 2.0" href="https://osxdaily.com/feed/" />
+<link rel="alternate" type="text/xml" title="RSS .92" href="https://osxdaily.com/feed/rss/" />
+<link rel="alternate" type="application/atom+xml" title="Atom 0.3" href="https://osxdaily.com/feed/atom/" />
+<link rel="pingback" href="https://osxdaily.com/xmlrpc.php" />
+
+
+
+<title>OS X Daily - News and Tips for Mac, iPhone, iPad, and Everything Apple
+  </title>
+
+
+
+
+<script>window.koko_analytics = {"url":"https:\/\/osxdaily.com\/wp-admin\/admin-ajax.php?action=koko_analytics_collect","post_id":0,"use_cookie":1,"cookie_path":"\/","dnt":true};</script><meta name='robots' content='max-image-preview:large' />
+<link rel='dns-prefetch' href='//www.googletagmanager.com' />
+<link rel='dns-prefetch' href='//pagead2.googlesyndication.com' />
+<script type="text/javascript">
+window._wpemojiSettings = {"baseUrl":"https:\/\/s.w.org\/images\/core\/emoji\/14.0.0\/72x72\/","ext":".png","svgUrl":"https:\/\/s.w.org\/images\/core\/emoji\/14.0.0\/svg\/","svgExt":".svg","source":{"wpemoji":"https:\/\/cdn.osxdaily.com\/wp-includes\/js\/wp-emoji.js?ver=6.3.2","twemoji":"https:\/\/cdn.osxdaily.com\/wp-includes\/js\/twemoji.js?ver=6.3.2"}};
+/**
+ * @output wp-includes/js/wp-emoji-loader.js
+ */
+
+/**
+ * Emoji Settings as exported in PHP via _print_emoji_detection_script().
+ * @typedef WPEmojiSettings
+ * @type {object}
+ * @property {?object} source
+ * @property {?string} source.concatemoji
+ * @property {?string} source.twemoji
+ * @property {?string} source.wpemoji
+ * @property {?boolean} DOMReady
+ * @property {?Function} readyCallback
+ */
+
+/**
+ * Support tests.
+ * @typedef SupportTests
+ * @type {object}
+ * @property {?boolean} flag
+ * @property {?boolean} emoji
+ */
+
+/**
+ * IIFE to detect emoji support and load Twemoji if needed.
+ *
+ * @param {Window} window
+ * @param {Document} document
+ * @param {WPEmojiSettings} settings
+ */
+( function wpEmojiLoader( window, document, settings ) {
+	if ( typeof Promise === 'undefined' ) {
+		return;
+	}
+
+	var sessionStorageKey = 'wpEmojiSettingsSupports';
+	var tests = [ 'flag', 'emoji' ];
+
+	/**
+	 * Checks whether the browser supports offloading to a Worker.
+	 *
+	 * @since 6.3.0
+	 *
+	 * @private
+	 *
+	 * @returns {boolean}
+	 */
+	function supportsWorkerOffloading() {
+		return (
+			typeof Worker !== 'undefined' &&
+			typeof OffscreenCanvas !== 'undefined' &&
+			typeof URL !== 'undefined' &&
+			URL.createObjectURL &&
+			typeof Blob !== 'undefined'
+		);
+	}
+
+	/**
+	 * @typedef SessionSupportTests
+	 * @type {object}
+	 * @property {number} timestamp
+	 * @property {SupportTests} supportTests
+	 */
+
+	/**
+	 * Get support tests from session.
+	 *
+	 * @since 6.3.0
+	 *
+	 * @private
+	 *
+	 * @returns {?SupportTests} Support tests, or null if not set or older than 1 week.
+	 */
+	function getSessionSupportTests() {
+		try {
+			/** @type {SessionSupportTests} */
+			var item = JSON.parse(
+				sessionStorage.getItem( sessionStorageKey )
+			);
+			if (
+				typeof item === 'object' &&
+				typeof item.timestamp === 'number' &&
+				new Date().valueOf() < item.timestamp + 604800 && // Note: Number is a week in seconds.
+				typeof item.supportTests === 'object'
+			) {
+				return item.supportTests;
+			}
+		} catch ( e ) {}
+		return null;
+	}
+
+	/**
+	 * Persist the supports in session storage.
+	 *
+	 * @since 6.3.0
+	 *
+	 * @private
+	 *
+	 * @param {SupportTests} supportTests Support tests.
+	 */
+	function setSessionSupportTests( supportTests ) {
+		try {
+			/** @type {SessionSupportTests} */
+			var item = {
+				supportTests: supportTests,
+				timestamp: new Date().valueOf()
+			};
+
+			sessionStorage.setItem(
+				sessionStorageKey,
+				JSON.stringify( item )
+			);
+		} catch ( e ) {}
+	}
+
+	/**
+	 * Checks if two sets of Emoji characters render the same visually.
+	 *
+	 * This function may be serialized to run in a Worker. Therefore, it cannot refer to variables from the containing
+	 * scope. Everything must be passed by parameters.
+	 *
+	 * @since 4.9.0
+	 *
+	 * @private
+	 *
+	 * @param {CanvasRenderingContext2D} context 2D Context.
+	 * @param {string} set1 Set of Emoji to test.
+	 * @param {string} set2 Set of Emoji to test.
+	 *
+	 * @return {boolean} True if the two sets render the same.
+	 */
+	function emojiSetsRenderIdentically( context, set1, set2 ) {
+		// Cleanup from previous test.
+		context.clearRect( 0, 0, context.canvas.width, context.canvas.height );
+		context.fillText( set1, 0, 0 );
+		var rendered1 = new Uint32Array(
+			context.getImageData(
+				0,
+				0,
+				context.canvas.width,
+				context.canvas.height
+			).data
+		);
+
+		// Cleanup from previous test.
+		context.clearRect( 0, 0, context.canvas.width, context.canvas.height );
+		context.fillText( set2, 0, 0 );
+		var rendered2 = new Uint32Array(
+			context.getImageData(
+				0,
+				0,
+				context.canvas.width,
+				context.canvas.height
+			).data
+		);
+
+		return rendered1.every( function ( rendered2Data, index ) {
+			return rendered2Data === rendered2[ index ];
+		} );
+	}
+
+	/**
+	 * Determines if the browser properly renders Emoji that Twemoji can supplement.
+	 *
+	 * This function may be serialized to run in a Worker. Therefore, it cannot refer to variables from the containing
+	 * scope. Everything must be passed by parameters.
+	 *
+	 * @since 4.2.0
+	 *
+	 * @private
+	 *
+	 * @param {CanvasRenderingContext2D} context 2D Context.
+	 * @param {string} type Whether to test for support of "flag" or "emoji".
+	 * @param {Function} emojiSetsRenderIdentically Reference to emojiSetsRenderIdentically function, needed due to minification.
+	 *
+	 * @return {boolean} True if the browser can render emoji, false if it cannot.
+	 */
+	function browserSupportsEmoji( context, type, emojiSetsRenderIdentically ) {
+		var isIdentical;
+
+		switch ( type ) {
+			case 'flag':
+				/*
+				 * Test for Transgender flag compatibility. Added in Unicode 13.
+				 *
+				 * To test for support, we try to render it, and compare the rendering to how it would look if
+				 * the browser doesn't render it correctly (white flag emoji + transgender symbol).
+				 */
+				isIdentical = emojiSetsRenderIdentically(
+					context,
+					'\uD83C\uDFF3\uFE0F\u200D\u26A7\uFE0F', // as a zero-width joiner sequence
+					'\uD83C\uDFF3\uFE0F\u200B\u26A7\uFE0F' // separated by a zero-width space
+				);
+
+				if ( isIdentical ) {
+					return false;
+				}
+
+				/*
+				 * Test for UN flag compatibility. This is the least supported of the letter locale flags,
+				 * so gives us an easy test for full support.
+				 *
+				 * To test for support, we try to render it, and compare the rendering to how it would look if
+				 * the browser doesn't render it correctly ([U] + [N]).
+				 */
+				isIdentical = emojiSetsRenderIdentically(
+					context,
+					'\uD83C\uDDFA\uD83C\uDDF3', // as the sequence of two code points
+					'\uD83C\uDDFA\u200B\uD83C\uDDF3' // as the two code points separated by a zero-width space
+				);
+
+				if ( isIdentical ) {
+					return false;
+				}
+
+				/*
+				 * Test for English flag compatibility. England is a country in the United Kingdom, it
+				 * does not have a two letter locale code but rather a five letter sub-division code.
+				 *
+				 * To test for support, we try to render it, and compare the rendering to how it would look if
+				 * the browser doesn't render it correctly (black flag emoji + [G] + [B] + [E] + [N] + [G]).
+				 */
+				isIdentical = emojiSetsRenderIdentically(
+					context,
+					// as the flag sequence
+					'\uD83C\uDFF4\uDB40\uDC67\uDB40\uDC62\uDB40\uDC65\uDB40\uDC6E\uDB40\uDC67\uDB40\uDC7F',
+					// with each code point separated by a zero-width space
+					'\uD83C\uDFF4\u200B\uDB40\uDC67\u200B\uDB40\uDC62\u200B\uDB40\uDC65\u200B\uDB40\uDC6E\u200B\uDB40\uDC67\u200B\uDB40\uDC7F'
+				);
+
+				return ! isIdentical;
+			case 'emoji':
+				/*
+				 * Why can't we be friends? Everyone can now shake hands in emoji, regardless of skin tone!
+				 *
+				 * To test for Emoji 14.0 support, try to render a new emoji: Handshake: Light Skin Tone, Dark Skin Tone.
+				 *
+				 * The Handshake: Light Skin Tone, Dark Skin Tone emoji is a ZWJ sequence combining 🫱 Rightwards Hand,
+				 * 🏻 Light Skin Tone, a Zero Width Joiner, 🫲 Leftwards Hand, and 🏿 Dark Skin Tone.
+				 *
+				 * 0x1FAF1 == Rightwards Hand
+				 * 0x1F3FB == Light Skin Tone
+				 * 0x200D == Zero-Width Joiner (ZWJ) that links the code points for the new emoji or
+				 * 0x200B == Zero-Width Space (ZWS) that is rendered for clients not supporting the new emoji.
+				 * 0x1FAF2 == Leftwards Hand
+				 * 0x1F3FF == Dark Skin Tone.
+				 *
+				 * When updating this test for future Emoji releases, ensure that individual emoji that make up the
+				 * sequence come from older emoji standards.
+				 */
+				isIdentical = emojiSetsRenderIdentically(
+					context,
+					'\uD83E\uDEF1\uD83C\uDFFB\u200D\uD83E\uDEF2\uD83C\uDFFF', // as the zero-width joiner sequence
+					'\uD83E\uDEF1\uD83C\uDFFB\u200B\uD83E\uDEF2\uD83C\uDFFF' // separated by a zero-width space
+				);
+
+				return ! isIdentical;
+		}
+
+		return false;
+	}
+
+	/**
+	 * Checks emoji support tests.
+	 *
+	 * This function may be serialized to run in a Worker. Therefore, it cannot refer to variables from the containing
+	 * scope. Everything must be passed by parameters.
+	 *
+	 * @since 6.3.0
+	 *
+	 * @private
+	 *
+	 * @param {string[]} tests Tests.
+	 * @param {Function} browserSupportsEmoji Reference to browserSupportsEmoji function, needed due to minification.
+	 * @param {Function} emojiSetsRenderIdentically Reference to emojiSetsRenderIdentically function, needed due to minification.
+	 *
+	 * @return {SupportTests} Support tests.
+	 */
+	function testEmojiSupports( tests, browserSupportsEmoji, emojiSetsRenderIdentically ) {
+		var canvas;
+		if (
+			typeof WorkerGlobalScope !== 'undefined' &&
+			self instanceof WorkerGlobalScope
+		) {
+			canvas = new OffscreenCanvas( 300, 150 ); // Dimensions are default for HTMLCanvasElement.
+		} else {
+			canvas = document.createElement( 'canvas' );
+		}
+
+		var context = canvas.getContext( '2d', { willReadFrequently: true } );
+
+		/*
+		 * Chrome on OS X added native emoji rendering in M41. Unfortunately,
+		 * it doesn't work when the font is bolder than 500 weight. So, we
+		 * check for bold rendering support to avoid invisible emoji in Chrome.
+		 */
+		context.textBaseline = 'top';
+		context.font = '600 32px Arial';
+
+		var supports = {};
+		tests.forEach( function ( test ) {
+			supports[ test ] = browserSupportsEmoji( context, test, emojiSetsRenderIdentically );
+		} );
+		return supports;
+	}
+
+	/**
+	 * Adds a script to the head of the document.
+	 *
+	 * @ignore
+	 *
+	 * @since 4.2.0
+	 *
+	 * @param {string} src The url where the script is located.
+	 *
+	 * @return {void}
+	 */
+	function addScript( src ) {
+		var script = document.createElement( 'script' );
+		script.src = src;
+		script.defer = true;
+		document.head.appendChild( script );
+	}
+
+	settings.supports = {
+		everything: true,
+		everythingExceptFlag: true
+	};
+
+	// Create a promise for DOMContentLoaded since the worker logic may finish after the event has fired.
+	var domReadyPromise = new Promise( function ( resolve ) {
+		document.addEventListener( 'DOMContentLoaded', resolve, {
+			once: true
+		} );
+	} );
+
+	// Obtain the emoji support from the browser, asynchronously when possible.
+	new Promise( function ( resolve ) {
+		var supportTests = getSessionSupportTests();
+		if ( supportTests ) {
+			resolve( supportTests );
+			return;
+		}
+
+		if ( supportsWorkerOffloading() ) {
+			try {
+				// Note that the functions are being passed as arguments due to minification.
+				var workerScript =
+					'postMessage(' +
+					testEmojiSupports.toString() +
+					'(' +
+					[
+						JSON.stringify( tests ),
+						browserSupportsEmoji.toString(),
+						emojiSetsRenderIdentically.toString()
+					].join( ',' ) +
+					'));';
+				var blob = new Blob( [ workerScript ], {
+					type: 'text/javascript'
+				} );
+				var worker = new Worker( URL.createObjectURL( blob ), { name: 'wpTestEmojiSupports' } );
+				worker.onmessage = function ( event ) {
+					supportTests = event.data;
+					setSessionSupportTests( supportTests );
+					worker.terminate();
+					resolve( supportTests );
+				};
+				return;
+			} catch ( e ) {}
+		}
+
+		supportTests = testEmojiSupports( tests, browserSupportsEmoji, emojiSetsRenderIdentically );
+		setSessionSupportTests( supportTests );
+		resolve( supportTests );
+	} )
+		// Once the browser emoji support has been obtained from the session, finalize the settings.
+		.then( function ( supportTests ) {
+			/*
+			 * Tests the browser support for flag emojis and other emojis, and adjusts the
+			 * support settings accordingly.
+			 */
+			for ( var test in supportTests ) {
+				settings.supports[ test ] = supportTests[ test ];
+
+				settings.supports.everything =
+					settings.supports.everything && settings.supports[ test ];
+
+				if ( 'flag' !== test ) {
+					settings.supports.everythingExceptFlag =
+						settings.supports.everythingExceptFlag &&
+						settings.supports[ test ];
+				}
+			}
+
+			settings.supports.everythingExceptFlag =
+				settings.supports.everythingExceptFlag &&
+				! settings.supports.flag;
+
+			// Sets DOMReady to false and assigns a ready function to settings.
+			settings.DOMReady = false;
+			settings.readyCallback = function () {
+				settings.DOMReady = true;
+			};
+		} )
+		.then( function () {
+			return domReadyPromise;
+		} )
+		.then( function () {
+			// When the browser can not render everything we need to load a polyfill.
+			if ( ! settings.supports.everything ) {
+				settings.readyCallback();
+
+				var src = settings.source || {};
+
+				if ( src.concatemoji ) {
+					addScript( src.concatemoji );
+				} else if ( src.wpemoji && src.twemoji ) {
+					addScript( src.twemoji );
+					addScript( src.wpemoji );
+				}
+			}
+		} );
+} )( window, document, window._wpemojiSettings );
+</script>
+<style type="text/css">
+img.wp-smiley,
+img.emoji {
+	display: inline !important;
+	border: none !important;
+	box-shadow: none !important;
+	height: 1em !important;
+	width: 1em !important;
+	margin: 0 0.07em !important;
+	vertical-align: -0.1em !important;
+	background: none !important;
+	padding: 0 !important;
+}
+</style>
+	<link rel='stylesheet' id='wp-block-library-css' href='https://cdn.osxdaily.com/wp-includes/css/dist/block-library/style.css?ver=6.3.2' type='text/css' media='all' />
+<style id='wp-block-library-inline-css' type='text/css'>
+.has-text-align-justify{text-align:justify;}
+</style>
+<style id='classic-theme-styles-inline-css' type='text/css'>
+/**
+ * These rules are needed for backwards compatibility.
+ * They should match the button element rules in the base theme.json file.
+ */
+.wp-block-button__link {
+	color: #ffffff;
+	background-color: #32373c;
+	border-radius: 9999px; /* 100% causes an oval, but any explicit but really high value retains the pill shape. */
+
+	/* This needs a low specificity so it won't override the rules from the button element if defined in theme.json. */
+	box-shadow: none;
+	text-decoration: none;
+
+	/* The extra 2px are added to size solids the same as the outline versions.*/
+	padding: calc(0.667em + 2px) calc(1.333em + 2px);
+
+	font-size: 1.125em;
+}
+
+.wp-block-file__button {
+	background: #32373c;
+	color: #ffffff;
+	text-decoration: none;
+}
+
+</style>
+<style id='global-styles-inline-css' type='text/css'>
+body{--wp--preset--color--black: #000000;--wp--preset--color--cyan-bluish-gray: #abb8c3;--wp--preset--color--white: #ffffff;--wp--preset--color--pale-pink: #f78da7;--wp--preset--color--vivid-red: #cf2e2e;--wp--preset--color--luminous-vivid-orange: #ff6900;--wp--preset--color--luminous-vivid-amber: #fcb900;--wp--preset--color--light-green-cyan: #7bdcb5;--wp--preset--color--vivid-green-cyan: #00d084;--wp--preset--color--pale-cyan-blue: #8ed1fc;--wp--preset--color--vivid-cyan-blue: #0693e3;--wp--preset--color--vivid-purple: #9b51e0;--wp--preset--gradient--vivid-cyan-blue-to-vivid-purple: linear-gradient(135deg,rgba(6,147,227,1) 0%,rgb(155,81,224) 100%);--wp--preset--gradient--light-green-cyan-to-vivid-green-cyan: linear-gradient(135deg,rgb(122,220,180) 0%,rgb(0,208,130) 100%);--wp--preset--gradient--luminous-vivid-amber-to-luminous-vivid-orange: linear-gradient(135deg,rgba(252,185,0,1) 0%,rgba(255,105,0,1) 100%);--wp--preset--gradient--luminous-vivid-orange-to-vivid-red: linear-gradient(135deg,rgba(255,105,0,1) 0%,rgb(207,46,46) 100%);--wp--preset--gradient--very-light-gray-to-cyan-bluish-gray: linear-gradient(135deg,rgb(238,238,238) 0%,rgb(169,184,195) 100%);--wp--preset--gradient--cool-to-warm-spectrum: linear-gradient(135deg,rgb(74,234,220) 0%,rgb(151,120,209) 20%,rgb(207,42,186) 40%,rgb(238,44,130) 60%,rgb(251,105,98) 80%,rgb(254,248,76) 100%);--wp--preset--gradient--blush-light-purple: linear-gradient(135deg,rgb(255,206,236) 0%,rgb(152,150,240) 100%);--wp--preset--gradient--blush-bordeaux: linear-gradient(135deg,rgb(254,205,165) 0%,rgb(254,45,45) 50%,rgb(107,0,62) 100%);--wp--preset--gradient--luminous-dusk: linear-gradient(135deg,rgb(255,203,112) 0%,rgb(199,81,192) 50%,rgb(65,88,208) 100%);--wp--preset--gradient--pale-ocean: linear-gradient(135deg,rgb(255,245,203) 0%,rgb(182,227,212) 50%,rgb(51,167,181) 100%);--wp--preset--gradient--electric-grass: linear-gradient(135deg,rgb(202,248,128) 0%,rgb(113,206,126) 100%);--wp--preset--gradient--midnight: linear-gradient(135deg,rgb(2,3,129) 0%,rgb(40,116,252) 100%);--wp--preset--font-size--small: 13px;--wp--preset--font-size--medium: 20px;--wp--preset--font-size--large: 36px;--wp--preset--font-size--x-large: 42px;--wp--preset--spacing--20: 0.44rem;--wp--preset--spacing--30: 0.67rem;--wp--preset--spacing--40: 1rem;--wp--preset--spacing--50: 1.5rem;--wp--preset--spacing--60: 2.25rem;--wp--preset--spacing--70: 3.38rem;--wp--preset--spacing--80: 5.06rem;--wp--preset--shadow--natural: 6px 6px 9px rgba(0, 0, 0, 0.2);--wp--preset--shadow--deep: 12px 12px 50px rgba(0, 0, 0, 0.4);--wp--preset--shadow--sharp: 6px 6px 0px rgba(0, 0, 0, 0.2);--wp--preset--shadow--outlined: 6px 6px 0px -3px rgba(255, 255, 255, 1), 6px 6px rgba(0, 0, 0, 1);--wp--preset--shadow--crisp: 6px 6px 0px rgba(0, 0, 0, 1);}:where(.is-layout-flex){gap: 0.5em;}:where(.is-layout-grid){gap: 0.5em;}body .is-layout-flow > .alignleft{float: left;margin-inline-start: 0;margin-inline-end: 2em;}body .is-layout-flow > .alignright{float: right;margin-inline-start: 2em;margin-inline-end: 0;}body .is-layout-flow > .aligncenter{margin-left: auto !important;margin-right: auto !important;}body .is-layout-constrained > .alignleft{float: left;margin-inline-start: 0;margin-inline-end: 2em;}body .is-layout-constrained > .alignright{float: right;margin-inline-start: 2em;margin-inline-end: 0;}body .is-layout-constrained > .aligncenter{margin-left: auto !important;margin-right: auto !important;}body .is-layout-constrained > :where(:not(.alignleft):not(.alignright):not(.alignfull)){max-width: var(--wp--style--global--content-size);margin-left: auto !important;margin-right: auto !important;}body .is-layout-constrained > .alignwide{max-width: var(--wp--style--global--wide-size);}body .is-layout-flex{display: flex;}body .is-layout-flex{flex-wrap: wrap;align-items: center;}body .is-layout-flex > *{margin: 0;}body .is-layout-grid{display: grid;}body .is-layout-grid > *{margin: 0;}:where(.wp-block-columns.is-layout-flex){gap: 2em;}:where(.wp-block-columns.is-layout-grid){gap: 2em;}:where(.wp-block-post-template.is-layout-flex){gap: 1.25em;}:where(.wp-block-post-template.is-layout-grid){gap: 1.25em;}.has-black-color{color: var(--wp--preset--color--black) !important;}.has-cyan-bluish-gray-color{color: var(--wp--preset--color--cyan-bluish-gray) !important;}.has-white-color{color: var(--wp--preset--color--white) !important;}.has-pale-pink-color{color: var(--wp--preset--color--pale-pink) !important;}.has-vivid-red-color{color: var(--wp--preset--color--vivid-red) !important;}.has-luminous-vivid-orange-color{color: var(--wp--preset--color--luminous-vivid-orange) !important;}.has-luminous-vivid-amber-color{color: var(--wp--preset--color--luminous-vivid-amber) !important;}.has-light-green-cyan-color{color: var(--wp--preset--color--light-green-cyan) !important;}.has-vivid-green-cyan-color{color: var(--wp--preset--color--vivid-green-cyan) !important;}.has-pale-cyan-blue-color{color: var(--wp--preset--color--pale-cyan-blue) !important;}.has-vivid-cyan-blue-color{color: var(--wp--preset--color--vivid-cyan-blue) !important;}.has-vivid-purple-color{color: var(--wp--preset--color--vivid-purple) !important;}.has-black-background-color{background-color: var(--wp--preset--color--black) !important;}.has-cyan-bluish-gray-background-color{background-color: var(--wp--preset--color--cyan-bluish-gray) !important;}.has-white-background-color{background-color: var(--wp--preset--color--white) !important;}.has-pale-pink-background-color{background-color: var(--wp--preset--color--pale-pink) !important;}.has-vivid-red-background-color{background-color: var(--wp--preset--color--vivid-red) !important;}.has-luminous-vivid-orange-background-color{background-color: var(--wp--preset--color--luminous-vivid-orange) !important;}.has-luminous-vivid-amber-background-color{background-color: var(--wp--preset--color--luminous-vivid-amber) !important;}.has-light-green-cyan-background-color{background-color: var(--wp--preset--color--light-green-cyan) !important;}.has-vivid-green-cyan-background-color{background-color: var(--wp--preset--color--vivid-green-cyan) !important;}.has-pale-cyan-blue-background-color{background-color: var(--wp--preset--color--pale-cyan-blue) !important;}.has-vivid-cyan-blue-background-color{background-color: var(--wp--preset--color--vivid-cyan-blue) !important;}.has-vivid-purple-background-color{background-color: var(--wp--preset--color--vivid-purple) !important;}.has-black-border-color{border-color: var(--wp--preset--color--black) !important;}.has-cyan-bluish-gray-border-color{border-color: var(--wp--preset--color--cyan-bluish-gray) !important;}.has-white-border-color{border-color: var(--wp--preset--color--white) !important;}.has-pale-pink-border-color{border-color: var(--wp--preset--color--pale-pink) !important;}.has-vivid-red-border-color{border-color: var(--wp--preset--color--vivid-red) !important;}.has-luminous-vivid-orange-border-color{border-color: var(--wp--preset--color--luminous-vivid-orange) !important;}.has-luminous-vivid-amber-border-color{border-color: var(--wp--preset--color--luminous-vivid-amber) !important;}.has-light-green-cyan-border-color{border-color: var(--wp--preset--color--light-green-cyan) !important;}.has-vivid-green-cyan-border-color{border-color: var(--wp--preset--color--vivid-green-cyan) !important;}.has-pale-cyan-blue-border-color{border-color: var(--wp--preset--color--pale-cyan-blue) !important;}.has-vivid-cyan-blue-border-color{border-color: var(--wp--preset--color--vivid-cyan-blue) !important;}.has-vivid-purple-border-color{border-color: var(--wp--preset--color--vivid-purple) !important;}.has-vivid-cyan-blue-to-vivid-purple-gradient-background{background: var(--wp--preset--gradient--vivid-cyan-blue-to-vivid-purple) !important;}.has-light-green-cyan-to-vivid-green-cyan-gradient-background{background: var(--wp--preset--gradient--light-green-cyan-to-vivid-green-cyan) !important;}.has-luminous-vivid-amber-to-luminous-vivid-orange-gradient-background{background: var(--wp--preset--gradient--luminous-vivid-amber-to-luminous-vivid-orange) !important;}.has-luminous-vivid-orange-to-vivid-red-gradient-background{background: var(--wp--preset--gradient--luminous-vivid-orange-to-vivid-red) !important;}.has-very-light-gray-to-cyan-bluish-gray-gradient-background{background: var(--wp--preset--gradient--very-light-gray-to-cyan-bluish-gray) !important;}.has-cool-to-warm-spectrum-gradient-background{background: var(--wp--preset--gradient--cool-to-warm-spectrum) !important;}.has-blush-light-purple-gradient-background{background: var(--wp--preset--gradient--blush-light-purple) !important;}.has-blush-bordeaux-gradient-background{background: var(--wp--preset--gradient--blush-bordeaux) !important;}.has-luminous-dusk-gradient-background{background: var(--wp--preset--gradient--luminous-dusk) !important;}.has-pale-ocean-gradient-background{background: var(--wp--preset--gradient--pale-ocean) !important;}.has-electric-grass-gradient-background{background: var(--wp--preset--gradient--electric-grass) !important;}.has-midnight-gradient-background{background: var(--wp--preset--gradient--midnight) !important;}.has-small-font-size{font-size: var(--wp--preset--font-size--small) !important;}.has-medium-font-size{font-size: var(--wp--preset--font-size--medium) !important;}.has-large-font-size{font-size: var(--wp--preset--font-size--large) !important;}.has-x-large-font-size{font-size: var(--wp--preset--font-size--x-large) !important;}
+.wp-block-navigation a:where(:not(.wp-element-button)){color: inherit;}
+:where(.wp-block-post-template.is-layout-flex){gap: 1.25em;}:where(.wp-block-post-template.is-layout-grid){gap: 1.25em;}
+:where(.wp-block-columns.is-layout-flex){gap: 2em;}:where(.wp-block-columns.is-layout-grid){gap: 2em;}
+.wp-block-pullquote{font-size: 1.5em;line-height: 1.6;}
+</style>
+<link rel='stylesheet' id='wp-syntax-css-css' href='https://cdn.osxdaily.com/wp-content/plugins/wp-syntax/css/wp-syntax.css?ver=1.1' type='text/css' media='all' />
+<link rel='stylesheet' id='cookie-notice-front-css' href='https://cdn.osxdaily.com/wp-content/plugins/cookie-notice/includes/../css/front.css?ver=6.3.2' type='text/css' media='all' />
+<link rel='stylesheet' id='jquery-lazyloadxt-fadein-css-css' href='https://cdn.osxdaily.com/wp-content/plugins/a3-lazy-load/assets/css/jquery.lazyloadxt.fadein.css?ver=6.3.2' type='text/css' media='all' />
+<link rel='stylesheet' id='a3a3_lazy_load-css' href='https://cdn.osxdaily.com/wp-content/uploads/sass/a3_lazy_load.min.css?ver=1571440752' type='text/css' media='all' />
+<script type='text/javascript' src='https://cdn.osxdaily.com/wp-includes/js/jquery/jquery.js?ver=3.7.0' id='jquery-core-js'></script>
+<script type='text/javascript' src='https://cdn.osxdaily.com/wp-includes/js/jquery/jquery-migrate.js?ver=3.4.1' id='jquery-migrate-js'></script>
+<script id="jquery-js-after" type="text/javascript">
+jQuery(document).ready(function() {
+	jQuery(".163d5c04a97297cdf346146940f41601").click(function() {
+		jQuery.post(
+			"https://osxdaily.com/wp-admin/admin-ajax.php", {
+				"action": "quick_adsense_onpost_ad_click",
+				"quick_adsense_onpost_ad_index": jQuery(this).attr("data-index"),
+				"quick_adsense_nonce": "d1804bb4a7",
+			}, function(response) { }
+		);
+	});
+});
+</script>
+<script type='text/javascript' id='cookie-notice-front-js-extra'>
+/* <![CDATA[ */
+var cnArgs = {"ajaxUrl":"https:\/\/osxdaily.com\/wp-admin\/admin-ajax.php","nonce":"73a02915b0","hideEffect":"fade","position":"bottom","onScroll":"1","onScrollOffset":"100","onClick":"0","cookieName":"cookie_notice_accepted","cookieTime":"31536000","cookieTimeRejected":"2592000","cookiePath":"\/","cookieDomain":"","redirection":"0","cache":"1","refuse":"0","revokeCookies":"0","revokeCookiesOpt":"automatic","secure":"1"};
+/* ]]> */
+</script>
+<script async type='text/javascript' src='https://cdn.osxdaily.com/wp-content/plugins/cookie-notice/includes/../js/front.js?ver=2.1.3' id='cookie-notice-front-js'></script>
+
+<!-- Google Analytics snippet added by Site Kit -->
+<script type='text/javascript' src='https://www.googletagmanager.com/gtag/js?id=GT-NS8RSJH' id='google_gtagjs-js' async></script>
+<script id="google_gtagjs-js-after" type="text/javascript">
+window.dataLayer = window.dataLayer || [];function gtag(){dataLayer.push(arguments);}
+gtag("js", new Date());
+gtag("set", "developer_id.dZTNiMT", true);
+gtag("config", "GT-NS8RSJH");
+</script>
+
+<!-- End Google Analytics snippet added by Site Kit -->
+<link rel="https://api.w.org/" href="https://osxdaily.com/wp-json/" /><link rel="EditURI" type="application/rsd+xml" title="RSD" href="https://osxdaily.com/xmlrpc.php?rsd" />
+<script type='text/javascript'>window.presslabs = {"home_url":"https:\/\/osxdaily.com"}</script><script type='text/javascript'>
+	(function () {
+		var pl_beacon = document.createElement('script');
+		pl_beacon.type = 'text/javascript';
+		pl_beacon.async = true;
+		var host = 'https://osxdaily.com';
+		if ('https:' == document.location.protocol) {
+			host = host.replace('http://', 'https://');
+		}
+		pl_beacon.src = host + '/' + 'un6up8Rl5Bi9' + '.js?ts=' + Math.floor((Math.random() * 100000) + 1);
+		var first_script_tag = document.getElementsByTagName('script')[0];
+		first_script_tag.parentNode.insertBefore(pl_beacon, first_script_tag);
+	})();
+</script><meta name="generator" content="Site Kit by Google 1.103.0" /><style data-context="foundation-flickity-css">/*! Flickity v2.0.2
+http://flickity.metafizzy.co
+---------------------------------------------- */.flickity-enabled{position:relative}.flickity-enabled:focus{outline:0}.flickity-viewport{overflow:hidden;position:relative;height:100%}.flickity-slider{position:absolute;width:100%;height:100%}.flickity-enabled.is-draggable{-webkit-tap-highlight-color:transparent;tap-highlight-color:transparent;-webkit-user-select:none;-moz-user-select:none;-ms-user-select:none;user-select:none}.flickity-enabled.is-draggable .flickity-viewport{cursor:move;cursor:-webkit-grab;cursor:grab}.flickity-enabled.is-draggable .flickity-viewport.is-pointer-down{cursor:-webkit-grabbing;cursor:grabbing}.flickity-prev-next-button{position:absolute;top:50%;width:44px;height:44px;border:none;border-radius:50%;background:#fff;background:hsla(0,0%,100%,.75);cursor:pointer;-webkit-transform:translateY(-50%);transform:translateY(-50%)}.flickity-prev-next-button:hover{background:#fff}.flickity-prev-next-button:focus{outline:0;box-shadow:0 0 0 5px #09f}.flickity-prev-next-button:active{opacity:.6}.flickity-prev-next-button.previous{left:10px}.flickity-prev-next-button.next{right:10px}.flickity-rtl .flickity-prev-next-button.previous{left:auto;right:10px}.flickity-rtl .flickity-prev-next-button.next{right:auto;left:10px}.flickity-prev-next-button:disabled{opacity:.3;cursor:auto}.flickity-prev-next-button svg{position:absolute;left:20%;top:20%;width:60%;height:60%}.flickity-prev-next-button .arrow{fill:#333}.flickity-page-dots{position:absolute;width:100%;bottom:-25px;padding:0;margin:0;list-style:none;text-align:center;line-height:1}.flickity-rtl .flickity-page-dots{direction:rtl}.flickity-page-dots .dot{display:inline-block;width:10px;height:10px;margin:0 8px;background:#333;border-radius:50%;opacity:.25;cursor:pointer}.flickity-page-dots .dot.is-selected{opacity:1}</style><style data-context="foundation-slideout-css">.slideout-menu{position:fixed;left:0;top:0;bottom:0;right:auto;z-index:0;width:256px;overflow-y:auto;-webkit-overflow-scrolling:touch;display:none}.slideout-menu.pushit-right{left:auto;right:0}.slideout-panel{position:relative;z-index:1;will-change:transform}.slideout-open,.slideout-open .slideout-panel,.slideout-open body{overflow:hidden}.slideout-open .slideout-menu{display:block}.pushit{display:none}</style><style type='text/css'>img#wpstats{display:none}</style>
+		
+<!-- Google AdSense snippet added by Site Kit -->
+<meta name="google-adsense-platform-account" content="ca-host-pub-2644536267352236">
+<meta name="google-adsense-platform-domain" content="sitekit.withgoogle.com">
+<!-- End Google AdSense snippet added by Site Kit -->
+
+<!-- Google AdSense snippet added by Site Kit -->
+<script async="async" src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-7321635426958037&amp;host=ca-host-pub-2644536267352236" crossorigin="anonymous" type="text/javascript"></script>
+
+<!-- End Google AdSense snippet added by Site Kit -->
+
+<!-- Jetpack Open Graph Tags -->
+<meta property="og:type" content="website" />
+<meta property="og:title" content="OS X Daily" />
+<meta property="og:description" content="News, tips, software, reviews, and more for Mac OS X, iPhone, iPad" />
+<meta property="og:url" content="https://osxdaily.com/" />
+<meta property="og:site_name" content="OS X Daily" />
+<meta property="og:image" content="https://cdn.osxdaily.com/wp-content/uploads/2019/09/cropped-apple-touch-icon-104.png" />
+<meta property="og:image:width" content="512" />
+<meta property="og:image:height" content="512" />
+<meta property="og:locale" content="en_US" />
+<meta name="twitter:creator" content="@osxdaily" />
+<meta name="twitter:site" content="@osxdaily" />
+
+<!-- End Jetpack Open Graph Tags -->
+<link rel="icon" href="https://cdn.osxdaily.com/wp-content/uploads/2019/09/cropped-apple-touch-icon-104-32x32.png" sizes="32x32" />
+<link rel="icon" href="https://cdn.osxdaily.com/wp-content/uploads/2019/09/cropped-apple-touch-icon-104-192x192.png" sizes="192x192" />
+<link rel="apple-touch-icon" href="https://cdn.osxdaily.com/wp-content/uploads/2019/09/cropped-apple-touch-icon-104-180x180.png" />
+<meta name="msapplication-TileImage" content="https://cdn.osxdaily.com/wp-content/uploads/2019/09/cropped-apple-touch-icon-104-270x270.png" />
+<style>.ios7.web-app-mode.has-fixed header{ background-color: rgba(255,255,255,.88);}</style>
+
+</head>
+
+<body>
+
+
+<div id="wrap">
+
+<div id="header">
+
+<div id="topline">
+
+
+<div id="space">
+
+
+<div id="logobox">
+<a href="https://osxdaily.com"><img src="https://cdn.osxdaily.com/wp-content/themes/osxdaily-left2/img/osxdaily-logo-l.png" alt="OS X Daily"  border="0" width="250" height="75" /></a>
+</div>
+
+<div id="top_block">
+
+
+<script type="text/javascript"><!--
+	e9 = new Object();
+    e9.size = "728x90,468x60";
+	e9.noAd = 1;
+//--></script>
+<script type="text/javascript" src="//tags.expo9.exponential.com/tags/OSXDailycom/ROS/tags.js"></script>
+
+</div>
+
+
+<div id="top_wide_block">
+
+<div class="underlinemenu">
+<ul>
+
+<li style="margin-left:none !important;"><a href="/">Home</a></li>
+<li><a href="/category/mac-os-x/">Mac OS</a></li>
+<li><a href="/category/iphone/">iPhone</a></li>
+<li><a href="/category/ipad/">iPad</a></li>
+<li><a href="/category/tips-tricks/">Tips & Tricks</a></li>
+<li><a href="/category/news/">News</a></li>
+<li><a href="/tag/ios/">iOS</a></li>
+<li><a href="/category/troubleshooting/">Troubleshooting</a></li>
+<li></li>
+<li style="border-right:none!important;"><div id="gsearch_box" style="width:220px;">
+
+<script>
+  (function() {
+    var cx = '000140732189139953166:WMX-1131898171';
+    var gcse = document.createElement('script');
+    gcse.type = 'text/javascript';
+    gcse.async = true;
+    gcse.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') +
+        '//cse.google.com/cse.js?cx=' + cx;
+    var s = document.getElementsByTagName('script')[0];
+    s.parentNode.insertBefore(gcse, s);
+  })();
+</script>
+<gcse:searchbox-only resultsUrl="//osxdaily.com/gsearch/"></gcse:searchbox-only>
+
+</div></li>
+</ul>
+</div>
+
+
+
+
+
+</div>
+
+
+</div>
+
+</div>
+
+
+
+</div>
+
+<div id="content">
+
+
+
+
+
+
+
+
+<div class="post">
+<div class="konafilter">
+<h2><a href="https://osxdaily.com/2023/11/19/grab-the-all-new-m3-macbook-pro-default-wallpaper/" rel="bookmark" title="Grab the All New M3 MacBook Pro Default Wallpaper">Grab the All New M3 MacBook Pro Default Wallpaper</a></h2>
+<div id="subhead_block">
+<span class="subhead_lefty">Nov 19, 2023 - <a href="https://osxdaily.com/2023/11/19/grab-the-all-new-m3-macbook-pro-default-wallpaper/#respond">Leave a Comment</a></span>
+<span class="subhead_righty"></span>
+</div>
+
+<div class="contenttext">
+
+<p><img decoding="async" fetchpriority="high" src="https://cdn.osxdaily.com/wp-content/plugins/a3-lazy-load/assets/images/lazy_placeholder.gif" data-lazy-type="image" data-src="https://cdn.osxdaily.com/wp-content/uploads/2023/11/m3-macbook-pro-610x365.jpg" alt="M3 MacBook Pro " width="610" height="365" class="lazy lazy-hidden aligncenter size-large wp-image-127799" srcset="" data-srcset="https://cdn.osxdaily.com/wp-content/uploads/2023/11/m3-macbook-pro-610x365.jpg 610w, https://cdn.osxdaily.com/wp-content/uploads/2023/11/m3-macbook-pro-300x180.jpg 300w, https://cdn.osxdaily.com/wp-content/uploads/2023/11/m3-macbook-pro-768x460.jpg 768w, https://cdn.osxdaily.com/wp-content/uploads/2023/11/m3-macbook-pro-1536x919.jpg 1536w, https://cdn.osxdaily.com/wp-content/uploads/2023/11/m3-macbook-pro.jpg 1694w" sizes="(max-width: 610px) 100vw, 610px" /><noscript><img decoding="async" fetchpriority="high" src="https://cdn.osxdaily.com/wp-content/uploads/2023/11/m3-macbook-pro-610x365.jpg" alt="M3 MacBook Pro " width="610" height="365" class="aligncenter size-large wp-image-127799" srcset="https://cdn.osxdaily.com/wp-content/uploads/2023/11/m3-macbook-pro-610x365.jpg 610w, https://cdn.osxdaily.com/wp-content/uploads/2023/11/m3-macbook-pro-300x180.jpg 300w, https://cdn.osxdaily.com/wp-content/uploads/2023/11/m3-macbook-pro-768x460.jpg 768w, https://cdn.osxdaily.com/wp-content/uploads/2023/11/m3-macbook-pro-1536x919.jpg 1536w, https://cdn.osxdaily.com/wp-content/uploads/2023/11/m3-macbook-pro.jpg 1694w" sizes="(max-width: 610px) 100vw, 610px" /></noscript></p>
+<p>The <a href="https://osxdaily.com/2023/10/31/m3-macbook-pro-imac-released-by-apple/">newly released MacBook Pro with M3 Pro chip</a> is quite the powerhouse of a laptop, and with the new MacBook Pro comes an all new default wallpaper, featuring a space black series of curving lines. And while you can certainly <a rel="nofollow noopener" href="https://amzn.to/47re9MF" target="_blank">buy the new M3 MacBook Pro</a>, you don&#8217;t need to make a significant purchase simply to enjoy the M3 MacBook Pro wallpaper.</p>
+<p> <a href="https://osxdaily.com/2023/11/19/grab-the-all-new-m3-macbook-pro-default-wallpaper/" class="more-link">Read more &raquo;</a></p>
+
+
+
+</div>
+
+
+
+<div id="commenttext"><strong>By Paul Horowitz</strong> - <span class="nostylefoot_a"><a href="https://osxdaily.com/category/customize/" rel="category tag">Customize</a></span> - <a href="https://osxdaily.com/2023/11/19/grab-the-all-new-m3-macbook-pro-default-wallpaper/#respond">Leave a Comment</a>
+
+</div></p>
+
+
+</div>
+</div>
+
+
+
+
+
+
+
+<div class="post">
+<div class="konafilter">
+<h2><a href="https://osxdaily.com/2023/11/18/get-the-m3-imac-default-wallpapers/" rel="bookmark" title="Get the M3 iMac Default Wallpapers">Get the M3 iMac Default Wallpapers</a></h2>
+<div id="subhead_block">
+<span class="subhead_lefty">Nov 18, 2023 - <a href="https://osxdaily.com/2023/11/18/get-the-m3-imac-default-wallpapers/#respond">Leave a Comment</a></span>
+<span class="subhead_righty"></span>
+</div>
+
+<div class="contenttext">
+
+<p><img decoding="async" src="https://cdn.osxdaily.com/wp-content/plugins/a3-lazy-load/assets/images/lazy_placeholder.gif" data-lazy-type="image" data-src="https://cdn.osxdaily.com/wp-content/uploads/2023/11/m3-imac-wallpapers-610x635.jpg" alt="M3 iMac default wallpapers" width="610" height="635" class="lazy lazy-hidden aligncenter size-large wp-image-127793" srcset="" data-srcset="https://cdn.osxdaily.com/wp-content/uploads/2023/11/m3-imac-wallpapers-610x635.jpg 610w, https://cdn.osxdaily.com/wp-content/uploads/2023/11/m3-imac-wallpapers-288x300.jpg 288w, https://cdn.osxdaily.com/wp-content/uploads/2023/11/m3-imac-wallpapers-768x799.jpg 768w, https://cdn.osxdaily.com/wp-content/uploads/2023/11/m3-imac-wallpapers-1477x1536.jpg 1477w, https://cdn.osxdaily.com/wp-content/uploads/2023/11/m3-imac-wallpapers.jpg 1840w" sizes="(max-width: 610px) 100vw, 610px" /><noscript><img decoding="async" src="https://cdn.osxdaily.com/wp-content/uploads/2023/11/m3-imac-wallpapers-610x635.jpg" alt="M3 iMac default wallpapers" width="610" height="635" class="aligncenter size-large wp-image-127793" srcset="https://cdn.osxdaily.com/wp-content/uploads/2023/11/m3-imac-wallpapers-610x635.jpg 610w, https://cdn.osxdaily.com/wp-content/uploads/2023/11/m3-imac-wallpapers-288x300.jpg 288w, https://cdn.osxdaily.com/wp-content/uploads/2023/11/m3-imac-wallpapers-768x799.jpg 768w, https://cdn.osxdaily.com/wp-content/uploads/2023/11/m3-imac-wallpapers-1477x1536.jpg 1477w, https://cdn.osxdaily.com/wp-content/uploads/2023/11/m3-imac-wallpapers.jpg 1840w" sizes="(max-width: 610px) 100vw, 610px" /></noscript></p>
+<p>Apple <a href="https://osxdaily.com/2023/10/31/m3-macbook-pro-imac-released-by-apple/">recently released</a> updates to the iMac lineup, bumping the processor up to the all-new speedy M3 chip. And with new Macs means new default wallpapers, but you don&#8217;t have to buy an all new M3 iMac (though <a href="https://amzn.to/3QCw7VM" rel="noopener" target="_blank">you can</a>!) simply to appreciate and enjoy the new wallpapers.</p>
+<p>Click on any of the pictures below to open the full sized image, where you can <a href="https://osxdaily.com/2022/11/01/how-set-different-wallpaper-home-screen-lock-screen-iphone/">set it as the wallpaper on your iPhone, iPad</a>, or have it <a href="https://osxdaily.com/2023/02/02/how-change-wallpaper-macos-ventura/">decorate your Mac background</a>. </p>
+<p> <a href="https://osxdaily.com/2023/11/18/get-the-m3-imac-default-wallpapers/" class="more-link">Read more &raquo;</a></p>
+
+
+
+</div>
+
+
+
+<div id="commenttext"><strong>By Paul Horowitz</strong> - <span class="nostylefoot_a"><a href="https://osxdaily.com/category/customize/" rel="category tag">Customize</a></span> - <a href="https://osxdaily.com/2023/11/18/get-the-m3-imac-default-wallpapers/#respond">Leave a Comment</a>
+
+</div></p>
+
+
+</div>
+</div>
+
+
+
+
+
+
+
+<div class="post">
+<div class="konafilter">
+<h2><a href="https://osxdaily.com/2023/11/17/early-black-friday-deals-ipad-10th-gen-for-349-100-off/" rel="bookmark" title="Early Black Friday Deals: iPad 10th Gen for $349 ($100 Off!)">Early Black Friday Deals: iPad 10th Gen for $349 ($100 Off!)</a></h2>
+<div id="subhead_block">
+<span class="subhead_lefty">Nov 17, 2023 - <a href="https://osxdaily.com/2023/11/17/early-black-friday-deals-ipad-10th-gen-for-349-100-off/#comments">1 Comment</a></span>
+<span class="subhead_righty"></span>
+</div>
+
+<div class="contenttext">
+
+<p><a href="https://amzn.to/3R3tUUR" target="_blank" rel="nofollow noopener"><img decoding="async" src="https://cdn.osxdaily.com/wp-content/plugins/a3-lazy-load/assets/images/lazy_placeholder.gif" data-lazy-type="image" data-src="https://cdn.osxdaily.com/wp-content/uploads/2023/11/ipad-10th-gen-610x614.jpg" alt="iPad 10th generation" width="610" height="614" class="lazy lazy-hidden aligncenter size-large wp-image-127850" srcset="" data-srcset="https://cdn.osxdaily.com/wp-content/uploads/2023/11/ipad-10th-gen-610x614.jpg 610w, https://cdn.osxdaily.com/wp-content/uploads/2023/11/ipad-10th-gen-298x300.jpg 298w, https://cdn.osxdaily.com/wp-content/uploads/2023/11/ipad-10th-gen-150x150.jpg 150w, https://cdn.osxdaily.com/wp-content/uploads/2023/11/ipad-10th-gen-768x773.jpg 768w, https://cdn.osxdaily.com/wp-content/uploads/2023/11/ipad-10th-gen-144x144.jpg 144w, https://cdn.osxdaily.com/wp-content/uploads/2023/11/ipad-10th-gen.jpg 1194w" sizes="(max-width: 610px) 100vw, 610px" /><noscript><img decoding="async" src="https://cdn.osxdaily.com/wp-content/uploads/2023/11/ipad-10th-gen-610x614.jpg" alt="iPad 10th generation" width="610" height="614" class="aligncenter size-large wp-image-127850" srcset="https://cdn.osxdaily.com/wp-content/uploads/2023/11/ipad-10th-gen-610x614.jpg 610w, https://cdn.osxdaily.com/wp-content/uploads/2023/11/ipad-10th-gen-298x300.jpg 298w, https://cdn.osxdaily.com/wp-content/uploads/2023/11/ipad-10th-gen-150x150.jpg 150w, https://cdn.osxdaily.com/wp-content/uploads/2023/11/ipad-10th-gen-768x773.jpg 768w, https://cdn.osxdaily.com/wp-content/uploads/2023/11/ipad-10th-gen-144x144.jpg 144w, https://cdn.osxdaily.com/wp-content/uploads/2023/11/ipad-10th-gen.jpg 1194w" sizes="(max-width: 610px) 100vw, 610px" /></noscript></a></p>
+<p>Amazon is back with more great early Black Friday deals for Apple products, this time they&#8217;re taking 22% off the iPad 10th gen price of $449, selling the latest model iPad for just $349. That&#8217;s $100 off Apple&#8217;s standard retail price for the same iPad!</p>
+<p>The iPad 10th generation features a modern design, 10.9&#8243; Retina display, A14 chip, 64GB storage, 12MP front and back cameras, Touch ID, all day battery life, and is available in four different color options.</p>
+<ul>
+<li><a href="https://amzn.to/3R3tUUR" target="_blank" rel="nofollow noopener">Get the iPad 10th gen for $349</a> (Discounted $100 from $449)</li>
+</ul>
+<p>If you don&#8217;t need the power of the 10th gen iPad, then Amazon is also continuing to sell <a href="https://amzn.to/3unkxqf" rel="nofollow noopener" target="_blank">the 9th gen iPad for just $249</a>, which is discounted $80 off the Apple retail price. The 9th gen iPad features a 10.2&#8243; display, A13 chip, 64GB storage, 12mp front and 8mp back cameras, Touch ID with a Home button, and more, and continues to be an excellent entry-level iPad for users, especially those who prefer devices with the hardware Home button.</p>
+<p><em>FTC: OSXDaily is an affiliate partner with Amazon, meaning if you click a link and make a purchase, we may receive a small payment which goes towards keeping the site running.</em></p>
+
+
+
+</div>
+
+
+
+<div id="commenttext"><strong>By OSXDaily</strong> - <span class="nostylefoot_a"><a href="https://osxdaily.com/category/deals/" rel="category tag">Deals</a></span> - <a href="https://osxdaily.com/2023/11/17/early-black-friday-deals-ipad-10th-gen-for-349-100-off/#comments">1 Comment</a>
+
+</div></p>
+
+
+</div>
+</div>
+
+
+
+
+
+
+
+<div class="post">
+<div class="konafilter">
+<h2><a href="https://osxdaily.com/2023/11/17/run-macos-vm-docker-on-windows-linux-docker-osx/" rel="bookmark" title="Run MacOS VM&#8217;s in Docker on Windows &#038; Linux with Docker-OSX">Run MacOS VM&#8217;s in Docker on Windows &#038; Linux with Docker-OSX</a></h2>
+<div id="subhead_block">
+<span class="subhead_lefty">Nov 17, 2023 - <a href="https://osxdaily.com/2023/11/17/run-macos-vm-docker-on-windows-linux-docker-osx/#respond">Leave a Comment</a></span>
+<span class="subhead_righty"></span>
+</div>
+
+<div class="contenttext">
+
+<p><img decoding="async" loading="lazy" src="https://cdn.osxdaily.com/wp-content/plugins/a3-lazy-load/assets/images/lazy_placeholder.gif" data-lazy-type="image" data-src="https://cdn.osxdaily.com/wp-content/uploads/2023/11/docker-osx-mac-vm-610x305.jpg" alt="Docker-OSX Mac VM on Linux or Windows is possible" width="610" height="305" class="lazy lazy-hidden aligncenter size-large wp-image-127822" srcset="" data-srcset="https://cdn.osxdaily.com/wp-content/uploads/2023/11/docker-osx-mac-vm-610x305.jpg 610w, https://cdn.osxdaily.com/wp-content/uploads/2023/11/docker-osx-mac-vm-300x150.jpg 300w, https://cdn.osxdaily.com/wp-content/uploads/2023/11/docker-osx-mac-vm-768x384.jpg 768w, https://cdn.osxdaily.com/wp-content/uploads/2023/11/docker-osx-mac-vm.jpg 1280w" sizes="(max-width: 610px) 100vw, 610px" /><noscript><img decoding="async" loading="lazy" src="https://cdn.osxdaily.com/wp-content/uploads/2023/11/docker-osx-mac-vm-610x305.jpg" alt="Docker-OSX Mac VM on Linux or Windows is possible" width="610" height="305" class="aligncenter size-large wp-image-127822" srcset="https://cdn.osxdaily.com/wp-content/uploads/2023/11/docker-osx-mac-vm-610x305.jpg 610w, https://cdn.osxdaily.com/wp-content/uploads/2023/11/docker-osx-mac-vm-300x150.jpg 300w, https://cdn.osxdaily.com/wp-content/uploads/2023/11/docker-osx-mac-vm-768x384.jpg 768w, https://cdn.osxdaily.com/wp-content/uploads/2023/11/docker-osx-mac-vm.jpg 1280w" sizes="(max-width: 610px) 100vw, 610px" /></noscript></p>
+<p>If you use Docker and virtual machines often, you may be happy to know that you can run MacOS VM&#8217;s in Docker, at near native performance atop Windows or Linux, thanks to an open source project called Docker-OSX. Yes, that means you can run MacOS on a PC, whether that PC is running Windows or Linux. Docker-OSX includes support for iMessage, and iPhone/iPad USB connections too, allowing for a robust MacOS experience, despite being on a PC.</p>
+<p> <a href="https://osxdaily.com/2023/11/17/run-macos-vm-docker-on-windows-linux-docker-osx/" class="more-link">Read more &raquo;</a></p>
+
+
+
+</div>
+
+
+
+<div id="commenttext"><strong>By Paul Horowitz</strong> - <span class="nostylefoot_a"><a href="https://osxdaily.com/category/mac-os-x/" rel="category tag">Mac OS</a>, <a href="https://osxdaily.com/category/tips-tricks/" rel="category tag">Tips &amp; Tricks</a></span> - <a href="https://osxdaily.com/2023/11/17/run-macos-vm-docker-on-windows-linux-docker-osx/#respond">Leave a Comment</a>
+
+</div></p>
+
+
+</div>
+</div>
+
+
+
+
+
+
+
+<div class="post">
+<div class="konafilter">
+<h2><a href="https://osxdaily.com/2023/11/16/facetime-reaction-gestures-iphone-ipad-mac/" rel="bookmark" title="How to Perform FaceTime Reaction Gestures on iPhone, iPad, &#038; Mac">How to Perform FaceTime Reaction Gestures on iPhone, iPad, &#038; Mac</a></h2>
+<div id="subhead_block">
+<span class="subhead_lefty">Nov 16, 2023 - <a href="https://osxdaily.com/2023/11/16/facetime-reaction-gestures-iphone-ipad-mac/#comments">6 Comments</a></span>
+<span class="subhead_righty"></span>
+</div>
+
+<div class="contenttext">
+
+<p><img decoding="async" loading="lazy" src="https://cdn.osxdaily.com/wp-content/plugins/a3-lazy-load/assets/images/lazy_placeholder.gif" data-lazy-type="image" data-src="https://cdn.osxdaily.com/wp-content/uploads/2023/11/facetime-reaction-effect-gestures-610x493.jpg" alt="FaceTime Reaction Effects and Gestures" width="610" height="493" class="lazy lazy-hidden aligncenter size-large wp-image-127780" srcset="" data-srcset="https://cdn.osxdaily.com/wp-content/uploads/2023/11/facetime-reaction-effect-gestures-610x493.jpg 610w, https://cdn.osxdaily.com/wp-content/uploads/2023/11/facetime-reaction-effect-gestures-300x243.jpg 300w, https://cdn.osxdaily.com/wp-content/uploads/2023/11/facetime-reaction-effect-gestures-768x621.jpg 768w, https://cdn.osxdaily.com/wp-content/uploads/2023/11/facetime-reaction-effect-gestures.jpg 1123w" sizes="(max-width: 610px) 100vw, 610px" /><noscript><img decoding="async" loading="lazy" src="https://cdn.osxdaily.com/wp-content/uploads/2023/11/facetime-reaction-effect-gestures-610x493.jpg" alt="FaceTime Reaction Effects and Gestures" width="610" height="493" class="aligncenter size-large wp-image-127780" srcset="https://cdn.osxdaily.com/wp-content/uploads/2023/11/facetime-reaction-effect-gestures-610x493.jpg 610w, https://cdn.osxdaily.com/wp-content/uploads/2023/11/facetime-reaction-effect-gestures-300x243.jpg 300w, https://cdn.osxdaily.com/wp-content/uploads/2023/11/facetime-reaction-effect-gestures-768x621.jpg 768w, https://cdn.osxdaily.com/wp-content/uploads/2023/11/facetime-reaction-effect-gestures.jpg 1123w" sizes="(max-width: 610px) 100vw, 610px" /></noscript></p>
+<p>Apple has introduced all new reaction gestures for FaceTime on the iPhone, iPad, and Mac, meaning if you make certain hand gestures, symbols, or movements, you will trigger a digital effect reaction. For example, if you make a thumbs up gesture with your hand, a thumbs up emoji will appear on the screen, or if you make a peace sign, you&#8217;ll trigger balloons effects on the screen.</p>
+<p>Many of these reaction gesture triggers and effects work in FaceTime video calls, but also Zoom video conferences, and some other video chat apps too.</p>
+<p> <a href="https://osxdaily.com/2023/11/16/facetime-reaction-gestures-iphone-ipad-mac/" class="more-link">Read more &raquo;</a></p>
+
+
+
+</div>
+
+
+
+<div id="commenttext"><strong>By Paul Horowitz</strong> - <span class="nostylefoot_a"><a href="https://osxdaily.com/category/ipad/" rel="category tag">iPad</a>, <a href="https://osxdaily.com/category/iphone/" rel="category tag">iPhone</a>, <a href="https://osxdaily.com/category/mac-os-x/" rel="category tag">Mac OS</a>, <a href="https://osxdaily.com/category/tips-tricks/" rel="category tag">Tips &amp; Tricks</a></span> - <a href="https://osxdaily.com/2023/11/16/facetime-reaction-gestures-iphone-ipad-mac/#comments">6 Comments</a>
+
+</div></p>
+
+
+</div>
+</div>
+
+
+
+
+
+
+
+<div class="post">
+<div class="konafilter">
+<h2><a href="https://osxdaily.com/2023/11/16/early-black-friday-deals-100-off-ipad-magic-keyboard-250-off-m2-macbook-air-15-more/" rel="bookmark" title="Early Black Friday Deals: $100 Off iPad Magic Keyboard, $250 Off M2 MacBook Air 15&#8243;,  &#038; More">Early Black Friday Deals: $100 Off iPad Magic Keyboard, $250 Off M2 MacBook Air 15&#8243;,  &#038; More</a></h2>
+<div id="subhead_block">
+<span class="subhead_lefty">Nov 16, 2023 - <a href="https://osxdaily.com/2023/11/16/early-black-friday-deals-100-off-ipad-magic-keyboard-250-off-m2-macbook-air-15-more/#comments">1 Comment</a></span>
+<span class="subhead_righty"></span>
+</div>
+
+<div class="contenttext">
+
+<p><img decoding="async" loading="lazy" src="https://cdn.osxdaily.com/wp-content/plugins/a3-lazy-load/assets/images/lazy_placeholder.gif" data-lazy-type="image" data-src="https://cdn.osxdaily.com/wp-content/uploads/2023/10/amazon-deals-610x437.jpg" alt="Amazon deals" width="610" height="437" class="lazy lazy-hidden aligncenter size-large wp-image-127463" srcset="" data-srcset="https://cdn.osxdaily.com/wp-content/uploads/2023/10/amazon-deals-610x437.jpg 610w, https://cdn.osxdaily.com/wp-content/uploads/2023/10/amazon-deals-300x215.jpg 300w, https://cdn.osxdaily.com/wp-content/uploads/2023/10/amazon-deals-768x550.jpg 768w, https://cdn.osxdaily.com/wp-content/uploads/2023/10/amazon-deals.jpg 885w" sizes="(max-width: 610px) 100vw, 610px" /><noscript><img decoding="async" loading="lazy" src="https://cdn.osxdaily.com/wp-content/uploads/2023/10/amazon-deals-610x437.jpg" alt="Amazon deals" width="610" height="437" class="aligncenter size-large wp-image-127463" srcset="https://cdn.osxdaily.com/wp-content/uploads/2023/10/amazon-deals-610x437.jpg 610w, https://cdn.osxdaily.com/wp-content/uploads/2023/10/amazon-deals-300x215.jpg 300w, https://cdn.osxdaily.com/wp-content/uploads/2023/10/amazon-deals-768x550.jpg 768w, https://cdn.osxdaily.com/wp-content/uploads/2023/10/amazon-deals.jpg 885w" sizes="(max-width: 610px) 100vw, 610px" /></noscript></p>
+<p>Amazon is back with more early Black Friday deals on a bunch of Apple products. From huge discounts on the iPad Magic Keyboard and Apple Pencil 2, big discounts on iPad Air and iPad, nice discounts on the latest Apple Watch, and up to a whopping $250 off the M2 MacBook Air 15&#8243; models, you&#8217;re sure to find something great. Check out the deals below!</p>
+<h3>iPad Magic Keyboard for 33% Off, for $199</h3>
+<p><a rel="nofollow noopener" target="_blank" href="https://amzn.to/3S7jBjD"><img decoding="async" loading="lazy" src="https://cdn.osxdaily.com/wp-content/plugins/a3-lazy-load/assets/images/lazy_placeholder.gif" data-lazy-type="image" data-src="https://cdn.osxdaily.com/wp-content/uploads/2023/10/magic-keyboard-ipad-11-610x556.jpg" alt="iPad Magic Keyboard" width="610" height="556" class="lazy lazy-hidden aligncenter size-large wp-image-127574" srcset="" data-srcset="https://cdn.osxdaily.com/wp-content/uploads/2023/10/magic-keyboard-ipad-11-610x556.jpg 610w, https://cdn.osxdaily.com/wp-content/uploads/2023/10/magic-keyboard-ipad-11-300x274.jpg 300w, https://cdn.osxdaily.com/wp-content/uploads/2023/10/magic-keyboard-ipad-11-768x700.jpg 768w, https://cdn.osxdaily.com/wp-content/uploads/2023/10/magic-keyboard-ipad-11.jpg 1500w" sizes="(max-width: 610px) 100vw, 610px" /><noscript><img decoding="async" loading="lazy" src="https://cdn.osxdaily.com/wp-content/uploads/2023/10/magic-keyboard-ipad-11-610x556.jpg" alt="iPad Magic Keyboard" width="610" height="556" class="aligncenter size-large wp-image-127574" srcset="https://cdn.osxdaily.com/wp-content/uploads/2023/10/magic-keyboard-ipad-11-610x556.jpg 610w, https://cdn.osxdaily.com/wp-content/uploads/2023/10/magic-keyboard-ipad-11-300x274.jpg 300w, https://cdn.osxdaily.com/wp-content/uploads/2023/10/magic-keyboard-ipad-11-768x700.jpg 768w, https://cdn.osxdaily.com/wp-content/uploads/2023/10/magic-keyboard-ipad-11.jpg 1500w" sizes="(max-width: 610px) 100vw, 610px" /></noscript></a><br />
+Amazon is knocking $100 off the price of the 11&#8243; iPad Magic Keyboard case for iPad Air 10.9&#8243; (5th gen) and iPad Pro 11&#8243; models, bringing the fantastic keyboard case down to just $199. The iPad Magic Keyboard transforms the iPad into a laptop-like experience,  with an excellent trackpad, nice keyboard, keyboard backlighting, and pass-through charging which frees up the iPad USB-C port for accessories. For many users, this is the single best accessory for iPad Air and iPad Pro that you can get. </p>
+<ul>
+<li><a rel="nofollow noopener" target="_blank" href="https://amzn.to/3S7jBjD">Magic Keyboard for iPad Air 10.9&#8243; and iPad Pro 11&#8243; for $199</a> (down 33% from $299)</li>
+<li><a href="https://amzn.to/46hmgdO" rel="nofollow noopener" target="_blank">iPad Pro Magic Keyboard for 12.9&#8243; iPad for $249</a> (down $100 from $349)</li>
+</ul>
+<h3>Apple Pencil 2 for $89</h3>
+<p><a rel="nofollow noopener" target="_blank" href="https://amzn.to/49japyT"><img decoding="async" loading="lazy" src="https://cdn.osxdaily.com/wp-content/plugins/a3-lazy-load/assets/images/lazy_placeholder.gif" data-lazy-type="image" data-src="https://cdn.osxdaily.com/wp-content/uploads/2023/10/apple-pencil-2nd-gen-610x36.jpg" alt="Apple Pencil 2nd gen" width="610" height="36" class="lazy lazy-hidden aligncenter size-large wp-image-127576" srcset="" data-srcset="https://cdn.osxdaily.com/wp-content/uploads/2023/10/apple-pencil-2nd-gen-610x36.jpg 610w, https://cdn.osxdaily.com/wp-content/uploads/2023/10/apple-pencil-2nd-gen-300x18.jpg 300w, https://cdn.osxdaily.com/wp-content/uploads/2023/10/apple-pencil-2nd-gen-768x45.jpg 768w, https://cdn.osxdaily.com/wp-content/uploads/2023/10/apple-pencil-2nd-gen.jpg 897w" sizes="(max-width: 610px) 100vw, 610px" /><noscript><img decoding="async" loading="lazy" src="https://cdn.osxdaily.com/wp-content/uploads/2023/10/apple-pencil-2nd-gen-610x36.jpg" alt="Apple Pencil 2nd gen" width="610" height="36" class="aligncenter size-large wp-image-127576" srcset="https://cdn.osxdaily.com/wp-content/uploads/2023/10/apple-pencil-2nd-gen-610x36.jpg 610w, https://cdn.osxdaily.com/wp-content/uploads/2023/10/apple-pencil-2nd-gen-300x18.jpg 300w, https://cdn.osxdaily.com/wp-content/uploads/2023/10/apple-pencil-2nd-gen-768x45.jpg 768w, https://cdn.osxdaily.com/wp-content/uploads/2023/10/apple-pencil-2nd-gen.jpg 897w" sizes="(max-width: 610px) 100vw, 610px" /></noscript></a><br />
+The Apple Pencil 2 allows for interacting with the iPad using a great stylus, whether you&#8217;re writing notes, drawing, doodling, painting, or whatever other endeavor you may be partaking. Apple Pencil 2 features magnetic charging, and it snaps right onto the side of the iPad Air (or iPad Pro) to charge and store.</p>
+<ul>
+<li><a rel="nofollow noopener" target="_blank" href="https://amzn.to/49japyT">Apple Pencil 2 for $89</a> (down $40 from $129)</li>
+</ul>
+<h3>iPad Air M1 5th generation for $499 (Save $100)</h3>
+<p><a rel="nofollow noopener" target="_blank" href="https://amzn.to/46ZEHEx"><img decoding="async" loading="lazy" src="https://cdn.osxdaily.com/wp-content/plugins/a3-lazy-load/assets/images/lazy_placeholder.gif" data-lazy-type="image" data-src="https://cdn.osxdaily.com/wp-content/uploads/2023/10/ipad-air-m1-610x692.jpg" alt="iPad Air M1" width="610" height="692" class="lazy lazy-hidden aligncenter size-large wp-image-127575" srcset="" data-srcset="https://cdn.osxdaily.com/wp-content/uploads/2023/10/ipad-air-m1-610x692.jpg 610w, https://cdn.osxdaily.com/wp-content/uploads/2023/10/ipad-air-m1-265x300.jpg 265w, https://cdn.osxdaily.com/wp-content/uploads/2023/10/ipad-air-m1-768x871.jpg 768w, https://cdn.osxdaily.com/wp-content/uploads/2023/10/ipad-air-m1.jpg 1323w" sizes="(max-width: 610px) 100vw, 610px" /><noscript><img decoding="async" loading="lazy" src="https://cdn.osxdaily.com/wp-content/uploads/2023/10/ipad-air-m1-610x692.jpg" alt="iPad Air M1" width="610" height="692" class="aligncenter size-large wp-image-127575" srcset="https://cdn.osxdaily.com/wp-content/uploads/2023/10/ipad-air-m1-610x692.jpg 610w, https://cdn.osxdaily.com/wp-content/uploads/2023/10/ipad-air-m1-265x300.jpg 265w, https://cdn.osxdaily.com/wp-content/uploads/2023/10/ipad-air-m1-768x871.jpg 768w, https://cdn.osxdaily.com/wp-content/uploads/2023/10/ipad-air-m1.jpg 1323w" sizes="(max-width: 610px) 100vw, 610px" /></noscript></a></p>
+<p>Amazon is taking $100 off the price of the M1 iPad Air, offering the 5th gen model for $499, down from the $599 retail price, when you clip the on-page coupon. The iPad Air features the M1 chip, 10.9&#8243; Liquid Retina Display, 64GB storage, 12MP front and 12MP back cameras, Touch ID, all day battery life, and full compatibility with Magic Keyboard and Apple Pencil 2. You can choose Starlight, Space Gray, Purple, Blue, or Pink.</p>
+<ul>
+<li><a rel="nofollow noopener" target="_blank" href="https://amzn.to/46ZEHEx">iPad Air M1 for $499</a> (use the on-page coupon to save 17%, discounted from $599)</li>
+</ul>
+<h3>iPad 9th-gen for $249, $80 off</h3>
+<p><a target="_blank" rel="nofollow noopener" href="https://amzn.to/45jtihT"><img decoding="async" loading="lazy" src="https://cdn.osxdaily.com/wp-content/plugins/a3-lazy-load/assets/images/lazy_placeholder.gif" data-lazy-type="image" data-src="https://cdn.osxdaily.com/wp-content/uploads/2023/10/ipad-9th-gen-610x503.jpg" alt="iPad 9th generation" width="610" height="503" class="lazy lazy-hidden aligncenter size-large wp-image-127433" srcset="" data-srcset="https://cdn.osxdaily.com/wp-content/uploads/2023/10/ipad-9th-gen-610x503.jpg 610w, https://cdn.osxdaily.com/wp-content/uploads/2023/10/ipad-9th-gen-300x248.jpg 300w, https://cdn.osxdaily.com/wp-content/uploads/2023/10/ipad-9th-gen-768x634.jpg 768w, https://cdn.osxdaily.com/wp-content/uploads/2023/10/ipad-9th-gen.jpg 1178w" sizes="(max-width: 610px) 100vw, 610px" /><noscript><img decoding="async" loading="lazy" src="https://cdn.osxdaily.com/wp-content/uploads/2023/10/ipad-9th-gen-610x503.jpg" alt="iPad 9th generation" width="610" height="503" class="aligncenter size-large wp-image-127433" srcset="https://cdn.osxdaily.com/wp-content/uploads/2023/10/ipad-9th-gen-610x503.jpg 610w, https://cdn.osxdaily.com/wp-content/uploads/2023/10/ipad-9th-gen-300x248.jpg 300w, https://cdn.osxdaily.com/wp-content/uploads/2023/10/ipad-9th-gen-768x634.jpg 768w, https://cdn.osxdaily.com/wp-content/uploads/2023/10/ipad-9th-gen.jpg 1178w" sizes="(max-width: 610px) 100vw, 610px" /></noscript></a><br />
+If you don&#8217;t need all the power of the iPad Air, or you&#8217;re perhaps considering a gift for someone that prefers the iPad models with a Home button, then Amazon continues to offer one of the best possible deals on iPads for the <a target="_blank" rel="nofollow noopener" href="https://amzn.to/45jtihT">iPad 9th generation with a 10.2&#8243; display, cutting $80 off the $329 Apple price and selling for just $249</a>, taking 24% off the retail price. iPad 9th generation features a 10.2&#8243; Retina display, A13 Bionic chip, 64GB of storage, 12MP front camera, 8MP back camera, Touch ID on a Home Button, wi-fi, great battery life, and is available in Space Gray and Silver color options.</p>
+<ul>
+<li><a target="_blank" rel="nofollow noopener" href="https://amzn.to/45jtihT">iPad (9th generation) for $249</a> (down 24% from $329)</li>
+</ul>
+<h3>AirTags 4-pack for $87</h3>
+<p><a href="https://amzn.to/477e0yd" rel="nofollow noopener" target="_blank"><img decoding="async" loading="lazy" src="https://cdn.osxdaily.com/wp-content/plugins/a3-lazy-load/assets/images/lazy_placeholder.gif" data-lazy-type="image" data-src="https://cdn.osxdaily.com/wp-content/uploads/2022/11/airtags-610x328.jpg" alt="AirTags" width="610" height="328" class="lazy lazy-hidden aligncenter size-large wp-image-124228" srcset="" data-srcset="https://cdn.osxdaily.com/wp-content/uploads/2022/11/airtags-610x328.jpg 610w, https://cdn.osxdaily.com/wp-content/uploads/2022/11/airtags-300x161.jpg 300w, https://cdn.osxdaily.com/wp-content/uploads/2022/11/airtags-768x413.jpg 768w, https://cdn.osxdaily.com/wp-content/uploads/2022/11/airtags-1536x826.jpg 1536w, https://cdn.osxdaily.com/wp-content/uploads/2022/11/airtags.jpg 1844w" sizes="(max-width: 610px) 100vw, 610px" /><noscript><img decoding="async" loading="lazy" src="https://cdn.osxdaily.com/wp-content/uploads/2022/11/airtags-610x328.jpg" alt="AirTags" width="610" height="328" class="aligncenter size-large wp-image-124228" srcset="https://cdn.osxdaily.com/wp-content/uploads/2022/11/airtags-610x328.jpg 610w, https://cdn.osxdaily.com/wp-content/uploads/2022/11/airtags-300x161.jpg 300w, https://cdn.osxdaily.com/wp-content/uploads/2022/11/airtags-768x413.jpg 768w, https://cdn.osxdaily.com/wp-content/uploads/2022/11/airtags-1536x826.jpg 1536w, https://cdn.osxdaily.com/wp-content/uploads/2022/11/airtags.jpg 1844w" sizes="(max-width: 610px) 100vw, 610px" /></noscript></a></p>
+<p>A 4-pack of AirTags personal trackers are discounted down to $87 on Amazon right now, a great deal on the trackers that are rarely discounted.</p>
+<ul>
+<li><a href="https://amzn.to/477e0yd" rel="nofollow">AirTags 4-pack personal trackers for $87</a></li>
+</ul>
+<h3>M2 MacBook Air 15&#8243; up to $250 Off</h3>
+<p><a href="https://amzn.to/3u4FhTm" rel="nofollow"><img decoding="async" loading="lazy" src="https://cdn.osxdaily.com/wp-content/plugins/a3-lazy-load/assets/images/lazy_placeholder.gif" data-lazy-type="image" data-src="https://cdn.osxdaily.com/wp-content/uploads/2023/06/m2-macbook-air-15-1-610x369.jpg" alt="M2 MacBook Air 15-inch" width="610" height="369" class="lazy lazy-hidden aligncenter size-large wp-image-126009" srcset="" data-srcset="https://cdn.osxdaily.com/wp-content/uploads/2023/06/m2-macbook-air-15-1-610x369.jpg 610w, https://cdn.osxdaily.com/wp-content/uploads/2023/06/m2-macbook-air-15-1-300x182.jpg 300w, https://cdn.osxdaily.com/wp-content/uploads/2023/06/m2-macbook-air-15-1-768x465.jpg 768w, https://cdn.osxdaily.com/wp-content/uploads/2023/06/m2-macbook-air-15-1-1536x930.jpg 1536w, https://cdn.osxdaily.com/wp-content/uploads/2023/06/m2-macbook-air-15-1.jpg 1662w" sizes="(max-width: 610px) 100vw, 610px" /><noscript><img decoding="async" loading="lazy" src="https://cdn.osxdaily.com/wp-content/uploads/2023/06/m2-macbook-air-15-1-610x369.jpg" alt="M2 MacBook Air 15-inch" width="610" height="369" class="aligncenter size-large wp-image-126009" srcset="https://cdn.osxdaily.com/wp-content/uploads/2023/06/m2-macbook-air-15-1-610x369.jpg 610w, https://cdn.osxdaily.com/wp-content/uploads/2023/06/m2-macbook-air-15-1-300x182.jpg 300w, https://cdn.osxdaily.com/wp-content/uploads/2023/06/m2-macbook-air-15-1-768x465.jpg 768w, https://cdn.osxdaily.com/wp-content/uploads/2023/06/m2-macbook-air-15-1-1536x930.jpg 1536w, https://cdn.osxdaily.com/wp-content/uploads/2023/06/m2-macbook-air-15-1.jpg 1662w" sizes="(max-width: 610px) 100vw, 610px" /></noscript></a></p>
+<p>The 15&#8243; MacBook Air M2 models feature the powerful M2 processor, 1080p FaceTime webcam, Touch ID, backlit keyboard, and a great slim lightweight design, and some neat color options including the popular Midnight Blue, Starlight, Silver, and Space Gray. Amazon is taking $250 off the base models with 8GB RAM, and $200 off the upgraded models with 16GB RAM:</p>
+<ul>
+<li><a target="_blank" rel="nofollow noopener" href="https://amzn.to/3CuidOK">15&#8243; MacBook Air M2 &#8211; 8GB RAM, 256GB SSD- $1099</a> ($200 off, down from $1299)</li>
+<li><a href="https://amzn.to/44wV0r6" target="_blank" rel="nofollow noopener">15&#8243; MacBook Air M2 &#8211; 8GB RAM, 512GB SSD &#8211; $1249</a> ($250 off, down from $1499)</li>
+<li><a href="https://amzn.to/3u4FhTm" rel="nofollow">M2 MacBook Air 15&#8243; with 16GB RAM, 512GB SSD for $1499</a>($200 off, down from $1699 MSRP) </li>
+<li><a href="https://amzn.to/46tVlwq" rel="nofollow">M2 MacBook Air 15&#8243; with 16GB RAM, 1TB SSD for $1699</a> ($200 off, down from $1899 MSRP)</li>
+</ul>
+<h3>Apple Watch Series 9 for $50 Off</h3>
+<p><a href="https://amzn.to/3u9MP7A" rel="nofollow noopener"><img decoding="async" loading="lazy" src="https://cdn.osxdaily.com/wp-content/plugins/a3-lazy-load/assets/images/lazy_placeholder.gif" data-lazy-type="image" data-src="https://cdn.osxdaily.com/wp-content/uploads/2023/11/apple-watch-series-9-610x458.jpg" alt="Apple Watch Series 9" width="610" height="458" class="lazy lazy-hidden aligncenter size-large wp-image-127746" srcset="" data-srcset="https://cdn.osxdaily.com/wp-content/uploads/2023/11/apple-watch-series-9-610x458.jpg 610w, https://cdn.osxdaily.com/wp-content/uploads/2023/11/apple-watch-series-9-300x225.jpg 300w, https://cdn.osxdaily.com/wp-content/uploads/2023/11/apple-watch-series-9-768x577.jpg 768w, https://cdn.osxdaily.com/wp-content/uploads/2023/11/apple-watch-series-9-1536x1153.jpg 1536w, https://cdn.osxdaily.com/wp-content/uploads/2023/11/apple-watch-series-9.jpg 1646w" sizes="(max-width: 610px) 100vw, 610px" /><noscript><img decoding="async" loading="lazy" src="https://cdn.osxdaily.com/wp-content/uploads/2023/11/apple-watch-series-9-610x458.jpg" alt="Apple Watch Series 9" width="610" height="458" class="aligncenter size-large wp-image-127746" srcset="https://cdn.osxdaily.com/wp-content/uploads/2023/11/apple-watch-series-9-610x458.jpg 610w, https://cdn.osxdaily.com/wp-content/uploads/2023/11/apple-watch-series-9-300x225.jpg 300w, https://cdn.osxdaily.com/wp-content/uploads/2023/11/apple-watch-series-9-768x577.jpg 768w, https://cdn.osxdaily.com/wp-content/uploads/2023/11/apple-watch-series-9-1536x1153.jpg 1536w, https://cdn.osxdaily.com/wp-content/uploads/2023/11/apple-watch-series-9.jpg 1646w" sizes="(max-width: 610px) 100vw, 610px" /></noscript></a></p>
+<p>Amazon is offering a great deal on <a href="https://amzn.to/3u9MP7A" target="_blank" rel="nofollow noopener">the all new Apple Watch Series 9 for just $349</a> in select colors, taking $50 off the retail price of $399. The Apple Watch Series 9 features fitness tracking capabilities, heart rate monitor, blood oxygen reader, ECG capability, ovulation tracking, crash detection, fall detection, an always-on display, GPS, pinch detection gesture support, and a powerful new chip to make the watch faster than ever before. Amazon also continues to offer the Series 8 Apple Watch at an even bigger discount, which has basically all of the same features minus the pinch detection and the faster chip, in select colors. </p>
+<ul>
+<li><a href="https://amzn.to/3u9MP7A" rel="nofollow noopener">Apple Watch Series 9 &#8211; $349</a> (Down $50 from $399)</li>
+<li><a href="https://amzn.to/3QVDJ7c" rel="nofollow">Apple Watch Series 8 &#8211; $299</a> in select color options</li>
+</ul>
+<p><em>FTC: OSXDaily is an affiliate partner with Amazon, meaning if you click a link and make a purchase, we may receive a small payment which goes towards keeping the site running.</em></p>
+
+
+
+</div>
+
+
+
+<div id="commenttext"><strong>By OSXDaily</strong> - <span class="nostylefoot_a"><a href="https://osxdaily.com/category/deals/" rel="category tag">Deals</a></span> - <a href="https://osxdaily.com/2023/11/16/early-black-friday-deals-100-off-ipad-magic-keyboard-250-off-m2-macbook-air-15-more/#comments">1 Comment</a>
+
+</div></p>
+
+
+</div>
+</div>
+
+
+
+
+
+
+
+<div class="post">
+<div class="konafilter">
+<h2><a href="https://osxdaily.com/2023/11/15/disable-click-wallpaper-show-desktop-macos/" rel="bookmark" title="How to Disable &#8220;Click Wallpaper to Show Desktop&#8221; in MacOS Sonoma">How to Disable &#8220;Click Wallpaper to Show Desktop&#8221; in MacOS Sonoma</a></h2>
+<div id="subhead_block">
+<span class="subhead_lefty">Nov 15, 2023 - <a href="https://osxdaily.com/2023/11/15/disable-click-wallpaper-show-desktop-macos/#respond">Leave a Comment</a></span>
+<span class="subhead_righty"></span>
+</div>
+
+<div class="contenttext">
+
+<p><img decoding="async" loading="lazy" src="https://cdn.osxdaily.com/wp-content/plugins/a3-lazy-load/assets/images/lazy_placeholder.gif" data-lazy-type="image" data-src="https://cdn.osxdaily.com/wp-content/uploads/2023/11/click-to-reveal-desktop-macos-610x395.jpg" alt="Click Wallpaper to Reveal Desktop on MacOS" width="610" height="395" class="lazy lazy-hidden aligncenter size-large wp-image-127774" srcset="" data-srcset="https://cdn.osxdaily.com/wp-content/uploads/2023/11/click-to-reveal-desktop-macos-610x395.jpg 610w, https://cdn.osxdaily.com/wp-content/uploads/2023/11/click-to-reveal-desktop-macos-300x194.jpg 300w, https://cdn.osxdaily.com/wp-content/uploads/2023/11/click-to-reveal-desktop-macos-768x497.jpg 768w, https://cdn.osxdaily.com/wp-content/uploads/2023/11/click-to-reveal-desktop-macos-1536x994.jpg 1536w, https://cdn.osxdaily.com/wp-content/uploads/2023/11/click-to-reveal-desktop-macos-2048x1326.jpg 2048w" sizes="(max-width: 610px) 100vw, 610px" /><noscript><img decoding="async" loading="lazy" src="https://cdn.osxdaily.com/wp-content/uploads/2023/11/click-to-reveal-desktop-macos-610x395.jpg" alt="Click Wallpaper to Reveal Desktop on MacOS" width="610" height="395" class="aligncenter size-large wp-image-127774" srcset="https://cdn.osxdaily.com/wp-content/uploads/2023/11/click-to-reveal-desktop-macos-610x395.jpg 610w, https://cdn.osxdaily.com/wp-content/uploads/2023/11/click-to-reveal-desktop-macos-300x194.jpg 300w, https://cdn.osxdaily.com/wp-content/uploads/2023/11/click-to-reveal-desktop-macos-768x497.jpg 768w, https://cdn.osxdaily.com/wp-content/uploads/2023/11/click-to-reveal-desktop-macos-1536x994.jpg 1536w, https://cdn.osxdaily.com/wp-content/uploads/2023/11/click-to-reveal-desktop-macos-2048x1326.jpg 2048w" sizes="(max-width: 610px) 100vw, 610px" /></noscript></p>
+<p>MacOS Sonoma introduced a feature on the Mac that activates Expose which hides all open windows and apps, whenever you click on the desktop. This feature happens seamlessly, and when you click on the desktop wallpaper, you&#8217;ll reveal the desktop by pushing aside all other open apps and their windows, thus revealing the desktop and its wallpaper. Some Mac users really like this new feature, and others are less impressed with it, and some may find the feature annoying.</p>
+<p>If you do not want MacOS to show the desktop when you click on the wallpaper, you can turn off the click to reveal desktop feature in macOS Sonoma. </p>
+<p> <a href="https://osxdaily.com/2023/11/15/disable-click-wallpaper-show-desktop-macos/" class="more-link">Read more &raquo;</a></p>
+
+
+
+</div>
+
+
+
+<div id="commenttext"><strong>By Paul Horowitz</strong> - <span class="nostylefoot_a"><a href="https://osxdaily.com/category/mac-os-x/" rel="category tag">Mac OS</a>, <a href="https://osxdaily.com/category/tips-tricks/" rel="category tag">Tips &amp; Tricks</a></span> - <a href="https://osxdaily.com/2023/11/15/disable-click-wallpaper-show-desktop-macos/#respond">Leave a Comment</a>
+
+</div></p>
+
+
+</div>
+</div>
+
+
+
+
+
+
+
+<div class="post">
+<div class="konafilter">
+<h2><a href="https://osxdaily.com/2023/11/14/beta-3-of-ios-17-2-ipados-17-2-macos-sonoma-14-2-released-for-testing/" rel="bookmark" title="Beta 3 of iOS 17.2, iPadOS 17.2, MacOS Sonoma 14.2 Released for Testing">Beta 3 of iOS 17.2, iPadOS 17.2, MacOS Sonoma 14.2 Released for Testing</a></h2>
+<div id="subhead_block">
+<span class="subhead_lefty">Nov 14, 2023 - <a href="https://osxdaily.com/2023/11/14/beta-3-of-ios-17-2-ipados-17-2-macos-sonoma-14-2-released-for-testing/#comments">4 Comments</a></span>
+<span class="subhead_righty"></span>
+</div>
+
+<div class="contenttext">
+
+<p><img decoding="async" loading="lazy" src="https://cdn.osxdaily.com/wp-content/plugins/a3-lazy-load/assets/images/lazy_placeholder.gif" data-lazy-type="image" data-src="https://cdn.osxdaily.com/wp-content/uploads/2023/08/ios-macos-ipados-public-betas-610x307.jpg" alt="Betas of iOS 17.2, iPadOS 17.2, and MacOS Sonoma 14.2" width="610" height="307" class="lazy lazy-hidden aligncenter size-large wp-image-126710" srcset="" data-srcset="https://cdn.osxdaily.com/wp-content/uploads/2023/08/ios-macos-ipados-public-betas-610x307.jpg 610w, https://cdn.osxdaily.com/wp-content/uploads/2023/08/ios-macos-ipados-public-betas-300x151.jpg 300w, https://cdn.osxdaily.com/wp-content/uploads/2023/08/ios-macos-ipados-public-betas-768x387.jpg 768w, https://cdn.osxdaily.com/wp-content/uploads/2023/08/ios-macos-ipados-public-betas-1536x773.jpg 1536w, https://cdn.osxdaily.com/wp-content/uploads/2023/08/ios-macos-ipados-public-betas.jpg 1958w" sizes="(max-width: 610px) 100vw, 610px" /><noscript><img decoding="async" loading="lazy" src="https://cdn.osxdaily.com/wp-content/uploads/2023/08/ios-macos-ipados-public-betas-610x307.jpg" alt="Betas of iOS 17.2, iPadOS 17.2, and MacOS Sonoma 14.2" width="610" height="307" class="aligncenter size-large wp-image-126710" srcset="https://cdn.osxdaily.com/wp-content/uploads/2023/08/ios-macos-ipados-public-betas-610x307.jpg 610w, https://cdn.osxdaily.com/wp-content/uploads/2023/08/ios-macos-ipados-public-betas-300x151.jpg 300w, https://cdn.osxdaily.com/wp-content/uploads/2023/08/ios-macos-ipados-public-betas-768x387.jpg 768w, https://cdn.osxdaily.com/wp-content/uploads/2023/08/ios-macos-ipados-public-betas-1536x773.jpg 1536w, https://cdn.osxdaily.com/wp-content/uploads/2023/08/ios-macos-ipados-public-betas.jpg 1958w" sizes="(max-width: 610px) 100vw, 610px" /></noscript></p>
+<p>The third beta version of iOS 17.2 for iPhone, iPadOS 17.2 for iPad, and macOS Sonoma 14.2 for Mac, have been released for users engaging in the beta testing programs for Apple system software. </p>
+<p>Betas of iOS 17.2, macOS Sonoma 14.2, and iPadOS 17.2, includes the ability to add stickers to your iMessages from long-tap/click contextual menus. Additionally, the iOS 17.2 beta features the inclusion of the Journal app, an app that allows you to create journal entries that include text, photos, videos, voice recordings, and other media. Of course the typical bug fixes and security enhancements are also likely to be included in the final versions of iOS 17.2, iPadOS 17.2, and macOS Sonoma 14.2. </p>
+<p> <a href="https://osxdaily.com/2023/11/14/beta-3-of-ios-17-2-ipados-17-2-macos-sonoma-14-2-released-for-testing/" class="more-link">Read more &raquo;</a></p>
+
+
+
+</div>
+
+
+
+<div id="commenttext"><strong>By Paul Horowitz</strong> - <span class="nostylefoot_a"><a href="https://osxdaily.com/category/news/" rel="category tag">News</a></span> - <a href="https://osxdaily.com/2023/11/14/beta-3-of-ios-17-2-ipados-17-2-macos-sonoma-14-2-released-for-testing/#comments">4 Comments</a>
+
+</div></p>
+
+
+</div>
+</div>
+
+
+
+
+
+
+
+<div class="post">
+<div class="konafilter">
+<h2><a href="https://osxdaily.com/2023/11/14/how-to-make-stickers-from-photos-for-messages-on-iphone/" rel="bookmark" title="How to Make Stickers from Photos for Messages on iPhone">How to Make Stickers from Photos for Messages on iPhone</a></h2>
+<div id="subhead_block">
+<span class="subhead_lefty">Nov 14, 2023 - <a href="https://osxdaily.com/2023/11/14/how-to-make-stickers-from-photos-for-messages-on-iphone/#comments">3 Comments</a></span>
+<span class="subhead_righty"></span>
+</div>
+
+<div class="contenttext">
+
+<p><img decoding="async" loading="lazy" src="https://cdn.osxdaily.com/wp-content/plugins/a3-lazy-load/assets/images/lazy_placeholder.gif" data-lazy-type="image" data-src="https://cdn.osxdaily.com/wp-content/uploads/2023/11/stickers-messages-iphone-610x365.jpg" alt="Stickers in Messages on iPhone" width="610" height="365" class="lazy lazy-hidden aligncenter size-large wp-image-127805" srcset="" data-srcset="https://cdn.osxdaily.com/wp-content/uploads/2023/11/stickers-messages-iphone-610x365.jpg 610w, https://cdn.osxdaily.com/wp-content/uploads/2023/11/stickers-messages-iphone-300x180.jpg 300w, https://cdn.osxdaily.com/wp-content/uploads/2023/11/stickers-messages-iphone-768x460.jpg 768w, https://cdn.osxdaily.com/wp-content/uploads/2023/11/stickers-messages-iphone-1536x919.jpg 1536w, https://cdn.osxdaily.com/wp-content/uploads/2023/11/stickers-messages-iphone-2048x1226.jpg 2048w" sizes="(max-width: 610px) 100vw, 610px" /><noscript><img decoding="async" loading="lazy" src="https://cdn.osxdaily.com/wp-content/uploads/2023/11/stickers-messages-iphone-610x365.jpg" alt="Stickers in Messages on iPhone" width="610" height="365" class="aligncenter size-large wp-image-127805" srcset="https://cdn.osxdaily.com/wp-content/uploads/2023/11/stickers-messages-iphone-610x365.jpg 610w, https://cdn.osxdaily.com/wp-content/uploads/2023/11/stickers-messages-iphone-300x180.jpg 300w, https://cdn.osxdaily.com/wp-content/uploads/2023/11/stickers-messages-iphone-768x460.jpg 768w, https://cdn.osxdaily.com/wp-content/uploads/2023/11/stickers-messages-iphone-1536x919.jpg 1536w, https://cdn.osxdaily.com/wp-content/uploads/2023/11/stickers-messages-iphone-2048x1226.jpg 2048w" sizes="(max-width: 610px) 100vw, 610px" /></noscript></p>
+<p>Stickers are a fun and creative way to enhance your iMessage experience, and the latest versions of iOS support a feature that allow you to easily make your own stickers from any of your own photos, right from your iPhone. For example, maybe you have a picture of a great dog or cat, or yourself, that you want to turn into a sticker that you can plaster onto messages. No sweat, you can do that with ease.</p>
+<p> <a href="https://osxdaily.com/2023/11/14/how-to-make-stickers-from-photos-for-messages-on-iphone/" class="more-link">Read more &raquo;</a></p>
+
+
+
+</div>
+
+
+
+<div id="commenttext"><strong>By Jamie Cuevas</strong> - <span class="nostylefoot_a"><a href="https://osxdaily.com/category/ipad/" rel="category tag">iPad</a>, <a href="https://osxdaily.com/category/iphone/" rel="category tag">iPhone</a>, <a href="https://osxdaily.com/category/tips-tricks/" rel="category tag">Tips &amp; Tricks</a></span> - <a href="https://osxdaily.com/2023/11/14/how-to-make-stickers-from-photos-for-messages-on-iphone/#comments">3 Comments</a>
+
+</div></p>
+
+
+</div>
+</div>
+
+
+
+
+
+
+
+<div class="post">
+<div class="konafilter">
+<h2><a href="https://osxdaily.com/2023/11/13/how-to-turn-off-imessage-on-mac/" rel="bookmark" title="How to Turn Off iMessage on Mac">How to Turn Off iMessage on Mac</a></h2>
+<div id="subhead_block">
+<span class="subhead_lefty">Nov 13, 2023 - <a href="https://osxdaily.com/2023/11/13/how-to-turn-off-imessage-on-mac/#comments">1 Comment</a></span>
+<span class="subhead_righty"></span>
+</div>
+
+<div class="contenttext">
+
+<p><img decoding="async" loading="lazy" src="https://cdn.osxdaily.com/wp-content/plugins/a3-lazy-load/assets/images/lazy_placeholder.gif" data-lazy-type="image" data-src="https://cdn.osxdaily.com/wp-content/uploads/2023/11/messages-mac-610x610.jpg" alt="How to stop getting iMessages, messages, and text Messages on the Mac" width="610" height="610" class="lazy lazy-hidden aligncenter size-large wp-image-127700" srcset="" data-srcset="https://cdn.osxdaily.com/wp-content/uploads/2023/11/messages-mac-610x610.jpg 610w, https://cdn.osxdaily.com/wp-content/uploads/2023/11/messages-mac-300x300.jpg 300w, https://cdn.osxdaily.com/wp-content/uploads/2023/11/messages-mac-150x150.jpg 150w, https://cdn.osxdaily.com/wp-content/uploads/2023/11/messages-mac-768x768.jpg 768w, https://cdn.osxdaily.com/wp-content/uploads/2023/11/messages-mac-144x144.jpg 144w, https://cdn.osxdaily.com/wp-content/uploads/2023/11/messages-mac.jpg 1024w" sizes="(max-width: 610px) 100vw, 610px" /><noscript><img decoding="async" loading="lazy" src="https://cdn.osxdaily.com/wp-content/uploads/2023/11/messages-mac-610x610.jpg" alt="How to stop getting iMessages, messages, and text Messages on the Mac" width="610" height="610" class="aligncenter size-large wp-image-127700" srcset="https://cdn.osxdaily.com/wp-content/uploads/2023/11/messages-mac-610x610.jpg 610w, https://cdn.osxdaily.com/wp-content/uploads/2023/11/messages-mac-300x300.jpg 300w, https://cdn.osxdaily.com/wp-content/uploads/2023/11/messages-mac-150x150.jpg 150w, https://cdn.osxdaily.com/wp-content/uploads/2023/11/messages-mac-768x768.jpg 768w, https://cdn.osxdaily.com/wp-content/uploads/2023/11/messages-mac-144x144.jpg 144w, https://cdn.osxdaily.com/wp-content/uploads/2023/11/messages-mac.jpg 1024w" sizes="(max-width: 610px) 100vw, 610px" /></noscript></p>
+<p>Some Mac users may wish to not receive messages, iMessages, and texts messages on their Mac, but by default if you have logged into iCloud on a Mac you will find that iMessage is also enabled, meaning you will get messages in MacOS. </p>
+<p>If you&#8217;re wondering how to stop messages from going to the Mac, and to disable iMessage on the Mac so that you no longer receive any messages on a Mac, read along.</p>
+<p> <a href="https://osxdaily.com/2023/11/13/how-to-turn-off-imessage-on-mac/" class="more-link">Read more &raquo;</a></p>
+
+
+
+</div>
+
+
+
+<div id="commenttext"><strong>By Paul Horowitz</strong> - <span class="nostylefoot_a"><a href="https://osxdaily.com/category/mac-os-x/" rel="category tag">Mac OS</a>, <a href="https://osxdaily.com/category/tips-tricks/" rel="category tag">Tips &amp; Tricks</a></span> - <a href="https://osxdaily.com/2023/11/13/how-to-turn-off-imessage-on-mac/#comments">1 Comment</a>
+
+</div></p>
+
+
+</div>
+</div>
+
+
+
+
+
+
+
+<div class="post">
+<div class="konafilter">
+<h2><a href="https://osxdaily.com/2023/11/12/early-black-friday-deals-87-for-airtag-4-pack-250-off-m2-macbook-air-15-16gb-512gb-50-off-apple-watch-series-9-etc/" rel="bookmark" title="Early Black Friday Deals: $87 for AirTag 4-pack, $250 Off M2 MacBook Air 15&#8243; 16GB/512GB, $50 Off Apple Watch Series 9, etc">Early Black Friday Deals: $87 for AirTag 4-pack, $250 Off M2 MacBook Air 15&#8243; 16GB/512GB, $50 Off Apple Watch Series 9, etc</a></h2>
+<div id="subhead_block">
+<span class="subhead_lefty">Nov 12, 2023 - <a href="https://osxdaily.com/2023/11/12/early-black-friday-deals-87-for-airtag-4-pack-250-off-m2-macbook-air-15-16gb-512gb-50-off-apple-watch-series-9-etc/#comments">2 Comments</a></span>
+<span class="subhead_righty"></span>
+</div>
+
+<div class="contenttext">
+
+<p><img decoding="async" loading="lazy" src="https://cdn.osxdaily.com/wp-content/plugins/a3-lazy-load/assets/images/lazy_placeholder.gif" data-lazy-type="image" data-src="https://cdn.osxdaily.com/wp-content/uploads/2023/10/amazon-deals-610x437.jpg" alt="Amazon deals" width="610" height="437" class="lazy lazy-hidden aligncenter size-large wp-image-127463" srcset="" data-srcset="https://cdn.osxdaily.com/wp-content/uploads/2023/10/amazon-deals-610x437.jpg 610w, https://cdn.osxdaily.com/wp-content/uploads/2023/10/amazon-deals-300x215.jpg 300w, https://cdn.osxdaily.com/wp-content/uploads/2023/10/amazon-deals-768x550.jpg 768w, https://cdn.osxdaily.com/wp-content/uploads/2023/10/amazon-deals.jpg 885w" sizes="(max-width: 610px) 100vw, 610px" /><noscript><img decoding="async" loading="lazy" src="https://cdn.osxdaily.com/wp-content/uploads/2023/10/amazon-deals-610x437.jpg" alt="Amazon deals" width="610" height="437" class="aligncenter size-large wp-image-127463" srcset="https://cdn.osxdaily.com/wp-content/uploads/2023/10/amazon-deals-610x437.jpg 610w, https://cdn.osxdaily.com/wp-content/uploads/2023/10/amazon-deals-300x215.jpg 300w, https://cdn.osxdaily.com/wp-content/uploads/2023/10/amazon-deals-768x550.jpg 768w, https://cdn.osxdaily.com/wp-content/uploads/2023/10/amazon-deals.jpg 885w" sizes="(max-width: 610px) 100vw, 610px" /></noscript></p>
+<p>Amazon is back with some great early Black Friday deals on popular Apple products, including a pack of AirTags, the fantastic M2 MacBook Air 15&#8243; model in 16GB RAM configurations (and 8GB RAM configs too), and the all new Apple Watch Series 9.</p>
+<p>Check out the deals below, whether you&#8217;re shopping for yourself, a loved one, or any other purpose.</p>
+<h3>AirTags 4-pack for $87</h3>
+<p><a href="https://amzn.to/477e0yd" rel="nofollow noopener" target="_blank"><img decoding="async" loading="lazy" src="https://cdn.osxdaily.com/wp-content/plugins/a3-lazy-load/assets/images/lazy_placeholder.gif" data-lazy-type="image" data-src="https://cdn.osxdaily.com/wp-content/uploads/2022/11/airtags-610x328.jpg" alt="AirTags" width="610" height="328" class="lazy lazy-hidden aligncenter size-large wp-image-124228" srcset="" data-srcset="https://cdn.osxdaily.com/wp-content/uploads/2022/11/airtags-610x328.jpg 610w, https://cdn.osxdaily.com/wp-content/uploads/2022/11/airtags-300x161.jpg 300w, https://cdn.osxdaily.com/wp-content/uploads/2022/11/airtags-768x413.jpg 768w, https://cdn.osxdaily.com/wp-content/uploads/2022/11/airtags-1536x826.jpg 1536w, https://cdn.osxdaily.com/wp-content/uploads/2022/11/airtags.jpg 1844w" sizes="(max-width: 610px) 100vw, 610px" /><noscript><img decoding="async" loading="lazy" src="https://cdn.osxdaily.com/wp-content/uploads/2022/11/airtags-610x328.jpg" alt="AirTags" width="610" height="328" class="aligncenter size-large wp-image-124228" srcset="https://cdn.osxdaily.com/wp-content/uploads/2022/11/airtags-610x328.jpg 610w, https://cdn.osxdaily.com/wp-content/uploads/2022/11/airtags-300x161.jpg 300w, https://cdn.osxdaily.com/wp-content/uploads/2022/11/airtags-768x413.jpg 768w, https://cdn.osxdaily.com/wp-content/uploads/2022/11/airtags-1536x826.jpg 1536w, https://cdn.osxdaily.com/wp-content/uploads/2022/11/airtags.jpg 1844w" sizes="(max-width: 610px) 100vw, 610px" /></noscript></a></p>
+<p>A 4-pack of AirTags personal trackers are discounted down to $87 on Amazon right now, a great deal on the trackers that are rarely discounted.</p>
+<ul>
+<li><a href="https://amzn.to/477e0yd" rel="nofollow">AirTags 4-pack personal trackers for $87</a></li>
+</ul>
+<h3>M2 MacBook Air 15&#8243; for $250 Off</h3>
+<p><a href="https://amzn.to/3u4FhTm" rel="nofollow"><img decoding="async" loading="lazy" src="https://cdn.osxdaily.com/wp-content/plugins/a3-lazy-load/assets/images/lazy_placeholder.gif" data-lazy-type="image" data-src="https://cdn.osxdaily.com/wp-content/uploads/2023/06/m2-macbook-air-15-1-610x369.jpg" alt="M2 MacBook Air 15-inch" width="610" height="369" class="lazy lazy-hidden aligncenter size-large wp-image-126009" srcset="" data-srcset="https://cdn.osxdaily.com/wp-content/uploads/2023/06/m2-macbook-air-15-1-610x369.jpg 610w, https://cdn.osxdaily.com/wp-content/uploads/2023/06/m2-macbook-air-15-1-300x182.jpg 300w, https://cdn.osxdaily.com/wp-content/uploads/2023/06/m2-macbook-air-15-1-768x465.jpg 768w, https://cdn.osxdaily.com/wp-content/uploads/2023/06/m2-macbook-air-15-1-1536x930.jpg 1536w, https://cdn.osxdaily.com/wp-content/uploads/2023/06/m2-macbook-air-15-1.jpg 1662w" sizes="(max-width: 610px) 100vw, 610px" /><noscript><img decoding="async" loading="lazy" src="https://cdn.osxdaily.com/wp-content/uploads/2023/06/m2-macbook-air-15-1-610x369.jpg" alt="M2 MacBook Air 15-inch" width="610" height="369" class="aligncenter size-large wp-image-126009" srcset="https://cdn.osxdaily.com/wp-content/uploads/2023/06/m2-macbook-air-15-1-610x369.jpg 610w, https://cdn.osxdaily.com/wp-content/uploads/2023/06/m2-macbook-air-15-1-300x182.jpg 300w, https://cdn.osxdaily.com/wp-content/uploads/2023/06/m2-macbook-air-15-1-768x465.jpg 768w, https://cdn.osxdaily.com/wp-content/uploads/2023/06/m2-macbook-air-15-1-1536x930.jpg 1536w, https://cdn.osxdaily.com/wp-content/uploads/2023/06/m2-macbook-air-15-1.jpg 1662w" sizes="(max-width: 610px) 100vw, 610px" /></noscript></a></p>
+<p>The upgraded 15&#8243; MacBook Air M2 models feature the powerful M2 processor, 16GB RAM, 512GB or 1TB SSD storage, a 1080p FaceTime webcam, Touch ID, backlit keyboard, and a great slim lightweight design, and some neat color options including the popular Midnight Blue, Starlight, Silver, and Space Gray.</p>
+<ul>
+<li><a href="https://amzn.to/3u4FhTm" rel="nofollow">M2 MacBook Air 15&#8243; with 16GB RAM, 512GB SSD for $1449</a>($250 off, down from $1699 MSRP) </li>
+<li><a href="https://amzn.to/46tVlwq" rel="nofollow">M2 MacBook Air 15&#8243; with 16GB RAM, 1TB SSD for $1649</a> ($250 off, down from $1899 MSRP)</li>
+</ul>
+<p>If you don&#8217;t need the extra RAM, the base 8GB / 256GB model and 8GB / 512GB model are both available with a $250 discount in all color options as well:</p>
+<ul>
+<li><a target="_blank" rel="nofollow noopener" href="https://amzn.to/3CuidOK">15&#8243; MacBook Air M2 &#8211; 8GB RAM, 256GB SSD- $1049</a> (from $1299)</li>
+<li><a href="https://amzn.to/44wV0r6" target="_blank" rel="nofollow noopener">15&#8243; MacBook Air M2 &#8211; 8GB RAM, 512GB SSD &#8211; $1249</a> (from $1499)</li>
+</ul>
+<h3>Apple Watch Series 9 for $50 Off</h3>
+<p><a href="https://amzn.to/3u9MP7A" rel="nofollow noopener"><img decoding="async" loading="lazy" src="https://cdn.osxdaily.com/wp-content/plugins/a3-lazy-load/assets/images/lazy_placeholder.gif" data-lazy-type="image" data-src="https://cdn.osxdaily.com/wp-content/uploads/2023/11/apple-watch-series-9-610x458.jpg" alt="Apple Watch Series 9" width="610" height="458" class="lazy lazy-hidden aligncenter size-large wp-image-127746" srcset="" data-srcset="https://cdn.osxdaily.com/wp-content/uploads/2023/11/apple-watch-series-9-610x458.jpg 610w, https://cdn.osxdaily.com/wp-content/uploads/2023/11/apple-watch-series-9-300x225.jpg 300w, https://cdn.osxdaily.com/wp-content/uploads/2023/11/apple-watch-series-9-768x577.jpg 768w, https://cdn.osxdaily.com/wp-content/uploads/2023/11/apple-watch-series-9-1536x1153.jpg 1536w, https://cdn.osxdaily.com/wp-content/uploads/2023/11/apple-watch-series-9.jpg 1646w" sizes="(max-width: 610px) 100vw, 610px" /><noscript><img decoding="async" loading="lazy" src="https://cdn.osxdaily.com/wp-content/uploads/2023/11/apple-watch-series-9-610x458.jpg" alt="Apple Watch Series 9" width="610" height="458" class="aligncenter size-large wp-image-127746" srcset="https://cdn.osxdaily.com/wp-content/uploads/2023/11/apple-watch-series-9-610x458.jpg 610w, https://cdn.osxdaily.com/wp-content/uploads/2023/11/apple-watch-series-9-300x225.jpg 300w, https://cdn.osxdaily.com/wp-content/uploads/2023/11/apple-watch-series-9-768x577.jpg 768w, https://cdn.osxdaily.com/wp-content/uploads/2023/11/apple-watch-series-9-1536x1153.jpg 1536w, https://cdn.osxdaily.com/wp-content/uploads/2023/11/apple-watch-series-9.jpg 1646w" sizes="(max-width: 610px) 100vw, 610px" /></noscript></a></p>
+<p>Amazon is offering a great deal on <a href="https://amzn.to/3u9MP7A" target="_blank" rel="nofollow noopener">the all new Apple Watch Series 9 for just $349</a> in select colors, taking $50 off the retail price of $399. The Apple Watch Series 9 features fitness tracking capabilities, heart rate monitor, blood oxygen reader, ECG capability, ovulation tracking, crash detection, fall detection, an always-on display, GPS, and a powerful new chip to make the watch faster than ever before. </p>
+<ul>
+<li><a href="https://amzn.to/3u9MP7A" rel="nofollow noopener">Apple Watch Series 9 &#8211; $349</a> (Down $50 from $399)</li>
+</ul>
+<p>Additionally, the <a href="https://amzn.to/3QVDJ7c" rel="nofollow">Apple Watch Series 8 remains available for $299</a> in select color options including red and <a href="https://amzn.to/3MHeIdk" rel="nofollow">Starlight</a></p>
+<p><em>FTC: OSXDaily is an affiliate partner with Amazon, meaning if you click a link and make a purchase, we may receive a small payment which goes towards keeping the site running.</em></p>
+
+
+
+</div>
+
+
+
+<div id="commenttext"><strong>By OSXDaily</strong> - <span class="nostylefoot_a"><a href="https://osxdaily.com/category/deals/" rel="category tag">Deals</a></span> - <a href="https://osxdaily.com/2023/11/12/early-black-friday-deals-87-for-airtag-4-pack-250-off-m2-macbook-air-15-16gb-512gb-50-off-apple-watch-series-9-etc/#comments">2 Comments</a>
+
+</div></p>
+
+
+</div>
+</div>
+
+
+
+
+
+
+
+<div class="post">
+<div class="konafilter">
+<h2><a href="https://osxdaily.com/2023/11/12/psa-content-blockers-may-break-captive-portal-wi-fi-login-pages/" rel="bookmark" title="PSA: Content Blockers May Break Captive Portal Wi-Fi Login Pages">PSA: Content Blockers May Break Captive Portal Wi-Fi Login Pages</a></h2>
+<div id="subhead_block">
+<span class="subhead_lefty">Nov 12, 2023 - <a href="https://osxdaily.com/2023/11/12/psa-content-blockers-may-break-captive-portal-wi-fi-login-pages/#respond">Leave a Comment</a></span>
+<span class="subhead_righty"></span>
+</div>
+
+<div class="contenttext">
+
+<p><img decoding="async" loading="lazy" src="https://cdn.osxdaily.com/wp-content/plugins/a3-lazy-load/assets/images/lazy_placeholder.gif" data-lazy-type="image" data-src="https://cdn.osxdaily.com/wp-content/uploads/2023/10/content-blocker-breaks-captive-portal-wifi-login-610x416.jpg" alt="Content blockers may break captive portal wi-fi login pages" width="610" height="416" class="lazy lazy-hidden aligncenter size-large wp-image-127561" srcset="" data-srcset="https://cdn.osxdaily.com/wp-content/uploads/2023/10/content-blocker-breaks-captive-portal-wifi-login-610x416.jpg 610w, https://cdn.osxdaily.com/wp-content/uploads/2023/10/content-blocker-breaks-captive-portal-wifi-login-300x205.jpg 300w, https://cdn.osxdaily.com/wp-content/uploads/2023/10/content-blocker-breaks-captive-portal-wifi-login-768x524.jpg 768w, https://cdn.osxdaily.com/wp-content/uploads/2023/10/content-blocker-breaks-captive-portal-wifi-login-1536x1047.jpg 1536w, https://cdn.osxdaily.com/wp-content/uploads/2023/10/content-blocker-breaks-captive-portal-wifi-login.jpg 2024w" sizes="(max-width: 610px) 100vw, 610px" /><noscript><img decoding="async" loading="lazy" src="https://cdn.osxdaily.com/wp-content/uploads/2023/10/content-blocker-breaks-captive-portal-wifi-login-610x416.jpg" alt="Content blockers may break captive portal wi-fi login pages" width="610" height="416" class="aligncenter size-large wp-image-127561" srcset="https://cdn.osxdaily.com/wp-content/uploads/2023/10/content-blocker-breaks-captive-portal-wifi-login-610x416.jpg 610w, https://cdn.osxdaily.com/wp-content/uploads/2023/10/content-blocker-breaks-captive-portal-wifi-login-300x205.jpg 300w, https://cdn.osxdaily.com/wp-content/uploads/2023/10/content-blocker-breaks-captive-portal-wifi-login-768x524.jpg 768w, https://cdn.osxdaily.com/wp-content/uploads/2023/10/content-blocker-breaks-captive-portal-wifi-login-1536x1047.jpg 1536w, https://cdn.osxdaily.com/wp-content/uploads/2023/10/content-blocker-breaks-captive-portal-wifi-login.jpg 2024w" sizes="(max-width: 610px) 100vw, 610px" /></noscript></p>
+<p>Here&#8217;s a helpful bit of knowledge that you may want to keep in mind when traveling or using public wi-fi spaces; if you use Content Blockers in Safari or your web browser, that content blocker may break a wi-fi&#8217;s captive portal login page, thereby preventing you from joining that particular wireless network. This applies to content blockers on any web browser and any Apple operating system, whether it&#8217;s a Mac, iPhone, iPad, or otherwise (and Windows too of course, but that&#8217;s not our focus here).</p>
+<p> <a href="https://osxdaily.com/2023/11/12/psa-content-blockers-may-break-captive-portal-wi-fi-login-pages/" class="more-link">Read more &raquo;</a></p>
+
+
+
+</div>
+
+
+
+<div id="commenttext"><strong>By Paul Horowitz</strong> - <span class="nostylefoot_a"><a href="https://osxdaily.com/category/mac-os-x/" rel="category tag">Mac OS</a>, <a href="https://osxdaily.com/category/tips-tricks/" rel="category tag">Tips &amp; Tricks</a></span> - <a href="https://osxdaily.com/2023/11/12/psa-content-blockers-may-break-captive-portal-wi-fi-login-pages/#respond">Leave a Comment</a>
+
+</div></p>
+
+
+</div>
+</div>
+
+
+
+
+
+
+
+<div class="post">
+<div class="konafilter">
+<h2><a href="https://osxdaily.com/2023/11/11/how-to-turn-off-uber-promo-notifications-ads/" rel="bookmark" title="How to Turn Off Uber Promo Notifications &#038; Ads">How to Turn Off Uber Promo Notifications &#038; Ads</a></h2>
+<div id="subhead_block">
+<span class="subhead_lefty">Nov 11, 2023 - <a href="https://osxdaily.com/2023/11/11/how-to-turn-off-uber-promo-notifications-ads/#comments">1 Comment</a></span>
+<span class="subhead_righty"></span>
+</div>
+
+<div class="contenttext">
+
+<p><img decoding="async" loading="lazy" src="https://cdn.osxdaily.com/wp-content/plugins/a3-lazy-load/assets/images/lazy_placeholder.gif" data-lazy-type="image" data-src="https://cdn.osxdaily.com/wp-content/uploads/2023/11/uber-app-610x567.jpg" alt="Uber" width="610" height="567" class="lazy lazy-hidden aligncenter size-large wp-image-127720" srcset="" data-srcset="https://cdn.osxdaily.com/wp-content/uploads/2023/11/uber-app-610x567.jpg 610w, https://cdn.osxdaily.com/wp-content/uploads/2023/11/uber-app-300x279.jpg 300w, https://cdn.osxdaily.com/wp-content/uploads/2023/11/uber-app-768x714.jpg 768w, https://cdn.osxdaily.com/wp-content/uploads/2023/11/uber-app.jpg 1028w" sizes="(max-width: 610px) 100vw, 610px" /><noscript><img decoding="async" loading="lazy" src="https://cdn.osxdaily.com/wp-content/uploads/2023/11/uber-app-610x567.jpg" alt="Uber" width="610" height="567" class="aligncenter size-large wp-image-127720" srcset="https://cdn.osxdaily.com/wp-content/uploads/2023/11/uber-app-610x567.jpg 610w, https://cdn.osxdaily.com/wp-content/uploads/2023/11/uber-app-300x279.jpg 300w, https://cdn.osxdaily.com/wp-content/uploads/2023/11/uber-app-768x714.jpg 768w, https://cdn.osxdaily.com/wp-content/uploads/2023/11/uber-app.jpg 1028w" sizes="(max-width: 610px) 100vw, 610px" /></noscript></p>
+<p>Uber and Uber Eats are undeniably useful apps, allowing you to get a ride or have food delivered quickly and conveniently, right from your iPhone (or Android) either from the app or even <a href="https://osxdaily.com/2019/12/31/how-order-uber-iphone-siri/">from Siri</a>. But one thing that is very annoying and obnoxious about Uber and Uber Eats is that the apps default to sending you promo notifications and advertisement notifications, meaning you may get alerts on your phone from Uber and Uber Eats that are nothing but ads, promos, marketing material, or solicitations, and have nothing to do with a ride or delivery.</p>
+<p>We&#8217;re going to show you how you can disable the annoying Uber promo notifications and ad alerts, while still keeping notifications for rides and other actually important stuff available on your device.</p>
+<p> <a href="https://osxdaily.com/2023/11/11/how-to-turn-off-uber-promo-notifications-ads/" class="more-link">Read more &raquo;</a></p>
+
+
+
+</div>
+
+
+
+<div id="commenttext"><strong>By Jamie Cuevas</strong> - <span class="nostylefoot_a"><a href="https://osxdaily.com/category/iphone/" rel="category tag">iPhone</a>, <a href="https://osxdaily.com/category/tips-tricks/" rel="category tag">Tips &amp; Tricks</a></span> - <a href="https://osxdaily.com/2023/11/11/how-to-turn-off-uber-promo-notifications-ads/#comments">1 Comment</a>
+
+</div></p>
+
+
+</div>
+</div>
+
+
+
+
+
+
+
+<div class="post">
+<div class="konafilter">
+<h2><a href="https://osxdaily.com/2023/11/10/watchos-10-1-1-update-fixes-battery-drain-issue/" rel="bookmark" title="Apple Watch Battery Draining Rapidly? Don&#8217;t Miss the watchOS 10.1.1 Update">Apple Watch Battery Draining Rapidly? Don&#8217;t Miss the watchOS 10.1.1 Update</a></h2>
+<div id="subhead_block">
+<span class="subhead_lefty">Nov 10, 2023 - <a href="https://osxdaily.com/2023/11/10/watchos-10-1-1-update-fixes-battery-drain-issue/#respond">Leave a Comment</a></span>
+<span class="subhead_righty"></span>
+</div>
+
+<div class="contenttext">
+
+<p><img decoding="async" loading="lazy" src="https://cdn.osxdaily.com/wp-content/plugins/a3-lazy-load/assets/images/lazy_placeholder.gif" data-lazy-type="image" data-src="https://cdn.osxdaily.com/wp-content/uploads/2023/09/watchos-10-apple-watch-610x463.jpg" alt="watchOS 10 on Apple Watch" width="610" height="463" class="lazy lazy-hidden aligncenter size-large wp-image-127154" srcset="" data-srcset="https://cdn.osxdaily.com/wp-content/uploads/2023/09/watchos-10-apple-watch-610x463.jpg 610w, https://cdn.osxdaily.com/wp-content/uploads/2023/09/watchos-10-apple-watch-300x228.jpg 300w, https://cdn.osxdaily.com/wp-content/uploads/2023/09/watchos-10-apple-watch-768x583.jpg 768w, https://cdn.osxdaily.com/wp-content/uploads/2023/09/watchos-10-apple-watch-1536x1166.jpg 1536w, https://cdn.osxdaily.com/wp-content/uploads/2023/09/watchos-10-apple-watch.jpg 1596w" sizes="(max-width: 610px) 100vw, 610px" /><noscript><img decoding="async" loading="lazy" src="https://cdn.osxdaily.com/wp-content/uploads/2023/09/watchos-10-apple-watch-610x463.jpg" alt="watchOS 10 on Apple Watch" width="610" height="463" class="aligncenter size-large wp-image-127154" srcset="https://cdn.osxdaily.com/wp-content/uploads/2023/09/watchos-10-apple-watch-610x463.jpg 610w, https://cdn.osxdaily.com/wp-content/uploads/2023/09/watchos-10-apple-watch-300x228.jpg 300w, https://cdn.osxdaily.com/wp-content/uploads/2023/09/watchos-10-apple-watch-768x583.jpg 768w, https://cdn.osxdaily.com/wp-content/uploads/2023/09/watchos-10-apple-watch-1536x1166.jpg 1536w, https://cdn.osxdaily.com/wp-content/uploads/2023/09/watchos-10-apple-watch.jpg 1596w" sizes="(max-width: 610px) 100vw, 610px" /></noscript></p>
+<p>A fair number of Apple Watch users have been experiencing battery life issues lately, where the Apple Watch battery would drain much faster than expected or desired. In some instances, users would experience the Apple Watch battery draining from 100% to 50% or less in less than an hour, even with a perfectly <a href="https://osxdaily.com/2021/07/15/check-apple-watch-battery-health/">healthy battery</a>. </p>
+<p>For the impacted Apple Watch owners, the devices poor battery performance began after updating to watchOS 10.1, and now Apple has released watchOS 10.1.1 update to fix that battery draining problem, which users should <a href="https://osxdaily.com/2015/06/26/update-apple-watch-os/">update to</a> right away when they get the chance.</p>
+<p> <a href="https://osxdaily.com/2023/11/10/watchos-10-1-1-update-fixes-battery-drain-issue/" class="more-link">Read more &raquo;</a></p>
+
+
+
+</div>
+
+
+
+<div id="commenttext"><strong>By Paul Horowitz</strong> - <span class="nostylefoot_a"><a href="https://osxdaily.com/category/apple-watch/" rel="category tag">Apple Watch</a>, <a href="https://osxdaily.com/category/news/" rel="category tag">News</a></span> - <a href="https://osxdaily.com/2023/11/10/watchos-10-1-1-update-fixes-battery-drain-issue/#respond">Leave a Comment</a>
+
+</div></p>
+
+
+</div>
+</div>
+
+
+
+
+
+
+
+<div class="post">
+<div class="konafilter">
+<h2><a href="https://osxdaily.com/2023/11/10/beta-2-of-ios-17-2-ipados-17-2-macos-sonoma-14-2-released-for-testing/" rel="bookmark" title="Beta 2 of iOS 17.2, iPadOS 17.2, MacOS Sonoma 14.2 Released for Testing">Beta 2 of iOS 17.2, iPadOS 17.2, MacOS Sonoma 14.2 Released for Testing</a></h2>
+<div id="subhead_block">
+<span class="subhead_lefty">Nov 10, 2023 - <a href="https://osxdaily.com/2023/11/10/beta-2-of-ios-17-2-ipados-17-2-macos-sonoma-14-2-released-for-testing/#comments">4 Comments</a></span>
+<span class="subhead_righty"></span>
+</div>
+
+<div class="contenttext">
+
+<p><img decoding="async" loading="lazy" src="https://cdn.osxdaily.com/wp-content/plugins/a3-lazy-load/assets/images/lazy_placeholder.gif" data-lazy-type="image" data-src="https://cdn.osxdaily.com/wp-content/uploads/2023/08/ios-macos-ipados-public-betas-610x307.jpg" alt="Betas of iOS 17.2, iPadOS 17.2, and MacOS Sonoma 14.2" width="610" height="307" class="lazy lazy-hidden aligncenter size-large wp-image-126710" srcset="" data-srcset="https://cdn.osxdaily.com/wp-content/uploads/2023/08/ios-macos-ipados-public-betas-610x307.jpg 610w, https://cdn.osxdaily.com/wp-content/uploads/2023/08/ios-macos-ipados-public-betas-300x151.jpg 300w, https://cdn.osxdaily.com/wp-content/uploads/2023/08/ios-macos-ipados-public-betas-768x387.jpg 768w, https://cdn.osxdaily.com/wp-content/uploads/2023/08/ios-macos-ipados-public-betas-1536x773.jpg 1536w, https://cdn.osxdaily.com/wp-content/uploads/2023/08/ios-macos-ipados-public-betas.jpg 1958w" sizes="(max-width: 610px) 100vw, 610px" /><noscript><img decoding="async" loading="lazy" src="https://cdn.osxdaily.com/wp-content/uploads/2023/08/ios-macos-ipados-public-betas-610x307.jpg" alt="Betas of iOS 17.2, iPadOS 17.2, and MacOS Sonoma 14.2" width="610" height="307" class="aligncenter size-large wp-image-126710" srcset="https://cdn.osxdaily.com/wp-content/uploads/2023/08/ios-macos-ipados-public-betas-610x307.jpg 610w, https://cdn.osxdaily.com/wp-content/uploads/2023/08/ios-macos-ipados-public-betas-300x151.jpg 300w, https://cdn.osxdaily.com/wp-content/uploads/2023/08/ios-macos-ipados-public-betas-768x387.jpg 768w, https://cdn.osxdaily.com/wp-content/uploads/2023/08/ios-macos-ipados-public-betas-1536x773.jpg 1536w, https://cdn.osxdaily.com/wp-content/uploads/2023/08/ios-macos-ipados-public-betas.jpg 1958w" sizes="(max-width: 610px) 100vw, 610px" /></noscript></p>
+<p>Apple has released the second beta versions of iOS 17.2 for iPhone, iPadOS 17.2 for iPad, and macOS Sonoma 14.2 for Mac. The beta versions are available now to users participating in the beta testing programs for iOS, iPadOS, and macOS. </p>
+<p>iOS 17.2 beta includes the Journal app, which lets users track their lives in digital journal entries with photos, video, voice recordings, media, and whatever else you feel like feeding into the digital machine and iCloud.</p>
+<p>Betas of macOS Sonoma 14.2, iPadOS 17.2, and iOS 17.2 also include an ability to add stickers from iMessage contextual menus. Presumably the versions will also patch bugs, add security enhancements, and provide other smaller changes to the operating systems as well. </p>
+<p> <a href="https://osxdaily.com/2023/11/10/beta-2-of-ios-17-2-ipados-17-2-macos-sonoma-14-2-released-for-testing/" class="more-link">Read more &raquo;</a></p>
+
+
+
+</div>
+
+
+
+<div id="commenttext"><strong>By Paul Horowitz</strong> - <span class="nostylefoot_a"><a href="https://osxdaily.com/category/news/" rel="category tag">News</a></span> - <a href="https://osxdaily.com/2023/11/10/beta-2-of-ios-17-2-ipados-17-2-macos-sonoma-14-2-released-for-testing/#comments">4 Comments</a>
+
+</div></p>
+
+
+</div>
+</div>
+
+
+
+
+
+
+
+<div class="post">
+<div class="konafilter">
+<h2><a href="https://osxdaily.com/2023/11/09/how-use-standby-mode-iphone/" rel="bookmark" title="How to Use Standby Mode on iPhone with iOS 17">How to Use Standby Mode on iPhone with iOS 17</a></h2>
+<div id="subhead_block">
+<span class="subhead_lefty">Nov 9, 2023 - <a href="https://osxdaily.com/2023/11/09/how-use-standby-mode-iphone/#comments">13 Comments</a></span>
+<span class="subhead_righty"></span>
+</div>
+
+<div class="contenttext">
+
+<p><img decoding="async" loading="lazy" src="https://cdn.osxdaily.com/wp-content/plugins/a3-lazy-load/assets/images/lazy_placeholder.gif" data-lazy-type="image" data-src="https://cdn.osxdaily.com/wp-content/uploads/2023/11/iphone-standby-mode-610x471.jpg" alt="iPhone Standby Mode" width="610" height="471" class="lazy lazy-hidden aligncenter size-large wp-image-127689" srcset="" data-srcset="https://cdn.osxdaily.com/wp-content/uploads/2023/11/iphone-standby-mode-610x471.jpg 610w, https://cdn.osxdaily.com/wp-content/uploads/2023/11/iphone-standby-mode-300x232.jpg 300w, https://cdn.osxdaily.com/wp-content/uploads/2023/11/iphone-standby-mode-768x593.jpg 768w, https://cdn.osxdaily.com/wp-content/uploads/2023/11/iphone-standby-mode.jpg 1122w" sizes="(max-width: 610px) 100vw, 610px" /><noscript><img decoding="async" loading="lazy" src="https://cdn.osxdaily.com/wp-content/uploads/2023/11/iphone-standby-mode-610x471.jpg" alt="iPhone Standby Mode" width="610" height="471" class="aligncenter size-large wp-image-127689" srcset="https://cdn.osxdaily.com/wp-content/uploads/2023/11/iphone-standby-mode-610x471.jpg 610w, https://cdn.osxdaily.com/wp-content/uploads/2023/11/iphone-standby-mode-300x232.jpg 300w, https://cdn.osxdaily.com/wp-content/uploads/2023/11/iphone-standby-mode-768x593.jpg 768w, https://cdn.osxdaily.com/wp-content/uploads/2023/11/iphone-standby-mode.jpg 1122w" sizes="(max-width: 610px) 100vw, 610px" /></noscript></p>
+<p>StandBy Mode is perhaps the most <a href="https://osxdaily.com/2023/10/05/best-new-tips-ios-17-features/">interesting feature</a> for iPhone users who update to iOS 17, transforming the iPhone into a customizable display clock whenever the iPhone is placed horizontally and is charging. </p>
+<p>With StandBy Mode, your iPhone can become a table clock, a photo frame, an information display, amongst other possibilities, and since it&#8217;s easily customizable, how you use the feature is up to you.</p>
+<p> <a href="https://osxdaily.com/2023/11/09/how-use-standby-mode-iphone/" class="more-link">Read more &raquo;</a></p>
+
+
+
+</div>
+
+
+
+<div id="commenttext"><strong>By Jamie Cuevas</strong> - <span class="nostylefoot_a"><a href="https://osxdaily.com/category/iphone/" rel="category tag">iPhone</a>, <a href="https://osxdaily.com/category/tips-tricks/" rel="category tag">Tips &amp; Tricks</a></span> - <a href="https://osxdaily.com/2023/11/09/how-use-standby-mode-iphone/#comments">13 Comments</a>
+
+</div></p>
+
+
+</div>
+</div>
+
+
+
+
+
+
+
+<div class="post">
+<div class="konafilter">
+<h2><a href="https://osxdaily.com/2023/11/09/deals-50-off-the-apple-watch-series-9/" rel="bookmark" title="Deals: $50 Off the Apple Watch Series 9">Deals: $50 Off the Apple Watch Series 9</a></h2>
+<div id="subhead_block">
+<span class="subhead_lefty">Nov 9, 2023 - <a href="https://osxdaily.com/2023/11/09/deals-50-off-the-apple-watch-series-9/#respond">Leave a Comment</a></span>
+<span class="subhead_righty"></span>
+</div>
+
+<div class="contenttext">
+
+<p><img decoding="async" loading="lazy" src="https://cdn.osxdaily.com/wp-content/plugins/a3-lazy-load/assets/images/lazy_placeholder.gif" data-lazy-type="image" data-src="https://cdn.osxdaily.com/wp-content/uploads/2023/11/apple-watch-series-9-610x458.jpg" alt="Apple Watch Series 9" width="610" height="458" class="lazy lazy-hidden aligncenter size-large wp-image-127746" srcset="" data-srcset="https://cdn.osxdaily.com/wp-content/uploads/2023/11/apple-watch-series-9-610x458.jpg 610w, https://cdn.osxdaily.com/wp-content/uploads/2023/11/apple-watch-series-9-300x225.jpg 300w, https://cdn.osxdaily.com/wp-content/uploads/2023/11/apple-watch-series-9-768x577.jpg 768w, https://cdn.osxdaily.com/wp-content/uploads/2023/11/apple-watch-series-9-1536x1153.jpg 1536w, https://cdn.osxdaily.com/wp-content/uploads/2023/11/apple-watch-series-9.jpg 1646w" sizes="(max-width: 610px) 100vw, 610px" /><noscript><img decoding="async" loading="lazy" src="https://cdn.osxdaily.com/wp-content/uploads/2023/11/apple-watch-series-9-610x458.jpg" alt="Apple Watch Series 9" width="610" height="458" class="aligncenter size-large wp-image-127746" srcset="https://cdn.osxdaily.com/wp-content/uploads/2023/11/apple-watch-series-9-610x458.jpg 610w, https://cdn.osxdaily.com/wp-content/uploads/2023/11/apple-watch-series-9-300x225.jpg 300w, https://cdn.osxdaily.com/wp-content/uploads/2023/11/apple-watch-series-9-768x577.jpg 768w, https://cdn.osxdaily.com/wp-content/uploads/2023/11/apple-watch-series-9-1536x1153.jpg 1536w, https://cdn.osxdaily.com/wp-content/uploads/2023/11/apple-watch-series-9.jpg 1646w" sizes="(max-width: 610px) 100vw, 610px" /></noscript></p>
+<p>Amazon is offering a great deal on <a href="https://amzn.to/472uzLZ" target="_blank" rel="nofollow noopener">the all new Apple Watch Series 9 for just $349</a>, taking $50 off the retail price of $399. </p>
+<p>The Apple Watch Series 9 features fitness tracking capabilities, heart rate monitor, blood oxygen reader, ECG capability, ovulation tracking, an always-on display, GPS, and a powerful new chip to make the watch speedier than ever. You can get the deal in a variety of color options and sizes. </p>
+<ul>
+<li><a href="https://amzn.to/472uzLZ" target="_blank" rel="nofollow noopener">Apple Watch Series 9 &#8211; $349</a> (Down $50 from $399)</li>
+</ul>
+<p><em>FTC: OSXDaily is an affiliate partner with Amazon, meaning if you click a link and make a purchase, we may receive a small payment which goes towards keeping the site running.</em></p>
+
+
+
+</div>
+
+
+
+<div id="commenttext"><strong>By OSXDaily</strong> - <span class="nostylefoot_a"><a href="https://osxdaily.com/category/deals/" rel="category tag">Deals</a></span> - <a href="https://osxdaily.com/2023/11/09/deals-50-off-the-apple-watch-series-9/#respond">Leave a Comment</a>
+
+</div></p>
+
+
+</div>
+</div>
+
+
+
+
+
+
+
+<div class="post">
+<div class="konafilter">
+<h2><a href="https://osxdaily.com/2023/11/08/how-to-verify-repair-mac-disk-from-command-line/" rel="bookmark" title="How to Verify &#038; Repair Mac Disk from Command Line">How to Verify &#038; Repair Mac Disk from Command Line</a></h2>
+<div id="subhead_block">
+<span class="subhead_lefty">Nov 8, 2023 - <a href="https://osxdaily.com/2023/11/08/how-to-verify-repair-mac-disk-from-command-line/#respond">Leave a Comment</a></span>
+<span class="subhead_righty"></span>
+</div>
+
+<div class="contenttext">
+
+<p><img decoding="async" loading="lazy" src="https://cdn.osxdaily.com/wp-content/plugins/a3-lazy-load/assets/images/lazy_placeholder.gif" data-lazy-type="image" data-src="https://cdn.osxdaily.com/wp-content/uploads/2018/07/terminal-icon-mac.jpg" alt="Mac Terminal icon" width="454" height="398" class="lazy lazy-hidden aligncenter size-full wp-image-76391" srcset="" data-srcset="https://cdn.osxdaily.com/wp-content/uploads/2018/07/terminal-icon-mac.jpg 454w, https://cdn.osxdaily.com/wp-content/uploads/2018/07/terminal-icon-mac-300x263.jpg 300w" sizes="(max-width: 454px) 100vw, 454px" /><noscript><img decoding="async" loading="lazy" src="https://cdn.osxdaily.com/wp-content/uploads/2018/07/terminal-icon-mac.jpg" alt="Mac Terminal icon" width="454" height="398" class="aligncenter size-full wp-image-76391" srcset="https://cdn.osxdaily.com/wp-content/uploads/2018/07/terminal-icon-mac.jpg 454w, https://cdn.osxdaily.com/wp-content/uploads/2018/07/terminal-icon-mac-300x263.jpg 300w" sizes="(max-width: 454px) 100vw, 454px" /></noscript></p>
+<p>The Disk Utility application on MacOS has a command line counterpart, that allows Mac users to run disk maintenance and disk administration tasks, including verifying and repairing disks. There are obvious advantages and benefits to using the command line for tasks like this, particularly for troubleshooting scenarios, and remote management, but some advanced users may also simply prefer to use the command line rather than the GUI app of Disk Utility. </p>
+<p>Let&#8217;s review how you can use the Mac command line to verify a disk on your Mac, and repair it if necessary.</p>
+<p> <a href="https://osxdaily.com/2023/11/08/how-to-verify-repair-mac-disk-from-command-line/" class="more-link">Read more &raquo;</a></p>
+
+
+
+</div>
+
+
+
+<div id="commenttext"><strong>By Paul Horowitz</strong> - <span class="nostylefoot_a"><a href="https://osxdaily.com/category/command-line/" rel="category tag">Command Line</a>, <a href="https://osxdaily.com/category/mac-os-x/" rel="category tag">Mac OS</a>, <a href="https://osxdaily.com/category/tips-tricks/" rel="category tag">Tips &amp; Tricks</a>, <a href="https://osxdaily.com/category/troubleshooting/" rel="category tag">Troubleshooting</a></span> - <a href="https://osxdaily.com/2023/11/08/how-to-verify-repair-mac-disk-from-command-line/#respond">Leave a Comment</a>
+
+</div></p>
+
+
+</div>
+</div>
+
+
+
+
+
+<div class="navigation">
+<p><span class="prevlink"><a href="https://osxdaily.com/page/2/" >Next Page &raquo;</a></span>
+<span class="nextlink"></span></p>
+</div>
+		
+
+</div>
+<div id="right_column">
+
+<div id="subscribe_box">
+<h3 class="sidebarstyle" id="subscribe_box_head">Subscribe to OSXDaily</h3>
+<a rel="nofollow" target="_blank" target="_blank" href="https://osxdaily.com/feed/"><img src="https://cdn.osxdaily.com/wp-content/themes/osxdaily-left2/img/socialicons/rss-icon.png" border="0" height="48" width="48" alt="Subscribe to RSS" /></a>
+
+<a rel="nofollow" target="_blank" href="https://twitter.com/osxdaily"><img src="https://cdn.osxdaily.com/wp-content/themes/osxdaily-left2/img/socialicons/twitter-icon.png" border="0" height="48" width="48" alt="Subscribe to Twitter Feed" /></a>
+
+<a rel="nofollow" target="_blank" href="https://www.facebook.com/osxdaily"><img src="https://cdn.osxdaily.com/wp-content/themes/osxdaily-left2/img/socialicons/facebook-icon.png" border="0" height="48" width="48" alt="Follow on Facebook" /></a>
+
+<a rel="nofollow" target="_blank" href="https://landing.mailerlite.com/webforms/landing/y5p1r1"><img src="https://cdn.osxdaily.com/wp-content/themes/osxdaily-left2/img/socialicons/mail-icon.png" border="0" height="48" width="48" alt="Subscribe to eMail Updates" /></a>
+
+<div style="padding:10px 0 20px 25px;">
+
+<div style="width:125px;float:left;">
+<iframe src="//www.facebook.com/plugins/like.php?href=http%3A%2F%2Ffacebook.com%2Fosxdaily&amp;send=false&amp;layout=button_count&amp;width=90&amp;show_faces=false&amp;action=like&amp;colorscheme=light&amp;font&amp;height=21" scrolling="no" frameborder="0" style="border:none; overflow:hidden; width:90px; height:21px;" allowTransparency="true"></iframe>
+</div>
+
+<div style="width:100px;float:left;">
+<a href="https://twitter.com/OSXDaily" class="twitter-follow-button" data-show-count="false">Follow @OSXDaily</a>
+<script defer async src="//platform.twitter.com/widgets.js" type="text/javascript"></script>
+</div>
+
+</div>
+
+</div>
+
+
+
+
+<div style="margin:20px 0;">
+
+<!-- BuySellAds Zone Code -->
+<div id="bsap_1278263" class="bsarocks bsap_95cb8853ab792f424634d57b5de28eed"></div>
+<!-- End BuySellAds Zone Code -->
+</div>
+
+<div style="margin:20px 0;">
+
+<!-- tf -->
+<script type="text/javascript"><!--
+	e9 = new Object();
+    e9.size = "300x250,160x600,300x600";
+	e9.noAd = 1;
+//--></script>
+<script type="text/javascript" src="//tags.expo9.exponential.com/tags/OSXDailycom/ROS/tags.js"></script>
+</div>
+
+
+
+
+<!--posts-->
+<div style="margin:20px 0; border:1px solid #ccc; border-radius:4px;background-color:#f3f3f3;padding:15px;">
+<h3 class="sidebarstyle">Tips & Tricks</h3>
+<ul>
+ 
+ 
+<li style="margin:16px 0; font-size:15px;">- <a style="font-weight:normal;color:#333;text-decoration:none;" href="https://osxdaily.com/2023/11/17/run-macos-vm-docker-on-windows-linux-docker-osx/" rel="bookmark">Run MacOS VM&#8217;s in Docker on Windows &#038; Linux with Docker-OSX</a></li>
+ 
+<li style="margin:16px 0; font-size:15px;">- <a style="font-weight:normal;color:#333;text-decoration:none;" href="https://osxdaily.com/2023/11/16/facetime-reaction-gestures-iphone-ipad-mac/" rel="bookmark">How to Perform FaceTime Reaction Gestures on iPhone, iPad, &#038; Mac</a></li>
+ 
+<li style="margin:16px 0; font-size:15px;">- <a style="font-weight:normal;color:#333;text-decoration:none;" href="https://osxdaily.com/2023/11/15/disable-click-wallpaper-show-desktop-macos/" rel="bookmark">How to Disable &#8220;Click Wallpaper to Show Desktop&#8221; in MacOS Sonoma</a></li>
+ 
+<li style="margin:16px 0; font-size:15px;">- <a style="font-weight:normal;color:#333;text-decoration:none;" href="https://osxdaily.com/2023/11/14/how-to-make-stickers-from-photos-for-messages-on-iphone/" rel="bookmark">How to Make Stickers from Photos for Messages on iPhone</a></li>
+ 
+<li style="margin:16px 0; font-size:15px;">- <a style="font-weight:normal;color:#333;text-decoration:none;" href="https://osxdaily.com/2023/11/13/how-to-turn-off-imessage-on-mac/" rel="bookmark">How to Turn Off iMessage on Mac</a></li>
+</ul>
+</div>
+<!--endposts-->
+
+
+<div style="margin:20px 0;">
+<!-- tf -->
+<script type="text/javascript"><!--
+	e9 = new Object();
+    e9.size = "300x250,160x600,300x600";
+	e9.noAd = 1;
+//--></script>
+<script type="text/javascript" src="//tags.expo9.exponential.com/tags/OSXDailycom/ROS/tags.js"></script>
+
+</div>
+
+<!--posts-->
+<div style="margin:20px 0; border:1px solid #ccc; border-radius:4px;background-color:#f3f3f3;padding:15px;">
+<h3 class="sidebarstyle">News</h3>
+<ul>
+ 
+ 
+<li style="margin:16px 0; font-size:15px;">- <a style="font-weight:normal;color:#333;text-decoration:none;" href="https://osxdaily.com/2023/11/14/beta-3-of-ios-17-2-ipados-17-2-macos-sonoma-14-2-released-for-testing/" rel="bookmark">Beta 3 of iOS 17.2, iPadOS 17.2, MacOS Sonoma 14.2 Released for Testing</a></li>
+ 
+<li style="margin:16px 0; font-size:15px;">- <a style="font-weight:normal;color:#333;text-decoration:none;" href="https://osxdaily.com/2023/11/10/watchos-10-1-1-update-fixes-battery-drain-issue/" rel="bookmark">Apple Watch Battery Draining Rapidly? Don&#8217;t Miss the watchOS 10.1.1 Update</a></li>
+ 
+<li style="margin:16px 0; font-size:15px;">- <a style="font-weight:normal;color:#333;text-decoration:none;" href="https://osxdaily.com/2023/11/10/beta-2-of-ios-17-2-ipados-17-2-macos-sonoma-14-2-released-for-testing/" rel="bookmark">Beta 2 of iOS 17.2, iPadOS 17.2, MacOS Sonoma 14.2 Released for Testing</a></li>
+ 
+<li style="margin:16px 0; font-size:15px;">- <a style="font-weight:normal;color:#333;text-decoration:none;" href="https://osxdaily.com/2023/11/07/ios-17-1-1-released-for-iphone-ipados-17-1-1-for-ipad/" rel="bookmark">iOS 17.1.1 Released for iPhone, &#038; iPadOS 17.1.1 for iPad</a></li>
+ 
+<li style="margin:16px 0; font-size:15px;">- <a style="font-weight:normal;color:#333;text-decoration:none;" href="https://osxdaily.com/2023/11/07/macos-sonoma-14-1-1-released/" rel="bookmark">MacOS Sonoma 14.1.1 Released</a></li>
+</ul>
+</div>
+<!--endposts-->
+
+<!-- matchedcontent -->
+
+
+
+<!--posts-->
+<div style="margin:20px 0; border:1px solid #ccc; border-radius:4px;background-color:#f3f3f3;padding:15px;">
+<h3 class="sidebarstyle">iPhone / iPad</h3>
+<ul>
+ 
+ 
+<li style="margin:16px 0; font-size:15px;">- <a style="font-weight:normal;color:#333;text-decoration:none;" href="https://osxdaily.com/2023/11/16/facetime-reaction-gestures-iphone-ipad-mac/" rel="bookmark">How to Perform FaceTime Reaction Gestures on iPhone, iPad, &#038; Mac</a></li>
+ 
+<li style="margin:16px 0; font-size:15px;">- <a style="font-weight:normal;color:#333;text-decoration:none;" href="https://osxdaily.com/2023/11/14/how-to-make-stickers-from-photos-for-messages-on-iphone/" rel="bookmark">How to Make Stickers from Photos for Messages on iPhone</a></li>
+ 
+<li style="margin:16px 0; font-size:15px;">- <a style="font-weight:normal;color:#333;text-decoration:none;" href="https://osxdaily.com/2023/11/11/how-to-turn-off-uber-promo-notifications-ads/" rel="bookmark">How to Turn Off Uber Promo Notifications &#038; Ads</a></li>
+ 
+<li style="margin:16px 0; font-size:15px;">- <a style="font-weight:normal;color:#333;text-decoration:none;" href="https://osxdaily.com/2023/11/09/how-use-standby-mode-iphone/" rel="bookmark">How to Use Standby Mode on iPhone with iOS 17</a></li>
+ 
+<li style="margin:16px 0; font-size:15px;">- <a style="font-weight:normal;color:#333;text-decoration:none;" href="https://osxdaily.com/2023/11/07/ios-17-1-1-released-for-iphone-ipados-17-1-1-for-ipad/" rel="bookmark">iOS 17.1.1 Released for iPhone, &#038; iPadOS 17.1.1 for iPad</a></li>
+</ul>
+</div>
+<!--endposts-->
+
+<div style="margin:20px 0;">
+
+<!-- TF 300x250_BTF -->
+<script type="text/javascript"><!--
+	e9 = new Object();
+    e9.size = "300x250";
+    e9.noAd = 1;
+//--></script>
+<script type="text/javascript" src="//tags.expo9.exponential.com/tags/OSXDailycom/BTF/tags.js"></script>
+</div>
+
+
+<!--posts-->
+<div style="margin:20px 0; border:1px solid #ccc; border-radius:4px;background-color:#f3f3f3;padding:15px;">
+<h3 class="sidebarstyle">Mac</h3>
+<ul>
+ 
+ 
+<li style="margin:16px 0; font-size:15px;">- <a style="font-weight:normal;color:#333;text-decoration:none;" href="https://osxdaily.com/2023/11/17/run-macos-vm-docker-on-windows-linux-docker-osx/" rel="bookmark">Run MacOS VM&#8217;s in Docker on Windows &#038; Linux with Docker-OSX</a></li>
+ 
+<li style="margin:16px 0; font-size:15px;">- <a style="font-weight:normal;color:#333;text-decoration:none;" href="https://osxdaily.com/2023/11/16/facetime-reaction-gestures-iphone-ipad-mac/" rel="bookmark">How to Perform FaceTime Reaction Gestures on iPhone, iPad, &#038; Mac</a></li>
+ 
+<li style="margin:16px 0; font-size:15px;">- <a style="font-weight:normal;color:#333;text-decoration:none;" href="https://osxdaily.com/2023/11/15/disable-click-wallpaper-show-desktop-macos/" rel="bookmark">How to Disable &#8220;Click Wallpaper to Show Desktop&#8221; in MacOS Sonoma</a></li>
+ 
+<li style="margin:16px 0; font-size:15px;">- <a style="font-weight:normal;color:#333;text-decoration:none;" href="https://osxdaily.com/2023/11/13/how-to-turn-off-imessage-on-mac/" rel="bookmark">How to Turn Off iMessage on Mac</a></li>
+ 
+<li style="margin:16px 0; font-size:15px;">- <a style="font-weight:normal;color:#333;text-decoration:none;" href="https://osxdaily.com/2023/11/12/psa-content-blockers-may-break-captive-portal-wi-fi-login-pages/" rel="bookmark">PSA: Content Blockers May Break Captive Portal Wi-Fi Login Pages</a></li>
+</ul>
+</div>
+<!--endposts-->
+
+
+
+
+<div style="margin:20px auto;text-align:center;">
+<!-- tf sidebar-->
+<script type="text/javascript"><!--
+	e9 = new Object();
+    e9.size = "300x250";
+    e9.noAd = 1;
+//--></script>
+<script type="text/javascript" src="//tags.expo9.exponential.com/tags/OSXDailycom/BTF/tags.js"></script>
+</div>
+
+	<!--posts-->
+<div style="margin:20px 0; border:1px solid #ccc; border-radius:4px;background-color:#f3f3f3;padding:15px;">
+<h3 class="sidebarstyle">Troubleshooting</h3>
+<ul>
+ 
+ 
+<li style="margin:16px 0; font-size:15px;">- <a style="font-weight:normal;color:#333;text-decoration:none;" href="https://osxdaily.com/2023/11/08/how-to-verify-repair-mac-disk-from-command-line/" rel="bookmark">How to Verify &#038; Repair Mac Disk from Command Line</a></li>
+ 
+<li style="margin:16px 0; font-size:15px;">- <a style="font-weight:normal;color:#333;text-decoration:none;" href="https://osxdaily.com/2023/11/02/messages-high-cpu-use-slow-mac/" rel="bookmark">Messages Using High CPU on Mac, Slowing Performance: 6 Troubleshooting Tips</a></li>
+ 
+<li style="margin:16px 0; font-size:15px;">- <a style="font-weight:normal;color:#333;text-decoration:none;" href="https://osxdaily.com/2023/10/28/how-to-change-media-sync-options-on-iphone-ipad-to-make-more-storage-available/" rel="bookmark">How to change media sync options on iPhone &#038; iPad to make more storage available</a></li>
+ 
+<li style="margin:16px 0; font-size:15px;">- <a style="font-weight:normal;color:#333;text-decoration:none;" href="https://osxdaily.com/2023/10/20/how-to-download-a-mac-app-from-github/" rel="bookmark">How to Download a Mac App from Github?</a></li>
+ 
+<li style="margin:16px 0; font-size:15px;">- <a style="font-weight:normal;color:#333;text-decoration:none;" href="https://osxdaily.com/2023/10/19/spilled-coffee-liquid-on-ipad-magic-keyboard-heres-what-to-do/" rel="bookmark">Spilled Coffee/Liquid on iPad Magic Keyboard? Here&#8217;s What To Do</a></li>
+</ul>
+</div>
+<!--endposts-->
+
+
+
+<div style="margin:20px auto;text-align:center;">
+	<a target="_blank" rel="nofollow" href="https://www.amazon.com/ref=as_li_ss_tl?ie=UTF8&linkCode=ll2&tag=oxd-20&linkId=64d3941a2a40f30b13accdf967a25940&language=en_US"><img src="https://cdn.osxdaily.com/wp-content/uploads/2019/06/support-shop-amazon.jpeg" height="250" width="300" alt="Shop on Amazon to help support this site" border="0"/></a>
+	</div>
+
+
+</div>
+<div id="footer">
+
+
+
+<div id="footer_item_container">
+
+
+
+<h4>OSXDaily</h4>
+<p><a href="https://osxdaily.com/about/">About OSXDaily</a> | <a href="https://osxdaily.com/contact-os-x-daily/">Contact Us</a> | <a href="https://osxdaily.com/osxdailycom-privacy-policy/">Privacy Policy</a> | <a href="https://osxdaily.com/sitemap-all/">Sitemap</a> </p>
+<p>This website is unrelated to Apple Inc</p>
+<p>All trademarks and copyrights on this website are property of their respective owners.</p>
+
+
+</div>
+
+<div id="footer_text">
+<p>&copy; 2023 OS X Daily. All Rights Reserved. Reproduction without explicit permission is prohibited.</p>
+</div>
+
+
+
+<script src="https://www.google-analytics.com/urchin.js" type="text/javascript">
+</script>
+<script type="text/javascript">
+_uacct = "UA-428992-6";
+urchinTracker();
+</script>
+
+
+
+<!-- Powered by WPtouch Pro: 4.3.34 --><style id='core-block-supports-inline-css' type='text/css'>
+/**
+ * Core styles: block-supports
+ */
+
+</style>
+<script type='text/javascript' defer src='https://cdn.osxdaily.com/wp-content/plugins/koko-analytics/assets/dist/js/script.js?ver=1.0.38' id='koko-analytics-js'></script>
+<script type='text/javascript' src='https://cdn.osxdaily.com/wp-content/plugins/wp-syntax/js/wp-syntax.js?ver=1.1' id='wp-syntax-js-js'></script>
+<script type='text/javascript' id='jquery-lazyloadxt-js-extra'>
+/* <![CDATA[ */
+var a3_lazyload_params = {"apply_images":"1","apply_videos":"1"};
+/* ]]> */
+</script>
+<script type='text/javascript' src='https://cdn.osxdaily.com/wp-content/plugins/a3-lazy-load/assets/js/jquery.lazyloadxt.extra.js?ver=2.2.2' id='jquery-lazyloadxt-js'></script>
+<script type='text/javascript' src='https://cdn.osxdaily.com/wp-content/plugins/a3-lazy-load/assets/js/jquery.lazyloadxt.srcset.js?ver=2.2.2' id='jquery-lazyloadxt-srcset-js'></script>
+<script type='text/javascript' id='jquery-lazyloadxt-extend-js-extra'>
+/* <![CDATA[ */
+var a3_lazyload_extend_params = {"edgeY":"0"};
+/* ]]> */
+</script>
+<script type='text/javascript' src='https://cdn.osxdaily.com/wp-content/plugins/a3-lazy-load/assets/js/jquery.lazyloadxt.extend.js?ver=2.2.2' id='jquery-lazyloadxt-extend-js'></script>
+<script src='https://stats.wp.com/e-202347.js' defer></script>
+<script>
+	_stq = window._stq || [];
+	_stq.push([ 'view', {v:'ext',j:'1:9.8.2',blog:'6690815',post:'0',tz:'-7',srv:'osxdaily.com'} ]);
+	_stq.push([ 'clickTrackerInit', '6690815', '0' ]);
+</script>
+
+		<!-- Cookie Notice plugin v2.1.3 by Hu-manity.co https://hu-manity.co/ -->
+		<div id="cookie-notice" role="banner" class="cookie-notice-hidden cookie-revoke-hidden cn-position-bottom" aria-label="Cookie Notice" style="background-color: rgba(0,0,0,1);"><div class="cookie-notice-container" style="color: #fff;"><span id="cn-notice-text" class="cn-text-container">This website and third-party tools use cookies for functional, analytical, and advertising purposes. By continuing to browse the site, closing this banner, scrolling this webpage, or clicking a link, you agree to these cookies. You can review our privacy policy for additional information.</span><span id="cn-notice-buttons" class="cn-buttons-container"><a href="#" id="cn-accept-cookie" data-cookie-set="accept" class="cn-set-cookie cn-button wp-default button" aria-label="I Accept">I Accept</a><a href="https://osxdaily.com/osxdailycom-privacy-policy/" target="_blank" id="cn-more-info" class="cn-more-info cn-button wp-default button" aria-label="Privacy Policy">Privacy Policy</a></span><a href="javascript:void(0);" id="cn-close-notice" data-cookie-set="accept" class="cn-close-icon" aria-label="I Accept"></a></div>
+			
+		</div>
+		<!-- / Cookie Notice plugin --></div>
+
+</div>
+
+<!-- BuySellAds Ad Code -->
+<script type="text/javascript">
+(function(){
+  var bsa = document.createElement('script');
+     bsa.type = 'text/javascript';
+     bsa.async = true;
+     bsa.src = 'https://s3.buysellads.com/ac/bsa.js';
+  (document.getElementsByTagName('head')[0]||document.getElementsByTagName('body')[0]).appendChild(bsa);
+})();
+</script>
+<!-- End BuySellAds Ad Code -->
+
+
+</body>
+</html>

@@ -1,0 +1,1318 @@
+ï»¿<!DOCTYPE html>
+<html lang="ja">
+	<head>
+		<meta charset="utf-8">
+		<meta http-equiv="X-UA-Compatible" content="IE=edge">
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+		<title>å½ç¨åº</title>
+		<link href="/template/css/bootstrap.min.css" rel="stylesheet">
+		<!--[if lt IE 9]>
+			<script src="/template/js/html5shiv.min.js"></script>
+			<script src="/template/js/respond.min.js"></script>
+		<![endif]-->
+		<!--<script src="/template/js/jquery.min.js"></script>-->
+        <script src="/template/js/jquery-3.6.0.min.js"></script>
+		<script src="/template/js/bootstrap.min.js"></script>
+		<link href="/template/css/common.css" rel="stylesheet">
+		<script src="/template/js/custom.js"></script>
+        <script src="emergency.js"></script>
+<script type="text/javascript">
+//<![CDATA[
+$(function () {
+  var ksaddr = document.getElementById( 'ksaddr' );
+  ksaddr.onfocus = function(){
+    if( this.value == this.defaultValue ){
+      this.value = '';
+      this.style.color = '';
+    }
+  }
+
+  ksaddr.onblur = function(){
+    var defaultStr = "å¸åºçºæã»çºåãå¥å";
+    if( this.value == '' ){
+      this.value = this.defaultValue;
+      if(this.defaultValue == defaultStr){
+        this.style.color = 'gray';
+      } else {
+        this.defaultValue = "å¸åºçºæã»çºåãå¥å";
+        this.style.color = '';
+      }
+    } else if((this.value != '') && (this.value != this.defaultValue) ) {
+      this.style.color = 'black';
+    }
+  }
+
+  ksaddr.defaultValue = ksaddr.value;
+  ksaddr.value = '';
+  ksaddr.onblur();
+	
+	
+//0020002-017
+	// æ°çæå ±ã»ãããã¯ã¹
+	var disp_cnt = 5;	// è¡¨ç¤ºããè¦ç´ æ°
+	$('#tab1 table').after('<a href="javascript:void(0);" class="showall">è¡¨ç¤ºä»¶æ°ãå¢ãã</a>');
+	$('#tab1 table').after('<a href="javascript:void(0);" class="close_topics">éãã</a>');
+	$('#tab1 table tr, .close_topics').hide();
+	for(i=0;i<disp_cnt;i++){
+		$('#tab1 table tr').eq(i).show();
+	}
+	$('.showall').on('click', function(){
+		$('#tab1 table tr').show();
+		$('.close_topics').show();
+		$('.showall').hide();
+		$('#tab1 table tr a').eq(disp_cnt).focus()
+	});
+	$('.close_topics').on('click', function(){
+		$('.showall').show();
+		$('#tab1 table tr, .close_topics').hide();
+		for(j=0;j<disp_cnt;j++){
+			$('#tab1 table tr').eq(j).show();
+		}
+	});
+//0020002-017ã¾ã§
+<!--IFC_0020005-108-->
+$('.info-btn').click(function() {
+	var index = $('.info-btn').index(this);
+	var btn = $(this);
+	$('.info-item').eq(index).slideToggle("fast", function() {
+		$(btn).html(
+			$(this).is(':visible') ? '<img src="/img/close.png" alt="â²ã¨ãã" width="61" height="20" style="margin-left:3px">' : '<img src="/img/open.png" alt="â¼ã²ãã" width="61" height="20" style="margin-left:3px">'
+		);
+	});
+});
+<!--IFC_0020005-108-->
+	
+});
+
+$(function(){$("#kszc1").keypress(function(event){return kszNumChk(event);});});
+$(function(){$("#kszc2").keypress(function(event){return kszNumChk(event);});});
+
+function kszNumChk(e) {
+  if ((e.which < 48 || 57 < e.which) && e.which != 0 && e.which != 8 && e.which != 9 && e.which != 13) {
+    return false;
+  } else if(e.which == 13) {
+    return SubmitKszForm();
+  } else {
+    return true;
+  }
+}
+
+function SubmitKszForm() {
+  var zipcode1 = document.knskForm.kszc1;
+  var zipcode2 = document.knskForm.kszc2;
+  var m = document.getElementById('kszMsg');
+
+  if ((zipcode1.value == "") || (zipcode2.value == "")) {
+    m.innerHTML = '<strong>éµä¾¿çªå·ã¯å¿ãå¥åãã¦ãã ããã</strong>';
+    m.style.display = 'block';
+    m.style.color = '#b00';
+  } else if ((zipcode1.value.match(/[^0-9]+/)) || (zipcode2.value.match(/[^0-9]+/))) {
+    m.innerHTML = '<strong>å¥åæ¡æ°èª¤ããããã¯å¨è§ã§å¥åãã¦ãã¾ãã</strong>';
+    m.style.display = 'block';
+    m.style.color = '#b00';
+  } else if ((zipcode1.value.length != 3) || (zipcode2.value.length != 4)) {
+    m.innerHTML = '<strong>å¥åæ¡æ°èª¤ããããã¯å¨è§ã§å¥åãã¦ãã¾ãã</strong>';
+    m.style.display = 'block';
+    m.style.color = '#b00';
+  } else {
+    document.knskForm.KSTYPE.value = "ksz";
+    document.knskForm.submit();
+    emulAcceptCharset(document.knskForm);
+    return true;
+  }
+  return false;
+}
+
+$(function(){$("#ksaddr").keypress(function(event){return ksaChk(event);});});
+
+function ksaChk(e) {
+  if(e.which == 13) {
+    return SubmitKsaForm();
+  }
+}
+
+function SubmitKsaForm() {
+  var todofuken = document.knskForm.ksaTodofuken;
+  var addr = document.knskForm.ksaddr;
+  var addrStr = "";
+
+  if(addr.value != ""){
+    addrStr = addr.value.replace("å¸åºçºæã»çºåãå¥å", "");
+  }
+
+  var m = document.getElementById('ksaMsg');
+
+  if ((todofuken.value == "")) {
+    if ((addrStr == "")) {
+      m.innerHTML = '<strong>ååº¦ä½æãå¥åãã¦ãã ããã</strong>';
+      m.style.display = 'block';
+      m.style.color = '#b00';
+    } else {
+      m.innerHTML = '<strong>é½éåºçãé¸æãã¦ãã ããã</strong>';
+      m.style.display = 'block';
+      m.style.color = '#b00';
+    }
+  } else if((addrStr == "")) {
+    if ((todofuken.value == "")) {
+      m.innerHTML = '<strong>ååº¦ä½æãå¥åãã¦ãã ããã</strong>';
+      m.style.display = 'block';
+      m.style.color = '#b00';
+    } else {
+      m.innerHTML = '<strong>å¸åºçºæåç­ãå¥åãã¦ãã ããã</strong>';
+      m.style.display = 'block';
+      m.style.color = '#b00';
+    }
+  } else if(!(addrStr.match(/^[^ -~ï½¡-ï¾]*$/))) {
+    m.innerHTML = '<strong>å¨è§æå­ã§å¥åãã¦ãã ããã</strong>';
+    m.style.display = 'block';
+    m.style.color = '#b00';
+  } else {
+    document.knskForm.KSTYPE.value = "ksa";
+    var str_todofuken = convertToAscii(todofuken.value);
+    document.knskForm.TODOFUKEN_TO_ASCII.value = str_todofuken;
+    var str_addr = convertToAscii(addrStr);
+    document.knskForm.ADDR_TO_ASCII.value = str_addr;
+    document.knskForm.submit();
+    emulAcceptCharset(document.knskForm);
+    return true;
+  }
+  return false;
+}
+
+function SubmitKnskForm(prm) {
+  if(prm == "ksa"){
+    return SubmitKsaForm();
+  } else if(prm == "ksz") {
+    return SubmitKszForm();
+  } else {
+    return false;
+  }
+}
+
+function emulAcceptCharset(form) {
+  if (form.canHaveHTML) {
+    document.characterSet = form.acceptCharset;
+  }
+  return true;
+}
+
+function convertToAscii(str){
+  var strToAscii = "";
+  for(var i = 0; i < str.length; i++){
+    var c = str.charCodeAt(i);
+    if(i != 0){ strToAscii += " "; }
+    strToAscii += c;
+  }
+  return strToAscii;
+}
+//]]>
+</script>
+		<script src="/template/js/include.js"></script>
+        <style type="text/css">
+		.access-lank a:link {
+			text-decoration:underline;
+		}
+		</style>
+<!--0020002-017-->
+<!--ç¢ºå®ç³åããã¼ç¨/ç·æ¥ã®ãç¥ãã-->
+<style>
+@media screen and (min-width:980px) {
+/*ãç»é¢ãµã¤ãºã980pxããã¯ãããèª­ã¿è¾¼ãã*/
+	.kakushin_top{
+		display: none;
+	}
+	.kakushin_side{
+		display: block;
+	}
+
+}
+	
+@media screen and ( max-width:979px) {
+/*ãç»é¢ãµã¤ãºã979pxã¾ã§ã¯ãããèª­ã¿è¾¼ãã*/
+
+	.kakushin_top{
+		display: block;
+	}
+	.kakushin_side{
+		display: none;
+	}
+
+}	
+</style>
+<!--//ç¢ºå®ç³åããã¼ç¨-->
+<!--åéã¡ãã¥--->
+<style>
+	div.zei {
+	width:435px;
+	margin-bottom:15px;
+	background-image:url("/template/img/template/bunyahaikei_01b.jpg");
+	background-repeat:no-repeat;
+	background-position: bottom;
+	padding-bottom: 80px;
+	background-size: 435px;
+	}
+
+	div.zei li{
+		width:50%;
+		float:left;
+	}
+	div.zei ul.right-list {
+		width:50%;
+		float:right;
+	}
+	
+	div.user {
+		margin-right:0;
+		margin-bottom:15px;
+		background-image:url("/template/img/template/bunyahaikei_02b.jpg");
+		background-repeat:no-repeat;
+		background-size: 210px;
+		background-position: bottom;
+		padding-bottom: 80px;
+
+	}
+	div.shinkoku {
+		background-image:url("/template/img/template/bunyahaikei_03b.jpg");
+		background-repeat:no-repeat;
+		background-size: 210px;
+		background-position: bottom;
+		padding-bottom: 80px;
+
+	}
+	div.nouzei {
+		background-image:url("/template/img/template/bunyahaikei_04b.jpg");
+		background-repeat:no-repeat;
+		background-size: 210px;
+		background-position: bottom;
+		padding-bottom: 80px;
+
+	}
+
+	div.kanren {
+		margin-right:0;
+		background-image:url("/template/img/template/bunyahaikei_05b.jpg");
+		background-repeat:no-repeat;
+		background-size: 210px;
+		background-position: bottom;
+		padding-bottom: 80px;
+
+	}
+	
+	
+		
+	
+@media screen and (max-width: 450px) {
+	
+	div.zei {
+		width:100%;
+		float:none;
+		background-image:none;
+		margin-bottom:0;
+		padding-bottom: 10px;
+	}
+	div.zei li {
+		width:100%;
+		float:none;
+	}
+	div.user {
+		margin-right:0;
+		margin-bottom:0;
+		background-image:none;
+		padding-bottom: 10px;
+	}
+	div.shinkoku {
+		background-image:none;
+		padding-bottom: 10px;
+	}
+	div.nouzei {
+		background-image:none;
+		padding-bottom: 10px;
+	}
+	div.kanren {
+		background-image:none;
+		padding-bottom: 10px;
+	}
+	
+	
+</style>
+<!--//åéã¡ãã¥--->
+<!--ãããã¯ã¢ã³ã¼ãã£ãªã³-->
+		<style>
+		.showall{
+		display: inline-block;
+		color: #003366;
+		cursor : pointer;
+		padding-left: 1.3em;
+		padding-top: 1em;
+		text-decoration: underline;
+		}
+			
+		
+		.close_topics{
+		display: inline-block;
+		color: #003366;
+		cursor : pointer;
+		padding-left: 1.3em;
+		padding-top: 1em;
+		text-decoration: underline;
+		
+		}
+
+			
+		</style>
+<!--//-->
+<style>
+.index_news th{ width:9em; vertical-align:top; text-align:left; font-weight:normal;}
+</style>
+	</head>
+	<body>
+<noscript>ãã¹ã¦ã®æ©è½ããå©ç¨ããã ãã«ã¯Javascriptãæå¹ã«ãã¦ãã ããã</noscript>
+
+		<div class="container">
+			<div id="header"></div>
+			<div class="wrap">
+				<div class="clearfix">
+					<div class="left-content" id="page-top">
+
+						
+<div id="emergency"></div>
+
+						<div id="sampleCarousel" class="carousel slide" data-ride="carousel">
+							<div class="carousel-inner" role="listbox">
+								<div class="item active">
+									<div class="text-center"><a href="/taxes/shiraberu/zeimokubetsu/shohi/keigenzeiritsu/invoice.htm"><img src="/taxes/shiraberu/zeimokubetsu/shohi/keigenzeiritsu/img/link-banner_invoice02.png" alt="ã¤ã³ãã¤ã¹å¶åº¦ã«ã¤ãã¦"></a></div>
+								</div>
+							  <div class="item">
+									<div class="text-center"><a href="/about/introduction/torikumi/week/index.htm"><img src="/shared/images/banner/0023010-069_01.jpg" alt="ç¨ãèããé±é"></a></div>
+							  </div>
+<div class="item">
+	<div class="text-center"><a href="/users/gensen/nencho/index.htm"><img src="/shared/images/banner/nencho.png" alt="å¹´æ«èª¿æ´ãããããããã¼ã¸"></a></div>
+</div>
+							  <div class="item">
+									<div class="text-center"><a href="/law/bunshokaito/tokusetsu.htm"><img src="/law/bunshokaito/images/banner.png" alt="ææ¸åç­æç¶ç¹è¨­ãµã¤ã"></a></div>
+							  </div>
+							  <div class="item">
+									<div class="text-center"><a href="/taxes/tetsuzuki/mynumberinfo/index.htm"><img src="/template/img/slide_sample01.gif" alt="ç¤¾ä¼ä¿éã»ç¨çªå·å¶åº¦ï¼ãã¤ãã³ãã¼ï¼ã«ã¤ãã¦"></a></div>
+							  </div>
+							  <div class="item">
+									<div class="text-center"><a href="/publication/pamph/jigyo-shokei/index.htm"><img src="/publication/pamph/jigyo-shokei/img/link-banner0705.gif" alt="äºæ¥­æ¿ç¶ç¨å¶ç¹éã¯ãã¡ã"></a></div>
+							  </div>
+								<div class="item">
+									<div class="text-center"><a href="/taxes/shiraberu/sodan/denwa-sodan/index.htm"><img src="/taxes/shiraberu/sodan/denwa-sodan/img/link-banner_sodan.gif" alt="å½ç¨ã«é¢ãããç¸è«ã«ã¤ãã¦ã¯ãã¡ã"></a></div>
+							  </div>
+								<div class="item">
+									<div class="text-center"><a href="/taxes/shiraberu/chatbot/index.htm"><img src="/shared/images/banner/chatbot_sodan2020.png" alt="ãã£ãããããã«è³ªåãã"></a></div>
+							  </div>
+								<div class="item">
+									<div class="text-center"><a href="/taxes/shiraberu/shinkoku/r5_smart_shinkoku/pdf/01.pdf"><img src="/banner/img/0022011-080.png" alt="ç¢ºå®ç³åã¯ãã¤ãã³ãã¼ã«ã¼ãâe-Taxã§æ´ã«ä¾¿å©ï¼(PDF/662KB)"></a></div>
+								</div>
+<div class="item">
+<div class="text-center"><a href="/about/recruitment/index.htm"><img src="/shared/images/banner/0023010-086.png" alt="æ¡ç¨æå ±"></a></div>
+</div>
+							<a class="left carousel-control" href="#sampleCarousel" role="button" data-slide="prev">
+								<span class="glyphicon glyphicon-chevron-left" aria-hidden="true"></span>
+								<span class="sr-only">åã¸</span>
+							</a>
+							<a class="right carousel-control" href="#sampleCarousel" role="button" data-slide="next">
+								<span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span>
+								<span class="sr-only">æ¬¡ã¸</span>
+							</a>
+						</div>
+						</div>
+						
+						<div style="width:50%; float:right; text-align:right; margin-top:5px"> 
+						<button type="button" id="sampleCarouselPause" class="btn btn-default">åæ­¢</button> 
+						<button type="button" id="sampleCarouselCycle" class="btn btn-default">åé</button> 
+						</div>
+
+						<div style="width:50%; float:right; margin-top:5px"> <a href="/banner/index.htm"><img src="/template/img/template/grey_yajirushi_s.png" alt="" /> ãã®ä»ã®ããã¼ä¸è¦§</a></div>
+                        <br style="clear:both">
+
+
+						<h2>æ°çæå ±</h2>
+						<ul class="nav nav-tabs">
+							<li class="active"><a data-toggle="tab" href="#tab1">ãããã¯ã¹</a></li>
+							<li><a data-toggle="tab" href="#tab2">ç¨ã®æå ±ã»æç¶ã»ç¨ç´</a></li>
+							<li><a data-toggle="tab" href="#tab3">åè¡ç©ç­</a></li>
+							<li><a data-toggle="tab" href="#tab4">æ³ä»¤ç­</a></li>
+							<li><a data-toggle="tab" href="#tab5">ãç¥ãã</a></li>
+							<li><a data-toggle="tab" href="#tab6">å½ç¨åºç­ã«ã¤ãã¦</a></li>
+						</ul>
+
+
+
+
+
+
+ 
+
+
+
+						<div class="tab-content">
+							<div id="tab1" class="tab-pane fade in active">
+<table class="index_news">
+<tr id="a0023010-050">
+  <th scope="row">ä»¤å5å¹´11æ17æ¥</th>
+  <td><a href="/taxes/tetsuzuki/mynumberinfo/kyuyogensenjoho-top/userpage.htm">çµ¦ä¸æå¾ã®ç¢ºå®ç³åãããã«ç°¡åã«ï¼ãå©ç¨èç¨ãã¼ã¸ããéè¨­ãã¾ãã</a></td>
+</tr>
+<tr id="b0023011-012">
+  <th scope="row">ä»¤å5å¹´11æ17æ¥</th>
+  <td><a href="/law/joho-zeikaishaku/sonota/jirei/08.htm#a0023003-081">ãã·ã¹ãã å°å¥ãé£ããã¦ãå¤§ä¸å¤«ï¼ï¼ä»¤åï¼å¹´ï¼æããã®é»å­åå¼ãã¼ã¿ã®ä¿å­æ¹æ³ããæ²è¼ãã¾ãã</a></td>
+</tr>
+<tr id="a0023010-080">
+  <th scope="row">ä»¤å5å¹´10æ31æ¥</th>
+  <td><a href="/users/gensen/nenmatsu/nencho.htm">ãä»¤åï¼å¹´åãå¹´æ«èª¿æ´æ§é¤ç³åæ¸ä½æç¨ã½ããã¦ã§ã¢ãããã¼ã¸ã§ã³ã¢ãããã¾ãã</a></td>
+</tr>
+<tr id="a0023010-069">
+  <th scope="row">ä»¤å5å¹´10æ27æ¥</th>
+  <td><a href="/about/introduction/torikumi/week/index.htm">ãç¨ãèããé±éãå½ç¨åºã®åçµç´¹ä»ãã¼ã¸ãæ´æ°ãã¾ãã</a></td>
+</tr>
+<tr id="a0023010-052">
+  <th scope="row">ä»¤å5å¹´10æ25æ¥</th>
+  <td><a href="/about/organization/ntc/kokai/index.htm">ä»¤åï¼å¹´åº¦ç¨åå¤§å­¦æ ¡å¬éè¬åº§ã®è¬åº§è³ææ²è¼ã«ã¤ãã¦</a></td>
+</tr>
+<tr id="a0023009-068">
+  <th scope="row">ä»¤å5å¹´10æ11æ¥</th>
+  <td><a href="/users/gensen/nenmatsu/nencho.htm">ãä»¤åï¼å¹´å å¹´æ«èª¿æ´æ§é¤ç³åæ¸ä½æç¨ã½ããã¦ã§ã¢ãããªãªã¼ã¹ãã¾ãã</a></td>
+</tr>
+<tr id="a0023009-114">
+ <th scope="row">ä»¤å5å¹´10æ6æ¥</th>
+ <td><a href="/taxes/sake/boshujoho/hojojigyo.htm">ãéé¡äºæ¥­èåããããã­ã³ãã£ã¢è£å©éãã®ç¬¬ï¼ææ¡æäºæ¥­èï¼ç¬¬ä¸æ¬¡ç· ååï¼ãæ±ºå®ãã¾ãã</a></td>
+</tr>
+<tr id="a0023009-115">
+  <th scope="row">ä»¤å5å¹´10æ2æ¥</th>
+  <td><a href="/taxes/shiraberu/chatbot/index.htm">ç¨åç¸è«ãã£ãããããï¼å¹´æ«èª¿æ´ï¼ãå§ã¾ãã¾ããã</a></td>
+</tr>
+<tr id="a0023009-075">
+  <th scope="row">ä»¤å5å¹´10æ2æ¥</th>
+  <td><a href="/taxes/shiraberu/zeimokubetsu/shohi/keigenzeiritsu/qa_01.htm">æ¶è²»ç¨ã®ä»å¥ç¨é¡æ§é¤å¶åº¦ã«ãããé©æ ¼è«æ±æ¸ç­ä¿å­æ¹å¼ã«é¢ããï¼±ï¼ï¼¡ï¼ã¤ã³ãã¤ã¹ï¼±ï¼ï¼¡ï¼ãæ¹è¨ãã¾ããã</a></td>
+</tr>
+<tr id="a0023008-053">
+  <th scope="row">ä»¤å5å¹´9æ22æ¥</th>
+  <td><a href="/users/gensen/nencho/index.htm">ãå¹´æ«èª¿æ´ãããããããã¼ã¸ï¼ä»¤åï¼å¹´åï¼ããæ²è¼ãã¾ãã</a></td>
+</tr>
+<tr id="b0023008-053">
+  <th scope="row">ä»¤å5å¹´9æ22æ¥</th>
+  <td><a href="/taxes/tetsuzuki/shinsei/annai/gensen/mokuji.htm">ä»¤åï¼å¹´åå¹´æ«èª¿æ´ã®ããã®åç¨®æ§å¼ãæ²è¼ãã¾ãã</a></td>
+</tr>
+<tr id="a0023008-101">
+  <th scope="row">ä»¤å5å¹´9æ6æ¥</th>
+<td><a href="/taxes/tetsuzuki/mynumberinfo/kyuyogensenjoho-top.htm">çµ¦ä¸æå¾ã®ç¢ºå®ç³åãããã«ç°¡åã«ï¼</a></td>
+</tr>
+<tr id="a0023008-005">
+ <th scope="row">ä»¤å5å¹´9æ6æ¥</th>
+ <td><a href="/taxes/shiraberu/shinkoku/r5_smart_shinkoku/index.htm">ä»¤åï¼å¹´åã®ç¢ºå®ç³åã¯ãã¤ãã³ãã¼ã«ã¼ãã¨e-Taxã§ããã«ä¾¿å©ã«ï¼</a></td>
+</tr>
+<tr id="a0023008-024">
+ <th scope="row">ä»¤å5å¹´8æ7æ¥</th>
+ <td><a href="/taxes/shiraberu/saigai/index.htm">ä»¤åï¼å¹´æ¢é¨åç·ã«ããå¤§é¨ã«ããè¢«å®³ãåããããçæ§ã¸ï¼ç½å®³é¢é£æå ±ï¼</a></td>
+</tr>
+<tr id="a0023007-013">
+ <th scope="row">ä»¤å5å¹´7æ21æ¥</th>
+ <td><a href="/about/organization/ntc/kyodokenkyu/koubo/index.htm#kettei">å½ç¨åºä¿æè¡æ¿è¨é²æå ±ãç¨ããç¨åå¤§å­¦æ ¡ã¨ã®å±åç ç©¶ã®æ±ºå®ã«ã¤ãã¦</a></td>
+</tr>
+<tr id="a0023006-168">
+ <th scope="row">ä»¤å5å¹´7æ10æ¥</th>
+ <td><a href="/about/organization/gyoumu_center/index.htm">ç¨åç½²ã®åé¨äºåã®ã»ã³ã¿ã¼åã«ã¤ãã¦</a></td>
+</tr>
+<tr id="a0023006-044">
+ <th scope="row">ä»¤å5å¹´6æ30æ¥</th>
+ <td><a href="/law/joho-zeikaishaku/sonota/jirei/index.htm">ãé»å­å¸³ç°¿ä¿å­æ³åæ±ééããé»å­å¸³ç°¿ä¿å­æ³ä¸åä¸ç­ãç­ãæ¹è¨ãã¾ãã </a></td>
+</tr>
+<tr id="a0023006-082">
+ <th scope="row">ä»¤å5å¹´6æ28æ¥</th>
+ <td><a href="/taxes/sake/boshujoho/hojojigyo.htm">ãéé¡äºæ¥­èåãããæµ·å¤å±éã»éèµãã¼ãªãºã è£å©éãåã³ããã­ã³ãã£ã¢è£å©éãã®æ¡æäºæ¥­èãæ±ºå®ãã¾ãã</a></td>
+</tr>
+<tr id="b0023006-029">
+ <th scope="row">ä»¤å5å¹´6æ23æ¥</th>
+ <td><a href="/about/introduction/torikumi/digitaltransformation2023/index.htm">ãç¨åè¡æ¿ã®ãã¸ã¿ã«ã»ãã©ã³ã¹ãã©ã¼ã¡ã¼ã·ã§ã³ï¼ç¨åè¡æ¿ã®å°æ¥åãï¼ï¼ï¼ï¼ï¼ããå¬è¡¨ãã¾ãã</a></td>
+</tr>
+<tr id="a0023006-038">
+ <th scope="row">ä»¤å5å¹´6æ19æ¥</th>
+ <td><a href="/publication/pamph/hojin/tekiyougaku/01.htm">é©ç¨é¡æç´°æ¸ã®è¨è¼ã«ä¿ãåºåçªå·ä¸è¦§è¡¨ç­ã®æ²è¼ã«ã¤ãã¦(ä»¤åï¼å¹´ï¼æï¼æ¥)</a></td>
+</tr>
+<tr id="a0023005-102">
+ <th scope="row">ä»¤å5å¹´6æ14æ¥</th>
+ <td><a href="/publication/pamph/koho/01.pdf">ãã³ãã¬ãããå½ç¨æ»å¯å¶åº¦ï½è±ç¨ã¯ãç¯ç½ªãï½ãï¼ä»¤åï¼å¹´ï¼æï¼(PDF/1,623KB)</a></td>
+</tr>
+<tr id="a0023005-101">
+ <th scope="row">ä»¤å5å¹´6æ14æ¥</th>
+ <td><a href="/information/release/kokuzeicho/2023/sasatsu/r04_sasatsu.pdf">ä»¤åï¼å¹´åº¦ãæ»å¯ã®æ¦è¦ï¼ä»¤åï¼å¹´ï¼æï¼(PDF/1,054KB)</a></td>
+</tr>
+<tr id="a0023005-053">
+  <th scope="row">ä»¤å5å¹´5æ31æ¥</th>
+  <td><a href="/information/release/pdf/0023005-053.pdf">ä»¤åï¼å¹´åæå¾ç¨ç­ãæ¶è²»ç¨åã³è´ä¸ç¨ã®ç¢ºå®ç³åç¶æ³ç­ã«ã¤ãã¦ï¼PDF/838KBï¼</a></td>
+</tr>
+<tr id="a0023005-065">
+  <th scope="row">ä»¤å5å¹´5æ31æ¥</th>
+  <td><a href="/taxes/sake/anzen/radioactivity.htm">æ¾å°æ§ç©è³ªã«å¯¾ããéé¡ã®å®å¨æ§ç¢ºä¿ã®ããã®æ½ç­ã«ã¤ãã¦</a></td>
+</tr>
+<tr id="a0023005-010">
+  <th scope="row">ä»¤å5å¹´5æ11æ¥</th>
+  <td><a href="/taxes/shiraberu/saigai/index.htm">ä»¤åï¼å¹´ï¼æ11æ¥ã«çºçããåèçåé¨ã®å°éã«ããè¢«å®³ãåããããçæ§ã¸ï¼ç½å®³é¢é£æå ±ï¼</a></td>
+</tr>
+<tr id="a0023005-009">
+  <th scope="row">ä»¤å5å¹´5æ8æ¥</th>
+  <td><a href="/taxes/shiraberu/saigai/index.htm">ä»¤åï¼å¹´ï¼æï¼æ¥ã«çºçããç³å·çè½ç»å°æ¹ã®å°éã«ããè¢«å®³ãåããããçæ§ã¸ï¼ç½å®³é¢é£æå ±ï¼</a></td>
+</tr>
+<tr id="a0023004-032">
+<th scope="row">ä»¤å5å¹´4æ28æ¥</th>
+<td><a href="/about/organization/gyoumu_center/index.htm">ç¨åç½²ã®åé¨äºåã®ã»ã³ã¿ã¼åã«ã¤ãã¦</a></td>
+</tr>
+<tr id="a0023003-064">
+  <th scope="row">ä»¤å5å¹´4æ14æ¥</th>
+  <td><a href="/taxes/shiraberu/zeimokubetsu/shohi/keigenzeiritsu/qa_01.htm">æ¶è²»ç¨ã®ä»å¥ç¨é¡æ§é¤å¶åº¦ã«ãããé©æ ¼è«æ±æ¸ç­ä¿å­æ¹å¼ã«é¢ããï¼±ï¼ï¼¡ï¼ã¤ã³ãã¤ã¹ï¼±ï¼ï¼¡ï¼ãæ¹è¨ãã¾ãã</a></td>
+</tr>
+<tr id="a0023004-021">
+  <th scope="row">ä»¤å5å¹´4æ14æ¥</th>
+  <td><a href="/law/joho-zeikaishaku/sonota/jirei/08.htm#a0023003-082">ãé»å­å¸³ç°¿ä¿å­æ³ã®åå®¹ãæ¹æ­£ããã¾ããï½ä»¤åï¼å¹´åº¦ç¨å¶æ¹æ­£ã«ããé»å­å¸³ç°¿ç­ä¿å­å¶åº¦ã®è¦ç´ãã®æ¦è¦ï½ããæ²è¼ãã¾ãã</a></td>
+</tr>
+<tr id="a0023003-160">
+  <th scope="row">ä»¤å5å¹´4æ14æ¥</th>
+  <td><a href="https://m.youtube.com/watch?v=6xiLN0umLPA&feature=youtu.be">ããã¯ã¡ããã¨å­¦ã¼ãï¼ã¤ã³ãã¤ã¹å¶åº¦ããYouTubeå½ç¨åºåç»ãã£ã³ãã«ã§å¬éãã¾ããï¼å¤é¨ãµã¤ãã¸ãªã³ã¯ï¼</a></td>
+</tr>
+<tr id="b0023003-160">
+  <th scope="row">ä»¤å5å¹´4æ14æ¥</th>
+  <td><a href="/taxes/shiraberu/zeimokubetsu/shohi/keigenzeiritsu/invoice_setsumei.htm">ãæ¶è²»ç¨ã¤ã³ãã¤ã¹å¶åº¦ãç»é²è¦å¦ç¸è«ä¼ãåå°ã®ç¨åç½²ã§éå¬ãã¾ã</a></td>
+</tr>
+<tr id="a0023003-113">
+  <th scope="row">ä»¤å5å¹´4æ10æ¥</th>
+  <td><a href="/taxes/sake/boshujoho/hojojigyo.htm">ãéé¡äºæ¥­èåãããæµ·å¤å±éã»éèµãã¼ãªãºã è£å©éãåã³ããã­ã³ãã£ã¢è£å©éãã®æ¡æäºæ¥­èãæ±ºå®ãã¾ãã</a></td>
+</tr>
+<tr id="a0023003-100">
+  <th scope="row">ä»¤å5å¹´4æ3æ¥</th>
+  <td><a href="/information/other/data/r05/koubai_denshinyusatsu/index.htm">å¬å£²ã«ããã¦é»å­ã§ã®å¥æ­æç¶ãã§ããããã«ãªãã¾ãã</a></td>
+</tr>
+<tr id="a0023003-008">
+  <th scope="row">ä»¤å5å¹´3æ8æ¥</th>
+  <td><a href="/taxes/sake/koujikin/index.htm">ãä¼çµ±çéé ãããã¦ãã¹ã³ç¡å½¢æåéºç£ã¸ã®ææ¡åè£ã¨ãã¦ç­ç³ããã¾ãã</a></td>
+</tr>
+<tr id="a0023002-052">
+ <th scope="row">ä»¤å5å¹´3æ1æ¥</th>
+ <td><a href="/about/recruitment/kokusen/shiken/test_02.htm">ã2023å¹´åº¦ãå½ç¨å°éå®æ¡ç¨è©¦é¨ã®åé¨ç³è¾¼ã¿ãå§ã¾ãã¾ãããç³è¾¼æéï¼ï¼æï¼æ¥ï¼æ°´ï¼ï½ï¼æ20æ¥ï¼æï¼ã</a></td>
+</tr>
+<tr id="a0023002-047">
+ <th scope="row">ä»¤å5å¹´2æ22æ¥</th>
+ <td><a href="/taxes/sake/anzen/radioactivity.htm">æ¾å°æ§ç©è³ªã«å¯¾ããéé¡ã®å®å¨æ§ç¢ºä¿ã®ããã®æ½ç­ã«ã¤ãã¦</a></td>
+</tr>
+<tr id="b0023002-059">
+  <th scope="row">ä»¤å5å¹´2æ20æ¥</th>
+  <td><a href="/publication/pamph/pdf/0023002-059.pdf">æ³äººäºæ¥­æ¦æ³èª¬ææ¸ã»ä¼ç¤¾äºæ¥­æ¦æ³æ¸ã®è¨è¼è¦é ã®å¤æ´ã«ã¤ãã¦ï¼PDF/753KBï¼</a></td>
+</tr>
+<tr id="a0023001-039">
+ <th scope="row">ä»¤å5å¹´2æ8æ¥</th>
+ <td><a href="/about/organization/ntc/kyodokenkyu/koubo/index.htm#kettei">å½ç¨åºä¿æè¡æ¿è¨é²æå ±ãç¨ããç¨åå¤§å­¦æ ¡ã¨ã®å±åç ç©¶ã®æ±ºå®ã«ã¤ãã¦</a></td>
+</tr>
+<tr id="a0023002-008">
+ <th scope="row">ä»¤å5å¹´2æ2æ¥</th>
+ <td><a href="/topics/pdf/0023002-008.pdf">çæ¬å½ç¨å±å¤§å³¶ç¨åç½²ç®¡åã®å¾³ä¹å³¶å³¶åã«ãããéä¿¡éå®³ã¸ã®å¯¾å¿ã«ã¤ãã¦ï¼PDF/77KBï¼</a></td>
+</tr>
+<tr id="a0023001-058">
+ <th scope="row">ä»¤å5å¹´1æ31æ¥</th>
+ <td><a href="/taxes/sake/boshujoho/hojojigyo.htm#a02">ãéé¡äºæ¥­èåããããã­ã³ãã£ã¢è£å©éãã®ç¬¬ï¼æï¼æçµç· åï¼æ¡æäºæ¥­èãæ±ºå®ãã¾ãã</a></td>
+</tr>
+<tr id="a0023001-040">
+ <th scope="row">ä»¤å5å¹´1æ30æ¥</th>
+ <td><a href="/taxes/shiraberu/chatbot/index.htm">ç¨åç¸è«ãã£ãããããã§æ¶è²»ç¨ï¼ä»¤åï¼å¹´åï¼ã®ç¸è«ãéå§ãã¾ãã</a></td>
+</tr>
+<tr id="a0022012-161">
+  <th scope="row">ä»¤å5å¹´1æ16æ¥</th>
+  <td><a href="/taxes/sake/seishu_seizo/index.htm">ä»¤åï¼éé å¹´åº¦æ¸éè£½é ç¶æ³ç­èª¿æ»ã«ã¤ãã¦</a></td>
+</tr>
+<tr id="a0022012-101">
+  <th scope="row">ä»¤å5å¹´1æ4æ¥</th>
+  <td><a href="/taxes/shiraberu/chatbot/index.htm">ç¨åç¸è«ãã£ãããããã§æå¾ç¨ï¼ä»¤åï¼å¹´åï¼ã®ç¸è«ãéå§ãã¾ããã</a></td>
+</tr>
+<tr id="a0022012-034">
+  <th scope="row">ä»¤å5å¹´1æ4æ¥</th>
+  <td><a href="/taxes/shiraberu/shinkoku/tokushu/index.htm">ãä»¤åï¼å¹´åãç¢ºå®ç³åç¹éããéè¨­ãã¾ãã</a></td>
+</tr>
+<tr id="a0022012-068">
+  <th scope="row">ä»¤å4å¹´12æ27æ¥</th>
+  <td><a href="/publication/pamph/pdf/0022012-068.pdf">ç´ç¨å°ã®ç¹ä¾ç­ã«é¢ããæç¶ã®å¤æ´ã«ã¤ãã¦ï¼PDF/85KBï¼</a></td>
+</tr>
+<tr id="a0022011-094">
+  <th scope="row">ä»¤å4å¹´12æ7æ¥</th>
+  <td><a href="/taxes/sake/boshujoho/hojojigyo.htm">ãéé¡äºæ¥­èåããããã­ã³ãã£ã¢è£å©éãã®ç¬¬ï¼æï¼ç¬¬ä¸æ¬¡ç· åï¼æ¡æäºæ¥­èãæ±ºå®ãã¾ãã</a></td>
+</tr>
+<tr id="a0022011-089">
+  <th scope="row">ä»¤å4å¹´12æ2æ¥</th>
+  <td><a href="/information/other/data/r04/kakushin_kaijo/index.htm">ä»¤åï¼å¹´åç¢ºå®ç³åæã®ç¢ºå®ç³åä¼å ´ã®ãç¥ãã</a></td>
+</tr>
+<tr id="a0022011-067">
+  <th scope="row">ä»¤å4å¹´12æ1æ¥</th>
+  <td><a href="/taxes/shiraberu/shinkoku/tokushu/r04junbi/index.htm">ãä»¤åï¼å¹´åãç¢ºå®ç³åç¹éï¼æºåç·¨ï¼ããéè¨­ãã¾ãã</a></td>
+</tr>
+<tr id="a0022011-026">
+  <th scope="row">ä»¤å4å¹´11æ22æ¥</th>
+  <td><a href="/taxes/sake/anzen/radioactivity.htm">æ¾å°æ§ç©è³ªã«å¯¾ããéé¡ã®å®å¨æ§ç¢ºä¿ã®ããã®æ½ç­ã«ã¤ãã¦</a></td>
+</tr>
+<tr id="a0022009-072">
+  <th scope="row">ä»¤å4å¹´10æ28æ¥</th>
+  <td><a href="/publication/pamph/01.htm#a-14">ãå¸³ç°¿ã®æåºããªãå ´åç­ã®å ç®ç¨ã®å éæªç½®ã«é¢ããï¼±ï¼ï¼¡ããæ²è¼ãã¾ãã</a></td>
+</tr>
+<tr id="a0022010-085">
+  <th scope="row">ä»¤å4å¹´10æ28æ¥</th>
+  <td><a href="/about/introduction/torikumi/week/index.htm">ãç¨ãèããé±éãå½ç¨åºã®åçµç´¹ä»ãã¼ã¸ãæ´æ°ãã¾ãã</a></td>
+</tr>
+<tr id="a0022010-009">
+  <th scope="row">ä»¤å4å¹´10æ21æ¥</th>
+  <td><a href="/taxes/nozei/nofu/smartphone_nofu/index.htm">ã¹ããã¢ããªç´ä»ã®å©ç¨éå§ã«ã¤ãã¦</a></td>
+</tr>
+<tr id="a0022009-104">
+  <th scope="row">ä»¤å4å¹´10æ6æ¥</th>
+  <td><a href="/taxes/shiraberu/chatbot/index.htm">ç¨åç¸è«ãã£ãããããï¼å¹´æ«èª¿æ´ï¼ãå§ã¾ãã¾ãã</a></td>
+</tr>
+<tr id="a0022009-118">
+  <th scope="row">ä»¤å4å¹´10æ4æ¥</th>
+  <td><a href="/taxes/shiraberu/saigai/index.htm">ä»¤åï¼å¹´å°é¢¨ç¬¬14å·åã³15å·ã«ããè¢«å®³ãåããããçæ§ã¸ï¼ç½å®³é¢é£æå ±ï¼</a></td>
+</tr>
+<tr id="a0022007-117">
+  <th scope="row">ä»¤å4å¹´9æ22æ¥</th>
+  <td><a href="/users/gensen/nencho/index.htm">ãå¹´æ«èª¿æ´ãããããããã¼ã¸ããéè¨­ãã¾ãã</a></td>
+</tr>
+<tr id="b0022007-117">
+  <th scope="row">ä»¤å4å¹´9æ22æ¥</th>
+  <td><a href="/taxes/tetsuzuki/shinsei/annai/gensen/mokuji.htm">ä»¤å4å¹´åå¹´æ«èª¿æ´ã®ããã®åç¨®æ§å¼ãæ²è¼ãã¾ãã</a></td>
+</tr>
+<tr id="a0022009-017">
+  <th scope="row">ä»¤å4å¹´9æ16æ¥</th>
+  <td><a href="/taxes/sake/boshujoho/hojojigyo.htm">ãéé¡äºæ¥­èåããããã©ã³ãåã»éèµãã¼ãªãºã è£å©éãåã³ããã­ã³ãã£ã¢è£å©éãã®ç¬¬ï¼ææ¡æäºæ¥­èãæ±ºå®ãã¾ãã </a></td>
+</tr>
+<tr id="a0022008-056">
+  <th scope="row">ä»¤å4å¹´9æ13æ¥</th>
+  <td><a href="/taxes/nozei/nozei-shomei/0022008-056.htm">ã¹ãã¼ããã©ã³ç­ã«ããé»å­ç´ç¨è¨¼ææ¸ç­ã®ç³è«ã«ã¤ãã¦</a></td>
+</tr>
+<tr id="a0022008-037">
+  <th scope="row">ä»¤å4å¹´8æ31æ¥</th>
+  <td><a href="/taxes/sake/anzen/radioactivity.htm">æ¾å°æ§ç©è³ªã«å¯¾ããéé¡ã®å®å¨æ§ç¢ºä¿ã®ããã®æ½ç­ã«ã¤ãã¦</a></td>
+</tr>
+<tr id="a0022007-102">
+  <th scope="row">ä»¤å4å¹´8æ12æ¥</th>
+  <td><a href="/taxes/shiraberu/shinkoku/r4_smart_shinkoku/index.htm">å½ç¨åºãã¼ã ãã¼ã¸ã§ã®æå¾ç¨ç­ã®ç³åæ¸ç­ä½æã»e-Taxãã¾ãã¾ãä¾¿å©ã«ï¼ï¼ä»¤åï¼å¹´ï¼æ12æ¥ï¼</a></td>
+</tr>
+<tr id="a0022008-001">
+  <th scope="row">ä»¤å4å¹´8æ5æ¥</th>
+  <td><a href="/taxes/shiraberu/saigai/index.htm">ä»¤åï¼å¹´ï¼æï¼æ¥ããã®å¤§é¨ã«ããè¢«å®³ãåããããçæ§ã¸ï¼ç½å®³é¢é£æå ±ï¼</a></td>
+</tr>
+<tr id="b0022007-047">
+  <th scope="row">ä»¤å4å¹´7æ29æ¥</th>
+  <td><a href="/about/recruitment/digital/index.htm">ãæ°è©¦é¨åºåãéå§ã2023ï¼ä»¤åï¼ï¼å¹´åº¦ã®å½ç¨å°éå®æ¡ç¨è©¦é¨ããæ°è©¦é¨åºåï¼çå·¥ã»ãã¸ã¿ã«ç³»ï¼ãåµè¨­ããã¾ãï¼</a></td>
+</tr>
+<tr id="a0022006-195">
+  <th scope="row">ä»¤å4å¹´7æ25æ¥</th>
+  <td><a href="/law/joho-zeikaishaku/sonota/jirei/tokusetsu/index.htm">ãé»å­å¸³ç°¿ç­ä¿å­å¶åº¦ã®ç¹è¨­ãµã¤ãããæ²è¼ãã¾ãã</a></td>
+</tr>
+<tr id="b0022006-143">
+  <th scope="row">ä»¤å4å¹´7æ13æ¥</th>
+  <td><a href="/taxes/sake/boshujoho/hojojigyo.htm#saitaku">ãéé¡äºæ¥­èåããããã©ã³ãåã»éèµãã¼ãªãºã è£å©éãåã³ããã­ã³ãã£ã¢è£å©éãã®ç¬¬ï¼ææ¡æäºæ¥­èãæ±ºå®ãã¾ãã</a></td>
+</tr>
+<tr id="a0022006-150">
+  <th scope="row">ä»¤å4å¹´7æ8æ¥</th>
+  <td><a href="/taxes/sake/boshujoho/index.htm#a02">ãéé¡äºæ¥­èåãããEnjoy SAKE!ãã­ã¸ã§ã¯ããã®ååäºæ¥­èãæ±ºå®ãã¾ããï¼ä»¤åï¼å¹´åº¦è£æ­£äºç®ï¼</a></td>
+</tr>
+<tr id="a0022006-209">
+  <th scope="row">ä»¤å4å¹´7æ1æ¥</th>
+  <td><a href="/taxes/sake/boshujoho/index.htm#a0022006-209">ãæ¥æ¬ç£éé¡ã®çºå±ã»æ¯èãèãããã¸ãã¹ã³ã³ãã¹ãï½ãµã±ããï¼ï½ãã®åå èåéãéå§ãã¾ã</a></td>
+</tr>
+<tr id="a0022006-064">
+  <th scope="row">ä»¤å4å¹´7æ1æ¥</th>
+  <td><a href="/information/other/data/r03/osp_center/index.htm#a01">ãç¨åç½²ã®åé¨äºåã®ã»ã³ã¿ã¼åã«ã¤ãã¦ãã®åå½ç¨å±ã®ãã¼ã¸ï¼ã»ã³ã¿ã¼åã®å®æ½ç¶æ³ï¼ãæ´æ°ãã¾ãã</a></td>
+</tr>
+<tr id="a0022006-083">
+  <th scope="row">ä»¤å4å¹´6æ30æ¥</th>
+  <td><a href="/law/joho-zeikaishaku/sonota/jirei/index.htm">ãé»å­å¸³ç°¿ä¿å­æ³åæ±ééããé»å­å¸³ç°¿ä¿å­æ³ä¸åä¸ç­ãç­ãæ¹è¨ãã¾ãã</a></td>
+</tr>
+<tr id="b0022006-132">
+<th scope="row">ä»¤å4å¹´6æ23æ¥</th>
+<td><a href="/information/release/kokuzeicho/2022/sasatsu/r03_sasatsu.pdf">ä»¤åï¼å¹´åº¦ãæ»å¯ã®æ¦è¦ï¼ä»¤åï¼å¹´ï¼æï¼(PDF/469KB)</a></td>
+</tr>
+<tr id="a0022006-132">
+<th scope="row">ä»¤å4å¹´6æ23æ¥</th>
+<td><a href="/publication/pamph/koho/01.pdf">ãã³ãã¬ãããå½ç¨æ»å¯å¶åº¦ï½è±ç¨ã¯ãç¯ç½ªãï½ãï¼ä»¤åï¼å¹´ï¼æï¼(PDF/3,286KB)</a></td>
+</tr>
+<tr id="a0022006-128">
+  <th scope="row">ä»¤å4å¹´6æ20æ¥</th>
+  <td><a href="/taxes/shiraberu/saigai/index.htm">ä»¤åï¼å¹´ï¼æ19æ¥ã«çºçããç³å·çè½ç»å°æ¹ã®å°éã«ããè¢«å®³ãåããããçæ§ã¸ï¼ç½å®³é¢é£æå ±ï¼</a></td>
+</tr>
+<tr id="a0022005-014">
+  <th scope="row">ä»¤å4å¹´5æ23æ¥</th>
+  <td><a href="/about/disclosure/kojinjoho/shinkoku.htm">ç³åæ¸ç­æå ±åå¾ãµã¼ãã¹ãå§ã¾ãã¾ããï¼ç³åæ¸ç­ã®æå ±ã®åå¾ã«ã¤ãã¦ï¼</a></td>
+</tr>
+<tr id="a0022004-120">
+  <th scope="row">ä»¤å4å¹´5æ12æ¥</th>
+  <td><a href="/taxes/shiraberu/chatbot/index.htm">ç¨åç¸è«ãã£ãããããï¼ã¤ã³ãã¤ã¹å¶åº¦ï¼ãå§ã¾ãã¾ãã</a></td>
+</tr>
+<tr id="a0022004-032">
+  <th scope="row">ä»¤å4å¹´4æ28æ¥</th>
+  <td><a href="/information/other/data/r03/osp_center/index.htm">ç¨åç½²ã®åé¨äºåã®ã»ã³ã¿ã¼åã«ã¤ãã¦</a></td>
+</tr>
+<tr id="a0022004-076">
+  <th scope="row">ä»¤å4å¹´4æ22æ¥</th>
+  <td><a href="/taxes/sake/boshujoho/index.htm#linkb">ãéé¡äºæ¥­èåããããã©ã³ãåã»éèµãã¼ãªãºã è£å©éãåã³ããã­ã³ãã£ã¢è£å©éãã®ç¬¬ï¼æåéãéå§ãã¾ã</a></td>
+</tr>
+<tr id="b0022004-076">
+  <th scope="row">ä»¤å4å¹´4æ22æ¥</th>
+  <td><a href="/taxes/sake/boshujoho/index.htm#linka">ãéé¡äºæ¥­èåããããã©ã³ãåã»éèµãã¼ãªãºã è£å©éãã®æ¡æäºæ¥­èãæ±ºå®ãã¾ãã</a></td>
+</tr>
+<tr id="a0022003-082">
+  <th scope="row">ä»¤å4å¹´4æ11æ¥</th>
+  <td><a href="/taxes/sake/tv/index.htm">æ²ç¸å¾©å¸°50å¨å¹´è¨å¿µäºæ¥­ã«ã¤ãã¦</a></td>
+</tr>
+<tr id="a0022003-116">
+  <th scope="row">ä»¤å4å¹´4æ1æ¥</th>
+  <td><a href="/taxes/sake/boshujoho/index.htm#a01">ãéé¡äºæ¥­èåããããã­ã³ãã£ã¢è£å©éãã®æ¡æäºæ¥­èãæ±ºå®ãã¾ãã</a></td>
+</tr>
+<tr id="a0022003-062">
+ <th scope="row">ä»¤å4å¹´3æ30æ¥</th>
+ <td><a href="/about/organization/ntc/kyodokenkyu/koubo/index.htm#kettei">å½ç¨åºä¿æè¡æ¿è¨é²æå ±ãç¨ããç¨åå¤§å­¦æ ¡ã¨ã®å±åç ç©¶ã®æ±ºå®ã«ã¤ãã¦</a></td>
+</tr>
+<tr id="a0022004-013">
+ <th scope="row">ä»¤å4å¹´3æ22æ¥</th>
+ <td><a href="/data/040318.pdf">ï¼æ14æ¥ããçºçããe-Taxã®æ¥ç¶éå®³ã¸ã®å¯¾å¿ç­</a></td>
+</tr>
+<tr id="a0022003-136">
+  <th scope="row">ä»¤å4å¹´3æ17æ¥</th>
+  <td><a href="/taxes/shiraberu/saigai/index.htm">ä»¤åï¼å¹´ï¼æ16æ¥ã«çºçããç¦å³¶çæ²ã®å°éã«ããè¢«å®³ãåããããçæ§ã¸ï¼ç½å®³é¢é£æå ±ï¼</a></td>
+</tr>
+<tr id="a0022003-044">
+  <th scope="row">ä»¤å4å¹´3æ16æ¥</th>
+  <td><a href="/taxes/shiraberu/kansensho/pdf/0022003-044.pdf">ç³åã»ç´ä»æéã®å»¶é·ããããæ¹ã®æ¯æ¿æ¥ã«ã¤ãã¦ï¼PDF/106KBï¼</a></td>
+</tr>
+
+<tr id="a0022002-099">
+  <th scope="row">ä»¤å4å¹´2æ25æ¥</th>
+  <td><a href="/taxes/sake/koujikin/index.htm">ãä¼çµ±çéé ãããã¦ãã¹ã³ç¡å½¢æåéºç£ã¸ã®ææ¡åè£ã¨ãã¦ç­ç³ããã¾ãã</a></td>
+</tr>
+<!--ââ4æ15æ¥ã¾ã§ä¸ä½5ä½ä»¥åã«æ²è¼ââ-->
+<tr id="a0022001-187">
+  <th scope="row">ä»¤å4å¹´2æ3æ¥</th>
+  <td><a href="/taxes/shiraberu/kansensho/pdf/0022001-187_04.pdf">æ°åã³ã­ãã¦ã¤ã«ã¹ææçã®å½±é¿ã«ããç³åæéã¾ã§ã®ç³åç­ãå°é£ãªæ¹ã¸(PDF/1,422KB)</a></td>
+</tr>
+<!--ââ4æ15æ¥ã¾ã§ä¸ä½5ä½ä»¥åã«æ²è¼ââ-->
+<tr id="a0021012-200">
+  <th scope="row">ä»¤å4å¹´1æ11æ¥</th>
+  <td><a href="/taxes/shiraberu/chatbot/index.htm">ç¨åç¸è«ãã£ãããããï¼ç¢ºå®ç³åï¼ãå§ã¾ãã¾ãã</a></td>
+</tr>
+<tr id="a0021011-022">
+  <th scope="row">ä»¤å4å¹´1æ4æ¥</th>
+  <td><a href="/information/other/data/r03/osp_center/index.htm">ãç¨åç½²ã®åé¨äºåã®ã»ã³ã¿ã¼åã«ã¤ãã¦ãã«ãæ¸é¢ã®ç³åæ¸ç­ã®éµéã«ããæåºåã¨ãªãã»ã³ã¿ã¼ã®æå¨å°ããè¿½å ãã¾ãã</a></td>
+</tr>
+<tr id="b0021011-114">
+  <th scope="row">ä»¤å4å¹´1æ4æ¥</th>
+  <td><a href="/taxes/shiraberu/taxanswer/index2.htm">ãã¿ãã¯ã¹ã¢ã³ãµã¼ï¼ããããç¨ã®è³ªåï¼ãããªãã¥ã¼ã¢ã«ãã¾ãã</a></td>
+</tr>
+<tr id="a0021012-130">
+  <th scope="row">ä»¤å4å¹´1æ4æ¥</th>
+  <td><a href="/taxes/shiraberu/shinkoku/tokushu/index.htm">ãä»¤åï¼å¹´åãç¢ºå®ç³åç¹éããéè¨­ãã¾ãã</a></td>
+</tr>
+<tr id="b0021012-185">
+  <th scope="row">ä»¤å3å¹´12æ28æ¥</th>
+  <td><a href="/law/joho-zeikaishaku/sonota/jirei/12.htm">ãé»å­å¸³ç°¿ä¿å­æ³åæ±ééããé»å­å¸³ç°¿ä¿å­æ³ä¸åä¸ç­ãé»å­åå¼é¢ä¿ãããé»å­å¸³ç°¿ä¿å­æ³é¢ä¿ãã³ãã¬ãããç­ãæ¹è¨ãã¾ãã</a></td>
+</tr>
+<tr id="a0021011-127">
+  <th scope="row">ä»¤å3å¹´12æ10æ¥</th>
+  <td><a href="/taxes/shiraberu/shinkoku/syotoku/r03.htm">ä»¤åï¼å¹´åæå¾ç¨ã®ç¢ºå®ç³åé¢ä¿æ¸é¡ãæ²è¼ãã¾ãã</a></td>
+</tr>
+<tr id="b0021011-068">
+  <th scope="row">ä»¤å3å¹´11æ17æ¥</th>
+  <td><a href="/law/joho-zeikaishaku/sonota/jirei/08.htm">ãé»å­å¸³ç°¿ä¿å­æ³é¢ä¿ãã³ãã¬ããã»éå»ã®ä¸»ãªæ¹æ­£ãã«å¶åº¦ã®æ¦è¦ãã³ãã¬ããï¼ä»¤åï¼å¹´11æçï¼ãæ²è¼ãã¾ãã</a></td>
+</tr>
+<tr id="a0021010-115">
+  <th scope="row">ä»¤å3å¹´11æ1æ¥</th>
+  <td><a href="/about/organization/ntc/kyodokenkyu/koubo/index.htm">ç¨åå¤§å­¦æ ¡ã¨ã®å±åç ç©¶ã«é¢ããå¬åãã¼ããæ²è¼ãã¾ãã</a></td>
+</tr>
+<tr id="a0021010-117">
+  <th scope="row">ä»¤å3å¹´10æ28æ¥</th>
+  <td><a href="/about/introduction/torikumi/week/index.htm">ãç¨ãèããé±éãå½ç¨åºã®åçµç´¹ä»ãã¼ã¸ãæ´æ°ãã¾ãã</a></td>
+</tr>
+<tr id="a0021010-072">
+  <th scope="row">ä»¤å3å¹´10æ15æ¥</th>
+  <td><a href="/taxes/sake/koujikin/index.htm">ãä¼çµ±çéé ããã®ç»é²ç¡å½¢æåè²¡ã¸ã®ç»é²ãç­ç³ããã¾ãã</a></td>
+</tr>
+<tr id="a0021009-037">
+  <th scope="row">ä»¤å3å¹´10æ8æ¥</th>
+  <td><a href="/publication/pamph/gensen/0021009-037_01.pdf">ãç­æéè·æå½ç­Q&amp;Aããæ²è¼ãã¾ããï¼PDF/831KBï¼</a></td>
+</tr>
+<tr id="a0021010-069">
+  <th scope="row">ä»¤å3å¹´10æ8æ¥</th>
+  <td><a href="/taxes/shiraberu/saigai/index.htm">ä»¤å3å¹´10æ7æ¥ã®åèçåè¥¿é¨ã®å°éã«ããè¢«å®³ãåããããçæ§ã¸ï¼ç½å®³é¢é£æå ±ï¼</a></td>
+</tr>
+<tr id="b0021009-079">
+  <th scope="row">ä»¤å3å¹´10æ7æ¥</th>
+  <td><a href="/taxes/shiraberu/chatbot/index.htm">ç¨åç¸è«ãã£ãããããï¼å¹´æ«èª¿æ´ï¼ãå§ã¾ãã¾ãã</a></td>
+</tr>
+<tr id="a0021009-088">
+  <th scope="row">ä»¤å3å¹´10æ7æ¥</th>
+  <td><a href="/taxes/shiraberu/shinkoku/r3_smart_shinkoku/index.htm">å½ç¨åºãã¼ã ãã¼ã¸ã§ã®æå¾ç¨ç­ã®ç³åæ¸ä½æã»e-Taxãã¾ãã¾ãä¾¿å©ã«ï¼</a></td>
+</tr>
+<tr id="b0021009-084">
+  <th scope="row">ä»¤å3å¹´10æ1æ¥</th>
+  <td><a href="/taxes/shiraberu/zeimokubetsu/shohi/keigenzeiritsu/invoice.htm">é©æ ¼è«æ±æ¸çºè¡äºæ¥­èã®ç»é²ç³è«ã®åä»ãéå§ãã¾ãã</a></td>
+</tr>
+<tr id="a0021009-112">
+  <th scope="row">ä»¤å3å¹´10æ1æ¥</th>
+  <td><a href="/users/gensen/nenmatsu/nencho.htm#soft_dl">ãå¹´èª¿ã½ããããå¬éãã¾ãã</a></td>
+</tr>
+<tr id="a0021009-042">
+  <th scope="row">ä»¤å3å¹´9æ21æ¥</th>
+  <td><a href="/taxes/nozei/nozei-shomei/0021009-042.htm">ã¹ãã¼ããã©ã³ãä½¿ç¨ããæ±ºæ¸ãµã¼ãã¹ã«ããç´ä»æç¶ã®å°å¥å»¶æã«ã¤ãã¦</a></td>
+</tr>
+<tr id="a0021007-076">
+  <th scope="row">ä»¤å3å¹´9æ17æ¥</th>
+  <td><a href="/users/gensen/nencho/index.htm">ãå¹´æ«èª¿æ´ãããããããã¼ã¸ããéè¨­ãã¾ãã</a></td>
+</tr>
+<tr id="a0021008-076">
+  <th scope="row">ä»¤å3å¹´9æ17æ¥</th>
+  <td><a href="/users/gensen/index.htm">ãä»¤å3å¹´åå¹´æ«èª¿æ´ã®ããã®åç¨®æ§å¼ç­ããæ²è¼ãã¾ãã</a></td>
+</tr>
+<tr id="a0021008-042">
+  <th scope="row">ä»¤å3å¹´8æ16æ¥</th>
+  <td><a href="/taxes/shiraberu/saigai/index.htm">ä»¤åï¼å¹´ï¼æã®å¤§é¨ã«ããè¢«å®³ãåããããçæ§ã¸ï¼ç½å®³é¢é£æå ±ï¼</a></td>
+</tr>
+<tr id="a0021007-095">
+  <th scope="row">ä»¤å3å¹´7æ30æ¥</th>
+  <td><a href="/taxes/shiraberu/zeimokubetsu/shohi/keigenzeiritsu/invoice.htm">ãã¤ã³ãã¤ã¹å¶åº¦ç¹è¨­ãµã¤ããã«ç»é²ç³è«æç¶ã«ä¿ãè©³ç´°ãªæå ±ç­ãæ²è¼ãã¾ãã</a></td>
+</tr>
+<tr id="a0021007-039">
+  <th scope="row">ä»¤å3å¹´7æ6æ¥</th>
+  <td><a href="/taxes/shiraberu/saigai/index.htm">ä»¤åï¼å¹´ï¼æï¼æ¥ããã®å¤§é¨ã«ããè¢«å®³ãåããããçæ§ã¸ï¼ç½å®³é¢é£æå ±ï¼</a></td>
+</tr>
+<tr id="a0021007-038">
+  <th scope="row">ä»¤å3å¹´7æ6æ¥</th>
+  <td><a href="/taxes/nozei/nozei-shomei/index.htm">ï¼±ï¼²ã³ã¼ãä»ç´ç¨è¨¼ææ¸ç¢ºèªã³ã¼ãã¼ã®ä¸å·åã®è§£æ¶ã«ã¤ãã¦</a></td>
+</tr>
+</table>
+<p class="more-link"><a href="/information/news/index.htm">ãããã¯ã¹ä¸è¦§ã¸</a></p>
+						  </div>
+							
+							
+							
+							
+							
+							
+							
+							
+							
+							
+							<div id="tab2" class="tab-pane fade">
+<table class="index_news">
+<tr id="a0023010-050">
+  <th scope="row">ä»¤å5å¹´11æ17æ¥</th>
+  <td><a href="/taxes/tetsuzuki/mynumberinfo/kyuyogensenjoho-top/userpage.htm">çµ¦ä¸æå¾ã®ç¢ºå®ç³åãããã«ç°¡åã«ï¼ãå©ç¨èç¨ãã¼ã¸ããéè¨­ãã¾ãã</a></td>
+</tr>
+<tr id="a0023010-133">
+  <th scope="row">ä»¤å5å¹´11æ10æ¥</th>
+  <td><a href="/taxes/sake/yushutsu/yushutsu_tokei/r05.htm">éé¡ã®è¼¸åºååï¼ä»¤åï¼å¹´ï¼æåï¼ãæ²è¼ãã¾ãã</a></td>
+</tr>
+<tr id="a0023011-032">
+  <th scope="row">ä»¤å5å¹´11æ10æ¥</th>
+  <td><a href="/taxes/sake/index.htm">ãä»¤åï¼å¹´åº¦è£æ­£äºç®ï¼éé¡æ¥­æ¯èé¢ä¿ï¼ã®æ¦è¦ããæ²è¼ãã¾ãã</a></td>
+</tr>
+<tr id="a0023010-141">
+  <th scope="row">ä»¤å5å¹´11æ8æ¥</th>
+  <td><a href="/taxes/kids/sakubun/chugaku/r05/index.htm">ä»¤åï¼å¹´åº¦ãä¸­å­¦çã®ãç¨ã«ã¤ãã¦ã®ä½æãåå¤§è£è³ã»å½ç¨åºé·å®è³ç­åè³èçºè¡¨</a></td>
+</tr>
+<tr id="a0023010-125">
+  <th scope="row">ä»¤å5å¹´11æ8æ¥</th>
+  <td><a href="/taxes/kids/sakubun/koko/r05/index.htm">ä»¤åï¼å¹´åº¦ãç¨ã«é¢ããé«æ ¡çã®ä½æãå½ç¨åºé·å®è³åè³èçºè¡¨</a></td>
+</tr>
+<tr id="a0023010-130">
+  <th scope="row">ä»¤å5å¹´11æ8æ¥</th>
+  <td><a href="/taxes/sake/sonota/sokuteihoho/saiyo.htm">ãå½ç¨åºæå®åææ³ã¨ç°ãªãæ¸¬å®æ¹æ³ã§åççãã¤æ­£ç¢ºã§ããã¨èªããããæ¹æ³ãã®æ²è¼ã«ã¤ãã¦</a></td>
+</tr>
+<tr id="a0023010-057">
+  <th scope="row">ä»¤å5å¹´10æ20æ¥</th>
+  <td><a href="/taxes/nozei/nofu/24200042/noufu_kigen.htm">ä»¤åï¼å¹´ç¢ºå®ç³ååï¼ç³åæå¾ç¨åã³å¾©èç¹å¥æå¾ç¨ãæ¶è²»ç¨åã³å°æ¹æ¶è²»ç¨ï¼ã®æ¯æ¿ç´ä»æ¥ãæ²è¼ãã¾ãã</a></td>
+</tr>
+<tr id="a0023009-134">
+  <th scope="row">ä»¤å5å¹´10æ16æ¥</th>
+  <td><a href="/taxes/shiraberu/kokusai/fta/press/20231013.htm">ç¬¬16åOECDç¨åé·å®ä¼è­°ï¼FTAï¼ã®ææã«ä¿ãå£°æï¼2023å¹´10æ13æ¥ãæ¼ï¼ã·ã³ã¬ãã¼ã«ï¼</a></td>
+</tr>
+                              </table>
+							  <p class="more-link"><a href="/information/news/news.htm">æ°çæå ±ä¸è¦§ã¸</a></p>
+	            </div>
+							
+							
+							
+							
+							
+							
+							
+							
+							
+							
+							<div id="tab3" class="tab-pane fade">
+<table class="index_news">
+<tr id="a0023011-012">
+  <th scope="row">ä»¤å5å¹´11æ17æ¥</th>
+  <td><a href="/law/joho-zeikaishaku/sonota/jirei/08.htm#a0023003-081">ãã·ã¹ãã å°å¥ãé£ããã¦ãå¤§ä¸å¤«ï¼ï¼ä»¤åï¼å¹´ï¼æããã®é»å­åå¼ãã¼ã¿ã®ä¿å­æ¹æ³ããæ²è¼ãã¾ãã</a></td>
+</tr>
+<tr id="a0023009-121">
+  <th scope="row">ä»¤å5å¹´10æ30æ¥</th>
+  <td><a href="/publication/pamph/hojin/aramashi2023/01.htm">ä»¤åï¼å¹´çãæ³äººç¨ã®ããã¾ãã¨ç³åã®æå¼ãæ²è¼ãã¾ãã</a></td>
+</tr>
+<tr id="a0023009-016">
+  <th scope="row">ä»¤å5å¹´9æ22æ¥</th>
+  <td><a href="/publication/tenji/index.htm">ä»¤åï¼å¹´åº¦çãç¹å­åºå ±èªãç§ãã¡ã®ç¨éããæ²è¼ãã¾ãã</a></td>
+</tr>
+<tr id="a0023008-153">
+  <th scope="row">ä»¤å5å¹´9æ11æ¥</th>
+  <td><a href="/taxes/shiraberu/kokusai/crs/summary.htm">å±éå ±ååºæºï¼CRSï¼ã«åºã¥ãèªåçæå ±äº¤æã«é¢ããæå ±ï¼ãCRSã³ã¼ãã¼ãï¼ ã®å¶åº¦ã®æ¦è¦ï¼ãªã¼ãã¬ããç­ï¼ãæ´æ°ãã¾ãã</a></td>
+</tr>
+<tr id="a0023007-056">
+  <th scope="row">ä»¤å5å¹´8æ4æ¥</th>
+  <td><a href="/publication/pamph/pdf/0023007-056.pdf">ãæºæ³æå¾ç¨ã®æ¹æ­£ã®ããã¾ãï¼æ¥ã¢ã¼ã«ãã¤ã¸ã£ã³ç§ç¨æ¡ç´ï¼ããæ²è¼ãã¾ããï¼PDF/149KBï¼</a></td>
+</tr>
+<tr id="a0023006-004">
+  <th scope="row">ä»¤å5å¹´6æ30æ¥</th>
+  <td><a href="/publication/pamph/pdf/0023006-004.pdf">ãä»¤åï¼å¹´åº¦ç¸ç¶ç¨åã³è´ä¸ç¨ã®ç¨å¶æ¹æ­£ã®ããã¾ãããæ²è¼ãã¾ããï¼PDF/1,023KBï¼</a></td>
+</tr>
+<tr id="a0023006-133-1">
+  <th scope="row">ä»¤å5å¹´6æ30æ¥</th>
+  <td><a href="/publication/pamph/pdf/0023006-133_01.pdf">ãéä¸å ´æ ªå¼ç­ã«ã¤ãã¦ã®è´ä¸ç¨ã»ç¸ç¶ç¨ã®ç´ç¨ç¶äºã»åé¤ï¼æ³äººçäºæ¥­æ¿ç¶ç¨å¶ï¼ã®ããã¾ãï¼ä»¤å5å¹´6æï¼ããæ²è¼ãã¾ããï¼PDF/647KBï¼</a></td>
+</tr>
+<tr id="a0023006-133-2">
+  <th scope="row">ä»¤å5å¹´6æ30æ¥</th>
+  <td><a href="/publication/pamph/pdf/0023006-133_02.pdf">ãéä¸å ´æ ªå¼ç­ã«ã¤ãã¦ã®è´ä¸ç¨ã»ç¸ç¶ç¨ã®ç´ç¨ç¶äºã»åé¤ï¼æ³äººçäºæ¥­æ¿ç¶ç¨å¶ï¼ã«ä¿ãç½å®³ç­ã«é¢ããæªç½®ã®æ¦è¦ï¼ä»¤å5å¹´6æï¼ããæ²è¼ãã¾ããï¼PDF/310KBï¼</a></td>
+</tr>
+
+</table>
+<p class="more-link"><a href="/information/news/news.htm">æ°çæå ±ä¸è¦§ã¸</a></p>
+				      </div>
+							
+							
+							
+							
+							
+							
+							
+							
+							
+							
+							<div id="tab4" class="tab-pane fade">
+							  <table class="index_news">
+<tr id="a0023010-004">
+  <th scope="row">ä»¤å5å¹´11æ17æ¥</th>
+  <td><a href="/law/joho-zeikaishaku/hyoka/231017/01.htm">ããç¸ç¶ç¨åã³è´ä¸ç¨ã«ãããåå¼ç¸å ´ã®ãªãæ ªå¼ç­ã®è©ä¾¡æç´°æ¸ã®æ§å¼åã³è¨è¼æ¹æ³ç­ã«ã¤ãã¦ãã®ä¸é¨æ¹æ­£ã«ã¤ãã¦ãééã®ããã¾ãã«ã¤ãã¦ï¼æå ±ï¼
+</a></td>
+</tr>
+<tr id="a0023010-010">
+  <th scope="row">ä»¤å5å¹´10æ19æ¥</th>
+  <td><a href="/law/joho-zeikaishaku/hojin/231016/index.htm">ä»¤åï¼å¹´ï¼æ20æ¥ä»èª²æ³ï¼ï¼ï¼ã»ãï¼èª²å±åãæ³äººç¨åºæ¬ééç­ã®ä¸é¨æ¹æ­£ã«ã¤ãã¦ãï¼æ³ä»¤è§£éééï¼ã®è¶£æ¨èª¬æ</a></td>
+</tr>
+<tr id="a0023009-038">
+  <th scope="row">ä»¤å5å¹´10æ19æ¥</th>
+  <td><a href="/law/tsutatsu/kobetsu/hyoka/kaisei/2309xx/index.htm">ãä»¤åï¼å¹´åã®åºæºå¹´å©çã«ã¤ãã¦ãã®ä¸é¨æ¹æ­£ã«ã¤ãã¦ï¼æ³ä»¤è§£éééï¼</a></td>
+</tr>
+<tr id="a02230909">
+  <th scope="row">ä»¤å5å¹´10æ16æ¥</th>
+  <td><a href="/about/organization/sendai/bunshokaito/shotoku/230919.htm">ç¯ç½ªè¢«å®³èç­ã«å¯¾ãã¦æ¯çµ¦ãããååå¸ã®ç¯ç½ªè¢«å®³èç­æ¯æ´éã®èª²ç¨é¢ä¿ã«ã¤ãã¦ï¼ææ¸åç­äºä¾ï¼</a></td>
+</tr>
+<tr id="a0023009-135">
+  <th scope="row">ä»¤å5å¹´10æ13æ¥</th>
+  <td><a href="/law/joho-zeikaishaku/hyoka/231013/01.htm">ãå±ä½ç¨ã®åºåææè²¡ç£ã®è©ä¾¡ã«ã¤ãã¦ãï¼æ³ä»¤è§£éééï¼ã®è¶£æ¨ã«ã¤ãã¦ï¼æå ±ï¼</a></td>
+</tr>
+<tr id="a0023009-037">
+  <th scope="row">ä»¤å5å¹´10æ13æ¥</th>
+  <td><a href="/law/tsutatsu/kobetsu/hyoka/r05/2306_03/index.htm">ãä»¤åï¼å¹´åã®é¡ä¼¼æ¥­ç¨®æ¯æºä¾¡é¡è¨ç®ä¸ã®æ¥­ç¨®ç®åã³æ¥­ç¨®ç®å¥æ ªä¾¡ç­ã«ã¤ãã¦ãã®ä¸é¨æ¹æ­£ã«ã¤ãã¦ï¼æ³ä»¤è§£éééï¼</a></td>
+</tr>
+<tr id="a0023009-125">
+  <th scope="row">ä»¤å5å¹´10æ6æ¥</th>
+  <td><a href="/law/tsutatsu/kobetsu/shotoku/sochiho/kaisei/231006/index.htm">ãç§ç¨ç¹å¥æªç½®æ³ã«ä¿ãæå¾ç¨ã®åæ±ãã«ã¤ãã¦ãã®ä¸é¨æ¹æ­£ã«ã¤ãã¦ï¼æ³ä»¤è§£éééï¼</a></td>
+</tr>
+<tr id="b0023009-125">
+  <th scope="row">ä»¤å5å¹´10æ6æ¥</th>
+  <td><a href="/law/tsutatsu/kobetsu/shotoku/shinkoku/kaisei/231006/01.htm">ãæ±æ¥æ¬å¤§éç½ã®è¢«ç½èç­ã«ä¿ãå½ç¨é¢ä¿æ³å¾ã®è¨æç¹ä¾ã«é¢ããæ³å¾é¢ä¿ééï¼æå¾ç¨ç·¨ï¼ã®å¶å®ã«ã¤ãã¦ãã®ä¸é¨æ¹æ­£ã«ã¤ãã¦ï¼æ³ä»¤è§£éééï¼</a></td>
+</tr>
+
+						        </table>							      <a href="/law/kokuji/r0503/09.htm"></a></td>
+							    </tr>
+							  </table>
+						    <p class="more-link"><a href="/information/news/news.htm">æ°çæå ±ä¸è¦§ã¸</a></p>
+						  </div>
+										
+							
+	<div id="tab5" class="tab-pane fade">
+<table class="index_news">
+<tr id="a0023010-037">
+  <th scope="row">ä»¤å5å¹´11æ10æ¥</th>
+  <td><a href="/information/release/kokuzeicho/2023/sogo_kyogi/sogo_kyogi.pdf">ä»¤åï¼äºåå¹´åº¦ã®ãç¸äºåè­°ã®ç¶æ³ãã«ã¤ãã¦(PDF/862KB)</a></td>
+</tr>
+<tr id="a0023010-115">
+  <th scope="row">ä»¤å5å¹´11æ2æ¥</th>
+  <td><a href="https://public-comment.e-gov.go.jp/servlet/Public">ãåæ¬çãªçµæ¸ä¸ã®é£æºã«é¢ããæ¥æ¬å½ã¨ã°ã¬ã¼ãããªãã³åã³åã¢ã¤ã«ã©ã³ãé£åçå½ã¨ã®éã®åå®ï¼æ¥è±ï¼¥ï¼°ï¼¡ï¼ã«åºã¥ãéé¡ã®å°ççè¡¨ç¤ºã®ä¿è­·ãã«å¯¾ããæè¦åéã«ã¤ãã¦ï¼e-Govã¸ãªã³ã¯ï¼</a></td>
+</tr>
+<tr id="a0023010-114">
+  <th scope="row">ä»¤å5å¹´11æ2æ¥</th>
+  <td><a href="/taxes/sake/hyoji/chiriteki.htm">ãåæ¬çãªçµæ¸ä¸ã®é£æºã«é¢ããæ¥æ¬å½ã¨ã°ã¬ã¼ãããªãã³åã³åã¢ã¤ã«ã©ã³ãé£åçå½ã¨ã®éã®åå®ï¼æ¥è±ï¼¥ï¼°ï¼¡ï¼ã«åºã¥ãå°ççè¡¨ç¤ºã®ä¿è­·ãã«ã¤ãã¦</a></td>
+</tr>
+<tr id="a0023010-049">
+  <th scope="row">ä»¤å5å¹´11æ1æ¥</th>
+  <td><a href="/information/release/kokuzeicho/2023/hojin_shinkoku/index.htm">ä»¤åï¼äºåå¹´åº¦ãæ³äººç¨ç­ã®ç³åï¼èª²ç¨ï¼äºç¸¾ã®æ¦è¦ï¼ä»¤åï¼å¹´11æï¼</a></td>
+</tr>
+<tr id="a0023010-090">
+  <th scope="row">ä»¤å5å¹´10æ24æ¥</th>
+  <td><a href="/taxes/tetsuzuki/mynumberinfo/kokuji/tokutei_hyouka.htm">ç¹å®åäººæå ±ä¿è­·è©ä¾¡æ¸ãæ´æ°ãã¾ãã</a></td>
+</tr>
+<tr id="a0023010-012">
+  <th scope="row">ä»¤å5å¹´10æ20æ¥</th>
+  <td><a href="https://www.e-tax.nta.go.jp/topics/topics_202310riyozyokyo.htm">ä»¤åï¼å¹´åº¦ã«ãããe-Taxã®å©ç¨ç¶æ³ç­ã«ã¤ãã¦ï¼e-Taxãã¼ã ãã¼ã¸ã¸ãªã³ã¯ï¼
+</a></td>
+</tr>
+<tr id="a0023009-079">
+  <th scope="row">ä»¤å5å¹´10æ6æ¥</th>
+  <td><a href="https://public-comment.e-gov.go.jp/servlet/Public">ãå±ä½ç¨ã®åºåææè²¡ç£ã®è©ä¾¡ã«ã¤ãã¦ãã®æ³ä»¤è§£éééï¼æ¡ï¼ã«å¯¾ããæè¦åéã®çµæã«ã¤ãã¦ï¼e-Govã¸ãªã³ã¯ï¼</a></td>
+</tr>
+<tr id="a0023009-077">
+  <th scope="row">ä»¤å5å¹´10æ6æ¥</th>
+  <td><a href="https://public-comment.e-gov.go.jp/servlet/Public">ãç§ç¨ç¹å¥æªç½®æ³é¢ä¿ééï¼æ³äººç¨ç·¨ï¼ã®å¶å®ã«ã¤ãã¦ãï¼æ³ä»¤è§£éééï¼ã»ãï¼ä»¶ã®ä¸é¨æ¹æ­£ï¼æ¡ï¼ã«å¯¾ããæè¦å¬åæç¶ã®çµæã«ã¤ãã¦ ï¼e-Govã¸ãªã³ã¯ï¼</a></td>
+</tr>
+	      </table>	      <a href="https://public-comment.e-gov.go.jp/servlet/Public"></a></td>
+	    </tr>
+	  </table>
+<p class="more-link"><a href="/information/news/news.htm">æ°çæå ±ä¸è¦§ã¸</a></p>
+              </div>
+
+
+
+							<div id="tab6" class="tab-pane fade">
+<table class="index_news">
+<tr id="a0023008-146">
+  <th scope="row">ä»¤å5å¹´11æ2æ¥</th>
+  <td><a href="/about/introduction/torikumi/report/2023/index.htm">å½ç¨åºã¬ãã¼ã2023ï¼HTMLçï¼ãæ²è¼ãã¾ãã</a></td>
+</tr>
+<tr id="a0023010-091">
+  <th scope="row">ä»¤å5å¹´10æ31æ¥</th>
+  <td><a href="https://www.mof.go.jp/about_mof/policy_evaluation/nta/index.html">ãä»¤åï¼äºåå¹´åº¦å½ç¨åºå®ç¸¾è©ä¾¡æ¸ãã®å¬è¡¨ï¼è²¡åçãã¼ã ãã¼ã¸ã¸ãªã³ã¯ï¼</a></td>
+</tr>
+<tr id="b0023010-069">
+  <th scope="row">ä»¤å5å¹´10æ27æ¥</th>
+  <td><a href="/about/introduction/torikumi/week/index.htm">ãç¨ãèããé±éãå½ç¨åºã®åçµç´¹ä»ãã¼ã¸ãæ´æ°ãã¾ãã</a></td>
+</tr>
+<tr id="a0023009-126">
+  <th scope="row">ä»¤å5å¹´10æ19æ¥</th>
+  <td><a href="/about/organization/ntc/kyodokenkyu/kohyo/index.htm">ç¨åå¤§å­¦æ ¡ã¨ã®å±åç ç©¶ã®ç ç©¶ææç©ãæ²è¼ãã¾ãã</a></td>
+</tr>
+<tr id="a0023009-005">
+  <th scope="row">ä»¤å5å¹´9æ20æ¥</th>
+  <td><a href="/about/council/kenkyu.htm#kyodokenkyu">ç¬¬ï¼åãå½ç¨åºä¿æè¡æ¿è¨é²æå ±ãç¨ããç¨åå¤§å­¦æ ¡ã¨ã®å±åç ç©¶ã«é¢ããæè­èä¼è­°ãã®éä»è³æç­ãæ²è¼ãã¾ãã</a></td>
+</tr>
+<tr id="a0023006-099">
+  <th scope="row">ä»¤å5å¹´6æ30æ¥</th>
+  <td><a href="https://www.mof.go.jp/about_mof/policy_evaluation/nta/index.html" target="_blank">ãä»¤åï¼äºåå¹´åº¦å½ç¨åºå®ç¸¾è©ä¾¡å®æ½è¨ç»åã³å®ç¸¾è©ä¾¡ã®äºååæè¡¨ãã®å¬è¡¨ï¼è²¡åçãã¼ã ãã¼ã¸ã¸ãªã³ã¯ï¼</a></td>
+</tr>
+<tr id="a0023006-024">
+  <th scope="row">ä»¤å5å¹´6æ30æ¥</th>
+  <td><a href="/about/introduction/torikumi/report/report.htm">å½ç¨åºã¬ãã¼ã2023ï¼æ¥æ¬èªçï¼ãæ²è¼ãã¾ãã</a></td>
+</tr>
+<tr id="a0023005-072">
+  <th scope="row">ä»¤å5å¹´6æ14æ¥</th>
+  <td><a href="/about/council/kenkyu.htm#kyodokenkyu">ç¬¬ï¼åãå½ç¨åºä¿æè¡æ¿è¨é²æå ±ãç¨ããç¨åå¤§å­¦æ ¡ã¨ã®å±åç ç©¶ã«é¢ããæè­èä¼è­°ãã®éä»è³æç­ãæ²è¼ãã¾ãã</a></td>
+</tr>
+						      </table>
+							  <p class="more-link"><a href="/information/news/news.htm">æ°çæå ±ä¸è¦§ã¸</a></p>
+							</div>
+						
+					  </div>
+						<h2>åéå¥ã¡ãã¥ã¼</h2>
+						<div class="bunya-menu">
+							<div class="flex zei">
+								<h3 style="margin-top: 0;">ç¨ã«ã¤ãã¦èª¿ã¹ã</h3>
+								<ul>
+								<li><a href="/taxes/shiraberu/taxanswer/index2.htm">ã¿ãã¯ã¹ã¢ã³ãµã¼<br />ï¼ããããç¨ã®è³ªåï¼</a></li>
+								<li><a href="/taxes/shiraberu/shinkoku/kakutei.htm">æå¾ç¨ã®ç¢ºå®ç³å</a></li>
+								<li><a href="/taxes/shiraberu/sodan/index.htm">ç¨ã®ç¸è«</a></li>
+								<li><a href="/taxes/shiraberu/kokusai/index.htm">å½éç¨åé¢ä¿æå ±</a></li>
+								<li><a href="/taxes/shiraberu/zeimokubetsu/index.htm">ç¨ç®å¥æå ±</a></li>
+								<li><a href="/taxes/kids/index.htm">ç¨ã®å­¦ç¿ã³ã¼ãã¼</a></li>
+                                <li id="b0020010-076"><a href="/taxes/shiraberu/chatbot/index.htm">ãã£ãããããã«è³ªåãã</a></li>
+								</ul>
+							</div>
+							<div class="flex user">
+								<h3 style="margin-top: 0;">å©ç¨èå¥æå ±</h3>
+								<ul>
+								<li><a href="/users/kojin/index.htm">åäººã®æ¹</a></li>
+								<li><a href="/users/hojin/index.htm">æ³äººã®æ¹</a></li>
+								<li><a href="/users/gensen/index.htm">æºæ³å¾´åç¾©åèã®æ¹</a></li>
+								<li><a href="/taxes/zeirishi/index.htm">ç¨çå£«ã«é¢ããæå ±</a></li>
+								<li><a href="/taxes/sake/index.htm">ãéã«é¢ããæå ±</a></li>
+								</ul>
+							</div>
+							<div class="flex shinkoku">
+								<h3 style="margin-top: 0;">ç³åæç¶</h3>
+								<ul>
+								<li><a href="/taxes/tetsuzuki/shinsei/index.htm">ç³åã»ç³è«ã»å±åºç­ãç¨ç´ï¼æç¶ã®æ¡åã»æ§å¼ï¼</a></li>
+                                <li><a href="https://www.keisan.nta.go.jp/" target="_blank">ç¢ºå®ç³åæ¸ç­ä½æã³ã¼ãã¼</a></li>
+								<li><a href="http://www.e-tax.nta.go.jp/">å½ç¨é»å­ç³åã»ç´ç¨ã·ã¹ãã (e-Tax)</a></li>
+								<li><a href="/taxes/tetsuzuki/mynumberinfo/index.htm">ç¤¾ä¼ä¿éã»ç¨çªå·å¶åº¦ï¼ãã¤ãã³ãã¼ï¼</a></li>
+								</ul>
+							</div>
+							<div class="flex nouzei">
+								<h3 style="margin-top: 0;">ç´ç¨æç¶</h3>
+								<ul>
+								<li><a href="/taxes/nozei/annai/index.htm">ç´ç¨ã«é¢ããç·åæ¡å</a></li>
+								<li><a href="/taxes/nozei/nozei-shomei/01.htm">ç´ç¨è¨¼ææ¸</a></li>
+								</ul>
+							</div>
+							<div class="flex kanren">
+								<h3 style="margin-top: 0;">é¢é£ãµã¤ã</h3>
+								<ul>
+								<li><a href="http://www.rosenka.nta.go.jp/">è·¯ç·ä¾¡å³ã»è©ä¾¡åçè¡¨</a></li>
+								<li><a href="https://www.koubai.nta.go.jp/auctionx/public/hp001.php">å¬å£²æå ±</a></li>
+								<li><a href="https://www.houjin-bangou.nta.go.jp/">æ³äººçªå·å¬è¡¨ãµã¤ã</a></li>
+                                <li><a href="https://www.invoice-kohyo.nta.go.jp/">é©æ ¼è«æ±æ¸çºè¡äºæ¥­èå¬è¡¨ãµã¤ã</a></li>
+								</ul>
+							</div>
+						</div>
+						
+					</div>
+					
+<div class="right-menu">
+
+<!---->
+						
+<!--â¼æ³¨ç®ã¯ã¼ãâ¼-->
+
+<div class="panel panel-default">
+<div class="panel-heading">
+<h2>æ³¨ç®ã¯ã¼ã</h2>
+</div>
+<div class="panel-body">
+<ul style="padding-bottom: 0;">
+<li><a href="/about/introduction/torikumi/week/index.htm">ç¨ãèããé±é</a></li>
+<li><a href="/taxes/shiraberu/zeimokubetsu/shohi/keigenzeiritsu/invoice.htm">æ¶è²»ç¨ã®ã¤ã³ãã¤ã¹å¶åº¦</a></li>
+<li><a href="/users/gensen/nencho/index.htm">å¹´æ«èª¿æ´ãããããããã¼ã¸</a></li>
+<li><a href="/users/gensen/nenmatsu/nencho.htm">å¹´æ«èª¿æ´æç¶ã®é»å­å</a></li>
+<li><a href="https://www.e-tax.nta.go.jp/">e-Tax</a></li>
+<li><a href="/taxes/tetsuzuki/mynumberinfo/mynapo.htm">ãã¤ããã¼ã¿ã«é£æº</a></li>
+<li><a href="/law/joho-zeikaishaku/sonota/jirei/index.htm">é»å­å¸³ç°¿ä¿å­æ³</a></li>
+<li><a href="/about/introduction/torikumi/jigyousyadx.htm">æ¥­åã®ãã¸ã¿ã«å</a></li>
+<li><a href="/law/bunshokaito/tokusetsu.htm">ææ¸åç­æç¶ç¹è¨­ãµã¤ã</a></li>
+<li><a href="/taxes/nozei/annai/index.htm">ç´ç¨ã«é¢ããç·åæ¡å</a></li>
+<li><a href="/taxes/shiraberu/sodan/denwa-sodan/index.htm">å½ç¨ã«é¢ãããç¸è«ã«ã¤ãã¦</a></li>
+<li><a href="/taxes/shiraberu/kansensho/zitaku.htm">èªå®ããã®æç¶æ¹æ³</a></li>
+<li><a href="/about/organization/ntc/kokai/index.htm">ç¨åå¤§å­¦æ ¡å¬éè¬åº§ã®éå¬</a></li>
+<li><a href="/taxes/sake/index.htm#topic">ãéã«é¢ããæå ±</a></li>
+<li><a href="/information/attention/attention.htm">ä¸å¯©ãªé»è©±ãã¡ã¼ã«ç­ã«ãæ³¨æã</a></li>
+</ul>
+</div>
+</div>
+
+<!--â²æ³¨ç®ã¯ã¼ãâ²-->
+
+						<div class="panel panel-default">
+							<div class="panel-heading">
+								<h2>ç¨åç½²ãæ¤ç´¢</h2>
+							</div>
+							<div class="panel-body" style="font-size:90%;">
+								<form method="post" action="/cgi-bin/zeimusho/kensaku/kensakuprocess.php" id="knskForm" name="knskForm" accept-charset="EUC-JP">
+								<input name="KSTYPE" type="hidden" id="KSTYPE" value="" />
+								<input name="TODOFUKEN_TO_ASCII" type="hidden" id="TODOFUKEN_TO_ASCII" value="" />
+								<input name="ADDR_TO_ASCII" type="hidden" id="ADDR_TO_ASCII" value="" />
+								<table id="kszTbl" style="width:100%;">
+								<tr><td class="hb_zc"><p class="indent1em">éµä¾¿çªå·ããç¨åç½²ãæ¤ç´¢<br />ï¼åè§æ°å­ï¼</p></td></tr>
+								<tr><td class="hb"><input type="text" name="kszc1" size="4" maxlength="3" value="" title="æ¤ç´¢éµä¾¿çªå·ã®å3æ¡ãåè§æ°å­ã§å¥åãã¦ãã ãã" id="kszc1" style="font-size:85%;" />&nbsp;-&nbsp;<input type="text" name="kszc2" size="5" maxlength="4" value="" title="æ¤ç´¢éµä¾¿çªå·ã®å¾ã4æ¡ãåè§æ°å­ã§å¥åãã¦ãã ãã" id="kszc2" style="font-size:85%;" />&nbsp;&nbsp;<input type="button" name="kszBtn" title="æ¤ç´¢ãå®è¡ãã¾ã" value="æ¤ç´¢" onClick="SubmitKnskForm('ksz');" /></td></tr>
+								<tr><td id="kszMsg" style="display:none;" class="hb"><label>&nbsp;</label></td></tr>
+								<tr><td class="hb"><p class="indent1em">ä½æããç¨åç½²ãæ¤ç´¢</p></td></tr>
+								<tr>
+								<td class="hb">
+								<select name="ksaTodofuken" id="ksaTodofuken" title="é½éåºçãé¸æ">
+								<option value="">é½éåºçãé¸æ</option>
+								<option value="åæµ·é">åæµ·é</option>
+								<option value="éæ£®ç">éæ£®ç</option>
+								<option value="å²©æç">å²©æç</option>
+								<option value="å®®åç">å®®åç</option>
+								<option value="ç§ç°ç">ç§ç°ç</option>
+								<option value="å±±å½¢ç">å±±å½¢ç</option>
+								<option value="ç¦å³¶ç">ç¦å³¶ç</option>
+								<option value="è¨åç">è¨åç</option>
+								<option value="æ æ¨ç">æ æ¨ç</option>
+								<option value="ç¾¤é¦¬ç">ç¾¤é¦¬ç</option>
+								<option value="å¼çç">å¼çç</option>
+								<option value="åèç">åèç</option>
+								<option value="æ±äº¬é½">æ±äº¬é½</option>
+								<option value="ç¥å¥å·ç">ç¥å¥å·ç</option>
+								<option value="æ°æ½ç">æ°æ½ç</option>
+								<option value="å¯å±±ç">å¯å±±ç</option>
+								<option value="ç³å·ç">ç³å·ç</option>
+								<option value="ç¦äºç">ç¦äºç</option>
+								<option value="å±±æ¢¨ç">å±±æ¢¨ç</option>
+								<option value="é·éç">é·éç</option>
+								<option value="å²éç">å²éç</option>
+								<option value="éå²¡ç">éå²¡ç</option>
+								<option value="æç¥ç">æç¥ç</option>
+								<option value="ä¸éç">ä¸éç</option>
+								<option value="æ»è³ç">æ»è³ç</option>
+								<option value="äº¬é½åº">äº¬é½åº</option>
+								<option value="å¤§éªåº">å¤§éªåº</option>
+								<option value="åµåº«ç">åµåº«ç</option>
+								<option value="å¥è¯ç">å¥è¯ç</option>
+								<option value="åæ­å±±ç">åæ­å±±ç</option>
+								<option value="é³¥åç">é³¥åç</option>
+								<option value="å³¶æ ¹ç">å³¶æ ¹ç</option>
+								<option value="å²¡å±±ç">å²¡å±±ç</option>
+								<option value="åºå³¶ç">åºå³¶ç</option>
+								<option value="å±±å£ç">å±±å£ç</option>
+								<option value="å¾³å³¶ç">å¾³å³¶ç</option>
+								<option value="é¦å·ç">é¦å·ç</option>
+								<option value="æåªç">æåªç</option>
+								<option value="é«ç¥ç">é«ç¥ç</option>
+								<option value="ç¦å²¡ç">ç¦å²¡ç</option>
+								<option value="ä½è³ç">ä½è³ç</option>
+								<option value="é·å´ç">é·å´ç</option>
+								<option value="çæ¬ç">çæ¬ç</option>
+								<option value="å¤§åç">å¤§åç</option>
+								<option value="å®®å´ç">å®®å´ç</option>
+								<option value="é¹¿åå³¶ç">é¹¿åå³¶ç</option>
+								<option value="æ²ç¸ç">æ²ç¸ç</option>
+								</select><br />
+								</td>
+								</tr>
+								<tr>
+								<td class="hb">
+								<input type="text" name="ksaddr" maxlength="65" title="æ¤ç´¢ä½æãå¥å" id="ksaddr" style="color: gray;width:100%;" value="å¸åºçºæã»çºåãå¥å" /><br />
+								å¥åä¾ï¼åä»£ç°åºéãé¢
+								</td>
+								</tr>
+								<tr>
+								<td class="hb">
+								<input type="button" name="ksaBtn" title="æ¤ç´¢ãå®è¡ãã¾ã" value="æ¤ç´¢" onClick="SubmitKnskForm('ksa');" />
+								</td>
+								</tr>
+								<tr><td id="ksaMsg" style="display:none;" class="hb"><label>&nbsp;</label></td></tr>
+								</table>
+								</form>
+							</div>
+						</div>
+						<div class="side_bunner">
+						<ul>
+						<li><a href="https://twitter.com/NTA_Japan"><img src="/template/img/template/icon_x.png" alt="å½ç¨åºï¼¸ï¼æ§Twitterï¼ã®ãã¼ã¸ã¸ç§»åãã¾ã" class="side_bunner_icon" />Xï¼æ§Twitterï¼</a></li>
+                        <li><a href="/line/index.htm"><img src="/template/img/template/icon_line.png" alt="å½ç¨åºLINEã¸ç§»åãã¾ã" class="side_bunner_icon" />LINE</a></li>
+						<li><a href="https://www.youtube.com/user/ntachannel"><img src="/template/img/template/icon_yt.jpg" alt="å½ç¨åºåç»ãã£ã³ãã«ã®ãã¼ã¸ã¸ç§»åãã¾ã" class="side_bunner_icon" />YouTubeãå½ç¨åºåç»ãã£ã³ãã«ã</a></li>
+						<li><a href="/publication/webtaxtv/index.html"><img src="/template/img/template/icon_webtaxtv.jpg" alt="å½ç¨åºã¤ã³ã¿ã¼ãããçªçµãWeb-TAX-TVãã®ãã¼ã¸ã¸ç§»åãã¾ã" class="side_bunner_icon" />ã¤ã³ã¿ã¼ãããçªçµãWeb-TAX-TVã</a></li>
+						<li><a href="/merumaga/index.htm"><img src="/template/img/template/icon_mail.jpg" alt="å½ç¨åºãæ°çæå ±ã»ã¡ã¼ã«ãã¬ã¸ã³ã®ãã¼ã¸ã¸ç§»åãã¾ã" class="side_bunner_icon" />æ°çæå ±ã»ã¡ã¼ã«ãã¬ã¸ã³</a></li>						</ul>
+						</div>
+	</div>
+				</div>
+			</div>
+			<footer>
+				<div id="footer"></div>
+			</footer>
+		</div>
+	</body>
+<script> 
+$(function () { 
+                 $('#sampleCarouselCycle').click(function () { 
+                                  $('#sampleCarousel').carousel('cycle'); 
+                 }); 
+                 $('#sampleCarouselPause').click(function () { 
+                                  $('#sampleCarousel').carousel('pause'); 
+                 }); 
+                 $('.sampleCarouselNumber').click(function () { 
+                                  var $val = new Number($(this).val()).valueOf(); 
+                                  $('#sampleCarousel').carousel($val); 
+                 }); 
+}); 
+</script> 
+</html>

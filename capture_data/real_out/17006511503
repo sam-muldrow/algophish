@@ -1,0 +1,789 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="utf-8" />
+<meta name="Referrer" content="origin" />
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="format-detection" content="telephone=no" />
+<title>컬쳐랜드</title>
+<link type="text/css" rel="stylesheet" href="/resources/web/css/slick.css" />
+<link type="text/css" rel="stylesheet" href="/resources/web/css/layout_2023.css" />
+<link type="text/css" rel="stylesheet" href="/resources/web/css/main.css" />
+<link type="text/css" rel="stylesheet" href="/resources/web/css/jquery-confirm.css" />
+<link rel="icon" href="/resources/web/images/favicon.ico"/>
+<link rel="shortcut icon" href="/resources/web/images/favicon.ico">
+<script type="text/javascript" src="/resources/web/js/jquery-1.12.4.js"></script>
+<script type="text/javascript" src="/resources/web/js/jquery.mCustomScrollbar.concat.min.js"></script>
+<script type="text/javascript" src="/resources/web/js/common.js"></script>
+<script type="text/javascript" src="/resources/web/js/slick.js"></script>
+<script type="text/javascript" src="/resources/web/js/util.js"></script>
+<script type="text/javascript" src="/resources/web/js/jquery-confirm.js"></script>
+
+</head>
+
+	<script type="text/javascript">
+		var contextPath = "";
+		var logout = function() {
+			//if (confirm("로그아웃하시겠습니까?")) {
+			//	location.href="/logout";
+			//}
+			$.confirm({
+	            title:'',
+	            content:"로그아웃하시겠습니까?",
+	            buttons:{
+	                "확인":{
+	                    text: '확인',
+	                    btnClass: 'btn-red',
+	                    action: function(){
+	                    	location.href="/logout";
+	                    }
+	                },
+	                "취소":function(){
+	                }
+	            }
+	        });
+
+		}
+	</script>
+
+</head>
+<body>
+	<div class="skip-nav">
+		<a href="#header" title="메뉴 바로가기">메뉴 바로가기</a>
+		<a href="#contents" title="본문 바로가기">본문 바로가기</a>
+		<a href="#aside" title="로그인/로그아웃 바로가기">로그인/로그아웃 바로가기</a>
+		<a href="#footer" title="바닥글 바로가기">바닥글 바로가기</a>
+	</div>
+
+	<div id="wrap"  class="signin-type no-sidebar no-gnb ">
+		<link type="text/css" rel="stylesheet" href="/resources/web/css/swiper.css" />
+<link type="text/css" rel="stylesheet" href="/resources/web/css/shake.css" />
+<script type="text/javascript" src="/resources/web/js/swiper.js"></script>
+<script type="text/javascript"> 
+
+function bookmarksite(url){ 
+	
+	// Opera 8.0+
+	var isOpera = (!!window.opr && !!opr.addons) || !!window.opera || navigator.userAgent.indexOf(' OPR/') >= 0;
+	// Firefox 1.0+
+	var isFirefox = typeof InstallTrigger !== 'undefined';
+	// Safari 3.0+ "[object HTMLElementConstructor]" 
+	var isSafari = /constructor/i.test(window.HTMLElement) || (function (p) { return p.toString() === "[object SafariRemoteNotification]"; })(!window['safari'] || (typeof safari !== 'undefined' && safari.pushNotification));
+	// Internet Explorer 6-11
+	var isIE = /*@cc_on!@*/false || !!document.documentMode;
+	// Edge 20+
+	var isEdge = !isIE && !!window.StyleMedia;
+	// Chrome 1+
+	var isChrome = !!window.chrome && !!window.chrome.webstore;
+	// Blink engine detection
+	var isBlink = (isChrome || isOpera) && !!window.CSS;
+	var sHomeMsg = '즐겨찾기로 추가되었습니다.';
+	if (isIE){
+		try{
+			window.external.AddFavorite(url, '컬쳐랜드 홈페이지');
+		} catch(e){
+			//alert("Error :"+e);
+		}
+	} else {
+		sHomeMsg = 'Ctrl + D 키를 누르시면 즐겨찾기에 추가하실 수 있습니다.';
+		$.fn.alert(sHomeMsg);
+	}
+}
+function goMoveShopping(link, target , sAutoLog){
+    if (sAutoLog !=''){
+        $('#shoppingFrm').attr('action', link);
+    } else {
+        setGuidLog();
+    }
+    
+    if(target == '_blank') $('#shoppingFrm').attr('action', link);
+    
+    $('#link').val(link);
+    $("#sAutoLog").val(sAutoLog);
+    $('#shoppingTarget').val(target);
+    $('#shoppingFrm').attr('target', target);
+    $('#shoppingFrm').submit();
+}
+</script> 
+    <form action="mall/shoppingMall.do" method="post" id="shoppingFrm">
+        <input type="hidden" name="shoppingTarget" id="shoppingTarget"  />
+        <input type="hidden" name="link" id="link" />
+        <input type="hidden" name="sAutoCode" id="sAutoCode" />
+    </form>
+    
+		<div id="header">
+			<div class="header-top">
+		        <div class="attirer-area">		        
+		        
+		         <!--  <a href="javascript:this.style.behavior='url(#default#homepage)';this.setHomePage('http://www.cultureland.co.kr');alert('시작페이지로 설정되었습니다.');" title="컬쳐랜드를 시작페이지로">컬쳐랜드를 시작페이지로</a>-->
+		        			 <!-- <a href="javascript:bookmarksite('http://www.cultureland.co.kr');" title="컬쳐랜드를 즐겨찾기">컬쳐랜드를 즐겨찾기로</a> -->
+							</div>
+				<div class="logo-area">
+					<div>
+						<a href="/main.do" title="컬쳐랜드 홈페이지 이동"><img src="/resources/web/images/header-logo.png" alt="culture land" />컬쳐랜드</a>
+					</div>       
+					
+				 <span class="secu-off_main biz"><a href="https://culture.supercon.io/main" target="_blank" alt="비즈몰"><img src="https://image.cultureland.co.kr/upload/web/etc/biz_mall.gif" alt="비즈몰 오픈"></a></span> 	    
+	             <span class="secu-off_main"><a href="/etc/cultureMobile.do" target="_blank" alt="모바일">모바일</a></span> 
+				</div>        
+    		</div><!-- // header-top -->
+			<div class="header-bot">
+				<div id="nav">
+					<ul class="header-nav">
+						<li>
+							<a href="/voucher/voucherMain.do" title="상품권 이동">상품권</a><!-- 현재 메뉴에 있을시 class : active 부여 -->
+							<div>
+								<ul>
+									<li>
+										<a href="/voucher/mobile.do" title="모바일 문화상품권 이동">컬쳐랜드상품권(모바일문화상품권)</a>
+									</li>
+									<li>
+										<a href="/voucher/smart_munsang.do" title="스마트문상 이동">스마트문상</a>
+									</li>
+									<li>
+										<a href="/voucher/voucher.do" title="상품권 이동">문화상품권(18자리)</a><!-- 현재 메뉴에 있을시 class : active 부여  -->
+									</li>
+									<li>
+										<a href="/voucher/voucheruse.do" title="사용처 이동">사용처</a>
+									</li>
+									<li>
+										<a href="/voucher/vouchercheck.do" title="상품권 사용조회 이동">상품권 사용조회</a>
+									</li>
+									<li>
+										<a href="/nanum/nanumInfo.do" title="나눔과 실천 이동">나눔과 실천</a>
+									</li>
+								</ul>
+							</div>
+						</li>
+						<li>
+							<a href="/charge/main.do" title="충전 이동">충전</a>
+							<div>
+								<ul>
+									<li>
+										<a href="/charge/gift/getCulVoucher.do" title="모바일 문화상품권 이동">컬쳐랜드상품권(모바일문화상품권)</a>
+									</li>
+									<li>
+										<a href="/charge/cvs/getCpVoucher.do" title="캐시플러스">캐시플러스</a>
+									</li>
+									<li>
+										<a href="/charge/mobile/getMobile.do" title="모바일(휴대폰)이동">모바일(휴대폰)</a>
+									</li>
+									<li>
+										<a href="/charge/account/culturePay.do" title="간편충전 이동">간편충전</a>
+									</li>
+									<li>
+										<a href="/charge/account/nBank.do" title="계좌이체 이동">계좌이체</a>
+									</li>
+									<li>
+										<a href="/charge/card/creditCard.do" title="신용카드 이동">신용카드</a>
+									</li>
+									<li>
+										<a href="/charge/cvs/cvs.do" title="편의점 이동">편의점</a>
+									</li>
+									<li>
+										<a href="/charge/store/cardPointStb.do" title="포인트 이동">포인트</a>
+									</li>
+								</ul>
+							</div>
+						</li>
+						<li class="header_coupang_anibox">
+							<a href="/conversion/conversionMain.do" title="전환 이동">전환</a>
+							<p class="main_coupang_ani">쿠팡캐시 전환 오픈!</p>
+						</li>
+						<li>
+							<a href="/shopping/shoppingList.do" title="쇼핑 이동">쇼핑</a>
+						</li>
+						<li>
+							<a href="/coupon/cpnList.do" title="쿠폰 이동">쿠폰</a>
+						</li>
+						<li class="header_coupang_anibox">
+							<a href="/google/googleBuy.do" title="Google Play 기프트 코드 이동"><span class="google-play">Google Play</span></a>
+						</li>
+						<li>
+							<a href="/purchase/hybrid/couponSelect.do" title="구매/선물">구매/선물</a>
+						</li>
+						
+						<li>
+							<a href="/purchase/exchange/couponSelect.do" title="교환소">교환소</a>
+						</li>
+						
+						<li>
+							<a href="/event/everyCheck.do" title="이벤트 이동">이벤트</a>
+							<div>
+								<ul>
+									<li>
+										<a href="/event/ingEvent.do" title="진행중인 이벤트 이동">진행중인 이벤트</a>
+									</li>
+									<li>
+										<a href="/event/freeCharge_finance.do" title="상품권적립 이벤트이동">상품권적립 이벤트</a>
+									</li>
+									<li>
+										<a href="/event/usedVoucher.do" title="사용한 상품권 이벤트 이동">사용한 상품권 이벤트</a>
+									</li>
+									<li>
+										<a href="/event/freeCharge_culturePlus.do" title="컬쳐플러스 이동">컬쳐플러스(무료충전소)</a>
+									</li>
+									<li>
+										<a href="/event/freeCharge_cultureLock.do" title="컬쳐락 이동">컬쳐락</a>
+									</li>
+									<li>
+										<a href="/event/winnerList.do" title="당첨자 발표 이동">당첨자 발표</a>
+									</li>
+								</ul>
+							</div>
+						</li>
+						<li>
+							<a href="/customer/customerMain.do" title="고객센터 이동">고객센터</a>
+						</li>
+					</ul>
+				</div>
+			</div><!-- //header-bot -->
+		</div><!--// header -->
+		
+		
+<!-- 쇼핑 상단 네이버페이 오픈 말풍선 닫기 -->
+<script type="text/javascript">
+$(document).ready(function(){
+    $(".balloon_close").click(function(){
+    	$('.balloon_wrap').hide();
+    });
+});
+</script>
+<link type="text/css" rel="stylesheet" href="/resources/web/css/jquery.mCustomScrollbar.min.css" />
+<link type="text/css" rel="stylesheet" href="/resources/web/css/slick.css" />
+<link type="text/css" rel="stylesheet" href="/resources/web/css/layout_2023.css" />
+<script src="/resources/web/js/jquery-1.12.4.js"></script>
+<script src="/resources/web/js/jquery.mCustomScrollbar.concat.min.js"></script>
+<script src="/resources/web/js/slick.js"></script>
+<script src="/resources/web/js/common.js"></script>
+<script type="text/javascript">
+$(document).ready(function(){
+});
+</script>
+
+<div id="wrap" class="landing error">
+    <div class="contents enkey">
+        <img src="/resources/web/images/etc/obj-system.png" alt="시스템오류">
+        <h1 class="pt-20">죄송합니다.<br><strong>시스템오류/일시적 시스템장애</strong>가 발생하였습니다.</h1>
+        <p class="lg  mb-25">이용에 불편을 드려 죄송합니다. 잠시 후, 다시 한번 시도해 주시기 바랍니다.<br>동일한 문제가 지속적으로 발생할 경우, 해당 서비스 관리자에게 문의해 주십시오.<br>안정된 서비스를 위해 최선을 다하겠습니다.</p>
+        <ul class="xl">
+            <li>컬쳐랜드 고객센터 : 1577-2111</li>
+            <li>컬쳐랜드 문의메일 : <a href="mailto:help@cultureland.co.kr" target="_top">help@cultureland.co.kr</a></li>
+        </ul>
+        <div class="btn-cont">
+            <div class="cont">
+                <a href="https://www.cultureland.co.kr/main.do" class="btn primary" title="고객센터 이동">컬쳐랜드 홈으로가기</a>
+            </div>
+        </div>
+    </div><!--// contents -->
+</div><!--// wrap -->
+<div id="footer">
+            <div class="footer-top footer_sns">
+                <ul class="lists nav">
+                    <li>
+                        <a href="http://www.kcpi.co.kr" title="회사소개 이동" target="_blank">회사소개</a>
+                    </li>
+                    <li>
+                        <a href="/advertising/service.do" title="광고 및 제휴안내 이동" target="_blank">광고 및 제휴안내</a>
+                    </li>
+                    <li>
+                        <a href="/etc/policyService.do" title="이용약관 이동">이용약관</a>
+                    </li>
+                    <li>
+                        <a href="/etc/policyCash_mobilePin.do" title="상품권 표준약관 이동">상품권 이용약관</a>
+                    </li>
+                    <li>
+                        <a href="/etc/policyPrivacy.do" title="개인정보 처리방침 이동" class="po-privacy">개인정보 처리방침</a>
+                    </li>
+                    <li>
+                        <a href="/etc/sitemap.do" title="사이트맵 이동">사이트맵</a>
+                    </li>
+                </ul>
+		        <div class="footer_snsbox"> 
+			        <a class="insta" href="https://www.instagram.com/cultureland_official/" title="컬쳐랜드 공식 인스타그램 이동" target="_blank"><img src="https://image.cultureland.co.kr/upload/web/etc/instagram-icon_w2.png"></a>
+			        <a class="n_blog" href="https://blog.naver.com/cultureland_official" title="컬쳐랜드 공식 블로그 이동" target="_blank"><img src="https://image.cultureland.co.kr/upload/web/etc/naverblog-brands2.png""></a>
+		        </div>
+                <!--div class="fam">
+                    <div class="fam-acd">
+                        <button type="button" title="패밀리 사이트 열림/닫힘">Family Site
+                            <i class="arrow">펼치기/접기
+                                <span>
+                                    <span class="ar"></span>
+                                    <span class="al"></span>
+                                </span>
+                            </i>
+                        </button>
+                        <ul>
+                            <li><a href="http://gift.cultureland.co.kr/" title="문화상품권 법인몰 이동" target="_blank">문화상품권 법인몰</a></li>
+                            <li><a href="/nanum/nanumInfo.do" title="나눔과 실천 이동">나눔과 실천</a></li>
+                        </ul>
+                    </div-->
+                <div class="agree">
+
+                </div>
+                <div class="info">
+                        <dl class="address">
+                            <dt>주소</dt>
+                            <dd>서울시 강남구 영동대로 326(대치동 1008) 컬쳐랜드 타워</dd>
+                        </dl>
+                        <dl class="call">
+                            <dt>연락처</dt>
+                            <dd>대표전화 1577-2111</dd>
+                        </dl>
+                        <ul class="lists nav agree">
+		            <li>선불전자지급수단 지급보증 안내 ></li>
+		            <li><a href="https://image.cultureland.co.kr/upload/web/etc/202202_SGI.jpg" target="_blank" alt="보증보험 증서 이미지">서비스 가입사실 확인</a></li>
+	             </ul>
+                    </div>
+            </div>
+            <div class="footer-bot">
+                <ul class="lists">
+                    <li>
+                        <dl>
+                            <dt>대표</dt>
+                            <dd>고승범</dd>
+                        </dl>
+                    </li>
+                    <li>
+                        <dl>
+                            <dt>사업자 등록번호</dt>
+                            <dd>120-81-77097</dd>
+                        </dl>
+                    </li>
+                    <li>
+                        <dl>
+                            <dt>통신판매업신고</dt>
+                            <dd>강남-1181호</dd>
+                        </dl>
+                    </li>
+                    <li>
+                        <dl>
+                            <dt>개인정보보호책임자</dt>
+                            <dd>성지환</dd>
+                        </dl>
+                    </li>
+                </ul>
+                <div class="marks">
+                    <a href="javascript:;" title="정보보호관리체계 인증 보기" onclick="$.fn.popOpen('safeInfoPop')"><img src="/resources/web/images/mark3.gif" alt="정보보호관리체계 인증"></a>
+                        <!--KISA Certificate Mark-->
+						<a href="https://www.ucert.co.kr/trustlogo/sseal_cert.html?sealnum=75c366614892df7326ffe3a6e40e6d3ac048f5db337fdd67856ae776399e99a3&sealid=f5d8432d0f29508af164be95e9f3ca92486e00b8c149b55bca42d86597d760839cde4b3c0a0f9789f6b45233dc2d0dfa" title="보안접속 인증 이동"  onclick="window.open(this.href, 'pop','width=565,height=780,location=no,status=no,scrollbars=no,resizable=no');return false;" target="_blank">
+						<img src="/resources/web/images/mark2.gif" alt="보안접속 인증"></a>
+						<!--KISA Certificate Mark-->
+                    </a>
+                </div>
+                <p class="copy">&#9400; (주)한국문화진흥 All Rights Reserved.</p>
+            </div>
+        </div><!--// footer -->
+        
+        <!-- 정보보호관리체계 인증 팝업 -->
+		<div id="safeInfoPop" class="modal-wrap">
+			<div class="modal-cont md">
+				<button type="button" id="ISMSCloseBtn" class="btn-close" title="닫기"><i class="ico-x"><span><span class="lr"></span><span class="ll"></span></span></i><span class="hidden">닫기</span></button>
+				<h3>정보보호관리체계 인증</h3>
+				<div class="pt-50">
+		               <div class="obj-typo mb-40">
+		                   <div class="cont">
+		                       <div class="obj">
+		                           <img src="http://image.cultureland.co.kr/upload/web/etc/20211007_safeInfoPop.png" alt="ISMS 인증마크 이미지" style="width:158px">
+		                       </div>
+		                       <div class="typo" style="padding-top:0">
+		                           <p class="tit lg">대한민국 NO.1 컬쳐랜드상품권<br><strong>정보보호관리체계(ISMS)인증 획득!</strong></p>
+		                           <ul>
+		                           		<li>인증범위 : 문화상품권 온라인 서비스 운영 (컬쳐랜드)</li>
+		                           		<li>유효기간 : 2022년 04월 06일 ~ 2025년 04월 05일</li>
+		                           </ul>
+		                       </div>
+		                   </div>
+		               </div>
+		                <p>컬쳐랜드는 2015년 12월 11일 정보보호관리체계 인증을 처음 획득 후 유지하고 있습니다.
+		               	정보보호관리체계(ISMS) 인증은 고객님들이 사이트 이용 시 사용하는 개인정보가 안전하고 신뢰성 있는 관리체계에 의해 보호 및 운영되도록 최선의 노력을 다하고 있음을 확인하는 인증입니다.
+						</p>
+						<p class="subTit">정보보호관리체계(ISMS)인증이란?</p>
+						<p style="margin-top:10px;"><span style="font-weight:bold;">정보보호관리체계 인증</span>은 정보보호 전문기관인 한국 인터넷진흥원(KISA)에서 2002년부터
+						시행되고있으며, 기업의 정보보호를 위한 정책 및  조직 수립, 위험관리, 대책구현, 사후관리 등의
+						정보보호관리체계가 정보보호 관리와 효율적인 운영을 위한 적합 여부를 보증하는 제도입니다.<br><br>
+						앞으로도 컬쳐랜드는 모든 고객 여러분께서 더욱 안심하고 사이트를 이용 하실 수 있도록
+						고객님들의 소중한 정보를 보호하기 위해 최선의 노력을 기울이겠습니다.
+						</p>
+				</div>
+			</div>
+		</div><!-- // modal-wrap -->
+		<!-- //적십자문화상품권 팝업 -->
+
+        <!-- s : Common Popup -->
+        <style>
+        #container.common_pop_wrap{width:100%; height:100%; display:flex; z-index:1000; justify-content:center; align-items:center; position:fixed; top:0; left:0; box-sizing:border-box;}
+        #mask_banner {position:fixed; z-index:1001; background-color:#333; width:100vw; height:100%; display:none; left:0; top:0;} 
+        .window_banner{display: none; z-index:9999; position:relative;}
+        .layer-box{width:100%; height:100%; display:flex; align-items:center; justify-content:center;}
+        .window_banner img:not(.close_img){border-radius:15px; -webkit-filter:drop-shadow(25px 35px 180px rgba(0,0,0,.25));/*box-shadow:25px 35px 180px rgba(0,0,0,.25);*/cursor:pointer; margin:5px 5px;}
+        
+        .window_banner p {display:flex; justify-content:flex-end; padding:0 7.5px 3px 0;}
+        .notToday{text-align:center;line-height:350%; position:relative;color:#fff;}
+        .notToday input[type="checkbox"]:checked + label:before{background-position:center left; }
+        .notToday input[type="checkbox"]{position:absolute;top:0;left:0;width:20px;height:20px;opacity:0;z-index: -1;}
+        .notToday label{position:relative;display:inline-block;height:28px;padding-left:34px;font-size:15px;line-height:28px;vertical-align:middle; cursor:pointer}
+        .notToday label:before{content:'';position:absolute;top:0;left:0;width:27px;height:28px;background-image: url('/resources/web/images/obj/ico-log-check.png');background-position:center right;background-repeat:no-repeat;}
+        
+        </style>
+        
+        <script type="text/javascript">
+        
+
+        
+        
+            var arAuthPopList = ['popAuthChange' , 'successRename' , 'serviceLimitPop' , 'memberInfoPop' , 'smsSecurityAlert' , 'smsAuthNumAlert' , 'emailSecurityAlert' , 'emailAuthNumAlert'
+                                , 'foreignerAuthNumAlert' , 'ipinNoPhoneAlert' , 'appointedNumAuthAlert' , 'errorAlert' , 'popError' , 'arsAuthPop' , 'arsAuthApprovalPop'
+                                , 'popCommonReNameAuthAlert' , 'popCommonAuthAlert' ,'alertPop'];
+
+
+            var layerFromHtml_txt = '<div id="CommManagerPopup" class="modal-wrap">';
+                layerFromHtml_txt += '<input type="hidden" name="ckPopName" id="ckPopName" >';
+                layerFromHtml_txt += '<input type="hidden" name="pop_gubun" id="pop_gubun" >';
+                layerFromHtml_txt += '  <div class="modal-cont md" style="width:120% !important;text-align: left !important;"> ';
+                layerFromHtml_txt += '      <button type="button" class="btn-close modal-close"><i class="ico-x"><span><span class="lr"></span><span class="ll"></span></span></i>';
+                layerFromHtml_txt += '<span class="hidden">닫기</span></button>';
+                layerFromHtml_txt += '<h3>{0}</h3>';
+                layerFromHtml_txt += '<div>';
+                layerFromHtml_txt += '      <div class="obj-typo-vertical type-icon" id="popContents" style="margin:30px 0px !important;">{1}</div> ';
+                layerFromHtml_txt += '      <div class="btn-cont">';
+                layerFromHtml_txt += '      <div class="cont"><input type="checkbox" id="chkClose" name="chkClose" onClick="setCookieVal()" value="{2}"/>&nbsp;<label for="chkClose">{3}</label>';
+                layerFromHtml_txt += '</div>';
+                layerFromHtml_txt += '</div>';
+                layerFromHtml_txt += '</div>';
+                layerFromHtml_txt += '</div>';
+                layerFromHtml_txt += '</div>';
+                
+            var layerFromHtml_img = '';
+                layerFromHtml_img += '  <div id="container" class="common_pop_wrap">';
+                layerFromHtml_img += '<input type="hidden" name="pop_gubun" id="pop_gubun" >';
+                layerFromHtml_img += '      <div id="mask_banner"></div>';
+                layerFromHtml_img += '      <div class="window_banner">';
+                layerFromHtml_img += '          <p><a href="#" onClick="CommBannerClose()" class="close"><img alt="닫기" class="close_img" src="/resources/web/images/etc/sbanner_close.png"></a></p>';
+                layerFromHtml_img += '          <div class="layer-box">';
+                layerFromHtml_img += '          {1}';
+                layerFromHtml_img += '          </div>';
+                layerFromHtml_img += '          <div class="notToday"><label><input type="checkbox" id="chkClose" name="chkClose" onClick="setCookieVal()" value="{2}">{3}</label></div>';
+                layerFromHtml_img += '      </div>';
+                layerFromHtml_img += '  </div>';
+
+            var ModalPopName =  "layer_poup_mng";
+            $(document).ready(function(){
+                window.setTimeout(function(){
+                    getPopupManager();
+                } ,1000);
+            });
+            var setPopupName = function(nm , mode){
+                //$("#CommManagerPopup h3").html(nm);
+                if (mode == 'txt'){
+                    layerFromHtml_txt = layerFromHtml_txt.replace("{0}",nm);
+                } else {
+                    layerFromHtml_img = layerFromHtml_img.replace("{0}",nm);
+                }
+            }
+
+            var setPopupContent = function(data ,mode){
+                var sData = '';
+                //$("#popContents").html(sData);
+                if (mode == 'txt'){
+                    layerFromHtml_txt = layerFromHtml_txt.replace("{1}",data);  
+                } else {
+                    layerFromHtml_img = layerFromHtml_img.replace("{1}",data);
+                }               
+            }
+
+            var setCheckBoxData = function(cV , cT , mode){
+                //$("#chkClose").val(cV);
+                //$("label[for='chkClose']").text(cT);
+                if (mode == 'txt'){
+                    layerFromHtml_txt = layerFromHtml_txt.replace("{2}",cV);
+                    layerFromHtml_txt = layerFromHtml_txt.replace("{3}",cT);
+                }else {
+                    layerFromHtml_img = layerFromHtml_img.replace("{2}",cV);
+                    layerFromHtml_img = layerFromHtml_img.replace("{3}",cT);
+                }
+            }
+
+            var setLayerPopPosition = function(){
+                var oLayerPop = $("#CommManagerPopup");
+                if (oLayerPop.outerHeight(true) < $(window).height()){
+                    oLayerPop.css("margin-top","-"+(oLayerPop.outerHeight(true)/2)+"px");
+                } else {
+                    oLayerPop.css("top","0px");
+                }
+
+                if (oLayerPop.outerWidth(true) < $(window).width()){
+                    oLayerPop.css("margin-left","-"+(oLayerPop.outerWidth(true)/2)+"px");
+                } else {
+                    oLayerPop.css("left","0px");
+                }
+            }
+
+            var setCookieVal = function(){
+                try{
+                    
+                    var ModalPopName = "";
+                    
+                    if ($("#pop_gubun").val() == "not" ){
+                        ModalPopName = $("#ckPopName").val();
+                        $('#CommManagerPopup .btn-close.modal-close').trigger('click');
+                    } else {
+                        ModalPopName = $("#container").val();
+                        CommBannerClose();
+                    }
+                    setCookie(ModalPopName , 'done',$("#chkClose").val());
+                } catch(e){
+                    //alert("setCookieVal error :"+e);
+                }
+            }
+            
+
+            var getPopupManager = function(){
+
+                var isAuthPop = false;
+                //인증 팝업 오픈 유무 확인하기
+                $.each(arAuthPopList , function(key , value){
+                    if ( $("#"+value).css("display") == "block" ){
+                        isAuthPop = true;
+                        return false;
+                    }
+                });
+
+                if (isAuthPop)return;
+                
+                var sHostName = window.location.host;
+                var sPathName = window.location.pathname;
+                var sParamUrl = window.location.href; 
+                
+                
+                if(sParamUrl.indexOf("?") > -1) { 
+                    sParamUrl = sParamUrl.substring(sParamUrl.indexOf("?"), sParamUrl.length);
+                }
+                
+                if ( sHostName.indexOf("localhost") >-1 || /^(?:(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?).){3}(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?):[0-9]{1,5}$/.test(sHostName)) sHostName = "tculture1.cultureland.co.kr";
+                
+                if ($.trim(sPathName) == '' || sPathName.length <3)sPathName = '/main.do';
+                var sNowURL = sHostName + sPathName;
+                
+                
+                if(sParamUrl.indexOf("?") > -1) {
+                	sNowURL = sNowURL + sParamUrl;
+                }
+                
+                
+                if ("" != null && "".trim() != "" && sNowURL.indexOf("cpnProdList.do") > -1){
+                	sNowURL = sNowURL + "?cpgm=" + ""; 
+                }
+                
+                var popCallBack = function(rs){
+                    var nRs = parseInt(rs.resultCd,10);
+
+                    if (nRs == 1){
+                        var oJson = rs.resultOther;
+                        try{
+                            
+                            var popSeq = oJson.Idx;
+
+                            if (parseInt(popSeq,10)>0){
+                                ModalPopName = 'CommManagerPopup_'+popSeq;
+                                
+                                var pop_cookie = getCookie(ModalPopName);
+                                
+                                if (pop_cookie != 'done'){
+                                    
+                                    var inHtmlForm = "";
+                                    if (oJson.Template == "not" || oJson.Template == "jgt"){
+                                        setPopupName(oJson.Title , 'txt');
+                                        setPopupContent(oJson.popContent, 'txt');
+                                        setCheckBoxData(oJson.View_LimitDate , oJson.Ment , 'txt');
+                                        inHtmlForm = layerFromHtml_txt;
+                                        $("body").append(inHtmlForm);
+                                        $.fn.popOpen('CommManagerPopup');
+                                        setTimeout(function(){
+                                            $("#ckPopName").val(ModalPopName);
+                                        },500);
+                                        $("#pop_gubun").val(oJson.Template);
+                                        
+                                        if(oJson.Template == "jgt") {
+                                        	$("#chkClose").remove();
+                                        	
+                                        	$(".modal-overlay, .modal-close").on("remove click",function() {
+                                                if(oJson.Link1.trim() == "") {
+                                                    location.href="/main.do";   
+                                                } else {
+                                                    location.href = oJson.Link1;
+                                                }
+                                            });
+                                        	
+                                        	$("body").click(function() {
+                                                if(oJson.Link1.trim() == "") {
+                                                    location.href="/main.do";   
+                                                } else {
+                                                    location.href=oJson.Link1;
+                                                }
+                                            });
+                                        }
+                                    } else {
+                                        
+                                        
+                                        
+                                            setPopupContent(oJson.popContent, 'img');
+                                            setCheckBoxData(oJson.View_LimitDate , oJson.Ment, 'img');
+                                            inHtmlForm = layerFromHtml_img;
+                                            $("body").prepend(inHtmlForm);
+                                            if (oJson.Template == "lse"){       
+                                                $(".layer-box").css({"flex-direction":"column"});
+                                            } else {
+                                                $(".window_banner").css({"width":"auto"});
+                                            }
+                                            wrapWindowByMask(oJson.Template);
+                                            $("#container").val(ModalPopName);
+                                            $("#pop_gubun").val(oJson.Template);
+                                        	
+                                            if(oJson.Template == "jgi") {
+                                            	$(".common_pop_wrap .notToday").remove();
+    
+                                            	$("#mask_banner, .common_pop_wrap .close").on("remove click",function() {
+                                                    if(oJson.Link1.trim() == "") {
+                                                        location.href="/main.do";   
+                                                    } else {
+                                                        location.href=oJson.Link1;
+                                                    }
+                                                });
+                                            	
+                                                $("body").click(function() {
+                                                	if(oJson.Link1.trim() == "") {
+                                                        location.href="/main.do";   
+                                                    } else {
+                                                        location.href=oJson.Link1;
+                                                    }
+                                                });
+                                            }
+                                                                                
+                                       
+                                    }
+                                    
+                                    
+                                }
+                            }
+                        } catch(e){
+                            alert("error :"+e);
+                        }
+                    }
+                }
+
+                $.ajax({
+                    url : "/etc/getModalWindow.do",
+                    type: 'POST',
+                    data : {"sNowURL":sNowURL},
+                    dataType : "json",
+                    async : false,
+                    success: function(data) {
+                    	if(data.nRet == "Y") {
+                    		location.href="/signin/logoutProc.do";
+                    		return;
+                    	}
+                    	
+                        if(data.resultOther != null){
+                            var rtl = data.resultOther.popContent;
+                            if (rtl.trim() != ""){
+                                popCallBack(data);  
+                            }   
+                        }
+                    }
+                });
+            }
+            
+            
+            
+            function wrapWindowByMask(mode){
+                 
+                //화면의 높이와 너비를 구한다.
+               // var maskHeight = $(document).height();  
+                //var maskWidth = $(window).width();  
+                //var maskWidth = $(document).width();
+         
+                //마스크의 높이와 너비를 화면 것으로 만들어 전체 화면을 채운다.
+                //$("#mask_banner").css({"width":maskWidth,"height":maskHeight});
+                
+                //애니메이션 효과 - 일단 0초동안 까맣게 됐다가 80% 불투명도로 간다.
+                $("#mask_banner").fadeIn(0);      
+                $("#mask_banner").fadeTo("slow",0.75);
+                
+                //마스크 영역 클릭시 팝업 닫기를 실행한다
+                if(mode != "jgi") {
+            		$("#mask_banner").click(function() {
+	                	CommBannerClose();
+	                });
+            	}
+         
+                //윈도우 같은 거 띄운다.
+                var oPopup = $(".window_banner");
+                oPopup.show();
+               // oPopup.css("left", Math.max(0, (($(window).width() - oPopup.outerWidth()) / 2) + $(window).scrollLeft()) + "px");
+                /*$(".window_banner").show();               
+                $(".window_banner").css("left", Math.max(0, (($(window).width() - $(this).outerWidth()) / 2) + $(window).scrollLeft()) + "px");*/
+                                
+                
+              //중앙 정렬               
+              //  var valignHeight = $( "html" ).height();  
+                //alert($(".window_banner").outerWidth());
+              //  var winBannerHeight = ($( window ).height()-$(".window_banner").outerHeight())/2+$(window).scrollTop();
+               // var winBannerWidth    = ($( window ).width()-$(".window_banner").outerWidth())/2+$(window).scrollLeft();
+                
+               
+                //if (mode == "lse")winBannerHeight = 30; 
+                
+               /* $(".window_banner").css({
+                 "top":winBannerHeight+"px",
+                 "left" : winBannerWidth+"px",
+                 "position":"absolute"
+                });
+               */
+                
+            }
+            var CommBannerClose = function(){
+                $("#mask_banner, .window_banner, #container.common_pop_wrap, #container.imgPopWrap").hide();
+            }
+            $(document).ready(function(){
+                //검은 막을 눌렀을 때
+                $("#mask_banner").click(function () {  
+                    $(this).hide();  
+                    $(".window_banner, #container.imgPopWrap").hide();
+                });      
+         		
+                $("#ISMSCloseBtn").click(function() {
+                	$("#safeInfoPop, .modal-overlay").hide();
+                	$("body").removeClass("modal-active");
+                });
+                
+                
+                var serviceNowDate = new Date("2023/11/22 20:05:52");
+                var serviceLimitStartDate = new Date("2020/04/22 09:00:00");
+                var serviceLimitEndDate = new Date("2020/05/21 23:59:59");
+                
+                if(serviceNowDate >= serviceLimitStartDate && serviceNowDate <= serviceLimitEndDate) {	                
+                	$(".promo.new_90.new_100").show();
+                }
+                
+            });
+           
+        </script>
+        <!-- e : Common Popup -->
+		
+		<!-- Global site tag (gtag.js) - Google Analytics -->
+		<script async src="https://www.googletagmanager.com/gtag/js?id=UA-87063016-1"></script>
+		<script>
+		  window.dataLayer = window.dataLayer || [];
+		  function gtag(){dataLayer.push(arguments);}
+		  gtag('js', new Date());
+		
+		  gtag('config', 'UA-87063016-1');
+		</script>
+<script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start': new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0], j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src='https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);})(window,document,'script','dataLayer','GTM-WQWTBDD');</script>
+        <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-WQWTBDD" height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+    </div>
+
+</body>
+
+</html>

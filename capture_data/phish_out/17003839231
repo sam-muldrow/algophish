@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta http-equiv="content-type" content="text/html; charset=UTF-8">
+<title>4h | URL Shortener</title>
+<meta name="description" content="The URL shortener 4h at 4h.net can be used to create free short URLs or web page addresses that can be easily shared, tweeted, or emailed to your friends. Enter a long URL, and you will get a short URL you can use in its place.">
+<meta name='keywords' content='url, url shortener, short url, shortener, short link, url shortner, shorten link, url short, url shorten, small url, shrink url, shorter url, 4h'>
+<meta property="og:type" content="website">
+<meta property="og:title" content="4h | URL Shortener">
+<meta property="og:description" content="The URL shortener 4h at 4h.net can be used to create free short URLs or web page addresses that can be easily shared, tweeted, or emailed to your friends. Enter a long URL, and you will get a short URL you can use in its place.">
+<meta property="og:site_name" content="4h">
+<meta property="og:url" content="https://4h.net">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="icon" type="image/x-icon" href="favicon.ico">
+<link rel="stylesheet" type="text/css" href="/css/style.css" media="screen"/>
+<meta name="google-site-verification" content="u_t2BCDM0I48IY2_xzZz_Jh7ZyL9cBHdOGZ8nVl8UEQ"/>
+</head>
+<body>
+<div class="wrap">
+	<div class="cont">	
+	<h1><span id="logo"><a href="/"><span id="ln">4h</span><span id="lt">URL SHORTENER</span></a></span>
+</h1>
+	<form method="post" onSubmit="return get_short_url();">
+		<input type="text" name="url" id="url" value="" placeholder="ENTER LONG URL" autocomplete="off">
+		<input type="submit" class="button" value="Shorten">
+		<div id="cur" class="button wb" onClick="copyto('url')" style="visibility:hidden;">Copy</div>
+	</form>
+		<script>	
+	function get_short_url(){
+		var xmlhttp;
+		if(window.XMLHttpRequest){
+			xmlhttp = new XMLHttpRequest();
+		} else {
+			xmlhttp = new ActiveXObject("Microsoft.XMLHTTP");
+		}
+		var copy = document.getElementById('cur'),
+			url = document.getElementById('url').value,
+			param = 'url=' + encodeURIComponent(url);			
+		copy.style.visibility = 'hidden';		
+		xmlhttp.open('GET', '/api.php?'+ param, true);
+		xmlhttp.onreadystatechange = function(){
+			if(xmlhttp.readyState == 4 && xmlhttp.status == 200){
+				document.getElementById('url').value = xmlhttp.responseText;
+				if(xmlhttp.responseText.toLowerCase().indexOf("http") >= 0){					
+					copy.style.visibility = 'visible';
+				}
+			}
+		};
+		xmlhttp.send();		
+		return false;
+	}
+	function copyto(eId){
+		var aux = document.createElement("input");
+		aux.setAttribute("value", document.getElementById(eId).value);
+		document.body.appendChild(aux);
+		aux.select();
+		document.execCommand("copy");
+		document.body.removeChild(aux);	
+	}
+	</script>
+</div>
+<div class="footer">
+	<div class="fpa">	
+		<div class="fic">
+						<a class="api button" href="/developers/">API</a>
+			<a class="gw button" target="_blank" href="https://gweb.com/share/?url=https%3A%2F%2F4h.net%2F">Gweb</a>
+		</div>	
+		<div class="flc">
+			<a href="mailto:info@4h.net">Contact</a>
+			<b>4h</b> &reg; &copy; 2023		</div>
+	</div>
+	<div class="des">
+		The URL shortener 4h at 4h.net can be used to create free short URLs (Uniform Resource Locators) or web page addresses that can be easily shared, tweeted, or emailed to your friends. Enter a long URL, and you will get a short URL you can use in its place<br/>
+		4h works as a conductor or proxy for a long URL. The shortener links the longer URL to the shortened version
+			</div>
+</div>
+</div>
+</body>
+</html>

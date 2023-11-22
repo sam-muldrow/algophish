@@ -1,0 +1,808 @@
+
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html xmlns:og="http://ogp.me/ns#">
+<head>
+<meta name="trafficjunky-site-verification" content="u8rqoxn2t" />
+<title>MyVidster - collect the videos you love</title>
+<meta content="text/html;charset=utf-8" http-equiv="Content-Type">
+<meta content="utf-8" http-equiv="encoding">
+<meta name="viewport" content="width=1360" />
+<meta name="google-site-verification" content="Otxn-Kw_8uw9gEMvo6_JvpeUhNrCDqlUb1h1FkpSu1U" />
+<meta name content="8867d5492bd9ffa2cf10d4e33a71a98a" />
+<meta name="dailymotion-domain-verification" content="dmr0828685nxj91oh" />
+<meta name="earnify-site-verification" content="2101fa7157369517619024df946607cbf4eaa5fc" />
+<meta name="description" content="MyVidster is a social video sharing and bookmarking site that lets you collect, share and search your videos. You can also explore and follow video collections from other users with MyVidster.">
+<meta name="hubtraffic-domain-validation" content />
+<meta property="og:title" content="MyVidster - collect the videos you love" name="title">
+<meta property="og:image" content="/images/myVidster_logo.gif">
+<meta name="tubecorporate_com_verify.html" content="8867d5492bd9ffa2cf10d4e33a71a98a" />
+<link rel="apple-touch-icon" href="//cdn2.myvidster.com/images/apple-touch-icon.png" />
+<LINK REL="SHORTCUT ICON" HREF="//cdn2.myvidster.com/favicon.ico">
+<link type="text/css" rel="stylesheet" href="/css/style.css?type=css&v=125" />
+<link type="text/css" rel="stylesheet" href="/css/redmond/jquery-ui-1.8.22.custom.css?type=css&v=125" />
+<link type="text/css" rel="stylesheet" href="/css/smartbanner/jquery.smartbanner.css?type=css&v=125" />
+<script type="text/javascript" src="/js/jquery-1.12.4.js?v="></script>
+<script type="text/javascript" src="/js/jquery-migrate-1.4.1.js?v="></script>
+<script type="text/javascript" src="/js/jquery-ui.min.js?v="></script>
+<script type="text/javascript" src="/js/jquery.address-1.5.min.js?v="></script>
+<script type="text/javascript" src="/js/myv_address.js?v="></script>
+<script type="text/javascript" src="/js/jquery.qtip-1.0.0-rc3.min.js?v="></script>
+<script type="text/javascript" src="/js/loadingoverlay.min.js?v="></script>
+<script type="text/javascript" src="/js/vidster.js?v="></script>
+<script type="text/javascript" src="/js/core_engine.js?v="></script>
+<script type="text/javascript" src="/js/smartbanner/jquery.smartbanner.js?v="></script>
+<script type="text/javascript" src="/js/feed.min.js?v=106"></script>
+<link rel="alternate" type="application/rss+xml" title="MyVidster - Your Video Queue" href="/rss/myvidster" />
+
+<script async src="https://www.googletagmanager.com/gtag/js?id=UA-1328730-5"></script>
+<script>
+			  window.dataLayer = window.dataLayer || [];
+			  function gtag(){dataLayer.push(arguments);}
+			  gtag('js', new Date());
+
+			  gtag('config', 'UA-1328730-5');
+			</script></head>
+<BODY>
+<div class="container" id="myv_header" style="padding-top:5px;">
+<table width="1360" border="0" align="center" cellspacing="0" cellpadding="0">
+<tr>
+<td>
+<table width="100%" cellspacing="0" cellpadding="0" border="0">
+<tr>
+<td width="165" valign="bottom">
+<table width="100%" cellspacing="0" cellpadding="0" border="0">
+<tr>
+<td><a href="/"><IMG SRC="/images/myvidster_logo.png?v=1" BORDER="0"></a></td>
+</tr>
+</table>
+</td>
+<td><IMG SRC="/images/spacer.gif" WIDTH="8" HEIGHT="1" BORDER="0" ALT></td>
+<td valign="top">
+<table width="100%" cellspacing="0" cellpadding="0" border="0">
+<tr>
+<td align="right"><ul id="sddm">
+<li><span class="postdate">you are not logged in</span></li>
+<li><a href="/user/">log in</a></li>
+<li><a href="/user/registration.php">register</a></li>
+<li class="last">safe browsing: <a href="#" onClick="if (confirm('To disable safe browsing you must be at least 18 years of age.')) window.location='/disable_filter.php'">on</a></li>
+</ul></td>
+</tr>
+<tr>
+<td><IMG SRC="/images/spacer.gif" WIDTH="1" HEIGHT="8" BORDER="0" ALT></td>
+</tr>
+<tr>
+<td align="right">
+<table width="100%" cellspacing="0" cellpadding="0" border="0"><tr>
+<td valign="bottom" align="left"><span class="home-header">collect the videos you love</span><br><span class="home-sub">collect | share | explore</span></td>
+<td align="right">
+<script type="text/javascript">
+						$(function() {
+							$("#q")
+							.bind( "keydown", function( event ) {
+								if ( event.keyCode === $.ui.keyCode.TAB &&
+										$( this ).data( "autocomplete" ).menu.active ) {
+									event.preventDefault();
+								}
+							})
+							.autocomplete({
+								source: function( request, response ) {
+									$.getJSON( "/search_callback.php?type=search", {
+										term: extractLast( request.term )
+									}, response );
+								},
+								search: function() {
+									// custom minLength
+									var term = extractLast( this.value );
+									if ( term.length < 2 ) {
+										return false;
+									}
+								},
+								focus: function() {
+									// prevent value inserted on focus
+									return false;
+								},
+								select: function( event, ui ) {
+									var terms = split( this.value );
+									// remove the current input
+									terms.pop();
+									// add the selected item
+									terms.push( ui.item.value );
+									// add placeholder to get the comma-and-space at the end
+									terms.push( "" );
+									this.value = terms.join( " " );
+									return false;
+								},
+								minLength: 2,
+								delay: 100
+							});
+						});
+					</script>
+<div class="ui-widget">
+<form name="searchForm" id="searchForm" method="get" action="/search/">
+<input type="text" name="q" id="q" maxlength="175" value size="50">
+<select name="filter_by" class="filter_by">
+<option value="myvidster" selected>MyVidster</option>
+<option value="web">web</option>
+<option value="profiles">profiles</option>
+<option value="groups">groups</option>
+</select>
+<input type="submit" value="Search">
+</form>
+</div>
+</td></tr>
+</table>
+</td>
+</tr>
+</table>
+</td>
+</tr>
+</table>
+</td>
+</tr>
+<tr>
+<td><IMG SRC="/images/spacer.gif" WIDTH="1" HEIGHT="10" BORDER="0" ALT></td>
+</tr>
+</table>
+</div> <div class="container2">
+<table align="center" width="1360" border="0" cellspacing="0" cellpadding="0" style="background-color:white">
+<tr>
+<td valign="top">
+<div class="container3">
+<table cellspacing="0" cellpadding="0" width="100%" border="0">
+<tr><td valign="top">
+<table width="995" cellpadding="0" cellspacing="0">
+<tr><td>
+<div class="border3">
+<table width="100%" cellpadding="0" cellspacing="0">
+<tr><td align="center"><span style="font-size: 16px;">MyVidster is a <B>social video sharing and bookmarking</B> site that lets you collect and share your favorite videos you find on the web. You can also explore and follow video collections from other users with MyVidster.</span></td></tr>
+</table>
+</div>
+</td></tr>
+<tr><td><IMG SRC="/images/spacer.gif" WIDTH="1" HEIGHT="10" BORDER="0" ALT></td></tr>
+<tr><td>
+<table width="100%" cellpadding="5" cellspacing="0">
+<tr>
+<td width="33%"><div class="featured"><div class="myv_title">Collect</div> your favorite videos from any website, social network or blog.</div></td>
+<td width="33%"><div class="featured"><div class="myv_title">Share</div> and discuss your video collection with friends and the world.</div></td>
+<td width="33%"><div class="featured"><div class="myv_title">Explore</div> and follow your friends and other user's video collections.</div></td></tr>
+</table>
+</td></tr>
+<tr><td><IMG SRC="/images/spacer.gif" WIDTH="1" HEIGHT="10" BORDER="0" ALT></td></tr>
+<tr><td><div id="infobox3"><table cellspacing="0" cellpadding="0" width="100%">
+<tr><td><h2>See what these users are collecting now</h2></td>
+<td align="right"><span class="title"><A HREF="/?list=new">New</A> | <A HREF="/?list=popular">Popular</A> | <A HREF="/video_shuffle/new">Shuffle</A> | <A HREF="/" style="color:black">Recent</a></span></td></tr>
+</table></div></td></tr>
+<tr>
+<td style="padding-bottom:5px;">
+<div style="float:left;margin-top:3px;margin-left:3px;">remove vids with intrusive ads?: <a href="/?intrusive=yes">yes</a> | <b>no</b></div>
+<div style="float:right;margin-top:3px;margin-right:3px;"></div>
+</td>
+</tr>
+<tr><td><table width="100%" cellpadding="0" cellspacing="0">
+<tr><td><div class="posted_video" style="position:relative;"><table width="100%" cellpadding="0" cellspacing="0">
+<tr><td valign="top" width="253">
+<div class="vidthumbnail">
+<a href="/video/358696153/Just_Like_That_Streetwear_Store_Gets_Robbed_In_Broad_Daylight" class="fetch_preview" id="d97c9a6b66aa678b29e98d0a4bfeab49"><img src="https://cdn2.myvidster.com/user/thumbs/1f229fc57568b7b0d103cb12db30d1b1_1.jpg" height="133" width="238" border="0" alt="thumbnail" id="d97c9a6b66aa678b29e98d0a4bfeab49" /></a>
+</div></td><td valign="top"><div class="viddetails_home">
+<span class="title"><a href="/video/358696153/Just_Like_That_Streetwear_Store_Gets_Robbed_In_Broad_Daylight">Just Like That: Streetwear Store Gets Robbed In Broad Daylight!</a></span>
+<br/>
+<span class="sub_links">
+Channel: <a href="/channel/158722/Favorites">Favorites</a>
+Collection: <a href="/worldstarhiphop">WorldStarHipHop</a>
+</span>
+<br/>
+<div style="margin-top:5px;"><div class="vidthumbnail">
+<a href="/profile/WSHH"><img src="https://cdn2.myvidster.com/user/images/profile/151165_sm.png" height="40" width="40" border="0" alt="thumbnail"></a>
+</div><div style="margin-left:55px;"><span class="postdate">Posted 5 minutes ago by:</span>
+<br><span class="sub_links"><a href="/profile/WSHH">WSHH</a></span></div></div>
+</div></td>
+</tr>
+</table></div></td></tr>
+<tr><td><IMG SRC="/images/spacer.gif" WIDTH="1" HEIGHT="5" BORDER="0" ALT></td></tr>
+<tr><td><div class="posted_video" style="border: 1px solid #6C3;"><table width="100%" cellpadding="0" cellspacing="0">
+<tr><td valign="top" width="253">
+<div class="vidthumbnail">
+<a href="/video/358292592/The_Fourteenth_Doctor_is_Here_BBC_Children_in_Need_2023_" class="fetch_preview" id="07911875b69cd76a606ed512a13e1496"><img src="https://cdn2.myvidster.com/user/thumbs/efe5d4877f002db293f58792a361250a_1.jpg" height="133" width="238" border="0" alt="thumbnail" /></a>
+</div></td><td valign="top"><div class="viddetails_home">
+<span class="title"><a href="/video/358292592/The_Fourteenth_Doctor_is_Here_BBC_Children_in_Need_2023_">The Fourteenth Doctor is Here! | BBC Children in Need 2023 |</a></span>
+<br/>
+<span class="sub_links">
+The Doctor accidentally lands the TARDIS at a pivotal moment in the creation of his deadliest enemies... ð¥Subscribe to Doctor Who for more exc
+</span>
+<br/>
+<div style="margin-top:5px;"><div class="vidthumbnail">
+<a href="/profile/YouTube"><img src="https://cdn2.myvidster.com/user/images/profile/57263_sm.png" height="40" width="40" border="0" alt="thumbnail"></a>
+</div><div style="margin-left:55px;"><span class="postdate">Promoted by</span>
+<br><span class="sub_links"><a href="/profile/YouTube">YouTube</a></span></div></div>
+</div></td>
+</tr>
+</table></div></td></tr>
+<tr><td><IMG SRC="/images/spacer.gif" WIDTH="1" HEIGHT="5" BORDER="0" ALT></td></tr>
+<tr><td><div class="posted_video" style="position:relative;"><table width="100%" cellpadding="0" cellspacing="0">
+<tr><td valign="top" width="253">
+<div class="vidthumbnail">
+<a href="/video/358695028/Twinkies_with_bulges_weigh_in_for_wrestling" class="fetch_preview" id="9b9f778a54b8508f029e99be8877d113"><img src="https://cdn2.myvidster.com/user/thumbs/5ca2de618bff0ac6d65fbe0fda09b266_1.jpg" height="133" width="238" border="0" alt="thumbnail" id="9b9f778a54b8508f029e99be8877d113" /></a>
+</div></td><td valign="top"><div class="viddetails_home">
+<span class="title"><a href="/video/358695028/Twinkies_with_bulges_weigh_in_for_wrestling">Twinkies (with bulges) weigh in for wrestling</a></span>
+<br/>
+<span class="sub_links">
+Channel: <a href="/channel/4492577/Favorites">Favorites</a>
+Collection: <a href="/jonstorm9317">Jonstorm Vids</a>
+</span>
+<br/>
+<div style="margin-top:5px;"><div class="vidthumbnail">
+<a href="/profile/Jonstorm"><img src="https://www.gravatar.com/avatar/b7002a05a74780442afd0356f322b5bd?s=40&d=monsterid&r=pg&forcedefault=1" height="40" width="40" border="0" alt="thumbnail"></a>
+</div><div style="margin-left:55px;"><span class="postdate">Posted 12 minutes ago by:</span>
+<br><span class="sub_links"><a href="/profile/Jonstorm">Jonstorm</a></span></div></div>
+</div></td>
+</tr>
+</table></div></td></tr>
+<tr><td><IMG SRC="/images/spacer.gif" WIDTH="1" HEIGHT="5" BORDER="0" ALT></td></tr>
+<tr><td><div class="posted_video" style="position:relative;"><table width="100%" cellpadding="0" cellspacing="0">
+<tr><td valign="top" width="253">
+<div class="vidthumbnail">
+<a href="/video/358692335/Wild_Marines_Get_Into_A_Brawl_On_6th_Street_In_Austin_Texas" class="fetch_preview" id="ed63f126559869aefe9e67c317a4947c"><img src="https://cdn2.myvidster.com/user/thumbs/e9ea9587027f2142483a8d5897c8a2ae_1.jpg" height="133" width="238" border="0" alt="thumbnail" id="ed63f126559869aefe9e67c317a4947c" /></a>
+</div></td><td valign="top"><div class="viddetails_home">
+<span class="title"><a href="/video/358692335/Wild_Marines_Get_Into_A_Brawl_On_6th_Street_In_Austin_Texas">Wild: Marines Get Into A Brawl On 6th Street In Austin, Texas!</a></span>
+<br/>
+<span class="sub_links">
+Channel: <a href="/channel/158722/Favorites">Favorites</a>
+Collection: <a href="/worldstarhiphop">WorldStarHipHop</a>
+</span>
+<br/>
+<div style="margin-top:5px;"><div class="vidthumbnail">
+<a href="/profile/WSHH"><img src="https://cdn2.myvidster.com/user/images/profile/151165_sm.png" height="40" width="40" border="0" alt="thumbnail"></a>
+</div><div style="margin-left:55px;"><span class="postdate">Posted 34 minutes ago by:</span>
+<br><span class="sub_links"><a href="/profile/WSHH">WSHH</a></span></div></div>
+</div></td>
+</tr>
+</table></div></td></tr>
+<tr><td><IMG SRC="/images/spacer.gif" WIDTH="1" HEIGHT="5" BORDER="0" ALT></td></tr>
+<tr><td><div class="posted_video" style="position:relative;"><table width="100%" cellpadding="0" cellspacing="0">
+<tr><td valign="top" width="253">
+<div class="vidthumbnail">
+<a href="/video/358689015/Smiley_Aesthetics_-_1_Med_Spa_in_Nashville_TN" class="fetch_preview" id="2a8e560f3cb5d7d45aa2b0b5b861cdab"><img src="https://cdn2.myvidster.com/user/thumbs/318733594722c59d8bc778725f134234_1.jpg" height="133" width="238" border="0" alt="thumbnail" id="2a8e560f3cb5d7d45aa2b0b5b861cdab" /></a>
+</div></td><td valign="top"><div class="viddetails_home">
+<span class="title"><a href="/video/358689015/Smiley_Aesthetics_-_1_Med_Spa_in_Nashville_TN">Smiley Aesthetics - #1 Med Spa in Nashville, TN</a></span>
+<br/>
+<span class="sub_links">
+Channel: <a href="/channel/4365679/Favorites">Favorites</a>
+Collection: <a href="/smileyaestheticsnashville5876">SmileyAestheticsNashville Vids</a>
+</span>
+<br/>
+<div style="margin-top:5px;"><div class="vidthumbnail">
+<a href="/profile/SmileyAestheticsNashville"><img src="https://cdn2.myvidster.com/user/images/profile/4753860_sm.jpg?v=1685079133" height="40" width="40" border="0" alt="thumbnail"></a>
+</div><div style="margin-left:55px;"><span class="postdate">Posted 1 hour ago by:</span>
+<br><span class="sub_links"><a href="/profile/SmileyAestheticsNashville">SmileyAestheticsNashville</a></span></div></div>
+</div></td>
+</tr>
+</table></div></td></tr>
+<tr><td><IMG SRC="/images/spacer.gif" WIDTH="1" HEIGHT="5" BORDER="0" ALT></td></tr>
+<tr><td><div class="posted_video" style="position:relative;"><table width="100%" cellpadding="0" cellspacing="0">
+<tr><td valign="top" width="253">
+<div class="vidthumbnail">
+<a href="/video/358688835/Oushak_Rugs_For_Sale_Online_980_819-7373_-_Rug_Source" class="fetch_preview" id="2bf5bdfe664eab0d940d656411aaef3e"><img src="https://cdn2.myvidster.com/user/thumbs/beb522f49dfac03132a5339cc7c7d94a_1.jpg" height="133" width="238" border="0" alt="thumbnail" id="2bf5bdfe664eab0d940d656411aaef3e" /></a>
+</div></td><td valign="top"><div class="viddetails_home">
+<span class="title"><a href="/video/358688835/Oushak_Rugs_For_Sale_Online_980_819-7373_-_Rug_Source">Oushak Rugs For Sale Online (980) 819-7373 - Rug Source</a></span>
+<br/>
+<span class="sub_links">
+Channel: <a href="/channel/4482315/Favorites">Favorites</a>
+Collection: <a href="/rugsourceorientalandpersia2597">RugSourceOrientalandPersia Vids</a>
+</span>
+<br/>
+<div style="margin-top:5px;"><div class="vidthumbnail">
+<a href="/profile/RugSourceOrientalandPersia"><img src="https://cdn2.myvidster.com/user/images/profile/4850100_sm.jpg?v=1697002837" height="40" width="40" border="0" alt="thumbnail"></a>
+</div><div style="margin-left:55px;"><span class="postdate">Posted 1 hour ago by:</span>
+<br><span class="sub_links"><a href="/profile/RugSourceOrientalandPersia">RugSourceOrientalandPersia</a></span></div></div>
+</div></td>
+</tr>
+</table></div></td></tr>
+<tr><td><IMG SRC="/images/spacer.gif" WIDTH="1" HEIGHT="5" BORDER="0" ALT></td></tr>
+<tr><td><div class="posted_video" style="position:relative;"><table width="100%" cellpadding="0" cellspacing="0">
+<tr><td valign="top" width="253">
+<div class="vidthumbnail">
+<a href="/video/358688788/The_Peoples_President_The_Rock_Tells_Joe_Rogan_He_Was_Approached_By_A_Political_Party" class="fetch_preview" id="3340a57bc637fdb82df613e5020cc4f9"><img src="https://cdn2.myvidster.com/user/thumbs/d42e0114ba943a3932d6d5159315bc91_1.jpg" height="133" width="238" border="0" alt="thumbnail" id="3340a57bc637fdb82df613e5020cc4f9" /></a>
+</div></td><td valign="top"><div class="viddetails_home">
+<span class="title"><a href="/video/358688788/The_Peoples_President_The_Rock_Tells_Joe_Rogan_He_Was_Approached_By_A_Political_Party">The People&#039;s President? The Rock Tells Joe Rogan He Was Approached By A Political Party!</a></span>
+<br/>
+<span class="sub_links">
+Channel: <a href="/channel/158722/Favorites">Favorites</a>
+Collection: <a href="/worldstarhiphop">WorldStarHipHop</a>
+</span>
+<br/>
+<div style="margin-top:5px;"><div class="vidthumbnail">
+<a href="/profile/WSHH"><img src="https://cdn2.myvidster.com/user/images/profile/151165_sm.png" height="40" width="40" border="0" alt="thumbnail"></a>
+</div><div style="margin-left:55px;"><span class="postdate">Posted 1 hour ago by:</span>
+<br><span class="sub_links"><a href="/profile/WSHH">WSHH</a></span></div></div>
+</div></td>
+</tr>
+</table></div></td></tr>
+<tr><td><IMG SRC="/images/spacer.gif" WIDTH="1" HEIGHT="5" BORDER="0" ALT></td></tr>
+<tr><td><div class="posted_video" style="position:relative;"><table width="100%" cellpadding="0" cellspacing="0">
+<tr><td valign="top" width="253">
+<div class="vidthumbnail">
+<a href="/video/358688520/malaysian_bodybuilder_has_amazingly_muscular_chest_-_YouTube" class="fetch_preview" id="82bb6bc1658b17a51554bde8459cdfb1"><img src="https://cdn2.myvidster.com/user/thumbs/ade466fe87b03439276dcff143f2d5c1_1.jpg" height="133" width="238" border="0" alt="thumbnail" id="82bb6bc1658b17a51554bde8459cdfb1" /></a>
+</div></td><td valign="top"><div class="viddetails_home">
+<span class="title"><a href="/video/358688520/malaysian_bodybuilder_has_amazingly_muscular_chest_-_YouTube">malaysian bodybuilder has amazingly muscular chest. - YouTube</a></span>
+<br/>
+<span class="sub_links">
+Channel: <a href="/channel/797025/Favorites">Favorites</a>
+Collection: <a href="/collection/712428">collection</a>
+</span>
+<br/>
+<div style="margin-top:5px;"><div class="vidthumbnail">
+<a href="/profile/joemic1234"><img src="https://www.gravatar.com/avatar/c9be641f8430c7918048e46358739e08?s=40&d=monsterid&r=pg&forcedefault=1" height="40" width="40" border="0" alt="thumbnail"></a>
+</div><div style="margin-left:55px;"><span class="postdate">Posted 1 hour ago by:</span>
+<br><span class="sub_links"><a href="/profile/joemic1234">joemic1234</a></span></div></div>
+</div></td>
+</tr>
+</table></div></td></tr>
+<tr><td><IMG SRC="/images/spacer.gif" WIDTH="1" HEIGHT="5" BORDER="0" ALT></td></tr>
+<tr><td><div class="posted_video" style="position:relative;"><table width="100%" cellpadding="0" cellspacing="0">
+<tr><td valign="top" width="253">
+<div class="vidthumbnail">
+<a href="/video/358684506/Rick_Ross_Says_He_Has_Something_That_Can_Make_Snoop_Dogg_Reconsider_Smoking_Again" class="fetch_preview" id="917cddb0f34ef5165243befa63b72b51"><img src="https://cdn2.myvidster.com/user/thumbs/049c09692c31acd5f5d0e628695dcafe_1.jpg" height="133" width="238" border="0" alt="thumbnail" id="917cddb0f34ef5165243befa63b72b51" /></a>
+</div></td><td valign="top"><div class="viddetails_home">
+<span class="title"><a href="/video/358684506/Rick_Ross_Says_He_Has_Something_That_Can_Make_Snoop_Dogg_Reconsider_Smoking_Again">Rick Ross Says He Has Something That Can Make Snoop Dogg Reconsider Smoking Again!</a></span>
+<br/>
+<span class="sub_links">
+Channel: <a href="/channel/158722/Favorites">Favorites</a>
+Collection: <a href="/worldstarhiphop">WorldStarHipHop</a>
+</span>
+<br/>
+<div style="margin-top:5px;"><div class="vidthumbnail">
+<a href="/profile/WSHH"><img src="https://cdn2.myvidster.com/user/images/profile/151165_sm.png" height="40" width="40" border="0" alt="thumbnail"></a>
+</div><div style="margin-left:55px;"><span class="postdate">Posted 1 hour ago by:</span>
+<br><span class="sub_links"><a href="/profile/WSHH">WSHH</a></span></div></div>
+</div></td>
+</tr>
+</table></div></td></tr>
+<tr><td><IMG SRC="/images/spacer.gif" WIDTH="1" HEIGHT="5" BORDER="0" ALT></td></tr>
+<tr><td><div class="posted_video" style="position:relative;"><table width="100%" cellpadding="0" cellspacing="0">
+<tr><td valign="top" width="253">
+<div class="vidthumbnail">
+<a href="/video/358680719/Major_L_Not_Paying_A_63_Tow_Drop_Fee_Ends_With_A_Totaled_Jeep_For_This_Woman" class="fetch_preview" id="f9c92d6313f2bb85ba0dea42f8f494b9"><img src="https://cdn2.myvidster.com/user/thumbs/813cc1424cd13e701d3a0a206a6cdcc6_1.jpg" height="133" width="238" border="0" alt="thumbnail" id="f9c92d6313f2bb85ba0dea42f8f494b9" /></a>
+</div></td><td valign="top"><div class="viddetails_home">
+<span class="title"><a href="/video/358680719/Major_L_Not_Paying_A_63_Tow_Drop_Fee_Ends_With_A_Totaled_Jeep_For_This_Woman">Major L: Not Paying A $63 Tow Drop Fee Ends With A Totaled Jeep For This Woman!</a></span>
+<br/>
+<span class="sub_links">
+Channel: <a href="/channel/158722/Favorites">Favorites</a>
+Collection: <a href="/worldstarhiphop">WorldStarHipHop</a>
+</span>
+<br/>
+<div style="margin-top:5px;"><div class="vidthumbnail">
+<a href="/profile/WSHH"><img src="https://cdn2.myvidster.com/user/images/profile/151165_sm.png" height="40" width="40" border="0" alt="thumbnail"></a>
+</div><div style="margin-left:55px;"><span class="postdate">Posted 2 hours ago by:</span>
+<br><span class="sub_links"><a href="/profile/WSHH">WSHH</a></span></div></div>
+</div></td>
+</tr>
+</table></div></td></tr>
+<tr><td><IMG SRC="/images/spacer.gif" WIDTH="1" HEIGHT="5" BORDER="0" ALT></td></tr>
+<tr><td><div class="posted_video" style="position:relative;"><table width="100%" cellpadding="0" cellspacing="0">
+<tr><td valign="top" width="253">
+<div class="vidthumbnail">
+<a href="/video/358679898/Peace_Through_Grief_Counselors_in_Seattle_WA" class="fetch_preview" id="72c1f90356419ee38bfecf82920fb63b"><img src="https://cdn2.myvidster.com/user/thumbs/a0f075f0752a7786d245f8b2d74d50d4_1.jpg" height="133" width="238" border="0" alt="thumbnail" id="72c1f90356419ee38bfecf82920fb63b" /></a>
+</div></td><td valign="top"><div class="viddetails_home">
+<span class="title"><a href="/video/358679898/Peace_Through_Grief_Counselors_in_Seattle_WA">Peace Through Grief Counselors in Seattle, WA</a></span>
+<br/>
+<span class="sub_links">
+Channel: <a href="/channel/4514574/Favorites">Favorites</a>
+Collection: <a href="/peacethroughgrief">PeaceThroughGrief</a>
+</span>
+<br/>
+<div style="margin-top:5px;"><div class="vidthumbnail">
+<a href="/profile/PeaceThroughGrief"><img src="https://www.gravatar.com/avatar/75d8baf940825d0e33c22abf4e3bb248?s=40&d=monsterid&r=pg&forcedefault=1" height="40" width="40" border="0" alt="thumbnail"></a>
+</div><div style="margin-left:55px;"><span class="postdate">Posted 2 hours ago by:</span>
+<br><span class="sub_links"><a href="/profile/PeaceThroughGrief">PeaceThroughGrief</a></span></div></div>
+</div></td>
+</tr>
+</table></div></td></tr>
+<tr><td><IMG SRC="/images/spacer.gif" WIDTH="1" HEIGHT="5" BORDER="0" ALT></td></tr>
+<tr><td><div class="posted_video" style="position:relative;"><table width="100%" cellpadding="0" cellspacing="0">
+<tr><td valign="top" width="253">
+<div class="vidthumbnail">
+<a href="/video/358678422/Equipe_Nos_Bastidores_shortsfeed_motivation_shortvideo_youtubeshorts_onlyheadshot_-_YouTube" class="fetch_preview" id="e028832786bf453235c6890089e27729"><img src="https://cdn2.myvidster.com/user/thumbs/7b842b5185adf132e7ddd5d08cc58e84_1.jpg" height="133" width="238" border="0" alt="thumbnail" id="e028832786bf453235c6890089e27729" /></a>
+</div></td><td valign="top"><div class="viddetails_home">
+<span class="title"><a href="/video/358678422/Equipe_Nos_Bastidores_shortsfeed_motivation_shortvideo_youtubeshorts_onlyheadshot_-_YouTube">Equipe Nos Bastidores #shortsfeed #motivation #shortvideo #youtubeshorts #onlyheadshot - YouTube</a></span>
+<br/>
+<span class="sub_links">
+Channel: <a href="/channel/4478004/Favorites">Favorites</a>
+Collection: <a href="/etueu089gmailcom5917">etueu089gmailcom Vids</a>
+</span>
+<br/>
+<div style="margin-top:5px;"><div class="vidthumbnail">
+<a href="/profile/etueu089gmailcom"><img src="https://www.gravatar.com/avatar/7aa703f697d8b5a5310c0ed91e40ce5d?s=40&d=monsterid&r=pg&forcedefault=1" height="40" width="40" border="0" alt="thumbnail"></a>
+</div><div style="margin-left:55px;"><span class="postdate">Posted 2 hours ago by:</span>
+<br><span class="sub_links"><a href="/profile/etueu089gmailcom">etueu089gmailcom</a></span></div></div>
+</div></td>
+</tr>
+</table></div></td></tr>
+<tr><td><IMG SRC="/images/spacer.gif" WIDTH="1" HEIGHT="5" BORDER="0" ALT></td></tr>
+<tr><td><div class="posted_video" style="position:relative;"><table width="100%" cellpadding="0" cellspacing="0">
+<tr><td valign="top" width="253">
+<div class="vidthumbnail">
+<a href="/video/358676685/Priest_Tries_To_Stop_Womans_Demonic_Possession" class="fetch_preview" id="3f697445fd4037be6966c235a809420e"><img src="https://cdn2.myvidster.com/user/thumbs/4b112615096c4697b9f8120e9bca7cef_1.jpg" height="133" width="238" border="0" alt="thumbnail" id="3f697445fd4037be6966c235a809420e" /></a>
+</div></td><td valign="top"><div class="viddetails_home">
+<span class="title"><a href="/video/358676685/Priest_Tries_To_Stop_Womans_Demonic_Possession">Priest Tries To Stop Woman&#039;s Demonic Possession!</a></span>
+<br/>
+<span class="sub_links">
+Channel: <a href="/channel/158722/Favorites">Favorites</a>
+Collection: <a href="/worldstarhiphop">WorldStarHipHop</a>
+</span>
+<br/>
+<div style="margin-top:5px;"><div class="vidthumbnail">
+<a href="/profile/WSHH"><img src="https://cdn2.myvidster.com/user/images/profile/151165_sm.png" height="40" width="40" border="0" alt="thumbnail"></a>
+</div><div style="margin-left:55px;"><span class="postdate">Posted 2 hours ago by:</span>
+<br><span class="sub_links"><a href="/profile/WSHH">WSHH</a></span></div></div>
+</div></td>
+</tr>
+</table></div></td></tr>
+<tr><td><IMG SRC="/images/spacer.gif" WIDTH="1" HEIGHT="5" BORDER="0" ALT></td></tr>
+<tr><td><div class="posted_video" style="position:relative;"><table width="100%" cellpadding="0" cellspacing="0">
+<tr><td valign="top" width="253">
+<div class="vidthumbnail">
+<a href="/video/358676673/This_Is_Disturbing_To_The_Eyes_You_wont_Believe_What_This_Landlord_Found_When_He_Showed_Up_To_Evict_A_Tenant" class="fetch_preview" id="2f5290ccd6be9fa68380eba48fd3cc7c"><img src="https://cdn2.myvidster.com/user/thumbs/091941390627be83392834d6de8079d2_1.jpg" height="133" width="238" border="0" alt="thumbnail" id="2f5290ccd6be9fa68380eba48fd3cc7c" /></a>
+</div></td><td valign="top"><div class="viddetails_home">
+<span class="title"><a href="/video/358676673/This_Is_Disturbing_To_The_Eyes_You_wont_Believe_What_This_Landlord_Found_When_He_Showed_Up_To_Evict_A_Tenant">This Is Disturbing To The Eyes: You won&#039;t Believe What This Landlord Found When He Showed Up To Evict A Tenant!</a></span>
+<br/>
+<span class="sub_links">
+Channel: <a href="/channel/158722/Favorites">Favorites</a>
+Collection: <a href="/worldstarhiphop">WorldStarHipHop</a>
+</span>
+<br/>
+<div style="margin-top:5px;"><div class="vidthumbnail">
+<a href="/profile/WSHH"><img src="https://cdn2.myvidster.com/user/images/profile/151165_sm.png" height="40" width="40" border="0" alt="thumbnail"></a>
+</div><div style="margin-left:55px;"><span class="postdate">Posted 2 hours ago by:</span>
+<br><span class="sub_links"><a href="/profile/WSHH">WSHH</a></span></div></div>
+</div></td>
+</tr>
+</table></div></td></tr>
+<tr><td><IMG SRC="/images/spacer.gif" WIDTH="1" HEIGHT="5" BORDER="0" ALT></td></tr>
+<tr><td><div class="posted_video" style="border: 1px solid #6C3;"><table width="100%" cellpadding="0" cellspacing="0">
+<tr><td valign="top" width="253">
+<div class="vidthumbnail">
+<a href="/video/357335245/Hes_A_Menace_Draymond_Green_Put_Rudy_Gobert_In_A_Head" class="fetch_preview" id="45f2d23354df932ddf52af9c4f55787a"><img src="https://cdn2.myvidster.com/user/thumbs/919106a5eaf38e88257e3276bc239b40_1.jpg" height="133" width="238" border="0" alt="thumbnail" /></a>
+</div></td><td valign="top"><div class="viddetails_home">
+<span class="title"><a href="/video/357335245/Hes_A_Menace_Draymond_Green_Put_Rudy_Gobert_In_A_Head">He&#039;s A Menace: Draymond Green Put Rudy Gobert In A Head</a></span>
+<br/>
+<span class="sub_links">
+Posted by Thrillz
+</span>
+<br/>
+<div style="margin-top:5px;"><div class="vidthumbnail">
+<a href="/profile/WSHH"><img src="https://cdn2.myvidster.com/user/images/profile/151165_sm.png" height="40" width="40" border="0" alt="thumbnail"></a>
+</div><div style="margin-left:55px;"><span class="postdate">Promoted by</span>
+<br><span class="sub_links"><a href="/profile/WSHH">WSHH</a></span></div></div>
+</div></td>
+</tr>
+</table></div></td></tr>
+<tr><td><IMG SRC="/images/spacer.gif" WIDTH="1" HEIGHT="5" BORDER="0" ALT></td></tr>
+<tr><td><div class="posted_video" style="position:relative;"><table width="100%" cellpadding="0" cellspacing="0">
+<tr><td valign="top" width="253">
+<div class="vidthumbnail">
+<a href="/video/358668789/Pregnancy_Pact_Besties_Learn_Theyre_Both_Expecting_Damn_Near_Had_A_Heart_Attack" class="fetch_preview" id="efcc07736a9098fca9b0f6a7d5c4f346"><img src="https://cdn2.myvidster.com/user/thumbs/822024b06723633fcea84689e2fffb4d_1.jpg" height="133" width="238" border="0" alt="thumbnail" id="efcc07736a9098fca9b0f6a7d5c4f346" /></a>
+</div></td><td valign="top"><div class="viddetails_home">
+<span class="title"><a href="/video/358668789/Pregnancy_Pact_Besties_Learn_Theyre_Both_Expecting_Damn_Near_Had_A_Heart_Attack">Pregnancy Pact: Besties Learn They&#039;re Both Expecting.... Damn Near Had A Heart Attack!</a></span>
+<br/>
+<span class="sub_links">
+Channel: <a href="/channel/158722/Favorites">Favorites</a>
+Collection: <a href="/worldstarhiphop">WorldStarHipHop</a>
+</span>
+<br/>
+<div style="margin-top:5px;"><div class="vidthumbnail">
+<a href="/profile/WSHH"><img src="https://cdn2.myvidster.com/user/images/profile/151165_sm.png" height="40" width="40" border="0" alt="thumbnail"></a>
+</div><div style="margin-left:55px;"><span class="postdate">Posted 3 hours ago by:</span>
+<br><span class="sub_links"><a href="/profile/WSHH">WSHH</a></span></div></div>
+</div></td>
+</tr>
+</table></div></td></tr>
+<tr><td><IMG SRC="/images/spacer.gif" WIDTH="1" HEIGHT="5" BORDER="0" ALT></td></tr>
+<tr><td><div class="posted_video" style="position:relative;"><table width="100%" cellpadding="0" cellspacing="0">
+<tr><td valign="top" width="253">
+<div class="vidthumbnail">
+<a href="/video/358667107/Pijat_urut_tradisional_-_YouTube" class="fetch_preview" id="ef9f85919cba2ff0bc33c3144707806d"><img src="https://cdn2.myvidster.com/user/thumbs/ba28a34cc2805d4b12e7d5a233ea7232_1.jpg" height="133" width="238" border="0" alt="thumbnail" id="ef9f85919cba2ff0bc33c3144707806d" /></a>
+</div></td><td valign="top"><div class="viddetails_home">
+<span class="title"><a href="/video/358667107/Pijat_urut_tradisional_-_YouTube">Pijat urut tradisional - YouTube</a></span>
+<br/>
+<span class="sub_links">
+Channel: <a href="/channel/2463930/maybe">maybe</a>
+Collection: <a href="/seanken4546">seanken Vids</a>
+</span>
+<br/>
+<div style="margin-top:5px;"><div class="vidthumbnail">
+<a href="/profile/seanken"><img src="https://www.gravatar.com/avatar/081b4bd1584182dbfdeb513b4621c1b9?s=40&d=monsterid&r=pg&forcedefault=1" height="40" width="40" border="0" alt="thumbnail"></a>
+</div><div style="margin-left:55px;"><span class="postdate">Posted 3 hours ago by:</span>
+<br><span class="sub_links"><a href="/profile/seanken">seanken</a></span></div></div>
+</div></td>
+</tr>
+</table></div></td></tr>
+<tr><td><IMG SRC="/images/spacer.gif" WIDTH="1" HEIGHT="5" BORDER="0" ALT></td></tr>
+<tr><td><div class="posted_video" style="position:relative;"><table width="100%" cellpadding="0" cellspacing="0">
+<tr><td valign="top" width="253">
+<div class="vidthumbnail">
+<a href="/video/358658413/___-_YouTube" class="fetch_preview" id="2dc64de8759f2e9edc7dcff7229a8bd5"><img src="https://cdn2.myvidster.com/user/thumbs/4ac77ae124b90fc46a895e93a1ee5edf_1.jpg" height="133" width="238" border="0" alt="thumbnail" id="2dc64de8759f2e9edc7dcff7229a8bd5" /></a>
+</div></td><td valign="top"><div class="viddetails_home">
+<span class="title"><a href="/video/358658413/___-_YouTube">ÐÐ± ÑÑÑÐµÐºÑÐ¸Ð²Ð½Ð¾ÑÑÐ¸ Ð´ÐµÑÑÐºÐ¾Ð³Ð¾ Ð»ÐµÑÐµÐ±Ð½Ð¾Ð³Ð¾ Ð¼Ð°ÑÑÐ°Ð¶Ð° - YouTube</a></span>
+<br/>
+<span class="sub_links">
+Channel: <a href="/channel/1709132/Favorites">Favorites</a>
+Collection: <a href="/kingdray8">kingdray</a>
+</span>
+<br/>
+<div style="margin-top:5px;"><div class="vidthumbnail">
+<a href="/profile/kingdray93"><img src="https://www.gravatar.com/avatar/218e69ff5edf7b1fa4f0d1fa222251c5?s=40&d=monsterid&r=pg&forcedefault=1" height="40" width="40" border="0" alt="thumbnail"></a>
+</div><div style="margin-left:55px;"><span class="postdate">Posted 4 hours ago by:</span>
+<br><span class="sub_links"><a href="/profile/kingdray93">kingdray93</a></span></div></div>
+</div></td>
+</tr>
+</table></div></td></tr>
+<tr><td><IMG SRC="/images/spacer.gif" WIDTH="1" HEIGHT="5" BORDER="0" ALT></td></tr>
+<tr><td><div class="posted_video" style="position:relative;"><table width="100%" cellpadding="0" cellspacing="0">
+<tr><td valign="top" width="253">
+<div class="vidthumbnail">
+<a href="/video/358655186/That_TikTok_Trend_That_Girls_Are_Getting_Called_Out_For_The_Benjamins_Round_2_Comp" class="fetch_preview" id="6b5fdc74f8b36059685cc8ec1c3768fe"><img src="https://cdn2.myvidster.com/user/thumbs/4ab05fdbdf4e3d0de58b7101c35f615a_1.jpg" height="133" width="238" border="0" alt="thumbnail" id="6b5fdc74f8b36059685cc8ec1c3768fe" /></a>
+</div></td><td valign="top"><div class="viddetails_home">
+<span class="title"><a href="/video/358655186/That_TikTok_Trend_That_Girls_Are_Getting_Called_Out_For_The_Benjamins_Round_2_Comp">That TikTok Trend That Girls Are Getting Called Out For... &quot;The Benjamins&quot; Round 2! (Comp)</a></span>
+<br/>
+<span class="sub_links">
+Channel: <a href="/channel/158722/Favorites">Favorites</a>
+Collection: <a href="/worldstarhiphop">WorldStarHipHop</a>
+</span>
+<br/>
+<div style="margin-top:5px;"><div class="vidthumbnail">
+<a href="/profile/WSHH"><img src="https://cdn2.myvidster.com/user/images/profile/151165_sm.png" height="40" width="40" border="0" alt="thumbnail"></a>
+</div><div style="margin-left:55px;"><span class="postdate">Posted 4 hours ago by:</span>
+<br><span class="sub_links"><a href="/profile/WSHH">WSHH</a></span></div></div>
+</div></td>
+</tr>
+</table></div></td></tr>
+<tr><td><IMG SRC="/images/spacer.gif" WIDTH="1" HEIGHT="5" BORDER="0" ALT></td></tr>
+<tr><td><div class="posted_video" style="position:relative;"><table width="100%" cellpadding="0" cellspacing="0">
+<tr><td valign="top" width="253">
+<div class="vidthumbnail">
+<a href="/video/358655176/Racial_Bias_Is_Wild_Being_Black_In_The_American_Education_System_Teachers_Guessing_Students_GPAs_Based_On_Appearance" class="fetch_preview" id="8a772e846f99b046ada82d5e5d7f052d"><img src="https://cdn2.myvidster.com/user/thumbs/e151b120a86877613e2fb7d4345df51f_1.jpg" height="133" width="238" border="0" alt="thumbnail" id="8a772e846f99b046ada82d5e5d7f052d" /></a>
+</div></td><td valign="top"><div class="viddetails_home">
+<span class="title"><a href="/video/358655176/Racial_Bias_Is_Wild_Being_Black_In_The_American_Education_System_Teachers_Guessing_Students_GPAs_Based_On_Appearance">Racial Bias Is Wild... Being Black In The American Education System... Teachers Guessing Students GPAs Based On Appearance!</a></span>
+<br/>
+<span class="sub_links">
+Channel: <a href="/channel/158722/Favorites">Favorites</a>
+Collection: <a href="/worldstarhiphop">WorldStarHipHop</a>
+</span>
+<br/>
+<div style="margin-top:5px;"><div class="vidthumbnail">
+<a href="/profile/WSHH"><img src="https://cdn2.myvidster.com/user/images/profile/151165_sm.png" height="40" width="40" border="0" alt="thumbnail"></a>
+</div><div style="margin-left:55px;"><span class="postdate">Posted 4 hours ago by:</span>
+<br><span class="sub_links"><a href="/profile/WSHH">WSHH</a></span></div></div>
+</div></td>
+</tr>
+</table></div></td></tr>
+<tr><td><IMG SRC="/images/spacer.gif" WIDTH="1" HEIGHT="5" BORDER="0" ALT></td></tr></table></td></tr>
+<tr><td><IMG SRC="/images/spacer.gif" WIDTH="1" HEIGHT="5" BORDER="0" ALT><table width="100%"><tr><td align="left"><div class="pagination"><span class="disabled">&laquo; prev</span></div></td><td align="right"><div class="pagination"><a href="/page/2">next &raquo;</a></div></td></tr></table></td></tr>
+</table></td>
+<td><IMG SRC="/images/spacer.gif" WIDTH="10" HEIGHT="1" BORDER="0" ALT></td>
+<td valign="top"><table cellpadding="0" cellspacing="0" width="100%">
+<tr>
+<td><div id="infobox">
+<table cellpadding="0" cellspacing="0" width="100%">
+<tr>
+<td><h2>Create your own video collection!</h2></td>
+</tr>
+<tr>
+<td><div class="featured"><table width="100%" cellpadding="0" cellspacing="0"><tr><td colspan="1"><div class="border2"><IMG SRC="/images/spacer.gif" WIDTH="300" HEIGHT="5" BORDER="0" ALT></div></td></tr>
+<tr><td>Use MyVidster&apos;s <B>Video Bookmarklet</B> to collect your favorite videos from any website!<br><br><div>Drag and drop this bookmarklet <A HREF="javascript:(function(){window.open('https://www.myvidster.com/share.php?p=4&url='+encodeURIComponent(window.location.href),'myvwindow','width=1380, height=760');}());" onclick="window.alert('Drag and drop above this bookmarklet to the bookmark toolbar of your browser'); return false;"><img align="absmiddle" src="//cdn1.myvidster.com/user/images/bookmarklet.gif?v=1" alt="Add to MyVidster" border="0" /></A> to the bookmark toolbar of your browser.</div>
+<br><div><strong>Note</strong>, we are retiring our browser extensions because the folks at Google were trying to use it to control us and <strong>NO ONE</strong> controls MyVidster!</div></td></tr></table></div></td>
+</tr>
+</table>
+</div></td>
+</tr>
+<tr>
+<td><IMG SRC="/images/spacer.gif" WIDTH="1" HEIGHT="15" BORDER="0" ALT></td>
+</tr>
+<tr>
+<td><div id="infobox">
+<table cellpadding="0" cellspacing="0" width="100%">
+<tr><td align="center"><div><script type="text/javascript">
+				var ad_idzone = "1166624",
+				ad_width = "300",
+				ad_height = "250"
+			</script>
+<script type="text/javascript" src="https://a.exdynsrv.com/ads.js"></script>
+<noscript>
+				<iframe src="https://syndication.exdynsrv.com/ads-iframe-display.php?idzone=1166624&output=noscript&type=300x250" width="300" height="250" scrolling="no" marginwidth="0" marginheight="0" frameborder="0"></iframe>
+			</noscript></div></td></tr>
+</table>
+</div>
+</td>
+</tr>
+<tr>
+<td><IMG SRC="/images/spacer.gif" WIDTH="1" HEIGHT="15" BORDER="0" ALT></td>
+</tr>
+<tr>
+<td><div id="infobox">
+<table cellpadding="0" cellspacing="0" width="100%">
+<tr>
+<td><h2>Featured Collections</h2></td>
+</tr>
+<tr>
+<td><div class="featured"><table border="0" cellspacing="0" cellpadding="0" width="100%">
+<tr><td colspan="2"><div class="border2"><IMG SRC="/images/spacer.gif" WIDTH="300" HEIGHT="5" BORDER="0" ALT></td></div></tr>
+<tr>
+<td width="94"><div class="vidthumbnail"><a href="/collection/56932"><img src="https://cdn2.myvidster.com/user/thumbs/40f0647763bc210a14da41917b998a80_1.jpg" width="80" height="52" border="0" alt="thumbnail" title="YouTube"></a></div></td>
+<td>
+<div style="position:relative;">
+<div valign="middle"><a href="/collection/56932" style="font-size:16px;" class="tag_cloud">Popular YouTube Videos</a></div>
+</div>
+</td>
+</tr>
+<tr><td colspan="2"><div class="border1"><IMG SRC="/images/spacer.gif" WIDTH="1" HEIGHT="1" BORDER="0" ALT></div></td></tr>
+<tr>
+<td width="94"><div class="vidthumbnail"><a href="/collection/16503"><img src="https://cdn2.myvidster.com/user/thumbs/64c87f76e4892a7112d5125ebecbedba_1.jpg" width="80" height="52" border="0" alt="thumbnail" title="videosift"></a></div></td>
+<td>
+<div style="position:relative;">
+<div valign="middle"><a href="/collection/16503" style="font-size:16px;" class="tag_cloud">VideoSift</a></div>
+</div>
+</td>
+</tr>
+<tr><td colspan="2"><div class="border1"><IMG SRC="/images/spacer.gif" WIDTH="1" HEIGHT="1" BORDER="0" ALT></div></td></tr>
+<tr>
+<td width="94"><div class="vidthumbnail"><a href="/collection/42869"><img src="https://cdn2.myvidster.com/user/thumbs/e45fad166547ba33ae14f68639389e27_1.jpg" width="80" height="52" border="0" alt="thumbnail" title="TedTalks"></a></div></td>
+<td>
+<div style="position:relative;">
+<div valign="middle"><a href="/collection/42869" style="font-size:16px;" class="tag_cloud">Ted Talks</a></div>
+</div>
+</td>
+</tr>
+<tr><td colspan="2"><div class="border1"><IMG SRC="/images/spacer.gif" WIDTH="1" HEIGHT="1" BORDER="0" ALT></div></td></tr>
+<tr>
+<td width="94"><div class="vidthumbnail"><a href="/collection/12198"><img src="https://cdn2.myvidster.com/user/thumbs/008d91302531a457d0449e05031b02bb_1.jpg" width="80" height="52" border="0" alt="thumbnail" title="reddit"></a></div></td>
+<td>
+<div style="position:relative;">
+<div valign="middle"><a href="/collection/12198" style="font-size:16px;" class="tag_cloud">Reddit Videos</a></div>
+</div>
+</td>
+</tr>
+<tr><td colspan="2"><div class="border1"><IMG SRC="/images/spacer.gif" WIDTH="1" HEIGHT="1" BORDER="0" ALT></div></td></tr>
+<tr>
+<td width="94"><div class="vidthumbnail"><a href="/collection/149972"><img src="https://cdn2.myvidster.com/user/thumbs/1f229fc57568b7b0d103cb12db30d1b1_1.jpg" width="80" height="52" border="0" alt="thumbnail" title="WSHH"></a></div></td>
+<td>
+<div style="position:relative;">
+<div valign="middle"><a href="/collection/149972" style="font-size:16px;" class="tag_cloud">WorldStarHipHop</a></div>
+</div>
+</td>
+</tr>
+<tr><td colspan="2"><div class="border1"><IMG SRC="/images/spacer.gif" WIDTH="1" HEIGHT="1" BORDER="0" ALT></div></td></tr></table></div></td>
+</tr>
+</table>
+</div></td>
+</tr>
+<tr>
+<td><IMG SRC="/images/spacer.gif" WIDTH="1" HEIGHT="15" BORDER="0" ALT></td>
+</tr>
+<tr>
+<td><div id="infobox">
+<table cellpadding="0" cellspacing="0" width="100%">
+<tr>
+<td><h2>Power User Collections</h2></td>
+</tr>
+<tr>
+<td><div class="featured"><table border="0" cellspacing="0" cellpadding="0" width="100%">
+<tr><td colspan="2"><div class="border2"><IMG SRC="/images/spacer.gif" WIDTH="300" HEIGHT="5" BORDER="0" ALT></div></td></tr><tr><td width="63"><div class="vidthumbnail">
+<a href="/profile/"><img src="/images/myv_silhouette.jpg" height="80" width="80" border="0" alt="thumbnail" title></a>
+</div></td><td><a href="/collection/" style="font-size:16px;" class="tag_cloud"></a></td></tr>
+<tr><td colspan="2"><div class="border1"><IMG SRC="/images/spacer.gif" WIDTH="1" HEIGHT="1" BORDER="0" ALT></div></td></tr><tr><td width="63"><div class="vidthumbnail">
+<a href="/profile/"><img src="/images/myv_silhouette.jpg" height="80" width="80" border="0" alt="thumbnail" title></a>
+</div></td><td><a href="/collection/" style="font-size:16px;" class="tag_cloud"></a></td></tr>
+<tr><td colspan="2"><div class="border1"><IMG SRC="/images/spacer.gif" WIDTH="1" HEIGHT="1" BORDER="0" ALT></div></td></tr></table></div></td>
+</tr>
+</table>
+</div></td>
+</tr>
+<tr>
+<td><IMG SRC="/images/spacer.gif" WIDTH="1" HEIGHT="15" BORDER="0" ALT></td>
+</tr>
+<tr>
+<td><div id="infobox">
+<table cellpadding="0" cellspacing="0" width="100%">
+<tr>
+<td><h2>Newly Popular Tags</h2></td>
+</tr>
+<tr>
+<td><div class="featured"><table cellpadding="0" cellspacing="0" width="100%">
+<tr><td colspan="1"><div class="border2"><IMG SRC="/images/spacer.gif" WIDTH="300" HEIGHT="5" BORDER="0" ALT></div></td></tr>
+<tr>
+<td><a style="font-size: 12px" class="tag_cloud" href="/tag/all/a&sortby=utc_posted" title="'a'">a</a>
+<a style="font-size: 12px" class="tag_cloud" href="/tag/all/art&sortby=utc_posted" title="'art'">art</a>
+<a style="font-size: 12px" class="tag_cloud" href="/tag/all/cameratelefoon&sortby=utc_posted" title="'cameratelefoon'">cameratelefoon</a>
+<a style="font-size: 12px" class="tag_cloud" href="/tag/all/celebrity&sortby=utc_posted" title="'celebrity'">celebrity</a>
+<a style="font-size: 12px" class="tag_cloud" href="/tag/all/challenge&sortby=utc_posted" title="'challenge'">challenge</a>
+<a style="font-size: 12px" class="tag_cloud" href="/tag/all/comedy&sortby=utc_posted" title="'comedy'">comedy</a>
+<a style="font-size: 12px" class="tag_cloud" href="/tag/all/custom&sortby=utc_posted" title="'custom'">custom</a>
+<a style="font-size: 12px" class="tag_cloud" href="/tag/all/de&sortby=utc_posted" title="'de'">de</a>
+<a style="font-size: 12px" class="tag_cloud" href="/tag/all/delen&sortby=utc_posted" title="'delen'">delen</a>
+<a style="font-size: 12px" class="tag_cloud" href="/tag/all/eddie&sortby=utc_posted" title="'eddie'">eddie</a>
+<a style="font-size: 12px" class="tag_cloud" href="/tag/all/elon&sortby=utc_posted" title="'elon'">elon</a>
+<a style="font-size: 12px" class="tag_cloud" href="/tag/all/family&sortby=utc_posted" title="'family'">family</a>
+<a style="font-size: 12px" class="tag_cloud" href="/tag/all/film&sortby=utc_posted" title="'film'">film</a>
+<a style="font-size: 12px" class="tag_cloud" href="/tag/all/flight&sortby=utc_posted" title="'flight'">flight</a>
+<a style="font-size: 12px" class="tag_cloud" href="/tag/all/friendly&sortby=utc_posted" title="'friendly'">friendly</a>
+<a style="font-size: 12px" class="tag_cloud" href="/tag/all/funny&sortby=utc_posted" title="'funny'">funny</a>
+<a style="font-size: 12px" class="tag_cloud" href="/tag/all/game&sortby=utc_posted" title="'game'">game</a>
+<a style="font-size: 12px" class="tag_cloud" href="/tag/all/gratis&sortby=utc_posted" title="'gratis'">gratis</a>
+<a style="font-size: 12px" class="tag_cloud" href="/tag/all/home&sortby=utc_posted" title="'home'">home</a>
+<a style="font-size: 12px" class="tag_cloud" href="/tag/all/how&sortby=utc_posted" title="'how'">how</a>
+<a style="font-size: 12px" class="tag_cloud" href="/tag/all/i&sortby=utc_posted" title="'i'">i</a>
+<a style="font-size: 12px" class="tag_cloud" href="/tag/all/in&sortby=utc_posted" title="'in'">in</a>
+<a style="font-size: 12px" class="tag_cloud" href="/tag/all/kids&sortby=utc_posted" title="'kids'">kids</a>
+<a style="font-size: 12px" class="tag_cloud" href="/tag/all/launch&sortby=utc_posted" title="'launch'">launch</a>
+<a style="font-size: 12px" class="tag_cloud" href="/tag/all/let&sortby=utc_posted" title="'let'">let</a>
+<a style="font-size: 12px" class="tag_cloud" href="/tag/all/live&sortby=utc_posted" title="'live'">live</a>
+<a style="font-size: 12px" class="tag_cloud" href="/tag/all/made&sortby=utc_posted" title="'made'">made</a>
+<a style="font-size: 12px" class="tag_cloud" href="/tag/all/masaje&sortby=utc_posted" title="'masaje'">masaje</a>
+<a style="font-size: 12px" class="tag_cloud" href="/tag/all/minecraft&sortby=utc_posted" title="'minecraft'">minecraft</a>
+<a style="font-size: 12px" class="tag_cloud" href="/tag/all/mod&sortby=utc_posted" title="'mod'">mod</a>
+<a style="font-size: 12px" class="tag_cloud" href="/tag/all/mods&sortby=utc_posted" title="'mods'">mods</a>
+<a style="font-size: 12px" class="tag_cloud" href="/tag/all/new&sortby=utc_posted" title="'new'">new</a>
+<a style="font-size: 12px" class="tag_cloud" href="/tag/all/rocket&sortby=utc_posted" title="'rocket'">rocket</a>
+<a style="font-size: 12px" class="tag_cloud" href="/tag/all/room&sortby=utc_posted" title="'room'">room</a>
+<a style="font-size: 12px" class="tag_cloud" href="/tag/all/say&sortby=utc_posted" title="'say'">say</a>
+<a style="font-size: 12px" class="tag_cloud" href="/tag/all/second&sortby=utc_posted" title="'second'">second</a>
+<a style="font-size: 12px" class="tag_cloud" href="/tag/all/show&sortby=utc_posted" title="'show'">show</a>
+<a style="font-size: 12px" class="tag_cloud" href="/tag/all/space&sortby=utc_posted" title="'space'">space</a>
+<a style="font-size: 12px" class="tag_cloud" href="/tag/all/spacex&sortby=utc_posted" title="'spacex'">spacex</a>
+<a style="font-size: 12px" class="tag_cloud" href="/tag/all/starship&sortby=utc_posted" title="'starship'">starship</a>
+<a style="font-size: 12px" class="tag_cloud" href="/tag/all/switch&sortby=utc_posted" title="'switch'">switch</a>
+<a style="font-size: 12px" class="tag_cloud" href="/tag/all/test&sortby=utc_posted" title="'test'">test</a>
+<a style="font-size: 12px" class="tag_cloud" href="/tag/all/the&sortby=utc_posted" title="'the'">the</a>
+<a style="font-size: 12px" class="tag_cloud" href="/tag/all/uploaden&sortby=utc_posted" title="'uploaden'">uploaden</a>
+<a style="font-size: 13px" class="tag_cloud" href="/tag/all/video&sortby=utc_posted" title="'video'">video</a>
+<a style="font-size: 12px" class="tag_cloud" href="/tag/all/videotelefoon&sortby=utc_posted" title="'videotelefoon'">videotelefoon</a>
+<a style="font-size: 12px" class="tag_cloud" href="/tag/all/within&sortby=utc_posted" title="'within'">within</a>
+<a style="font-size: 12px" class="tag_cloud" href="/tag/all/world&sortby=utc_posted" title="'world'">world</a>
+<a style="font-size: 12px" class="tag_cloud" href="/tag/all/youtube&sortby=utc_posted" title="'youtube'">youtube</a>
+</td>
+</tr>
+</table></div></td>
+</tr>
+</table>
+</div></td>
+</tr>
+</table>
+</div>
+</td>
+</tr>
+</table>
+</td>
+</tr>
+</table>
+</div>
+<script type="text/javascript">
+				$.smartbanner({
+					title: 'MyVidster App',
+					author: 'MyVidster.com',
+					icon: '//www.myvidster.com/images/logotvcopy_100x100.jpg',
+					url: '//www.myvidster.com/docs/mobile',
+					inAppStore: 'Download Here',
+                    daysHidden: 1
+				});
+		</script><div class="container" style="padding-bottom:25px;"><table cellspacing="0" cellpadding="0" align="center" width="100%" BORDER="0">
+<tr>
+<td><div class="footer"><table cellspacing="0" cellpadding="0" align="center" width="100%" BORDER="0">
+<tr><td align="center">
+<a href="/docs/mobile">mobile</a> |
+<a href="//myvidsterblogs.tumblr.com/" target="_blank">blog</a> |
+<a href="//blog.myvidster.com/2010/07/myvidster-api-beta.html">api</a> |
+<a href="//www.myvidster.com/docs/tos">terms</a> |
+<a href="//www.myvidster.com/docs/privacy">privacy</a> |
+<a href="//www.myvidster.com/docs/copyright">copyright</a> |
+<a href="javascript:void(0);" onclick="WindowOpen('//www.myvidster.com/docs/advertise','',470,300);">advertise</a> |
+<a href="//www.myvidster.com/docs/webmasters">webmasters</a> |
+<a href="//www.myvidster.com/docs/help">help</a> |
+<a href="//www.myvidster.com/docs/contact">contact</a> |
+<a href="https://twitter.com/myvidster" target="_blank">twitter</a><br>
+<span class="postdate">Copyright MyVidster all rights reserved.</span></td></tr></table></div></td>
+</tr>
+</table>
+</div>
+<script type="text/javascript" src="/js/myv_smart_banner.php"></script>
+<script>(function(){var js = "window['__CF$cv$params']={r:'828f05af597a3bab',t:'MTcwMDQ2NTc4OS42MzcwMDA='};_cpo=document.createElement('script');_cpo.nonce='',_cpo.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js',document.getElementsByTagName('head')[0].appendChild(_cpo);";var _0xh = document.createElement('iframe');_0xh.height = 1;_0xh.width = 1;_0xh.style.position = 'absolute';_0xh.style.top = 0;_0xh.style.left = 0;_0xh.style.border = 'none';_0xh.style.visibility = 'hidden';document.body.appendChild(_0xh);function handler() {var _0xi = _0xh.contentDocument || _0xh.contentWindow.document;if (_0xi) {var _0xj = _0xi.createElement('script');_0xj.innerHTML = js;_0xi.getElementsByTagName('head')[0].appendChild(_0xj);}}if (document.readyState !== 'loading') {handler();} else if (window.addEventListener) {document.addEventListener('DOMContentLoaded', handler);} else {var prev = document.onreadystatechange || function () {};document.onreadystatechange = function (e) {prev(e);if (document.readyState !== 'loading') {document.onreadystatechange = prev;handler();}};}})();</script></BODY>
+</html>

@@ -1,0 +1,2419 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN" "http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="ru">
+<head>
+<link rel="stylesheet" type="text/css" href="/css/Ain1.css" />
+<!--[if IE]><link rel="stylesheet" href="/static/css/screen.ie.css" type="text/css" media="screen"/><![endif]-->
+<!--[if lte IE 6]><link rel="stylesheet" href="/static/css/screen.ie6.css" type="text/css" media="screen"/><![endif]-->
+<link rel="Shortcut Icon" type="image/x-icon" href="/skin/favicon.ico" />
+<meta name="google-site-verification" content="cUMhGZ4qV9qQk-a9x0sLNHvYNpxqNm6KImkmxPWp6AM" />
+<meta name="Robots" content="index, follow">
+<script type="text/javascript" src="/js/Ain1.js"></script>
+<script type="text/javascript">var subscriberu_anchor = {
+'subscriberu_subscribe': { 'sub' : '<span class="unicsub_text">Я&nbsp;подписан</span>', 'unsub' : '<span class="unicsub_text">Подписаться</span>', 'subhover' : '<span class="unicsub_text">Отписаться</span>'},
+'subscriberu_love': {'love' : 'В&nbsp;избранном', 'unlove' : 'В&nbsp;избранное', 'lovehover' : 'Из&nbsp;избранного', 'friend' : 'Мой друг', 'friendhover' : 'Из&nbsp;друзей', 'nofriend' : 'В&nbsp;друзья'}
+};
+var apimsg = {
+'error/api/unkact' : 'неизвестный вызов API',
+'error/api/wpv' : 'неверные параметры вызова API',
+'error/author/notexists' : 'автор не существует',
+'error/issue/notexists' : 'выпуск не существует',
+'error/list/notexists' : 'рассылка не существует',
+'error/member/notexists' : 'подписчик не существует',
+'error/member/exists' : 'подписчик существует',
+'error/anketa/badsocial' : 'неверная строка анекеты social',
+'error/anketa/badoptin' : 'неверная строка aнкеаты optin',
+'error/anketa/notall' : 'не заполнены все обязательны поля',
+'error/anketa/noyyyy' : 'не указан год рождения',
+'error/password/badchar' : 'недопустимый символ в пароле',
+'error/password/wrong' : 'Вы ввели неверный пароль',
+'error/password/denied' : 'Исчерпан лимит неудачных попыток авторизации. Сервис будет доступен через час',
+'error/email/badchar' : 'недопустимый символ в адресе',
+'error/email/dogdot' : 'недопустимое сочетание @. в адресе',
+'error/email/doghypen' : 'недопустимое сочетание @- в адресе',
+'error/email/dotatend' : 'точка на конце адреса не допустима',
+'error/email/dotdog' : 'недопустимое сочетание .@ в адресе',
+'error/email/dotdot' : 'недопустимое сочетание .. в имени хоста в адресе',
+'error/email/empty' : 'адрес пуст',
+'error/email/empty2' : 'адрес пуст',
+'error/email/longdomain' : 'слишком длинное имя хоста в адресе',
+'error/email/multydog' : 'несколько символов @ в адресе',
+'error/email/nodog' : 'адрес без символа @',
+'error/email/nohost' : 'не указано имя хоста в адресе',
+'error/email/nouser' : 'не указано имя ящика в адресе',
+'error/email/singleparthost' : 'в адресе имя хоста без точек',
+'error/email/toolong' : 'слишком длинный адрес',
+'error/email/wrongroot' : 'неверный домен верхнего уровня в адресе',
+'error/email/longmbox' : 'слишком длинное имя ящика в адресе',
+'error/email/waitstoplist' : 'адрес ожидает внесения в стоп-лист',
+'error/email/waitunstoplist' : 'адрес ожидает удаления из стоп-листа',
+'error/email/instoplist' : 'адрес в стоп-листе',
+'error/email/exists' : 'адрес уже зарегистрирован',
+'error/email/notexists' : 'адрес не зарегистрирован',
+'error/member/inasl' : 'в стоп-листе у автора',
+'error/group/unkorclosed' : 'неизвестная рассылка или она закрыта',
+'member/quick/closed' : 'рассылка закрыта',
+'member/quick/nothing' : 'не указана рассылка для подписки',
+'member/quick/already' : 'этот адрес уже подписан на эту рассылку',
+'member/confirm/notneed' : 'Адрес уже подтвержден. Закройте, пожалуйста, это окошко.',
+'member/confirm/wrong passwd' : 'ввели пароль вместо кода',
+'member/confirm/wrong badcookie' : 'неверный код',
+'member/confirm/wait.html' : 'Сейчас вы будете перенаправлены на следующую страницу.<BR/>Если этого не произошло, перейдите по <a href=/member/join/anketa/target>ссылке</a>',
+'error/confirm/terms_and_conditions' : 'подтвердите согласие с условиями пользования',
+'error/confirm/personal_data' : 'подтвердите согласие на обработку персональных данных',
+'info/done' : 'код выслан повторно'
+}
+var subscriberu_period = {'day' : 'день', 'month' : 'месяц', 'year' : 'год'};
+var uimsg = { 'unblock' : 'Кликните для разблокировки',
+'recall' : 'Пароль отправлен на указанный адрес',
+'sub_inasl' : 'подписчик в стоп-листе автора',
+'sub_ms' : 'модерируемая подписка, автору послан запрос',
+'sub_unk' : 'рассылка закрыта или код рассылки не опознан',
+'endsession' : 'Текущая сессия закончилась. Для продолжения работы необходимо пройти авторизацию',
+'maximize' : 'Развернуть',
+'all' : 'всего',
+'week' : 'неделя',
+'deletemsg' : 'Удалить сообщение',
+'msgdeleted' : 'Сообщение удалено',
+'cancel' : 'отменить',
+'diffpwd' : 'Пароли не совпадают',
+'quickadd' : 'Адрес XXX уже зарегистрирован, и для подписки вам необходимо указать пароль',
+'congradulation' : '<span style="color:green">Адрес успешно зарегистрирован и подписка успешно произведена.</span><br/><br/>Для предотвращения несанкционированых подписок Вам отправлен запрос на подтверждение регистрации.',
+'confirm' : 'На указанный Вами адрес отправлено специальное письмо со ссылкой для подписки без ввода пароля.',
+'maybebest' : '<br/>Может быть, лучше <a href="" class="linkconfirm">прислать специальное письмо</a> со ссылкой для подписки без ввода пароля?',
+'groupmemberonly' : '<b>Материалы группы доступны только ее участникам.<br/><br/>Чтобы вступить в группу, войдите на сайт <a href="https://subscribe.ru/member/join" id="ajaxreg" style="cursor: pointer;">или зарегистрируйтесь</a></b><br/><br/><i>Уже участник? Авторизуйтесь, пожалуйста.</i>',
+'groupmemberonlyshort' : '<b>Материалы группы доступны только ее участникам</b>',
+'putemail' : 'введите ваш адрес email',
+'sendmeletter' : 'Я не хочу вспоминать пароль, <a href="" class="linkconfirm">пришлите мне письмо со ссылкой для подписки</a>',
+'archsearchtext' : 'Поиск по архиву этой рассылки',
+'forcomment' : 'Комментарии могут оставлять только зарегистрированные пользователи. Пожалуйста, авторизуйтесь или зарегистрируйтесь.',
+'pleaseselect' : 'пожалуйста, выберите',
+'cat' : 'кошка',
+'emailcpt' : 'Ваш email-адрес для подписки',
+'openidcpt' : 'Ваш openid для подписки',
+'semailcpt' : 'E-mail:',
+'sopenidcpt' : 'Openid:',
+'welcome' : '<p>Добро пожаловать на информационный канал Subscribe.Ru!<p><b>Ваша подписка оформлена, но Ваша регистрация ещё не активирована</b> <p>Вам выслано письмо о том, как подтвердить регистрацию. <p>Обязательно подтвердите регистрацию, иначе Вы не сможете получать рассылки по почте. <p>Вы автоматически подписаны на «Новости Subscribe.Ru», которые будут сообщать вам о новых рассылках (конечно, от этой рассылки можно отписаться). <p>Заполните, пожалуйста, анкету. Это поможет сделать сайт лучше, а Вам - принять участие в розыгрыше замечательных призов от нас и наших партнеров.',
+'alreadysubscribed' : '<p>Вы уже являетесь подписчиком Информационного Канала Subscribe.Ru и уже подписаны на выбранные рассылки. <p>Вы можете зайти в <a href="/member/issue">управление подпиской</a> и убедиться в этом.',
+'loading' : 'страница загружается...',
+'confirmcode' : 'На указанный вами адрес отправлено письмо с инструкциями и кодом подтверждения',
+'vkerror' : 'Произошла ошибка, попробуйте другие способы авторизации',
+'mruerror' : 'Произошла ошибка, попробуйте другие способы авторизации',
+'vkok' : 'Авторизация в vkontakte.ru прошла успешно, но она не связана ни с каким email-ом на нашем сайте. Привязка email необходима для подписки, поэтому укажите email.',
+'mruok' : 'Авторизация в Mail.Ru прошла успешно, но она не связана ни с каким email-ом на нашем сайте. Привязка email необходима для подписки, поэтому укажите email.',
+'httperr' : 'При отправке запроса произошла ошибка',
+'no data' : 'нет данных',
+'doyouwantdeletetheme' : 'Вы действительно хотите удалить эту тему?',
+'doyouwantdeletecomment' : 'Вы действительно хотите удалить этот комментарий?',
+'deletecommentbanneduser' : 'Вы действительно хотите удалить этот комментарий и забанить пользователя?',
+'deleteallusercomments' : 'Вы действительно хотите удалить все комментарии пользователя?',
+'banneduser' : 'Вы действительно хотите забанить пользователя?',
+'unbanneduser' : 'Вы действительно хотите разбанить пользователя?',
+'recoverdeletedcomment' : 'Восстановить удаленный комментарий?'
+};
+var subscriberu_month = {
+'genitivus' : ['', 'января', 'февраля', 'марта', 'апреля', 'мая', 'июня', 'июля', 'августа', 'сентября', 'октября', 'ноября', 'декабря'],
+'nominativus' : ['', 'январь', 'февраль', 'март', 'апрель', 'май', 'июнь', 'июль', 'август', 'сентябрь', 'октябрь', 'ноябрь', 'декабрь'],
+'rome' : ['', 'I', 'II', 'III', 'IV', 'V', 'VI', 'VII', 'VIII', 'IX', 'X', 'XI', 'XII']
+}
+var subscriberu_subscriber = ['подписчик', 'подписчика', 'подписчиков'];
+var subscriberu_subscription = ['подписка', 'подписки', 'подписок'];
+var subscriberu_member = ['участник', 'участника', 'участников'];
+var subscriberu_view = ['просмотр', 'просмотра', 'просотров'];
+var subscriberu_topic = ['тема', 'темы', 'тем'];
+var subscriberu_comment = ['комментарий', 'комментария', 'комментариев'];
+var subscriberu_rate = ['голос', 'голоса', 'голосов'];
+var subscriberu_ratepos = ['положительный голос', 'положительных голоса', 'положительных голосов'];
+var subscriberu_rateneg = ['отрицательный голос', 'отрицательных голоса', 'отрицательных голосов'];
+var subscriberu_popup_cpt = {
+'reg' : '<b>Быстрая регистрация <a href="https://subscribe.ru/member" id ="ajaxlogin" style="cursor:pointer;">или войти</a></b>',
+'login' : '<b>Вход на сайт <a href="https://subscribe.ru/member/join" id ="ajaxreg" style="cursor:pointer;">или регистрация</a></b>',
+'email' : '<b>Быстрая подписка</b>'
+}
+var subscriberu_but_cpt = {
+'enter' : 'Войти',
+'subscribe' : 'Подписаться',
+'joingroup' : 'Вступить в группу',
+'ok' : 'ok',
+'deletetheme' : 'Удалить тему',
+'deletecomm' : 'Удалить комментарий',
+'deletecomments' : 'Удалить все комментарии',
+'recovercomm' : 'Восстановить комментарий',
+'deleteandbanned' : 'Удалить и забанить',
+'banneduser' : 'Забанить',
+'unbanneduser' : 'Разбанить'
+}
+var blog_error_code = {
+'wrong_captha':'Вы ввели неправильный код. Попробуйте еще раз, пожалуйста.',
+'no_confirm_user':'Вы не можете оставлять комментарии, потому что ваша регистрация ещё не подтверждена.<br /><a href="/member/confirm" target="_blank">Подтвердите регистрацию</a>'
+};
+var blog_msg_code = {
+'comment_deleted' : 'комментарий удален',
+'cancel' : 'Отменить',
+'delete' : 'Удалить',
+'nick_free' : 'Ник свободен',
+'nick_used' : 'Ник занят'
+};
+var subscriberu_country_name = ['РОССИЯ / ЦЕНТРАЛЬНЫЙ ФЕДЕРАЛЬНЫЙ ОКРУГ:', 'Москва', 'Московская область', 'Тульская область', 'Тверская область', 'Калужская область', 'Ярославская область', 'Рязанская область', 'Ивановская область', 'Воронежская область', 'Белгородская область', 'Костромская область', 'Смоленская область', 'Брянская область', 'Курская область', 'Тамбовская область', 'Владимирская область', 'Липецкая область', 'Орловская область', 'РОССИЯ / СЕВЕРО-ЗАПАДНЫЙ ФЕДЕРАЛЬНЫЙ ОКРУГ:', 'Санкт-Петербург', 'Ленинградская область', 'Мурманская область', 'Псковская область', 'Новгородская область', 'Вологодская область', 'Калининградская область', 'Архангельская область', 'Республика Карелия', 'Республика Коми', 'Ненецкий автономный округ', 'РОССИЯ / СИБИРСКИЙ ФЕДЕРАЛЬНЫЙ ОКРУГ:', 'Новосибирская область', 'Красноярский край', 'Иркутская область', 'Томская область', 'Кемеровская область', 'Омская область', 'Читинская область', 'Агинский Бурятский автономный округ', 'Усть-Ордынский Бурятский автономный округ', 'Республика Бурятия', 'Республика Алтай', 'Республика Хакасия', 'Алтайский край', 'Таймырский (Долгано-Ненецкий) автономный округ', 'Эвенкийский автономный округ', 'Республика Тыва', 'РОССИЯ / УРАЛЬСКИЙ ФЕДЕРАЛЬНЫЙ ОКРУГ:', 'Свердловская область', 'Челябинская область', 'Курганская область', 'Тюменская область', 'Ханты-Мансийский автономный округ', 'Ямало-Ненецкий автономный округ', 'РОССИЯ / ДАЛЬНЕВОСТОЧНЫЙ ФЕДЕРАЛЬНЫЙ ОКРУГ:', 'Хабаровский край', 'Приморский край (Владивосток)', 'Амурская область', 'Магаданская область', 'Чукотский автономный округ', 'Еврейская автономная область', 'Республика Саха (Якутия)', 'Камчатская область', 'Сахалинская область', 'Корякский автономный округ', 'РОССИЯ / ПРИВОЛЖСКИЙ ФЕДЕРАЛЬНЫЙ ОКРУГ:', 'Нижегородская область', 'Самарская область', 'Саратовская область', 'Пермская область', 'Республика Татарстан', 'Ульяновская область', 'Кировская область', 'Оренбургская область', 'Пензенская область', 'Удмуртская Республика', 'Республика Башкортостан', 'Коми-Пермяцкий автономный округ', 'Республика Марий Эл', 'Республика Мордовия', 'Чувашская Республика', 'РОССИЯ / ЮЖНЫЙ ФЕДЕРАЛЬНЫЙ ОКРУГ:', 'Ростовская область', 'Краснодарский край', 'Ставропольский край', 'Волгоградская область', 'Астраханская область', 'Республика Адыгея', 'Кабардино-Балкарская Республика', 'Республика Северная Осетия-Алания', 'Республика Калмыкия', 'Республика Дагестан', 'Карачаево-Черкесская Республика', 'Чеченская Республика', 'Республика Ингушетия', 'СТРАНЫ СНГ:', 'Азербайджан', 'Армения', 'Беларусь', 'Грузия', 'Казахстан', 'Кыргызстан', 'Молдова', 'Таджикистан', 'Туркменистан', 'Узбекистан', 'Украина', 'СТРАНЫ БАЛТИИ:', 'Литва', 'Латвия', 'Эстония', 'ОСТАЛЬНОЙ МИР:', 'США', 'Израиль', 'Германия', 'Канада', 'Великобритания', 'Австралия', 'Швеция', 'Люксембург', 'Франция', 'Италия', 'Нидерланды', 'Япония', 'Болгария', 'Китай', 'Финляндия', 'Испания', 'Польша', 'Чешская Республика', 'Турция', 'Бельгия', 'Австрия', 'Кипр', 'Бразилия', 'Швейцария', 'Саудовская Аравия', 'Объединенные Арабские Эмираты (ОАЭ)', 'Норвегия', 'Южная Корея', 'Прочие страны'];
+var subscriberu_country_code = ['', 'RU77', 'RU50', 'RU71', 'RU69', 'RU40', 'RU76', 'RU62', 'RU37', 'RU36', 'RU31', 'RU44', 'RU67', 'RU32', 'RU46', 'RU68', 'RU33', 'RU48', 'RU57', '', 'RU78', 'RU47', 'RU51', 'RU60', 'RU53', 'RU35', 'RU39', 'RU29', 'RU10', 'RU11', 'RU83', '', 'RU54', 'RU24', 'RU38', 'RU70', 'RU42', 'RU55', 'RU75', 'RU80', 'RU85', 'RU03', 'RU04', 'RU19', 'RU22', 'RU84', 'RU88', 'RU17', '', 'RU66', 'RU74', 'RU45', 'RU72', 'RU86', 'RU89', '', 'RU27', 'RU25', 'RU28', 'RU49', 'RU87', 'RU79', 'RU14', 'RU41', 'RU65', 'RU82', '', 'RU52', 'RU63', 'RU64', 'RU59', 'RU16', 'RU73', 'RU43', 'RU56', 'RU58', 'RU18', 'RU02', 'RU81', 'RU12', 'RU13', 'RU21', '', 'RU61', 'RU23', 'RU26', 'RU34', 'RU30', 'RU01', 'RU07', 'RU15', 'RU08', 'RU05', 'RU09', 'RU20', 'RU06', '', 'AZ,,', 'AM,,', 'BY,,', 'GE,,', 'KZ,,', 'KG,,', 'MD,,', 'TJ,,', 'TM,,', 'UZ,,', 'UA,,', '', 'LT,,', 'LV,,', 'EE,,', '', 'US,,', 'IL,,', 'DE,,', 'CA,,', 'UK,,', 'AU,,', 'SE,,', 'LU,,', 'FR,,', 'IT,,', 'NL,,', 'JP,,', 'BG,,', 'CN,,', 'FI,,', 'ES,,', 'PL,,', 'CZ,,', 'TR,,', 'BE,,', 'AT,,', 'CY,,', 'BR,,', 'CH,,', 'SA,,', 'AE,,', 'NO,,', 'KR,,', ',,WW'];
+</script>
+<title>Информационный Канал Subscribe.Ru</title>
+<meta name="verify-admitad" content="635cdaf4c9" x-x="byacz"/>
+<meta name="author" content="АО &quot;Интернет-Проекты&quot;">
+<meta name="description" content="">
+<meta name="keywords" content="бесплатно информация рассылка почта подписка palm палм новости спорт погода юмор отдых государтво экномика информация финансы компьютеры сеть игры работа образование отдых дом пресса телевидение радио программа">
+<meta name="description" content="Служба Почтовых Рассылок SUBSCRIBE.RU дает Вам возможность совершенно бесплатно получать самую разнообразную информацию прямо в Ваш почтовый ящик. А если Вы откроете у нас рассылку или закажете рекламу, то Вашу информацию узнают сотни тысяч людей">
+<link type="application/rss+xml"
+rel="alternate"
+title="Информация о новых рассылках в формате RSS"
+href="https://subscribe.ru/latest.rss" />
+<link type="application/rss+xml"
+rel="alternate"
+title="Cвежие новости дайджестов Subscribe.Ru"
+href="http://digest.subscribe.ru/index.rss" />
+<link type="application/atom+xml"
+rel="alternate"
+title="Информация о новых рассылках в формате Atom"
+href="https://subscribe.ru/latest.atom" />
+<!--<script type="text/javascript" src="//api.flocktory.com/v2/loader.js?site_id=1900" async="async"></script>-->
+</head>
+<body>
+<!-- <!-- не залогинен -->
+<link rel="stylesheet" type="text/css" href="/css/login_register_form/res.css"/>
+<link rel="stylesheet" type="text/css" href="/css/login_register_form/style.css"/>
+<!--[if IE]><link rel="stylesheet" type="text/css" href="/css/login_register_form/ie.css"/><![endif]-->
+<form id="rform" autocomplete="off" method="POST" action="/member/join" target="_top">
+<input type="hidden" name="destination" value="">
+<input type="hidden" name="addgrp" id="addgrp" value="">
+<input type="hidden" name="openid" value="">
+<input type="hidden" name="agree" value="on">
+</form>
+<div id='js_tmpl'></div>
+<p style="display:none;">
+<textarea id="js_tmpl_login_register" rows="0" cols="0">
+{#template MAIN}
+<div id="loginForm" style="display:none;" class="subscriberu_popup">
+<div class="popup_register">
+{#include js_tmpl_auth_reg_tab}
+{#if $P.login_register_tab == 1}
+<form class="authentication-form" method="post" action="/MEMBERLOGIN_authen_cred">
+<dl class="rg_block_options">
+<dt id="js_tap_panel_auth">
+<h1>Войти на сайт</h1>
+{*
+{#include js_tmpl_auth_reg_button}
+*}
+{#include js_tmpl_auth_reg_action}
+<hr class="logreg_line noPhones">
+<div class="logreg_descr noPhones"><p>{#include js_tmpl_auth_reg_descr} </p></div>
+<div class="logreg_advice noPhones">
+Если вы еще не с нами, то начните с <a href="#" onclick="rgNav('js_tab_reg');return false;" class="dashed" data-func="registr">регистрации</a>
+</div>
+<br><br>
+<a class="dashed auth-enter" href="/manage/author/"><b>Вход для авторов</b></a>
+</dt>
+</dl>
+</form>
+{#/if}
+{#if $P.login_register_tab == 2}
+<div class="rg_block_options">
+<div id="js_tap_panel_auth">
+<h1>Регистрация</h1>
+<div class="social_reg">
+{* <div class="rg_description">{#include js_tmpl_soc_auth_reg_descr}</div> *}
+{#include js_tmpl_auth_reg_soc}
+<div class="rg_soc_auth_agree">{#include js_tmpl_auth_reg_agree}</div>
+</div>
+<div class="subscribe_reg">
+{* <div class="rg_description"> #include js_tmpl_auth_reg_descr </div> *}
+{#include js_tmpl_auth_reg_action}
+</div>
+{*
+{#include js_tmpl_auth_reg_button}
+*}
+<div class="clr">&nbsp;</div>
+<hr class="logreg_line noPhones">
+<div class="logreg_descr noPhones">{#include js_tmpl_auth_reg_descr} {#include js_tmpl_soc_auth_reg_descr} </div>
+</div>
+</div>
+{#/if}
+</div>
+{*
+<div class="gray_bg register_shadow"></div>
+*}
+</div>
+{#/template MAIN}
+{#template js_tmpl_auth_reg_tab}
+<ul class="rg_nav">
+<li id="js_tab_auth" class="{#if $P.login_register_tab == 1} rg_active_nav {#/if} rg_first_nav"><a onclick="rgNav('js_tab_auth');return false;" href="">Вход на сайт</a></li>
+<li id="js_tab_reg" class="{#if $P.login_register_tab == 2} rg_active_nav {#/if}"><a onclick="rgNav('js_tab_reg');return false;" href="">Регистрация </a></li>
+</ul>
+<span onclick="hidebo();" class="rg_closed">&nbsp;</span>
+{#/template js_tmpl_auth_reg_tab}
+{#template js_tmpl_auth_reg_action}
+{#if $P.login_register_tab == 1}
+{#include js_tmpl_auth_reg_soc}
+{#/if}
+<div class="rg_forms">
+<input type="hidden" id="login_register_destination" value="{$P.login_register_destination}"/>
+{#if $P.login_register_tab == 1}
+<div class="rg_for_input">
+<span class="rg_text_inner">E-mail или код подписчика</span>
+<input id="credential_0" class="js_keydown_selector rg_input_text" data-js_submit="no" data-js_next_input_name="credential_1" name="" type="text" />
+</div>
+<div class="rg_for_input">
+<span class="rg_text_inner">Пароль</span>
+<input id="credential_1" class="js_keydown_selector rg_input_text" data-js_submit="yes" data-js_action="js_loginFormBut" name="" type="password" onkeyup="showAttention(this,!!window.event.shiftKey)" />
+<span class="pswd_attention" id="attention_pswd">
+<span class="icon_attention"></span>
+<span class="pswd_attention-text" id="attention-text_pswd1">Русская раскладка клавиатуры!</span>
+<span class="pswd_attention-text" id="attention-text_pswd2">У вас включен Caps Lock!</span>
+<span class="pswd_attention-text" id="attention-text_pswd3">У вас включен Caps Lock и русская раскладка клавиатуры!</span>
+</span>
+</div>
+<div class="rg_for_input input-alien">
+<span class="chk noPhones"><input id="chk_alien" name="" type="checkbox" /></span><label for="chk_alien" class="noPhones"> Чужой компьютер</label>
+<a class="forgot_pass" href="/member/totalrecall">Забыли пароль?</a>
+</div>
+<div class="rg_for_input">
+<em id="auth_msg" class="reg_error"></em>
+<input id="lf_typeauthid" value="email" type="hidden">
+<input type="submit" class="button button-red logreg_submit" id="js_loginFormBut" value="Войти">
+<!--</a>-->
+<div class="loading loading-cover" style="display: none;"><div class="loader"></div></div>
+</div>
+{#/if}
+{#if $P.login_register_tab == 2}
+<div class="rg_for_input">
+<span class="rg_text_inner">E-mail</span>
+<input id="arfemail" class="js_keydown_selector rg_input_text" name="" type="text" data-js_submit="yes" data-js_action="js_regFormBut"/>
+</div>
+<div class="rg_for_input rg_set_lineh rg_for_input_wide">
+<label class="js_tap_panel_checkbox">
+<span class="chk"><input name="" id='js_tap_panel_checkbox_terms' type="checkbox" data-js_submit="yes" /></span>
+Я ознакомился и согласен с&nbsp;<a class="link_txd logreg_accLink" href="/faq/vereinbarung.html">условиями сервиса Subscribe.ru</a>
+</label>
+<br />
+<label class="js_tap_panel_checkbox">
+<span class="chk"><input name="" id='js_tap_panel_checkbox_personal' type="checkbox" data-js_submit="yes" /></span>
+Нажимая на кнопку "Готово!", я даю <a class="link_txd logreg_accLink" href="/faq/persverordnung.html">согласие на обработку персональных данных</a>
+</label>
+</div>
+{*
+<div style="float: left;position: absolute;left: 11em;">
+<img src="http://www.kupivip.ru/images/vip/logo.png?1604" style="width: 86px; vertical-align: middle;display: block;">
+</div>
+<div class="rg_for_input rg_set_lineh">
+<label class="js_tap_panel_checkbox"><input name="" id="js_tap_panel_checkbox_kupivip" type="checkbox" data-js_submit="yes"> Я хочу получать новости о скидках на одежду</label>
+</div>
+*}
+<div class="rg_for_input">
+<em id="reg_msg" class="reg_error rg_for_input_wide"></em>
+<em id="reg_msg2" class="reg_error rg_for_input_wide"></em>
+<input id="rf_typeauthid" value="email" type="hidden">
+<a class="button button-red logreg_submit" id="js_regFormBut" href="#">Готово!</a>
+<div class="loading loading-cover" style="display: none;"><div class="loader"></div></div>
+</div>
+{#/if}
+</div>
+{#/template js_tmpl_auth_reg_action}
+{#template js_tmpl_auth_reg_agree}
+<div class="rg_for_input rg_set_lineh rg_for_input_wide">
+<label class="js_tap_panel_checkbox">
+<span class="chk"><input name="" id='js_tap_panel_checkbox_terms_reg' type="checkbox" data-js_submit="yes" /></span>
+Я ознакомился и согласен с&nbsp;<a class="link_txd logreg_accLink" href="/faq/vereinbarung.html">условиями сервиса Subscribe.ru</a></label>
+<em id="reg_msg_soc" class="reg_error rg_for_input_wide"></em>
+</div>
+{#/template js_tmpl_auth_reg_agree}
+{#template js_tmpl_auth_reg_button}
+<div class="rg_butons_socials">
+{#if $P.login_register_tab == 1}
+<a class="rg_btn_soc rg_bs_01 js_tap_panel_selector" action="auth_email" href="#"><span><i></i>Email</span></a>
+<a class="rg_btn_soc rg_bs_01 js_tap_panel_selector" action="auth_openid" href="#"><span><i></i>OpenID</span></a>
+<a class="rg_btn_soc rg_bs_02 js_tap_panel_selector" action="auth_vkontakte" href="#"><span><i></i>Вконтакте</span></a>
+<a class="rg_btn_soc rg_bs_02 js_tap_panel_selector" action="auth_mailru" href="#"><span><i></i>Mail.Ru</span></a>
+{#/if}
+{#if $P.login_register_tab == 2}
+<a class="rg_btn_soc rg_bs_01 js_tap_panel_selector" action="reg_email" href="#"><span><i></i>Email</span></a>
+<a class="rg_btn_soc rg_bs_01 js_tap_panel_selector" action="reg_openid" href="#"><span><i></i>OpenID</span></a>
+<a class="rg_btn_soc rg_bs_02 js_tap_panel_selector" action="reg_vkontakte" href="#"><span><i></i>Вконтакте</span></a>
+<a class="rg_btn_soc rg_bs_02 js_tap_panel_selector" action="reg_mailru" href="#"><span><i></i>Mail.Ru</span></a>
+{#/if}
+</div>
+{#/template js_tmpl_auth_reg_button}
+{#template js_tmpl_auth_reg_descr}
+{#if $P.login_register_tab == 1}
+Для оформления подписки на выбранную рассылку, работы с интересующей вас группой или доступа в нужный вам раздел, просим авторизоваться на Subscribe.ru
+{#/if}
+{#if $P.login_register_tab == 2}
+Для регистрации укажите ваш e-mail адрес. Адрес должен быть действующим, на него сразу после регистрации будет отправлено письмо с инструкциями и кодом подтверждения.
+{#/if}
+{#/template js_tmpl_auth_reg_descr}
+{#template js_tmpl_soc_auth_reg_descr}
+Или зарегистрируйтесь через социальную сеть.
+{#/template js_tmpl_soc_auth_reg_descr}
+{#template js_tmpl_auth_reg_soc}
+<div class="rg_soc">
+{#if $P.login_register_tab == 1}
+<a onclick="return _checkSocConfirm(event)" href="https://oauth.vk.com/authorize?client_id=3954260&scope=wall,offline,photos,groups,video,audio,email&redirect_uri={location.protocol+'//'+location.host}/member/login/vk/&response_type=code&v=5.15" class="login_register_vk_button">
+<span class="login_register_vk_icon"></span>
+</a>
+<a onclick="return _checkSocConfirm(event)" href="https://www.facebook.com/dialog/oauth?client_id=593812447346138&redirect_uri={location.protocol+'//'+location.host}/member/login/fb/&scope=read_stream,publish_stream,publish_actions,offline_access,user_photos,user_notes,user_groups,email" class="login_register_fb_button">
+<span class="login_register_fb_icon"></span>
+</a>
+{#/if}
+{#if $P.login_register_tab == 2}
+<a onclick="return _checkSocConfirm(event)" href="https://oauth.vk.com/authorize?client_id=3954260&scope=wall,offline,photos,groups,video,audio,email&redirect_uri={location.protocol+'//'+location.host}/member/join/vk&response_type=code&v=5.15" class="login_register_vk_button">
+<span class="login_register_vk_icon"></span>
+</a>
+<a onclick="return _checkSocConfirm(event)" href="https://www.facebook.com/dialog/oauth?client_id=593812447346138&redirect_uri={location.protocol+'//'+location.host}/member/join/fb&scope=read_stream,publish_stream,publish_actions,offline_access,user_photos,user_notes,user_groups,email" class="login_register_fb_button">
+<span class="login_register_fb_icon"></span>
+</a>
+{#/if}
+</div>
+{#/template js_tmpl_auth_reg_soc}
+</textarea>
+</p>
+<p style="display:none;">
+<textarea id="js_tmpl_confirm_register" rows="0" cols="0">
+{#template MAIN}
+<div id="loginForm" style="display:none;" class="subscriberu_popup">
+<div class="popup_register">
+{#include js_tmpl_auth_reg_tab}
+<dl class="rg_block_options">
+<dt id="js_tap_panel_auth">
+<p class="rg_description">{#include js_tmpl_auth_reg_descr}</p>
+<div class="clr">&nbsp;</div>
+{#include js_tmpl_auth_reg_action}
+<div class="clr">&nbsp;</div>
+</dt>
+</dl>
+</div>
+<!-- <div class="gray_bg register_shadow"></div> -->
+</div>
+{#/template MAIN}
+{#template js_tmpl_auth_reg_tab}
+<ul class="rg_nav">
+<li id="js_tab_reg" class="rg_active_nav rg_first_nav"><a href="" onclick="return false;" >Регистрация</a></li>
+</ul>
+<span onclick="hidebo();" class="rg_closed">&nbsp;</span>
+{#/template js_tmpl_auth_reg_tab}
+{#template js_tmpl_auth_reg_descr}
+<strong>Пожалуйста, подтвердите ваш адрес.</strong><br><br>Вам отправлено письмо для подтверждения вашего адреса {$P.register_confirm_mail}.<br>Для подтверждения адреса перейдите по ссылке из этого письма.
+{#/template js_tmpl_auth_reg_descr}
+{#template js_tmpl_auth_reg_action}
+<div class="rg_forms confirm_code_from_letter">
+<div class="rg_for_input">
+<span class="rg_inp_descr" style="width:15em;">Или введите код из письма:</span>
+<input type="text" value="" id="confirm_code" name="" data-js_submit="yes" data-js_action="js_confirmFormBut" class="js_keydown_selector rg_input_text_conf" >
+</div>
+<div class="rg_for_input"><label>Не пришло письмо? <b>Пожалуйста, проверьте папку Спам</b><br /> (папку для нежелательной почты).</label><br />
+&nbsp;<a href="" onclick="ajax_recall_code();return false" >Вышлите мне письмо еще раз!</a></div>
+<div class="rg_for_input">
+<em class="reg_error" id="confirm_msg"></em>
+<a href="#" class="button button-red" id="js_confirmFormBut">Готово</a>
+<div class="loading loading-cover" style="display: none;"><div class="loader"></div></div>
+<br>
+</div>
+</div>
+{#/template js_tmpl_auth_reg_action}
+</textarea>
+</p>
+-->
+<div id="all">
+<div class="header-spacer"></div>
+<div class="noPhones noTabletsPort top_adv">
+<div style="text-align:center;">
+<div id="yandex_ad" style="display: inline-block;">
+</div>
+</div>
+</div>
+<!--FELIS obj=#include name=include/misccache/iprjlastnews/index-->
+<header class="noauth">
+<a href="#" class="menu_link"></a>
+<a title="Subscribe.Ru" href="/" class="logo logo-red "></a>
+<div class="topmenu_wrap">
+<div class="topmenu_wrap-inner">
+<ul class="topmenu">
+<li class="topmenu_item">
+<span class="topmenu_link-wrap">
+<a class="topmenu_link" href="/digest">
+Выпуски<span class="topmenu_info topmenu_info-1"></span></a>
+</span>
+</li>
+<li class="topmenu_item">
+<span class="topmenu_link-wrap">
+<a class="topmenu_link" href="/group/">
+Группы<span class="topmenu_info topmenu_info-2"><!--group=9.686--></span></a>
+</span>
+</li>
+<li class="topmenu_item">
+<span class="topmenu_link-wrap">
+<a class="topmenu_link" href="/member/lenta">
+Подборки<span class="topmenu_info topmenu_info-3"></span> </a>
+</span>
+</li>
+</ul>
+</div>
+</div>
+<ul class="usermenu">
+<!--
+-->
+<li class="usermenu_item">
+<a href="/member/join" class="usermenu_link usermenu_link-1" onclick="showloginForm(0,'/'); return false" title="Вход\Регистрация"></a>
+</li>
+<li class="usermenu_item"><a href="" class="usermenu_link usermenu_link-2"></a></li>
+</ul>
+<div class="scroll_up toTop">
+<a class="scroll_up-inner" href="" id="scrollup"></a>
+</div>
+<div class="search">
+<form action="/search/" method="post">
+<div class="search-input">
+<input name="q" type="text" value="Поиск" onfocus="if (this.value == 'Поиск') {this.value = '';}" onblur="this.value=!this.value?'Поиск':this.value;" />
+</div>
+<input name="charset" value="кошка" type="hidden">
+<input type="submit" value="Найти" class="search-submit button button-red" />
+<span class="search-clear"></span>
+</form>
+</div>
+</header>
+<div class="up noPhones"></div>
+<div class="leftmenu noPhones">
+<a href="#" class="leftmenu_arrows"></a>
+<ul class="leftmenu_ul">
+<li class="leftmenu_item"><a class="leftmenu_link" href="/digest/" title="Все вместе">
+<span class="leftmenu_icon leftmenu_icon-0">&nbsp;</span>
+<span class="leftmenu_title">Все вместе</span></a>
+<li class="leftmenu_item">
+<a class="leftmenu_link" href="/digest/auto" title="Авто">
+<span class="leftmenu_icon leftmenu_icon-auto"></span>
+<span class="leftmenu_title">
+Авто
+</span>
+</a>
+<li class="leftmenu_item">
+<a class="leftmenu_link" href="/digest/travel" title="Туризм">
+<span class="leftmenu_icon leftmenu_icon-travel"></span>
+<span class="leftmenu_title">
+Туризм
+</span>
+</a>
+<li class="leftmenu_item">
+<a class="leftmenu_link" href="/digest/inet" title="Компьютеры">
+<span class="leftmenu_icon leftmenu_icon-inet"></span>
+<span class="leftmenu_title">
+Компьютеры
+</span>
+</a>
+<li class="leftmenu_item">
+<a class="leftmenu_link" href="/digest/woman" title="Мир женщины">
+<span class="leftmenu_icon leftmenu_icon-woman"></span>
+<span class="leftmenu_title">
+Мир женщины
+</span>
+</a>
+<li class="leftmenu_item">
+<a class="leftmenu_link" href="/digest/business" title="Бизнес и карьера">
+<span class="leftmenu_icon leftmenu_icon-business"></span>
+<span class="leftmenu_title">
+Бизнес и карьера
+</span>
+</a>
+<li class="leftmenu_item">
+<a class="leftmenu_link" href="/digest/economics" title="Экономика и финансы">
+<span class="leftmenu_icon leftmenu_icon-economics"></span>
+<span class="leftmenu_title">
+Экономика <span class="noPhones">и финансы</span>
+</span>
+</a>
+<li class="leftmenu_item">
+<a class="leftmenu_link" href="/digest/realty" title="Недвижимость">
+<span class="leftmenu_icon leftmenu_icon-realty"></span>
+<span class="leftmenu_title">
+Недвижимость
+</span>
+</a>
+<li class="leftmenu_item">
+<a class="leftmenu_link" href="/digest/children" title="Дети">
+<span class="leftmenu_icon leftmenu_icon-children"></span>
+<span class="leftmenu_title">
+Дети
+</span>
+</a>
+<li class="leftmenu_item">
+<a class="leftmenu_link" href="/digest/mobile" title="Hi-Tech">
+<span class="leftmenu_icon leftmenu_icon-mobile"></span>
+<span class="leftmenu_title">
+Hi-Tech
+</span>
+</a>
+<li class="leftmenu_item">
+<a class="leftmenu_link" href="/digest/health" title="Здоровье">
+<span class="leftmenu_icon leftmenu_icon-health"></span>
+<span class="leftmenu_title">
+Здоровье
+</span>
+</a>
+<li class="leftmenu_item">
+<a class="leftmenu_link" href="/digest/sport" title="Спорт">
+<span class="leftmenu_icon leftmenu_icon-sport"></span>
+<span class="leftmenu_title">
+Спорт
+</span>
+</a>
+<li class="leftmenu_item">
+<a class="leftmenu_link" href="/digest/style" title="Стиль жизни">
+<span class="leftmenu_icon leftmenu_icon-style"></span>
+<span class="leftmenu_title">
+Стиль жизни
+</span>
+</a>
+<li class="leftmenu_item">
+<a class="leftmenu_link" href="/digest/cookery" title="Кулинария">
+<span class="leftmenu_icon leftmenu_icon-cookery"></span>
+<span class="leftmenu_title">
+Кулинария
+</span>
+</a>
+<li class="leftmenu_item">
+<a class="leftmenu_link" href="/digest/kino" title="Кино и TV">
+<span class="leftmenu_icon leftmenu_icon-kino"></span>
+<span class="leftmenu_title">
+Кино и TV
+</span>
+</a>
+<li class="leftmenu_item">
+<a class="leftmenu_link" href="/digest/animals" title="Животные">
+<span class="leftmenu_icon leftmenu_icon-animals"></span>
+<span class="leftmenu_title">
+Животные
+</span>
+</a>
+<li class="leftmenu_item">
+<a class="leftmenu_link" href="/digest/home" title="Дом">
+<span class="leftmenu_icon leftmenu_icon-home"></span>
+<span class="leftmenu_title">
+Дом
+</span>
+</a>
+<li class="leftmenu_item">
+<a class="leftmenu_link" href="/digest/marketing" title="Маркетинг и реклама">
+<span class="leftmenu_icon leftmenu_icon-marketing"></span>
+<span class="leftmenu_title">
+Маркетинг <span class="noPhones">и реклама</span>
+</span>
+</a>
+<li class="leftmenu_item">
+<a class="leftmenu_link" href="/digest/esoteric" title="Таинственное">
+<span class="leftmenu_icon leftmenu_icon-esoteric"></span>
+<span class="leftmenu_title">
+Таинственное
+</span>
+</a>
+<li class="leftmenu_item">
+<a class="leftmenu_link" href="/digest/game" title="Игры">
+<span class="leftmenu_icon leftmenu_icon-game"></span>
+<span class="leftmenu_title">
+Игры
+</span>
+</a>
+<li class="leftmenu_item">
+<a class="leftmenu_link leftmenu_link-33" href="https://sendsay.ru/?utm_source=subscribe-mainmenu&utm_medium=subswebsite&utm_campaign=subscribe-mainmenu" title="Email-маркетинг">
+<span class="leftmenu_icon leftmenu_icon-33">&nbsp;</span>
+<span class="leftmenu_title">Email-маркетинг</span></a></li>
+</li>
+<li class="leftmenu_item">
+<!--<a class="leftmenu_link leftmenu_link-34" href="http://tickets.subscribe.ru/?utm_source=leftmenu" title="Поиск авиабилетов">-->
+<a class="leftmenu_link leftmenu_link-34" href="https://clk.tradedoubler.com/click?p=232108&a=2243028&g=21113908" title="Поиск авиабилетов">
+<span class="leftmenu_icon leftmenu_icon-34">&nbsp;</span>
+<span class="leftmenu_title">Поиск авиабилетов</span></a></li>
+</li>
+</ul>
+</div>
+<section class="maincontent">
+<div class="catmenu"><div class="inside">
+<ul class="catmenu_ul">
+<li class="catmenu_item">
+<a href="/issue/" class="catmenu_link catmenu_link-active">Выпуски рассылок</a></li>
+<li class="catmenu_item">
+<a href="/catalog/" class="catmenu_link">Каталог рассылок</a></li>
+<li class="phones catmenu_grad"></li>
+<li class="phones catmenu_grad2" style="display: none;"></li>
+</ul>
+<div class="catmenu_buttons noPhones">
+<a href="/member/list/new?catalog=/" class="button button-red">Создать рассылку</a>
+<a href="/group/create/" class="button button-orange">Создать группу</a>
+</div>
+</div></div>
+<div class="catmenu_buttons phones">
+<a href="/member/list/new?catalog=/" class="button button-red">Создать рассылку</a>
+<a href="/group/create/" class="button button-orange">Создать группу</a>
+</div>
+<div class="inside noPhones">
+<ul class="select select-mt">
+<li class="select_item">
+<a href="/digest/" class="select_link select_link-active">Отборные выпуски</a></li>
+<li class="select_item">
+<a href="/issue/" class="select_link">Все подряд</a></li>
+<li class="select_item">
+<a href="/digest/discussions.html" class="select_link">Дискуссии</a></li>
+</ul>
+</div>
+<div class="h1"><div class="inside"><h1>Отборные выпуски рассылок</h1> </div></div>
+<div class="layer-grid1">
+<div class="inside">
+<div class="layer-left">
+<div class="module module-1 article article-max">
+<a rel="nofollow" href="/member/love?what=add&type=digest&content=583428580" class="subscriberu_love subscriberu_unlove subscriberu_unknown subscriberu_bookmark" id="b17766" title="В избранное">
+</a>
+<a href="/digest/economics/kris/n583428580.html">
+<img src="https://image.subscribe.ru/list/digest/economics/im_20231117134959_680611.jpg" alt="Чем опасен 12-й пакет санкций ЕС" class="article_img" />
+</a>
+<div class="article_interline">
+<span class="article_source sub_parent">
+<a href="/archive/media.news.press.wwwmkru/202311/17100301.html/" class="article_source-title">Московский Комсомолец - свежий номер газеты</a>
+<div class="sub_info" id="0">
+<p>Анонсы свежего номера газеты &quot;Московский Комсомолец&quot; - самой популярной ежедневной газеты Московского региона с платным распространением.</p>
+<div class="sub_followers">подписчиков: 1030</div>
+<a href="/member/quick?grp=media.news.press.wwwmkru" class="subscriberu_dottedlink subscriberu_subscribe subscriberu_notsubscribed subscriberu_unknown l93337" lid="l93337">
+<span class="sub_subtext">Подписаться</span>
+</a>
+</div>
+</span>
+</div>
+<div class="article_content">
+<a href="/digest/economics/kris/n583428580.html" class="article_title"><h3>Чем опасен 12-й пакет санкций ЕС</h3></a>
+<p>Казалось бы, все, что можно было запретить к ввозу или вывозу из России, вместилось в одиннадцати предыдущих европейских пакетах антироссийских санкций. Но нет.</p>
+<a href="/digest/economics/kris/n583428580.html#comments" class="article_comments">
++ </a>
+</div>
+</div>
+<div class="module-grid1">
+<div class="module module-left">
+<div class="article article-min">
+<a rel="nofollow" href="/member/love?what=add&type=digest&content=583574352" class="subscriberu_love subscriberu_unlove subscriberu_unknown subscriberu_bookmark" id="b17767" title="В избранное">
+</a>
+<a href="/digest/style/mystery/n583574352.html">
+<img src="https://image.subscribe.ru/list/digest/style/im_20231117224617_953278.jpg" alt="Любовный гороскоп на 2024 год" class="article_img" />
+</a>
+<div class="article_interline">
+<span class="article_source sub_parent">
+<a href="/catalog/woman.beauty.womaru" class="article_source-title">wday.ru</a>
+<div class="sub_info" id="1">
+<p>Woman.ru &amp;#8211; женский онлайн-журнал для стильных, модных и уверенных в себе представительниц прекрасного пола</p>
+<div class="sub_followers">подписчиков: 16</div>
+<a href="/member/quick?grp=woman.beauty.womaru" class="subscriberu_dottedlink subscriberu_subscribe subscriberu_notsubscribed subscriberu_unknown l215026" lid="l215026">
+<span class="sub_subtext">Подписаться</span>
+</a>
+</div>
+</span>
+</div>
+<div class="article_content">
+<a href="/digest/style/mystery/n583574352.html" class="article_title"><h3>Любовный гороскоп на 2024 год</h3></a>
+<p>Узнайте, какие сюрпризы подготовил следующий год каждому знаку Зодиака. Что ждет представителей зодиакального круга на личном фронте в 2024 году?</p>
+<a href="/digest/style/mystery/n583574352.html#comments" class="article_comments">
++ </a>
+</div>
+</div>
+</div>
+<div class="module module-right">
+<div class="article article-min">
+<a rel="nofollow" href="/member/love?what=add&type=digest&content=583429325" class="subscriberu_love subscriberu_unlove subscriberu_unknown subscriberu_bookmark" id="b17768" title="В избранное">
+</a>
+<a href="/digest/economics/news/n583429325.html">
+<img src="https://image.subscribe.ru/list/digest/economics/im_20231117135356_682376.jpg" alt="Ловушка безусловного базового дохода" class="article_img" />
+</a>
+<div class="article_interline">
+<span class="article_source sub_parent">
+<a href="/archive/media.news.press.wwwmkru/202311/17100301.html/" class="article_source-title">Московский Комсомолец - свежий номер газеты</a>
+<div class="sub_info" id="2">
+<p>Анонсы свежего номера газеты &quot;Московский Комсомолец&quot; - самой популярной ежедневной газеты Московского региона с платным распространением.</p>
+<div class="sub_followers">подписчиков: 1030</div>
+<a href="/member/quick?grp=media.news.press.wwwmkru" class="subscriberu_dottedlink subscriberu_subscribe subscriberu_notsubscribed subscriberu_unknown l93337" lid="l93337">
+<span class="sub_subtext">Подписаться</span>
+</a>
+</div>
+</span>
+</div>
+<div class="article_content">
+<a href="/digest/economics/news/n583429325.html" class="article_title"><h3>Ловушка безусловного базового дохода</h3></a>
+<p>ИИ может обеспечить человечеству такое будущее, в котором не будет нужно работать: все люди будут получать безусловный базовый доход и наступит эпоха всеобщего изобилия.</p>
+<a href="/digest/economics/news/n583429325.html#comments" class="article_comments">
++ </a>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="layer-right">
+<div class="module module-1">
+<div class="article article-min">
+<a rel="nofollow" href="/member/love?what=add&type=digest&content=583420991" class="subscriberu_love subscriberu_unlove subscriberu_unknown subscriberu_bookmark" id="b17769" title="В избранное">
+</a>
+<a href="/digest/cookery/advice/n583420991.html">
+<img src="https://image.subscribe.ru/list/digest/cookery/im_20231117131935_666219.jpg" alt="Чем день не начинать" class="article_img" />
+</a>
+<div class="article_interline">
+<span class="article_source sub_parent">
+<a href="/archive/home.health.aifzdor/202311/17080252.html/" class="article_source-title">Аргументы и Факты</a>
+<div class="sub_info" id="3">
+<p>Анонсы материалов еженедельника &quot;Аргументы и факты&quot;, появившихся в открытом доступе на сайте издательского дома за неделю.</p>
+<div class="sub_followers">подписчиков: 8801</div>
+<a href="/member/quick?grp=home.health.aifzdor" class="subscriberu_dottedlink subscriberu_subscribe subscriberu_notsubscribed subscriberu_unknown l104181" lid="l104181">
+<span class="sub_subtext">Подписаться</span>
+</a>
+</div>
+</span>
+</div>
+<div class="article_content">
+<a href="/digest/cookery/advice/n583420991.html" class="article_title"><h3>Чем день не начинать</h3></a>
+<p>Английские эндокринологи вынесли приговор трем самым распространенным видам еды, которые употребляются на Западе и вошли в моду в России.</p>
+<a href="/digest/cookery/advice/n583420991.html#comments" class="article_comments">
++ </a>
+</div>
+</div>
+</div>
+<div class="socs noPhones noTabletsPort">
+<h1>Соцсети</h1>
+<a href="https://vk.com/subscribe_news" class="socs-vk" title="Наши новости вконтакте"></a>
+<a href="https://twitter.com/SubscribeRu" class="socs-t" title="Наши новости в Twitter"></a>
+<a href="https://www.facebook.com/Subscribe.ru" class="socs-f" title="Наша страница на Facebook"></a>
+<a href="https://ok.ru/group/53236793671861" class="socs-ok" title="Наша страница в Одноклассниках"></a>
+</div>
+<div class="module module-2">
+<div class="advert">
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="noPhones noTabletsPort">
+</div>
+<div class="layer-grid2">
+<div class="inside">
+<h1 class="rubric_mainHead">Все рубрики</h1>
+<hr class="hr-line">
+<div class="subscriberu_category category auto module-grid2" id="category_auto">
+<div class="rubric_headline">
+<div class="rubric_cat">
+<a href="/digest/auto" class="rubric_linkcat rubric_icon">Авто</a>
+<span class="rubric_separate">|</span>
+<a href="/member/quick?grp=digest.auto" class="rubric_sub subscriberu_dottedlinkpink subscriberu_subscribe subscriberu_notsubscribed subscriberu_unknown l45123" lid="l45123">
+Подписаться
+</a>
+<span class="noPhones"> на отборные выпуски категории</span>
+</div>
+<h2 class="rubric_head"><a href="/digest/auto/worldnews/n471601143.html">Как проверять и оплачивать автомобильные штрафы?</a></h2>
+</div>
+<div class="module module-1">
+<div class="rubric_photo">
+<a rel="nofollow" href="/member/love?what=add&type=digest&content=471601143" class="subscriberu_love subscriberu_unlove subscriberu_unknown subscriberu_bookmark" id="b17770" title="В избранное">
+</a>
+<img class="lateload hidden rubric_pic" earlyload="1" src="/img/progress/circle_blue_200x100_3_75.png" latesrc="https://image.subscribe.ru/list/digest/auto/im_20220224135622_571469.jpg" alt="Как проверять и оплачивать автомобильные штрафы">
+<noscript><img src="https://image.subscribe.ru/list/digest/auto/im_20220224135622_571469.jpg" alt="Как проверять и оплачивать автомобильные штрафы" class="rubric_pic"></noscript>
+</div>
+<div class="rubric_content">
+<div class="rubric_interline">
+<span class="rubric_source sub_parent">
+<a href="/catalog/digest.auto" class="rubric_source-title">Subscribe. Авто</a>
+<div class="sub_info" id="4">
+<p>Дайджест автомобильных новостей, составленный на основе самых оперативных и содержательных рассылок Subscribe.Ru. Самая актуальная и востребованная информация из мира автомобилей.</p>
+<div class="sub_followers">158396 подписчиков </div>
+<a href="/member/quick?grp=digest.auto" class="subscriberu_dottedlink subscriberu_subscribe subscriberu_notsubscribed subscriberu_unknown l45123" lid="l45123">
+<span class="sub_subtext">Подписаться</span>
+</a>
+</div>
+</span>
+<a href="/member/quick?grp=digest.auto" class="subscriberu_dottedlink subscriberu_subscribe subscriberu_notsubscribed subscriberu_unknown l45123" lid="l45123">
+<span class="rubric_subtext rubric_subtext-2">Подписаться</span>
+</a>
+<!--<a href="#" class="rubric_like tabletsPort phones"></a>-->
+<span class="tabletsPort phones">
+<a rel="nofollow" href="/member/love?what=add&type=digest&content=471601143" class="subscriberu_love subscriberu_unlove subscriberu_unknown subscriberu_bookmark" id="b17771" title="В избранное">
+</a>
+</span>
+</div>
+<div class="rubric_text"><p>Сведения о штрафах ГИБДД хранятся в единой базе ГИС ГМП. Чтобы проверить, есть ли у вас новые автоштрафы, совсем не обязательно ждать "письмо счастья" из Госавтоинспекции</p></div>
+<span class="rubric_date">2022-02-24</span>
+<a href="/digest/auto/worldnews/n471601143.html#comments" class="rubric_comments">
++ комментария</a>
+</div>
+</div> <!--/module-1-->
+<div class="module module-2">
+<ul class="rubric_added">
+<li class="rubric_adItem"><a href="/digest/auto/review/n465831762.html" class="rubric_adLink">Автопрокат: история популярной и актуальной услуги</a>
+</li>
+<li class="rubric_adItem"><a href="/digest/auto/worldnews/n449839824.html" class="rubric_adLink">Собрались в автоломбард? Не нарвитесь на мошенников</a>
+</li>
+<li class="rubric_adItem"><a href="/digest/auto/newness/n442458720.html" class="rubric_adLink">Хрустальный движок</a>
+</li>
+<li class="rubric_adItem"><a href="/digest/auto/law/n486220666.html" class="rubric_adLink">Как появились страховые полисы на автомобили</a>
+</li>
+<li class="rubric_adItem"><a href="/digest/auto/worldnews/n471601143.html" class="rubric_adLink">Как проверять и оплачивать автомобильные штрафы?</a>
+</li>
+<li class="rubric_adItem"><a href="/digest/auto/review/n465831762.html" class="rubric_adLink">Автопрокат: история популярной и актуальной услуги</a>
+</li>
+</ul>
+</div>
+</div> <!-- category -->
+<div class="subscriberu_category category travel module-grid2" id="category_travel">
+<div class="rubric_headline">
+<div class="rubric_cat">
+<a href="/digest/travel" class="rubric_linkcat rubric_icon">Туризм</a>
+<span class="rubric_separate">|</span>
+<a href="/member/quick?grp=digest.travel" class="rubric_sub subscriberu_dottedlinkpink subscriberu_subscribe subscriberu_notsubscribed subscriberu_unknown l47885" lid="l47885">
+Подписаться
+</a>
+<span class="noPhones"> на отборные выпуски категории</span>
+</div>
+<h2 class="rubric_head"><a href="/digest/travel/idea/n462044500.html">Куда дешевле поехать в феврале на море?</a></h2>
+</div>
+<div class="module module-1">
+<div class="rubric_photo">
+<a rel="nofollow" href="/member/love?what=add&type=digest&content=462044500" class="subscriberu_love subscriberu_unlove subscriberu_unknown subscriberu_bookmark" id="b17772" title="В избранное">
+</a>
+<img class="lateload hidden rubric_pic" earlyload="1" src="/img/progress/circle_blue_200x100_3_75.png" latesrc="https://image.subscribe.ru/list/digest/travel/im_20220119183203_209332.jpg" alt="Куда дешевле поехать в феврале на море">
+<noscript><img src="https://image.subscribe.ru/list/digest/travel/im_20220119183203_209332.jpg" alt="Куда дешевле поехать в феврале на море" class="rubric_pic"></noscript>
+</div>
+<div class="rubric_content">
+<div class="rubric_interline">
+<span class="rubric_source sub_parent">
+<a href="/catalog/digest.travel" class="rubric_source-title">Subscribe. Туризм</a>
+<div class="sub_info" id="5">
+<p>Дайджест лучших новостей из рассылок раздела &quot;Туризм и путешествия&quot;. Описания самых интересных туристических маршрутов и курортов Европы и России. Экстремальный туризм. Мировые новости.</p>
+<div class="sub_followers">105139 подписчиков </div>
+<a href="/member/quick?grp=digest.travel" class="subscriberu_dottedlink subscriberu_subscribe subscriberu_notsubscribed subscriberu_unknown l47885" lid="l47885">
+<span class="sub_subtext">Подписаться</span>
+</a>
+</div>
+</span>
+<a href="/member/quick?grp=digest.travel" class="subscriberu_dottedlink subscriberu_subscribe subscriberu_notsubscribed subscriberu_unknown l47885" lid="l47885">
+<span class="rubric_subtext rubric_subtext-2">Подписаться</span>
+</a>
+<!--<a href="#" class="rubric_like tabletsPort phones"></a>-->
+<span class="tabletsPort phones">
+<a rel="nofollow" href="/member/love?what=add&type=digest&content=462044500" class="subscriberu_love subscriberu_unlove subscriberu_unknown subscriberu_bookmark" id="b17773" title="В избранное">
+</a>
+</span>
+</div>
+<div class="rubric_text"><p>Поехать на море в феврале? Конечно, зачем раздумывать, если есть такая возможность, да еще и по доступной цене. </p></div>
+<span class="rubric_date">2022-01-19</span>
+<a href="/digest/travel/idea/n462044500.html#comments" class="rubric_comments">
++ комментариев</a>
+</div>
+</div> <!--/module-1-->
+<div class="module module-2">
+<ul class="rubric_added">
+<li class="rubric_adItem"><a href="/digest/travel/news/n433179569.html" class="rubric_adLink">ТОП 5 причин почему люди летают частными бортами</a>
+</li>
+<li class="rubric_adItem"><a href="/digest/travel/news/n179854412.html" class="rubric_adLink">Туры на двоих из Киева</a>
+</li>
+<li class="rubric_adItem"><a href="/digest/travel/visa/n54499287.html" class="rubric_adLink">Как получить греческий шенген</a>
+</li>
+<li class="rubric_adItem"><a href="/digest/travel/idea/n462044500.html" class="rubric_adLink">Куда дешевле поехать в феврале на море?</a>
+</li>
+<li class="rubric_adItem"><a href="/digest/travel/news/n433179569.html" class="rubric_adLink">ТОП 5 причин почему люди летают частными бортами</a>
+</li>
+<li class="rubric_adItem"><a href="/digest/travel/news/n417115573.html" class="rubric_adLink">Онлайн журнал COMO LAKE Today выпустил путеводитель по озеру Комо</a>
+</li>
+</ul>
+</div>
+</div> <!-- category -->
+<div class="subscriberu_category category inet module-grid2" id="category_inet">
+<div class="rubric_headline">
+<div class="rubric_cat">
+<a href="/digest/inet" class="rubric_linkcat rubric_icon">Компьютеры</a>
+<span class="rubric_separate">|</span>
+<a href="/member/quick?grp=digest.inet" class="rubric_sub subscriberu_dottedlinkpink subscriberu_subscribe subscriberu_notsubscribed subscriberu_unknown l49681" lid="l49681">
+Подписаться
+</a>
+<span class="noPhones"> на отборные выпуски категории</span>
+</div>
+<h2 class="rubric_head"><a href="/digest/inet/review/n583130240.html">Будет, что вспомнить</a></h2>
+</div>
+<div class="module module-1">
+<div class="rubric_photo">
+<a rel="nofollow" href="/member/love?what=add&type=digest&content=583130240" class="subscriberu_love subscriberu_unlove subscriberu_unknown subscriberu_bookmark" id="b17774" title="В избранное">
+</a>
+<img class="lateload hidden rubric_pic" earlyload="1" src="/img/progress/circle_blue_200x100_3_75.png" latesrc="https://image.subscribe.ru/list/digest/inet/im_20231116132318_1032302.jpg" alt="Будет, что вспомнить">
+<noscript><img src="https://image.subscribe.ru/list/digest/inet/im_20231116132318_1032302.jpg" alt="Будет, что вспомнить" class="rubric_pic"></noscript>
+</div>
+<div class="rubric_content">
+<div class="rubric_interline">
+<span class="rubric_source sub_parent">
+<a href="/archive/auto.worldnews.mkavto/202311/15120037.html/" class="rubric_source-title">АвтоВзгляд</a>
+<div class="sub_info" id="6">
+<p>Новости мира автомобилей от портала АвтоВзгляд. Честные тест-драйвы, новинки мирового автопрома, изнанка жизни ГИБДД и многое другое.</p>
+<div class="sub_followers">997 подписчиков </div>
+<a href="/member/quick?grp=auto.worldnews.mkavto" class="subscriberu_dottedlink subscriberu_subscribe subscriberu_notsubscribed subscriberu_unknown l104182" lid="l104182">
+<span class="sub_subtext">Подписаться</span>
+</a>
+</div>
+</span>
+<a href="/member/quick?grp=auto.worldnews.mkavto" class="subscriberu_dottedlink subscriberu_subscribe subscriberu_notsubscribed subscriberu_unknown l104182" lid="l104182">
+<span class="rubric_subtext rubric_subtext-2">Подписаться</span>
+</a>
+<!--<a href="#" class="rubric_like tabletsPort phones"></a>-->
+<span class="tabletsPort phones">
+<a rel="nofollow" href="/member/love?what=add&type=digest&content=583130240" class="subscriberu_love subscriberu_unlove subscriberu_unknown subscriberu_bookmark" id="b17775" title="В избранное">
+</a>
+</span>
+</div>
+<div class="rubric_text"><p>Chery, Exeed, Omoda, Jetour, а теперь и Jaecoo со своим J7. В ходе китайских маркетинговых экспериментов линейку родственных брендов и моделей продолжает распирать.</p></div>
+<span class="rubric_date">2023-11-16</span>
+<a href="/digest/inet/review/n583130240.html#comments" class="rubric_comments">
++ комментариев</a>
+</div>
+</div> <!--/module-1-->
+<div class="module module-2">
+<ul class="rubric_added">
+<li class="rubric_adItem"><a href="/digest/inet/worldnews/n582512788.html" class="rubric_adLink">OpenAI начала разрабатывать нейросеть GPT-5</a>
+</li>
+<li class="rubric_adItem"><a href="/digest/inet/review/n581572211.html" class="rubric_adLink">Инженерная катастрофа китайского автопрома</a>
+</li>
+<li class="rubric_adItem"><a href="/digest/inet/review/n580986930.html" class="rubric_adLink">Латекс, куклы и лужи ртути</a>
+</li>
+<li class="rubric_adItem"><a href="/digest/inet/newness/n583131856.html" class="rubric_adLink">Представлена самая маленькая веб-камера</a>
+</li>
+<li class="rubric_adItem"><a href="/digest/inet/review/n583131297.html" class="rubric_adLink">Нужен ли России новый «Буран»?</a>
+</li>
+<li class="rubric_adItem"><a href="/digest/inet/marketnews/n583130563.html" class="rubric_adLink">Миссия невыполнима</a>
+</li>
+</ul>
+</div>
+</div> <!-- category -->
+<div class="subscriberu_category category woman module-grid2" id="category_woman">
+<div class="rubric_headline">
+<div class="rubric_cat">
+<a href="/digest/woman" class="rubric_linkcat rubric_icon">Мир женщины</a>
+<span class="rubric_separate">|</span>
+<a href="/member/quick?grp=digest.woman" class="rubric_sub subscriberu_dottedlinkpink subscriberu_subscribe subscriberu_notsubscribed subscriberu_unknown l73541" lid="l73541">
+Подписаться
+</a>
+<span class="noPhones"> на отборные выпуски категории</span>
+</div>
+<h2 class="rubric_head"><a href="/digest/woman/relation/n583419142.html">Подарки для мам: как передать любовь</a></h2>
+</div>
+<div class="module module-1">
+<div class="rubric_photo">
+<a rel="nofollow" href="/member/love?what=add&type=digest&content=583419142" class="subscriberu_love subscriberu_unlove subscriberu_unknown subscriberu_bookmark" id="b17776" title="В избранное">
+</a>
+<img class="lateload hidden rubric_pic" earlyload="1" src="/img/progress/circle_blue_200x100_3_75.png" latesrc="https://image.subscribe.ru/list/digest/woman/im_20231117131257_662381.jpg" alt="Подарки для мам: как передать любовь">
+<noscript><img src="https://image.subscribe.ru/list/digest/woman/im_20231117131257_662381.jpg" alt="Подарки для мам: как передать любовь" class="rubric_pic"></noscript>
+</div>
+<div class="rubric_content">
+<div class="rubric_interline">
+<span class="rubric_source sub_parent">
+<a href="/archive/woman.relation.psychologiesru/202311/17070348.html/" class="rubric_source-title">PsychologiesDay</a>
+<div class="sub_info" id="7">
+<p>Рассылка сайта Psychologies.ru</p>
+<div class="sub_followers">124 подписчиков </div>
+<a href="/member/quick?grp=woman.relation.psychologiesru" class="subscriberu_dottedlink subscriberu_subscribe subscriberu_notsubscribed subscriberu_unknown l212482" lid="l212482">
+<span class="sub_subtext">Подписаться</span>
+</a>
+</div>
+</span>
+<a href="/member/quick?grp=woman.relation.psychologiesru" class="subscriberu_dottedlink subscriberu_subscribe subscriberu_notsubscribed subscriberu_unknown l212482" lid="l212482">
+<span class="rubric_subtext rubric_subtext-2">Подписаться</span>
+</a>
+<!--<a href="#" class="rubric_like tabletsPort phones"></a>-->
+<span class="tabletsPort phones">
+<a rel="nofollow" href="/member/love?what=add&type=digest&content=583419142" class="subscriberu_love subscriberu_unlove subscriberu_unknown subscriberu_bookmark" id="b17777" title="В избранное">
+</a>
+</span>
+</div>
+<div class="rubric_text"><p>Мама — один из важнейших людей в нашей жизни. Как бы ни складывались наши отношения — именно родители закладывают в нас основы любви, принятия. </p></div>
+<span class="rubric_date">2023-11-17</span>
+<a href="/digest/woman/relation/n583419142.html#comments" class="rubric_comments">
++ комментария</a>
+</div>
+</div> <!--/module-1-->
+<div class="module module-2">
+<ul class="rubric_added">
+<li class="rubric_adItem"><a href="/digest/woman/carier/n582800008.html" class="rubric_adLink">Как наладить отношения на работе</a>
+</li>
+<li class="rubric_adItem"><a href="/digest/woman/relation/n542342615.html" class="rubric_adLink">Жёсткая правда о длительных отношениях</a>
+</li>
+<li class="rubric_adItem"><a href="/digest/woman/psychology/n580405930.html" class="rubric_adLink">Гороскоп на ноябрь для всез знаков Зодиака</a>
+</li>
+<li class="rubric_adItem"><a href="/digest/woman/relation/n583419142.html" class="rubric_adLink">Подарки для мам: как передать любовь</a>
+</li>
+<li class="rubric_adItem"><a href="/digest/woman/beauty/n524045237.html" class="rubric_adLink">Серебряное цунами</a>
+</li>
+<li class="rubric_adItem"><a href="/digest/woman/relation/n548378981.html" class="rubric_adLink">Что делать, если вами манипулируют</a>
+</li>
+</ul>
+</div>
+</div> <!-- category -->
+<div class="subscriberu_category category business module-grid2" id="category_business">
+<div class="rubric_headline">
+<div class="rubric_cat">
+<a href="/digest/business" class="rubric_linkcat rubric_icon">Бизнес и карьера</a>
+<span class="rubric_separate">|</span>
+<a href="/member/quick?grp=digest.business" class="rubric_sub subscriberu_dottedlinkpink subscriberu_subscribe subscriberu_notsubscribed subscriberu_unknown l73198" lid="l73198">
+Подписаться
+</a>
+<span class="noPhones"> на отборные выпуски категории</span>
+</div>
+<h2 class="rubric_head"><a href="/digest/business/school/n466027067.html">Как работодатели следят за подчиненными</a></h2>
+</div>
+<div class="module module-1">
+<div class="rubric_photo">
+<a rel="nofollow" href="/member/love?what=add&type=digest&content=466027067" class="subscriberu_love subscriberu_unlove subscriberu_unknown subscriberu_bookmark" id="b17778" title="В избранное">
+</a>
+<img class="lateload hidden rubric_pic" earlyload="1" src="/img/progress/circle_blue_200x100_3_75.png" latesrc="https://image.subscribe.ru/list/digest/business/im_20220202133129_981968.jpg" alt="Как работодатели следят за подчиненными">
+<noscript><img src="https://image.subscribe.ru/list/digest/business/im_20220202133129_981968.jpg" alt="Как работодатели следят за подчиненными" class="rubric_pic"></noscript>
+</div>
+<div class="rubric_content">
+<div class="rubric_interline">
+<span class="rubric_source sub_parent">
+<a href="/catalog/digest.business" class="rubric_source-title">Subscribe. Бизнес</a>
+<div class="sub_info" id="8">
+<p>Дайджест лучших рассылок Subscribe.Ru - обзоры самых интересных выпусков. Практические, основанные на реальном опыте, рекомендации для руководителей и тех, кто стремится к развитию и профессиональному росту. Как проанализировать и улучшить свою работу и работу своей компании? Психология общения, переговоров, лидерства.</p>
+<div class="sub_followers">246079 подписчиков </div>
+<a href="/member/quick?grp=digest.business" class="subscriberu_dottedlink subscriberu_subscribe subscriberu_notsubscribed subscriberu_unknown l73198" lid="l73198">
+<span class="sub_subtext">Подписаться</span>
+</a>
+</div>
+</span>
+<a href="/member/quick?grp=digest.business" class="subscriberu_dottedlink subscriberu_subscribe subscriberu_notsubscribed subscriberu_unknown l73198" lid="l73198">
+<span class="rubric_subtext rubric_subtext-2">Подписаться</span>
+</a>
+<!--<a href="#" class="rubric_like tabletsPort phones"></a>-->
+<span class="tabletsPort phones">
+<a rel="nofollow" href="/member/love?what=add&type=digest&content=466027067" class="subscriberu_love subscriberu_unlove subscriberu_unknown subscriberu_bookmark" id="b17779" title="В избранное">
+</a>
+</span>
+</div>
+<div class="rubric_text"><p>Наблюдение и контроль подчиненных – не прихоть, а необходимая мера, которая помогает руководителю отслеживать эффективность и чистоту работы.</p></div>
+<span class="rubric_date">2022-02-02</span>
+<a href="/digest/business/school/n466027067.html#comments" class="rubric_comments">
++ комментариев</a>
+</div>
+</div> <!--/module-1-->
+<div class="module module-2">
+<ul class="rubric_added">
+<li class="rubric_adItem"><a href="/digest/business/psychology/n457140473.html" class="rubric_adLink">Что значит саморазвитие для современного мужчины</a>
+</li>
+<li class="rubric_adItem"><a href="/digest/business/school/n456753112.html" class="rubric_adLink">Организация доставки для интернет-магазина</a>
+</li>
+<li class="rubric_adItem"><a href="/digest/business/school/n455772335.html" class="rubric_adLink">Мачтовые строительные подъемники</a>
+</li>
+<li class="rubric_adItem"><a href="/digest/business/school/n466027067.html" class="rubric_adLink">Как работодатели следят за подчиненными</a>
+</li>
+<li class="rubric_adItem"><a href="/digest/business/psychology/n457140473.html" class="rubric_adLink">Что значит саморазвитие для современного мужчины</a>
+</li>
+<li class="rubric_adItem"><a href="/digest/business/school/n456753112.html" class="rubric_adLink">Организация доставки для интернет-магазина</a>
+</li>
+</ul>
+</div>
+</div> <!-- category -->
+<div class="subscriberu_category category economics module-grid2" id="category_economics">
+<div class="rubric_headline">
+<div class="rubric_cat">
+<a href="/digest/economics" class="rubric_linkcat rubric_icon">Экономика и финансы</a>
+<span class="rubric_separate">|</span>
+<a href="/member/quick?grp=digest.economics" class="rubric_sub subscriberu_dottedlinkpink subscriberu_subscribe subscriberu_notsubscribed subscriberu_unknown l73197" lid="l73197">
+Подписаться
+</a>
+<span class="noPhones"> на отборные выпуски категории</span>
+</div>
+<h2 class="rubric_head"><a href="/digest/economics/kris/n582806608.html">МЭА предрекло дефицит нефти в мире</a></h2>
+</div>
+<div class="module module-1">
+<div class="rubric_photo">
+<a rel="nofollow" href="/member/love?what=add&type=digest&content=582806608" class="subscriberu_love subscriberu_unlove subscriberu_unknown subscriberu_bookmark" id="b17780" title="В избранное">
+</a>
+<img class="lateload hidden rubric_pic" earlyload="1" src="/img/progress/circle_blue_200x100_3_75.png" latesrc="https://image.subscribe.ru/list/digest/economics/im_20231115134440_359368.jpg" alt="МЭА предрекло дефицит нефти в мире">
+<noscript><img src="https://image.subscribe.ru/list/digest/economics/im_20231115134440_359368.jpg" alt="МЭА предрекло дефицит нефти в мире" class="rubric_pic"></noscript>
+</div>
+<div class="rubric_content">
+<div class="rubric_interline">
+<span class="rubric_source sub_parent">
+<a href="/archive/media.today.exportfirst/202311/15090356.html/" class="rubric_source-title">Газета.Ru - Первая полоса</a>
+<div class="sub_info" id="9">
+<p>Первая полоса одной из самых популярных российских интернет-газет. Российские и зарубежные новости в режиме он-лайн.</p>
+<div class="sub_followers">3733 подписчиков </div>
+<a href="/member/quick?grp=media.today.exportfirst" class="subscriberu_dottedlink subscriberu_subscribe subscriberu_notsubscribed subscriberu_unknown l135060" lid="l135060">
+<span class="sub_subtext">Подписаться</span>
+</a>
+</div>
+</span>
+<a href="/member/quick?grp=media.today.exportfirst" class="subscriberu_dottedlink subscriberu_subscribe subscriberu_notsubscribed subscriberu_unknown l135060" lid="l135060">
+<span class="rubric_subtext rubric_subtext-2">Подписаться</span>
+</a>
+<!--<a href="#" class="rubric_like tabletsPort phones"></a>-->
+<span class="tabletsPort phones">
+<a rel="nofollow" href="/member/love?what=add&type=digest&content=582806608" class="subscriberu_love subscriberu_unlove subscriberu_unknown subscriberu_bookmark" id="b17781" title="В избранное">
+</a>
+</span>
+</div>
+<div class="rubric_text"><p>К концу года в мире может возникнуть существенный дефицит нефти. Такой прогноз содержится в ноябрьском отчете Международного энергетического агентства.</p></div>
+<span class="rubric_date">2023-11-15</span>
+<a href="/digest/economics/kris/n582806608.html#comments" class="rubric_comments">
++ комментариев</a>
+</div>
+</div> <!--/module-1-->
+<div class="module module-2">
+<ul class="rubric_added">
+<li class="rubric_adItem"><a href="/digest/economics/news/n582806207.html" class="rubric_adLink">Доллар ниже 90 рублей</a>
+</li>
+<li class="rubric_adItem"><a href="/digest/economics/society/n582265470.html" class="rubric_adLink">Новогоднее чудо</a>
+</li>
+<li class="rubric_adItem"><a href="/digest/economics/money/n581798050.html" class="rubric_adLink">Долг из 90-х</a>
+</li>
+<li class="rubric_adItem"><a href="/digest/economics/news/n583429325.html" class="rubric_adLink">Ловушка безусловного базового дохода</a>
+</li>
+<li class="rubric_adItem"><a href="/digest/economics/kris/n583428580.html" class="rubric_adLink">Чем опасен 12-й пакет санкций ЕС</a>
+</li>
+<li class="rubric_adItem"><a href="/digest/economics/society/n583427646.html" class="rubric_adLink">Финляндия закрыла четыре КПП с Россией</a>
+</li>
+</ul>
+</div>
+</div> <!-- category -->
+<div class="subscriberu_category category realty module-grid2" id="category_realty">
+<div class="rubric_headline">
+<div class="rubric_cat">
+<a href="/digest/realty" class="rubric_linkcat rubric_icon">Недвижимость</a>
+<span class="rubric_separate">|</span>
+<a href="/member/quick?grp=digest.realty" class="rubric_sub subscriberu_dottedlinkpink subscriberu_subscribe subscriberu_notsubscribed subscriberu_unknown l73542" lid="l73542">
+Подписаться
+</a>
+<span class="noPhones"> на отборные выпуски категории</span>
+</div>
+<h2 class="rubric_head"><a href="/digest/realty/advice/n447339874.html">Индивидуальное проектирование инженерных систем частного дома</a></h2>
+</div>
+<div class="module module-1">
+<div class="rubric_photo">
+<a rel="nofollow" href="/member/love?what=add&type=digest&content=447339874" class="subscriberu_love subscriberu_unlove subscriberu_unknown subscriberu_bookmark" id="b17782" title="В избранное">
+</a>
+<img class="lateload hidden rubric_pic" earlyload="1" src="/img/progress/circle_blue_200x100_3_75.png" latesrc="https://image.subscribe.ru/list/digest/realty/im_20211122125653_1018745.jpg" alt="Индивидуальное проектирование инженерных систем частного дома">
+<noscript><img src="https://image.subscribe.ru/list/digest/realty/im_20211122125653_1018745.jpg" alt="Индивидуальное проектирование инженерных систем частного дома" class="rubric_pic"></noscript>
+</div>
+<div class="rubric_content">
+<div class="rubric_interline">
+<span class="rubric_source sub_parent">
+<a href="/catalog/digest.realty" class="rubric_source-title">Subscribe. Недвижимость</a>
+<div class="sub_info" id="10">
+<p>Обзоры интересных выпусков. Самые важные новости в сфере недвижимости, изменения в законодательстве, рынок ипотечного кредитования. Как правильно купить или продать недвижимость? Каковы тенденции на рынке? Будьте в курсе последних событий и изменений!</p>
+<div class="sub_followers">131 подписчиков </div>
+<a href="/member/quick?grp=digest.realty" class="subscriberu_dottedlink subscriberu_subscribe subscriberu_notsubscribed subscriberu_unknown l73542" lid="l73542">
+<span class="sub_subtext">Подписаться</span>
+</a>
+</div>
+</span>
+<a href="/member/quick?grp=digest.realty" class="subscriberu_dottedlink subscriberu_subscribe subscriberu_notsubscribed subscriberu_unknown l73542" lid="l73542">
+<span class="rubric_subtext rubric_subtext-2">Подписаться</span>
+</a>
+<!--<a href="#" class="rubric_like tabletsPort phones"></a>-->
+<span class="tabletsPort phones">
+<a rel="nofollow" href="/member/love?what=add&type=digest&content=447339874" class="subscriberu_love subscriberu_unlove subscriberu_unknown subscriberu_bookmark" id="b17783" title="В избранное">
+</a>
+</span>
+</div>
+<div class="rubric_text"><p>Скрытые от глаз внутренние коммуникации здания на самом деле играют важную роль в обеспечении комфорта проживания в частном доме. </p></div>
+<span class="rubric_date">2021-11-22</span>
+<a href="/digest/realty/advice/n447339874.html#comments" class="rubric_comments">
++ комментария</a>
+</div>
+</div> <!--/module-1-->
+<div class="module module-2">
+<ul class="rubric_added">
+<li class="rubric_adItem"><a href="/digest/realty/realty/n437443212.html" class="rubric_adLink">Major art book:вышла книга о Павле Абросимове</a>
+</li>
+<li class="rubric_adItem"><a href="/digest/realty/advice/n410802069.html" class="rubric_adLink">Как подключить газ в частном доме за 9 простых шагов</a>
+</li>
+<li class="rubric_adItem"><a href="/digest/realty/advice/n404291725.html" class="rubric_adLink">Инвестиции в недвижимость в 2021: насколько выгодно покупать недвижимость в кризис</a>
+</li>
+<li class="rubric_adItem"><a href="/digest/realty/advice/n447339874.html" class="rubric_adLink">Индивидуальное проектирование инженерных систем частного дома</a>
+</li>
+<li class="rubric_adItem"><a href="/digest/realty/realty/n437443212.html" class="rubric_adLink">Major art book:вышла книга о Павле Абросимове</a>
+</li>
+<li class="rubric_adItem"><a href="/digest/realty/advice/n410802069.html" class="rubric_adLink">Как подключить газ в частном доме за 9 простых шагов</a>
+</li>
+</ul>
+</div>
+</div> <!-- category -->
+<div class="noPhones noTabletsPort noTabletsLand">
+</div>
+<div class="subscriberu_category category children module-grid2" id="category_children">
+<div class="rubric_headline">
+<div class="rubric_cat">
+<a href="/digest/children" class="rubric_linkcat rubric_icon">Дети</a>
+<span class="rubric_separate">|</span>
+<a href="/member/quick?grp=digest.children" class="rubric_sub subscriberu_dottedlinkpink subscriberu_subscribe subscriberu_notsubscribed subscriberu_unknown l77915" lid="l77915">
+Подписаться
+</a>
+<span class="noPhones"> на отборные выпуски категории</span>
+</div>
+<h2 class="rubric_head"><a href="/digest/children/councils/n480300507.html">Аниматор фокусник на празднике для наших детей</a></h2>
+</div>
+<div class="module module-1">
+<div class="rubric_photo">
+<a rel="nofollow" href="/member/love?what=add&type=digest&content=480300507" class="subscriberu_love subscriberu_unlove subscriberu_unknown subscriberu_bookmark" id="b17784" title="В избранное">
+</a>
+<img class="lateload hidden rubric_pic" earlyload="1" src="/img/progress/circle_blue_200x100_3_75.png" latesrc="https://image.subscribe.ru/list/digest/children/im_20220407202824_307448.jpg" alt="Аниматор фокусник на празднике для наших детей">
+<noscript><img src="https://image.subscribe.ru/list/digest/children/im_20220407202824_307448.jpg" alt="Аниматор фокусник на празднике для наших детей" class="rubric_pic"></noscript>
+</div>
+<div class="rubric_content">
+<div class="rubric_interline">
+<span class="rubric_source sub_parent">
+<a href="/catalog/digest.children" class="rubric_source-title">Subscribe. Дети</a>
+<div class="sub_info" id="11">
+<p>Как воспитывать детей и получать от этого максимум удовольствия; как обнаружить в ребенке скрытые таланты и возможности; как завоевать авторитет у своего ребенка и найти с ним общий язык.</p>
+<div class="sub_followers">125168 подписчиков </div>
+<a href="/member/quick?grp=digest.children" class="subscriberu_dottedlink subscriberu_subscribe subscriberu_notsubscribed subscriberu_unknown l77915" lid="l77915">
+<span class="sub_subtext">Подписаться</span>
+</a>
+</div>
+</span>
+<a href="/member/quick?grp=digest.children" class="subscriberu_dottedlink subscriberu_subscribe subscriberu_notsubscribed subscriberu_unknown l77915" lid="l77915">
+<span class="rubric_subtext rubric_subtext-2">Подписаться</span>
+</a>
+<!--<a href="#" class="rubric_like tabletsPort phones"></a>-->
+<span class="tabletsPort phones">
+<a rel="nofollow" href="/member/love?what=add&type=digest&content=480300507" class="subscriberu_love subscriberu_unlove subscriberu_unknown subscriberu_bookmark" id="b17785" title="В избранное">
+</a>
+</span>
+</div>
+<div class="rubric_text"><p>Когда у тебя подрастает два разновозрастных ребенка, то ты все время ломаешь голову, как же сделать для них незабываемый праздник. </p></div>
+<span class="rubric_date">2022-04-07</span>
+<a href="/digest/children/councils/n480300507.html#comments" class="rubric_comments">
++ комментариев</a>
+</div>
+</div> <!--/module-1-->
+<div class="module module-2">
+<ul class="rubric_added">
+<li class="rubric_adItem"><a href="/digest/children/school/n369673119.html" class="rubric_adLink">Как выбрать репетитора по английскому ребёнку?</a>
+</li>
+<li class="rubric_adItem"><a href="/digest/children/development/n361688738.html" class="rubric_adLink">Какой матрас лучше выбрать для ребенка</a>
+</li>
+<li class="rubric_adItem"><a href="/digest/children/councils/n55866698.html" class="rubric_adLink">Детские книги января</a>
+</li>
+<li class="rubric_adItem"><a href="/digest/children/councils/n480300507.html" class="rubric_adLink">Аниматор фокусник на празднике для наших детей</a>
+</li>
+<li class="rubric_adItem"><a href="/digest/children/development/n467056977.html" class="rubric_adLink">Лучшие куклы для девочек — рейтинг 2022 года</a>
+</li>
+<li class="rubric_adItem"><a href="/digest/children/development/n931518.html" class="rubric_adLink">Проблемы у одаренных детей</a>
+</li>
+</ul>
+</div>
+</div> <!-- category -->
+<div class="subscriberu_category category mobile module-grid2" id="category_mobile">
+<div class="rubric_headline">
+<div class="rubric_cat">
+<a href="/digest/mobile" class="rubric_linkcat rubric_icon">Hi-Tech</a>
+<span class="rubric_separate">|</span>
+<a href="/member/quick?grp=digest.mobile" class="rubric_sub subscriberu_dottedlinkpink subscriberu_subscribe subscriberu_notsubscribed subscriberu_unknown l77948" lid="l77948">
+Подписаться
+</a>
+<span class="noPhones"> на отборные выпуски категории</span>
+</div>
+<h2 class="rubric_head"><a href="/digest/mobile/news/n446910499.html">Разработка дизайна мобильных приложений</a></h2>
+</div>
+<div class="module module-1">
+<div class="rubric_photo">
+<a rel="nofollow" href="/member/love?what=add&type=digest&content=446910499" class="subscriberu_love subscriberu_unlove subscriberu_unknown subscriberu_bookmark" id="b17786" title="В избранное">
+</a>
+<img class="lateload hidden rubric_pic" earlyload="1" src="/img/progress/circle_blue_200x100_3_75.png" latesrc="https://image.subscribe.ru/list/digest/mobile/im_20211119143505_879474.jpg" alt="Разработка дизайна мобильных приложений">
+<noscript><img src="https://image.subscribe.ru/list/digest/mobile/im_20211119143505_879474.jpg" alt="Разработка дизайна мобильных приложений" class="rubric_pic"></noscript>
+</div>
+<div class="rubric_content">
+<div class="rubric_interline">
+<span class="rubric_source sub_parent">
+<a href="/catalog/digest.mobile" class="rubric_source-title">Subscribe. Hi-Tech</a>
+<div class="sub_info" id="12">
+<p>В этой рассылке собраны лучшие анонсы новостей из мира Hi-Tech, сотовой связи, концептов и гаджетов.</p>
+<div class="sub_followers">28 подписчиков </div>
+<a href="/member/quick?grp=digest.mobile" class="subscriberu_dottedlink subscriberu_subscribe subscriberu_notsubscribed subscriberu_unknown l77948" lid="l77948">
+<span class="sub_subtext">Подписаться</span>
+</a>
+</div>
+</span>
+<a href="/member/quick?grp=digest.mobile" class="subscriberu_dottedlink subscriberu_subscribe subscriberu_notsubscribed subscriberu_unknown l77948" lid="l77948">
+<span class="rubric_subtext rubric_subtext-2">Подписаться</span>
+</a>
+<!--<a href="#" class="rubric_like tabletsPort phones"></a>-->
+<span class="tabletsPort phones">
+<a rel="nofollow" href="/member/love?what=add&type=digest&content=446910499" class="subscriberu_love subscriberu_unlove subscriberu_unknown subscriberu_bookmark" id="b17787" title="В избранное">
+</a>
+</span>
+</div>
+<div class="rubric_text"><p>Дизайн мобильных приложений играет значимую роль в развитии компаний, продвижении бизнеса. Казалось бы, небольшая программка, но именно она принесет вам новые сделки.</p></div>
+<span class="rubric_date">2021-11-19</span>
+<a href="/digest/mobile/news/n446910499.html#comments" class="rubric_comments">
++ комментариев</a>
+</div>
+</div> <!--/module-1-->
+<div class="module module-2">
+<ul class="rubric_added">
+<li class="rubric_adItem"><a href="/digest/mobile/gadj/n413779626.html" class="rubric_adLink">Как выбрать ремешок для Apple Watch: советы и примеры</a>
+</li>
+<li class="rubric_adItem"><a href="/digest/mobile/video/n400088472.html" class="rubric_adLink">Технологии будущего: LG SIGNATURE 65 OLED R (2021)</a>
+</li>
+<li class="rubric_adItem"><a href="/digest/mobile/gadj/n394810749.html" class="rubric_adLink">Топ-15 необычных и удивительных вещей, созданных на 3D-принтере</a>
+</li>
+<li class="rubric_adItem"><a href="/digest/mobile/news/n446910499.html" class="rubric_adLink">Разработка дизайна мобильных приложений</a>
+</li>
+<li class="rubric_adItem"><a href="/digest/mobile/gadj/n413779626.html" class="rubric_adLink">Как выбрать ремешок для Apple Watch: советы и примеры</a>
+</li>
+<li class="rubric_adItem"><a href="/digest/mobile/video/n400088472.html" class="rubric_adLink">Технологии будущего: LG SIGNATURE 65 OLED R (2021)</a>
+</li>
+</ul>
+</div>
+</div> <!-- category -->
+<div class="subscriberu_category category health module-grid2" id="category_health">
+<div class="rubric_headline">
+<div class="rubric_cat">
+<a href="/digest/health" class="rubric_linkcat rubric_icon">Здоровье</a>
+<span class="rubric_separate">|</span>
+<a href="/member/quick?grp=digest.health" class="rubric_sub subscriberu_dottedlinkpink subscriberu_subscribe subscriberu_notsubscribed subscriberu_unknown l78009" lid="l78009">
+Подписаться
+</a>
+<span class="noPhones"> на отборные выпуски категории</span>
+</div>
+<h2 class="rubric_head"><a href="/digest/health/life/n578018092.html">Осень - лучшее время для фитнеса</a></h2>
+</div>
+<div class="module module-1">
+<div class="rubric_photo">
+<a rel="nofollow" href="/member/love?what=add&type=digest&content=578018092" class="subscriberu_love subscriberu_unlove subscriberu_unknown subscriberu_bookmark" id="b17788" title="В избранное">
+</a>
+<img class="lateload hidden rubric_pic" earlyload="1" src="/img/progress/circle_blue_200x100_3_75.png" latesrc="https://image.subscribe.ru/list/digest/health/im_20231020233441_764899.jpg" alt="Осень - лучшее время для фитнеса">
+<noscript><img src="https://image.subscribe.ru/list/digest/health/im_20231020233441_764899.jpg" alt="Осень - лучшее время для фитнеса" class="rubric_pic"></noscript>
+</div>
+<div class="rubric_content">
+<div class="rubric_interline">
+<span class="rubric_source sub_parent">
+<a href="/catalog/science.health.genesha" class="rubric_source-title">О здоровье и счастье простым языком от MyJane.ru</a>
+<div class="sub_info" id="13">
+<p>Все о здоровье и способах его поддержания и укрепления от MyJane.ru</p>
+<div class="sub_followers">23678 подписчиков </div>
+<a href="/member/quick?grp=science.health.genesha" class="subscriberu_dottedlink subscriberu_subscribe subscriberu_notsubscribed subscriberu_unknown l39250" lid="l39250">
+<span class="sub_subtext">Подписаться</span>
+</a>
+</div>
+</span>
+<a href="/member/quick?grp=science.health.genesha" class="subscriberu_dottedlink subscriberu_subscribe subscriberu_notsubscribed subscriberu_unknown l39250" lid="l39250">
+<span class="rubric_subtext rubric_subtext-2">Подписаться</span>
+</a>
+<!--<a href="#" class="rubric_like tabletsPort phones"></a>-->
+<span class="tabletsPort phones">
+<a rel="nofollow" href="/member/love?what=add&type=digest&content=578018092" class="subscriberu_love subscriberu_unlove subscriberu_unknown subscriberu_bookmark" id="b17789" title="В избранное">
+</a>
+</span>
+</div>
+<div class="rubric_text"><p>Летние жаркие дни остались позади. В зной сложно заставить себя заниматься спортом, если только это не плавание! Осенью все иначе.</p></div>
+<span class="rubric_date">2023-10-20</span>
+<a href="/digest/health/life/n578018092.html#comments" class="rubric_comments">
++ комментария</a>
+</div>
+</div> <!--/module-1-->
+<div class="module module-2">
+<ul class="rubric_added">
+<li class="rubric_adItem"><a href="/digest/health/doctor/n565689690.html" class="rubric_adLink">Магнитная буря: что это и как влияет на здоровье</a>
+</li>
+<li class="rubric_adItem"><a href="/digest/health/doctor/n564506333.html" class="rubric_adLink">Как сохранить ментальное здоровье</a>
+</li>
+<li class="rubric_adItem"><a href="/digest/health/doctor/n516903355.html" class="rubric_adLink">Жизнь после отмены антидепрессантов</a>
+</li>
+<li class="rubric_adItem"><a href="/digest/health/life/n507769859.html" class="rubric_adLink">Болезни, которые мы приобретаем из-за эмоций</a>
+</li>
+<li class="rubric_adItem"><a href="/digest/health/preventive/n507768539.html" class="rubric_adLink">Синдром хронической усталости</a>
+</li>
+<li class="rubric_adItem"><a href="/digest/health/life/n535325500.html" class="rubric_adLink">Для здоровой спины</a>
+</li>
+</ul>
+</div>
+</div> <!-- category -->
+<div class="subscriberu_category category sport module-grid2" id="category_sport">
+<div class="rubric_headline">
+<div class="rubric_cat">
+<a href="/digest/sport" class="rubric_linkcat rubric_icon">Спорт</a>
+<span class="rubric_separate">|</span>
+<a href="/member/quick?grp=digest.sport" class="rubric_sub subscriberu_dottedlinkpink subscriberu_subscribe subscriberu_notsubscribed subscriberu_unknown l79386" lid="l79386">
+Подписаться
+</a>
+<span class="noPhones"> на отборные выпуски категории</span>
+</div>
+<h2 class="rubric_head"><a href="/digest/sport/news/n455595892.html">Сколько раз отменяли или переносили Олимпийские игры?</a></h2>
+</div>
+<div class="module module-1">
+<div class="rubric_photo">
+<a rel="nofollow" href="/member/love?what=add&type=digest&content=455595892" class="subscriberu_love subscriberu_unlove subscriberu_unknown subscriberu_bookmark" id="b17790" title="В избранное">
+</a>
+<img class="lateload hidden rubric_pic" earlyload="1" src="/img/progress/circle_blue_200x100_3_75.png" latesrc="https://image.subscribe.ru/list/digest/sport/im_20211222182011_821828.jpg" alt="Сколько раз отменяли или переносили Олимпийские игры">
+<noscript><img src="https://image.subscribe.ru/list/digest/sport/im_20211222182011_821828.jpg" alt="Сколько раз отменяли или переносили Олимпийские игры" class="rubric_pic"></noscript>
+</div>
+<div class="rubric_content">
+<div class="rubric_interline">
+<span class="rubric_source sub_parent">
+<a href="/catalog/digest.sport" class="rubric_source-title">Subscribe. Спорт</a>
+<div class="sub_info" id="14">
+<p>Дайджест составлен на основе лучших рассылок Subscribe.Ru и предоставляет оперативную информацию о мировых и российских спортивных событиях.</p>
+<div class="sub_followers">22 подписчиков </div>
+<a href="/member/quick?grp=digest.sport" class="subscriberu_dottedlink subscriberu_subscribe subscriberu_notsubscribed subscriberu_unknown l79386" lid="l79386">
+<span class="sub_subtext">Подписаться</span>
+</a>
+</div>
+</span>
+<a href="/member/quick?grp=digest.sport" class="subscriberu_dottedlink subscriberu_subscribe subscriberu_notsubscribed subscriberu_unknown l79386" lid="l79386">
+<span class="rubric_subtext rubric_subtext-2">Подписаться</span>
+</a>
+<!--<a href="#" class="rubric_like tabletsPort phones"></a>-->
+<span class="tabletsPort phones">
+<a rel="nofollow" href="/member/love?what=add&type=digest&content=455595892" class="subscriberu_love subscriberu_unlove subscriberu_unknown subscriberu_bookmark" id="b17791" title="В избранное">
+</a>
+</span>
+</div>
+<div class="rubric_text"><p>Олимпийские игры не раз переживали серьезные потрясения. С момента проведения первых Олимпийских игр каждые четыре года соревнования принимаются в разных уголках планеты.</p></div>
+<span class="rubric_date">2021-12-22</span>
+<a href="/digest/sport/news/n455595892.html#comments" class="rubric_comments">
++ комментария</a>
+</div>
+</div> <!--/module-1-->
+<div class="module module-2">
+<ul class="rubric_added">
+<li class="rubric_adItem"><a href="/digest/sport/news/n417402099.html" class="rubric_adLink">Первые результаты Олимпиады в Токио</a>
+</li>
+<li class="rubric_adItem"><a href="/digest/sport/fiz/n921961.html" class="rubric_adLink">Комплекс упражнений для мужчин</a>
+</li>
+<li class="rubric_adItem"><a href="/digest/sport/football/n921664.html" class="rubric_adLink">Мутко решил судьбу Капелло</a>
+</li>
+<li class="rubric_adItem"><a href="/digest/sport/football/n553127746.html" class="rubric_adLink">Роналду оказался под угрозой депортации из Саудовской Аравии</a>
+</li>
+<li class="rubric_adItem"><a href="/digest/sport/football/n548968716.html" class="rubric_adLink">«Зенит» остается самой «дорогостоящей» футбольной командой России</a>
+</li>
+<li class="rubric_adItem"><a href="/digest/sport/football/n547002473.html" class="rubric_adLink">Определилось трио главных фаворитов Лиги чемпионов</a>
+</li>
+</ul>
+</div>
+</div> <!-- category -->
+<div class="subscriberu_category category style module-grid2" id="category_style">
+<div class="rubric_headline">
+<div class="rubric_cat">
+<a href="/digest/style" class="rubric_linkcat rubric_icon">Стиль жизни</a>
+<span class="rubric_separate">|</span>
+<a href="/member/quick?grp=digest.style" class="rubric_sub subscriberu_dottedlinkpink subscriberu_subscribe subscriberu_notsubscribed subscriberu_unknown l80602" lid="l80602">
+Подписаться
+</a>
+<span class="noPhones"> на отборные выпуски категории</span>
+</div>
+<h2 class="rubric_head"><a href="/digest/style/liter/n578384634.html">Может ли настолка заменить психолога</a></h2>
+</div>
+<div class="module module-1">
+<div class="rubric_photo">
+<a rel="nofollow" href="/member/love?what=add&type=digest&content=578384634" class="subscriberu_love subscriberu_unlove subscriberu_unknown subscriberu_bookmark" id="b17792" title="В избранное">
+</a>
+<img class="lateload hidden rubric_pic" earlyload="1" src="/img/progress/circle_blue_200x100_3_75.png" latesrc="https://image.subscribe.ru/list/digest/style/im_20231023151837_608846.jpg" alt="Может ли настолка заменить психолога">
+<noscript><img src="https://image.subscribe.ru/list/digest/style/im_20231023151837_608846.jpg" alt="Может ли настолка заменить психолога" class="rubric_pic"></noscript>
+</div>
+<div class="rubric_content">
+<div class="rubric_interline">
+<span class="rubric_source sub_parent">
+<a href="/catalog/woman.relation.psychologiesru" class="rubric_source-title">PsychologiesDay</a>
+<div class="sub_info" id="15">
+<p>Рассылка сайта Psychologies.ru</p>
+<div class="sub_followers">124 подписчиков </div>
+<a href="/member/quick?grp=woman.relation.psychologiesru" class="subscriberu_dottedlink subscriberu_subscribe subscriberu_notsubscribed subscriberu_unknown l212482" lid="l212482">
+<span class="sub_subtext">Подписаться</span>
+</a>
+</div>
+</span>
+<a href="/member/quick?grp=woman.relation.psychologiesru" class="subscriberu_dottedlink subscriberu_subscribe subscriberu_notsubscribed subscriberu_unknown l212482" lid="l212482">
+<span class="rubric_subtext rubric_subtext-2">Подписаться</span>
+</a>
+<!--<a href="#" class="rubric_like tabletsPort phones"></a>-->
+<span class="tabletsPort phones">
+<a rel="nofollow" href="/member/love?what=add&type=digest&content=578384634" class="subscriberu_love subscriberu_unlove subscriberu_unknown subscriberu_bookmark" id="b17793" title="В избранное">
+</a>
+</span>
+</div>
+<div class="rubric_text"><p>Казалось бы, все так просто: поиграли, решили все насущные проблемы, да еще и обрели в придачу свое истинное «Я». Но так ли это на самом деле?</p></div>
+<span class="rubric_date">2023-10-23</span>
+<a href="/digest/style/liter/n578384634.html#comments" class="rubric_comments">
++ комментария</a>
+</div>
+</div> <!--/module-1-->
+<div class="module module-2">
+<ul class="rubric_added">
+<li class="rubric_adItem"><a href="/digest/style/liter/n578012300.html" class="rubric_adLink">3 истории о кризисе среднего возраста</a>
+</li>
+<li class="rubric_adItem"><a href="/digest/style/biz/n575540947.html" class="rubric_adLink">Что не так с фильмом &quot;Гардемарины 1787&quot;</a>
+</li>
+<li class="rubric_adItem"><a href="/digest/style/liter/n573061557.html" class="rubric_adLink">Как вера в сверхъестественное ломает жизнь</a>
+</li>
+<li class="rubric_adItem"><a href="/digest/style/mystery/n583574352.html" class="rubric_adLink">Любовный гороскоп на 2024 год</a>
+</li>
+<li class="rubric_adItem"><a href="/digest/style/liter/n583572791.html" class="rubric_adLink">Время (не) лечит: как прожить горе</a>
+</li>
+<li class="rubric_adItem"><a href="/digest/style/religion/n479114364.html" class="rubric_adLink">«Люби ближнего твоего...»</a>
+</li>
+</ul>
+</div>
+</div> <!-- category -->
+<div class="subscriberu_category category cookery module-grid2" id="category_cookery">
+<div class="rubric_headline">
+<div class="rubric_cat">
+<a href="/digest/cookery" class="rubric_linkcat rubric_icon">Кулинария</a>
+<span class="rubric_separate">|</span>
+<a href="/member/quick?grp=digest.cookery" class="rubric_sub subscriberu_dottedlinkpink subscriberu_subscribe subscriberu_notsubscribed subscriberu_unknown l88580" lid="l88580">
+Подписаться
+</a>
+<span class="noPhones"> на отборные выпуски категории</span>
+</div>
+<h2 class="rubric_head"><a href="/digest/cookery/advice/n582800724.html">Злокачественная еда</a></h2>
+</div>
+<div class="module module-1">
+<div class="rubric_photo">
+<a rel="nofollow" href="/member/love?what=add&type=digest&content=582800724" class="subscriberu_love subscriberu_unlove subscriberu_unknown subscriberu_bookmark" id="b17794" title="В избранное">
+</a>
+<img class="lateload hidden rubric_pic" earlyload="1" src="/img/progress/circle_blue_200x100_3_75.png" latesrc="https://image.subscribe.ru/list/digest/cookery/im_20231115130648_342916.jpg" alt="Злокачественная еда">
+<noscript><img src="https://image.subscribe.ru/list/digest/cookery/im_20231115130648_342916.jpg" alt="Злокачественная еда" class="rubric_pic"></noscript>
+</div>
+<div class="rubric_content">
+<div class="rubric_interline">
+<span class="rubric_source sub_parent">
+<a href="/archive/home.health.aifzdor/202311/15080333.html/" class="rubric_source-title">Аргументы и Факты</a>
+<div class="sub_info" id="16">
+<p>Анонсы материалов еженедельника &quot;Аргументы и факты&quot;, появившихся в открытом доступе на сайте издательского дома за неделю.</p>
+<div class="sub_followers">8801 подписчиков </div>
+<a href="/member/quick?grp=home.health.aifzdor" class="subscriberu_dottedlink subscriberu_subscribe subscriberu_notsubscribed subscriberu_unknown l104181" lid="l104181">
+<span class="sub_subtext">Подписаться</span>
+</a>
+</div>
+</span>
+<a href="/member/quick?grp=home.health.aifzdor" class="subscriberu_dottedlink subscriberu_subscribe subscriberu_notsubscribed subscriberu_unknown l104181" lid="l104181">
+<span class="rubric_subtext rubric_subtext-2">Подписаться</span>
+</a>
+<!--<a href="#" class="rubric_like tabletsPort phones"></a>-->
+<span class="tabletsPort phones">
+<a rel="nofollow" href="/member/love?what=add&type=digest&content=582800724" class="subscriberu_love subscriberu_unlove subscriberu_unknown subscriberu_bookmark" id="b17795" title="В избранное">
+</a>
+</span>
+</div>
+<div class="rubric_text"><p>В нашей еде огромное количество Е-добавок. Готовых продуктов, в которых их нет, чрезвычайно мало. Поэтому мы волей-неволей вынуждены потреблять их. </p></div>
+<span class="rubric_date">2023-11-15</span>
+<a href="/digest/cookery/advice/n582800724.html#comments" class="rubric_comments">
++ комментария</a>
+</div>
+</div> <!--/module-1-->
+<div class="module module-2">
+<ul class="rubric_added">
+<li class="rubric_adItem"><a href="/digest/cookery/meat/n581909859.html" class="rubric_adLink">Куриные крылышки в сырно-чесночной заливке</a>
+</li>
+<li class="rubric_adItem"><a href="/digest/cookery/meat/n538371631.html" class="rubric_adLink">Свиная поджарка с курагой и мандаринами</a>
+</li>
+<li class="rubric_adItem"><a href="/digest/cookery/advice/n580408468.html" class="rubric_adLink">Готовим бюджетно, вкусно и полезно</a>
+</li>
+<li class="rubric_adItem"><a href="/digest/cookery/advice/n583420991.html" class="rubric_adLink">Чем день не начинать</a>
+</li>
+<li class="rubric_adItem"><a href="/digest/cookery/vegetable/n239348438.html" class="rubric_adLink">Баклажаны жареные с соевым соусом</a>
+</li>
+<li class="rubric_adItem"><a href="/digest/cookery/fish/n545475613.html" class="rubric_adLink">Яичная лапша с креветками и тыквой</a>
+</li>
+</ul>
+</div>
+</div> <!-- category -->
+<div class="subscriberu_category category kino module-grid2" id="category_kino">
+<div class="rubric_headline">
+<div class="rubric_cat">
+<a href="/digest/kino" class="rubric_linkcat rubric_icon">Кино и TV</a>
+<span class="rubric_separate">|</span>
+<a href="/member/quick?grp=digest.kino" class="rubric_sub subscriberu_dottedlinkpink subscriberu_subscribe subscriberu_notsubscribed subscriberu_unknown l90180" lid="l90180">
+Подписаться
+</a>
+<span class="noPhones"> на отборные выпуски категории</span>
+</div>
+<h2 class="rubric_head"><a href="/digest/kino/news/n197470750.html">Подборка фильмов к Рождеству и Новому году</a></h2>
+</div>
+<div class="module module-1">
+<div class="rubric_photo">
+<a rel="nofollow" href="/member/love?what=add&type=digest&content=197470750" class="subscriberu_love subscriberu_unlove subscriberu_unknown subscriberu_bookmark" id="b17796" title="В избранное">
+</a>
+<img class="lateload hidden rubric_pic" earlyload="1" src="/img/progress/circle_blue_200x100_3_75.png" latesrc="https://image.subscribe.ru/list/digest/kino/im_20181219115628_483531.jpg" alt="Подборка фильмов к Рождеству и Новому году">
+<noscript><img src="https://image.subscribe.ru/list/digest/kino/im_20181219115628_483531.jpg" alt="Подборка фильмов к Рождеству и Новому году" class="rubric_pic"></noscript>
+</div>
+<div class="rubric_content">
+<div class="rubric_interline">
+<span class="rubric_source sub_parent">
+<a href="/catalog/digest.kino" class="rubric_source-title">Subscribe. Кино и TV</a>
+<div class="sub_info" id="17">
+<p>Новинки кинопроката, рецензии на самые интерсные фильмы, новости с российских и мировых съемочных площадок и интервью со звездами кино. Все, что интересно настоящему киноману!</p>
+<div class="sub_followers">23 подписчиков </div>
+<a href="/member/quick?grp=digest.kino" class="subscriberu_dottedlink subscriberu_subscribe subscriberu_notsubscribed subscriberu_unknown l90180" lid="l90180">
+<span class="sub_subtext">Подписаться</span>
+</a>
+</div>
+</span>
+<a href="/member/quick?grp=digest.kino" class="subscriberu_dottedlink subscriberu_subscribe subscriberu_notsubscribed subscriberu_unknown l90180" lid="l90180">
+<span class="rubric_subtext rubric_subtext-2">Подписаться</span>
+</a>
+<!--<a href="#" class="rubric_like tabletsPort phones"></a>-->
+<span class="tabletsPort phones">
+<a rel="nofollow" href="/member/love?what=add&type=digest&content=197470750" class="subscriberu_love subscriberu_unlove subscriberu_unknown subscriberu_bookmark" id="b17797" title="В избранное">
+</a>
+</span>
+</div>
+<div class="rubric_text"><p>Фильмы рождественской и новогодней тематики никого не оставляют равнодушным. Без них праздники были бы неполными.</p></div>
+<span class="rubric_date">2018-12-19</span>
+<a href="/digest/kino/news/n197470750.html#comments" class="rubric_comments">
++ комментариев</a>
+</div>
+</div> <!--/module-1-->
+<div class="module module-2">
+<ul class="rubric_added">
+<li class="rubric_adItem"><a href="/digest/kino/premiere/n922094.html" class="rubric_adLink">Терминатор 30 лет спустя</a>
+</li>
+<li class="rubric_adItem"><a href="/digest/kino/review/n921888.html" class="rubric_adLink">10 летних фильмов про любовь</a>
+</li>
+<li class="rubric_adItem"><a href="/digest/kino/premiere/n921531.html" class="rubric_adLink">&quot;Про любовь&quot; и не только</a>
+</li>
+<li class="rubric_adItem"><a href="/digest/kino/review/n274560303.html" class="rubric_adLink">Лучшие триллеры 2019 года: краткий обзор</a>
+</li>
+<li class="rubric_adItem"><a href="/digest/kino/news/n197470750.html" class="rubric_adLink">Подборка фильмов к Рождеству и Новому году</a>
+</li>
+<li class="rubric_adItem"><a href="/digest/kino/premiere/n922281.html" class="rubric_adLink">&quot;Третий лишний 2&quot;: Человек и гражданин </a>
+</li>
+</ul>
+</div>
+</div> <!-- category -->
+<div class="subscriberu_category category animals module-grid2" id="category_animals">
+<div class="rubric_headline">
+<div class="rubric_cat">
+<a href="/digest/animals" class="rubric_linkcat rubric_icon">Животные</a>
+<span class="rubric_separate">|</span>
+<a href="/member/quick?grp=digest.animals" class="rubric_sub subscriberu_dottedlinkpink subscriberu_subscribe subscriberu_notsubscribed subscriberu_unknown l93770" lid="l93770">
+Подписаться
+</a>
+<span class="noPhones"> на отборные выпуски категории</span>
+</div>
+<h2 class="rubric_head"><a href="/digest/animals/advice/n387312043.html">Как выбрать эффективный ошейник от клещей и блох для питомца?</a></h2>
+</div>
+<div class="module module-1">
+<div class="rubric_photo">
+<a rel="nofollow" href="/member/love?what=add&type=digest&content=387312043" class="subscriberu_love subscriberu_unlove subscriberu_unknown subscriberu_bookmark" id="b17798" title="В избранное">
+</a>
+<img class="lateload hidden rubric_pic" earlyload="1" src="/img/progress/circle_blue_200x100_3_75.png" latesrc="https://image.subscribe.ru/list/digest/animals/im_20210401125256_191124.jpg" alt="Как выбрать эффективный ошейник от клещей и блох для питомца">
+<noscript><img src="https://image.subscribe.ru/list/digest/animals/im_20210401125256_191124.jpg" alt="Как выбрать эффективный ошейник от клещей и блох для питомца" class="rubric_pic"></noscript>
+</div>
+<div class="rubric_content">
+<div class="rubric_interline">
+<span class="rubric_source sub_parent">
+<a href="/catalog/digest.animals" class="rubric_source-title">Subscribe. Животные</a>
+<div class="sub_info" id="18">
+<p>Рассылка для владельцев собак, кошек и любителей других домашних животных. Новости, полезная информация.</p>
+<div class="sub_followers">21 подписчиков </div>
+<a href="/member/quick?grp=digest.animals" class="subscriberu_dottedlink subscriberu_subscribe subscriberu_notsubscribed subscriberu_unknown l93770" lid="l93770">
+<span class="sub_subtext">Подписаться</span>
+</a>
+</div>
+</span>
+<a href="/member/quick?grp=digest.animals" class="subscriberu_dottedlink subscriberu_subscribe subscriberu_notsubscribed subscriberu_unknown l93770" lid="l93770">
+<span class="rubric_subtext rubric_subtext-2">Подписаться</span>
+</a>
+<!--<a href="#" class="rubric_like tabletsPort phones"></a>-->
+<span class="tabletsPort phones">
+<a rel="nofollow" href="/member/love?what=add&type=digest&content=387312043" class="subscriberu_love subscriberu_unlove subscriberu_unknown subscriberu_bookmark" id="b17799" title="В избранное">
+</a>
+</span>
+</div>
+<div class="rubric_text"><p>Выбор зависит от того, на какой срок вам необходимо действие ошейника и какой мощности. Есть разные варианты.</p></div>
+<span class="rubric_date">2021-03-31</span>
+<a href="/digest/animals/advice/n387312043.html#comments" class="rubric_comments">
++ комментария</a>
+</div>
+</div> <!--/module-1-->
+<div class="module module-2">
+<ul class="rubric_added">
+<li class="rubric_adItem"><a href="/digest/animals/advice/n369674017.html" class="rubric_adLink">5 советов по наблюдению за дикой природой ночью</a>
+</li>
+<li class="rubric_adItem"><a href="/digest/animals/advice/n922178.html" class="rubric_adLink">Пробежки с собакой</a>
+</li>
+<li class="rubric_adItem"><a href="/digest/animals/news/n921812.html" class="rubric_adLink">Как выпивают животные</a>
+</li>
+<li class="rubric_adItem"><a href="/digest/animals/exotic/n429814019.html" class="rubric_adLink">Морской аквариум. Цена вопроса</a>
+</li>
+<li class="rubric_adItem"><a href="/digest/animals/exotic/n402573030.html" class="rubric_adLink">Аквастекло: дом для красноухой черепахи и растений </a>
+</li>
+<li class="rubric_adItem"><a href="/digest/animals/advice/n387312043.html" class="rubric_adLink">Как выбрать эффективный ошейник от клещей и блох для питомца?</a>
+</li>
+</ul>
+</div>
+</div> <!-- category -->
+<div class="subscriberu_category category home module-grid2" id="category_home">
+<div class="rubric_headline">
+<div class="rubric_cat">
+<a href="/digest/home" class="rubric_linkcat rubric_icon">Дом</a>
+<span class="rubric_separate">|</span>
+<a href="/member/quick?grp=digest.home" class="rubric_sub subscriberu_dottedlinkpink subscriberu_subscribe subscriberu_notsubscribed subscriberu_unknown l100135" lid="l100135">
+Подписаться
+</a>
+<span class="noPhones"> на отборные выпуски категории</span>
+</div>
+<h2 class="rubric_head"><a href="/digest/home/advice/n583132517.html">Вкус на всю зиму</a></h2>
+</div>
+<div class="module module-1">
+<div class="rubric_photo">
+<a rel="nofollow" href="/member/love?what=add&type=digest&content=583132517" class="subscriberu_love subscriberu_unlove subscriberu_unknown subscriberu_bookmark" id="b17800" title="В избранное">
+</a>
+<img class="lateload hidden rubric_pic" earlyload="1" src="/img/progress/circle_blue_200x100_3_75.png" latesrc="https://image.subscribe.ru/list/digest/home/im_20231116134529_1041164.jpg" alt="Вкус на всю зиму">
+<noscript><img src="https://image.subscribe.ru/list/digest/home/im_20231116134529_1041164.jpg" alt="Вкус на всю зиму" class="rubric_pic"></noscript>
+</div>
+<div class="rubric_content">
+<div class="rubric_interline">
+<span class="rubric_source sub_parent">
+<a href="/archive/home.health.aifzdor/202311/16080207.html/" class="rubric_source-title">Аргументы и Факты</a>
+<div class="sub_info" id="19">
+<p>Анонсы материалов еженедельника &quot;Аргументы и факты&quot;, появившихся в открытом доступе на сайте издательского дома за неделю.</p>
+<div class="sub_followers">8801 подписчиков </div>
+<a href="/member/quick?grp=home.health.aifzdor" class="subscriberu_dottedlink subscriberu_subscribe subscriberu_notsubscribed subscriberu_unknown l104181" lid="l104181">
+<span class="sub_subtext">Подписаться</span>
+</a>
+</div>
+</span>
+<a href="/member/quick?grp=home.health.aifzdor" class="subscriberu_dottedlink subscriberu_subscribe subscriberu_notsubscribed subscriberu_unknown l104181" lid="l104181">
+<span class="rubric_subtext rubric_subtext-2">Подписаться</span>
+</a>
+<!--<a href="#" class="rubric_like tabletsPort phones"></a>-->
+<span class="tabletsPort phones">
+<a rel="nofollow" href="/member/love?what=add&type=digest&content=583132517" class="subscriberu_love subscriberu_unlove subscriberu_unknown subscriberu_bookmark" id="b17801" title="В избранное">
+</a>
+</span>
+</div>
+<div class="rubric_text"><p>Сортов яблок, которые без особого ущерба для вкусовых качеств могут храниться до конца зимы, а то и дольше, насчитывается не то, чтобы слишком много. Но список растет.</p></div>
+<span class="rubric_date">2023-11-16</span>
+<a href="/digest/home/advice/n583132517.html#comments" class="rubric_comments">
++ комментариев</a>
+</div>
+</div> <!--/module-1-->
+<div class="module module-2">
+<ul class="rubric_added">
+<li class="rubric_adItem"><a href="/digest/home/advice/n582519590.html" class="rubric_adLink">7 способов эко-уборки вашей кухни</a>
+</li>
+<li class="rubric_adItem"><a href="/digest/home/advice/n581294623.html" class="rubric_adLink">При свидетелях</a>
+</li>
+<li class="rubric_adItem"><a href="/digest/home/interior/n580994085.html" class="rubric_adLink">Акварельные мотивы в интерьере</a>
+</li>
+<li class="rubric_adItem"><a href="/digest/home/advice/n583132517.html" class="rubric_adLink">Вкус на всю зиму</a>
+</li>
+<li class="rubric_adItem"><a href="/digest/home/device/n583132162.html" class="rubric_adLink">Ушли в сеть? </a>
+</li>
+<li class="rubric_adItem"><a href="/digest/home/advice/n537574477.html" class="rubric_adLink">&quot;Товарное соседство&quot; в холодильнике</a>
+</li>
+</ul>
+</div>
+</div> <!-- category -->
+<div class="subscriberu_category category marketing module-grid2" id="category_marketing">
+<div class="rubric_headline">
+<div class="rubric_cat">
+<a href="/digest/marketing" class="rubric_linkcat rubric_icon">Маркетинг и реклама</a>
+<span class="rubric_separate">|</span>
+<a href="/member/quick?grp=digest.marketing" class="rubric_sub subscriberu_dottedlinkpink subscriberu_subscribe subscriberu_notsubscribed subscriberu_unknown l110291" lid="l110291">
+Подписаться
+</a>
+<span class="noPhones"> на отборные выпуски категории</span>
+</div>
+<h2 class="rubric_head"><a href="/digest/marketing/analytics/n582809668.html">Копаем глубже</a></h2>
+</div>
+<div class="module module-1">
+<div class="rubric_photo">
+<a rel="nofollow" href="/member/love?what=add&type=digest&content=582809668" class="subscriberu_love subscriberu_unlove subscriberu_unknown subscriberu_bookmark" id="b17802" title="В избранное">
+</a>
+<img class="lateload hidden rubric_pic" earlyload="1" src="/img/progress/circle_blue_200x100_3_75.png" latesrc="https://image.subscribe.ru/list/digest/marketing/im_20231115140639_370752.jpg" alt="Копаем глубже">
+<noscript><img src="https://image.subscribe.ru/list/digest/marketing/im_20231115140639_370752.jpg" alt="Копаем глубже" class="rubric_pic"></noscript>
+</div>
+<div class="rubric_content">
+<div class="rubric_interline">
+<span class="rubric_source sub_parent">
+<a href="/archive/ad.advertology/202311/15011510.html/" class="rubric_source-title">Advertology.Ru - все о рекламе, маркетинге и PR</a>
+<div class="sub_info" id="20">
+<p>Ежедневно в рассылке информационно-аналитического портала Advertology.Ru мировые и российские новости рекламы маркетинга и PR, репортажи, интервью, аналитика, медиаизмерения, креатив</p>
+<div class="sub_followers">4253 подписчиков </div>
+<a href="/member/quick?grp=ad.advertology" class="subscriberu_dottedlink subscriberu_subscribe subscriberu_notsubscribed subscriberu_unknown l37436" lid="l37436">
+<span class="sub_subtext">Подписаться</span>
+</a>
+</div>
+</span>
+<a href="/member/quick?grp=ad.advertology" class="subscriberu_dottedlink subscriberu_subscribe subscriberu_notsubscribed subscriberu_unknown l37436" lid="l37436">
+<span class="rubric_subtext rubric_subtext-2">Подписаться</span>
+</a>
+<!--<a href="#" class="rubric_like tabletsPort phones"></a>-->
+<span class="tabletsPort phones">
+<a rel="nofollow" href="/member/love?what=add&type=digest&content=582809668" class="subscriberu_love subscriberu_unlove subscriberu_unknown subscriberu_bookmark" id="b17803" title="В избранное">
+</a>
+</span>
+</div>
+<div class="rubric_text"><p>Как увеличить продажи? Как привлечь новую аудиторию? Как масштабировать бизнес? Ответы на эти вопросы можно найти с помощью исследований.</p></div>
+<span class="rubric_date">2023-11-15</span>
+<a href="/digest/marketing/analytics/n582809668.html#comments" class="rubric_comments">
++ комментариев</a>
+</div>
+</div> <!--/module-1-->
+<div class="module module-2">
+<ul class="rubric_added">
+<li class="rubric_adItem"><a href="/digest/marketing/creo/n581306682.html" class="rubric_adLink">Нейросети, VR, AR в коммуникациях</a>
+</li>
+<li class="rubric_adItem"><a href="/digest/marketing/analytics/n580137955.html" class="rubric_adLink">Инфлюенсинг и деинфлюенсинг</a>
+</li>
+<li class="rubric_adItem"><a href="/digest/marketing/news/n578737258.html" class="rubric_adLink">Реклама на ракетах</a>
+</li>
+<li class="rubric_adItem"><a href="/digest/marketing/creo/n582811104.html" class="rubric_adLink">Кто притаился в салате «Вкусно - и точки»?</a>
+</li>
+<li class="rubric_adItem"><a href="/digest/marketing/analytics/n582809668.html" class="rubric_adLink">Копаем глубже</a>
+</li>
+<li class="rubric_adItem"><a href="/digest/marketing/news/n582809427.html" class="rubric_adLink">Итоги международной выставки &quot;Реклама-2023&quot;</a>
+</li>
+</ul>
+</div>
+</div> <!-- category -->
+<div class="subscriberu_category category esoteric module-grid2" id="category_esoteric">
+<div class="rubric_headline">
+<div class="rubric_cat">
+<a href="/digest/esoteric" class="rubric_linkcat rubric_icon">Таинственное</a>
+<span class="rubric_separate">|</span>
+<a href="/member/quick?grp=digest.esoteric" class="rubric_sub subscriberu_dottedlinkpink subscriberu_subscribe subscriberu_notsubscribed subscriberu_unknown l132973" lid="l132973">
+Подписаться
+</a>
+<span class="noPhones"> на отборные выпуски категории</span>
+</div>
+<h2 class="rubric_head"><a href="/digest/esoteric/psychology/n464849026.html">5 признаков нездоровых отношений</a></h2>
+</div>
+<div class="module module-1">
+<div class="rubric_photo">
+<a rel="nofollow" href="/member/love?what=add&type=digest&content=464849026" class="subscriberu_love subscriberu_unlove subscriberu_unknown subscriberu_bookmark" id="b17804" title="В избранное">
+</a>
+<img class="lateload hidden rubric_pic" earlyload="1" src="/img/progress/circle_blue_200x100_3_75.png" latesrc="https://image.subscribe.ru/list/digest/esoteric/im_20220128161747_257022.jpg" alt="5 признаков нездоровых отношений">
+<noscript><img src="https://image.subscribe.ru/list/digest/esoteric/im_20220128161747_257022.jpg" alt="5 признаков нездоровых отношений" class="rubric_pic"></noscript>
+</div>
+<div class="rubric_content">
+<div class="rubric_interline">
+<span class="rubric_source sub_parent">
+<a href="" class="rubric_source-title">Subscribe. Таинственное</a>
+<div class="sub_info" id="21">
+<p></p>
+<div class="sub_followers"> подписчиков </div>
+<a href="/member/quick?grp=" class="subscriberu_dottedlink subscriberu_subscribe subscriberu_notsubscribed subscriberu_unknown l" lid="l">
+<span class="sub_subtext">Подписаться</span>
+</a>
+</div>
+</span>
+<a href="/member/quick?grp=" class="subscriberu_dottedlink subscriberu_subscribe subscriberu_notsubscribed subscriberu_unknown l" lid="l">
+<span class="rubric_subtext rubric_subtext-2">Подписаться</span>
+</a>
+<!--<a href="#" class="rubric_like tabletsPort phones"></a>-->
+<span class="tabletsPort phones">
+<a rel="nofollow" href="/member/love?what=add&type=digest&content=464849026" class="subscriberu_love subscriberu_unlove subscriberu_unknown subscriberu_bookmark" id="b17805" title="В избранное">
+</a>
+</span>
+</div>
+<div class="rubric_text"><p>По мнению психологов, многим людям построить крепкие доверительные отношения мешают привычки, которые день за днем уничтожают взаимную привязанность.</p></div>
+<span class="rubric_date">2022-01-28</span>
+<a href="/digest/esoteric/psychology/n464849026.html#comments" class="rubric_comments">
++ комментариев</a>
+</div>
+</div> <!--/module-1-->
+<div class="module module-2">
+<ul class="rubric_added">
+<li class="rubric_adItem"><a href="/digest/esoteric/astrology/n460398923.html" class="rubric_adLink">Мой отзыв о разборе Матрицы судьбы у нумеролога и в калькуляторе</a>
+</li>
+<li class="rubric_adItem"><a href="/digest/esoteric/psychology/n920403.html" class="rubric_adLink">Прогноз Хроник Акаши на май</a>
+</li>
+<li class="rubric_adItem"><a href="/digest/esoteric/healing/n920198.html" class="rubric_adLink">Волны мозга</a>
+</li>
+<li class="rubric_adItem"><a href="/digest/esoteric/astrology/n920611.html" class="rubric_adLink">Совместимость</a>
+</li>
+<li class="rubric_adItem"><a href="/digest/esoteric/psychology/n464849026.html" class="rubric_adLink">5 признаков нездоровых отношений</a>
+</li>
+<li class="rubric_adItem"><a href="/digest/esoteric/astrology/n460398923.html" class="rubric_adLink">Мой отзыв о разборе Матрицы судьбы у нумеролога и в калькуляторе</a>
+</li>
+</ul>
+</div>
+</div> <!-- category -->
+<div class="subscriberu_category category game module-grid2" id="category_game">
+<div class="rubric_headline">
+<div class="rubric_cat">
+<a href="/digest/game" class="rubric_linkcat rubric_icon">Игры</a>
+<span class="rubric_separate">|</span>
+<a href="/member/quick?grp=digest.game" class="rubric_sub subscriberu_dottedlinkpink subscriberu_subscribe subscriberu_notsubscribed subscriberu_unknown l151327" lid="l151327">
+Подписаться
+</a>
+<span class="noPhones"> на отборные выпуски категории</span>
+</div>
+<h2 class="rubric_head"><a href="/digest/game/event/n457160515.html">Что подарить геймеру на Новый год?</a></h2>
+</div>
+<div class="module module-1">
+<div class="rubric_photo">
+<a rel="nofollow" href="/member/love?what=add&type=digest&content=457160515" class="subscriberu_love subscriberu_unlove subscriberu_unknown subscriberu_bookmark" id="b17806" title="В избранное">
+</a>
+<img class="lateload hidden rubric_pic" earlyload="1" src="/img/progress/circle_blue_200x100_3_75.png" latesrc="https://image.subscribe.ru/list/digest/game/im_20211229182945_286961.jpg" alt="Что подарить геймеру на Новый год">
+<noscript><img src="https://image.subscribe.ru/list/digest/game/im_20211229182945_286961.jpg" alt="Что подарить геймеру на Новый год" class="rubric_pic"></noscript>
+</div>
+<div class="rubric_content">
+<div class="rubric_interline">
+<span class="rubric_source sub_parent">
+<a href="/catalog/digest.game" class="rubric_source-title">Subscribe. Игры</a>
+<div class="sub_info" id="22">
+<p>Ты набрёл на удивительный и полезный раздел, где сможешь восхититься игровыми новинками, обсудить их плюсы и минусы, познакомиться с самыми актуальными новостями индустрии и найти единомышленников!</p>
+<div class="sub_followers">1 подписчиков </div>
+<a href="/member/quick?grp=digest.game" class="subscriberu_dottedlink subscriberu_subscribe subscriberu_notsubscribed subscriberu_unknown l151327" lid="l151327">
+<span class="sub_subtext">Подписаться</span>
+</a>
+</div>
+</span>
+<a href="/member/quick?grp=digest.game" class="subscriberu_dottedlink subscriberu_subscribe subscriberu_notsubscribed subscriberu_unknown l151327" lid="l151327">
+<span class="rubric_subtext rubric_subtext-2">Подписаться</span>
+</a>
+<!--<a href="#" class="rubric_like tabletsPort phones"></a>-->
+<span class="tabletsPort phones">
+<a rel="nofollow" href="/member/love?what=add&type=digest&content=457160515" class="subscriberu_love subscriberu_unlove subscriberu_unknown subscriberu_bookmark" id="b17807" title="В избранное">
+</a>
+</span>
+</div>
+<div class="rubric_text"><p>Накануне Нового Года возникает проблема выбора подарков для друзей и родственников. Определиться с презентом легче, заранее зная предпочтения человека.</p></div>
+<span class="rubric_date">2021-12-29</span>
+<a href="/digest/game/event/n457160515.html#comments" class="rubric_comments">
++ комментариев</a>
+</div>
+</div> <!--/module-1-->
+<div class="module module-2">
+<ul class="rubric_added">
+<li class="rubric_adItem"><a href="/digest/game/event/n425214827.html" class="rubric_adLink">Киберспортивный маркетинг. Битва брендов за аудиторию</a>
+</li>
+<li class="rubric_adItem"><a href="/digest/game/online/n378085203.html" class="rubric_adLink">Лучшие из представителей MOBA игр</a>
+</li>
+<li class="rubric_adItem"><a href="/digest/game/online/n255499058.html" class="rubric_adLink">Виртуальная реальность - развлечение №1</a>
+</li>
+<li class="rubric_adItem"><a href="/digest/inet/review/n583161267.html" class="rubric_adLink">Как просто быть королём</a>
+</li>
+<li class="rubric_adItem"><a href="/digest/inet/review/n582560425.html" class="rubric_adLink">Роглайк-экшен Hades выйдет на iOS</a>
+</li>
+<li class="rubric_adItem"><a href="/digest/inet/review/n582560438.html" class="rubric_adLink">Scars Above: опять первый контакт не по плану</a>
+</li>
+</ul>
+</div>
+</div> <!-- category -->
+<div class="clear"></div>
+<div class="left">
+<div class="maximize">
+<p class="title" style="display:none">Свёрнутые категории</p>
+<ul>
+</ul>
+</div>
+</div>
+</div>
+</div>
+<div class="right">
+<div class="paginate paginate-topline">
+<div class="iside">
+<ul class="paginate_ul">
+<li class="paginate_item paginate_item-active">1</li>
+<li class="paginate_item"><a href="/digest/2.html" class="paginate_link">2</a></li>
+<li class="paginate_item"><a href="/digest/3.html" class="paginate_link">3</a></li>
+<li class="paginate_item"><a href="/digest/4.html" class="paginate_link">4</a></li>
+<li class="paginate_item"><a href="/digest/5.html" class="paginate_link">5</a></li>
+<li class="paginate_item"><a href="/digest/6.html" class="paginate_link">6</a></li>
+<li class="paginate_item"><a href="/digest/7.html" class="paginate_link">7</a></li>
+<li class="paginate_item"><a href="/digest/8.html" class="paginate_link">8</a></li>
+<li class="paginate_item"><a href="/digest/9.html" class="paginate_link">9</a></li>
+<li class="paginate_item"><a href="/digest/10.html" class="paginate_link">10</a></li>
+<li class="paginate_item"><a href="/digest/21.html" class="paginate_link">...</a></li>
+<li class="paginate_item"><a href="/digest/11782.html" class="paginate_link">11782</a></li>
+</ul>
+</div>
+</div>
+</div>
+<div class="noPhones noTabletsPort noTabletsLand">
+<span class="advDescr">Реклама</span>
+</div>
+<!-- не залогинен -->
+<link rel="stylesheet" type="text/css" href="/css/login_register_form/res.css"/>
+<link rel="stylesheet" type="text/css" href="/css/login_register_form/style.css"/>
+<!--[if IE]><link rel="stylesheet" type="text/css" href="/css/login_register_form/ie.css"/><![endif]-->
+<form id="rform" autocomplete="off" method="POST" action="/member/join" target="_top">
+<input type="hidden" name="destination" value="">
+<input type="hidden" name="addgrp" id="addgrp" value="">
+<input type="hidden" name="openid" value="">
+<input type="hidden" name="agree" value="on">
+</form>
+<div id='js_tmpl'></div>
+<p style="display:none;">
+<textarea id="js_tmpl_login_register" rows="0" cols="0">
+{#template MAIN}
+<div id="loginForm" style="display:none;" class="subscriberu_popup">
+<div class="popup_register">
+{#include js_tmpl_auth_reg_tab}
+{#if $P.login_register_tab == 1}
+<form class="authentication-form" method="post" action="/MEMBERLOGIN_authen_cred">
+<dl class="rg_block_options">
+<dt id="js_tap_panel_auth">
+<h1>Войти на сайт</h1>
+{*
+{#include js_tmpl_auth_reg_button}
+*}
+{#include js_tmpl_auth_reg_action}
+<hr class="logreg_line noPhones">
+<div class="logreg_descr noPhones"><p>{#include js_tmpl_auth_reg_descr} </p></div>
+<div class="logreg_advice noPhones">
+Если вы еще не с нами, то начните с <a href="#" onclick="rgNav('js_tab_reg');return false;" class="dashed" data-func="registr">регистрации</a>
+</div>
+<br><br>
+<a class="dashed auth-enter" href="/manage/author/"><b>Вход для авторов</b></a>
+</dt>
+</dl>
+</form>
+{#/if}
+{#if $P.login_register_tab == 2}
+<div class="rg_block_options">
+<div id="js_tap_panel_auth">
+<h1>Регистрация</h1>
+<div class="social_reg">
+{* <div class="rg_description">{#include js_tmpl_soc_auth_reg_descr}</div> *}
+{#include js_tmpl_auth_reg_soc}
+<div class="rg_soc_auth_agree">{#include js_tmpl_auth_reg_agree}</div>
+</div>
+<div class="subscribe_reg">
+{* <div class="rg_description"> #include js_tmpl_auth_reg_descr </div> *}
+{#include js_tmpl_auth_reg_action}
+</div>
+{*
+{#include js_tmpl_auth_reg_button}
+*}
+<div class="clr">&nbsp;</div>
+<hr class="logreg_line noPhones">
+<div class="logreg_descr noPhones">{#include js_tmpl_auth_reg_descr} {#include js_tmpl_soc_auth_reg_descr} </div>
+</div>
+</div>
+{#/if}
+</div>
+{*
+<div class="gray_bg register_shadow"></div>
+*}
+</div>
+{#/template MAIN}
+{#template js_tmpl_auth_reg_tab}
+<ul class="rg_nav">
+<li id="js_tab_auth" class="{#if $P.login_register_tab == 1} rg_active_nav {#/if} rg_first_nav"><a onclick="rgNav('js_tab_auth');return false;" href="">Вход на сайт</a></li>
+<li id="js_tab_reg" class="{#if $P.login_register_tab == 2} rg_active_nav {#/if}"><a onclick="rgNav('js_tab_reg');return false;" href="">Регистрация </a></li>
+</ul>
+<span onclick="hidebo();" class="rg_closed">&nbsp;</span>
+{#/template js_tmpl_auth_reg_tab}
+{#template js_tmpl_auth_reg_action}
+{#if $P.login_register_tab == 1}
+{#include js_tmpl_auth_reg_soc}
+{#/if}
+<div class="rg_forms">
+<input type="hidden" id="login_register_destination" value="{$P.login_register_destination}"/>
+{#if $P.login_register_tab == 1}
+<div class="rg_for_input">
+<span class="rg_text_inner">E-mail или код подписчика</span>
+<input id="credential_0" class="js_keydown_selector rg_input_text" data-js_submit="no" data-js_next_input_name="credential_1" name="" type="text" />
+</div>
+<div class="rg_for_input">
+<span class="rg_text_inner">Пароль</span>
+<input id="credential_1" class="js_keydown_selector rg_input_text" data-js_submit="yes" data-js_action="js_loginFormBut" name="" type="password" onkeyup="showAttention(this,!!window.event.shiftKey)" />
+<span class="pswd_attention" id="attention_pswd">
+<span class="icon_attention"></span>
+<span class="pswd_attention-text" id="attention-text_pswd1">Русская раскладка клавиатуры!</span>
+<span class="pswd_attention-text" id="attention-text_pswd2">У вас включен Caps Lock!</span>
+<span class="pswd_attention-text" id="attention-text_pswd3">У вас включен Caps Lock и русская раскладка клавиатуры!</span>
+</span>
+</div>
+<div class="rg_for_input input-alien">
+<span class="chk noPhones"><input id="chk_alien" name="" type="checkbox" /></span><label for="chk_alien" class="noPhones"> Чужой компьютер</label>
+<a class="forgot_pass" href="/member/totalrecall">Забыли пароль?</a>
+</div>
+<div class="rg_for_input">
+<em id="auth_msg" class="reg_error"></em>
+<input id="lf_typeauthid" value="email" type="hidden">
+<input type="submit" class="button button-red logreg_submit" id="js_loginFormBut" value="Войти">
+<!--</a>-->
+<div class="loading loading-cover" style="display: none;"><div class="loader"></div></div>
+</div>
+{#/if}
+{#if $P.login_register_tab == 2}
+<div class="rg_for_input">
+<span class="rg_text_inner">E-mail</span>
+<input id="arfemail" class="js_keydown_selector rg_input_text" name="" type="text" data-js_submit="yes" data-js_action="js_regFormBut"/>
+</div>
+<div class="rg_for_input rg_set_lineh rg_for_input_wide">
+<label class="js_tap_panel_checkbox">
+<span class="chk"><input name="" id='js_tap_panel_checkbox_terms' type="checkbox" data-js_submit="yes" /></span>
+Я ознакомился и согласен с&nbsp;<a class="link_txd logreg_accLink" href="/faq/vereinbarung.html">условиями сервиса Subscribe.ru</a>
+</label>
+<br />
+<label class="js_tap_panel_checkbox">
+<span class="chk"><input name="" id='js_tap_panel_checkbox_personal' type="checkbox" data-js_submit="yes" /></span>
+Нажимая на кнопку "Готово!", я даю <a class="link_txd logreg_accLink" href="/faq/persverordnung.html">согласие на обработку персональных данных</a>
+</label>
+</div>
+{*
+<div style="float: left;position: absolute;left: 11em;">
+<img src="http://www.kupivip.ru/images/vip/logo.png?1604" style="width: 86px; vertical-align: middle;display: block;">
+</div>
+<div class="rg_for_input rg_set_lineh">
+<label class="js_tap_panel_checkbox"><input name="" id="js_tap_panel_checkbox_kupivip" type="checkbox" data-js_submit="yes"> Я хочу получать новости о скидках на одежду</label>
+</div>
+*}
+<div class="rg_for_input">
+<em id="reg_msg" class="reg_error rg_for_input_wide"></em>
+<em id="reg_msg2" class="reg_error rg_for_input_wide"></em>
+<input id="rf_typeauthid" value="email" type="hidden">
+<a class="button button-red logreg_submit" id="js_regFormBut" href="#">Готово!</a>
+<div class="loading loading-cover" style="display: none;"><div class="loader"></div></div>
+</div>
+{#/if}
+</div>
+{#/template js_tmpl_auth_reg_action}
+{#template js_tmpl_auth_reg_agree}
+<div class="rg_for_input rg_set_lineh rg_for_input_wide">
+<label class="js_tap_panel_checkbox">
+<span class="chk"><input name="" id='js_tap_panel_checkbox_terms_reg' type="checkbox" data-js_submit="yes" /></span>
+Я ознакомился и согласен с&nbsp;<a class="link_txd logreg_accLink" href="/faq/vereinbarung.html">условиями сервиса Subscribe.ru</a></label>
+<em id="reg_msg_soc" class="reg_error rg_for_input_wide"></em>
+</div>
+{#/template js_tmpl_auth_reg_agree}
+{#template js_tmpl_auth_reg_button}
+<div class="rg_butons_socials">
+{#if $P.login_register_tab == 1}
+<a class="rg_btn_soc rg_bs_01 js_tap_panel_selector" action="auth_email" href="#"><span><i></i>Email</span></a>
+<a class="rg_btn_soc rg_bs_01 js_tap_panel_selector" action="auth_openid" href="#"><span><i></i>OpenID</span></a>
+<a class="rg_btn_soc rg_bs_02 js_tap_panel_selector" action="auth_vkontakte" href="#"><span><i></i>Вконтакте</span></a>
+<a class="rg_btn_soc rg_bs_02 js_tap_panel_selector" action="auth_mailru" href="#"><span><i></i>Mail.Ru</span></a>
+{#/if}
+{#if $P.login_register_tab == 2}
+<a class="rg_btn_soc rg_bs_01 js_tap_panel_selector" action="reg_email" href="#"><span><i></i>Email</span></a>
+<a class="rg_btn_soc rg_bs_01 js_tap_panel_selector" action="reg_openid" href="#"><span><i></i>OpenID</span></a>
+<a class="rg_btn_soc rg_bs_02 js_tap_panel_selector" action="reg_vkontakte" href="#"><span><i></i>Вконтакте</span></a>
+<a class="rg_btn_soc rg_bs_02 js_tap_panel_selector" action="reg_mailru" href="#"><span><i></i>Mail.Ru</span></a>
+{#/if}
+</div>
+{#/template js_tmpl_auth_reg_button}
+{#template js_tmpl_auth_reg_descr}
+{#if $P.login_register_tab == 1}
+Для оформления подписки на выбранную рассылку, работы с интересующей вас группой или доступа в нужный вам раздел, просим авторизоваться на Subscribe.ru
+{#/if}
+{#if $P.login_register_tab == 2}
+Для регистрации укажите ваш e-mail адрес. Адрес должен быть действующим, на него сразу после регистрации будет отправлено письмо с инструкциями и кодом подтверждения.
+{#/if}
+{#/template js_tmpl_auth_reg_descr}
+{#template js_tmpl_soc_auth_reg_descr}
+Или зарегистрируйтесь через социальную сеть.
+{#/template js_tmpl_soc_auth_reg_descr}
+{#template js_tmpl_auth_reg_soc}
+<div class="rg_soc">
+{#if $P.login_register_tab == 1}
+<a onclick="return _checkSocConfirm(event)" href="https://oauth.vk.com/authorize?client_id=3954260&scope=wall,offline,photos,groups,video,audio,email&redirect_uri={location.protocol+'//'+location.host}/member/login/vk/&response_type=code&v=5.15" class="login_register_vk_button">
+<span class="login_register_vk_icon"></span>
+</a>
+<a onclick="return _checkSocConfirm(event)" href="https://www.facebook.com/dialog/oauth?client_id=593812447346138&redirect_uri={location.protocol+'//'+location.host}/member/login/fb/&scope=read_stream,publish_stream,publish_actions,offline_access,user_photos,user_notes,user_groups,email" class="login_register_fb_button">
+<span class="login_register_fb_icon"></span>
+</a>
+{#/if}
+{#if $P.login_register_tab == 2}
+<a onclick="return _checkSocConfirm(event)" href="https://oauth.vk.com/authorize?client_id=3954260&scope=wall,offline,photos,groups,video,audio,email&redirect_uri={location.protocol+'//'+location.host}/member/join/vk&response_type=code&v=5.15" class="login_register_vk_button">
+<span class="login_register_vk_icon"></span>
+</a>
+<a onclick="return _checkSocConfirm(event)" href="https://www.facebook.com/dialog/oauth?client_id=593812447346138&redirect_uri={location.protocol+'//'+location.host}/member/join/fb&scope=read_stream,publish_stream,publish_actions,offline_access,user_photos,user_notes,user_groups,email" class="login_register_fb_button">
+<span class="login_register_fb_icon"></span>
+</a>
+{#/if}
+</div>
+{#/template js_tmpl_auth_reg_soc}
+</textarea>
+</p>
+<p style="display:none;">
+<textarea id="js_tmpl_confirm_register" rows="0" cols="0">
+{#template MAIN}
+<div id="loginForm" style="display:none;" class="subscriberu_popup">
+<div class="popup_register">
+{#include js_tmpl_auth_reg_tab}
+<dl class="rg_block_options">
+<dt id="js_tap_panel_auth">
+<p class="rg_description">{#include js_tmpl_auth_reg_descr}</p>
+<div class="clr">&nbsp;</div>
+{#include js_tmpl_auth_reg_action}
+<div class="clr">&nbsp;</div>
+</dt>
+</dl>
+</div>
+<!-- <div class="gray_bg register_shadow"></div> -->
+</div>
+{#/template MAIN}
+{#template js_tmpl_auth_reg_tab}
+<ul class="rg_nav">
+<li id="js_tab_reg" class="rg_active_nav rg_first_nav"><a href="" onclick="return false;" >Регистрация</a></li>
+</ul>
+<span onclick="hidebo();" class="rg_closed">&nbsp;</span>
+{#/template js_tmpl_auth_reg_tab}
+{#template js_tmpl_auth_reg_descr}
+<strong>Пожалуйста, подтвердите ваш адрес.</strong><br><br>Вам отправлено письмо для подтверждения вашего адреса {$P.register_confirm_mail}.<br>Для подтверждения адреса перейдите по ссылке из этого письма.
+{#/template js_tmpl_auth_reg_descr}
+{#template js_tmpl_auth_reg_action}
+<div class="rg_forms confirm_code_from_letter">
+<div class="rg_for_input">
+<span class="rg_inp_descr" style="width:15em;">Или введите код из письма:</span>
+<input type="text" value="" id="confirm_code" name="" data-js_submit="yes" data-js_action="js_confirmFormBut" class="js_keydown_selector rg_input_text_conf" >
+</div>
+<div class="rg_for_input"><label>Не пришло письмо? <b>Пожалуйста, проверьте папку Спам</b><br /> (папку для нежелательной почты).</label><br />
+&nbsp;<a href="" onclick="ajax_recall_code();return false" >Вышлите мне письмо еще раз!</a></div>
+<div class="rg_for_input">
+<em class="reg_error" id="confirm_msg"></em>
+<a href="#" class="button button-red" id="js_confirmFormBut">Готово</a>
+<div class="loading loading-cover" style="display: none;"><div class="loader"></div></div>
+<br>
+</div>
+</div>
+{#/template js_tmpl_auth_reg_action}
+</textarea>
+</p>
+<footer class="layer-grid2">
+<div class="inside">
+<div class="module-grid-footer noPhones noTabletsPort">
+<div class="module module-1">
+<ul class="footer_ul footer_ul1">
+<li class="footer_li-head">Пользователю</li>
+<li class="footer_li"><a href="/manage/author/" class="footer_link">Вход для авторов</a></li>
+<li class="footer_li"><a href="/member/join/" onclick="showloginForm(1); return false" class="footer_link">Регистрация</a></li>
+<li class="footer_li"><a href="/faq/vereinbarung.html" class="footer_link">Регламент</a></li>
+<li class="footer_li"><a href="/faq/" class="footer_link">Помощь</a></li>
+</ul>
+<ul class="footer_ul footer_ul2">
+<li class="footer_li-head">Инфо</li>
+<li class="footer_li"><a href="/about/" class="footer_link">О компании</a></li>
+<li class="footer_li"><a href="/group/subsnews/" class="footer_link">Блог Subscribe.ru&nbsp;+&nbsp;</a></li>
+<li class="footer_li"><a href="/about/privacy.html" class="footer_link">Безопасность</a></li>
+<li class="footer_li"><a href="/about/job.html" class="footer_link">Вакансии</a></li>
+<li class="footer_li"><a href="/feedback/" class="footer_link">Обратная связь</a></li>
+</ul>
+<ul class="footer_ul footer_ul3">
+<li class="footer_li-head">Услуги</li>
+<li class="footer_li"><a href="http://advert.subscribe.ru/" class="footer_link">Реклама</a></li>
+<li class="footer_li"><a href="http://plus.subscribe.ru/" class="footer_link">Корпоративные издания</a></li>
+<li class="footer_li"><a href="https://sendsay.ru/?utm_source=subscribe-bottom&utm_medium=subswebsite&utm_campaign=subscribe-bottom" class="footer_link">Sendsay</a></li>
+<li class="footer_li"><a href="/auction/" class="footer_link">Аукцион рассылок</a></li>
+<li class="footer_li"><a href="/events" class="footer_link">События</a></li>
+</ul>
+<ul class="footer_ul footer_ul4">
+<li class="footer_li-head">Каталог рассылок</li>
+<li class="footer_li"><a href="/catalog/auto" class="footer_link">Автомобили</a></li>
+<li class="footer_li"><a href="/catalog/travel" class="footer_link">Туризм</a></li>
+<li class="footer_li"><a href="/catalog/woman" class="footer_link">Мир женщины</a></li>
+<li class="footer_li"><a href="/catalog/business" class="footer_link">Бизнес и карьера</a></li>
+<li class="footer_li"><a href="/catalog/economics" class="footer_link">Экономика и финансы</a></li>
+<li class="footer_li"><a href="/catalog/hitech" class="footer_link">Hi-Tech</a></li>
+<li class="footer_li"><a href="/catalog/comp/" class="footer_link">Компьютеры и интернет</a></li>
+</ul>
+</div>
+<div class="module module-2">
+<ul class="footer_ul footer_ul5">
+<li class="footer_li-head">&nbsp;</li>
+<li class="footer_li"><a href="/catalog/sport" class="footer_link">Спорт</a></li>
+<li class="footer_li"><a href="/catalog/weather" class="footer_link">Прогноз погоды</a></li>
+<li class="footer_li"><a href="/catalog/media" class="footer_link">Новости и СМИ</a></li>
+<li class="footer_li"><a href="/catalog/country" class="footer_link">Страны и Регионы</a></li>
+<li class="footer_li"><a href="/catalog/socio" class="footer_link">Общество</a></li>
+<li class="footer_li"><a href="/catalog/home" class="footer_link">Дом и семья</a></li>
+<li class="footer_li"><a href="/catalog/culture" class="footer_link">Культура, стиль жизни</a></li>
+</ul>
+</div>
+</div>
+<hr class="footer_line">
+<div class="footer_cr noPhones">
+<div class="footer_cr-left">© 1997-<span class="year_auto"></span>&nbsp;<a href="https://subscribe.ru/about/">АО «Интернет-Проекты»</a></div>
+<div class="footer_cr-right"><div class="footer_cr-copy">Дизайн сайта - <a href="//nikoland.ru/" target="_blank" class="red">Nikoland</a><br><small>2014</small></div></div>
+<div class="footer_cr-center">
+<div class="socs footer_socs">
+<a href="//vk.com/subscribe_news" class="socs-vk"><span class="noPhones noTabletsPort noTabletsLand">Мы вконтакте</span></a>
+<a href="//twitter.com/SubscribeRu" class="socs-t"><span class="noPhones noTabletsPort noTabletsLand">Мы в twitter</span></a>
+<a href="//www.facebook.com/Subscribe.ru" class="socs-f"><span class="noPhones noTabletsPort noTabletsLand">Мы в facebook</span></a>
+<a href="//ok.ru/group/53236793671861" class="socs-ok"><span class="noPhones noTabletsPort noTabletsLand">Мы в Одноклассниках</span></a>
+</div>
+</div>
+</div>
+<div class="footer_cr2 phones">
+<div class="footer_cr2-text">
+© 1997-<span class="year_auto"></span> &nbsp;<a href="/about/">АО «Интернет-Проекты»</a>
+<br>Дизайн сайта - <a href="//nikoland.ru/" target="_blank" class="red">Nikoland</a><br><small>2014</small>
+</div>
+<div class="socs footer_socs">
+<a href="//twitter.com/SubscribeRu" class="socs-t"></a>
+<a href="//www.facebook.com/Subscribe.ru" class="socs-f"></a>
+<a href="//vk.com/subscribe_news" class="socs-vk"></a>
+<a href="//ok.ru/group/53236793671861" class="socs-ok"></a>
+</div>
+<br />
+</div>
+</div>
+</footer>
+</section>
+</div>
+<div class="sendsay_adv">
+<a href="https://sendsay.ru/?utm_source=subscribe&utm_campaign=travel2&utm_medium=banner " target="_blank">
+<img src="/img/new/banner_sendsay3.png">
+</a>
+</div>
+<div class="overlay"></div>
+<!-- счетчики -->
+<script type="text/javascript" src="https://www.google-analytics.com/ga.js"></script>
+<script language="JavaScript">
+$(document).ready(function(){
+try {
+var pageTracker = _gat._getTracker("UA-2163144-1");
+pageTracker._trackPageview();
+pageTracker._trackPageLoadTime();
+} catch(err) {}
+})
+</script>
+</div>
+<div id="yandex_rtb_R-A-47721-7"></div>
+<script type="text/javascript">
+if(document.documentElement.clientWidth < 750) {
+(function (w, d, n, s, t) {
+w[n] = w[n] || [];
+w[n].push(function () {
+Ya.Context.AdvManager.render({
+blockId: "R-A-47721-7",
+renderTo: "yandex_rtb_R-A-47721-7",
+async: true
+});
+});
+t = d.getElementsByTagName("script")[0];
+s = d.createElement("script");
+s.type = "text/javascript";
+s.src = "//an.yandex.ru/system/context.js";
+s.async = true;
+t.parentNode.insertBefore(s, t);
+})(this, this.document, "yandexContextAsyncCallbacks");
+}
+</script>
+<script type="text/javascript">
+var e = document.getElementById('b_script_1774952');
+if(document.documentElement.clientWidth < 750 && e) {
+var s = this.document.createElement("script");
+s.src = "//cache.betweendigital.com/sections/2/1774952.js";
+s.async = true;
+e.insertBefore(s, null);
+}
+</script>
+<!-- Google Tag Manager -->
+<noscript><iframe src="//www.googletagmanager.com/ns.html?id=GTM-KNWLLF" height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+<script>
+$(function () {
+$(document).ready(function(){
+(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+'//www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+})(window,document,'script','dataLayer','GTM-KNWLLF');
+});
+});
+</script>
+<!-- /Google Tag Manager dig art -->
+<!-- Yandex.Metrika counter -->
+<script type="text/javascript" > (function(m,e,t,r,i,k,a){m[i]=m[i]||function(){(m[i].a=m[i].a||[]).push(arguments)}; m[i].l=1*new Date();k=e.createElement(t),a=e.getElementsByTagName(t)[0],k.async=1,k.src=r,a.parentNode.insertBefore(k,a)}) (window, document, "script", "https://mc.yandex.ru/metrika/tag.js", "ym"); ym(52998478, "init", { clickmap:true, trackLinks:true, accurateTrackBounce:true }); </script>
+<noscript><div><img src="https://mc.yandex.ru/watch/52998478" style="position:absolute; left:-9999px;" alt="" /></div></noscript>
+<!-- /Yandex.Metrika counter -->
+<!--
+<script type="text/javascript"> (function(d,w,t,u,o,s,v) { w[o] = w[o] || function() { (w[o].q = w[o].q || []).push(arguments) }; s = d.createElement("script");s.async = 1; s.src = u; v = d.getElementsByTagName(t)[0]; v.parentNode.insertBefore(s, v); })(document,window,"script","https://image.sendsay.ru/js/push/push.js","sendsay_push"); sendsay_push("init", { v: "1.0", "fid": "subsay", "app_server_key": "BPID5HX4zN1TXYS1ZvIegGjK1KNPBxoMpAamiOkpmVYf3UonMwan0L01sym2hfWRVpoxV-qy6mqSwqmS22wjpB8", "backend": "https://sendsay.ru/backend/push", "sw": "/sendsay_push_sw.js", "delay": "300" }); sendsay_push("addData", {"member.email":""}); sendsay_push("subscribe"); </script>
+-->
+</body></html>

@@ -1,0 +1,574 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+
+<!--[if lte IE 7]> <html class="ie7 detect-js"> <![endif]-->
+<!--[if IE 8]> <html class="ie8"> <![endif]-->
+<!--[if IE 9]> <html class="ie9"> <![endif]-->
+<!--[if gte IE 9]> <html class="ie9p"> <![endif]-->
+<!--[if !IE]><!--> <html class="ff detect-js" xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><!--<![endif]-->
+<head>
+<meta http-equiv="X-UA-Compatible" content="IE=edge"> 
+
+<style>
+.js { display: none; }
+</style>
+
+<script type="text/javascript">
+function compare(number1, number2)
+{
+	var precision1, precision2, decimal1, decimal2, flag = false;  
+
+    precision1 = parseInt(number1.substr(0, number1.indexOf(".")));  
+    decimal1 = parseInt(number1.substr(number1.indexOf(".") +1));  
+
+	precision2 = parseInt(number2.substr(0, number2.indexOf(".")));  
+	decimal2 = parseInt(number2.substr(number2.indexOf(".") +1));  
+
+	if(precision1 < precision2) flag = true;
+	else if(precision1 == precision2 && decimal1 < decimal2) flag = true;  
+
+	/*  -- debug code -- */
+	/*if(flag)  
+	alert(number2 + " greater than " + number1);  
+
+	else
+	alert(number1 + " greater than " + number2); */
+	
+	return flag;
+}  
+	
+var htCls = document.documentElement.className;
+
+// all js versions need xf protection
+if((htCls.indexOf("detect-js")) != -1)
+{
+  var jsClassName = htCls.replace("detect-js","js");
+  document.documentElement.className = jsClassName;
+}
+
+// except some firefox versions
+var ffVrs = -1, safVrs = -1, chrVrs = -1;
+if((htCls.indexOf("ff")) != -1)
+{
+  var ffua = navigator.userAgent;
+  
+  if(ffua.indexOf("Firefox") != -1)
+  {
+    var vrs = ffua.substring(ffua.indexOf("Firefox"));
+    ffVrs = vrs.substring(vrs.indexOf("/") + 1);
+  }
+  else if(ffua.indexOf("Chrome") != -1)
+  {
+    var vrs = ffua.substring(ffua.indexOf("Chrome"));
+	chrVrs = vrs.substring(vrs.indexOf("/") + 1);
+	chrVrs = chrVrs.substring(0,chrVrs.indexOf(" "));
+	compare("4.1.249.1042", chrVrs);
+  }
+  else if(ffua.indexOf("Safari") != -1)
+  {
+    var vrs = ffua.substring(ffua.indexOf("Version"));
+	safVrs = vrs.substring(vrs.indexOf("/") + 1);
+	safVrs = safVrs.substring(0,safVrs.indexOf(" "));
+	compare("4.0", safVrs);
+  }
+}
+
+if(self == top || (ffVrs != -1 && compare("3.7", ffVrs))) { 
+/* no action needed x-frame-options enabled */
+  document.documentElement.style.display = 'block'
+}
+else if(safVrs != -1 && compare("4.0", safVrs))
+{
+/* no action needed x-frame-options enabled */
+  document.documentElement.style.display = 'block'
+}
+else if(chrVrs != -1 && compare("4.1.249.1042", chrVrs))
+{
+/* no action needed x-frame-options enabled */
+  document.documentElement.style.display = 'block'
+}
+else
+{
+  top.location = self.location;
+}
+</script>
+
+<link rel="StyleSheet" href="/eftps/theme/eftps_v4.css" type="text/css" />
+<link rel="StyleSheet" href="/eftps/theme/navigation_v3.css" type="text/css" />
+<link rel="StyleSheet" href="/eftps/theme/foundation.min.css" type="text/css" />
+
+
+	<link rel="stylesheet" href="/eftps/feedback/css/feedback_custom.css" />
+
+<link rel="shortcut icon" href="/eftps/fs-favicon.png" />
+<title>Welcome to EFTPS online</title>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+
+<script type="text/javascript">
+  var _gaq = _gaq || [];
+  _gaq.push(['_setAccount', 'UA-33788656-1']);
+   _gaq.push(['_setDomainName', "none"]);  _gaq.push(['_setAllowLinker', true]);
+  _gaq.push(['_trackPageview']);
+  
+  (function() {
+    var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+    ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+  })();
+</script>
+<!-- Google Tag Manager -->
+<noscript><iframe src="//www.googletagmanager.com/ns.html?id=GTM-5M8PL8"
+height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+<script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+'//www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+})(window,document,'script','dataLayer','GTM-5M8PL8');</script>
+<!-- End Google Tag Manager -->
+
+	
+</head>
+
+<body class="bodywhite">
+
+<div id="content-container">
+	
+
+
+
+<script language=javascript>
+//lStorage = window.localStorage;
+sStorage = window.sessionStorage;
+sStorage.setItem( "onlineTabCount", (+sStorage.getItem("onlineTabCount") + 1) );
+
+if (+sStorage.getItem("onlineTabCount") <= 1)
+{
+	self.setTimeout("timeoutWarning()", 8*60*1000);
+	sStorage.setItem("onlineActiveTab", 1);
+}
+
+window.onunload = function () {
+    sStorage.setItem( "onlineTabCount", (+sStorage.getItem("onlineTabCount") - 1) );
+};
+
+
+function timeoutWarning() {
+	window.alert("This session is about to expire. Select OK to continue the session");
+    myRequest = createXMLHTTPRequest();
+    myRequest.open("GET", "/eftps/timeout?dummy=" + new Date().getTime(), true);
+    myRequest.onreadystatechange = validateReturnStatus;
+    myRequest.send(null);
+}
+
+function validateReturnStatus() {
+    if ((myRequest.readyState == 4) && (myRequest.status == 200)) {
+		try {
+        	myRequest.responseXML.getElementsByTagName("status")[0].childNodes[0].nodeValue;
+			self.setTimeout("timeoutWarning()", 8*60*1000);
+		} catch(err0) {
+			location.href="/eftps/direct/SessionExpiredPage.page";
+		}
+    }
+}
+
+function createXMLHTTPRequest() {
+    var request = false;
+    try {
+        request = new XMLHttpRequest();
+    }
+    catch (err1)
+    {
+        try {
+			request = new ActiveXObject('Msxml2.XMLHTTP');
+        }
+        catch (err2) {
+			request = new ActiveXObject('Microsoft.XMLHTTP');
+        }
+    }
+    return request;
+}
+</script>
+
+<!-- *** 
+-e_prd1
+
+*** --> 
+
+
+
+
+
+
+
+
+<div class="footerContainer" role="contentinfo">
+<div id="header" role="banner">
+	<div id="headerImg"><a href="#maincontent"><img src="/eftps/images/misc/headerSkip.png" width="5" height="86" alt="Skip to main page content." border="0"/></a><a href="/eftps/direct/EftpsHome.page"><img src="/eftps/images/misc/EFTPSHeader.png" width="716" height="86" alt="Electronic Federal Tax Payment System (EFTPS) Logo, links to home page" border="0"/></a><a href="/eftps/help/homeGovernmentLinkWarning?link=106"><img  src="/eftps/images/misc/Header_USTreasury.png" width="71" height="86" alt="Treasury Logo, links to United States Treasury home page" border="0" id="t_logo"/></a></div>
+		
+		<div class="line" role="navigation" aria-label="header links">
+			<ul class="headerNav">		
+				
+					
+					
+            				<li class="unit size1of7 borderRight"><a href="/eftps/direct/EftpsHome.page" class="navAt">HOME</a></li>
+        			
+        					
+				
+        			
+        			
+         				<li class="unit size2of7 borderRight"><a href="/eftps/enrollment/new-enrollment-flow">ENROLLMENT</a></li>
+        				
+				
+					
+        			
+            			<li class="unit size3of7 borderRight"><a href="/eftps/direct/ProfileMain.page" aria-describedby="logintxt">MY PROFILE</a></li> 
+        				
+				
+		 			
+         			
+            			<li class="unit size4of7 borderRight"><a href="/eftps/payments/home" aria-describedby="logintxt">PAYMENTS</a></li>
+         				
+				
+       				
+        			
+           				<li class="unit size5of7 borderRight"><a href="/eftps/direct/Help.page">HELP &amp; INFORMATION</a></li> 
+        			
+				
+					
+        			
+            			<li class="unit size6of7 borderRight"><a href="/eftps/direct/ContactUs.page" aria-label="contact us">contact us</a></li>
+         				
+				
+				
+					
+						
+						
+							<li class="unit size7of7"><a href="/eftps/login/loginInitial" aria-describedby="logintxt">LOGIN</a></li>
+						
+					
+					
+					
+				
+			</ul>
+		</div>
+	</div>
+
+
+
+
+	<table cellpadding="0" cellspacing="0" border="0" width="792">
+	    <tr>
+	        <td class="sideNav-bg">
+
+
+
+		<ul class="sideNav" role="navigation" aria-label="left side menu links">
+		   <li><a  href="/eftps/direct/HelpAboutMain.page" class="oneLine" data-fdclass="sideNav" data-fdid="sidenav_home_about">ABOUT EFTPS</a></li>
+	       <li><a href="/eftps/direct/HowToEnroll.page" class="oneLine" data-fdclass="sideNav" data-fdid="sidenav_home_how">HOW TO USE EFTPS</a></li>
+	       <li><a href="/eftps/direct/FAQGeneral.page" class="oneLine" data-fdclass="sideNav" data-fdid="sidenav_home_faq">FAQ</a></li>
+	     
+	     
+			
+		    	
+     			
+					<li><a href="/eftps/direct/HomeWhatNew.page" class="oneLine" data-fdclass="sideNav" data-fdid="sidenav_home_whatsnew">WHAT'S NEW?</a></li>
+			
+				
+			
+		
+			
+		    	
+     		
+				<li><a href="/eftps/direct/HelpDisclosure.page" class="oneLine" data-fdclass="sideNav" data-fdid="sidenav_home_privacy">PRIVACY STATEMENT</a></li>
+			
+				
+			
+				
+			
+		    	
+     		
+				<li><a href="/eftps/direct/HelpAccessability.page" class="oneLine" data-fdclass="sideNav" data-fdid="sidenav_home_access">ACCESSIBILITY STATEMENT</a></li>
+			
+			
+	 	</ul>	</td>
+	        <td valign="top" align="left">
+
+
+
+<img src="/eftps/images/home/flag_v2.png" width="631" height="64" border="0" alt="" />
+			
+<div class="container" role="main">
+			<a name="maincontent"></a>
+			<div class="welcomeContainer">
+
+			<img src="/eftps/images/home/welcometoeftps_v3.png" width="224" height="19" border="0" alt="Welcome to EFTPS&reg;" />
+				      </div>
+					
+		    
+		    
+		    
+				    			
+		    <table cellpadding="0" cellspacing="0" border="0" width="100%" class="txt-body">
+<tr>
+    	<td>	
+   			<div style="color:#c33; font-weight: bold;">New to our site?</div>
+    	The Electronic Federal Tax Payment System&reg; tax payment service is provided free by the U.S. Department of the Treasury. After you've 	enrolled and received your credentials, you can pay any tax due to the Internal Revenue Service (IRS) using this system.<br /><br />
+   	 	</td>
+    	<td >
+        	<div style="text-align: center; margin-left: 15px;">
+ 			<ul class="homeBtns">
+				<li style="display:block; margin-bottom: 15px;"><a href="/eftps/payments/home" aria-describedby="logintxt">MAKE A PAYMENT</a> </li>
+				<li style="display:block;"><a href="/eftps/enrollment/new-enrollment-flow">ENROLL</a></li> 
+        	</ul> 
+            </div>  
+		</td>
+	</tr>	
+	<tr>
+		<td colspan="2">
+			<table cellpadding="0" cellspacing="0" border="0" width="100%" class="txt-body">
+    			<tr>        			
+            		<td>	
+                    <div style="color:#c33; font-weight: bold;">Notice to Website Users - Multifactor Authentication (MFA):</div>
+                    <ul style="margin-top: 0">
+                        <li>
+                            <span class="txt-body"><b>What is Multifactor Authentication (MFA) and why is it required?</b></span><br />
+                            <span class="txt-body">Fiscal Service is requiring Multifactor Authentication (MFA) for system access. The new authentication process supports Executive Order 14028, requiring all federal agency applications to implement MFA. EFTPS is partnering with third-party credential service providers Login.gov and ID.me for MFA services. 
+								<br><br>Secure sign-in via Login.gov or ID.me is required as of <strong><u>October 19, 2023</u></strong>.</span>
+                        </li><br>
+
+                        <li>
+                            <span class="txt-body"><b>Where can I go for MFA help?</b></span><br />
+							<ul>
+                            	<li><span class="txt-body"><strong>Login.gov</strong> - Visit <a href="https://login.gov/contact/" target="_blank" class="bodyLink">login.gov/contact</a> for FAQs, help ticket submission, and live agent assistance</span><br /></li><br />
+								<li><span class="txt-body"><strong>ID.me</strong> - Visit <a href="https://help.id.me/" target="_blank" class="bodyLink">help.ID.me</a> for FAQs, help ticket submission, and virtual chat support </span><br /></li><br />
+								<li><span class="txt-body">EFTPS - Call 1.800.555.4477 for live customer service agent assistance or visit <a href="/eftps/direct/FAQGeneral.page" class="bodyLink">Multifactor Authentication (MFA) & Login Questions</a> for FAQs, including these common questions:</span><br /></li>
+									<Ul>
+										<li><span class="txt-body"><a href="/eftps/direct/FAQGeneral.page#howAuthenticate" class="bodyLink">How do I register or authenticate with ID.me, Login.gov, or PIV/CAC?</a></span><br /></li>
+										<li><span class="txt-body"><a href="/eftps/direct/FAQGeneral.page#loginAfterAuth" class="bodyLink">How do I log in to EFTPS after I authenticate?</a></span><br /></li>
+										<li><span class="txt-body"><a href="/eftps/direct/FAQGeneral.page#authMultipleEnrol" class="bodyLink">How do I authenticate if I need to access multiple EFTPS enrollments?</a></span><br /></li>
+										<li><span class="txt-body"><a href="/eftps/direct/FAQGeneral.page#noAuthCode" class="bodyLink">What if I have trouble signing in to ID.me or Login.gov or don't receive an authentication code?</a></span><br /></li>
+										<li><span class="txt-body"><a href="/eftps/direct/FAQGeneral.page#browserIssue" class="bodyLink">How can I fix a browser issue or error I experienced with ID.me or Login.gov?</a></span><br /></li>
+									</Ul>
+							</ul>
+                        </li>
+                    </ul>
+                    
+                    <div> <p> <span style="color:#c33; font-weight: bold;">Please note:&nbsp;</span><span class="txt-body-bold">Your tax payment is due regardless of this Web site's availability. You can always make a tax payment by calling our voice response system at 1.800.555.3453. Follow the prompts to make your payment.</span></p></div>
+					</td>
+				</tr>
+            </table>
+        </td>
+     </tr>
+    
+</table> 			 
+<div class="importantContainer">	
+<span class="txt-body-bold">What You Need to Know</span>
+	<ul>	 
+		<li><p class="txt-body">The IRS continues to remind taxpayers to watch out for email schemes. Taxpayers will only receive an email from EFTPS if they have opted in for email notifications when they sign up for email through EFTPS. Report all unsolicited email claiming to be from the IRS or an IRS-related function to phishing@irs.gov.</p></li>
+		<li><p class="txt-body">You must be enrolled to use the EFTPS&reg; tax payment service. To enroll, click on Enrollment at the top of this page and follow the steps. If this is your first time enrolling in EFTPS&reg;, your information will need to be validated with the IRS. After this process is complete you will receive a personal identification number (PIN) via U.S. Mail in five to seven business days at your IRS address of record.</p></li> 
+		<li><p class="txt-body">Payments using this Web site or our voice response system must be scheduled by <strong>8 p.m. ET the day before the due date</strong> to be received timely by the IRS. The funds will move out of your banking account on the date you select for settlement.</p></li> 
+		<li><p class="txt-body">This EFTPS&reg; tax payment service Web site supports Microsoft EDGE for Windows, Google Chrome for Windows and Mozilla Firefox for Windows.</p></li>
+		<li><p class="txt-body">You may use this Web site and our voice response system (1.800.555.3453) interchangeably to make payments.</p></li> 
+		<li><p class="txt-body">If you are required to make deposits electronically but do not wish to use the EFTPS&reg; tax payment service yourself, ask your financial institution about ACH Credit or same-day wire payments, or consult a tax professional or payroll provider about making payments for you. Please note: These options may result in fees from the providers. Payments through third parties may have earlier cutoff times; please check with them for their deadlines.</p> </li>
+	</ul>
+</div>					
+		
+		</div>	
+
+<!--
+	Build Date: 2023-11-02_02-14-09 
+	Build Version: 6.19.12
+ -->
+
+</td>
+	    </tr>
+	    <tr>
+	    	<td colspan="2">
+
+
+
+<div class="footerContainer" role="contentinfo">
+	<div class="footerDiv">
+		<div class="footerDiv1"></div>
+		<div class="footerDiv2"></div>
+		<div class="footerDiv3"></div>
+		<div class="footerDiv4"></div>
+		<div class="footerDiv5"></div>
+	</div>	
+	<div class="footer" role="navigation" aria-label="footer links">
+	    <a href="/eftps/direct/EftpsHome.page" title="Home" class="footerLink">Home</a>
+	    <a href="/eftps/enrollment/new-enrollment-flow" title="Enrollment, for new and additional enrollments" class="footerLink"">Enrollment</a>
+		<a href="/eftps/direct/ProfileMain.page" title="My Profile, for profile management options." class="footerLink" aria-describedby="logintxt">My Profile</a>
+		<a href="/eftps/payments/home" title="Payments, for making and cancelling payments and view history" class="footerLink" aria-describedby="logintxt">Payments</a>
+		<a href="/eftps/direct/Help.page" title="Help and Information" class="footerLink">Help &amp; Information</a>
+		<a href="/eftps/direct/ContactUs.page" title="Contact EFTPS" class="footerLink">Contact Us</a>
+
+		
+			
+				
+				
+					<a href="/eftps/login/loginInitial" title="Login to EFTPS." class="footerLink" aria-describedby="logintxt">Login</a>
+				
+			
+		
+		
+        <span id="logintxt" class="hidden-text" aria-hidden="true">Upon logging in to this site, you may be redirected to a separate page and prompted to register and/or authenticate with a Credential Service Provider, ID.me or Login.gov. Federal Agency users have the option to utilize PIV/CAC to authenticate. Upon completion of this step, you will be redirected back to EFTPS to input your EIN or SSN, PIN, and Password.</span>
+
+	 </div>
+	 	 
+	 <div class="footer">
+	 	<a href="/eftps/help/homeGovernmentLinkWarning?link=20" title="Leave EFTPS and go to the USA.gov website" class="footerLink">USA.gov</a>
+	 	<a href="/eftps/help/homeGovernmentLinkWarning?link=101" title="Leave EFTPS and go to the IRS website" class="footerLink">IRS.gov</a>
+	 	<a href="/eftps/help/homeGovernmentLinkWarning?link=106" title="Leave EFTPS and go to the United States Treasury website" class="footerLink">Treasury.gov</a>
+	 </div>
+	 
+     <div class="footerNotice">Electronic Federal Tax Payment System&reg; and EFTPS&reg; are registered servicemarks of the U.S. Department of the Treasury's Bureau of the Fiscal Service.</div>
+</div>
+
+
+
+	
+	<div class="feedback-container feedback-right" id="feedback-number-0" onclick="openFeedbackModal();">
+  <div class="feedback-inner-wrapper">
+      <div id="feedback_tab">
+          <a href="javascript:void(0);">
+              <svg xmlns="http://www.w3.org/2000/svg"
+                   width="0.5in" height="0.5in"
+                   viewBox="0 0 44 40">
+                  <path id="Selection #2"
+                        fill="#ffffff" stroke="#ffffff" stroke-width="1"
+                        d="M 24.00,27.31
+         C 19.70,26.25 6.48,28.51 4.02,25.40
+           2.77,23.81 3.00,19.99 3.00,18.00
+           2.99,14.93 2.19,5.93 4.60,4.02
+           6.08,2.85 9.18,3.01 11.00,3.00
+           14.52,2.98 29.26,2.33 31.40,4.02
+           33.10,5.37 32.96,8.05 33.00,10.00
+           33.00,10.00 33.00,33.00 33.00,33.00
+           30.27,31.08 27.15,28.10 24.00,27.31 Z
+         M 9.00,9.00
+         C 9.00,9.00 9.00,12.00 9.00,12.00
+           9.00,12.00 27.00,12.00 27.00,12.00
+           27.00,12.00 27.00,9.00 27.00,9.00
+           27.00,9.00 9.00,9.00 9.00,9.00 Z
+         M 9.00,14.00
+         C 9.00,14.00 9.00,17.00 9.00,17.00
+           9.00,17.00 27.00,17.00 27.00,17.00
+           27.00,17.00 27.00,14.00 27.00,14.00
+           27.00,14.00 9.00,14.00 9.00,14.00 Z
+         M 9.00,19.00
+         C 9.00,19.00 9.00,22.00 9.00,22.00
+           9.00,22.00 27.00,22.00 27.00,22.00
+           27.00,22.00 27.00,19.00 27.00,19.00
+           27.00,19.00 9.00,19.00 9.00,19.00 Z" />
+              </svg>
+              <span>Feedback</span>
+          </a>
+      </div>
+  </div>
+</div>
+<div id="feedback_modal" onclick="this.style.display = 'none'" />
+	<script src='/eftps/feedback/js/feedback_custom.js'></script>
+	<script src='/eftps/js/eftps/common/cnxSessionSet.js'></script>
+	
+	<script>
+    const ConcextrixUrlData = { 
+	"default" : { 
+		"percent" : 0, 
+		"pageId" : 0 
+	}, 
+	"urls" : [ 
+		{ 
+			"path" : "/payments/payment-confirmation-flow", 
+			"percent" : 0.02, 
+			"pageId" : 1 
+		}, 
+		{ 
+			"path" : "/enrollment/congratulations-flow", 
+			"percent" : 0.33, 
+			"pageId" : 2 
+		}, 
+		{ 
+			"path" : "/login/forgotPassword", 
+			"percent" : 0.50, 
+			"pageId" : 4 
+		}, 
+		{ 
+			"path" : "/direct/ContactUs.page", 
+			"percent" : 1.0, 
+			"pageId" : 8 
+		}, 
+		{ 
+			"path" : "/payments/business-payment-flow", 
+			"percent" : 0.02, 
+			"pageId" : 16 
+		}, 
+		{ 
+			"path" : "/direct/FAQGeneral.page", 
+			"percent" : 1.0, 
+			"pageId" : 32 
+		}, 
+		{ 
+			"path" : "/login/createPassword", 
+			"percent" : 0.20, 
+			"pageId" : 64 
+		}, 
+		{ 
+			"path" : "/profile/changePassword", 
+			"percent" : 1.0, 
+			"pageId" : 128 
+		}, 
+		{ 
+			"path" : "/direct/Help.page", 
+			"percent" : 1.0, 
+			"pageId" : 256 
+		}, 
+		{ 
+			"path" : "/direct/Logout.page", 
+			"percent" : 0.02, 
+			"pageId" : 512 
+		}, 
+		{ 
+			"path" : "/login/logout", 
+			"percent" : 0.02, 
+			"pageId" : 1024 
+		},
+		{ 
+			"path" : "/payments/history/view", 
+			"percent" : 1.0, 
+			"pageId" : 2048 
+		},
+		{ 
+			"path" : "/enrollment/add-enrollment-flow", 
+			"percent" : 1.0, 
+			"pageId" : 4096 
+		}
+	] 
+}
+</script>
+	<script>
+		const basePathCnxCdnURL = "https://cnxdigitalintercept.azureedge.net/prod/clients/eftps/B1620FD3CDB341BEBA73FC9FBDEB9391/";
+		const dlDate = new Date();
+		const dlTimestamp = dlDate.toJSON();
+		const userDataObject = {};
+		const urlDefaults = ConcextrixUrlData.default;
+		const urlMatch = getCnxValues(ConcextrixUrlData);
+
+		if(urlMatch){setSurvey(urlDefaults, urlMatch)};
+
+		userDataObject.loggedIn = ("false").toLowerCase() === 'true';
+		userDataObject.txn = ""; //Individual amt
+		userDataObject.txnAmount = ""; //Rollup amt
+		userDataObject.totalTxnAmount = fixTxn(userDataObject.txn);
+		userDataObject.cnxTimestamp = dlTimestamp;
+
+		writeDataLayer(userDataObject);
+	</script>
+
+</td>
+		</tr>
+	</table>
+</div>
+</body>
+</html>

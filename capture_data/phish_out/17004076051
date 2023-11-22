@@ -1,0 +1,1458 @@
+<!doctype html>
+<html lang="fr">
+  <head>
+    <meta charset="utf-8">
+    <!-- <meta name="google-site-verification" content="3HxChIIQddaDq5YGhyxvlMMI_pXN0gcyMDrsXgyphU0" /> -->
+    <title>AGRI 49 - Le site des agriculteurs Angevins</title>
+
+    <!-- Fonts -->
+    <link href='https://fonts.googleapis.com/css?family=Lato:300,400,700,900' rel='stylesheet' type='text/css'>
+
+    <link rel="icon" type="image/png" href="images/logo.png" />
+    <!-- JS -->
+    <script src="./scripts/js.cookie.js"></script> <!-- Pour gérer les cookies en JS -->
+
+    <script src="scripts/jquery.js"></script>
+    <script src="scripts/jcarousellite.js"></script>
+    <script src='https://www.google.com/recaptcha/api.js'></script>
+
+    <!-- Hotjar Tracking Code for https://agri49.fr/ -->
+<script>
+    (function(h,o,t,j,a,r){
+        h.hj=h.hj||function(){(h.hj.q=h.hj.q||[]).push(arguments)};
+        h._hjSettings={hjid:2625991,hjsv:6};
+        a=o.getElementsByTagName('head')[0];
+        r=o.createElement('script');r.async=1;
+        r.src=t+h._hjSettings.hjid+j+h._hjSettings.hjsv;
+        a.appendChild(r);
+    })(window,document,'https://static.hotjar.com/c/hotjar-','.js?sv=');
+</script>
+
+
+<!-- Cookie Consent by TermsFeed (https://www.TermsFeed.com) -->
+<script type="text/javascript" src="https://www.termsfeed.com/public/cookie-consent/4.0.0/cookie-consent.js" charset="UTF-8"></script>
+<script type="text/javascript" charset="UTF-8">
+document.addEventListener('DOMContentLoaded', function () {
+cookieconsent.run({"notice_banner_type":"interstitial","consent_type":"implied","palette":"light","language":"fr","page_load_consent_levels":["strictly-necessary","functionality","tracking","targeting"],"notice_banner_reject_button_hide":false,"preferences_center_close_button_hide":false,"page_refresh_confirmation_buttons":false,"website_name":"www.agri49.fr"});
+});
+</script>
+
+<noscript>ePrivacy and GPDR Cookie Consent by <a href="https://www.TermsFeed.com/" rel="nofollow">TermsFeed Generator</a></noscript>
+<!-- End Cookie Consent by TermsFeed (https://www.TermsFeed.com) -->
+
+
+    <!-- CSS -->
+		<link rel="stylesheet" href="css/global.css">
+		<link rel="stylesheet" href="css/partenaires-user-top.css">
+		<link rel="stylesheet" href="css/contenue-global.css">
+		<link rel="stylesheet" href="css/actu-index.css">
+		<link rel="stylesheet" href="css/services.css">
+		<link rel="stylesheet" href="css/info_conseils-carte_moisson.css">
+		<link rel="stylesheet" href="css/agenda.css">
+		<link rel="stylesheet" href="css/footer.css">
+    <link href="//maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css" rel="stylesheet">
+
+
+    	
+        <!-- Les CSS parametrables par PHP -->
+        <style type="text/css">
+      body
+      {
+        /* Background du site */
+                  background-image: url('bibliotheque_image/background/P1030209.JPG');
+          
+        background-repeat: no-repeat;
+        background-position: top center;
+
+      }
+    </style>
+    <script>
+      var nb_aff2 = 1;
+      var nb_date2 = 10;
+
+      function animer_partenaire_footer(moveDist)
+      {
+        var speed = moveDist * 20;
+
+        $("div.partenaire_aff").animate(
+                {
+                  paddingLeft: "+=" + moveDist
+                }, speed, function ()
+        {
+          $("div.partenaire_aff").css('padding-left', "0px")
+          $("div.partenaire_aff div:first-child").css("margin-left", "35px");
+          $("div.partenaire_aff div:last-child").clone().prependTo("div.partenaire_aff");
+
+          var allWidth = $("div.partenaire_aff").css('margin-left').replace("px", "") * -1;
+          var imgWidth = $("div.partenaire_aff div:first-child").css("width").replace("px", "") * 1;
+          var marginImg = allWidth - imgWidth;
+
+          $("div.partenaire_aff div:first-child").css("margin-left", marginImg + "px");
+          $("div.partenaire_aff div:last-child").remove();
+
+          setTimeout('animer_partenaire_footer(' + (imgWidth + 35) + ')', 1000);
+
+          /* Gestion hover pour les partenaires*/
+          $("div.logo_partenaire_footer").hover(function ()
+          {
+            var logo = $(this).attr("id");
+            var src = $(this).children("a").children("img").attr("src").split("/");
+            var new_src = src[0] + "/" + src[1] + "/foot-on-" + logo;
+
+            $(this).children("a").children("img").attr("src", new_src);
+          }, function ()
+          {
+            var logo = $(this).attr("id");
+            var src = $(this).children("a").children("img").attr("src").split("/");
+            var new_src = src[0] + "/" + src[1] + "/foot-" + logo;
+
+            $(this).children("a").children("img").attr("src", new_src);
+          });
+        });
+      }
+
+      $(document).ready(function ()
+      {
+
+        var index = '';
+        $('.btnMenu li').attr('class', 'texte_menu');
+        $('#').attr('class', 'page_en_cours');
+
+        /*
+if (index != 'index' && index != '' && index != 'deconnexion-profil')
+        {
+          $('#menu_radius_left').attr('class', 'texte_menu');
+        }
+*/
+
+
+        /* On replace le bacground bleu claire des partenaires du haut */
+        var width_body = $("body").css("width");
+        var wb = width_body.replace("px", "") / 2;
+        $("div#partenaires_top_all").css("background-position", wb + "px 10px");
+
+        /* Gestion hover pour les partenaires*/
+        $("div.logo_partenaire_footer").hover(function ()
+        {
+          var logo = $(this).attr("id");
+          var src = $(this).children("a").children("img").attr("src").split("/");
+          var new_src = src[0] + "/" + src[1] + "/foot-on-" + logo;
+
+          $(this).children("a").children("img").attr("src", new_src);
+        }, function ()
+        {
+          var logo = $(this).attr("id");
+          var src = $(this).children("a").children("img").attr("src").split("/");
+          var new_src = src[0] + "/" + src[1] + "/foot-" + logo;
+
+          $(this).children("a").children("img").attr("src", new_src);
+        });
+        $("div.logo_partenaire_top_header").hover(function ()
+        {
+          var logo = $(this).attr("id");
+          var src = $(this).children("a").children("img").attr("src").split("/");
+          var new_src = src[0] + "/" + src[1] + "/top-on-" + logo;
+
+          $(this).children("a").children("img").attr("src", new_src);
+        }, function ()
+        {
+          var logo = $(this).attr("id");
+          var src = $(this).children("a").children("img").attr("src").split("/");
+          var new_src = src[0] + "/" + src[1] + "/top-" + logo;
+
+          $(this).children("a").children("img").attr("src", new_src);
+        });
+
+        /* Gestion hover reseaux sociaux top */
+        $("div#social_top > a > img").hover(function ()
+        {
+          var src = $(this).attr("src");
+          var src_on = src.replace(".png", "-on.png");
+          $(this).attr("src", src_on);
+        }, function ()
+        {
+          var src = $(this).attr("src");
+          var src_on = src.replace("-on.png", ".png");
+          $(this).attr("src", src_on);
+        });
+
+        /* Gestion du click dans le menu si on est pas sur le lien */
+        $("ul#btnMenu > li").click(function ()
+        {
+          var dest = $(this).children("a").attr("href");
+
+          if (dest != "#")
+            $(location).attr('href', dest);
+        });
+
+        /* RAZ champ recherche lors du clique */
+        $("input#chp_rec_top").focus(function ()
+        {
+          var val = $(this).val();
+
+          if (val == "Rechercher...")
+            $(this).val("");
+        });
+        $("input#chp_rec_top").blur(function ()
+        {
+          var val = $(this).val();
+
+          if (val == "")
+            $(this).val("Rechercher...");
+        });
+
+
+        /* RAZ champ recherche lors du clique */
+        $("input#chp_rec_top2").focus(function ()
+        {
+          var val = $(this).val();
+
+          if (val == "Rechercher...")
+            $(this).val("");
+        });
+        $("input#chp_rec_top2").blur(function ()
+        {
+          var val = $(this).val();
+
+          if (val == "")
+            $(this).val("Rechercher...");
+        });
+        
+
+        var widthFirstImg = $("div.partenaire_aff div:first-child").css("width").replace("px", "") * 1;
+				
+		setTimeout('animer_partenaire_footer('+(widthFirstImg + 20)+')', 1000);	
+
+        /* GESTION DU HOVER DE L'IMAGE RSS EN FOOTER */
+        $("li.img_rss").hover(function ()
+        {
+          $(this).children("a").children("img").attr("src", "images/rss-footer-on.png");
+        }, function ()
+        {
+          $(this).children("a").children("img").attr("src", "images/rss-footer.png");
+        });
+
+
+
+        $('.btn-dark-blue').click(function ()
+        {
+          $('.alert').fadeOut(300, function () {});
+          $('#overlay').fadeOut(300, function () {});
+
+
+          $("#finishForgot").css('display', 'none');
+          $("div#shadowConnect").fadeIn(300, function () {});
+
+          $("div#moduleConnexion").mousemove(function ()
+          {
+            if (glob == true)
+              glob = false;
+          });
+          $("div#moduleConnexion").mouseout(function () {
+            glob = true;
+          });
+          $("div#shadowConnect").click(function ()
+          {
+            if (glob == true)
+            {
+              $("div#shadowConnect").fadeOut(300, function () {});
+              $("#formConnect").fadeIn();
+              $("#formForgot").find("*").css('display', 'none');
+            }
+
+          });
+        });
+        $('.btn-close').click(function ()
+        {
+          $('.alert').fadeOut(300, function () {});
+          $('#overlay').fadeOut(300, function () {});
+        });
+
+          $('#moredetails').click(function ()
+          {
+            $('.alert').fadeIn(300, function () {});
+            $('#overlay').fadeIn(300, function () {});
+          });
+        });
+
+    </script>
+    <!-- OAS SETUP begin -->
+
+    <!-- OAS SETUP end -->
+    <script type="application/javascript" src="//ced.sascdn.com/tag/3053/smart.js" async></script>
+		<script type="application/javascript">
+		    var sas = sas || {};
+		    sas.cmd = sas.cmd || [];
+		    sas.cmd.push(function() {
+		        sas.setup({ networkid: 3053, domain: "//www14.smartadserver.com", async: true });
+		    });
+		    sas.cmd.push(function() {
+		        sas.call("onecall", {
+		            siteId: 217705,
+		            pageId: 912961,
+		            formatId: '64528,64529,64527,64525',
+		            target: ''
+		        });
+		    });
+		</script>
+  </head>
+  <body>
+    <div id="fb-root"></div>
+    <script>
+
+      (function (d, s, id) {
+        var js, fjs = d.getElementsByTagName(s)[0];
+        if (d.getElementById(id))
+          return;
+        js = d.createElement(s);
+        js.id = id;
+        js.src = "//connect.facebook.net/fr_FR/sdk.js#xfbml=1&version=v2.6";
+        fjs.parentNode.insertBefore(js, fjs);
+      }(document, 'script', 'facebook-jssdk'));
+    </script>
+
+
+    <!-- CONTENUE -->
+    <div id="contenue_all">
+      <div id="banniere">
+      	<a href="https://www.agri49.fr" ><img src="images/logo-agri49.png" alt="Agri49" id="logo_site"></a>
+          <div id="pub_top">
+          	<div id="sas_64525"></div>
+		  	<script type="application/javascript">
+			    sas.cmd.push(function() {
+			        sas.render("64525");  // Format : TOP 0x0
+			    });
+			</script>
+        </div>
+      </div>
+      <div id="contenue_site">
+        <div id="menu">
+          <ul id="btnMenu">
+				<li class="page_en_cours" id="menu_radius_left"><a href="index.php"><img src="images/accueil.png" alt="Accueil"></a></li>
+				<li class="texte_menu"><a href="actualite.php">Actualités</a></li>
+				<li class="texte_menu"><a href="ressources.php">Info / Conseils</a></li>
+				<li class="texte_menu"><a href="mon-bureau.php">Mon Bureau</a></li>
+				<li class="texte_menu"><a href="https://www.dailymotion.com/FDSEA49" target="_blank">Vidéos</a></li>
+				<!--<li class="texte_menu"><a href="petites-annonces.php">Annonces</a></li>-->
+				<li class="texte_menu"><a href="contact.php">Contact</a></li>
+          </ul>
+          <div id="recherche_top">
+			<form method="post" action="recherche.php">
+				<input type="text" name="recherche" value="Rechercher..." id="chp_rec_top">
+				<input type="image" style="margin-top:3px;margin-bottom:-3px;" src="images/loupe.png" alt="Rechercher">
+			</form>
+          </div>
+        </div>
+
+
+        <div>
+          <table id="int_site_cols">
+            <tr>
+              <td id="colonne_int_1"><style>
+.all_bleu{
+	margin-bottom:45px;
+}
+.rebourd
+{
+font-size: 50px;
+color: #ECEEF1;
+text-align: center;
+font-weight: bold;
+margin: 15px auto;
+}
+.sondageContent p span
+{
+color : #cc1100;
+}
+.sondageContent input
+{
+margin: 0;
+margin-left: 30px;
+padding: 0;
+width : 200px;
+height : 30px;
+border: none;
+-webkit-border-radius: 8px;
+-moz-border-radius: 8px;
+border-radius: 8px;
+padding: 2px 6px;
+border: 1px solid #ECEEF1;
+font-size: 14px;
+color : #34495E;
+}
+.sondageContent input:hover, .sondageContent input:focus
+{
+
+border: 1px solid #34495E;
+}
+.sondageContent h2
+{
+font-size : 20px;
+font-weight: bold;
+color : #34495E;
+padding: 5px 0;
+margin-left: 30px;
+padding-top: 25px;
+}
+.sondageContent img
+{
+width: 100%;
+height: auto;
+}
+
+
+.exit
+{
+float:right;
+margin:4px 10px;
+padding: 0;
+color : #CCCCCC;
+
+}
+.exit:hover
+{
+font-weight: bold;
+cursor: pointer;
+color : #34495E;
+}
+.sondageBack
+{
+	width: 100%;
+	height: 3000px;
+	position: fixed;
+	top: 0;
+	display: none;
+	left: 0;
+	background-color: rgba(0,0,0,0.8);
+	z-index: 10004;
+}
+.sondageContainer
+{
+	width: 60%;
+	height: auto;
+	margin: auto;
+	vertical-align: middle;
+	background-color: none;
+	margin-top: 5vh;
+	-webkit-border-radius: 5px;
+	-moz-border-radius: 5px;
+	border-radius: 5px;
+}
+.clicktogo
+{
+min-width: 140px;
+width: 93%;
+height: auto;
+line-height: 20px;
+-webkit-border-radius: 8px;
+-moz-border-radius: 8px;
+border-radius: 8px;
+background-color: #eceef1;
+color: #000;
+font-size: 19px;
+font-weight: bold;
+text-align: center;
+text-decoration: none;
+display: inline-block;
+cursor: pointer;
+padding-top: 10px;
+padding-bottom: 10px;
+margin-bottom: 20px;
+}
+.validflash, .validflashh
+{
+display: inline-block;
+height: auto;
+width: 39%;
+margin: auto -8.5% auto 11%
+}
+</style>
+
+
+<script type="text/javascript">
+	$(document).ready(function()
+	{
+		var curent_actu = 0;
+		var chapeau     = new Array("En France on marche sur la tête", "On ne peut laisser les agriculteurs dans une impasse", "Les syndicats fustigent une attente trop longue", "La Maine et Loire en zone règlementée à partir du 18 novembre");
+		var images      = new Array("/bibliotheque_image/Actualites/Syndical/Panneau_invers%C3%A9.jpg", "/bibliotheque_image/Actualites/Materiels%20agricole/20120217_pulve.JPG", "/bibliotheque_image/Actualites/Syndical/manif%20nantes%20influenza.jpg", "/bibliotheque_image/Actualites/Animaux/Vache%20viande/Vache%20viande.png");
+		var link        = new Array("syndical--fdsea-ja-en-action-actualite-numero-8783.php", 
+									"glyphosate--bruxelles-donne-son-feu-vert-pour-10-ans-actualite-numero-8782.php", 
+									"influenza-aviaire--frsea-et-ja-des-pays-de-la-loire-ecrivent-au-ministre-de-l-agriculture-actualite-numero-8781.php", 
+									"bovins--trois-cas-confirmes-de-mhe-en-vendee-actualite-numero-8780.php");
+		
+		function change_image(curent_actuA)
+		{
+			if(curent_actuA < 3)
+				curent_actuA++;
+			else
+				curent_actuA = 0;
+			
+			$("div.cadre_actu").css("background-image", "url('"+images[curent_actuA]+"')");
+			$("a#link_curent_actu").attr("href", link[curent_actuA]);
+			
+			$("div.fnd_chapeau, div.chapeau").animate(
+			{
+				right: 500,
+			}, 500, function()
+			{
+				$("div.chapeau").html(chapeau[curent_actuA]);
+			});
+			$("img.actu_index_suite").animate(
+			{
+				right: 523,
+			}, 500);
+			
+			$("div.img_actu img").fadeOut(1000, function()
+			{
+				$("div.img_actu img").attr("src", images[curent_actuA]);
+				$("div.img_actu img").fadeIn(100);
+			});
+			
+			$("div.titre_liste_actu").css("background-color", "#34495E");
+			$("div.titre_liste_actu a").css("color", "#6084A9");
+			$("div.titre_liste_actu a").css("font-weight", "normal");
+			
+			$("div.fnd_chapeau, div.chapeau").animate(
+			{
+				right: 45,
+			}, 500);
+			$("img.actu_index_suite").animate(
+			{
+				right: 32,
+			}, 500);
+			
+			$("div#titre_actu_"+curent_actuA).css("background-color", "#2C3E50");
+			$("div#titre_actu_"+curent_actuA+" a").css("color", "#FFFFFF");
+			$("div#titre_actu_"+curent_actuA+" a").css("font-weight", "bold");
+			
+			return curent_actuA;
+		}
+		
+		var caroussel = setInterval(function()
+		{
+			curent_actu = change_image(curent_actu);
+		}, 9000);
+		
+		$("div.cadre_actu").hover(function()
+		{
+			clearInterval(caroussel);
+		}, function()
+		{
+			caroussel = setInterval(function()
+			{
+				curent_actu = change_image(curent_actu);
+			}, 9000);
+		});
+		
+		$("div.titre_liste_actu").mouseenter(function()
+		{	
+			var id_tab = $(this).attr("id").split("_");
+			var id     = id_tab[2];
+			
+			if(id != curent_actu)
+			{
+				if(id == 0)
+					curent_actuB = 3;
+				else
+					curent_actuB = id - 1;
+				
+				curent_actu = curent_actuB;
+				
+				setTimeout(function()
+				{
+					if(curent_actuB == curent_actu)
+						curent_actu = change_image(curent_actuB);
+				}, 300);
+			}
+		});
+		
+		$("div.img_actu, div.chapeau, div.titre_liste_actu").click(function()
+		{
+			var link = $("a#link_curent_actu").attr("href");
+			document.location.href = link;
+		});
+	});
+</script>
+<!--<a href="fil-informations-covid19.php" style='text-decoration:none' title="Liste des actualités sur le COVID-19"><div style="height:50px; background-color:red; margin-top:20px;  width:99%; text-align:center; color:#fff; border-radius:6px;align-items: center; display: flex; justify-content: center; font-size: 20px;">TOUTES LES ACTUALITÉS SUR LE COVID-19</div></a>-->
+
+<!-- ACTU -->
+<div class="cadre_actu" style="background-image:url('images/chargement.gif');">
+	<div class="img_actu" id="img_"><img src="..//bibliotheque_image/Actualites/Syndical/Panneau_invers%C3%A9.jpg" alt="Syndical : FDSEA-JA en action"></div>
+	<div class="fnd_chapeau">&nbsp;</div>
+	<div class="chapeau">En France on marche sur la tête [...]</div>
+	<a href="syndical--fdsea-ja-en-action-actualite-numero-8783.php" id="link_curent_actu"><img src="images/lire-la-suite.png" alt="Lire la suite" class="actu_index_suite"></a>
+	<!-- Liste actu -->
+	<div class="liste_actu">
+		<div class="titre_liste_actu first_titre_liste_actu" id="titre_actu_0">
+			<div class="titre_liste_actu_titre"><a href="syndical--fdsea-ja-en-action-actualite-numero-8783.php">Syndical : FDSEA-JA en action</a></div>
+			<div class="titre_liste_actu_date">Publié le 17/11/2023</div>
+		</div>
+		<div class="titre_liste_actu " id="titre_actu_1">
+			<div class="titre_liste_actu_titre"><a href="glyphosate--bruxelles-donne-son-feu-vert-pour-10-ans-actualite-numero-8782.php">Glyphosate :  Bruxelles donne son feu vert pour 10 ans</a></div>
+			<div class="titre_liste_actu_date">Publié le 17/11/2023</div>
+		</div>
+		<div class="titre_liste_actu " id="titre_actu_2">
+			<div class="titre_liste_actu_titre"><a href="influenza-aviaire--frsea-et-ja-des-pays-de-la-loire-ecrivent-au-ministre-de-l-agriculture-actualite-numero-8781.php">Influenza aviaire : FRSEA et JA des Pays de la Loire [...]</a></div>
+			<div class="titre_liste_actu_date">Publié le 17/11/2023</div>
+		</div>
+		<div class="titre_liste_actu last_titre_liste_actu" id="titre_actu_3">
+			<div class="titre_liste_actu_titre"><a href="bovins--trois-cas-confirmes-de-mhe-en-vendee-actualite-numero-8780.php">Bovins : trois cas confirmés de MHE en Vendée</a></div>
+			<div class="titre_liste_actu_date">Publié le 17/11/2023</div>
+		</div>
+	</div>
+</div>
+<script type="text/javascript">
+	$(document).ready(function()
+	{
+		$("img.btn_service").hover(function()
+		{
+			$(this).attr("src", "images/cliquez_ici_on.png");
+		}, function()
+		{
+			$(this).attr("src", "images/cliquez_ici.png");
+		});
+	});
+</script>
+
+<div class="all_services">
+	<div class="serv ">
+		<img src="services/sangliers.jpg" alt="Permis de chasse" class="logo_service"><br>
+		<span class="titre_service">Permis de chasse</span>
+		<p class="chapeau_service">Inscrivez vous avant le 30 novembre</p>
+		<a href="https://agri49.fr/chasse--formation-permis-de-chasse-special-agriculteurs-actualite-numero-7555.php"><img src="images/cliquez_ici.png" alt="Cliquez ici" class="btn_service"></a>
+<img src="images/nouveau-service.png" alt="Nouveau service" class="new_service">	</div>
+	<div class="serv ">
+		<img src="services/degats-de-gibier-mini.png" alt="Appli dégâts de gibier               " class="logo_service"><br>
+		<span class="titre_service">Appli dégâts de gibier               </span>
+		<p class="chapeau_service">Télécharger la nouvelle appli</p>
+		<a href="https://agri49.fr/degats-de-gibier--comment-declarer-ses-degats-actualite-numero-8640.php"><img src="images/cliquez_ici.png" alt="Cliquez ici" class="btn_service"></a>
+	</div>
+	<div class="serv ">
+		<img src="services/irrigation.jpg" alt="Etiage 2023" class="logo_service"><br>
+		<span class="titre_service">Etiage 2023</span>
+		<p class="chapeau_service">Fin des restrictions</p>
+		<a href="https://agri49.fr/etiage-2023--fin-des-restrictions-actualite-numero-8775.php"><img src="images/cliquez_ici.png" alt="Cliquez ici" class="btn_service"></a>
+	</div>
+	<div class="serv lastOrd">
+		<img src="services/fuel.jpg" alt="Achat Fuel" class="logo_service"><br>
+		<span class="titre_service">Achat Fuel</span>
+		<p class="chapeau_service">La FDSEA du 49 propose un module d'achat groupé de Fuel en ligne pour ses adhérents.</p>
+		<a href="achat-groupes-de-fuel.php"><img src="images/cliquez_ici.png" alt="Cliquez ici" class="btn_service"></a>
+	</div>
+</div><script type="text/javascript">
+	$(document).ready(function()
+	{
+		$("div.art_inf_cons").hover(function()
+		{
+			$(this).children("div.img_inf_cons").children("a").children("img").attr("src", "images/img-info-conseils-blanc.png");
+			$(this).children("div.titre_inf_cons").children("a").css("color", "#89BA20");
+			$(this).children("div.lire_inf_cons").css("background-color", "#a0c74e");
+		}, function()
+		{
+			$(this).children("div.img_inf_cons").children("a").children("img").attr("src", "images/img-info-conseils-trans.png");
+			$(this).children("div.titre_inf_cons").children("a").css("color", "#2c3e50");
+			$(this).children("div.lire_inf_cons").css("background-color", "#89BA1F");
+		});
+		
+		$("div.art_inf_cons").click(function()
+		{
+			var dest = $(this).children("div.img_inf_cons").children("a").attr("href");
+			
+			window.location = dest;
+		});
+	});
+</script>
+
+<div class="cadre_conseil_moisson">
+	<div class="titre_conseil_moisson">Info/Conseils</div>
+	
+	<div class="art_inf_cons">
+		<div class="img_inf_cons" style="background-image:url('bibliotheque_image/Actualites/Environnement/20130208_ficelles.jpg');"><a href="collectes-de-dechets--dates-et-consignes-fiche-ressource-numero-303.php"><img src="images/img-info-conseils-trans.png" alt="Info conseils"></a></div>
+		<div class="titre_inf_cons"><a href="collectes-de-dechets--dates-et-consignes-fiche-ressource-numero-303.php">Collectes de déchets : dates et consignes</a></div>
+		<div class="inf_inf_cons"><img src="images/horloge.png" alt="Horloge"> 28 Avril 2023 <img src="images/commentaire.png" alt="Commentaire" class="commentaire"> 0</div>
+		<div class="lire_inf_cons"><a href="collectes-de-dechets--dates-et-consignes-fiche-ressource-numero-303.php"><img src="images/plus.png" alt="[+]"></a></div>
+	</div>
+	
+	<div class="art_inf_cons">
+		<div class="img_inf_cons" style="background-image:url('bibliotheque_image/Actualites/Environnement/calepan (1).jpg');"><a href="epandage-de-fertilisants--un-calendrier-en-ligne-fiche-ressource-numero-302.php"><img src="images/img-info-conseils-trans.png" alt="Info conseils"></a></div>
+		<div class="titre_inf_cons"><a href="epandage-de-fertilisants--un-calendrier-en-ligne-fiche-ressource-numero-302.php">Epandage de fertilisants : un calendrier en ligne</a></div>
+		<div class="inf_inf_cons"><img src="images/horloge.png" alt="Horloge"> 19 Décembre 2022 <img src="images/commentaire.png" alt="Commentaire" class="commentaire"> 0</div>
+		<div class="lire_inf_cons"><a href="epandage-de-fertilisants--un-calendrier-en-ligne-fiche-ressource-numero-302.php"><img src="images/plus.png" alt="[+]"></a></div>
+	</div>
+	
+	<div class="art_inf_cons">
+		<div class="img_inf_cons" style="background-image:url('bibliotheque_image/Actualites/info-conseil/Indicateurs_de_marche_viande_bovine.jpg');"><a href="indicateurs-de-marche-viande-bovine-fiche-ressource-numero-290.php"><img src="images/img-info-conseils-trans.png" alt="Info conseils"></a></div>
+		<div class="titre_inf_cons"><a href="indicateurs-de-marche-viande-bovine-fiche-ressource-numero-290.php">Indicateurs de marché viande bovine</a></div>
+		<div class="inf_inf_cons"><img src="images/horloge.png" alt="Horloge"> 19 Mai 2022 <img src="images/commentaire.png" alt="Commentaire" class="commentaire"> 0</div>
+		<div class="lire_inf_cons"><a href="indicateurs-de-marche-viande-bovine-fiche-ressource-numero-290.php"><img src="images/plus.png" alt="[+]"></a></div>
+	</div>
+	
+	<div class="art_inf_cons">
+		<div class="img_inf_cons" style="background-image:url('bibliotheque_image/Actualites/info-conseil/tableau_de_bord_FNB.jpg');"><a href="tableau-de-bord-de-la-federation-nationale-bovine-fiche-ressource-numero-224.php"><img src="images/img-info-conseils-trans.png" alt="Info conseils"></a></div>
+		<div class="titre_inf_cons"><a href="tableau-de-bord-de-la-federation-nationale-bovine-fiche-ressource-numero-224.php">Tableau de bord de la Fédération Nationale Bovine</a></div>
+		<div class="inf_inf_cons"><img src="images/horloge.png" alt="Horloge"> 19 Mai 2022 <img src="images/commentaire.png" alt="Commentaire" class="commentaire"> 0</div>
+		<div class="lire_inf_cons"><a href="tableau-de-bord-de-la-federation-nationale-bovine-fiche-ressource-numero-224.php"><img src="images/plus.png" alt="[+]"></a></div>
+	</div>
+</div>
+
+<div class="cadre_conseil_moisson cadre_carte_moisson">
+	<div class="titre_conseil_moisson">Carte Moisson</div>
+	<div class="art_inf_cons">
+		<div class="img_inf_cons" style="background-image:url('bibliotheque_image/carte_moisson/20170707_260x180_pub_vacances_ete.jpg');"><a href="reservez-vos-souvenirs-d-ete--sur-wwwcarte-moissonfr-article-carte-moisson-numero-61.php"><img src="images/img-info-conseils-trans.png" alt="Info conseils"></a></div>
+		<div class="titre_inf_cons"><a href="reservez-vos-souvenirs-d-ete--sur-wwwcarte-moissonfr-article-carte-moisson-numero-61.php">Réservez vos souvenirs d'été ! sur www.carte-moisson.fr</a></div>
+		<div class="inf_inf_cons"><!--<img src="images/horloge.png" alt="Horloge"> 07 Juillet 2017 <img src="images/commentaire.png" alt="Commentaire" class="commentaire"> 0--></div>
+		<div class="lire_inf_cons"><a href="reservez-vos-souvenirs-d-ete--sur-wwwcarte-moissonfr-article-carte-moisson-numero-61.php"><img src="images/plus.png" alt="[+]"></a></div>
+	</div>
+	<div class="art_inf_cons">
+		<div class="img_inf_cons" style="background-image:url('bibliotheque_image/carte_moisson/20170707_Paint_Ball_Fun_Team.png');"><a href="paint-ball-fun-team--st-sylvain-d-anjou-tarifs-groupes-100-billes-offertes-article-carte-moisson-numero-64.php"><img src="images/img-info-conseils-trans.png" alt="Info conseils"></a></div>
+		<div class="titre_inf_cons"><a href="paint-ball-fun-team--st-sylvain-d-anjou-tarifs-groupes-100-billes-offertes-article-carte-moisson-numero-64.php">Paint Ball Fun Team Ã  St Sylvain d'Anjou. Tarifs groupes, 100 billes offertes</a></div>
+		<div class="inf_inf_cons"><!--<img src="images/horloge.png" alt="Horloge"> 07 Juillet 2017 <img src="images/commentaire.png" alt="Commentaire" class="commentaire"> 0--></div>
+		<div class="lire_inf_cons"><a href="paint-ball-fun-team--st-sylvain-d-anjou-tarifs-groupes-100-billes-offertes-article-carte-moisson-numero-64.php"><img src="images/plus.png" alt="[+]"></a></div>
+	</div>
+	<div class="art_inf_cons">
+		<div class="img_inf_cons" style="background-image:url('bibliotheque_image/carte_moisson/20170707_Camping_les_Nobis.png');"><a href="les-nobis--montreuil-bellay-5-de-remise-sur-toute-la-saison-article-carte-moisson-numero-63.php"><img src="images/img-info-conseils-trans.png" alt="Info conseils"></a></div>
+		<div class="titre_inf_cons"><a href="les-nobis--montreuil-bellay-5-de-remise-sur-toute-la-saison-article-carte-moisson-numero-63.php">Les Nobis, Ã  Montreuil-Bellay. 5% de remise sur toute la saison</a></div>
+		<div class="inf_inf_cons"><!--<img src="images/horloge.png" alt="Horloge"> 07 Juillet 2017 <img src="images/commentaire.png" alt="Commentaire" class="commentaire"> 0--></div>
+		<div class="lire_inf_cons"><a href="les-nobis--montreuil-bellay-5-de-remise-sur-toute-la-saison-article-carte-moisson-numero-63.php"><img src="images/plus.png" alt="[+]"></a></div>
+	</div>
+	<div class="art_inf_cons">
+		<div class="img_inf_cons" style="background-image:url('bibliotheque_image/carte_moisson/20170707_LOUET_20EVASION.jpg');"><a href="louet-evasion--chalonnes-s--loire-10-de-remise-sur-toutes-les-locations-de-cano-article-carte-moisson-numero-62.php"><img src="images/img-info-conseils-trans.png" alt="Info conseils"></a></div>
+		<div class="titre_inf_cons"><a href="louet-evasion--chalonnes-s--loire-10-de-remise-sur-toutes-les-locations-de-cano-article-carte-moisson-numero-62.php">Louet Evasion, Ã  Chalonnes-s/-Loire. 10% de remise sur toutes les locations de canoÃ«</a></div>
+		<div class="inf_inf_cons"><!--<img src="images/horloge.png" alt="Horloge"> 07 Juillet 2017 <img src="images/commentaire.png" alt="Commentaire" class="commentaire"> 0--></div>
+		<div class="lire_inf_cons"><a href="louet-evasion--chalonnes-s--loire-10-de-remise-sur-toutes-les-locations-de-cano-article-carte-moisson-numero-62.php"><img src="images/plus.png" alt="[+]"></a></div>
+	</div>
+</div><style type="text/css">
+	div.bloc_linkAaA
+	{
+		width: 310px;
+		height: 87px;
+		margin-top: 20px;
+		margin-left:6.5px;
+		margin-right: 8px;
+		padding: 4px;
+		border-radius: 3px;
+		border: 2px solid #ecf0f1;
+		float: left;
+	}
+</style>
+	<div class="bloc_linkAaA">
+	<a href="http://www.agri49.fr/tableau-de-bord-de-la-federation-nationale-bovine-fiche-ressource-numero-224.php" target="_blank">
+		<img src="mise_en_avant/37-marche-viande-bovine/G-tableau-de-bord-fnb.png" alt="Marché Viande Bovine">
+	</a>
+	</div>
+	<div class="bloc_linkAaA">
+	<a href="http://www.agri49.fr/foncier-controle-des-structures-fiche-ressource-numero-259.php" target="_blank">
+		<img src="mise_en_avant/43-controle-des-structures/G-structures.png" alt="Controle des structures">
+	</a>
+	</div>
+	<div class="bloc_linkAaA">
+	<a href="http://www.agri49.fr/observatoire-du-prix-du-lait-fdsea-du-grand-ouest-fiche-ressource-numero-153.php" target="_blank">
+		<img src="mise_en_avant/38-prix-du-lait/G-g2.jpg" alt="Prix du lait">
+	</a>
+	</div>
+	<div class="bloc_linkAaA">
+	<a href="https://www.safer-pays-de-loire.fr/website/accueil_du_site_de_la_safer_maine_ocean_&901.html" target="_blank">
+		<img src="mise_en_avant/44-safer/G-safer-mao.png" alt="SAFER">
+	</a>
+	</div>
+	<div class="bloc_linkAaA">
+	<a href="http://bovinfo.boviloire.com/connexion.php" target="_blank">
+		<img src="mise_en_avant/34-donnees-d-abattages/G-vos-donnees-d-abattage.png" alt="Données d'abattages">
+	</a>
+	</div>
+	<div class="bloc_linkAaA">
+	<a href="https://ephy.anses.fr" target="_blank">
+		<img src="mise_en_avant/39-e-phy/G-g4.jpg" alt="e-Phy">
+	</a>
+	</div>
+
+</td>
+				
+  <td id="colonne_int_2">
+
+    <script type="text/javascript">
+	glob=false;
+	
+	$(document).ready(function()
+	{	
+	 
+
+	 
+
+		$("div.videoContainer").mousemove(function()
+		{
+			if(glob==true)
+				glob=false;
+				
+		});
+		$("div.videoContainer").mouseout(function(){glob=true;});
+		$("div#encartimage").click(function()
+		{	
+			$("div.videoLink").fadeIn(1000, function()
+			{
+			
+					
+				
+			});
+						
+				$("div.videoLink").click(function()
+				{	
+				if(glob==true)
+				{
+
+						$("div.videoLink").fadeOut(1000, function(){});
+	 
+				}
+			});
+			
+		});
+		$("li.liSujet").click(function()
+		{
+			var seekVideo = $(this).attr("id");
+			var time = seekVideo.substring(5);
+			var videoPlay=document.getElementById('player');
+			videoPlay.seek(time);
+		});
+		
+		$("#exit").click(function()
+			{	
+					$("div.videoLink").fadeOut(1000, function(){});
+			});
+
+	});
+</script>
+<div class="videoLink">
+	<div class="videoContainer">
+		<img id="exit" src="./images/exit.png" alt="Cliquez ici pour quitter">
+		<!--<div id="themes">
+			<h3>Sujets cette semaine :</h3>
+			<ul>
+																	
+			</ul>
+		</div>-->
+			
+			<iframe id="ytplayer" type="text/html" width="100%" height="100%" src="https://www.youtube.com/embed/1xNshGgl3sE" frameborder="0"></iframe>
+			
+		
+	</div>
+</div>
+
+<style>
+#encartimage
+{
+width:310px;
+height:206px;
+background: url("https://i.ytimg.com/vi/1xNshGgl3sE/hqdefault.jpg") repeat scroll 0 0 rgba(0, 0, 0, 0);
+background-size: cover;
+	-webkit-border-bottom-left-radius: 06px;
+	-webkit-border-bottom-right-radius: 06px;
+	-moz-border-radius-bottomleft: 06px;
+	-moz-border-radius-bottomright: 06px;
+	border-bottom-left-radius: 06px;
+	border-bottom-right-radius: 06px;
+}
+a.thumb-video-button {
+    background-image: url("images/video-play-button.png");
+    background-position: 0 0;
+    background-repeat: no-repeat;
+	-webkit-border-bottom-left-radius: 06px;
+	-webkit-border-bottom-right-radius: 06px;
+	-moz-border-radius-bottomleft: 06px;
+	-moz-border-radius-bottomright: 06px;
+	border-bottom-left-radius: 06px;
+	border-bottom-right-radius: 06px;
+    display: block;
+    height: 206px;
+    width: 310px;
+}
+
+a.thumb-video-button:hover, a.thumb-video-button:focus {
+    background-color: rgba(0, 0, 0, 0.2);
+    background-position: 0 -206px;
+}
+a.thumb-video-button:active {
+    background-position: 0 -412px;
+}
+.icon-player {
+    background: url("images/icon-player.svg") repeat scroll 0 0 rgba(0, 0, 0, 0);
+}
+.home-icons {
+    display: inline-block;
+    height: 20px;
+    margin-right: 10px;
+    position: relative;
+    top: 4px;
+    width: 20px;
+}
+</style>
+<div class="module_video">
+	<div class='containerjt'>
+		<h4 id='titleVideo' ><span class="home-icons icon-player"></span>Vidéo de la semaine</h4>
+		<h5 id='subjectVideo'>BIEN ÉLEVÉE ! Élevage herbager à taille humaine
+</h5>
+		<div id='encartimage'>
+			<a class="thumb-video-button" href="#"></a>
+		</div>
+	</div>
+	<!--<div>
+		<img src="images/video.png" alt="Module Vidéo">
+	</div>-->
+</div>
+<!-- <div id="bandeau-mae"><span id="mae-days">2744</span></div> --><style>
+div#pubSidebarExpand {
+margin-top: 20px;
+padding: 0 4px;
+}
+ 
+div#pubSidebarExpand a {
+display:block;
+}
+
+div#pubSidebarExpand > a > img:nth-child(2) {
+display:none;
+}
+</style>
+		<div id="pubSidebarExpand">
+		<div id="sas_64527"></div>
+		<script type="application/javascript">
+		    sas.cmd.push(function() {
+		        sas.render("64527");  // Format : RIGHT 300x250
+		    });
+		</script>		
+		</div>
+					<div class="footer_tweet2 footer_txt2">
+					<h3>Derniers Tweets</h3>
+					<!--<a class="twitter-timeline"  width="307" height="300" href="https://twitter.com/FDSEA49"  data-widget-id="501722173262680065" data-link-color="#89ba20" data-chrome="noheader nofooter transparent noborders noscrollbar">Les Tweets @fnsea49</a>-->
+					<!--<a class="twitter-timeline" width="300" height="300"href="https://twitter.com/fdsea49/lists/fdsea-49" data-chrome="noheader nofooter transparent noborders noscrollbar">Les Tweets de Agri49</a> <script async src="//platform.twitter.com/widgets.js" charset="utf-8"></script>-->
+          <!--<a  width="300" height="300" href="https://twitter.com/intent/tweet?button_hashtag=fdsea49&ref_src=twsrc%5Etfw" class="twitter-hashtag-button" data-show-count="false">Tweet #fdsea49</a><script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>-->
+          <a class="twitter-timeline" data-width="300" data-height="300" href="https://twitter.com/FDSEA49?ref_src=twsrc%5Etfw">Tweets by FDSEA49</a> <script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
+          <!--<script>
+						function(d,s,id)
+						{
+							var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';
+							if(!d.getElementById(id))
+							{
+								js=d.createElement(s);
+								js.id=id;
+								js.src=p+"://platform.twitter.com/widgets.js";
+								fjs.parentNode.insertBefore(js,fjs);
+							}
+						}(document,"script","twitter-wjs");
+					</script>-->
+				</div>
+
+
+<style>
+#meteoModule
+{
+color:#89ba20;
+opacity:0.95
+}
+#meteoModule:hover
+{
+opacity:1
+}
+.highMeteo
+{
+display: inline-block;
+width:100%;
+font-size: 60px;
+font-weight: bold;
+}
+.highMeteo img
+{
+width:47%;
+margin-left: 3%;
+float:left;
+}
+.highMeteo div
+{
+width:41%;
+margin-left:9%
+ ;
+float:left;
+padding-top: 37px;
+}
+.infoMeteo
+{
+display: inline-block;
+width:45%;
+text-align: center;
+font-size: 24px;
+}
+#selectVideo
+{
+float:left;
+width:60%;
+height:50px;
+margin-left: 12.5%;
+margin-top:10px;
+background-color: #89ba20;
+-webkit-border-top-left-radius: 06px;
+-webkit-border-bottom-left-radius: 06px;
+-moz-border-radius-bottomleft: 06px;
+-moz-border-radius-topleft: 06px;
+border-top-left-radius: 06px;
+border-bottom-left-radius: 06px;
+color:white;
+text-align: center;
+line-height: 50px;
+font-size: 12px;
+}
+#checkVideo
+{
+float:left;
+width:15%;
+height:50px;
+margin-top:10px;
+background-color: #759e1b;
+-webkit-border-top-right-radius: 06px;
+-webkit-border-bottom-right-radius: 06px;
+-moz-border-radius-topright: 06px;
+-moz-border-radius-bottomright: 06px;
+border-top-right-radius: 06px;
+border-bottom-right-radius: 06px;
+text-align: center;
+line-height: 50px;
+}
+#checkVideo:hover
+{
+cursor: pointer;
+opacity:0.9;
+}
+#choiceVideo
+{
+width: 229.5px;
+height: 100px;
+margin-left: 38.25px;
+-webkit-border-top-left-radius: 06px;
+-webkit-border-bottom-left-radius: 06px;
+-moz-border-radius-bottomleft: 06px;
+-moz-border-radius-topleft: 06px;
+border-top-left-radius: 06px;
+border-bottom-left-radius: 06px;
+-webkit-border-top-right-radius: 06px;
+-webkit-border-bottom-right-radius: 06px;
+-moz-border-radius-topright: 06px;
+-moz-border-radius-bottomright: 06px;
+border-top-right-radius: 06px;
+border-bottom-right-radius: 06px;
+background-color: #89ba20;
+position:absolute;
+display:none;
+overflow-y: scroll;
+overflow-x: hidden;
+}
+.villeDep
+{
+margin-top: 1px;
+height:12px;
+width: 94%;
+margin-left: 2%;
+display: block;
+color:white;
+font-size: 12px;
+padding: 10px 0 10px 5px;
+cursor: pointer;
+}
+.villeDep:hover
+{
+background-color: #759e1b;
+}
+#encarthover
+{
+width:75%;
+height:8px;
+margin-left: 12.5%;
+margin-top: 70px;
+display:none;
+}
+#encarthover img
+{
+float:right;
+margin-right: 5px;
+}
+</style>
+<script type="text/javascript">
+
+	$(document).ready(function()
+	{	
+	var flag=true;
+
+		$("#checkVideo").click(function()
+		{	
+			if(flag==true)
+			{
+				$("#choiceVideo").fadeIn(1000, function(){});
+				$("#encarthover").fadeIn(1000, function(){});
+				flag=false;
+			}
+			else
+			{
+				$("#choiceVideo").fadeOut(1000, function(){});
+				$("#encarthover").fadeOut(1000, function(){});
+				flag=true;
+			}
+		});
+		
+		
+		$(".villeDep").click(function()
+		{	
+			var idThis = $(this).attr('id');
+			$.ajax(
+			{
+				type: "POST",
+				url : "./ajax/meteo.php",
+				data:
+				{
+					reponse: idThis,
+				},
+				dataType: 'json',
+				success: function(data)
+				{
+					var reponseimg="images/picto_meteo/"+data.ts[0]+".svg";
+					var reponsetempe=data.temp[0]+"°";
+				    $(".highMeteo").children('img').attr('src',reponseimg);
+				    $('#affichageTemp').text(reponsetempe);
+				    $('#selectVideo').text(data.ville);
+				}
+			});
+			$("#choiceVideo").fadeOut(1000, function(){});
+			$("#encarthover").fadeOut(1000, function(){});
+			flag=true;
+			
+		});
+
+	});
+	
+</script>
+								<div id="meteoModule">
+									<a href="http://www.pleinchamp.com/previsions-departementales/(dept)/49" target="_blank" ><img src="images/pleinchamp.png" alt="météo"></a>
+								<!--
+									<div class="highMeteo">
+										<img src="images/picto_meteo/.svg" alt="" title="">
+										<div id="affichageTemp">&deg;</div>
+									</div>
+									<div class="infoMeteo">Dimanche									</div>
+									<div class="infoMeteo">19/11/2023</div>
+									<div id="selectVideo">ANGERS</div><div id="checkVideo"><img src="images/iconmeteo.png" alt="Météo" ></div>
+									<div id="encarthover"><img src="images/encarthovermeteo.png" alt=""></div>
+									<div id="choiceVideo">
+<div class='villeDep' id='49002' >ALLONES</div><div class='villeDep' id='49003' >AMBILLOU-CHATEAU</div><div class='villeDep' id='49004' >ANDARD</div><div class='villeDep' id='49005' >ANDIGNE</div><div class='villeDep' id='49006' >ANDRIZE</div><div class='villeDep' id='49007' >ANGERS</div><div class='villeDep' id='49008' >ANGRIE</div><div class='villeDep' id='49009' >ANTOIGNE</div><div class='villeDep' id='49010' >ARMAILLE</div><div class='villeDep' id='49011' >ARTANNES-SUR-THOUET</div><div class='villeDep' id='49012' >AUBIGNE-SUR-LAYON</div><div class='villeDep' id='49013' >AUVERSE</div><div class='villeDep' id='49014' >AVIRE</div><div class='villeDep' id='49015' >AVRILLE</div><div class='villeDep' id='49017' >BARACE</div><div class='villeDep' id='49018' >BAUGE-EN-ANJOU</div><div class='villeDep' id='49019' >BAUNE</div><div class='villeDep' id='49020' >BEAUCOUZE</div><div class='villeDep' id='49021' >BEAUFORT-EN-VALLEE</div><div class='villeDep' id='49022' >BEAULIEU-SUR-LAYON</div><div class='villeDep' id='49023' >BEAUPREAU</div><div class='villeDep' id='49024' >BEAUSSE</div><div class='villeDep' id='49025' >BEAUVAU</div><div class='villeDep' id='49026' >BECON-LES-GRANITS</div><div class='villeDep' id='49027' >BEGROLLES-EN-MAUGES</div><div class='villeDep' id='49028' >BEHUARD</div><div class='villeDep' id='49029' >BLAISON-GOHIER</div><div class='villeDep' id='49030' >BLOU</div><div class='villeDep' id='49031' >BOCE</div><div class='villeDep' id='49034' >BOTZ-EN-MAUGES</div><div class='villeDep' id='49035' >BOUCHEMAINE</div><div class='villeDep' id='49036' >BOUILLE-MENARD</div><div class='villeDep' id='49038' >BOURG-L'EVEQUE</div><div class='villeDep' id='49039' >BOURGNEUF-EN-MAUGES</div><div class='villeDep' id='49040' >BOUZILLE</div><div class='villeDep' id='49041' >BRAIN-SUR-ALLONNES</div><div class='villeDep' id='49042' >BRAIN-SUR-L'AUTHION</div><div class='villeDep' id='49043' >BRAIN-SUR-LONGUENEE</div><div class='villeDep' id='49044' >BREIL</div><div class='villeDep' id='49046' >BREZE</div><div class='villeDep' id='49047' >BRIGNE</div><div class='villeDep' id='49048' >BRIOLLAY</div><div class='villeDep' id='49049' >BRION</div><div class='villeDep' id='49050' >BRISSAC-QUINCE</div><div class='villeDep' id='49051' >BRISSARTHE</div><div class='villeDep' id='49052' >BROC</div><div class='villeDep' id='49053' >BROSSAY</div><div class='villeDep' id='49054' >CANDE</div><div class='villeDep' id='49055' >CANTENAY-EPINARD</div><div class='villeDep' id='49056' >CARBAY</div><div class='villeDep' id='49057' >CERNUSSON</div><div class='villeDep' id='49060' >CHACE</div><div class='villeDep' id='49061' >CHALLAIN-LA-POTHERIE</div><div class='villeDep' id='49062' >CHALONNES-SOUS-LE-LUDE</div><div class='villeDep' id='49063' >CHALONNES-SUR-LOIRE</div><div class='villeDep' id='49064' >CHAMBELLAY</div><div class='villeDep' id='49066' >CHAMP-SUR-LAYON</div><div class='villeDep' id='49065' >CHAMPIGNE</div><div class='villeDep' id='49067' >CHAMPTEUSSE-SUR-BACONNE</div><div class='villeDep' id='49068' >CHAMPTOCE-SUR-LOIRE</div><div class='villeDep' id='49069' >CHAMPTOCEAUX</div><div class='villeDep' id='49070' >CHANTELOUP-LES-BOIS</div><div class='villeDep' id='49071' >CHANZEAUX</div><div class='villeDep' id='49078' >CHARCE-SAINT-ELLIER-SUR-AUBANCE</div><div class='villeDep' id='49079' >CHARTRENE</div><div class='villeDep' id='49080' >CHATEAUNEUF-SUR-SARTHE</div><div class='villeDep' id='49081' >CHATELAIS</div><div class='villeDep' id='49082' >CHAUDEFONDS-SUR-LAYON</div><div class='villeDep' id='49083' >CHAUDRON-EN-MAUGES</div><div class='villeDep' id='49084' >CHAUMONT-D'ANJOU</div><div class='villeDep' id='49086' >CHAVAGNES</div><div class='villeDep' id='49087' >CHAVAIGNES</div><div class='villeDep' id='49088' >CHAZE-HENRY</div><div class='villeDep' id='49089' >CHAZE-SUR-ARGOS</div><div class='villeDep' id='49090' >CHEFFES</div><div class='villeDep' id='49091' >CHEMELLIER</div><div class='villeDep' id='49092' >CHEMILLE-MELAY</div><div class='villeDep' id='49093' >CHEMIRE-SUR-SARTHE</div><div class='villeDep' id='49094' >CHENEHUTTE-TREVES-CUNAULT</div><div class='villeDep' id='49095' >CHENILLE-CHANGE</div><div class='villeDep' id='49096' >CHERRE</div><div class='villeDep' id='49097' >CHEVIRE-LE-ROUGE</div><div class='villeDep' id='49098' >CHIGNE</div><div class='villeDep' id='49099' >CHOLET</div><div class='villeDep' id='49100' >CIZAY-LA-MADELEINE</div><div class='villeDep' id='49101' >CLEFS-VAL D'ANJOU</div><div class='villeDep' id='49102' >CLERE-SUR-LAYON</div><div class='villeDep' id='49103' >COMBREE</div><div class='villeDep' id='49104' >CONCOURSON-SUR-LAYON</div><div class='villeDep' id='49105' >CONTIGNE</div><div class='villeDep' id='49106' >CORNE</div><div class='villeDep' id='49107' >CORNILLE-LES-CAVES</div><div class='villeDep' id='49109' >CORON</div><div class='villeDep' id='49110' >CORZE</div><div class='villeDep' id='49111' >COSSE-D'ANJOU</div><div class='villeDep' id='49113' >COURCHAMPS</div><div class='villeDep' id='49114' >COURLEON</div><div class='villeDep' id='49115' >COUTURES</div><div class='villeDep' id='49116' >CUON</div><div class='villeDep' id='49119' >DAUMERAY</div><div class='villeDep' id='49120' >DENEE</div><div class='villeDep' id='49121' >DENEZE-SOUS-DOUE</div><div class='villeDep' id='49122' >DENEZE-SOUS-LE-LUDE</div><div class='villeDep' id='49123' >DISTRE</div><div class='villeDep' id='49125' >DOUE-LA-FONTAINE</div><div class='villeDep' id='49126' >DRAIN</div><div class='villeDep' id='49127' >DURTAL</div><div class='villeDep' id='49128' >ECHEMIRE</div><div class='villeDep' id='49129' >ECOUFLANT</div><div class='villeDep' id='49130' >ECUILLE</div><div class='villeDep' id='49131' >EPIEDS</div><div class='villeDep' id='49132' >ETRICHE</div><div class='villeDep' id='49133' >FAVERAYE-MACHELLES</div><div class='villeDep' id='49134' >FAYE-D'ANJOU</div><div class='villeDep' id='49135' >FENEU</div><div class='villeDep' id='49138' >FONTAINE-GUERIN</div><div class='villeDep' id='49139' >FONTAINE-MILON</div><div class='villeDep' id='49140' >FONTEVRAUD-L'ABBAYE</div><div class='villeDep' id='49141' >FORGES</div><div class='villeDep' id='49143' >FOUGERE</div><div class='villeDep' id='49144' >FREIGNE</div><div class='villeDep' id='49147' >GEE</div><div class='villeDep' id='49148' >GENE</div><div class='villeDep' id='49149' >GENNES</div><div class='villeDep' id='49150' >GENNETEIL</div><div class='villeDep' id='49151' >GESTE</div><div class='villeDep' id='49155' >GREZ-NEUVILLE</div><div class='villeDep' id='49154' >GREZILLE</div><div class='villeDep' id='49156' >GRUGE-L'HOPITAL</div><div class='villeDep' id='49159' >HUILLE</div><div class='villeDep' id='49160' >INGRANDES</div><div class='villeDep' id='49162' >JALLAIS</div><div class='villeDep' id='49163' >JARZE</div><div class='villeDep' id='49167' >JUIGNE-SUR-LOIRE</div><div class='villeDep' id='49170' >JUVARDEIL</div><div class='villeDep' id='49158' >L'HOTELLERIE-DE-FLEE</div><div class='villeDep' id='49032' >LA BOHALLE</div><div class='villeDep' id='49033' >LA BOISSIERE-SUR-EVRE</div><div class='villeDep' id='49045' >LA BREILLE-LES-PINS</div><div class='villeDep' id='49072' >LA CHAPELLE-DU-GENET</div><div class='villeDep' id='49073' >LA CHAPELLE-HULLIN</div><div class='villeDep' id='49074' >LA CHAPELLE-ROUSSELIN</div><div class='villeDep' id='49075' >LA CHAPELLE-SAINT-FLORENT</div><div class='villeDep' id='49076' >LA CHAPELLE-SAINT-LAUD</div><div class='villeDep' id='49077' >LA CHAPELLE-SUR-OUDON</div><div class='villeDep' id='49085' >LA CHAUSSAIRE</div><div class='villeDep' id='49108' >LA CORNUAILLE</div><div class='villeDep' id='49117' >LA DAGUENIERE</div><div class='villeDep' id='49136' >LA FERRIERE-DE-FLEE</div><div class='villeDep' id='49142' >LA FOSSE-DE-TIGNE</div><div class='villeDep' id='49161' >LA JAILLE-YVON</div><div class='villeDep' id='49165' >LA JUBAUDIERE</div><div class='villeDep' id='49169' >LA JUMELLIERE</div><div class='villeDep' id='49171' >LA LANDE-CHASLES</div><div class='villeDep' id='49196' >LA MEIGNANNE</div><div class='villeDep' id='49200' >LA MEMBROLLE-SUR-LONGUENEE</div><div class='villeDep' id='49201' >LA MENITRE</div><div class='villeDep' id='49237' >LA PELLERINE</div><div class='villeDep' id='49240' >LA PLAINE</div><div class='villeDep' id='49243' >LA POITEVINIERE</div><div class='villeDep' id='49244' >LA POMMERAYE</div><div class='villeDep' id='49247' >LA POSSONNIERE</div><div class='villeDep' id='49249' >LA POUEZE</div><div class='villeDep' id='49250' >LA PREVIERE</div><div class='villeDep' id='49258' >LA RENAUDIERE</div><div class='villeDep' id='49260' >LA ROMAGNE</div><div class='villeDep' id='49325' >LA SALLE-DE-VIHIERS</div><div class='villeDep' id='49324' >LA SALLE-ET-CHAPELLE-AUBRY</div><div class='villeDep' id='49332' >LA SEGUINIERE</div><div class='villeDep' id='49343' >LA TESSOUALLE</div><div class='villeDep' id='49351' >LA TOURLANDRY</div><div class='villeDep' id='49360' >LA VARENNE</div><div class='villeDep' id='49172' >LANDEMONT</div><div class='villeDep' id='49173' >LASSE</div><div class='villeDep' id='49037' >LE BOURG-DIRE</div><div class='villeDep' id='49112' >LE COUDRAY-MACOUARD</div><div class='villeDep' id='49137' >LE FIEF-SAUVIN</div><div class='villeDep' id='49145' >LE FUILET</div><div class='villeDep' id='49157' >LE GUEDENIAU</div><div class='villeDep' id='49176' >LE LION-D'ANGERS</div><div class='villeDep' id='49179' >LE LONGERON</div><div class='villeDep' id='49183' >LE LOUROUX-BECONNAIS</div><div class='villeDep' id='49190' >LE MARILLAIS</div><div class='villeDep' id='49193' >LE MAY-SUR-EVRE</div><div class='villeDep' id='49204' >LE MESNIL-EN-VALLEE</div><div class='villeDep' id='49239' >LE PIN-EN-MAUGES</div><div class='villeDep' id='49241' >LE PLESSIS-GRAMMOIRE</div><div class='villeDep' id='49242' >LE PLESSIS-MACE</div><div class='villeDep' id='49252' >LE PUISET-DORE</div><div class='villeDep' id='49253' >LE PUY-NOTRE-DAME</div><div class='villeDep' id='49346' >LE THOUREIL</div><div class='villeDep' id='49354' >LE TREMBLAY</div><div class='villeDep' id='49001' >LES ALLEUDS</div><div class='villeDep' id='49058' >LES CERQUEUX</div><div class='villeDep' id='49059' >LES CERQUEUX-SOUS-PASSAVANT</div><div class='villeDep' id='49246' >LES PONTS-DE-CE</div><div class='villeDep' id='49257' >LES RAIRIES</div><div class='villeDep' id='49261' >LES ROSIERS-SUR-LOIRE</div><div class='villeDep' id='49359' >LES ULMES</div><div class='villeDep' id='49365' >LES VERCHERS-SUR-LAYON</div><div class='villeDep' id='49174' >LEZIGNE</div><div class='villeDep' id='49175' >LINIERES-BOUTON</div><div class='villeDep' id='49177' >LIRE</div><div class='villeDep' id='49178' >LOIRE</div><div class='villeDep' id='49180' >LONGUE-JUMELLES</div><div class='villeDep' id='49181' >LOUERRE</div><div class='villeDep' id='49182' >LOURESSE-ROCHEMENIER</div><div class='villeDep' id='49184' >LOUVAINES</div><div class='villeDep' id='49185' >LUE-EN-BAUGEOIS</div><div class='villeDep' id='49186' >LUIGNE</div><div class='villeDep' id='49187' >MARANS</div><div class='villeDep' id='49188' >MARCE</div><div class='villeDep' id='49189' >MARIGNE</div><div class='villeDep' id='49191' >MARTIGNE-BRIAND</div><div class='villeDep' id='49192' >MAULEVRIER</div><div class='villeDep' id='49194' >MAZE</div><div class='villeDep' id='49195' >MAZIERES-EN-MAUGES</div><div class='villeDep' id='49198' >MEIGNE</div><div class='villeDep' id='49197' >MEIGNE-LE-VICOMTE</div><div class='villeDep' id='49202' >MEON</div><div class='villeDep' id='49205' >MIRE</div><div class='villeDep' id='49206' >MONTFAUCON-MONTIGNE</div><div class='villeDep' id='49207' >MONTFORT</div><div class='villeDep' id='49208' >MONTGUILLON</div><div class='villeDep' id='49209' >MONTIGNE-LES-RAIRIES</div><div class='villeDep' id='49211' >MONTILLIERS</div><div class='villeDep' id='49212' >MONTJEAN-SUR-LOIRE</div><div class='villeDep' id='49215' >MONTREUIL-BELLAY</div><div class='villeDep' id='49214' >MONTREUIL-JUIGNE</div><div class='villeDep' id='49216' >MONTREUIL-SUR-LOIR</div><div class='villeDep' id='49217' >MONTREUIL-SUR-MAINE</div><div class='villeDep' id='49218' >MONTREVAULT</div><div class='villeDep' id='49219' >MONTSOREAU</div><div class='villeDep' id='49220' >MORANNES</div><div class='villeDep' id='49221' >MOULIHERNE</div><div class='villeDep' id='49222' >MOZE-SUR-LOUET</div><div class='villeDep' id='49223' >MURS-ERIGNE</div><div class='villeDep' id='49224' >NEUILLE</div><div class='villeDep' id='49225' >NEUVY-EN-MAUGES</div><div class='villeDep' id='49226' >NOELLET</div><div class='villeDep' id='49227' >NOTRE-DAME-D'ALLENCON</div><div class='villeDep' id='49228' >NOYANT</div><div class='villeDep' id='49229' >NOYANT-LA-GRAVOYERE</div><div class='villeDep' id='49230' >NOYANT-LA-PLAINE</div><div class='villeDep' id='49231' >NUAILLE</div><div class='villeDep' id='49232' >NUEIL-SUR-LAYON</div><div class='villeDep' id='49233' >NYOISEAU</div><div class='villeDep' id='49234' >PARCAY-LES-PINS</div><div class='villeDep' id='49235' >PARNAY</div><div class='villeDep' id='49236' >PASSAVANT-SUR-LAYON</div><div class='villeDep' id='49238' >PELLOUAILLES-LES-VIGNES</div><div class='villeDep' id='49248' >POUANCE</div><div class='villeDep' id='49251' >PRUILLE</div><div class='villeDep' id='49254' >QUERRE</div><div class='villeDep' id='49256' >RABLAY-SUR-LAYON</div><div class='villeDep' id='49259' >ROCHEFORT-SUR-LOIRE</div><div class='villeDep' id='49262' >ROU-MARSON</div><div class='villeDep' id='49263' >ROUSSAY</div><div class='villeDep' id='49264' >SAINT-ANDRE-DE-LA-MARCHE</div><div class='villeDep' id='49265' >SAINT-AUBIN-DE-LUIGNE</div><div class='villeDep' id='49266' >SAINT-AUGUSTIN-DES-BOIS</div><div class='villeDep' id='49267' >SAINT-BARTHELEMY-D'ANJOU</div><div class='villeDep' id='49269' >SAINT-CHRISTOPHE-DU-BOIS</div><div class='villeDep' id='49270' >SAINT-CHRISTOPHE-LA-COUPERIE</div><div class='villeDep' id='49271' >SAINT-CLEMENT-DE-LA-PLACE</div><div class='villeDep' id='49272' >SAINT-CLEMENT-DES-LEVEES</div><div class='villeDep' id='49273' >SAINT-CRESPIN-SUR-MOINE</div><div class='villeDep' id='49274' >SAINT-CYR-EN-BOURG</div><div class='villeDep' id='49276' >SAINT-FLORENT-LE-VIEIL</div><div class='villeDep' id='49281' >SAINT-GEORGES-DES-GARDES</div><div class='villeDep' id='49279' >SAINT-GEORGES-DES-SEPT-VOIES</div><div class='villeDep' id='49280' >SAINT-GEORGES-DU-BOIS</div><div class='villeDep' id='49282' >SAINT-GEORGES-SUR-LAYON</div><div class='villeDep' id='49283' >SAINT-GEORGES-SUR-LOIRE</div><div class='villeDep' id='49284' >SAINT-GERMAIN-DES-PRES</div><div class='villeDep' id='49285' >SAINT-GERMAIN-SUR-MOINE</div><div class='villeDep' id='49288' >SAINT-JEAN-DE-LA-CROIX</div><div class='villeDep' id='49289' >SAINT-JEAN-DE-LINIERES</div><div class='villeDep' id='49290' >SAINT-JEAN-DES-MAUVRETS</div><div class='villeDep' id='49291' >SAINT-JUST-SUR-DIVE</div><div class='villeDep' id='49292' >SAINT-LAMBERT-DU-LATTAY</div><div class='villeDep' id='49294' >SAINT-LAMBERT-LA-POTHERIE</div><div class='villeDep' id='49295' >SAINT-LAURENT-DE-LA-PLAINE</div><div class='villeDep' id='49296' >SAINT-LAURENT-DES-AUTELS</div><div class='villeDep' id='49297' >SAINT-LAURENT-DU-MOTTAY</div><div class='villeDep' id='49298' >SAINT-LEGER-DES-BOIS</div><div class='villeDep' id='49299' >SAINT-LEGER-SOUS-CHOLET</div><div class='villeDep' id='49300' >SAINT-LEZIN</div><div class='villeDep' id='49302' >SAINT-MACAIRE-DU-BOIS</div><div class='villeDep' id='49301' >SAINT-MACAIRE-EN-MAUGES</div><div class='villeDep' id='49304' >SAINT-MARTIN-DE-LA-PLACE</div><div class='villeDep' id='49305' >SAINT-MARTIN-DU-BOIS</div><div class='villeDep' id='49306' >SAINT-MARTIN-DU-FOUILLOUX</div><div class='villeDep' id='49307' >SAINT-MATHURIN-SUR-LOIRE</div><div class='villeDep' id='49308' >SAINT-MELAINE-SUR-AUBANCE</div><div class='villeDep' id='49309' >SAINT-MICHEL-ET-CHANVEAUX</div><div class='villeDep' id='49310' >SAINT-PAUL-DU-BOIS</div><div class='villeDep' id='49311' >SAINT-PHILBERT-DU-PEUPLE</div><div class='villeDep' id='49312' >SAINT-PHILBERT-EN-MAUGES</div><div class='villeDep' id='49313' >SAINT-PIERRE-MONTLIMART</div><div class='villeDep' id='49314' >SAINT-QUENTIN-EN-MAUGES</div><div class='villeDep' id='49315' >SAINT-QUENTIN-LES-BEAUREPAIRE</div><div class='villeDep' id='49316' >SAINT-REMY-EN-MAUGES</div><div class='villeDep' id='49317' >SAINT-REMY-LA-VARENNE</div><div class='villeDep' id='49318' >SAINT-SATURNIN-SUR-LOIRE</div><div class='villeDep' id='49319' >SAINT-SAUVEUR-DE-FLEE</div><div class='villeDep' id='49320' >SAINT-SAUVEUR-DE-LANDEMONT</div><div class='villeDep' id='49321' >SAINT-SIGISMOND</div><div class='villeDep' id='49322' >SAINT-SULPICE</div><div class='villeDep' id='49323' >SAINT-SYLVAIN-D'ANJOU</div><div class='villeDep' id='49268' >SAINTE-CHRISTINE</div><div class='villeDep' id='49277' >SAINTE-GEMMES-D'ANDIGNE</div><div class='villeDep' id='49278' >SAINTE-GEMMES-SUR-LOIRE</div><div class='villeDep' id='49326' >SARRIGNE</div><div class='villeDep' id='49327' >SAULGE-L'HOPITAL</div><div class='villeDep' id='49328' >SAUMUR</div><div class='villeDep' id='49329' >SAVENNIERES</div><div class='villeDep' id='49330' >SCEAUX-D'ANJOU</div><div class='villeDep' id='49331' >SEGRE</div><div class='villeDep' id='49333' >SEICHES-SUR-LE-LOIR</div><div class='villeDep' id='49334' >SERMAISE</div><div class='villeDep' id='49335' >SOEURDRES</div><div class='villeDep' id='49336' >SOMLOIRE</div><div class='villeDep' id='49337' >SOUCELLES</div><div class='villeDep' id='49338' >SOULAINES-SUR-AUBANCE</div><div class='villeDep' id='49339' >SOULAIRE-ET-BOURG</div><div class='villeDep' id='49341' >SOUZAY-CHAMPIGNY</div><div class='villeDep' id='49342' >TANCOIGNE</div><div class='villeDep' id='49344' >THORIGNE-D'ANJOU</div><div class='villeDep' id='49345' >THOUARCE</div><div class='villeDep' id='49347' >TIERCE</div><div class='villeDep' id='49348' >TIGNE</div><div class='villeDep' id='49349' >TILLIERES</div><div class='villeDep' id='49350' >TORFOU</div><div class='villeDep' id='49352' >TOUTLEMONDE</div><div class='villeDep' id='49353' >TRELAZE</div><div class='villeDep' id='49355' >TREMENTINES</div><div class='villeDep' id='49356' >TREMONT</div><div class='villeDep' id='49358' >TURQUANT</div><div class='villeDep' id='49153' >VALANJOU</div><div class='villeDep' id='49361' >VARENNES-SUR-LOIRE</div><div class='villeDep' id='49362' >VARRAINS</div><div class='villeDep' id='49363' >VAUCHRETIEN</div><div class='villeDep' id='49364' >VAUDELNAY</div><div class='villeDep' id='49366' >VERGONNES</div><div class='villeDep' id='49367' >VERN-DANJOU</div><div class='villeDep' id='49368' >VERNANTES</div><div class='villeDep' id='49369' >VERNOIL-LE-FOURRIER</div><div class='villeDep' id='49370' >VERRIE</div><div class='villeDep' id='49371' >VEZINS</div><div class='villeDep' id='49373' >VIHIERS</div><div class='villeDep' id='49374' >VILLEBERNIER</div><div class='villeDep' id='49375' >VILLEDIEU-LA-BLOUERE</div><div class='villeDep' id='49376' >VILLEMOISAN</div><div class='villeDep' id='49377' >VILLEVEQUE</div><div class='villeDep' id='49378' >VIVY</div><div class='villeDep' id='49381' >YZERNAY</div>									</div>
+								-->
+								</div>
+<script type="text/javascript">
+	$(document).ready(function()
+	{	
+		$(".socialImages").hover(
+			function() 
+			{
+				var src = $(this).children('img').attr("src");
+				var tab = src.split('.');
+				tronc1 = tab[0];
+				tronc2 = tab[1];
+				tronc3 = tab[2];
+				src = "."+tronc2+"-on."+tronc3;
+				$(this).children('img').attr('src', src);
+				
+			}, function() 
+			{
+				var src = $(this).children('img').attr("src");
+				var tab = src.split('-');
+				tronc1 = tab[0];
+				tronc2 = tab[1];
+				tronc2=".png"
+				src = tronc1+tronc2;
+				$(this).children('img').attr('src', src);
+				
+			}
+		);
+	});
+</script>
+						
+								<div id="socialTable">
+									<!--<a href="rss/actualite.php" target="_blank">
+										<div class="socialImages" id="first"><img src="./images/fluxrss.png" alt="S'abonner au flux RSS">S'ABONNER<br/>au flux RSS</div>
+									</a>-->
+									<!--<a href="https://www.facebook.com/pages/FNSEA-Loire-Atlantique/156507301082671" target="_blank">
+										<div class="socialImages" ><img src="./images/facebook.png" alt="Facebook"><br/>Pour accéder à <br/>notre profil<br/>Abonnés</div>
+									</a>-->
+									<a href="https://twitter.com/FDSEA49" target="_blank">
+										<div class="socialImages" id="third" ><img src="./images/twitter.png" alt="Twitter"><br/>Pour accéder à <br/>notre profil</div>
+									</a>
+									<!--<a href="#" target="_blank">
+										<div class="socialImages" id="fourth" ><img src="./images/googleplus.png" alt="Google Plus"><br/>Pour accéder à <br/>notre profil</div>
+									</a>-->
+									<!--<td class="socialImages" ><img src="./images/youtube.png" alt="Youtube">Abonnés</td>-->
+									<a href="http://www.dailymotion.com/FDSEA49" target="_blank">
+										<div class="socialImages" ><img src="./images/dailymotion.png" alt="Dailymotion"><br/>Pour accéder à <br/>notre profil</div>
+									</a>
+									<!--<div class="socialImages" id="last"></div>-->
+								</div>				
+	<div id="encartPartenaires">
+						<a href="http://maine-et-loire.anefa.org/" target="_blank" ><div class="partSide">
+					<img src="mise_en_avant/36-anefa/D-anefa.png" alt="Anefa">
+				</div></a>
+						<a href="https://www.agri49.fr/cours-d-eau--comment-lire-la-carte-actualite-numero-7224.php" target="_blank" ><div class="partSide">
+					<img src="mise_en_avant/45-cours-eau/D-courseau2021.png" alt="Cours eau">
+				</div></a>
+			</div>
+				
+
+  </td>
+</tr>
+</table>
+</div>
+</div>
+</div>
+<div class="partenaire_footer">
+  <!-- <div class="partner_left"><div><</div></div> -->
+  <div class="partnaire_all">
+    <div class="partenaire_aff">
+              <div class="logo_partenaire_footer" id="msa.png" style=""><a target="_blank" href="http://www.msa49.fr/lfr"><img src="partenaire/10-msa/foot-msa.png" alt="MSA"></a></div>
+                <div class="logo_partenaire_footer" id="caanjou.png" style=""><a target="_blank" href="http://www.ca-anjou-maine.fr/"><img src="partenaire/14-credit-agricole/foot-caanjou.png" alt="Crédit Agricole"></a></div>
+                <div class="logo_partenaire_footer" id="as49.png" style=""><a target="_blank" href="http://www.as49.fr/"><img src="partenaire/15-as49/foot-as49.png" alt="AS49"></a></div>
+                <div class="logo_partenaire_footer" id="populaire.png" style=""><a target="_blank" href="http://www.atlantique.banquepopulaire.fr/portailinternet/Pages/default.aspx"><img src="partenaire/38-banque-populaire-atlantique/foot-populaire.png" alt="Banque populaire Atlantique"></a></div>
+                <div class="logo_partenaire_footer" id="logo-anjou.png" style=""><a target="_blank" href="http://www.anjou-agricole.com/public/index.php"><img src="partenaire/44-anjou-agricole/foot-logo-anjou.png" alt="Anjou Agricole"></a></div>
+                <div class="logo_partenaire_footer" id="ja.png" style=""><a target="_blank" href="http://www.agri49.fr/V4/ja-49-extranet-numero-6.php"><img src="partenaire/2-jeunes-agriculteurs/foot-ja.png" alt="Jeunes Agriculteurs"></a></div>
+                <div class="logo_partenaire_footer" id="fdsea49.png" style=""><a target="_blank" href="http://agri49.fr/mon-bureau.php"><img src="partenaire/39-fdsea/foot-fdsea49.png" alt="FDSEA"></a></div>
+                <div class="logo_partenaire_footer" id="chambre49.png" style=""><a target="_blank" href="http://www.maine-et-loire.chambagri.fr/"><img src="partenaire/16-chambre-d-agrculture-main-et-loire/foot-chambre49.png" alt="Chambre d'Agrculture Main-et-Loire"></a></div>
+                <div class="logo_partenaire_footer" id="emploi-remplacement.png" style=""><a target="_blank" href="http://www.agri49.fr/service-remplacement.php"><img src="partenaire/41-emploi-remplacement/foot-emploi-remplacement.png" alt="Emploi - Remplacement"></a></div>
+                <div class="logo_partenaire_footer" id="gs49.png" style=""><a target="_blank" href="http://www.gds49.com/"><img src="partenaire/6-gds/foot-gs49.png" alt="GDS"></a></div>
+            </div>
+  </div>
+  <!-- <div class="partner_right"><div>></div></div> -->
+</div>
+</div>
+<div id="top_fix">
+  <!-- Partenaires top fixe -->
+  <div id="partenaires_top_all">
+    <div id="partenaires_top_int">
+      <div id="partenaires_top_titre">
+        <span class="font_light" id="partenaires_top_titre_top">DÉCOUVREZ</span><br>
+        <span class="font_black" id="partenaires_top_titre_bottom">NOS PARTENAIRES</span>
+      </div>
+      <img src="images/fleche-droite-partenaire.png" alt=">" id="partenaires_top_fleche">
+      <div id="partenaires_top_logo">
+                  <div class="logo_partenaire_top_header" id="msa.png"><a target="_blank" href="http://www.msa49.fr/lfr"><img src="partenaire/10-msa/top-msa.png" alt="MSA"></a></div>
+                    <div class="logo_partenaire_top_header" id="caanjou.png"><a target="_blank" href="http://www.ca-anjou-maine.fr/"><img src="partenaire/14-credit-agricole/top-caanjou.png" alt="Crédit Agricole"></a></div>
+                    <div class="logo_partenaire_top_header" id="as49.png"><a target="_blank" href="http://www.as49.fr/"><img src="partenaire/15-as49/top-as49.png" alt="AS49"></a></div>
+                    <div class="logo_partenaire_top_header" id="populaire.png"><a target="_blank" href="http://www.atlantique.banquepopulaire.fr/portailinternet/Pages/default.aspx"><img src="partenaire/38-banque-populaire-atlantique/top-populaire.png" alt="Banque populaire Atlantique"></a></div>
+                    <div class="logo_partenaire_top_header" id="logo-anjou.png"><a target="_blank" href="http://www.anjou-agricole.com/public/index.php"><img src="partenaire/44-anjou-agricole/top-logo-anjou.png" alt="Anjou Agricole"></a></div>
+                    <div class="logo_partenaire_top_header" id="ja.png"><a target="_blank" href="http://www.agri49.fr/V4/ja-49-extranet-numero-6.php"><img src="partenaire/2-jeunes-agriculteurs/top-ja.png" alt="Jeunes Agriculteurs"></a></div>
+                    <div class="logo_partenaire_top_header" id="fdsea49.png"><a target="_blank" href="http://agri49.fr/mon-bureau.php"><img src="partenaire/39-fdsea/top-fdsea49.png" alt="FDSEA"></a></div>
+                    <div class="logo_partenaire_top_header" id="chambre49.png"><a target="_blank" href="http://www.maine-et-loire.chambagri.fr/"><img src="partenaire/16-chambre-d-agrculture-main-et-loire/top-chambre49.png" alt="Chambre d'Agrculture Main-et-Loire"></a></div>
+                    <div class="logo_partenaire_top_header" id="emploi-remplacement.png"><a target="_blank" href="http://www.agri49.fr/service-remplacement.php"><img src="partenaire/41-emploi-remplacement/top-emploi-remplacement.png" alt="Emploi - Remplacement"></a></div>
+                    <div class="logo_partenaire_top_header" id="gs49.png"><a target="_blank" href="http://www.gds49.com/"><img src="partenaire/6-gds/top-gs49.png" alt="GDS"></a></div>
+                  <script type="text/javascript">
+
+          $(document).ready(function ()
+          {
+            $("#formForgot").find("*").css('display', 'none');
+            var glob = true;
+            $("div#connexion").click(function ()
+            {
+              $("#finishForgot").css('display', 'none');
+              $("div#shadowConnect").fadeIn(300, function () {});
+
+              $("div#moduleConnexion").mousemove(function ()
+              {
+                if (glob == true)
+                  glob = false;
+              });
+              $("div#moduleConnexion").mouseout(function () {
+                glob = true;
+              });
+              $("div#shadowConnect").click(function ()
+              {
+                if (glob == true)
+                {
+                  $("div#shadowConnect").fadeOut(300, function () {});
+                  $("#formConnect").fadeIn();
+                  $("#formForgot").find("*").css('display', 'none');
+                }
+
+              });
+
+            });
+
+            $("#connexionButton").hover(
+                    function ()
+                    {
+                      var src2 = $(this).attr("src");
+                      var tab2 = src2.split('.');
+                      tronc4 = tab2[0];
+                      tronc5 = tab2[1];
+                      src2 = tronc4 + "-on." + tronc5;
+                      $(this).attr('src', src2);
+
+                    }, function ()
+            {
+              var src2 = $(this).attr("src");
+              var tab2 = src2.split('-');
+              tronc4 = tab2[0];
+              tronc6 = ".png"
+              src2 = tronc4 + tronc6;
+              $(this).attr('src', src2);
+
+            }
+            );
+
+            $("#connexionButton2").click(function () {
+              document.getElementById('formForgot').submit();
+            });
+
+            $("#connexionButton2").hover(
+                    function ()
+                    {
+                      var src2 = $(this).attr("src");
+                      var tab2 = src2.split('.');
+                      tronc4 = tab2[0];
+                      tronc5 = tab2[1];
+                      src2 = tronc4 + "-on." + tronc5;
+                      $(this).attr('src', src2);
+
+                    }, function ()
+            {
+              var src2 = $(this).attr("src");
+              var tab2 = src2.split('-');
+              tronc4 = tab2[0];
+              tronc6 = ".png"
+              src2 = tronc4 + tronc6;
+              $(this).attr('src', src2);
+
+            }
+            );
+
+            $(".exitConnect").click(function ()
+            {
+              $("div#shadowConnect").fadeOut(300, function () {});
+              $("#formConnect").fadeIn();
+              $("#formForgot").find("*").css('display', 'none');
+            });
+
+            $("#forgotpassword").click(function ()
+            {
+              $("#formConnect").css('display', 'none');
+              $("#formForgot").find("*").fadeIn(300, function () {});
+
+            });
+          });
+
+        </script>
+                                <!--<img src="images/WAIT_partenaire-top.png" alt="Nos partenaires" style="margin-top:7px; margin-left:25px;">-->
+      </div>
+    </div>
+  </div>
+  <!-- USER -->
+  <div id="bandeau_user_all">
+    <div id="bandeau_user_int">
+
+
+              <div class="link_user_top"><div id="connexion" ><a href="#">Connexion</a></div></div>
+        <img src="images/separateur-top.png" alt="|" class="seperateur_top">
+        <div class="link_user_top"><a href="./inscription.php">Inscription</a></div>
+        <div id="shadowConnect">
+          <div id="divConnex"><img class="exitConnect" src="./images/exit.png" alt="Cliquez ici pour quitter"></div>
+          <div id="moduleConnexion">
+
+            <h2>CONNEXION</h2>
+            <form id="formConnect" method="post" action="">
+              <p id="erreurConnect">Adresse mail et/ou Mot de passe incorrect(s).</p>
+              <section><label for="identifiant">Adresse Mail : </label><input type="text"  name="identifiant" ></section>
+              <section><label for="pass">Mot de passe : </label><input type="password" name="pass" ></section>
+              <p id="forgotpassword" ><em>Mot de passe oublié...</em></p>
+              <input type="hidden" name="choix" value="identification_utilisateur_site" id="choix_identification" />
+              <input type="image" src="images/connexion.png" id="connexionButton" alt="Valider">
+            </form>
+
+            <form id="formForgot" method="post" action="">
+              <section><label for="mailSend">Adresse Mail : </label><input type="text"  name="mailSend" ></section>
+              <p><em>Entrez votre adresse mail, un message vous sera envoyé pour vos identifiants.</em></p>
+              <input type="image" src="images/connexion.png" id="connexionButton2" alt="Valider">
+            </form>
+            <div id="finishForgot" >Un mail vous a été envoyé.<br>Vous y trouverez votre mot de passe.</div>
+                                  </div>
+        </div>
+        	
+
+      <div id="social_top">
+        <!--<a href="rss/actualite.php" target="_blank" ><img src="images/rss-top.png" alt="RSS"></a>-->
+		<!--<a href="#"><img src="images/facebook-top.png" alt="Facebook"><!--</a>-->
+		<a href="https://twitter.com/FDSEA49" target="_blank" ><img src="images/twitter-top.png" alt="twitter"></a>
+		<!--<a href="#"><img src="images/google-top.png" alt="Google"><!--</a>-->
+		<!--<a href="#"><img src="images/youtube-top.png" alt="Youtube"><!--</a>-->
+		<a href="https://www.dailymotion.com/FDSEA49" target="_blank" ><img src="images/dailymotion-top.png" alt="Dailymotion"></a>
+      </div>
+    </div>
+  </div>
+
+</div>
+
+<!--<div id="shadowInscript">
+    <div id="moduleInscription">
+        
+        <h2>Prévisions météo</h2>
+        <p id="erreurInscript">Pour accéder aux détails des prévisions météo, veuillez vous connecter ou vous inscrire gratuitement sur notre site Internet.</p>
+
+    </div>
+</div>	-->
+
+
+<div class="all_gris">
+  <div class="int_gris">
+    <div class="footer_menu footer_txt">
+      <h3>Menu</h3>
+      <ul>
+        <li><a href="index.php">Accueil</a></li>
+		<li><a href="actualite.php">Actualités</a></li>
+		<li><a href="ressources.php">Info / Conseils</a></li>
+		<li><a href="mon-bureau.php">Mon Bureau</a></li>		
+		<li><a href="https://www.dailymotion.com/FDSEA49" target="_blank" >Vidéos</a></li>
+		<!--<li><a href="petites-annonces.php">Annonces</a></li>-->
+		<li><a href="contact.php">Contact</a></li>
+      </ul>
+    </div>
+    <div class="footer_liens footer_txt">
+      <h3>Liens</h3>
+      <ul>
+        <li><a href="apropos.php">A propos</a></li>
+		<li><a href="plan-du-site.php">Plan du site</a></li>
+		<li><a href="mentions-legales.php">Mentions légales</a></li>
+		<!--<li><a href="#">FAQ / Tutoriels</a></li>-->
+		<!--<li class="img_rss"><a href="rss/actualite.php" target="_blank" ><img src="images/rss-footer.png" alt="RSS"> Flux Actualités</a></li>
+		<li class="img_rss"><a href="rss/ressources.php" target="_blank" ><img src="images/rss-footer.png" alt="RSS"> Flux Info / Conseils</a></li>-->
+      </ul>
+    </div>
+    <div class="footer_rec_social footer_txt">
+      <h3>Moteur de recherche</h3>
+      <div id="recherche_top2">
+        <form method="post" action="recherche.php">
+          <input type="text" name="recherche" value="Rechercher..." id="chp_rec_top">
+          <input type="image" style="margin-top:3px;margin-bottom:-3px;" src="images/loupe.png" alt="Rechercher">
+        </form>
+      </div>
+      <h3>Réseaux sociaux</h3>
+      <div id="social_top">
+        <!--<a href="rss/actualite.php" target="_blank" ><img src="images/rss-top.png" alt="RSS"></a>-->
+		<!--<a href="#"><img src="images/facebook-top.png" alt="Facebook"><!--</a>-->
+		<a href="https://twitter.com/FDSEA49" target="_blank" ><img src="images/twitter-top.png" alt="twitter"></a>
+		<!--<a href="#"><img src="images/google-top.png" alt="Google"><!--</a>-->
+		<!--<a href="#"><img src="images/youtube-top.png" alt="Youtube"><!--</a>-->
+		<a href="https://www.dailymotion.com/FDSEA49" target="_blank"><img src="images/dailymotion-top.png" alt="Dailymotion"></a></a>
+      </div>
+    </div>
+    
+  </div>
+  <div class="all_bleu">
+    <div class="int_bleu">
+    	<img src="images/logo-footer.png" alt="Agri49">
+    	<div class="copyright">© Copyright 2019</div>
+		<p class='telfoot'>Agri49<br>14 Avenue Jean Joxé<br>49100 Angers<br><em>Téléphone : </em>02 41 96 76 29</p>
+
+    </div>
+  </div>
+  		
+ 
+</body>
+</html>

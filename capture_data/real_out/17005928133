@@ -1,0 +1,1278 @@
+
+<!DOCTYPE HTML>
+
+<html lang="en-US">
+<head>
+    
+        <!-- Dynamic Yield Integration with US data center -->
+
+        <!-- DNS Prefetch and Preconnect -->
+        <link rel="preconnect" href="//cdn.dynamicyield.com"/>
+        <link rel="preconnect" href="//st.dynamicyield.com"/>
+        <link rel="preconnect" href="//rcom.dynamicyield.com"/>
+        <link rel="dns-prefetch" href="//cdn.dynamicyield.com"/>
+        <link rel="dns-prefetch" href="//st.dynamicyield.com"/>
+        <link rel="dns-prefetch" href="//rcom.dynamicyield.com"/>
+
+        <!-- DY Context -->
+        <script>
+            window.DY = window.DY || {};
+            DY.recommendationContext = { type: "HOMEPAGE" };
+        </script>
+
+        <!-- DY Scripts -->
+        <script src="//cdn.dynamicyield.com/api/8781244/api_dynamic.js"></script>
+        <script src="//cdn.dynamicyield.com/api/8781244/api_static.js"></script>
+
+    
+
+    
+
+    
+        <!-- DY Script for Active Cookie Consent and ITP Policy Compliance -->
+        <script>
+            function whenAvailable(name, callback) {
+                var interval = 10; //ms
+                window.setTimeout(function() {
+                    if (window[name]) {
+                        callback(window[name]);
+                    } else {
+                        window.setTimeout(arguments.callee, interval);
+                    }
+                }, interval);
+            }
+
+            // Create or remove dyid_server cookie based on OneTrust consent.
+            function createDyidServerCookie(consented) {
+                var _dyid_cookie = "_dyid";
+                var _dyid_server_cookie = "_dyid_server";
+
+                var cookies_array = document.cookie.split(';');
+
+                function getCookieValue(cookie_name, cookies_array) {
+                    if (cookies_array) {
+                        for (var i = 0; i < cookies_array.length; i++) {
+                            var cookie = cookies_array[i].trim();
+                                if (cookie.indexOf(cookie_name + '=') == 0) {
+                                    return cookie.substring(_dyid_cookie.length + 1, cookie.length);
+                                }
+                        }
+                    }
+                    return "";
+                }
+
+                var _dyid_value = getCookieValue(_dyid_cookie, cookies_array);
+
+                if (_dyid_value != "" && getCookieValue(_dyid_server_cookie, cookies_array) == "") {
+                    var expiry_date = new Date();
+                    expiry_date.setTime(expiry_date.getTime() + (365 * 24 * 60 * 60 * 1000));
+                    document.cookie = _dyid_server_cookie + "=" + _dyid_value + ";expires=" + expiry_date.toUTCString() + ";secure;path=/";
+                }
+
+                if (!consented) {
+                    document.cookie = _dyid_server_cookie + "=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/";
+                }
+            }
+
+            // Update the status of Dynamic Yield consent.
+            function updateDYTracking(consented) {
+                console.log('Setting DY Consent to:', consented);
+                DY.userActiveConsent = {accepted: consented};
+                DYO.ActiveConsent.updateConsentAcceptedStatus(consented);
+
+                // Create or remove dyid_server cookie based on the consent.
+                createDyidServerCookie(consented);
+            }
+
+            // Check OneTrust Consent.
+            function checkOneTrustSettings() {
+                whenAvailable('OneTrust', function () {
+                    whenAvailable('OnetrustActiveGroups', function () {
+                        cookie = OneTrust.GetDomainData().Groups.find((current) => current.CustomGroupId == "C073");
+                        if (cookie) {
+                            // If the cookie is present, check if CustomGroupId is among OnetrustActiveGroups
+                            // and set DY consent.
+                            updateDYTracking(OnetrustActiveGroups.includes(cookie.CustomGroupId));
+                        }
+                    });
+                });
+            }
+
+            // Tracking changes to the OneTrust consent.
+            function onOneTrustConsentChange(event) {
+                checkOneTrustSettings();
+            }
+
+            // Set DY consent according to OneTrust settings.
+            if (DY) {
+                checkOneTrustSettings();
+            }
+
+            // When OneTrust consent changes, update DY consent.
+            window.addEventListener('consent.onetrust', onOneTrustConsentChange);
+
+            // When page reloads, dyid_server cookie to be created after dyid is created
+            function createDyidServerCookieOnLoad(event) {
+                createDyidServerCookie(true);
+            }
+
+            window.addEventListener('load', createDyidServerCookieOnLoad);
+        </script>
+    
+
+    
+    
+    
+    
+        
+    
+    
+    
+        
+    
+    
+    
+        
+    
+    <meta http-equiv="content-type" content="text/html; charset=UTF-8"/>
+    <link rel="icon" href="/content/dam/dxp/favicon/mastercardfavicon.ico" sizes="any"/>
+    <link rel="icon" href="/content/dam/dxp/favicon/mastercard-favicon.svg" type="image/svg+xml"/>
+    <link rel="apple-touch-icon" href="/content/dam/dxp/favicon/mastercard-apple-touch-icon.png"/>
+    <link rel="manifest" href="/content/dam/dxp/favicon/manifest.webmanifest" crossorigin="use-credentials"/>
+
+    <title>Mastercard - A Global Technology Company in The Payments Industry</title>
+
+    
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no"/>
+    
+    
+    <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+    
+    <meta name="description" content="We connect and power an inclusive, digital economy that benefits people, businesses &amp; governments worldwide by making transactions safe, simple &amp; accessible."/>
+    <meta name="navTitle" content="Homepage"/>
+    
+
+    <!-- properties for SEO crawling -->
+    
+    
+    <meta name="template" content="dxp-homepage-template"/>
+
+    <!-- properties for getting location from akamai edge -->
+    
+        <meta name="region_code"/>
+        <meta name="country_code"/>
+    
+    
+    
+
+    <!-- properties for social media cards -->
+    
+
+		<meta property="og:site_name" content="Mastercard"/>
+        <meta property="og:url" content="https://www.mastercard.us/en-us.html"/>
+        <meta property="og:title" content="Mastercard - A Global Technology Company in The Payments Industry"/>
+        <meta property="og:image" content="https://www.mastercard.com/content/dam/public/mastercardcom/us/en/logos/mastercard-og-image.png"/>
+        <meta property="og:description" content="We connect and power an inclusive, digital economy that benefits people, businesses &amp; governments worldwide by making transactions safe, simple &amp; accessible."/>
+        <meta property="og:type" content="website"/>
+        <meta property="og:locale" content="en_us"/>
+
+        
+        <meta name="twitter:card" content="summary"/>
+        <meta name="twitter:title" content="Mastercard - A Global Technology Company in The Payments Industry"/>
+        <meta name="twitter:description" content="We connect and power an inclusive, digital economy that benefits people, businesses &amp; governments worldwide by making transactions safe, simple &amp; accessible."/>
+        
+        
+
+    
+
+    
+    
+<link rel="stylesheet" href="/etc.clientlibs/dxp/clientlibs/skip-to-content-clientlibs.css" type="text/css">
+
+
+
+     
+
+    
+<script type="text/javascript" src="/etc.clientlibs/dxp/clientlibs/clientlib-base.js"></script>
+
+
+
+    
+    
+    
+
+    
+    
+
+    
+    
+    
+
+    <!-- block for onetrust & Launch script -->
+    
+        
+            
+
+            
+                <script src="https://cdn.cookielaw.org/scripttemplates/otSDKStub.js" data-document-language="true" data-domain-script="68a4d57f-f24d-409f-8816-23a59156d52f"></script>
+                <script>
+                    function OptanonWrapper() {
+                        var eOT = new Event('OneTrustGroupsUpdated'); document.dispatchEvent(eOT);
+                    }
+                </script>
+                <script src="//assets.adobedtm.com/launch-EN5f9e0c4944554f7e9f3947196ae7c30f.min.js" type='text/plain' class="optanon-category-C006" async>
+                </script>
+            
+
+        
+    
+    
+
+    
+
+
+
+<script>
+var isDisabled = "true"; 
+var pageExpiryDate = "";
+var redirectionUrl = "";   
+if(isDisabled && pageExpiryDate != null && redirectionUrl != null){
+
+    var expiryDate = pageExpiryDate.substring(0, pageExpiryDate.indexOf('T'));
+    var dateArr = expiryDate.split('-');
+	var expiryDateUtc = Date.UTC(dateArr[0], dateArr[1], dateArr[2]);
+
+    var currentDate = new Date();
+    var currentMonth = currentDate.getMonth()+1;   
+    var currentDay = currentDate.getDate();
+    var currentYear = currentDate.getFullYear(); 
+	var currentDateUtc = Date.UTC(currentYear, currentMonth, currentDay);
+
+
+    if(expiryDateUtc < currentDateUtc){
+    	window.location = "";
+    }
+  }
+
+</script>
+    
+    
+	
+        <!-- DXP > 4.2.0 -->
+        
+	        
+				
+				<script type="module" src="https://asset.mastercard.com/dxp-ui/dxp-web@7.5.1/dxp-web/dxp-web.esm.js"></script>  
+			
+        
+	
+
+<dxp-usage-key></dxp-usage-key>
+
+</head>
+<body data-theme="dxp-theme-white">
+<a href="#content" data-target="#content" id="skip-links" class="skip-links">Skip to Content</a>
+<div>
+	<div class="header-ipar iparsys parsys"><div class="cms-dxp-header-rich section">
+
+ <div>
+	<dxp-header-rich data-theme="dxp-theme-black" data-designmode="dxp-header-rich" background-type="transparent" condensed="false" sticky="false" hide-search="false">
+	<dxp-logo slot="logo" src="/content/dam/public/mastercardcom/na/us/en/homepage/Home/mc-logo-52.svg" src-sm="/content/dam/public/mastercardcom/na/us/en/homepage/Home/mc-logo-52.svg" logo-title="MC Logo" alt="MC Logo" href="https://www.mastercard.us/en-us.html" is-internal-link="false" target="false" schema-type="organization">
+	<dxp-logo target="false"></dxp-logo>
+	</dxp-logo>
+	<dxp-nav slot="nav" nav-type="deep-nav" api-url="https://asset.mastercard.com/content/mastercardcom/us/en.dxpdeepnavigationlist.json"></dxp-nav>
+	<dxp-search slot="search" container-fluid="true" search-type="advance" search-box-size="md" placeholder="Search" show-suggestions="true" hide-clear-button="true" suggest-api-url="/services/marketing/index/suggest/" suggest-count="4" suggest-dictionary="contentSuggester" suggest-collection="dm-mastercardcom" cfq="/en-" cfq-locale="us" result-page-url="/content/mastercardcom/us/en/search-results" result-page-extension="html" search-param-key="searchTerm">
+	
+	
+	<dxp-autowriter slot="autowriter" fixed-cursor="false" content-id="dxp-autowriter-LCliQ">
+	<script>
+	if (document.readyState !== 'loading') {
+		var dxpSelector = document.querySelector("[content-id = dxp-autowriter-"+"LCliQ]"); 
+		if (dxpSelector) { 
+			dxpSelector.textList=  null
+		}
+	} else {
+		document.addEventListener("DOMContentLoaded", function() {
+		var dxpSelector = document.querySelector("[content-id = dxp-autowriter-"+"LCliQ]"); 
+		if (dxpSelector) { 
+			dxpSelector.textList=  null
+		}
+		});
+	}
+	</script>
+</dxp-autowriter>
+	
+	
+	<dxp-cta-list slot="cta" title-text="Need help? Weâre always here when you need us." title-style="dxp-title-md" orientation="vertical" content-id="dxp-cta-list-yl8YA">
+	<script>
+	if (document.readyState !== 'loading') {
+		var dxpSelector = document.querySelector("[content-id = dxp-cta-list-"+"yl8YA]"); 
+		if (dxpSelector) { 
+			dxpSelector.ctaList=  [{"link-type":"dxp-btn-custom-link","mail":"false","src":"/content/dam/public/mastercardcom/mea/za/icons/support-icon-24.svg","tooltip-placement":"bottom","open-in-new-tab":"true","alt":"Get Support","type":"link","accent-color":"#B1ADA6","align-icon":"left","button-type":"primary","size":"md","block-button":"false","open-modal-on-click":"false","is-internal-link":"false","disabled":"false","dtm-cta-title":"Get Support","href":"https://www.mastercard.us/en-us/personal/get-support.html","text":"Get Support","aria-label":"Get Support (opens in new tab)"},{"link-type":"dxp-btn-custom-link","mail":"false","src":"/content/dam/public/mastercardcom/mea/za/icons/card-icon-24.svg","tooltip-placement":"bottom","open-in-new-tab":"true","alt":"Report a lost or stolen card","type":"link","accent-color":"#B1ADA6","align-icon":"left","button-type":"primary","size":"md","block-button":"false","open-modal-on-click":"false","is-internal-link":"false","disabled":"false","dtm-cta-title":"Report a lost or stolen card","href":"https://www.mastercard.us/content/dam/mccom/global/documents/global-services-phone-numbers.pdf","text":"Report a lost or stolen card","aria-label":"Report a lost or stolen card (opens in new tab)"},{"link-type":"dxp-btn-custom-link","mail":"false","src":"/content/dam/public/mastercardcom/mea/za/icons/findatm-icon-24.svg","tooltip-placement":"bottom","open-in-new-tab":"false","alt":"Find ATM","type":"link","accent-color":"#B1ADA6","align-icon":"left","button-type":"primary","size":"md","block-button":"false","open-modal-on-click":"false","is-internal-link":"false","disabled":"false","dtm-cta-title":"Find ATM","href":"https://www.mastercard.us/en-us/personal/get-support/find-nearest-atm.html","text":"Find ATM","aria-label":"Find ATM"}]
+		}
+	} else {
+		document.addEventListener("DOMContentLoaded", function() {
+		var dxpSelector = document.querySelector("[content-id = dxp-cta-list-"+"yl8YA]"); 
+		if (dxpSelector) { 
+			dxpSelector.ctaList=  [{"link-type":"dxp-btn-custom-link","mail":"false","src":"/content/dam/public/mastercardcom/mea/za/icons/support-icon-24.svg","tooltip-placement":"bottom","open-in-new-tab":"true","alt":"Get Support","type":"link","accent-color":"#B1ADA6","align-icon":"left","button-type":"primary","size":"md","block-button":"false","open-modal-on-click":"false","is-internal-link":"false","disabled":"false","dtm-cta-title":"Get Support","href":"https://www.mastercard.us/en-us/personal/get-support.html","text":"Get Support","aria-label":"Get Support (opens in new tab)"},{"link-type":"dxp-btn-custom-link","mail":"false","src":"/content/dam/public/mastercardcom/mea/za/icons/card-icon-24.svg","tooltip-placement":"bottom","open-in-new-tab":"true","alt":"Report a lost or stolen card","type":"link","accent-color":"#B1ADA6","align-icon":"left","button-type":"primary","size":"md","block-button":"false","open-modal-on-click":"false","is-internal-link":"false","disabled":"false","dtm-cta-title":"Report a lost or stolen card","href":"https://www.mastercard.us/content/dam/mccom/global/documents/global-services-phone-numbers.pdf","text":"Report a lost or stolen card","aria-label":"Report a lost or stolen card (opens in new tab)"},{"link-type":"dxp-btn-custom-link","mail":"false","src":"/content/dam/public/mastercardcom/mea/za/icons/findatm-icon-24.svg","tooltip-placement":"bottom","open-in-new-tab":"false","alt":"Find ATM","type":"link","accent-color":"#B1ADA6","align-icon":"left","button-type":"primary","size":"md","block-button":"false","open-modal-on-click":"false","is-internal-link":"false","disabled":"false","dtm-cta-title":"Find ATM","href":"https://www.mastercard.us/en-us/personal/get-support/find-nearest-atm.html","text":"Find ATM","aria-label":"Find ATM"}]
+		}
+		});
+	}
+	</script>
+</dxp-cta-list>
+	</dxp-search>
+	
+	
+	<dxp-language-selector slot="languageSelector" content-id="dxp-language-selector-pu6xy">
+	<script>
+	if (document.readyState !== 'loading') {
+		var dxpSelector = document.querySelector("[content-id = dxp-language-selector-"+"pu6xy]"); 
+		if (dxpSelector) { 
+			dxpSelector.languageLocales=  null
+		}
+	} else {
+		document.addEventListener("DOMContentLoaded", function() {
+		var dxpSelector = document.querySelector("[content-id = dxp-language-selector-"+"pu6xy]"); 
+		if (dxpSelector) { 
+			dxpSelector.languageLocales=  null
+		}
+		});
+	}
+	</script>
+</dxp-language-selector>
+	
+	</dxp-header-rich>
+</div>
+</div>
+<div class="section"><div class="new"></div>
+</div><div class="iparys_inherited"><div class="header-ipar iparsys parsys"></div>
+</div>
+</div>
+<div class="content-par responsivegrid">
+
+
+<div class="aem-Grid aem-Grid--12 aem-Grid--default--12 ">
+    
+    <div class="cms-dxp-audio aem-GridColumn aem-GridColumn--default--12">
+
+ <div>
+	<dxp-audio data-designmode="dxp-audio" src="/content/dam/public/mastercardcom/mea/za/audio/MastercardSoundscape.mp3" type="mpeg" preload="auto" position="top-right" loop="true" controls="false" playpause="false" autoplay="false" muted="false" mute-label="Unmute" unmute-label="Mute">
+	</dxp-audio>
+</div>
+</div>
+<div class="cms-dxp-video-banner aem-GridColumn aem-GridColumn--default--12">
+
+ <div>
+	<dxp-video-banner data-theme="dxp-theme-black" data-designmode="dxp-video-banner" banner-type="hero" animation="true" banner-size="extra-long" heading-level="h1" title-text="MastercardÂ® &lt;br>Like youâve never experienced us &lt;span class=&#34;dxp-hidden-sm-up&#34;>&lt;br>&lt;/span>before" video-type="hostedExternally" fetchpriority="auto" src-video="https://mastercardamd-a.akamaihd.net/dxp/prod/70k_RSA_Header_video_1080p_new.mp4" video-name="Mastercard Home" description="Mastercard Home video" preload="false" nocookie="false" poster-src="/content/dam/public/mastercardcom/na/us/en/homepage/Home/video-still-sunset-over-bridge_2017x1135.jpg" disable-controls="true" down-arrow="true" down-arrow-aria-text="Scroll page down" custom-play-button="true" custom-mute-button="false" custom-mute-button-position="bottom-right" muted="true" autoplay="true" loop="true">
+	
+	
+	<dxp-cta-list title-style="dxp-title-md" orientation="horizontal" content-id="dxp-cta-list-sTXOl">
+	<script>
+	if (document.readyState !== 'loading') {
+		var dxpSelector = document.querySelector("[content-id = dxp-cta-list-"+"sTXOl]"); 
+		if (dxpSelector) { 
+			dxpSelector.ctaList=  null
+		}
+	} else {
+		document.addEventListener("DOMContentLoaded", function() {
+		var dxpSelector = document.querySelector("[content-id = dxp-cta-list-"+"sTXOl]"); 
+		if (dxpSelector) { 
+			dxpSelector.ctaList=  null
+		}
+		});
+	}
+	</script>
+</dxp-cta-list>
+	<dxp-donate-button slot="donate-button" launch-mode="redirect" donation-type="monthly, roundup" guest-only="false" performance-mode="false" header-hidden="false" footer-hidden="false" aem-required="false" track-event="false" web-integrated="false" env="stage" disable-skip="false" disable-preview="false" dynamic-height="false" donate-button-style="button" button-aria-label="Dxp Donate button" button-id="dxp-donate-widget" button-type="primary" align-icon="left" link-type="dxp-btn-internal-link" disabled="false"></dxp-donate-button>
+	
+	</dxp-video-banner>
+</div>
+</div>
+<div class="cms-dxp-flex-layout aem-GridColumn aem-GridColumn--default--12">
+
+ <div>
+	<dxp-flex-layout data-theme="dxp-theme-light-grey" data-designmode="dxp-flex-layout" column-reverse="false">
+	
+	
+	</dxp-flex-layout>
+</div>
+</div>
+<div class="cms-dxp-flex-layout aem-GridColumn aem-GridColumn--default--12">
+
+ <div>
+	<dxp-flex-layout data-theme="dxp-theme-black" data-designmode="dxp-flex-layout" column-reverse="false">
+	
+	
+	<dxp-flex-layout-item slot="column-1" repeat-background="false" background-image-position="center" column-width-sm="12" column-width-md="12" column-width-lg="12" column-width-xl="12" padding-style-sm="0 0 0 0" padding-style-lg="0 60px 0 0px">
+	<div>
+
+
+<div class="aem-Grid aem-Grid--12 aem-Grid--default--12 ">
+    
+    <div class="cms-dxp-content-item aem-GridColumn aem-GridColumn--default--12">
+
+ <div>
+	<dxp-content-item data-theme="dxp-theme-black" data-designmode="dxp-content-item" content-type="content-image-text" header-type="image" image-shape="rectangle" preload="false" nocookie="false" play-icon-bottom-left="false" animation="none" orientation="horizontal" content-item-type="media-on-top" headerline="false" indentation="false" profile-image="false" size="md" profile-image-shape="circle" profile-image-position="left" date-format="MM-DD-YYYY" display-date-format="Do MMMM, YYYY" category-target="false" heading-level="h3" content-item-title="Mastercard is working with businesses and governments around the world in payments and beyond to improve the lives of the billions of people we serve.&lt;br>&amp;nbsp;" content-item-title-target="false" video-close-text="Close Video Overlay" video-play-btn-text="Play Video" video-poster-image-text="Video Poster Image" badge-text-position="Left" description-target="false" position-of-media="Left" src="/content/dam/public/mastercardcom/na/us/en/homepage/Home/mastercard-ticker-1280x720.gif" fetchpriority="high,high" caption-position="bottom-left" alt="Mastercard solutions" content-id="dxp-content-item-WrvtX" aria-label="Mastercard solutions" open-in-new-tab="false" cover="false" use-focalpoint="false" focalpoint="," alt-image-src="," alt-image-src-lg="," alt-image-src-md="," alt-image-src-sm="," alt-image-mime-type="," responsive="true" lazyload="false" shape="rectangle" prop-override="," animation-config="," type="youtube" disable-controls="false" custom-mute-button="false" custom-mute-button-position="top-right" muted-video="false" autoplay="false" icon-type="light" height-type="large" show-more-button="false" cta-type="button">
+	<script>
+	if (document.readyState !== 'loading') {
+		var dxpSelector = document.querySelector("[content-id = dxp-content-item-"+"WrvtX]"); 
+		if (dxpSelector) { 
+			dxpSelector.ctaData=  [{"title-style":"dxp-title-md","orientation":"vertical","ctaList":[{"link-type":"dxp-btn-internal-link","mail":"false","tooltip-placement":"bottom","open-in-new-tab":"false","type":"button","align-icon":"left","button-type":"secondary","size":"md","block-button":"false","open-modal-on-click":"false","is-internal-link":"true","disabled":"false","dtm-cta-title":"Read about what\u0027s possible","href":"https://www.mastercard.us/en-us/business/nextgensolutions.html","text":"Read about whatâs possible","aria-label":"Read about whatâs possible"}]}],
+			dxpSelector.actionList=  null
+		}
+	} else {
+		document.addEventListener("DOMContentLoaded", function() {
+		var dxpSelector = document.querySelector("[content-id = dxp-content-item-"+"WrvtX]"); 
+		if (dxpSelector) { 
+			dxpSelector.ctaData=  [{"title-style":"dxp-title-md","orientation":"vertical","ctaList":[{"link-type":"dxp-btn-internal-link","mail":"false","tooltip-placement":"bottom","open-in-new-tab":"false","type":"button","align-icon":"left","button-type":"secondary","size":"md","block-button":"false","open-modal-on-click":"false","is-internal-link":"true","disabled":"false","dtm-cta-title":"Read about what\u0027s possible","href":"https://www.mastercard.us/en-us/business/nextgensolutions.html","text":"Read about whatâs possible","aria-label":"Read about whatâs possible"}]}],
+			dxpSelector.actionList=  null
+		}
+		});
+	}
+	</script>
+
+	</dxp-content-item>
+</div>
+</div>
+
+    
+</div>
+</div>
+	</dxp-flex-layout-item>
+	
+	</dxp-flex-layout>
+</div>
+</div>
+<div class="cms-dxp-banner-carousel aem-GridColumn aem-GridColumn--default--12">
+
+ <div>
+	<dxp-banner-carousel data-theme="dxp-theme-white" data-designmode="dxp-banner-carousel" autoplay="true" pause-duration="7000" show-thumbnails="false" show-arrows="false" show-progressbar="true" progressbar-left="false" play-pause="true" hero-banner="true" align-indicator="true">
+		<div class="dxp-none">
+
+
+<div class="aem-Grid aem-Grid--12 aem-Grid--default--12 ">
+    
+    <div class="cms-dxp-banner aem-GridColumn aem-GridColumn--default--12">
+
+ <div>
+	<dxp-banner data-theme="dxp-theme-white" data-designmode="dxp-banner" banner-type="benefits-hero" animation="false" banner-size="extra-long" background-type="image-background" preload="false" page-scroll-down-arrow="false" add-circle="false" overlay="false" show-content-sm="false" position-of-image="Left" overlay-position="align-left" image-overlay="false" eyebrow-text="SOLUTIONS" heading-level="h2" title-text="Enterprise cybersecurity solutions that are more than just ones and zeroes" subtitle="Help your company add human clarity to technical complexity with Mastercard cybersecurity solutions." custom-id="solutions" src="/content/dam/public/mastercardcom/na/us/en/homepage/Home/female-steel-worker-holding-tablet-inside-factory-720x810.jpg" src-lg="/content/dam/public/mastercardcom/na/us/en/homepage/Home/female-steel-worker-holding-tablet-inside-factory-720x810.jpg" open-in-new-tab="false" is-internal-link="false" lazyload="false" responsive="false" video-type="youtube" fetchpriority="high,high" disable-controls="false" custom-mute-button="false" custom-mute-button-position="top-right" muted="false" autoplay="false" loop="false" icon-type="light">
+	
+	
+	<dxp-cta-list title-style="dxp-title-md" orientation="vertical" content-id="dxp-cta-list-PQp4s">
+	<script>
+	if (document.readyState !== 'loading') {
+		var dxpSelector = document.querySelector("[content-id = dxp-cta-list-"+"PQp4s]"); 
+		if (dxpSelector) { 
+			dxpSelector.ctaList=  [{"link-type":"dxp-btn-internal-link","mail":"false","tooltip-placement":"bottom","open-in-new-tab":"false","type":"button","align-icon":"left","button-type":"secondary","size":"md","block-button":"false","open-modal-on-click":"false","is-internal-link":"false","disabled":"false","dtm-cta-title":"Cybersecurity solutions","href":"https://www.mastercard.us/en-us/business/overview/safety-and-security/cybersecurity.html","text":"Learn more","aria-label":"Learn more about: Enterprise cybersecurity solutions that are more than just ones and zeroes"}]
+		}
+	} else {
+		document.addEventListener("DOMContentLoaded", function() {
+		var dxpSelector = document.querySelector("[content-id = dxp-cta-list-"+"PQp4s]"); 
+		if (dxpSelector) { 
+			dxpSelector.ctaList=  [{"link-type":"dxp-btn-internal-link","mail":"false","tooltip-placement":"bottom","open-in-new-tab":"false","type":"button","align-icon":"left","button-type":"secondary","size":"md","block-button":"false","open-modal-on-click":"false","is-internal-link":"false","disabled":"false","dtm-cta-title":"Cybersecurity solutions","href":"https://www.mastercard.us/en-us/business/overview/safety-and-security/cybersecurity.html","text":"Learn more","aria-label":"Learn more about: Enterprise cybersecurity solutions that are more than just ones and zeroes"}]
+		}
+		});
+	}
+	</script>
+</dxp-cta-list>
+	<dxp-donate-button slot="donate-button" launch-mode="redirect" guest-only="false" performance-mode="false" header-hidden="false" footer-hidden="false" aem-required="false" track-event="false" web-integrated="false" env="stage" disable-skip="false" disable-preview="false" dynamic-height="false" donate-button-style="button" button-type="primary" align-icon="left" link-type="dxp-btn-video-link" disabled="false"></dxp-donate-button>
+	
+	</dxp-banner>
+</div>
+</div>
+<div class="cms-dxp-banner aem-GridColumn aem-GridColumn--default--12">
+
+ <div>
+	<dxp-banner data-theme="dxp-theme-white" data-designmode="dxp-banner" banner-type="benefits-hero" animation="false" banner-size="extra-long" background-type="image-background" preload="false" page-scroll-down-arrow="false" add-circle="false" overlay="false" show-content-sm="false" position-of-image="Left" overlay-position="align-left" image-overlay="false" eyebrow-text="RESOURCES" heading-level="h2" title-text="Weâre here for your business" subtitle="Whether youâre interested in learning how to accept electronic payments or looking for ways to grow youâre business, we can help." custom-id="resources" src="/content/dam/public/mastercardcom/na/us/en/homepage/Home/woman-dressing-shop-window-720x810.jpg" aria-label="Shop owner working in indoor potted plant store" open-in-new-tab="false" is-internal-link="false" alt="Woman dressing shop window" lazyload="false" responsive="false" video-type="youtube" fetchpriority="high,high" disable-controls="false" custom-mute-button="false" custom-mute-button-position="top-right" muted="false" autoplay="false" loop="false" icon-type="light">
+	
+	
+	<dxp-cta-list title-style="dxp-title-md" orientation="vertical" content-id="dxp-cta-list-csaRm">
+	<script>
+	if (document.readyState !== 'loading') {
+		var dxpSelector = document.querySelector("[content-id = dxp-cta-list-"+"csaRm]"); 
+		if (dxpSelector) { 
+			dxpSelector.ctaList=  [{"link-type":"dxp-btn-internal-link","mail":"false","tooltip-placement":"bottom","open-in-new-tab":"false","type":"button","align-icon":"left","button-type":"secondary","size":"md","block-button":"false","open-modal-on-click":"false","is-internal-link":"false","disabled":"false","dtm-cta-title":" Mastercardâs SmallBiz link","href":"/content/mastercardcom/us/business/overview/small-biz.html","text":"Learn more","aria-label":"Learn how Mastercard is committed to supporting small business"}]
+		}
+	} else {
+		document.addEventListener("DOMContentLoaded", function() {
+		var dxpSelector = document.querySelector("[content-id = dxp-cta-list-"+"csaRm]"); 
+		if (dxpSelector) { 
+			dxpSelector.ctaList=  [{"link-type":"dxp-btn-internal-link","mail":"false","tooltip-placement":"bottom","open-in-new-tab":"false","type":"button","align-icon":"left","button-type":"secondary","size":"md","block-button":"false","open-modal-on-click":"false","is-internal-link":"false","disabled":"false","dtm-cta-title":" Mastercardâs SmallBiz link","href":"/content/mastercardcom/us/business/overview/small-biz.html","text":"Learn more","aria-label":"Learn how Mastercard is committed to supporting small business"}]
+		}
+		});
+	}
+	</script>
+</dxp-cta-list>
+	<dxp-donate-button slot="donate-button" launch-mode="redirect" guest-only="false" performance-mode="false" header-hidden="false" footer-hidden="false" aem-required="false" track-event="false" web-integrated="false" env="stage" disable-skip="false" disable-preview="false" dynamic-height="false" donate-button-style="button" button-type="primary" align-icon="left" link-type="dxp-btn-video-link" disabled="false"></dxp-donate-button>
+	
+	</dxp-banner>
+</div>
+</div>
+<div class="cms-dxp-banner aem-GridColumn aem-GridColumn--default--12">
+
+ <div>
+	<dxp-banner data-theme="dxp-theme-white" data-designmode="dxp-banner" banner-type="benefits-hero" animation="false" banner-size="extra-long" background-type="image-background" preload="false" page-scroll-down-arrow="false" add-circle="false" overlay="false" show-content-sm="false" position-of-image="Left" overlay-position="align-left" image-overlay="false" eyebrow-text="INNOVATION" heading-level="h2" title-text="Just Tap &amp; GoÂ®" subtitle="With a fast and easy tap of your Mastercard, you can enjoy convenient checkout for everyday purchases." custom-id="innovation" src="/content/dam/public/mastercardcom/na/us/en/homepage/Home/woman-holding-card-reader-man-paying-with-mastercard-720x810.jpg" open-in-new-tab="false" is-internal-link="false" lazyload="false" responsive="false" video-type="youtube" fetchpriority="high,high" disable-controls="false" custom-mute-button="false" custom-mute-button-position="top-right" muted="false" autoplay="false" loop="false" icon-type="light">
+	
+	
+	<dxp-cta-list title-style="dxp-title-md" orientation="vertical" content-id="dxp-cta-list-WLU9M">
+	<script>
+	if (document.readyState !== 'loading') {
+		var dxpSelector = document.querySelector("[content-id = dxp-cta-list-"+"WLU9M]"); 
+		if (dxpSelector) { 
+			dxpSelector.ctaList=  [{"link-type":"dxp-btn-internal-link","mail":"false","tooltip-placement":"bottom","open-in-new-tab":"false","type":"button","align-icon":"left","button-type":"secondary","size":"md","block-button":"false","open-modal-on-click":"false","is-internal-link":"false","disabled":"false","dtm-cta-title":"Contactless link","href":"https://www.mastercard.us/en-us/personal/ways-to-pay/contactless.html","text":"Learn more","aria-label":"Learn more about: Just Tap \u0026 GoÂ®"}]
+		}
+	} else {
+		document.addEventListener("DOMContentLoaded", function() {
+		var dxpSelector = document.querySelector("[content-id = dxp-cta-list-"+"WLU9M]"); 
+		if (dxpSelector) { 
+			dxpSelector.ctaList=  [{"link-type":"dxp-btn-internal-link","mail":"false","tooltip-placement":"bottom","open-in-new-tab":"false","type":"button","align-icon":"left","button-type":"secondary","size":"md","block-button":"false","open-modal-on-click":"false","is-internal-link":"false","disabled":"false","dtm-cta-title":"Contactless link","href":"https://www.mastercard.us/en-us/personal/ways-to-pay/contactless.html","text":"Learn more","aria-label":"Learn more about: Just Tap \u0026 GoÂ®"}]
+		}
+		});
+	}
+	</script>
+</dxp-cta-list>
+	<dxp-donate-button slot="donate-button" launch-mode="redirect" guest-only="false" performance-mode="false" header-hidden="false" footer-hidden="false" aem-required="false" track-event="false" web-integrated="false" env="stage" disable-skip="false" disable-preview="false" dynamic-height="false" donate-button-style="button" button-type="primary" align-icon="left" link-type="dxp-btn-video-link" disabled="false"></dxp-donate-button>
+	
+	</dxp-banner>
+</div>
+</div>
+
+    
+</div>
+</div>
+	</dxp-banner-carousel>
+</div>
+</div>
+<div class="cms-dxp-image-banner aem-GridColumn aem-GridColumn--default--12">
+
+ <div>
+	<dxp-image-banner data-theme="dxp-theme-black" data-designmode="dxp-image-banner" type="regular" size="medium" overlay-position="left" image-position="left" down-arrow="false" down-arrow-aria-text="Scroll page down" animation="false" show-content-sm="false" heading-level="h2" title-text="Find the Mastercard thatâs right for you" src="/content/dam/public/mastercardcom/na/us/en/homepage/Home/mastercard-cards-1300x650.jpg" open-in-new-tab="false" use-focalpoint="false" focalpoint="[0,7]" focalpoint-lg="[0,7]" focalpoint-md="[0,7]" responsive="false" lazyload="false" image-overlay="false" fetchpriority="auto">
+	
+	
+	<dxp-cta-list title-style="dxp-title-md" orientation="horizontal" content-id="dxp-cta-list-YMwFv">
+	<script>
+	if (document.readyState !== 'loading') {
+		var dxpSelector = document.querySelector("[content-id = dxp-cta-list-"+"YMwFv]"); 
+		if (dxpSelector) { 
+			dxpSelector.ctaList=  [{"link-type":"dxp-btn-internal-link","mail":"false","tooltip-placement":"bottom","open-in-new-tab":"false","type":"button","align-icon":"right","button-type":"secondary","size":"md","block-button":"false","open-modal-on-click":"false","is-internal-link":"true","disabled":"false","dtm-cta-title":"Get a card","href":"https://www.mastercard.us/en-us/personal/find-a-card.html","text":"Get a card","aria-label":"Get a card"}]
+		}
+	} else {
+		document.addEventListener("DOMContentLoaded", function() {
+		var dxpSelector = document.querySelector("[content-id = dxp-cta-list-"+"YMwFv]"); 
+		if (dxpSelector) { 
+			dxpSelector.ctaList=  [{"link-type":"dxp-btn-internal-link","mail":"false","tooltip-placement":"bottom","open-in-new-tab":"false","type":"button","align-icon":"right","button-type":"secondary","size":"md","block-button":"false","open-modal-on-click":"false","is-internal-link":"true","disabled":"false","dtm-cta-title":"Get a card","href":"https://www.mastercard.us/en-us/personal/find-a-card.html","text":"Get a card","aria-label":"Get a card"}]
+		}
+		});
+	}
+	</script>
+</dxp-cta-list>
+	<dxp-donate-button slot="donate-button" launch-mode="redirect" donation-type="monthly, roundup" guest-only="false" performance-mode="false" header-hidden="false" footer-hidden="false" aem-required="false" track-event="false" web-integrated="false" env="stage" disable-skip="false" disable-preview="false" dynamic-height="false" donate-button-style="button" button-aria-label="Dxp Donate button" button-id="dxp-donate-widget" button-type="primary" align-icon="left" link-type="dxp-btn-internal-link" disabled="false"></dxp-donate-button>
+	
+	</dxp-image-banner>
+</div>
+</div>
+<div class="cms-dxp-line aem-GridColumn aem-GridColumn--default--12">
+
+ <div>
+	<dxp-line data-designmode="dxp-line" type="solid" border-color="#323231" background-color="#323231" height-xl="48" height-lg="48" height-md="24" height-sm="16">
+	</dxp-line>
+</div>
+</div>
+<div class="cms-dxp-flex-layout aem-GridColumn aem-GridColumn--default--12">
+
+ <div>
+	<dxp-flex-layout data-theme="dxp-theme-rich-grey" data-designmode="dxp-flex-layout" column-reverse="false">
+	
+	
+	<dxp-flex-layout-item slot="column-1" repeat-background="false" background-image-position="center" column-width-sm="12" column-width-md="12" column-width-lg="12" column-width-xl="12">
+	<div>
+
+
+<div class="aem-Grid aem-Grid--12 aem-Grid--default--12 ">
+    
+    <div class="cms-dxp-content-item-grid aem-GridColumn aem-GridColumn--default--12">
+
+<div class="dxp-container"> 
+	<dxp-content-item-grid data-theme="dxp-theme-rich-grey" data-designmode="dxp-content-item-grid" header-alignment="left" column="1" title-target="false" highlight-first-content-item="false" pagination="false" hide-pagination-when-single="false" items-per-page="6" pagination-alignment="center">
+	
+	<div class="dxp-none">
+
+
+<div class="aem-Grid aem-Grid--12 aem-Grid--default--12 ">
+    
+    <div class="cms-dxp-content-item aem-GridColumn aem-GridColumn--default--12">
+
+ <div>
+	<dxp-content-item data-theme="dxp-theme-rich-grey" data-designmode="dxp-content-item" content-type="content-image-text" header-type="image" preload="false" nocookie="false" play-icon-bottom-left="false" animation="slide-up" animation-duration="2" orientation="horizontal" content-item-type="media-on-top" headerline="false" indentation="false" profile-image="false" size="md" profile-image-shape="circle" profile-image-position="left" eyebrow-text="FIND A CARD" category-target="false" content-item-title="Access digital benefits that come with your World Elite MastercardÂ®" content-item-title-target="false" badge-text-position="Left" description-target="false" position-of-media="Left" src="/content/dam/public/mastercardcom/na/us/en/homepage/Home/woman-looking-out-window-in-city_1280x720.jpg" fetchpriority="high,high" src-lg="/content/dam/public/mastercardcom/na/us/en/homepage/Home/woman-looking-out-window-in-city_1280x720.jpg" caption-position="bottom-left" content-id="dxp-content-item-KWZkS" open-in-new-tab="false" cover="false" use-focalpoint="false" focalpoint="," alt-image-src="," alt-image-src-lg="," alt-image-src-md="," alt-image-src-sm="," alt-image-mime-type="," responsive="true" lazyload="false" shape="circle" prop-override="," animation-config="," type="youtube" disable-controls="false" custom-mute-button="false" custom-mute-button-position="top-right" muted-video="false" autoplay="false" icon-type="light" height-type="large" show-more-button="false" cta-type="button">
+	<script>
+	if (document.readyState !== 'loading') {
+		var dxpSelector = document.querySelector("[content-id = dxp-content-item-"+"KWZkS]"); 
+		if (dxpSelector) { 
+			dxpSelector.ctaData=  [{"title-style":"dxp-title-md","orientation":"vertical","ctaList":[{"link-type":"dxp-btn-internal-link","mail":"false","open-in-new-tab":"false","type":"link","align-icon":"right","button-type":"primary","size":"md","block-button":"false","open-modal-on-click":"false","is-internal-link":"true","disabled":"false","dtm-cta-title":"Learn more about World Elite Credit card CTA","href":"https://www.mastercard.us/en-us/personal/find-a-card/world-elite-mastercard-credit.html","text":"Learn more","aria-label":"Learn more about Access digital benefits that come with your World Elite MastercardÂ®"}]}],
+			dxpSelector.actionList=  null
+		}
+	} else {
+		document.addEventListener("DOMContentLoaded", function() {
+		var dxpSelector = document.querySelector("[content-id = dxp-content-item-"+"KWZkS]"); 
+		if (dxpSelector) { 
+			dxpSelector.ctaData=  [{"title-style":"dxp-title-md","orientation":"vertical","ctaList":[{"link-type":"dxp-btn-internal-link","mail":"false","open-in-new-tab":"false","type":"link","align-icon":"right","button-type":"primary","size":"md","block-button":"false","open-modal-on-click":"false","is-internal-link":"true","disabled":"false","dtm-cta-title":"Learn more about World Elite Credit card CTA","href":"https://www.mastercard.us/en-us/personal/find-a-card/world-elite-mastercard-credit.html","text":"Learn more","aria-label":"Learn more about Access digital benefits that come with your World Elite MastercardÂ®"}]}],
+			dxpSelector.actionList=  null
+		}
+		});
+	}
+	</script>
+
+	</dxp-content-item>
+</div>
+</div>
+<div class="cms-dxp-content-item aem-GridColumn aem-GridColumn--default--12">
+
+ <div>
+	<dxp-content-item data-theme="dxp-theme-rich-grey" data-designmode="dxp-content-item" content-type="content-image-text" header-type="image" preload="false" nocookie="false" play-icon-bottom-left="false" animation="slide-up" animation-duration="3" orientation="horizontal" content-item-type="media-on-top" headerline="false" indentation="false" profile-image="false" size="md" profile-image-shape="circle" profile-image-position="left" eyebrow-text="PRICELESS.COM" category-target="false" content-item-title="Priceless.com is enabling unique digital experiences that can be enjoyed at home" content-item-title-target="false" badge-text-position="Left" description-target="false" position-of-media="Right" src="/content/dam/public/mastercardcom/na/us/en/homepage/Home/overhead-shot-of-woman-on-laptop-1280x720.jpg" fetchpriority="high,high" caption-position="bottom-left" content-id="dxp-content-item-T6AHj" open-in-new-tab="false" cover="false" use-focalpoint="false" focalpoint="," alt-image-src="," alt-image-src-lg="," alt-image-src-md="," alt-image-src-sm="," alt-image-mime-type="," responsive="true" lazyload="false" shape="circle" prop-override="," animation-config="," type="youtube" disable-controls="false" custom-mute-button="false" custom-mute-button-position="top-right" muted-video="false" autoplay="false" icon-type="light" height-type="large" show-more-button="false" cta-type="button">
+	<script>
+	if (document.readyState !== 'loading') {
+		var dxpSelector = document.querySelector("[content-id = dxp-content-item-"+"T6AHj]"); 
+		if (dxpSelector) { 
+			dxpSelector.ctaData=  [{"title-style":"dxp-title-md","orientation":"vertical","ctaList":[{"link-type":"dxp-btn-external-link","mail":"false","open-in-new-tab":"true","type":"link","align-icon":"left","button-type":"primary","size":"md","block-button":"false","open-modal-on-click":"false","is-internal-link":"true","disabled":"false","dtm-cta-title":"Priceless.com CTA","href":"https://www.priceless.com/","text":"Learn more","aria-label":"Learn more about Priceless.com (opens in a new window)"}]}],
+			dxpSelector.actionList=  null
+		}
+	} else {
+		document.addEventListener("DOMContentLoaded", function() {
+		var dxpSelector = document.querySelector("[content-id = dxp-content-item-"+"T6AHj]"); 
+		if (dxpSelector) { 
+			dxpSelector.ctaData=  [{"title-style":"dxp-title-md","orientation":"vertical","ctaList":[{"link-type":"dxp-btn-external-link","mail":"false","open-in-new-tab":"true","type":"link","align-icon":"left","button-type":"primary","size":"md","block-button":"false","open-modal-on-click":"false","is-internal-link":"true","disabled":"false","dtm-cta-title":"Priceless.com CTA","href":"https://www.priceless.com/","text":"Learn more","aria-label":"Learn more about Priceless.com (opens in a new window)"}]}],
+			dxpSelector.actionList=  null
+		}
+		});
+	}
+	</script>
+
+	</dxp-content-item>
+</div>
+</div>
+<div class="cms-dxp-content-item aem-GridColumn aem-GridColumn--default--12">
+
+ <div>
+	<dxp-content-item data-theme="dxp-theme-rich-grey" data-designmode="dxp-content-item" content-type="content-image-text" header-type="image" preload="false" nocookie="false" play-icon-bottom-left="false" animation="slide-up" animation-duration="3" orientation="horizontal" content-item-type="media-on-top" headerline="false" indentation="false" profile-image="false" size="md" profile-image-shape="circle" profile-image-position="left" eyebrow-text="MASTERCARDÂ® GIFT CARDS" category-target="false" content-item-title="The perfect gift for everyone, every time" content-item-title-target="false" badge-text-position="Left" description-target="false" position-of-media="Left" src="/content/dam/public/mastercardcom/na/us/en/homepage/Home/family-wrapping-presents-for-winter-holidays-1280x720.jpg" fetchpriority="high,high" caption-position="bottom-left" content-id="dxp-content-item-0KO7s" open-in-new-tab="false" cover="false" use-focalpoint="false" focalpoint="," alt-image-src="," alt-image-src-lg="," alt-image-src-md="," alt-image-src-sm="," alt-image-mime-type="," responsive="true" lazyload="false" shape="circle" prop-override="," animation-config="," type="youtube" disable-controls="false" custom-mute-button="false" custom-mute-button-position="top-right" muted-video="false" autoplay="false" icon-type="light" height-type="large" show-more-button="false" cta-type="button">
+	<script>
+	if (document.readyState !== 'loading') {
+		var dxpSelector = document.querySelector("[content-id = dxp-content-item-"+"0KO7s]"); 
+		if (dxpSelector) { 
+			dxpSelector.ctaData=  [{"title-style":"dxp-title-md","orientation":"vertical","ctaList":[{"link-type":"dxp-btn-external-link","mail":"false","open-in-new-tab":"true","type":"link","align-icon":"left","button-type":"primary","size":"md","block-button":"false","open-modal-on-click":"false","is-internal-link":"true","disabled":"false","dtm-cta-title":"Get a prepaid card","href":"https://www.mastercardgiftcard.com/catalog?SOLID\u003dMCCORPWEBHOMEPAGE","text":"Get a card","aria-label":"Get a card: The perfect gift for everyone, every time (opens in a new window)"}]}],
+			dxpSelector.actionList=  null
+		}
+	} else {
+		document.addEventListener("DOMContentLoaded", function() {
+		var dxpSelector = document.querySelector("[content-id = dxp-content-item-"+"0KO7s]"); 
+		if (dxpSelector) { 
+			dxpSelector.ctaData=  [{"title-style":"dxp-title-md","orientation":"vertical","ctaList":[{"link-type":"dxp-btn-external-link","mail":"false","open-in-new-tab":"true","type":"link","align-icon":"left","button-type":"primary","size":"md","block-button":"false","open-modal-on-click":"false","is-internal-link":"true","disabled":"false","dtm-cta-title":"Get a prepaid card","href":"https://www.mastercardgiftcard.com/catalog?SOLID\u003dMCCORPWEBHOMEPAGE","text":"Get a card","aria-label":"Get a card: The perfect gift for everyone, every time (opens in a new window)"}]}],
+			dxpSelector.actionList=  null
+		}
+		});
+	}
+	</script>
+
+	</dxp-content-item>
+</div>
+</div>
+
+    
+</div>
+</div>
+	
+	
+	<dxp-cta-list slot="cta-list" title-style="dxp-title-md" orientation="vertical" content-id="dxp-cta-list-43xJe">
+	<script>
+	if (document.readyState !== 'loading') {
+		var dxpSelector = document.querySelector("[content-id = dxp-cta-list-"+"43xJe]"); 
+		if (dxpSelector) { 
+			dxpSelector.ctaList=  null
+		}
+	} else {
+		document.addEventListener("DOMContentLoaded", function() {
+		var dxpSelector = document.querySelector("[content-id = dxp-cta-list-"+"43xJe]"); 
+		if (dxpSelector) { 
+			dxpSelector.ctaList=  null
+		}
+		});
+	}
+	</script>
+</dxp-cta-list>
+	
+	</dxp-content-item-grid>
+</div>
+</div>
+
+    
+</div>
+</div>
+	</dxp-flex-layout-item>
+	
+	</dxp-flex-layout>
+</div>
+</div>
+<div class="cms-dxp-banner-carousel aem-GridColumn aem-GridColumn--default--12">
+
+ <div>
+	<dxp-banner-carousel data-theme="dxp-theme-white" data-designmode="dxp-banner-carousel" autoplay="true" pause-duration="7000" show-thumbnails="false" show-arrows="false" show-progressbar="true" progressbar-left="false" play-pause="true" hero-banner="true" align-indicator="true">
+		<div class="dxp-none">
+
+
+<div class="aem-Grid aem-Grid--12 aem-Grid--default--12 ">
+    
+    <div class="cms-dxp-banner aem-GridColumn aem-GridColumn--default--12">
+
+ <div>
+	<dxp-banner data-theme="dxp-theme-white" data-designmode="dxp-banner" banner-type="benefits-hero" animation="false" banner-size="extra-long" background-type="image-background" preload="false" page-scroll-down-arrow="false" add-circle="false" overlay="false" show-content-sm="false" position-of-image="Left" overlay-position="align-left" image-overlay="false" eyebrow-text="COMMITMENT" heading-level="h2" title-text="We stand against racism" custom-id="commitment" src="/content/dam/public/mastercardcom/na/us/en/homepage/Home/african-american-women-hugging_720x810.jpg" open-in-new-tab="false" is-internal-link="false" lazyload="false" responsive="false" video-type="youtube" fetchpriority="high,high" disable-controls="false" custom-mute-button="false" custom-mute-button-position="top-right" muted="false" autoplay="false" loop="false" icon-type="light">
+	
+	
+	<dxp-cta-list title-style="dxp-title-md" orientation="vertical" content-id="dxp-cta-list-5NA15">
+	<script>
+	if (document.readyState !== 'loading') {
+		var dxpSelector = document.querySelector("[content-id = dxp-cta-list-"+"5NA15]"); 
+		if (dxpSelector) { 
+			dxpSelector.ctaList=  [{"link-type":"dxp-btn-external-link","mail":"false","tooltip-placement":"bottom","open-in-new-tab":"false","type":"button","align-icon":"left","button-type":"secondary","size":"md","block-button":"false","open-modal-on-click":"false","is-internal-link":"false","disabled":"false","dtm-cta-title":"Anti racism CTA","href":"https://www.mastercard.com/news/perspectives/featured-topics/solidarity-in-action/","text":"Learn more","aria-label":"Learn more about: We stand against racism (opens in a new window)"}]
+		}
+	} else {
+		document.addEventListener("DOMContentLoaded", function() {
+		var dxpSelector = document.querySelector("[content-id = dxp-cta-list-"+"5NA15]"); 
+		if (dxpSelector) { 
+			dxpSelector.ctaList=  [{"link-type":"dxp-btn-external-link","mail":"false","tooltip-placement":"bottom","open-in-new-tab":"false","type":"button","align-icon":"left","button-type":"secondary","size":"md","block-button":"false","open-modal-on-click":"false","is-internal-link":"false","disabled":"false","dtm-cta-title":"Anti racism CTA","href":"https://www.mastercard.com/news/perspectives/featured-topics/solidarity-in-action/","text":"Learn more","aria-label":"Learn more about: We stand against racism (opens in a new window)"}]
+		}
+		});
+	}
+	</script>
+</dxp-cta-list>
+	<dxp-donate-button slot="donate-button" launch-mode="redirect" guest-only="false" performance-mode="false" header-hidden="false" footer-hidden="false" aem-required="false" track-event="false" web-integrated="false" env="stage" disable-skip="false" disable-preview="false" dynamic-height="false" donate-button-style="button" button-type="primary" align-icon="left" link-type="dxp-btn-video-link" disabled="false"></dxp-donate-button>
+	
+	</dxp-banner>
+</div>
+</div>
+<div class="cms-dxp-banner aem-GridColumn aem-GridColumn--default--12">
+
+ <div>
+	<dxp-banner data-theme="dxp-theme-white" data-designmode="dxp-banner" banner-type="benefits-hero" animation="false" banner-size="extra-long" background-type="image-background" preload="false" page-scroll-down-arrow="false" add-circle="false" overlay="false" show-content-sm="false" position-of-image="Left" overlay-position="align-left" image-overlay="false" eyebrow-text="INNOVATION" heading-level="h2" title-text="Be digital-ready and digital strong" subtitle="Take advantage of tips and resources designed to help protect your business today and tomorrow." custom-id="digitial-strong" src="/content/dam/public/mastercardcom/na/us/en/homepage/Home/hip-young-man-holding-phone-720x810.jpg" open-in-new-tab="false" is-internal-link="false" lazyload="false" responsive="false" video-type="youtube" fetchpriority="high,high" disable-controls="false" custom-mute-button="false" custom-mute-button-position="top-right" muted="false" autoplay="false" loop="false" icon-type="light">
+	
+	
+	<dxp-cta-list title-style="dxp-title-md" orientation="vertical" content-id="dxp-cta-list-MfPTv">
+	<script>
+	if (document.readyState !== 'loading') {
+		var dxpSelector = document.querySelector("[content-id = dxp-cta-list-"+"MfPTv]"); 
+		if (dxpSelector) { 
+			dxpSelector.ctaList=  [{"link-type":"dxp-btn-internal-link","mail":"false","tooltip-placement":"bottom","open-in-new-tab":"false","type":"button","align-icon":"left","button-type":"secondary","size":"md","block-button":"false","open-modal-on-click":"false","is-internal-link":"false","disabled":"false","dtm-cta-title":"Cyber security CTA","href":"https://www.mastercard.us/en-us/business/overview/safety-and-security/cyber-security.html","text":"Learn more","aria-label":"Learn more about: Be digital-ready and digital strong"}]
+		}
+	} else {
+		document.addEventListener("DOMContentLoaded", function() {
+		var dxpSelector = document.querySelector("[content-id = dxp-cta-list-"+"MfPTv]"); 
+		if (dxpSelector) { 
+			dxpSelector.ctaList=  [{"link-type":"dxp-btn-internal-link","mail":"false","tooltip-placement":"bottom","open-in-new-tab":"false","type":"button","align-icon":"left","button-type":"secondary","size":"md","block-button":"false","open-modal-on-click":"false","is-internal-link":"false","disabled":"false","dtm-cta-title":"Cyber security CTA","href":"https://www.mastercard.us/en-us/business/overview/safety-and-security/cyber-security.html","text":"Learn more","aria-label":"Learn more about: Be digital-ready and digital strong"}]
+		}
+		});
+	}
+	</script>
+</dxp-cta-list>
+	<dxp-donate-button slot="donate-button" launch-mode="redirect" guest-only="false" performance-mode="false" header-hidden="false" footer-hidden="false" aem-required="false" track-event="false" web-integrated="false" env="stage" disable-skip="false" disable-preview="false" dynamic-height="false" donate-button-style="button" button-type="primary" align-icon="left" link-type="dxp-btn-video-link" disabled="false"></dxp-donate-button>
+	
+	</dxp-banner>
+</div>
+</div>
+<div class="cms-dxp-banner aem-GridColumn aem-GridColumn--default--12">
+
+ <div>
+	<dxp-banner data-theme="dxp-theme-white" data-designmode="dxp-banner" banner-type="benefits-hero" animation="false" banner-size="extra-long" background-type="image-background" preload="false" page-scroll-down-arrow="false" add-circle="false" overlay="false" show-content-sm="false" position-of-image="Left" overlay-position="align-left" image-overlay="false" eyebrow-text="INNOVATION" heading-level="h2" title-text="Guest checkout, reinvented" subtitle="Mastercard is leading the way in defining a new, advanced guest checkout option that makes passwords a thing of the past." custom-id="reinvented" src="/content/dam/public/mastercardcom/na/us/en/homepage/Home/woman-online-shopping-with-laptop_720x810.jpg" src-lg="/content/dam/public/mastercardcom/na/us/en/homepage/Home/woman-online-shopping-with-laptop_720x810.jpg" src-sm="/content/dam/public/mastercardcom/na/us/en/homepage/Home/woman-online-shopping-with-laptop_720x810.jpg" open-in-new-tab="false" is-internal-link="false" lazyload="false" responsive="false" video-type="youtube" fetchpriority="high,high" disable-controls="false" custom-mute-button="false" custom-mute-button-position="top-right" muted="false" autoplay="false" loop="false" icon-type="light">
+	
+	
+	<dxp-cta-list title-style="dxp-title-md" orientation="vertical" content-id="dxp-cta-list-un1I3">
+	<script>
+	if (document.readyState !== 'loading') {
+		var dxpSelector = document.querySelector("[content-id = dxp-cta-list-"+"un1I3]"); 
+		if (dxpSelector) { 
+			dxpSelector.ctaList=  [{"link-type":"dxp-btn-external-link","mail":"false","tooltip-placement":"bottom","open-in-new-tab":"true","type":"button","align-icon":"left","button-type":"secondary","size":"md","block-button":"false","open-modal-on-click":"false","is-internal-link":"false","disabled":"false","dtm-cta-title":"Click to pay CTA","href":"https://checkout.mastercard.com/clicktopay/en-us.html","text":"Learn more","aria-label":"Learn more about guest checkout  (opens in a new window)"}]
+		}
+	} else {
+		document.addEventListener("DOMContentLoaded", function() {
+		var dxpSelector = document.querySelector("[content-id = dxp-cta-list-"+"un1I3]"); 
+		if (dxpSelector) { 
+			dxpSelector.ctaList=  [{"link-type":"dxp-btn-external-link","mail":"false","tooltip-placement":"bottom","open-in-new-tab":"true","type":"button","align-icon":"left","button-type":"secondary","size":"md","block-button":"false","open-modal-on-click":"false","is-internal-link":"false","disabled":"false","dtm-cta-title":"Click to pay CTA","href":"https://checkout.mastercard.com/clicktopay/en-us.html","text":"Learn more","aria-label":"Learn more about guest checkout  (opens in a new window)"}]
+		}
+		});
+	}
+	</script>
+</dxp-cta-list>
+	<dxp-donate-button slot="donate-button" launch-mode="redirect" guest-only="false" performance-mode="false" header-hidden="false" footer-hidden="false" aem-required="false" track-event="false" web-integrated="false" env="stage" disable-skip="false" disable-preview="false" dynamic-height="false" donate-button-style="button" button-type="primary" align-icon="left" link-type="dxp-btn-video-link" disabled="false"></dxp-donate-button>
+	
+	</dxp-banner>
+</div>
+</div>
+
+    
+</div>
+</div>
+	</dxp-banner-carousel>
+</div>
+</div>
+<div class="cms-dxp-flex-layout aem-GridColumn aem-GridColumn--default--12">
+
+ <div>
+	<dxp-flex-layout data-theme="dxp-theme-light-grey" data-designmode="dxp-flex-layout" column-reverse="false">
+	
+	
+	<dxp-flex-layout-item slot="column-1" repeat-background="false" background-image-position="center" column-width-sm="12" column-width-md="12" column-width-lg="12" column-width-xl="12">
+	<div>
+
+
+<div class="aem-Grid aem-Grid--12 aem-Grid--default--12 ">
+    
+    <div class="cms-dxp-line aem-GridColumn aem-GridColumn--default--12">
+
+ <div>
+	<dxp-line data-designmode="dxp-line" type="solid" border-color="#F8F7F5" background-color="#F8F7F5" height-xl="96" height-lg="96" height-md="48" height-sm="24">
+	</dxp-line>
+</div>
+</div>
+<div class="cms-dxp-content-item-grid aem-GridColumn aem-GridColumn--default--12">
+
+<div class="dxp-container"> 
+	<dxp-content-item-grid data-theme="dxp-theme-light-grey" data-designmode="dxp-content-item-grid" header-alignment="left" column="3" grid-title="Newsroom" title-target="false" highlight-first-content-item="false" pagination="false" hide-pagination-when-single="false" items-per-page="6" pagination-alignment="center">
+	
+	<div class="dxp-none">
+
+
+<div class="aem-Grid aem-Grid--12 aem-Grid--default--12 ">
+    
+    <div class="cms-dxp-content-item aem-GridColumn aem-GridColumn--default--12">
+
+ <div>
+	<dxp-content-item data-theme="dxp-theme-light-grey" data-designmode="dxp-content-item" content-type="content-image-text" header-type="image" image-shape="rectangle" preload="false" nocookie="false" play-icon-bottom-left="false" animation="none" animation-duration="2" orientation="vertical" content-item-type="media-on-top" headerline="false" indentation="false" profile-image="false" size="md" profile-image-shape="circle" profile-image-position="left" eyebrow-text="NEWS" category-target="false" heading-level="h3" content-item-title="Sustainable consumption will stimulate sustainable production" content-item-title-target="false" badge-text-position="Left" description-target="false" position-of-media="Left" src="/content/dam/public/mastercardcom/na/us/en/homepage/Home/young-man-shopping-in-supermarket-1280x720.jpg" fetchpriority="auto,auto" caption-position="bottom-left" alt="Young man shopping in supermarket" content-id="dxp-content-item-UlqYE" aria-label="Young man shopping in supermarket" open-in-new-tab="false" cover="false" use-focalpoint="false" focalpoint="," alt-image-src="," alt-image-src-lg="," alt-image-src-md="," alt-image-src-sm="," alt-image-mime-type="," responsive="true" lazyload="false" shape="circle" prop-override="," animation-config="," type="youtube" disable-controls="false" custom-mute-button="false" custom-mute-button-position="top-right" muted-video="false" autoplay="false" icon-type="light" height-type="large" show-more-button="false" cta-type="button">
+	<script>
+	if (document.readyState !== 'loading') {
+		var dxpSelector = document.querySelector("[content-id = dxp-content-item-"+"UlqYE]"); 
+		if (dxpSelector) { 
+			dxpSelector.ctaData=  [{"title-style":"dxp-title-md","orientation":"vertical","ctaList":[{"link-type":"dxp-btn-external-link","mail":"false","tooltip-placement":"bottom","open-in-new-tab":"true","type":"link","align-icon":"left","button-type":"primary","size":"md","block-button":"false","open-modal-on-click":"false","is-internal-link":"false","disabled":"false","dtm-cta-title":"Sustainable consumption will stimulate sustainable production","href":"https://www.mastercard.com/news/perspectives/2023/sustainable-consumption-will-stimulate-sustainable-production/","text":"Learn more","aria-label":"Learn more (opens in a new window)"}]}],
+			dxpSelector.actionList=  null
+		}
+	} else {
+		document.addEventListener("DOMContentLoaded", function() {
+		var dxpSelector = document.querySelector("[content-id = dxp-content-item-"+"UlqYE]"); 
+		if (dxpSelector) { 
+			dxpSelector.ctaData=  [{"title-style":"dxp-title-md","orientation":"vertical","ctaList":[{"link-type":"dxp-btn-external-link","mail":"false","tooltip-placement":"bottom","open-in-new-tab":"true","type":"link","align-icon":"left","button-type":"primary","size":"md","block-button":"false","open-modal-on-click":"false","is-internal-link":"false","disabled":"false","dtm-cta-title":"Sustainable consumption will stimulate sustainable production","href":"https://www.mastercard.com/news/perspectives/2023/sustainable-consumption-will-stimulate-sustainable-production/","text":"Learn more","aria-label":"Learn more (opens in a new window)"}]}],
+			dxpSelector.actionList=  null
+		}
+		});
+	}
+	</script>
+
+	</dxp-content-item>
+</div>
+</div>
+<div class="cms-dxp-content-item aem-GridColumn aem-GridColumn--default--12">
+
+ <div>
+	<dxp-content-item data-theme="dxp-theme-light-grey" data-designmode="dxp-content-item" content-type="content-image-text" header-type="image" image-shape="rectangle" preload="false" nocookie="false" play-icon-bottom-left="false" animation="none" animation-duration="3" orientation="vertical" content-item-type="media-on-top" headerline="false" indentation="false" profile-image="false" size="md" profile-image-shape="circle" profile-image-position="left" eyebrow-text="NEWS" category-target="false" heading-level="h3" content-item-title="Why medical billing fraud hurts our wallets&amp;nbsp;â and harms our health" content-item-title-target="false" badge-text-position="Left" description-target="false" position-of-media="Left" src="/content/dam/public/mastercardcom/na/us/en/homepage/Home/man-with-prosthetic-leg-writing-1280x720.jpg" fetchpriority="high,high" caption-position="bottom-left" alt="Man with prosthetic leg writing a note" content-id="dxp-content-item-t62zT" aria-label="Man with prosthetic leg writing a note" open-in-new-tab="false" cover="false" use-focalpoint="false" focalpoint="," alt-image-src="," alt-image-src-lg="," alt-image-src-md="," alt-image-src-sm="," alt-image-mime-type="," responsive="true" lazyload="false" shape="rectangle" prop-override="," animation-config="," type="youtube" disable-controls="false" custom-mute-button="false" custom-mute-button-position="top-right" muted-video="false" autoplay="false" icon-type="light" height-type="large" show-more-button="false" cta-type="button">
+	<script>
+	if (document.readyState !== 'loading') {
+		var dxpSelector = document.querySelector("[content-id = dxp-content-item-"+"t62zT]"); 
+		if (dxpSelector) { 
+			dxpSelector.ctaData=  [{"title-style":"dxp-title-md","orientation":"vertical","ctaList":[{"link-type":"dxp-btn-external-link","mail":"false","tooltip-placement":"bottom","open-in-new-tab":"true","type":"link","align-icon":"left","button-type":"primary","size":"md","block-button":"false","open-modal-on-click":"false","is-internal-link":"false","disabled":"false","dtm-cta-title":"Why medical billing fraud hurts our wallets â and harms our health","href":"https://www.mastercard.com/news/perspectives/2023/why-medical-billing-fraud-hurts-our-wallets-and-harms-our-health/","text":"Learn more","aria-label":"Learn more (opens in a new window)"}]}],
+			dxpSelector.actionList=  null
+		}
+	} else {
+		document.addEventListener("DOMContentLoaded", function() {
+		var dxpSelector = document.querySelector("[content-id = dxp-content-item-"+"t62zT]"); 
+		if (dxpSelector) { 
+			dxpSelector.ctaData=  [{"title-style":"dxp-title-md","orientation":"vertical","ctaList":[{"link-type":"dxp-btn-external-link","mail":"false","tooltip-placement":"bottom","open-in-new-tab":"true","type":"link","align-icon":"left","button-type":"primary","size":"md","block-button":"false","open-modal-on-click":"false","is-internal-link":"false","disabled":"false","dtm-cta-title":"Why medical billing fraud hurts our wallets â and harms our health","href":"https://www.mastercard.com/news/perspectives/2023/why-medical-billing-fraud-hurts-our-wallets-and-harms-our-health/","text":"Learn more","aria-label":"Learn more (opens in a new window)"}]}],
+			dxpSelector.actionList=  null
+		}
+		});
+	}
+	</script>
+
+	</dxp-content-item>
+</div>
+</div>
+<div class="cms-dxp-content-item aem-GridColumn aem-GridColumn--default--12">
+
+ <div>
+	<dxp-content-item data-theme="dxp-theme-light-grey" data-designmode="dxp-content-item" content-type="content-image-text" header-type="image" image-shape="rectangle" preload="false" nocookie="false" play-icon-bottom-left="false" animation="none" animation-duration="4" orientation="vertical" content-item-type="media-on-top" headerline="false" indentation="false" profile-image="false" size="md" profile-image-shape="circle" profile-image-position="left" eyebrow-text="NEWS" category-target="false" heading-level="h3" content-item-title="In Atlanta, making data work harder to mint opportunities for&amp;nbsp;all" content-item-title-target="false" badge-text-position="Left" description-target="false" position-of-media="Left" src="/content/dam/public/mastercardcom/na/us/en/homepage/Home/atlanta-city-view-1280x720.jpg" fetchpriority="high,high" caption-position="bottom-left" alt="Atlanta city view" content-id="dxp-content-item-YCSxe" aria-label="Atlanta city view" open-in-new-tab="false" cover="false" use-focalpoint="false" focalpoint="," alt-image-src="," alt-image-src-lg="," alt-image-src-md="," alt-image-src-sm="," alt-image-mime-type="," responsive="true" lazyload="false" shape="rectangle" prop-override="," animation-config="," type="youtube" disable-controls="false" custom-mute-button="false" custom-mute-button-position="top-right" muted-video="false" autoplay="false" icon-type="light" height-type="large" show-more-button="false" cta-type="button">
+	<script>
+	if (document.readyState !== 'loading') {
+		var dxpSelector = document.querySelector("[content-id = dxp-content-item-"+"YCSxe]"); 
+		if (dxpSelector) { 
+			dxpSelector.ctaData=  [{"title-style":"dxp-title-md","orientation":"vertical","ctaList":[{"link-type":"dxp-btn-external-link","mail":"false","tooltip-placement":"bottom","open-in-new-tab":"true","type":"link","align-icon":"left","button-type":"primary","size":"md","block-button":"false","open-modal-on-click":"false","is-internal-link":"false","disabled":"false","dtm-cta-title":"In Atlanta, making data work harder to mint opportunities for all","href":"https://www.mastercard.com/news/perspectives/2023/in-atlanta-making-data-work-harder-to-mint-opportunities-for-all/","text":"Learn more","aria-label":"Learn more (opens in a new window)"}]}],
+			dxpSelector.actionList=  null
+		}
+	} else {
+		document.addEventListener("DOMContentLoaded", function() {
+		var dxpSelector = document.querySelector("[content-id = dxp-content-item-"+"YCSxe]"); 
+		if (dxpSelector) { 
+			dxpSelector.ctaData=  [{"title-style":"dxp-title-md","orientation":"vertical","ctaList":[{"link-type":"dxp-btn-external-link","mail":"false","tooltip-placement":"bottom","open-in-new-tab":"true","type":"link","align-icon":"left","button-type":"primary","size":"md","block-button":"false","open-modal-on-click":"false","is-internal-link":"false","disabled":"false","dtm-cta-title":"In Atlanta, making data work harder to mint opportunities for all","href":"https://www.mastercard.com/news/perspectives/2023/in-atlanta-making-data-work-harder-to-mint-opportunities-for-all/","text":"Learn more","aria-label":"Learn more (opens in a new window)"}]}],
+			dxpSelector.actionList=  null
+		}
+		});
+	}
+	</script>
+
+	</dxp-content-item>
+</div>
+</div>
+
+    
+</div>
+</div>
+	
+	
+	<dxp-cta-list slot="cta-list" title-style="dxp-title-md" orientation="vertical" content-id="dxp-cta-list-z3TfQ">
+	<script>
+	if (document.readyState !== 'loading') {
+		var dxpSelector = document.querySelector("[content-id = dxp-cta-list-"+"z3TfQ]"); 
+		if (dxpSelector) { 
+			dxpSelector.ctaList=  null
+		}
+	} else {
+		document.addEventListener("DOMContentLoaded", function() {
+		var dxpSelector = document.querySelector("[content-id = dxp-cta-list-"+"z3TfQ]"); 
+		if (dxpSelector) { 
+			dxpSelector.ctaList=  null
+		}
+		});
+	}
+	</script>
+</dxp-cta-list>
+	
+	</dxp-content-item-grid>
+</div>
+</div>
+
+    
+</div>
+</div>
+	</dxp-flex-layout-item>
+	
+	</dxp-flex-layout>
+</div>
+</div>
+
+    
+</div>
+</div>
+<div class="footer-ipar iparsys parsys"><div class="cms-dxp-flex-layout section">
+
+ <div>
+	<dxp-flex-layout data-theme="dxp-theme-rich-grey" data-designmode="dxp-flex-layout" column-reverse="false">
+	
+	
+	<dxp-flex-layout-item slot="column-1" column-width-sm="12" column-width-md="12" column-width-lg="12" column-width-xl="12">
+	<div>
+
+
+<div class="aem-Grid aem-Grid--12 aem-Grid--default--12 ">
+    
+    <div class="cms-dxp-breadcrumb aem-GridColumn aem-GridColumn--default--12">
+
+<div class="dxp-container"> 
+	<dxp-breadcrumb data-theme="dxp-theme-rich-grey" data-designmode="dxp-breadcrumb" api-url="https://asset.mastercard.com/content/mastercardcom/us/en.dxppagesdata.json" root-site-path="/en-us" hide-current-page="false" show-hidden-nav-items="true">
+	</dxp-breadcrumb>
+</div>
+</div>
+
+    
+</div>
+</div>
+	</dxp-flex-layout-item>
+	
+	</dxp-flex-layout>
+</div>
+</div>
+<div class="cms-dxp-flex-layout section">
+
+ <div>
+	<dxp-flex-layout data-theme="dxp-theme-black" data-designmode="dxp-flex-layout" column-reverse="false">
+	
+	
+	<dxp-flex-layout-item slot="column-1" repeat-background="false" background-image-position="center" column-width-sm="12" column-width-md="12" column-width-lg="12" column-width-xl="12">
+	<div>
+
+
+<div class="aem-Grid aem-Grid--12 aem-Grid--default--12 ">
+    
+    <div class="cms-dxp-footer aem-GridColumn aem-GridColumn--default--12">
+
+<div class="dxp-container"> 
+	<dxp-footer data-theme="dxp-theme-black" data-designmode="dxp-footer" logo="true" show-accessibility-icon="false" quicklinks="false" contentlist="true" emailsubscription="false" footerlinks="true" sociallinks="true" countrylanguageselector="true" show-partner-logos="false" copyright="true" is-internal-link="false" content-id="dxp-footer-RL9VY" partner-logo-alignment="left" subscription-alignment="left">
+	
+	<script>
+	if (document.readyState !== 'loading') {
+		var dxpSelector = document.querySelector("[content-id = dxp-footer-"+"RL9VY]"); 
+		if (dxpSelector) { 
+			dxpSelector.contentListData=  [{"headerSize":"dxp-eyebrow-lg","orientation":"horizontal","showMoreText":"Show More","showMoreNumber":"4","showLessText":"Show Less","contentListItems":[{"subtitle":"Who we are","href":"https://www.mastercard.us/en-us/vision/who-we-are.html","target":"false","ariaLabel":"Who we are"},{"subtitle":"Careers","href":"https://careers.mastercard.com/us/en","target":"false","ariaLabel":"Careers"},{"subtitle":"Newsroom","href":"https://www.mastercard.com/news/","target":"true","ariaLabel":"Newsroom (opens in new tab)"},{"subtitle":"Investor Relations","href":"https://investor.mastercard.com/overview/default.aspx","target":"true","ariaLabel":"Investor relations (opens in new tab)"},{"subtitle":"Binding Corporate Rules","href":"https://www.mastercard.us/content/dam/mccom/global/documents/mastercard-bcrs.pdf","target":"true","ariaLabel":"Binding Corporate Rules (opens in new tab)"},{"subtitle":"Do Not Sell My Personal Information","dtmContentListTitle":"Do not sell my personal information","href":"https://privacyrequests.ekata.com/hc/en-us","target":"true","ariaLabel":"Do not sell my personal information"},{"subtitle":"California Privacy Notice","dtmContentListTitle":"California Privacy Notice","href":"https://www.mastercard.us/en-us/vision/corp-responsibility/commitment-to-privacy/privacy.html#addendum","target":"true","ariaLabel":"California Privacy Notice"}],"titleText":"COMPANY","is-internal-link":"false","target":"false"},{"headerSize":"dxp-eyebrow-lg","orientation":"horizontal","showMoreText":"Show More","showMoreNumber":"6","showLessText":"Show Less","contentListItems":[{"subtitle":"Mastercard Data \u0026 Services","href":"https://www.mastercardservices.com/en","target":"true","ariaLabel":"Mastercard Data \u0026 Services (opens in new tab)"},{"subtitle":"Mastercard Brand Center","href":"https://brand.mastercard.com/brandcenter.html","target":"true","ariaLabel":"Mastercard Brand Center (opens in new tab)"},{"subtitle":"Mastercard Marketing Center","href":"https://marketingcenter.mastercard.com/portal/registration/login.aspx?ReturnUrl\u003d%2Fportal%2F","target":"true","ariaLabel":"Mastercard Marketing Center (opens in new tab)"},{"subtitle":"Mastercard Developers","href":"https://developer.mastercard.com","target":"true","ariaLabel":"Mastercard Developers (opens in new tab)"},{"subtitle":"Priceless.com","href":"https://www.priceless.com/","target":"true","ariaLabel":"Priceless.com (opens in new tab)"},{"subtitle":"Center for Inclusive Growth","dtmContentListTitle":"Center for Inclusive Growth","href":"https://www.mastercardcenter.org/","target":"true","ariaLabel":"Center for Inclusive Growth (opens in new tab)"}],"titleText":"MASTERCARD SITES","is-internal-link":"false","target":"false"}],
+			dxpSelector.partnerLogos=  null
+		}
+	} else {
+		document.addEventListener("DOMContentLoaded", function() {
+		var dxpSelector = document.querySelector("[content-id = dxp-footer-"+"RL9VY]"); 
+		if (dxpSelector) { 
+			dxpSelector.contentListData=  [{"headerSize":"dxp-eyebrow-lg","orientation":"horizontal","showMoreText":"Show More","showMoreNumber":"4","showLessText":"Show Less","contentListItems":[{"subtitle":"Who we are","href":"https://www.mastercard.us/en-us/vision/who-we-are.html","target":"false","ariaLabel":"Who we are"},{"subtitle":"Careers","href":"https://careers.mastercard.com/us/en","target":"false","ariaLabel":"Careers"},{"subtitle":"Newsroom","href":"https://www.mastercard.com/news/","target":"true","ariaLabel":"Newsroom (opens in new tab)"},{"subtitle":"Investor Relations","href":"https://investor.mastercard.com/overview/default.aspx","target":"true","ariaLabel":"Investor relations (opens in new tab)"},{"subtitle":"Binding Corporate Rules","href":"https://www.mastercard.us/content/dam/mccom/global/documents/mastercard-bcrs.pdf","target":"true","ariaLabel":"Binding Corporate Rules (opens in new tab)"},{"subtitle":"Do Not Sell My Personal Information","dtmContentListTitle":"Do not sell my personal information","href":"https://privacyrequests.ekata.com/hc/en-us","target":"true","ariaLabel":"Do not sell my personal information"},{"subtitle":"California Privacy Notice","dtmContentListTitle":"California Privacy Notice","href":"https://www.mastercard.us/en-us/vision/corp-responsibility/commitment-to-privacy/privacy.html#addendum","target":"true","ariaLabel":"California Privacy Notice"}],"titleText":"COMPANY","is-internal-link":"false","target":"false"},{"headerSize":"dxp-eyebrow-lg","orientation":"horizontal","showMoreText":"Show More","showMoreNumber":"6","showLessText":"Show Less","contentListItems":[{"subtitle":"Mastercard Data \u0026 Services","href":"https://www.mastercardservices.com/en","target":"true","ariaLabel":"Mastercard Data \u0026 Services (opens in new tab)"},{"subtitle":"Mastercard Brand Center","href":"https://brand.mastercard.com/brandcenter.html","target":"true","ariaLabel":"Mastercard Brand Center (opens in new tab)"},{"subtitle":"Mastercard Marketing Center","href":"https://marketingcenter.mastercard.com/portal/registration/login.aspx?ReturnUrl\u003d%2Fportal%2F","target":"true","ariaLabel":"Mastercard Marketing Center (opens in new tab)"},{"subtitle":"Mastercard Developers","href":"https://developer.mastercard.com","target":"true","ariaLabel":"Mastercard Developers (opens in new tab)"},{"subtitle":"Priceless.com","href":"https://www.priceless.com/","target":"true","ariaLabel":"Priceless.com (opens in new tab)"},{"subtitle":"Center for Inclusive Growth","dtmContentListTitle":"Center for Inclusive Growth","href":"https://www.mastercardcenter.org/","target":"true","ariaLabel":"Center for Inclusive Growth (opens in new tab)"}],"titleText":"MASTERCARD SITES","is-internal-link":"false","target":"false"}],
+			dxpSelector.partnerLogos=  null
+		}
+		});
+	}
+	</script>
+<dxp-logo slot="logo" src="/content/dam/public/mastercardcom/na/us/en/homepage/Home/mc-logo-52.svg" src-sm="/content/dam/public/mastercardcom/na/us/en/homepage/Home/mc-logo-52.svg" logo-title="MC LOGO" alt="MC LOGO" is-internal-link="false" target="false" schema-type="organization">
+	<dxp-logo target="false"></dxp-logo>
+	</dxp-logo>
+	
+	
+	<dxp-cta-list slot="cta-list" title-text="Need help? Weâre always here when you need us" title-style="dxp-title-sm" orientation="vertical" content-id="dxp-cta-list-sZcax">
+	<script>
+	if (document.readyState !== 'loading') {
+		var dxpSelector = document.querySelector("[content-id = dxp-cta-list-"+"sZcax]"); 
+		if (dxpSelector) { 
+			dxpSelector.ctaList=  [{"link-type":"dxp-btn-custom-link","mail":"false","src":"/content/dam/public/mastercardcom/mea/za/icons/support-icon-24.svg","tooltip-placement":"bottom","open-in-new-tab":"false","alt":"Get Support","type":"link","accent-color":"#b1ada6","align-icon":"left","button-type":"primary","size":"md","block-button":"false","open-modal-on-click":"false","is-internal-link":"false","disabled":"false","dtm-cta-title":"Get Support","href":"https://www.mastercard.us/en-us/personal/get-support.html","text":"Get Support","aria-label":"Get Support"},{"link-type":"dxp-btn-custom-link","mail":"false","src":"/content/dam/public/mastercardcom/mea/za/icons/card-icon-24.svg","tooltip-placement":"bottom","open-in-new-tab":"true","alt":"Report a lost or stolen card (opens in new tab)","type":"link","accent-color":"#b1ada6","align-icon":"left","button-type":"primary","size":"md","block-button":"false","open-modal-on-click":"false","is-internal-link":"false","disabled":"false","dtm-cta-title":"Report a lost or stolen card","href":"https://www.mastercard.us/content/dam/mccom/global/documents/global-services-phone-numbers.pdf","text":"Report a lost or stolen card","aria-label":"Report a lost or stolen card (opens in new tab)"},{"link-type":"dxp-btn-custom-link","mail":"false","src":"/content/dam/public/mastercardcom/mea/za/icons/findatm-icon-24.svg","tooltip-placement":"bottom","open-in-new-tab":"false","alt":"Find ATM","type":"link","accent-color":"#b1ada6","align-icon":"left","button-type":"primary","size":"md","block-button":"false","open-modal-on-click":"false","is-internal-link":"false","disabled":"false","dtm-cta-title":"Find ATM","href":"https://www.mastercard.us/en-us/personal/get-support/find-nearest-atm.html","text":"Find ATM","aria-label":"Find ATM"},{"link-type":"dxp-btn-custom-link","mail":"false","src":"/content/dam/public/mastercardcom/na/us/en/homepage/Home/faq-icon.svg","tooltip-placement":"bottom","open-in-new-tab":"false","alt":"FAQs icon","type":"link","accent-color":"#b1ada6","align-icon":"left","button-type":"primary","size":"md","block-button":"false","open-modal-on-click":"false","is-internal-link":"false","disabled":"false","dtm-cta-title":"FAQs","href":"https://www.mastercard.us/en-us/frequently-asked-questions.html","text":"FAQs","aria-label":"FAQs"}]
+		}
+	} else {
+		document.addEventListener("DOMContentLoaded", function() {
+		var dxpSelector = document.querySelector("[content-id = dxp-cta-list-"+"sZcax]"); 
+		if (dxpSelector) { 
+			dxpSelector.ctaList=  [{"link-type":"dxp-btn-custom-link","mail":"false","src":"/content/dam/public/mastercardcom/mea/za/icons/support-icon-24.svg","tooltip-placement":"bottom","open-in-new-tab":"false","alt":"Get Support","type":"link","accent-color":"#b1ada6","align-icon":"left","button-type":"primary","size":"md","block-button":"false","open-modal-on-click":"false","is-internal-link":"false","disabled":"false","dtm-cta-title":"Get Support","href":"https://www.mastercard.us/en-us/personal/get-support.html","text":"Get Support","aria-label":"Get Support"},{"link-type":"dxp-btn-custom-link","mail":"false","src":"/content/dam/public/mastercardcom/mea/za/icons/card-icon-24.svg","tooltip-placement":"bottom","open-in-new-tab":"true","alt":"Report a lost or stolen card (opens in new tab)","type":"link","accent-color":"#b1ada6","align-icon":"left","button-type":"primary","size":"md","block-button":"false","open-modal-on-click":"false","is-internal-link":"false","disabled":"false","dtm-cta-title":"Report a lost or stolen card","href":"https://www.mastercard.us/content/dam/mccom/global/documents/global-services-phone-numbers.pdf","text":"Report a lost or stolen card","aria-label":"Report a lost or stolen card (opens in new tab)"},{"link-type":"dxp-btn-custom-link","mail":"false","src":"/content/dam/public/mastercardcom/mea/za/icons/findatm-icon-24.svg","tooltip-placement":"bottom","open-in-new-tab":"false","alt":"Find ATM","type":"link","accent-color":"#b1ada6","align-icon":"left","button-type":"primary","size":"md","block-button":"false","open-modal-on-click":"false","is-internal-link":"false","disabled":"false","dtm-cta-title":"Find ATM","href":"https://www.mastercard.us/en-us/personal/get-support/find-nearest-atm.html","text":"Find ATM","aria-label":"Find ATM"},{"link-type":"dxp-btn-custom-link","mail":"false","src":"/content/dam/public/mastercardcom/na/us/en/homepage/Home/faq-icon.svg","tooltip-placement":"bottom","open-in-new-tab":"false","alt":"FAQs icon","type":"link","accent-color":"#b1ada6","align-icon":"left","button-type":"primary","size":"md","block-button":"false","open-modal-on-click":"false","is-internal-link":"false","disabled":"false","dtm-cta-title":"FAQs","href":"https://www.mastercard.us/en-us/frequently-asked-questions.html","text":"FAQs","aria-label":"FAQs"}]
+		}
+		});
+	}
+	</script>
+</dxp-cta-list>
+	
+	
+	<dxp-content-list slot="content-link-list" header-size="dxp-eyebrow-lg" is-internal-link="false" orientation="horizontal" target="false" content-id="dxp-content-list-13ydU">
+	<script>
+	if (document.readyState !== 'loading') {
+		var dxpSelector = document.querySelector("[content-id = dxp-content-list-"+"13ydU]"); 
+		if (dxpSelector) { 
+			dxpSelector.contentListItems=  [{"subtitle":"Privacy","dtmContentListTitle":"Privacy","href":"https://www.mastercard.us/en-us/vision/corp-responsibility/commitment-to-privacy/privacy.html","target":"false","ariaLabel":"Privacy"},{"subtitle":"Terms","dtmContentListTitle":"Terms","href":"https://www.mastercard.us/en-us/vision/who-we-are/terms-of-use.html","target":"false","ariaLabel":"Terms"},{"subtitle":"Site map","dtmContentListTitle":"Site map","href":"https://www.mastercard.us/en-us/sitemap.html","target":"false","ariaLabel":"Site map"}]
+		}
+	} else {
+		document.addEventListener("DOMContentLoaded", function() {
+		var dxpSelector = document.querySelector("[content-id = dxp-content-list-"+"13ydU]"); 
+		if (dxpSelector) { 
+			dxpSelector.contentListItems=  [{"subtitle":"Privacy","dtmContentListTitle":"Privacy","href":"https://www.mastercard.us/en-us/vision/corp-responsibility/commitment-to-privacy/privacy.html","target":"false","ariaLabel":"Privacy"},{"subtitle":"Terms","dtmContentListTitle":"Terms","href":"https://www.mastercard.us/en-us/vision/who-we-are/terms-of-use.html","target":"false","ariaLabel":"Terms"},{"subtitle":"Site map","dtmContentListTitle":"Site map","href":"https://www.mastercard.us/en-us/sitemap.html","target":"false","ariaLabel":"Site map"}]
+		}
+		});
+	}
+	</script>
+</dxp-content-list>
+	
+	
+	
+	
+	<dxp-social-links slot="social-links" type="follow" orientation="horizontal" content-id="dxp-social-links-X4aZ2">
+	<script>
+	if (document.readyState !== 'loading') {
+		var dxpSelector = document.querySelector("[content-id = dxp-social-links-"+"X4aZ2]"); 
+		if (dxpSelector) { 
+			dxpSelector.socialLinksItems=  [{"alt":"LinkedIn (opens in new tab)","channel":"linkedin","social-title":"LinkedIn","dtmSocialLinkItemTitle":"linkedin","is-internal-link":"false","href":"http://www.linkedin.com/company/mastercard","target":"true"},{"alt":"Facebook (opens in new tab)","channel":"facebook","social-title":"Facebook","dtmSocialLinkItemTitle":"facebook","is-internal-link":"false","href":"https://www.facebook.com/MasterCardUS?brand_redir\u003d1","target":"true"},{"alt":"Twitter (opens in new tab)","channel":"twitter","social-title":"Twitter","dtmSocialLinkItemTitle":"twitter","is-internal-link":"false","href":"https://twitter.com/mastercardnews","target":"true"},{"alt":"YouTube (opens in new tab)","channel":"youtube","social-title":"YouTube","dtmSocialLinkItemTitle":"youtube","is-internal-link":"false","href":"http://www.youtube.com/user/MasterCard","target":"true"}],
+			dxpSelector.socialShareItems=  null
+		}
+	} else {
+		document.addEventListener("DOMContentLoaded", function() {
+		var dxpSelector = document.querySelector("[content-id = dxp-social-links-"+"X4aZ2]"); 
+		if (dxpSelector) { 
+			dxpSelector.socialLinksItems=  [{"alt":"LinkedIn (opens in new tab)","channel":"linkedin","social-title":"LinkedIn","dtmSocialLinkItemTitle":"linkedin","is-internal-link":"false","href":"http://www.linkedin.com/company/mastercard","target":"true"},{"alt":"Facebook (opens in new tab)","channel":"facebook","social-title":"Facebook","dtmSocialLinkItemTitle":"facebook","is-internal-link":"false","href":"https://www.facebook.com/MasterCardUS?brand_redir\u003d1","target":"true"},{"alt":"Twitter (opens in new tab)","channel":"twitter","social-title":"Twitter","dtmSocialLinkItemTitle":"twitter","is-internal-link":"false","href":"https://twitter.com/mastercardnews","target":"true"},{"alt":"YouTube (opens in new tab)","channel":"youtube","social-title":"YouTube","dtmSocialLinkItemTitle":"youtube","is-internal-link":"false","href":"http://www.youtube.com/user/MasterCard","target":"true"}],
+			dxpSelector.socialShareItems=  null
+		}
+		});
+	}
+	</script>
+</dxp-social-links>
+	<dxp-country-language-selector slot="country-language-selector" api-url="https://asset.mastercard.com/content/meta/public/admin/mastercardcom/us/en/regiontest1.dxpregionlang.json" target-url="/content/mastercardcom/us/en/country-and-language-selector.html" is-internal-link="false" accessibility-text="Country Language Selector"></dxp-country-language-selector>
+	<dxp-copyright slot="copyright" text="Â© 1994-2023 Mastercard. "></dxp-copyright>
+	
+	</dxp-footer>
+</div>
+</div>
+
+    
+</div>
+</div>
+	</dxp-flex-layout-item>
+	
+	</dxp-flex-layout>
+</div>
+</div>
+<div class="section"><div class="new"></div>
+</div><div class="iparys_inherited"><div class="footer-ipar iparsys parsys"></div>
+</div>
+</div>
+
+</div>
+
+<script>
+	document.getElementsByClassName('content-par')[0].setAttribute('id', 'content');
+
+	var bannerCarousels = document.querySelectorAll('dxp-banner-carousel');
+	for (var j = 0; j < bannerCarousels.length; j++) {
+		var child = bannerCarousels[j].querySelectorAll('dxp-banner');
+		for (var i = 0; i < child.length; i++) {
+			bannerCarousels[j].appendChild(child[i]);
+		}
+	}
+
+	window.onload = function () {
+		var ogUrl = document.body.querySelector('meta[property="og:url"]');
+		if (ogUrl) {
+			ogUrl.setAttribute("content", window.location.href);
+		}
+
+		var ogImage = document.body.querySelector('meta[property="og:image"]');
+		if (ogImage) {
+			var imgUrl = window.location.protocol + '//' + window.location.hostname + ogImage.getAttribute('content');
+			ogImage.setAttribute("content", imgUrl);
+		}
+
+		var twitterSiteTag = document.body.querySelector('meta[name="twitter:site"]');
+		if (twitterSiteTag) {
+			twitterSiteTag.setAttribute("content", window.location.href);
+		}
+
+		var twitterImgTag = document.body.querySelector('meta[name="twitter:image"]');
+		if (twitterImgTag) {
+			var twitterImgUrl = window.location.protocol + '//' + window.location.hostname + twitterImgTag.getAttribute('content');
+			twitterImgTag.setAttribute("content", twitterImgUrl);
+		}
+	}
+</script>
+
+
+
+
+	<!-- OneTrust Cookies Settings button start -->
+	<button id="ot-sdk-btn" class="ot-sdk-show-settings">
+		Manage Cookies</button>
+	<!-- OneTrust Cookies Settings button end -->
+
+	<style>
+		#ot-sdk-btn.ot-sdk-show-settings,
+		#ot-sdk-btn.optanon-show-settings {
+			float: right;
+			color: #141413;
+			border-radius: 4px;
+			font-family: "MarkForMC", -apple-system, system-ui, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+			border: 1px solid #141413;
+			height: auto;
+			white-space: normal;
+			word-wrap: break-word;
+			padding: .8em 2em;
+			font-size: .8em;
+			line-height: 1.2;
+			cursor: pointer;
+			-moz-transition: .1s ease;
+			-o-transition: .1s ease;
+			-webkit-transition: 1s ease;
+			transition: .1s ease;
+		}
+
+		.ot-sdk-show-settings {
+			right: 0;
+			z-index: 1;
+			position: fixed;
+			bottom: 0;
+		}
+
+		#ot-sdk-btn.ot-sdk-show-settings:hover,
+		#ot-sdk-btn.optanon-show-settings:hover {
+			color: #fff;
+			background-color: #cf4500;
+		}
+	</style>
+
+
+    
+    
+<input type="hidden" id="dtm-programName" value="US"/>
+<input type="hidden" id="dtm-pagename" value="en"/>
+<input type="hidden" id="dtm-jcrlang" value="en_us"/>
+<input type="hidden" id="dtm-regionsName" value="NAM"/>
+<input type="hidden" id="dtm-siteType" value="corporate:regional"/>
+ <input type="hidden" id="dtm-contentType" value="Homepage"/>
+
+ <input type="hidden" id="dtm-pageTitle" value="Mastercard - A Global Technology Company in The Payments Industry"/> 
+<input type="hidden" id="dtm-loginType" value="guest"/>
+<input type="hidden" id="dtm-pageType" value="B2C"/>
+<input type="hidden" id="enSiteSection1"/>
+<input type="hidden" id="enSiteSection2"/>
+<input type="hidden" id="cluster"/>
+<input type="hidden" id="globalPage"/>
+
+<script>
+	var programName = document.getElementById('dtm-programName') != null ? document.getElementById('dtm-programName').value : "";
+	var pageName = document.getElementById('dtm-pagename') != null ? document.getElementById('dtm-pagename').value : "";
+	var jcrLang = document.getElementById('dtm-jcrlang') != null ? document.getElementById('dtm-jcrlang').value : "";
+	var regionsNames = document.getElementById('dtm-regionsName') != null ? document.getElementById('dtm-regionsName').value : "";
+	var countryCode = "";
+	var region = "";
+	var locale = "";
+	var siteSection = "";
+	var siteType = document.getElementById('dtm-siteType') != null ? document.getElementById('dtm-siteType').value : "";
+	var contentType = document.getElementById('dtm-contentType') != null && document.getElementById('dtm-contentType').value != undefined ?
+							document.getElementById('dtm-contentType').value : "";
+	var pageTitle = document.getElementById('dtm-pageTitle') != null ? document.getElementById('dtm-pageTitle').value : "";
+	var pageType = document.getElementById('dtm-pageType') != null ? document.getElementById('dtm-pageType').value : "";
+	var loginType = document.getElementById('dtm-loginType') != null ? document.getElementById('dtm-loginType').value : "";
+	var hierarchy = window.location.pathname.indexOf('.html') > -1 ? window.location.pathname
+			.split('.html')[0]
+			: '';
+	var siteSection1 = "";
+	var siteSection2 = "";
+	var siteSection3 = "";
+	var en_siteSection1 = document.getElementById('enSiteSection1') != null ? document.getElementById('enSiteSection1').value : "";
+	var en_siteSection2 = document.getElementById('enSiteSection2') != null ? document.getElementById('enSiteSection2').value : "";
+	var cluster = document.getElementById('cluster') != null ? document.getElementById('cluster').value : "";
+	var globalPage = document.getElementById('globalPage') != null ? document.getElementById('globalPage').value : "";
+
+	if (jcrLang != "" && jcrLang.indexOf('_') > -1) {
+		countryCode = jcrLang.split('_')[1].toUpperCase();
+		locale = jcrLang.replace('_', '-');
+	}
+
+	if (programName != "") {
+		siteSection = "MasterCard : " + programName;
+	}
+
+	if (hierarchy != "" && hierarchy.indexOf('/') > -1) {
+		siteSection1 = hierarchy.split('/')[1];
+		siteSection2 = hierarchy.split('/')[2] != undefined
+				&& hierarchy.split('/').length > 1 ? hierarchy.split('/')[2]
+				: "";
+		siteSection3 = hierarchy.split('/')[3] != undefined
+				&& hierarchy.split('/').length > 2 ? hierarchy.split('/')[3]
+				: "";
+		hierarchy = hierarchy.split('/').join('|');
+		hierarchy = hierarchy.substring(hierarchy.indexOf('|') + 1);
+	}
+
+	var di = {};
+	di = {
+		pageName : pageName,
+		country : countryCode,
+		region : regionsNames,
+		language : locale,
+		siteName : siteSection,
+		siteType : siteType,
+		contentType : contentType,
+		pageType : pageType,
+		pageTitle : pageTitle,
+		pageURL : window.location.href,
+		loginType : loginType,
+		hierarchy : hierarchy,
+		siteSection1 : siteSection1,
+		siteSection2 : siteSection2,
+		siteSection3 : siteSection3,
+		en_siteSection1: en_siteSection1,
+		en_siteSection2: en_siteSection2,
+		cluster: cluster,
+		globalPage: globalPage
+	};
+</script>
+    
+
+
+<script type="text/javascript"  src="/A3bF-dR4uwm3DcS0ZWJO/3fLYDkQccGhi/FTgSUDs/P3QdARY/nRBAB"></script></body>
+</html>

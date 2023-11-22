@@ -1,0 +1,1228 @@
+<!DOCTYPE html>
+<html lang="en-US">
+<head><meta charset="UTF-8"><script>if(navigator.userAgent.match(/MSIE|Internet Explorer/i)||navigator.userAgent.match(/Trident\/7\..*?rv:11/i)){var href=document.location.href;if(!href.match(/[?&]nowprocket/)){if(href.indexOf("?")==-1){if(href.indexOf("#")==-1){document.location.href=href+"?nowprocket=1"}else{document.location.href=href.replace("#","?nowprocket=1#")}}else{if(href.indexOf("#")==-1){document.location.href=href+"&nowprocket=1"}else{document.location.href=href.replace("#","&nowprocket=1#")}}}}</script><script>class RocketLazyLoadScripts{constructor(){this.v="1.2.3",this.triggerEvents=["keydown","mousedown","mousemove","touchmove","touchstart","touchend","wheel"],this.userEventHandler=this._triggerListener.bind(this),this.touchStartHandler=this._onTouchStart.bind(this),this.touchMoveHandler=this._onTouchMove.bind(this),this.touchEndHandler=this._onTouchEnd.bind(this),this.clickHandler=this._onClick.bind(this),this.interceptedClicks=[],window.addEventListener("pageshow",t=>{this.persisted=t.persisted}),window.addEventListener("DOMContentLoaded",()=>{this._preconnect3rdParties()}),this.delayedScripts={normal:[],async:[],defer:[]},this.trash=[],this.allJQueries=[]}_addUserInteractionListener(t){if(document.hidden){t._triggerListener();return}this.triggerEvents.forEach(e=>window.addEventListener(e,t.userEventHandler,{passive:!0})),window.addEventListener("touchstart",t.touchStartHandler,{passive:!0}),window.addEventListener("mousedown",t.touchStartHandler),document.addEventListener("visibilitychange",t.userEventHandler)}_removeUserInteractionListener(){this.triggerEvents.forEach(t=>window.removeEventListener(t,this.userEventHandler,{passive:!0})),document.removeEventListener("visibilitychange",this.userEventHandler)}_onTouchStart(t){"HTML"!==t.target.tagName&&(window.addEventListener("touchend",this.touchEndHandler),window.addEventListener("mouseup",this.touchEndHandler),window.addEventListener("touchmove",this.touchMoveHandler,{passive:!0}),window.addEventListener("mousemove",this.touchMoveHandler),t.target.addEventListener("click",this.clickHandler),this._renameDOMAttribute(t.target,"onclick","rocket-onclick"),this._pendingClickStarted())}_onTouchMove(t){window.removeEventListener("touchend",this.touchEndHandler),window.removeEventListener("mouseup",this.touchEndHandler),window.removeEventListener("touchmove",this.touchMoveHandler,{passive:!0}),window.removeEventListener("mousemove",this.touchMoveHandler),t.target.removeEventListener("click",this.clickHandler),this._renameDOMAttribute(t.target,"rocket-onclick","onclick"),this._pendingClickFinished()}_onTouchEnd(t){window.removeEventListener("touchend",this.touchEndHandler),window.removeEventListener("mouseup",this.touchEndHandler),window.removeEventListener("touchmove",this.touchMoveHandler,{passive:!0}),window.removeEventListener("mousemove",this.touchMoveHandler)}_onClick(t){t.target.removeEventListener("click",this.clickHandler),this._renameDOMAttribute(t.target,"rocket-onclick","onclick"),this.interceptedClicks.push(t),t.preventDefault(),t.stopPropagation(),t.stopImmediatePropagation(),this._pendingClickFinished()}_replayClicks(){window.removeEventListener("touchstart",this.touchStartHandler,{passive:!0}),window.removeEventListener("mousedown",this.touchStartHandler),this.interceptedClicks.forEach(t=>{t.target.dispatchEvent(new MouseEvent("click",{view:t.view,bubbles:!0,cancelable:!0}))})}_waitForPendingClicks(){return new Promise(t=>{this._isClickPending?this._pendingClickFinished=t:t()})}_pendingClickStarted(){this._isClickPending=!0}_pendingClickFinished(){this._isClickPending=!1}_renameDOMAttribute(t,e,r){t.hasAttribute&&t.hasAttribute(e)&&(event.target.setAttribute(r,event.target.getAttribute(e)),event.target.removeAttribute(e))}_triggerListener(){this._removeUserInteractionListener(this),"loading"===document.readyState?document.addEventListener("DOMContentLoaded",this._loadEverythingNow.bind(this)):this._loadEverythingNow()}_preconnect3rdParties(){let t=[];document.querySelectorAll("script[type=rocketlazyloadscript]").forEach(e=>{if(e.hasAttribute("src")){let r=new URL(e.src).origin;r!==location.origin&&t.push({src:r,crossOrigin:e.crossOrigin||"module"===e.getAttribute("data-rocket-type")})}}),t=[...new Map(t.map(t=>[JSON.stringify(t),t])).values()],this._batchInjectResourceHints(t,"preconnect")}async _loadEverythingNow(){this.lastBreath=Date.now(),this._delayEventListeners(this),this._delayJQueryReady(this),this._handleDocumentWrite(),this._registerAllDelayedScripts(),this._preloadAllScripts(),await this._loadScriptsFromList(this.delayedScripts.normal),await this._loadScriptsFromList(this.delayedScripts.defer),await this._loadScriptsFromList(this.delayedScripts.async);try{await this._triggerDOMContentLoaded(),await this._triggerWindowLoad()}catch(t){console.error(t)}window.dispatchEvent(new Event("rocket-allScriptsLoaded")),this._waitForPendingClicks().then(()=>{this._replayClicks()}),this._emptyTrash()}_registerAllDelayedScripts(){document.querySelectorAll("script[type=rocketlazyloadscript]").forEach(t=>{t.hasAttribute("data-rocket-src")?t.hasAttribute("async")&&!1!==t.async?this.delayedScripts.async.push(t):t.hasAttribute("defer")&&!1!==t.defer||"module"===t.getAttribute("data-rocket-type")?this.delayedScripts.defer.push(t):this.delayedScripts.normal.push(t):this.delayedScripts.normal.push(t)})}async _transformScript(t){return new Promise((await this._littleBreath(),navigator.userAgent.indexOf("Firefox/")>0||""===navigator.vendor)?e=>{let r=document.createElement("script");[...t.attributes].forEach(t=>{let e=t.nodeName;"type"!==e&&("data-rocket-type"===e&&(e="type"),"data-rocket-src"===e&&(e="src"),r.setAttribute(e,t.nodeValue))}),t.text&&(r.text=t.text),r.hasAttribute("src")?(r.addEventListener("load",e),r.addEventListener("error",e)):(r.text=t.text,e());try{t.parentNode.replaceChild(r,t)}catch(i){e()}}:async e=>{function r(){t.setAttribute("data-rocket-status","failed"),e()}try{let i=t.getAttribute("data-rocket-type"),n=t.getAttribute("data-rocket-src");t.text,i?(t.type=i,t.removeAttribute("data-rocket-type")):t.removeAttribute("type"),t.addEventListener("load",function r(){t.setAttribute("data-rocket-status","executed"),e()}),t.addEventListener("error",r),n?(t.removeAttribute("data-rocket-src"),t.src=n):t.src="data:text/javascript;base64,"+window.btoa(unescape(encodeURIComponent(t.text)))}catch(s){r()}})}async _loadScriptsFromList(t){let e=t.shift();return e&&e.isConnected?(await this._transformScript(e),this._loadScriptsFromList(t)):Promise.resolve()}_preloadAllScripts(){this._batchInjectResourceHints([...this.delayedScripts.normal,...this.delayedScripts.defer,...this.delayedScripts.async],"preload")}_batchInjectResourceHints(t,e){var r=document.createDocumentFragment();t.forEach(t=>{let i=t.getAttribute&&t.getAttribute("data-rocket-src")||t.src;if(i){let n=document.createElement("link");n.href=i,n.rel=e,"preconnect"!==e&&(n.as="script"),t.getAttribute&&"module"===t.getAttribute("data-rocket-type")&&(n.crossOrigin=!0),t.crossOrigin&&(n.crossOrigin=t.crossOrigin),t.integrity&&(n.integrity=t.integrity),r.appendChild(n),this.trash.push(n)}}),document.head.appendChild(r)}_delayEventListeners(t){let e={};function r(t,r){!function t(r){!e[r]&&(e[r]={originalFunctions:{add:r.addEventListener,remove:r.removeEventListener},eventsToRewrite:[]},r.addEventListener=function(){arguments[0]=i(arguments[0]),e[r].originalFunctions.add.apply(r,arguments)},r.removeEventListener=function(){arguments[0]=i(arguments[0]),e[r].originalFunctions.remove.apply(r,arguments)});function i(t){return e[r].eventsToRewrite.indexOf(t)>=0?"rocket-"+t:t}}(t),e[t].eventsToRewrite.push(r)}function i(t,e){let r=t[e];Object.defineProperty(t,e,{get:()=>r||function(){},set(i){t["rocket"+e]=r=i}})}r(document,"DOMContentLoaded"),r(window,"DOMContentLoaded"),r(window,"load"),r(window,"pageshow"),r(document,"readystatechange"),i(document,"onreadystatechange"),i(window,"onload"),i(window,"onpageshow")}_delayJQueryReady(t){let e;function r(r){if(r&&r.fn&&!t.allJQueries.includes(r)){r.fn.ready=r.fn.init.prototype.ready=function(e){return t.domReadyFired?e.bind(document)(r):document.addEventListener("rocket-DOMContentLoaded",()=>e.bind(document)(r)),r([])};let i=r.fn.on;r.fn.on=r.fn.init.prototype.on=function(){if(this[0]===window){function t(t){return t.split(" ").map(t=>"load"===t||0===t.indexOf("load.")?"rocket-jquery-load":t).join(" ")}"string"==typeof arguments[0]||arguments[0]instanceof String?arguments[0]=t(arguments[0]):"object"==typeof arguments[0]&&Object.keys(arguments[0]).forEach(e=>{let r=arguments[0][e];delete arguments[0][e],arguments[0][t(e)]=r})}return i.apply(this,arguments),this},t.allJQueries.push(r)}e=r}r(window.jQuery),Object.defineProperty(window,"jQuery",{get:()=>e,set(t){r(t)}})}async _triggerDOMContentLoaded(){this.domReadyFired=!0,await this._littleBreath(),document.dispatchEvent(new Event("rocket-DOMContentLoaded")),await this._littleBreath(),window.dispatchEvent(new Event("rocket-DOMContentLoaded")),await this._littleBreath(),document.dispatchEvent(new Event("rocket-readystatechange")),await this._littleBreath(),document.rocketonreadystatechange&&document.rocketonreadystatechange()}async _triggerWindowLoad(){await this._littleBreath(),window.dispatchEvent(new Event("rocket-load")),await this._littleBreath(),window.rocketonload&&window.rocketonload(),await this._littleBreath(),this.allJQueries.forEach(t=>t(window).trigger("rocket-jquery-load")),await this._littleBreath();let t=new Event("rocket-pageshow");t.persisted=this.persisted,window.dispatchEvent(t),await this._littleBreath(),window.rocketonpageshow&&window.rocketonpageshow({persisted:this.persisted})}_handleDocumentWrite(){let t=new Map;document.write=document.writeln=function(e){let r=document.currentScript;r||console.error("WPRocket unable to document.write this: "+e);let i=document.createRange(),n=r.parentElement,s=t.get(r);void 0===s&&(s=r.nextSibling,t.set(r,s));let a=document.createDocumentFragment();i.setStart(a,0),a.appendChild(i.createContextualFragment(e)),n.insertBefore(a,s)}}async _littleBreath(){Date.now()-this.lastBreath>45&&(await this._requestAnimFrame(),this.lastBreath=Date.now())}async _requestAnimFrame(){return document.hidden?new Promise(t=>setTimeout(t)):new Promise(t=>requestAnimationFrame(t))}_emptyTrash(){this.trash.forEach(t=>t.remove())}static run(){let t=new RocketLazyLoadScripts;t._addUserInteractionListener(t)}}RocketLazyLoadScripts.run();</script>
+
+<meta content="IE=edge" http-equiv="X-UA-Compatible">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="profile" href="https://gmpg.org/xfn/11">
+<link rel="pingback" href="https://www.free-power-point-templates.com/xmlrpc.php">
+
+<meta http-equiv="x-dns-prefetch-control" content="on">
+<link rel='dns-prefetch' href='//cdn.free-power-point-templates.com' />
+<link rel='dns-prefetch' href='//googleads.g.doubleclick.net' />
+
+
+<script type="rocketlazyloadscript" data-minify="1" async data-rocket-src="https://cdn.free-power-point-templates.com/wp-content/cache/min/1/tag/js/gpt.js?ver=1700061154"></script>
+<script type="rocketlazyloadscript" data-rocket-type="text/javascript">window.googletag=window.googletag||{};window.googletag.cmd=window.googletag.cmd||[];
+window.googletag.cmd.push(function(){window.__onpageGptEmbed=(new Date()).getTime()})</script>
+<meta name='robots' content='index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1' />
+
+            <script type='text/javascript' src='//c.pubguru.net/m2d.fppt.homepage.js' async='async' id='m2d-js'></script>
+            
+	<!-- This site is optimized with the Yoast SEO plugin v20.12 - https://yoast.com/wordpress/plugins/seo/ -->
+	<title>17,435+ Free PowerPoint Templates and Slides by FPPT.com</title>
+	<meta name="description" content="&quot;Wow!&quot; your audience with free presentation templates. Download free PowerPoint templates and PowerPoint backgrounds to deliver your next presentations (timelines, roadmap, diagrams and more)." />
+	<link rel="canonical" href="https://www.free-power-point-templates.com/" />
+	<link rel="next" href="https://www.free-power-point-templates.com/page/2/" />
+	<meta property="og:locale" content="en_US" />
+	<meta property="og:type" content="website" />
+	<meta property="og:title" content="Free PowerPoint Templates" />
+	<meta property="og:description" content="&quot;Wow!&quot; your audience with free presentation templates. Download free PowerPoint templates and PowerPoint backgrounds to deliver your next presentations (timelines, roadmap, diagrams and more)." />
+	<meta property="og:url" content="https://www.free-power-point-templates.com/" />
+	<meta property="og:site_name" content="Free PowerPoint Templates" />
+	<meta name="twitter:card" content="summary_large_image" />
+	<meta name="twitter:site" content="@freepowerpoint" />
+	<script type="application/ld+json" class="yoast-schema-graph">{"@context":"https://schema.org","@graph":[{"@type":"CollectionPage","@id":"https://www.free-power-point-templates.com/","url":"https://www.free-power-point-templates.com/","name":"17,435+ Free PowerPoint Templates and Slides by FPPT.com","isPartOf":{"@id":"https://www.free-power-point-templates.com/#website"},"about":{"@id":"https://www.free-power-point-templates.com/#organization"},"description":"\"Wow!\" your audience with free presentation templates. Download free PowerPoint templates and PowerPoint backgrounds to deliver your next presentations (timelines, roadmap, diagrams and more).","breadcrumb":{"@id":"https://www.free-power-point-templates.com/#breadcrumb"},"inLanguage":"en-US"},{"@type":"BreadcrumbList","@id":"https://www.free-power-point-templates.com/#breadcrumb","itemListElement":[{"@type":"ListItem","position":1,"name":"Free PowerPoint Templates"}]},{"@type":"WebSite","@id":"https://www.free-power-point-templates.com/#website","url":"https://www.free-power-point-templates.com/","name":"Free PowerPoint Templates","description":"PowerPoint Templates","publisher":{"@id":"https://www.free-power-point-templates.com/#organization"},"potentialAction":[{"@type":"SearchAction","target":{"@type":"EntryPoint","urlTemplate":"https://www.free-power-point-templates.com/?s={search_term_string}"},"query-input":"required name=search_term_string"}],"inLanguage":"en-US"},{"@type":"Organization","@id":"https://www.free-power-point-templates.com/#organization","name":"FPPT","url":"https://www.free-power-point-templates.com/","logo":{"@type":"ImageObject","url":"https://cdn.free-power-point-templates.com/images/logo.png","width":220,"height":220},"image":"https://cdn.free-power-point-templates.com/images/office.jpg","sameAs":["https://twitter.com/freepowerpoint"],"foundingDate":"2008","alternateName":"FPPT.com"}]}</script>
+	<!-- / Yoast SEO plugin. -->
+
+
+<link rel='dns-prefetch' href='//cdn.free-power-point-templates.com' />
+
+<link href='https://cdn.free-power-point-templates.com' rel='preconnect' />
+<link rel='stylesheet' id='classic-theme-styles-css' href='https://cdn.free-power-point-templates.com/wp-includes/css/classic-themes.min.css?ver=6.2.3' type='text/css' media='all' />
+<style id='global-styles-inline-css' type='text/css'>
+body{--wp--preset--color--black: #000000;--wp--preset--color--cyan-bluish-gray: #abb8c3;--wp--preset--color--white: #ffffff;--wp--preset--color--pale-pink: #f78da7;--wp--preset--color--vivid-red: #cf2e2e;--wp--preset--color--luminous-vivid-orange: #ff6900;--wp--preset--color--luminous-vivid-amber: #fcb900;--wp--preset--color--light-green-cyan: #7bdcb5;--wp--preset--color--vivid-green-cyan: #00d084;--wp--preset--color--pale-cyan-blue: #8ed1fc;--wp--preset--color--vivid-cyan-blue: #0693e3;--wp--preset--color--vivid-purple: #9b51e0;--wp--preset--gradient--vivid-cyan-blue-to-vivid-purple: linear-gradient(135deg,rgba(6,147,227,1) 0%,rgb(155,81,224) 100%);--wp--preset--gradient--light-green-cyan-to-vivid-green-cyan: linear-gradient(135deg,rgb(122,220,180) 0%,rgb(0,208,130) 100%);--wp--preset--gradient--luminous-vivid-amber-to-luminous-vivid-orange: linear-gradient(135deg,rgba(252,185,0,1) 0%,rgba(255,105,0,1) 100%);--wp--preset--gradient--luminous-vivid-orange-to-vivid-red: linear-gradient(135deg,rgba(255,105,0,1) 0%,rgb(207,46,46) 100%);--wp--preset--gradient--very-light-gray-to-cyan-bluish-gray: linear-gradient(135deg,rgb(238,238,238) 0%,rgb(169,184,195) 100%);--wp--preset--gradient--cool-to-warm-spectrum: linear-gradient(135deg,rgb(74,234,220) 0%,rgb(151,120,209) 20%,rgb(207,42,186) 40%,rgb(238,44,130) 60%,rgb(251,105,98) 80%,rgb(254,248,76) 100%);--wp--preset--gradient--blush-light-purple: linear-gradient(135deg,rgb(255,206,236) 0%,rgb(152,150,240) 100%);--wp--preset--gradient--blush-bordeaux: linear-gradient(135deg,rgb(254,205,165) 0%,rgb(254,45,45) 50%,rgb(107,0,62) 100%);--wp--preset--gradient--luminous-dusk: linear-gradient(135deg,rgb(255,203,112) 0%,rgb(199,81,192) 50%,rgb(65,88,208) 100%);--wp--preset--gradient--pale-ocean: linear-gradient(135deg,rgb(255,245,203) 0%,rgb(182,227,212) 50%,rgb(51,167,181) 100%);--wp--preset--gradient--electric-grass: linear-gradient(135deg,rgb(202,248,128) 0%,rgb(113,206,126) 100%);--wp--preset--gradient--midnight: linear-gradient(135deg,rgb(2,3,129) 0%,rgb(40,116,252) 100%);--wp--preset--duotone--dark-grayscale: url('#wp-duotone-dark-grayscale');--wp--preset--duotone--grayscale: url('#wp-duotone-grayscale');--wp--preset--duotone--purple-yellow: url('#wp-duotone-purple-yellow');--wp--preset--duotone--blue-red: url('#wp-duotone-blue-red');--wp--preset--duotone--midnight: url('#wp-duotone-midnight');--wp--preset--duotone--magenta-yellow: url('#wp-duotone-magenta-yellow');--wp--preset--duotone--purple-green: url('#wp-duotone-purple-green');--wp--preset--duotone--blue-orange: url('#wp-duotone-blue-orange');--wp--preset--font-size--small: 13px;--wp--preset--font-size--medium: 20px;--wp--preset--font-size--large: 36px;--wp--preset--font-size--x-large: 42px;--wp--preset--spacing--20: 0.44rem;--wp--preset--spacing--30: 0.67rem;--wp--preset--spacing--40: 1rem;--wp--preset--spacing--50: 1.5rem;--wp--preset--spacing--60: 2.25rem;--wp--preset--spacing--70: 3.38rem;--wp--preset--spacing--80: 5.06rem;--wp--preset--shadow--natural: 6px 6px 9px rgba(0, 0, 0, 0.2);--wp--preset--shadow--deep: 12px 12px 50px rgba(0, 0, 0, 0.4);--wp--preset--shadow--sharp: 6px 6px 0px rgba(0, 0, 0, 0.2);--wp--preset--shadow--outlined: 6px 6px 0px -3px rgba(255, 255, 255, 1), 6px 6px rgba(0, 0, 0, 1);--wp--preset--shadow--crisp: 6px 6px 0px rgba(0, 0, 0, 1);}:where(.is-layout-flex){gap: 0.5em;}body .is-layout-flow > .alignleft{float: left;margin-inline-start: 0;margin-inline-end: 2em;}body .is-layout-flow > .alignright{float: right;margin-inline-start: 2em;margin-inline-end: 0;}body .is-layout-flow > .aligncenter{margin-left: auto !important;margin-right: auto !important;}body .is-layout-constrained > .alignleft{float: left;margin-inline-start: 0;margin-inline-end: 2em;}body .is-layout-constrained > .alignright{float: right;margin-inline-start: 2em;margin-inline-end: 0;}body .is-layout-constrained > .aligncenter{margin-left: auto !important;margin-right: auto !important;}body .is-layout-constrained > :where(:not(.alignleft):not(.alignright):not(.alignfull)){max-width: var(--wp--style--global--content-size);margin-left: auto !important;margin-right: auto !important;}body .is-layout-constrained > .alignwide{max-width: var(--wp--style--global--wide-size);}body .is-layout-flex{display: flex;}body .is-layout-flex{flex-wrap: wrap;align-items: center;}body .is-layout-flex > *{margin: 0;}:where(.wp-block-columns.is-layout-flex){gap: 2em;}.has-black-color{color: var(--wp--preset--color--black) !important;}.has-cyan-bluish-gray-color{color: var(--wp--preset--color--cyan-bluish-gray) !important;}.has-white-color{color: var(--wp--preset--color--white) !important;}.has-pale-pink-color{color: var(--wp--preset--color--pale-pink) !important;}.has-vivid-red-color{color: var(--wp--preset--color--vivid-red) !important;}.has-luminous-vivid-orange-color{color: var(--wp--preset--color--luminous-vivid-orange) !important;}.has-luminous-vivid-amber-color{color: var(--wp--preset--color--luminous-vivid-amber) !important;}.has-light-green-cyan-color{color: var(--wp--preset--color--light-green-cyan) !important;}.has-vivid-green-cyan-color{color: var(--wp--preset--color--vivid-green-cyan) !important;}.has-pale-cyan-blue-color{color: var(--wp--preset--color--pale-cyan-blue) !important;}.has-vivid-cyan-blue-color{color: var(--wp--preset--color--vivid-cyan-blue) !important;}.has-vivid-purple-color{color: var(--wp--preset--color--vivid-purple) !important;}.has-black-background-color{background-color: var(--wp--preset--color--black) !important;}.has-cyan-bluish-gray-background-color{background-color: var(--wp--preset--color--cyan-bluish-gray) !important;}.has-white-background-color{background-color: var(--wp--preset--color--white) !important;}.has-pale-pink-background-color{background-color: var(--wp--preset--color--pale-pink) !important;}.has-vivid-red-background-color{background-color: var(--wp--preset--color--vivid-red) !important;}.has-luminous-vivid-orange-background-color{background-color: var(--wp--preset--color--luminous-vivid-orange) !important;}.has-luminous-vivid-amber-background-color{background-color: var(--wp--preset--color--luminous-vivid-amber) !important;}.has-light-green-cyan-background-color{background-color: var(--wp--preset--color--light-green-cyan) !important;}.has-vivid-green-cyan-background-color{background-color: var(--wp--preset--color--vivid-green-cyan) !important;}.has-pale-cyan-blue-background-color{background-color: var(--wp--preset--color--pale-cyan-blue) !important;}.has-vivid-cyan-blue-background-color{background-color: var(--wp--preset--color--vivid-cyan-blue) !important;}.has-vivid-purple-background-color{background-color: var(--wp--preset--color--vivid-purple) !important;}.has-black-border-color{border-color: var(--wp--preset--color--black) !important;}.has-cyan-bluish-gray-border-color{border-color: var(--wp--preset--color--cyan-bluish-gray) !important;}.has-white-border-color{border-color: var(--wp--preset--color--white) !important;}.has-pale-pink-border-color{border-color: var(--wp--preset--color--pale-pink) !important;}.has-vivid-red-border-color{border-color: var(--wp--preset--color--vivid-red) !important;}.has-luminous-vivid-orange-border-color{border-color: var(--wp--preset--color--luminous-vivid-orange) !important;}.has-luminous-vivid-amber-border-color{border-color: var(--wp--preset--color--luminous-vivid-amber) !important;}.has-light-green-cyan-border-color{border-color: var(--wp--preset--color--light-green-cyan) !important;}.has-vivid-green-cyan-border-color{border-color: var(--wp--preset--color--vivid-green-cyan) !important;}.has-pale-cyan-blue-border-color{border-color: var(--wp--preset--color--pale-cyan-blue) !important;}.has-vivid-cyan-blue-border-color{border-color: var(--wp--preset--color--vivid-cyan-blue) !important;}.has-vivid-purple-border-color{border-color: var(--wp--preset--color--vivid-purple) !important;}.has-vivid-cyan-blue-to-vivid-purple-gradient-background{background: var(--wp--preset--gradient--vivid-cyan-blue-to-vivid-purple) !important;}.has-light-green-cyan-to-vivid-green-cyan-gradient-background{background: var(--wp--preset--gradient--light-green-cyan-to-vivid-green-cyan) !important;}.has-luminous-vivid-amber-to-luminous-vivid-orange-gradient-background{background: var(--wp--preset--gradient--luminous-vivid-amber-to-luminous-vivid-orange) !important;}.has-luminous-vivid-orange-to-vivid-red-gradient-background{background: var(--wp--preset--gradient--luminous-vivid-orange-to-vivid-red) !important;}.has-very-light-gray-to-cyan-bluish-gray-gradient-background{background: var(--wp--preset--gradient--very-light-gray-to-cyan-bluish-gray) !important;}.has-cool-to-warm-spectrum-gradient-background{background: var(--wp--preset--gradient--cool-to-warm-spectrum) !important;}.has-blush-light-purple-gradient-background{background: var(--wp--preset--gradient--blush-light-purple) !important;}.has-blush-bordeaux-gradient-background{background: var(--wp--preset--gradient--blush-bordeaux) !important;}.has-luminous-dusk-gradient-background{background: var(--wp--preset--gradient--luminous-dusk) !important;}.has-pale-ocean-gradient-background{background: var(--wp--preset--gradient--pale-ocean) !important;}.has-electric-grass-gradient-background{background: var(--wp--preset--gradient--electric-grass) !important;}.has-midnight-gradient-background{background: var(--wp--preset--gradient--midnight) !important;}.has-small-font-size{font-size: var(--wp--preset--font-size--small) !important;}.has-medium-font-size{font-size: var(--wp--preset--font-size--medium) !important;}.has-large-font-size{font-size: var(--wp--preset--font-size--large) !important;}.has-x-large-font-size{font-size: var(--wp--preset--font-size--x-large) !important;}
+.wp-block-navigation a:where(:not(.wp-element-button)){color: inherit;}
+:where(.wp-block-columns.is-layout-flex){gap: 2em;}
+.wp-block-pullquote{font-size: 1.5em;line-height: 1.6;}
+</style>
+<link rel='stylesheet' id='wp-downloadmanager-css' href='https://cdn.free-power-point-templates.com/wp-content/plugins/wp-downloadmanager/download-css.css?ver=1.68.8' type='text/css' media='all' />
+<link rel='stylesheet' id='fppt-2017-style-css' href='https://cdn.free-power-point-templates.com/wp-content/themes/fppt-2017/style.css' type='text/css' media='all' />
+<link rel='stylesheet' id='fppt-2017-style-temp-css' href='https://www.free-power-point-templates.com/wp-content/themes/fppt-2017/style-custom.css?ver=20230126' type='text/css' media='all' />
+<style id='rocket-lazyload-inline-css' type='text/css'>
+.rll-youtube-player{position:relative;padding-bottom:56.23%;height:0;overflow:hidden;max-width:100%;}.rll-youtube-player:focus-within{outline: 2px solid currentColor;outline-offset: 5px;}.rll-youtube-player iframe{position:absolute;top:0;left:0;width:100%;height:100%;z-index:100;background:0 0}.rll-youtube-player img{bottom:0;display:block;left:0;margin:auto;max-width:100%;width:100%;position:absolute;right:0;top:0;border:none;height:auto;-webkit-transition:.4s all;-moz-transition:.4s all;transition:.4s all}.rll-youtube-player img:hover{-webkit-filter:brightness(75%)}.rll-youtube-player .play{height:100%;width:100%;left:0;top:0;position:absolute;background:url(https://cdn.free-power-point-templates.com/wp-content/plugins/wp-rocket/assets/img/youtube.png) no-repeat center;background-color: transparent !important;cursor:pointer;border:none;}
+</style>
+<script type="rocketlazyloadscript" data-rocket-type="text/javascript">
+            window._nslDOMReady = function (callback) {
+                if ( document.readyState === "complete" || document.readyState === "interactive" ) {
+                    callback();
+                } else {
+                    document.addEventListener( "DOMContentLoaded", callback );
+                }
+            };
+            </script><script type="rocketlazyloadscript" data-rocket-type='text/javascript' data-rocket-src='https://cdn.free-power-point-templates.com/wp-content/themes/fppt-2017/js/jquery.min.js' id='jquery-js'></script>
+<script type="rocketlazyloadscript" data-rocket-type="text/javascript">
+window.pg=window.pg||[];pg.acq=pg.acq||[];
+pg.acq.push(function() {
+  pg.loadJS("https://www.googletagmanager.com/gtag/js?id=G-4KY34KKYRZ");
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-4KY34KKYRZ');
+});
+</script>    	
+    	<link rel="shortcut icon" href="https://www.free-power-point-templates.com/images/favicon.png"/>
+    
+	<style type="text/css">.broken_link, a.broken_link {
+	text-decoration: line-through;
+}</style><link rel="amphtml" href="https://www.free-power-point-templates.com/?amp"><script type="rocketlazyloadscript" data-rocket-type="text/javascript">window.google_analytics_uacct = "pub-3801513653062757";</script>
+<script type="rocketlazyloadscript" data-rocket-type="text/javascript">
+    var analyticsFileTypes = ['zip','ppt','pptx'];
+    var analyticsSnippet = 'disabled';
+    var analyticsEventTracking = 'enabled';
+</script>
+<script type="rocketlazyloadscript" data-rocket-type="text/javascript">
+window.pg=window.pg||[];pg.acq=pg.acq||[];
+		pg.acq.push(function() {	(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+	(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+	m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+	})(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+	ga('create', 'UA-596721-13', 'auto');
+ 
+	ga('send', 'pageview');
+		var fppt_u = 'Guest';
+		ga('set', 'dimension1', fppt_u);
+		
+		}); // end consent</script>
+<style type="text/css">div.nsl-container[data-align="left"] {
+    text-align: left;
+}
+
+div.nsl-container[data-align="center"] {
+    text-align: center;
+}
+
+div.nsl-container[data-align="right"] {
+    text-align: right;
+}
+
+
+div.nsl-container div.nsl-container-buttons a[data-plugin="nsl"] {
+    text-decoration: none;
+    box-shadow: none;
+    border: 0;
+}
+
+div.nsl-container .nsl-container-buttons {
+    display: flex;
+    padding: 5px 0;
+}
+
+div.nsl-container.nsl-container-block .nsl-container-buttons {
+    display: inline-grid;
+    grid-template-columns: minmax(145px, auto);
+}
+
+div.nsl-container-block-fullwidth .nsl-container-buttons {
+    flex-flow: column;
+    align-items: center;
+}
+
+div.nsl-container-block-fullwidth .nsl-container-buttons a,
+div.nsl-container-block .nsl-container-buttons a {
+    flex: 1 1 auto;
+    display: block;
+    margin: 5px 0;
+    width: 100%;
+}
+
+div.nsl-container-inline {
+    margin: -5px;
+    text-align: left;
+}
+
+div.nsl-container-inline .nsl-container-buttons {
+    justify-content: center;
+    flex-wrap: wrap;
+}
+
+div.nsl-container-inline .nsl-container-buttons a {
+    margin: 5px;
+    display: inline-block;
+}
+
+div.nsl-container-grid .nsl-container-buttons {
+    flex-flow: row;
+    align-items: center;
+    flex-wrap: wrap;
+}
+
+div.nsl-container-grid .nsl-container-buttons a {
+    flex: 1 1 auto;
+    display: block;
+    margin: 5px;
+    max-width: 280px;
+    width: 100%;
+}
+
+@media only screen and (min-width: 650px) {
+    div.nsl-container-grid .nsl-container-buttons a {
+        width: auto;
+    }
+}
+
+div.nsl-container .nsl-button {
+    cursor: pointer;
+    vertical-align: top;
+    border-radius: 4px;
+}
+
+div.nsl-container .nsl-button-default {
+    color: #fff;
+    display: flex;
+}
+
+div.nsl-container .nsl-button-icon {
+    display: inline-block;
+}
+
+div.nsl-container .nsl-button-svg-container {
+    flex: 0 0 auto;
+    padding: 8px;
+    display: flex;
+    align-items: center;
+}
+
+div.nsl-container svg {
+    height: 24px;
+    width: 24px;
+    vertical-align: top;
+}
+
+div.nsl-container .nsl-button-default div.nsl-button-label-container {
+    margin: 0 24px 0 12px;
+    padding: 10px 0;
+    font-family: Helvetica, Arial, sans-serif;
+    font-size: 16px;
+    line-height: 20px;
+    letter-spacing: .25px;
+    overflow: hidden;
+    text-align: center;
+    text-overflow: clip;
+    white-space: nowrap;
+    flex: 1 1 auto;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    text-transform: none;
+    display: inline-block;
+}
+
+div.nsl-container .nsl-button-google[data-skin="dark"] .nsl-button-svg-container {
+    margin: 1px;
+    padding: 7px;
+    border-radius: 3px;
+    background: #fff;
+}
+
+div.nsl-container .nsl-button-google[data-skin="light"] {
+    border-radius: 1px;
+    box-shadow: 0 1px 5px 0 rgba(0, 0, 0, .25);
+    color: RGBA(0, 0, 0, 0.54);
+}
+
+div.nsl-container .nsl-button-apple .nsl-button-svg-container {
+    padding: 0 6px;
+}
+
+div.nsl-container .nsl-button-apple .nsl-button-svg-container svg {
+    height: 40px;
+    width: auto;
+}
+
+div.nsl-container .nsl-button-apple[data-skin="light"] {
+    color: #000;
+    box-shadow: 0 0 0 1px #000;
+}
+
+div.nsl-container .nsl-button-facebook[data-skin="white"] {
+    color: #000;
+    box-shadow: inset 0 0 0 1px #000;
+}
+
+div.nsl-container .nsl-button-facebook[data-skin="light"] {
+    color: #1877F2;
+    box-shadow: inset 0 0 0 1px #1877F2;
+}
+
+div.nsl-container .nsl-button-apple div.nsl-button-label-container {
+    font-size: 17px;
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
+}
+
+div.nsl-container .nsl-button-slack div.nsl-button-label-container {
+    font-size: 17px;
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
+}
+
+div.nsl-container .nsl-button-slack[data-skin="light"] {
+    color: #000000;
+    box-shadow: inset 0 0 0 1px #DDDDDD;
+}
+
+div.nsl-container .nsl-button-tiktok[data-skin="light"] {
+    color: #161823;
+    box-shadow: 0 0 0 1px rgba(22, 24, 35, 0.12);
+}
+
+.nsl-clear {
+    clear: both;
+}
+
+.nsl-container {
+    clear: both;
+}
+
+/*Button align start*/
+
+div.nsl-container-inline[data-align="left"] .nsl-container-buttons {
+    justify-content: flex-start;
+}
+
+div.nsl-container-inline[data-align="center"] .nsl-container-buttons {
+    justify-content: center;
+}
+
+div.nsl-container-inline[data-align="right"] .nsl-container-buttons {
+    justify-content: flex-end;
+}
+
+
+div.nsl-container-grid[data-align="left"] .nsl-container-buttons {
+    justify-content: flex-start;
+}
+
+div.nsl-container-grid[data-align="center"] .nsl-container-buttons {
+    justify-content: center;
+}
+
+div.nsl-container-grid[data-align="right"] .nsl-container-buttons {
+    justify-content: flex-end;
+}
+
+div.nsl-container-grid[data-align="space-around"] .nsl-container-buttons {
+    justify-content: space-around;
+}
+
+div.nsl-container-grid[data-align="space-between"] .nsl-container-buttons {
+    justify-content: space-between;
+}
+
+/* Button align end*/
+
+/* Redirect */
+
+#nsl-redirect-overlay {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    position: fixed;
+    z-index: 1000000;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    backdrop-filter: blur(1px);
+    background-color: RGBA(0, 0, 0, .32);;
+}
+
+#nsl-redirect-overlay-container {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    background-color: white;
+    padding: 30px;
+    border-radius: 10px;
+}
+
+#nsl-redirect-overlay-spinner {
+    content: '';
+    display: block;
+    margin: 20px;
+    border: 9px solid RGBA(0, 0, 0, .6);
+    border-top: 9px solid #fff;
+    border-radius: 50%;
+    box-shadow: inset 0 0 0 1px RGBA(0, 0, 0, .6), 0 0 0 1px RGBA(0, 0, 0, .6);
+    width: 40px;
+    height: 40px;
+    animation: nsl-loader-spin 2s linear infinite;
+}
+
+@keyframes nsl-loader-spin {
+    0% {
+        transform: rotate(0deg)
+    }
+    to {
+        transform: rotate(360deg)
+    }
+}
+
+#nsl-redirect-overlay-title {
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen-Sans, Ubuntu, Cantarell, "Helvetica Neue", sans-serif;
+    font-size: 18px;
+    font-weight: bold;
+    color: #3C434A;
+}
+
+#nsl-redirect-overlay-text {
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen-Sans, Ubuntu, Cantarell, "Helvetica Neue", sans-serif;
+    text-align: center;
+    font-size: 14px;
+    color: #3C434A;
+}
+
+/* Redirect END*/</style><style id="kirki-inline-styles"></style><noscript><style id="rocket-lazyload-nojs-css">.rll-youtube-player, [data-lazy-src]{display:none !important;}</style></noscript>
+
+<link rel="prefetch" href="https://cdn.free-power-point-templates.com/wp-content/themes/fppt-2017/img/free-powerpoint-templates.png">
+
+
+	
+	
+	<!-- Global site tag (gtag.js) - Google Ads: 759732138 --> <script type="rocketlazyloadscript" async data-rocket-src="https://www.googletagmanager.com/gtag/js?id=AW-759732138"></script> <script type="rocketlazyloadscript"> window.dataLayer = window.dataLayer || []; function gtag(){dataLayer.push(arguments);} gtag('js', new Date()); gtag('config', 'AW-759732138'); </script>	
+</head>
+
+<body data-rsssl=1 class="home blog group-blog hfeed no-breadcrumbs">
+<div id="page" class="site">
+	<a class="skip-link screen-reader-text" href="#content">Skip to content</a>
+
+	<header id="masthead" class="top">
+		<div class="container">
+
+			<div class="site-branding" itemscope itemtype="http://schema.org/Organization">
+								<h1 class="site-title">
+					<a href="https://www.free-power-point-templates.com/" class="branding" rel="home" itemprop="url">
+												<img itemprop="logo" src="data:image/svg+xml,%3Csvg%20xmlns='http://www.w3.org/2000/svg'%20viewBox='0%200%200%200'%3E%3C/svg%3E" alt="Free PowerPoint Templates" class="logo" data-lazy-src="https://cdn.free-power-point-templates.com/wp-content/themes/fppt-2017/img/logo.png" /><noscript><img itemprop="logo" src="https://cdn.free-power-point-templates.com/wp-content/themes/fppt-2017/img/logo.png" alt="Free PowerPoint Templates" class="logo" /></noscript>
+					</a>
+				</h1>
+
+				<link itemprop="sameAs" href="https://twitter.com/freepowerpoint" />
+				<link itemprop="sameAs" href="https://www.pinterest.com/fppt/" />
+			</div><!-- .site-branding -->
+
+			<nav class="top-navigation"><ul id="menu-top" class="top-nav hide-sm"><li id="menu-item-23630" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-23630 top-nav__link"><a href="https://www.free-power-point-templates.com/articles/">Blog</a></li>
+</ul></nav>
+
+						<div class="top-cta hide-sm" style="display:none;">
+				<a href="#" class="top-cta__link">Sign In</a>
+				<span class="top-cta__separator">or</span>
+				<a href="#" class="top-cta__link top-cta__link--join">Join Now</a>
+			</div>
+			
+
+			<a class="menu-toggler hide-md"></a>
+
+		</div><!-- .container -->
+	</header><!-- #masthead -->
+
+	<nav class="sitenav hide-sm">
+		<div class="container">
+			<div class="row">
+
+				<div class="col-md-9">
+					<ul id="menu-main" class="nav clearfix"><li id="menu-item-23619" class="menu-item menu-item-type-custom menu-item-object-custom current-menu-item current_page_item menu-item-home menu-item-23619 nav__item item-home"><a href="https://www.free-power-point-templates.com/" class="nav__link"><span class="hide-sm"><svg xmlns:svg="http://www.w3.org/2000/svg" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32" width="24" height="24" version="1.1"><path d="M32 19l-6-6v-9h-4v5l-6-6-16 16v1h4v10h10v-6h4v6h10v-10h4z"></path></svg></span><span class="hide-md">Home</span></a></li>
+<li id="menu-item-23620" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-23620 nav__item"><a href="https://www.free-power-point-templates.com/themes/" class="nav__link">PowerPoint Themes</a></li>
+<li id="menu-item-23629" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-has-children menu-item-23629 nav__item is-parent"><a href="https://www.free-power-point-templates.com/free-templates/" class="nav__link">Free Templates</a>
+<ul class="sub-menu nav__sub">
+	<li id="menu-item-23626" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-23626 nav__item"><a href="https://www.free-power-point-templates.com/abstract-powerpoint-slide-designs/" class="nav__link">Abstract PowerPoint Templates</a></li>
+	<li id="menu-item-23627" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-23627 nav__item"><a href="https://www.free-power-point-templates.com/business-powerpoint-slide-designs/" class="nav__link">Business PowerPoint Templates</a></li>
+	<li id="menu-item-23970" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-23970 nav__item"><a href="https://www.free-power-point-templates.com/best-powerpoint-templates/" class="nav__link">Best PowerPoint Templates</a></li>
+</ul>
+</li>
+<li id="menu-item-23628" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-23628 nav__item"><a href="https://www.free-power-point-templates.com/template-powerpoint-backgrounds/" class="nav__link">PPT Background</a></li>
+<li id="menu-item-23624" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-23624 nav__item"><a href="https://www.free-power-point-templates.com/categories/" class="nav__link">Categories</a></li>
+<li id="menu-item-23625" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-23625 nav__item"><a href="https://www.free-power-point-templates.com/tag-cloud/" class="nav__link">Tags</a></li>
+</ul>				</div>
+
+				<div class="col-md-3">
+					<form action="https://www.free-power-point-templates.com/" class="topsearch" id="searchform" method="get" role="search" aria-label="Sitewide">
+						<label for="s" style="display:none;">Search</label><input type="text" name="s" id="s" placeholder="Search" class="topsearch__input input-field" value="">
+						<input type="submit" value="Go" class="topsearch__submit">
+					</form>
+				</div>
+
+			</div><!-- .row -->
+		</div><!-- .container -->
+	</nav><!-- .sitenav -->
+
+
+	<!--noptimize-->
+	
+					
+			
+		
+		<!--/noptimize-->
+
+	<div id="content" class="container">
+		<div class="main">
+
+<div class="row">
+	<div class="col-md-8">
+		<main class="site-main">
+			<div class="featured clearfix section">
+				<h1 class="fl-left">
+					<a href="https://www.free-power-point-templates.com/business-powerpoint-slide-designs/" rel="bookmark">Best Free PowerPoint Templates</a>
+				</h1>
+
+				<a href="https://www.free-power-point-templates.com/business-powerpoint-slide-designs/" class="featured__link" rel="bookmark">
+					<img src="data:image/svg+xml,%3Csvg%20xmlns='http://www.w3.org/2000/svg'%20viewBox='0%200%200%200'%3E%3C/svg%3E" alt="Free PowerPoint Template Example from FPPT.com" class="featured__img" data-lazy-src="https://cdn.free-power-point-templates.com/wp-content/themes/fppt-2017/img/free-powerpoint-templates.png"><noscript><img src="https://cdn.free-power-point-templates.com/wp-content/themes/fppt-2017/img/free-powerpoint-templates.png" alt="Free PowerPoint Template Example from FPPT.com" class="featured__img"></noscript>
+				</a>
+			</div>
+
+			<div class="post-list section" style="text-align:center;">
+				<div style="display: inline-block;">
+					<pubguru data-pg-ad="FPPT_Main_Incontent" ></pubguru>
+				</div>
+			</div>
+
+			<div class="post-list section">
+				<h2>Featured Presentation Templates</h2>
+				<div class="row">
+
+					<!-- show 4 - 2 per row -->
+					<div class="col-md-6">
+						<article class="post">
+							<a href="https://www.free-power-point-templates.com/free-machine-learning-powerpoint-template/" class="post__thumb" rel="bookmark">
+								<img src="data:image/svg+xml,%3Csvg%20xmlns='http://www.w3.org/2000/svg'%20viewBox='0%200%200%200'%3E%3C/svg%3E" alt="Artificial Intelligence PowerPoint template and Machine Learning" class="post__img" data-lazy-src="https://cdn.free-power-point-templates.com/wp-content/uploads/2019/04/160930-artificial-intelligence-template-4x3-1-768x576.jpg"><noscript><img src="https://cdn.free-power-point-templates.com/wp-content/uploads/2019/04/160930-artificial-intelligence-template-4x3-1-768x576.jpg" alt="Artificial Intelligence PowerPoint template and Machine Learning" class="post__img"></noscript>
+							</a>
+							<div class="post__content clearfix">
+								<h3 class="post__title">
+									<a href="https://www.free-power-point-templates.com/free-machine-learning-powerpoint-template/" rel="bookmark nofollow">Artificial Intelligence PowerPoint Template</a>
+								</h3>
+								<div class="post__actions">
+									<a href="https://www.free-power-point-templates.com/free-machine-learning-powerpoint-template/" class="post__btn" rel="bookmark nofollow">Download</a>Background &amp; Themes
+								</div>
+							</div>
+						</article>
+					</div>
+
+					<div class="col-md-6">
+						<article class="post">
+							<a href="https://www.free-power-point-templates.com/free-behavioral-psychology-powerpoint-template/" class="post__thumb" rel="bookmark">
+								<img src="data:image/svg+xml,%3Csvg%20xmlns='http://www.w3.org/2000/svg'%20viewBox='0%200%200%200'%3E%3C/svg%3E" alt="Behavioral Psychology PowerPoint Template" class="post__img" data-lazy-src="https://cdn.free-power-point-templates.com/wp-content/uploads/2021/05/161992-brain-template-4x3-1-300x225.jpg"><noscript><img src="https://cdn.free-power-point-templates.com/wp-content/uploads/2021/05/161992-brain-template-4x3-1-300x225.jpg" alt="Behavioral Psychology PowerPoint Template" class="post__img"></noscript>
+							</a>
+							<div class="post__content clearfix">
+								<h3 class="post__title">
+									<a href="https://www.free-power-point-templates.com/free-behavioral-psychology-powerpoint-template/" rel="bookmark">Behavioral Psychology PowerPoint Template</a>
+								</h3>
+								<div class="post__actions">
+									<a href="https://www.free-power-point-templates.com/free-behavioral-psychology-powerpoint-template/" class="post__btn" rel="bookmark">Download</a>Background &amp; Themes
+								</div>
+							</div>
+						</article>
+					</div>
+
+					<div class="text-center" style="clear: both;">
+						<a href="https://www.free-power-point-templates.com/themes/" class="btn">View All Templates</a>
+					</div>
+				</div>
+			</div>
+			<div class="home-copy section">
+					<h2>Common benefits of using free PowerPoint Templates &amp; pre-made slide design for presentation</h2>
+					<ul>
+						<li>Save time &amp; efforts. Focus in your presentation content</li>
+						<li>Ensure compatibility across different versions of PowerPoint</li>
+						<li>Easily convert your PowerPoint slides to Google Slides, Keynote and OpenOffice.</li>
+						<li>Impress your audience with catchy slides &amp; photos and PowerPoint themes with great backgrounds.</li>
+					</ul>
+					<p>Our free PowerPoint backgrounds and presentation templates are very easy to customize and edit for your presentation needs. Using Microsoft PowerPoint (but now also in Google Slides), you can easily create engaging presentations with our free PowerPoint templates &amp; slideshow templates.</p>
+					
+					<div class="ad-unit ad-unit--s468_old text-center">
+						<div style="width: fit-content; margin: 10px auto;">
+							<pubguru data-pg-ad="FPPT_General_468x60" ></pubguru>
+						</div>
+					</div>
+				</div>
+
+				<p>Under this section, you can get immediate access to some of the free PPT templates for PowerPoint available in our catalog. Alternatively, you can browse the entire design templates collection using the top menu or search by keyword. Serious presenters often want to keep their presentations minimalist in terms of design, but this catalog has a variety of <a href="https://www.free-power-point-templates.com/free-presentation-templates/">free presentation templates</a> and backgrounds available. Get access to thousands of modern presentation templates, backgrounds and free PPT templates, and creative slide templates with abstract designs. If you need help finding a suitable PPT template for your presentation project, contact us and we will help you.</p>
+
+				<p>Our PPT slides are 100% free for commercial and education presentations, but if you are looking for professionally-designed free slides templates, ready for business presentations, check out these visually appealing <a href="https://slidemodel.com/templates/">PowerPoint templates</a> for PowerPoint and Google Slides.</p>
+				
+				<div class="post-list section">
+					<h2>Best Free PowerPoint templates & Presentation Slides</h2>
+
+					<div class="row">
+						<!-- show 6 - 3 per row -->
+						<div class="col-md-4">
+							<article class="post">
+								<a href="https://www.free-power-point-templates.com/free-logistics-powerpoint-template/" class="post__thumb">
+									<img src="data:image/svg+xml,%3Csvg%20xmlns='http://www.w3.org/2000/svg'%20viewBox='0%200%200%200'%3E%3C/svg%3E" alt="Free Logistics PowerPoint Template" class="post__img" data-lazy-src="https://cdn.free-power-point-templates.com/wp-content/uploads/2020/10/logistics-powerpoint-template-presentation.png.webp"><noscript><img src="https://cdn.free-power-point-templates.com/wp-content/uploads/2020/10/logistics-powerpoint-template-presentation.png.webp" alt="Free Logistics PowerPoint Template" class="post__img"></noscript>
+								</a>
+								<div class="post__content clearfix">
+									<h3 class="post__title">
+										<a href="https://www.free-power-point-templates.com/free-logistics-powerpoint-template/">Free Logistics PowerPoint Template</a>
+									</h3>
+									<div class="post__actions">
+										<a href="https://www.free-power-point-templates.com/free-logistics-powerpoint-template/" class="post__btn">Download</a>Business
+									</div>
+								</div>
+							</article>
+						</div>
+
+						<div class="col-md-4">
+							<article class="post">
+								<a href="https://www.free-power-point-templates.com/workplan-timeline-powerpoint-template/" class="post__thumb">
+									<img src="data:image/svg+xml,%3Csvg%20xmlns='http://www.w3.org/2000/svg'%20viewBox='0%200%200%200'%3E%3C/svg%3E" alt="Workplan Timeline Template for PowerPoint" class="post__img" data-lazy-src="https://cdn.free-power-point-templates.com/wp-content/uploads/2012/02/000528_workplan_timeline_powerpoint_template_example.jpg"><noscript><img src="https://cdn.free-power-point-templates.com/wp-content/uploads/2012/02/000528_workplan_timeline_powerpoint_template_example.jpg" alt="Workplan Timeline Template for PowerPoint" class="post__img"></noscript>
+								</a>
+								<div class="post__content clearfix">
+									<h3 class="post__title">
+										<a href="https://www.free-power-point-templates.com/workplan-timeline-powerpoint-template/">Workplan Timeline Template for PowerPoint</a>
+									</h3>
+									<div class="post__actions">
+										<a href="https://www.free-power-point-templates.com/workplan-timeline-powerpoint-template/" class="post__btn">Download</a>Business
+									</div>
+								</div>
+							</article>
+						</div>
+
+						<div class="col-md-4">
+							<article class="post">
+								<a href="https://www.free-power-point-templates.com/free-business-presentation-powerpoint-template/" class="post__thumb">
+									<img src="data:image/svg+xml,%3Csvg%20xmlns='http://www.w3.org/2000/svg'%20viewBox='0%200%200%200'%3E%3C/svg%3E" alt="Free Business PowerPoint Template for presentations" class="post__img" data-lazy-src="https://cdn.free-power-point-templates.com/wp-content/uploads/2020/11/free-business-presentation-powerpoint-template.jpg"><noscript><img src="https://cdn.free-power-point-templates.com/wp-content/uploads/2020/11/free-business-presentation-powerpoint-template.jpg" alt="Free Business PowerPoint Template for presentations" class="post__img"></noscript>
+								</a>
+								<div class="post__content clearfix">
+									<h3 class="post__title">
+										<a href="https://www.free-power-point-templates.com/free-business-presentation-powerpoint-template/">Free Business PowerPoint Template</a>
+									</h3>
+									<div class="post__actions">
+										<a href="https://www.free-power-point-templates.com/free-business-presentation-powerpoint-template/" class="post__btn">Download</a>Business
+									</div>
+								</div>
+							</article>
+						</div>
+
+						<div class="col-md-4">
+							<article class="post">
+								<a href="https://www.free-power-point-templates.com/blue-brown-powerpoint-template/" class="post__thumb">
+									<img src="data:image/svg+xml,%3Csvg%20xmlns='http://www.w3.org/2000/svg'%20viewBox='0%200%200%200'%3E%3C/svg%3E" alt="Simple Blue &amp; Brown PowerPoint Template" class="post__img" data-lazy-src="https://cdn.free-power-point-templates.com/wp-content/uploads/2012/02/blue-and-brown-powerpoint-template.jpg"><noscript><img src="https://cdn.free-power-point-templates.com/wp-content/uploads/2012/02/blue-and-brown-powerpoint-template.jpg" alt="Simple Blue &amp; Brown PowerPoint Template" class="post__img"></noscript>
+								</a>
+								<div class="post__content clearfix">
+									<h3 class="post__title">
+										<a href="https://www.free-power-point-templates.com/blue-brown-powerpoint-template/">Blue &amp; Brown PowerPoint Template</a>
+									</h3>
+									<div class="post__actions">
+										<a href="https://www.free-power-point-templates.com/blue-brown-powerpoint-template/" class="post__btn">Download</a>Simple Themes
+									</div>
+								</div>
+							</article>
+						</div>
+
+						<div class="col-md-4">
+							<article class="post">
+								<a href="https://www.free-power-point-templates.com/professional-blue-corporate-office-powerpoint-template/" class="post__thumb">
+									<img src="data:image/svg+xml,%3Csvg%20xmlns='http://www.w3.org/2000/svg'%20viewBox='0%200%200%200'%3E%3C/svg%3E" alt="Blue Corporate PowerPoint Template" class="post__img" data-lazy-src="https://cdn.free-power-point-templates.com/wp-content/uploads/2012/05/corporate-office-powerpoint-template-2.jpg"><noscript><img src="https://cdn.free-power-point-templates.com/wp-content/uploads/2012/05/corporate-office-powerpoint-template-2.jpg" alt="Blue Corporate PowerPoint Template" class="post__img"></noscript>
+								</a>
+								<div class="post__content clearfix">
+									<h3 class="post__title">
+										<a href="https://www.free-power-point-templates.com/professional-blue-corporate-office-powerpoint-template/">Blue Corporate PowerPoint Template</a>
+									</h3>
+									<div class="post__actions">
+										<a href="https://www.free-power-point-templates.com/professional-blue-corporate-office-powerpoint-template/" class="post__btn">Download</a>Business & Finance
+									</div>
+								</div>
+							</article>
+						</div>
+
+						<div class="col-md-4">
+							<article class="post">
+								<a href="https://www.free-power-point-templates.com/focus-powerpoint-template/" class="post__thumb">
+									<img src="data:image/svg+xml,%3Csvg%20xmlns='http://www.w3.org/2000/svg'%20viewBox='0%200%200%200'%3E%3C/svg%3E" alt="Focus PowerPoint Template" class="post__img" data-lazy-src="https://cdn.free-power-point-templates.com/wp-content/uploads/2014/03/3015-focus-powerpoint-template.jpg"><noscript><img src="https://cdn.free-power-point-templates.com/wp-content/uploads/2014/03/3015-focus-powerpoint-template.jpg" alt="Focus PowerPoint Template" class="post__img"></noscript>
+								</a>
+								<div class="post__content clearfix">
+									<h3 class="post__title">
+										<a href="https://www.free-power-point-templates.com/focus-powerpoint-template/">Free Focus PowerPoint Template</a>
+									</h3>
+									<div class="post__actions">
+										<a href="https://www.free-power-point-templates.com/focus-powerpoint-template/" class="post__btn">Download</a>Creative
+									</div>
+								</div>
+							</article>
+						</div>
+
+
+					</div>
+				</div>
+
+		</main>
+	</div>
+	<div class="col-md-4">
+	<aside id="secondary" class="sidebar">
+		<div class="row">
+
+			
+			<div class="col-sm-12 col-md-12 text-center widget--borderless">
+				<div class="ad-unit ad-unit--s300">
+					<pubguru data-pg-ad="FPPT_Banner_Homepage_300x250" ></pubguru>
+				</div>
+			</div>
+
+			
+			<div class="col-sm-12 col-md-12 text-center tag-cloud">
+				<div class="widget widget--list widget--tag-cloud">
+					<h3 class="widget__title">Popular Keywords</h3>
+					<div class="widget__content">
+						<div class="tag-cloud clearfix">
+															<a href="https://www.free-power-point-templates.com/tag/abstract/" class="tag-cloud-link tag-link-5135 tag-link-position-1" style="font-size: 9.0769230769231pt;" aria-label="Abstract (439 items)">Abstract</a>
+<a href="https://www.free-power-point-templates.com/tag/art/" class="tag-cloud-link tag-link-5114 tag-link-position-2" style="font-size: 7.1846153846154pt;" aria-label="Art (168 items)">Art</a>
+<a href="https://www.free-power-point-templates.com/tag/black/" class="tag-cloud-link tag-link-8 tag-link-position-3" style="font-size: 7.5076923076923pt;" aria-label="Black (197 items)">Black</a>
+<a href="https://www.free-power-point-templates.com/tag/blue/" class="tag-cloud-link tag-link-5100 tag-link-position-4" style="font-size: 10pt;" aria-label="Blue (690 items)">Blue</a>
+<a href="https://www.free-power-point-templates.com/tag/brown/" class="tag-cloud-link tag-link-60 tag-link-position-5" style="font-size: 7.4153846153846pt;" aria-label="Brown (190 items)">Brown</a>
+<a href="https://www.free-power-point-templates.com/tag/business-finance/" class="tag-cloud-link tag-link-1462 tag-link-position-6" style="font-size: 7.8769230769231pt;" aria-label="Business &amp; Finance (238 items)">Business &amp; Finance</a>
+<a href="https://www.free-power-point-templates.com/tag/business/" class="tag-cloud-link tag-link-5105 tag-link-position-7" style="font-size: 8.9846153846154pt;" aria-label="Business / Finance (416 items)">Business / Finance</a>
+<a href="https://www.free-power-point-templates.com/tag/dark/" class="tag-cloud-link tag-link-6 tag-link-position-8" style="font-size: 7.5538461538462pt;" aria-label="Dark (205 items)">Dark</a>
+<a href="https://www.free-power-point-templates.com/tag/gray/" class="tag-cloud-link tag-link-56 tag-link-position-9" style="font-size: 9.1230769230769pt;" aria-label="Gray (450 items)">Gray</a>
+<a href="https://www.free-power-point-templates.com/tag/green/" class="tag-cloud-link tag-link-5101 tag-link-position-10" style="font-size: 9.3076923076923pt;" aria-label="Green (489 items)">Green</a>
+<a href="https://www.free-power-point-templates.com/tag/health/" class="tag-cloud-link tag-link-33 tag-link-position-11" style="font-size: 7.4153846153846pt;" aria-label="Health (189 items)">Health</a>
+<a href="https://www.free-power-point-templates.com/tag/nature/" class="tag-cloud-link tag-link-5144 tag-link-position-12" style="font-size: 7.8769230769231pt;" aria-label="Nature (241 items)">Nature</a>
+<a href="https://www.free-power-point-templates.com/tag/objects/" class="tag-cloud-link tag-link-5115 tag-link-position-13" style="font-size: 8.3846153846154pt;" aria-label="Objects (307 items)">Objects</a>
+<a href="https://www.free-power-point-templates.com/tag/orange/" class="tag-cloud-link tag-link-14 tag-link-position-14" style="font-size: 7.9230769230769pt;" aria-label="Orange (245 items)">Orange</a>
+<a href="https://www.free-power-point-templates.com/tag/people/" class="tag-cloud-link tag-link-5127 tag-link-position-15" style="font-size: 8.7538461538462pt;" aria-label="People (370 items)">People</a>
+<a href="https://www.free-power-point-templates.com/tag/red/" class="tag-cloud-link tag-link-19 tag-link-position-16" style="font-size: 7.8307692307692pt;" aria-label="Red (232 items)">Red</a>
+<a href="https://www.free-power-point-templates.com/tag/simple/" class="tag-cloud-link tag-link-5147 tag-link-position-17" style="font-size: 9.7692307692308pt;" aria-label="Simple (621 items)">Simple</a>
+<a href="https://www.free-power-point-templates.com/tag/sky-blue/" class="tag-cloud-link tag-link-58 tag-link-position-18" style="font-size: 8.2923076923077pt;" aria-label="Sky blue (297 items)">Sky blue</a>
+<a href="https://www.free-power-point-templates.com/tag/technology/" class="tag-cloud-link tag-link-5108 tag-link-position-19" style="font-size: 8.0153846153846pt;" aria-label="Technology (259 items)">Technology</a>
+<a href="https://www.free-power-point-templates.com/tag/white/" class="tag-cloud-link tag-link-57 tag-link-position-20" style="font-size: 8.7538461538462pt;" aria-label="White (368 items)">White</a>
+<a href="https://www.free-power-point-templates.com/tag/woman/" class="tag-cloud-link tag-link-97 tag-link-position-21" style="font-size: 7pt;" aria-label="Woman (153 items)">Woman</a>
+<a href="https://www.free-power-point-templates.com/tag/yellow/" class="tag-cloud-link tag-link-45 tag-link-position-22" style="font-size: 7.6461538461538pt;" aria-label="Yellow (213 items)">Yellow</a>													</div>
+					</div>
+				</div>
+			</div>
+
+			<div class="col-sm-12 col-md-12 text-center widget--borderless">
+				<div class="ad-unit ad-unit--s300">
+					<a href="https://www.free-power-point-templates.com/go/presentermedia.php?afftrack=fppt-main-home&urllink=www.presentermedia.com%2Fpowerpoint-templates%2Fanimated.html" target="_blank" rel="nofollow"><img src="data:image/svg+xml,%3Csvg%20xmlns='http://www.w3.org/2000/svg'%20viewBox='0%200%200%200'%3E%3C/svg%3E" alt="PresenterMedia Ad" data-lazy-src="https://www.free-power-point-templates.com/images/pm_300_250_red.jpg"><noscript><img src="https://www.free-power-point-templates.com/images/pm_300_250_red.jpg" alt="PresenterMedia Ad"></noscript></a>
+				</div>
+			</div>
+
+			<div class="col-sm-12 col-md-12 text-center widget--borderless">
+				<div class="ad-unit ad-unit--s300">
+										<pubguru class="pg-sticky" data-gpt-parent="fppt.com_300x600"></pubguru>
+				</div>
+			</div>
+			<!--/widget-->
+
+		</div>
+	</aside>
+</div><!-- .col-md-4 --></div>
+
+
+		</div><!-- .main -->
+	</div><!-- #content .container -->
+
+	<div class="foot-cta">
+		<div class="container">
+			<div class="row">
+
+
+				<div class="col-md-7 col-sm-12">
+					<div class="h2">Get The Latest Templates Delivered To Your Inbox</div>
+					<p class="h4">We will send you our curated collections to your email weekly. No spam, promise!</p>
+				</div>
+
+				<div class="col-md-5 col-sm-12">
+
+					<form action="https://fppt.us2.list-manage.com/subscribe/post?u=fad8d7db9ae580014eb741f9a&amp;id=79a8ba1bb0" method="post" id="mc-embedded-subscribe-form" name="mc-embedded-subscribe-form" class="validate subscribe clearfix" target="_blank">
+
+						<input type="email" placeholder="Enter Your E-mail Address"  value="" name="EMAIL" class=" subscribe__input input-field" id="mce-EMAIL" aria-label="Enter email address here">
+
+														<input type="hidden" value="main-site" name="MERGE6" class="" id="source">
+								
+						<input type="submit" value="Subscribe" name="subscribe" id="mc-embedded-subscribe" class="subscribe__submit">
+						<div id="mce-responses" class="clear">
+							<div class="response" id="mce-error-response" style="display:none"></div>
+							<div class="response" id="mce-success-response" style="display:none"></div>
+						</div>
+
+					</form>
+				</div>
+
+			</div><!-- .row -->
+		</div><!-- .container -->
+	</div><!-- .foot-cta -->
+
+	<footer class="footer">
+		<div class="container">
+
+			<div class="row">
+
+	<div class="col-md-3 col-sm-6">
+						<div class="widget">
+					<h3 class="widget__title">Recommended Sections</h3>
+					<div class="widget__content">
+						<ul class="post-list">
+							<li class="post-list__item">
+								<a href="https://www.free-power-point-templates.com/articles/presentation-background/" class="post-list__title">Free Presentation Background Templates</a>
+							</li>
+							
+							<li class="post-list__item">
+								<a href="https://www.free-power-point-templates.com/themes/" class="post-list__title">Latest PowerPoint Themes</a>
+							</li>
+
+													</ul>
+					</div>
+				</div>
+					</div><!-- footer-column-3 -->
+
+
+	<div class="col-md-3 col-sm-6">
+						<div class="widget">
+					<h3 class="widget__title">Latest Free Templates</h3>
+					<div class="widget__content">
+						<ul class="post-list">
+							<li class="post-list__item"><a href="https://www.free-power-point-templates.com/free-family-feud-powerpoint-template/" class="post-list__title">Free Family Feud PowerPoint Template</a></li><li class="post-list__item"><a href="https://www.free-power-point-templates.com/free-beach-powerpoint-template/" class="post-list__title">Free Beach PowerPoint Template</a></li><li class="post-list__item"><a href="https://www.free-power-point-templates.com/free-thermometer-powerpoint-template/" class="post-list__title">Free Thermometer PowerPoint Template</a></li><li class="post-list__item"><a href="https://www.free-power-point-templates.com/free-simple-timeline-template-for-powerpoint/" class="post-list__title">Free Simple Timeline Template for PowerPoint</a></li>						</ul>
+					</div>
+				</div>
+					</div><!-- footer-column-1 -->
+
+	<div class="col-md-3 col-sm-6">
+						<div class="widget">
+					<h3 class="widget__title">Site Navigation</h3>
+					<div class="widget__content">
+						<ul class="post-list">
+							<li class="post-list__item">
+								<a href="https://www.free-power-point-templates.com/articles/" class="post-list__title">Blog</a>
+							</li>
+							<li class="post-list__item">
+								<a href="https://www.free-power-point-templates.com/notifications/" class="post-list__title">Notifications</a>
+							</li>
+							<li class="post-list__item">
+								<a href="https://www.free-power-point-templates.com/privacy-policy/" class="post-list__title">Privacy Policy</a>
+							</li>
+							<li class="post-list__item">
+								<a href="https://www.free-power-point-templates.com/contact/" class="post-list__title">Contact</a>
+							</li>
+						</ul>
+					</div>
+				</div>
+					</div><!-- footer-column-2 -->
+
+	
+
+	<div class="col-md-3 col-sm-6">
+						<div class="widget">
+					<h3 class="widget__title">Connect</h3>
+					<div class="widget__content">
+						<ul class="post-list">
+							<li class="post-list__item">
+								<a href="https://www.facebook.com/FPPTcom/" target="_blank" rel="nofollow noopener" class="post-list__title">Facebook</a>
+							</li>
+							<li class="post-list__item">
+								<a href="https://twitter.com/freepowerpoint" target="_blank" rel="nofollow noopener" class="post-list__title">Twitter</a>
+							</li>
+							<!-- <li class="post-list__item">
+								<a href="#" class="post-list__title">Newsletter</a>
+							</li> -->
+							<li class="post-list__item">
+								<a href="https://www.free-power-point-templates.com/feed/" rel="nofollow noopener" target="_blank" class="post-list__title">RSS</a>
+							</li>
+							<li class="post-list__item">
+								<a href="https://www.free-power-point-templates.com/articles/" class="post-list__title">Blog</a>
+							</li>
+						</ul>
+					</div>
+				</div>
+					</div><!-- footer-column-4 -->
+
+</div><!-- .row -->
+						
+			<div class="colophon">
+								<p>Copyright &copy; 2023 FPPT.COM</p><p>PowerPoint&reg; and Microsoft are registered trademarks of Microsoft Corporation</p>
+			</div>
+
+		</div><!-- .container -->
+	</footer><!-- .footer -->
+
+</div><!-- #page -->
+
+
+
+<!--noptimize-->
+
+		<!--/noptimize-->
+
+
+<!-- Facebook Pixel Code -->
+<script type="rocketlazyloadscript">
+  !function(f,b,e,v,n,t,s)
+  {if(f.fbq)return;n=f.fbq=function(){n.callMethod?
+  n.callMethod.apply(n,arguments):n.queue.push(arguments)};
+  if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';
+  n.queue=[];t=b.createElement(e);t.async=!0;
+  t.src=v;s=b.getElementsByTagName(e)[0];
+  s.parentNode.insertBefore(t,s)}(window, document,'script',
+  'https://connect.facebook.net/en_US/fbevents.js');
+  fbq('init', '1601222813348716');
+  fbq('track', 'PageView');
+</script>
+<!--
+<noscript><img height="1" width="1" style="display:none"
+  src="https://www.facebook.com/tr?id=1601222813348716&ev=PageView&noscript=1" class="hide-amp"
+/></noscript>
+End Facebook Pixel Code -->		<script type="rocketlazyloadscript" defer="defer">
+			jQuery(document).ready(function() {
+				jQuery('.menu-toggler').on('click', function(e) {
+					e.preventDefault();
+					jQuery('.sitenav').slideToggle(0);
+				});
+			} );
+		</script>
+		<script type="rocketlazyloadscript" data-rocket-type='text/javascript' defer="defer" data-rocket-src='https://cdn.free-power-point-templates.com/wp-content/themes/fppt-2017/js/jquery.cookie.min.js' id='jquery-cookie-js'></script>
+<script type="rocketlazyloadscript" data-minify="1" data-rocket-type='text/javascript' data-rocket-src='https://cdn.free-power-point-templates.com/wp-content/cache/min/1/wp-content/themes/fppt-2017/js/custom.js?ver=1700061154' id='fppt-custom-js' defer></script>
+<script type="rocketlazyloadscript" data-rocket-type="text/javascript">(function (undefined) {var _localizedStrings={"redirect_overlay_title":"Hold On","redirect_overlay_text":"You are being redirected to another page,<br>it may take a few seconds."};var _targetWindow="prefer-popup";var _redirectOverlay="overlay-with-spinner-and-message";
+/**
+ * Used when Cross-Origin-Opener-Policy blocked the access to the opener. We can't have a reference of the opened windows, so we should attempt to refresh only the windows that has opened popups.
+ */
+window._nslHasOpenedPopup = false;
+
+window.NSLPopup = function (url, title, w, h) {
+    var userAgent = navigator.userAgent,
+        mobile = function () {
+            return /\b(iPhone|iP[ao]d)/.test(userAgent) ||
+                /\b(iP[ao]d)/.test(userAgent) ||
+                /Android/i.test(userAgent) ||
+                /Mobile/i.test(userAgent);
+        },
+        screenX = window.screenX !== undefined ? window.screenX : window.screenLeft,
+        screenY = window.screenY !== undefined ? window.screenY : window.screenTop,
+        outerWidth = window.outerWidth !== undefined ? window.outerWidth : document.documentElement.clientWidth,
+        outerHeight = window.outerHeight !== undefined ? window.outerHeight : document.documentElement.clientHeight - 22,
+        targetWidth = mobile() ? null : w,
+        targetHeight = mobile() ? null : h,
+        left = parseInt(screenX + (outerWidth - targetWidth) / 2, 10),
+        right = parseInt(screenY + (outerHeight - targetHeight) / 2.5, 10),
+        features = [];
+    if (targetWidth !== null) {
+        features.push('width=' + targetWidth);
+    }
+    if (targetHeight !== null) {
+        features.push('height=' + targetHeight);
+    }
+    features.push('left=' + left);
+    features.push('top=' + right);
+    features.push('scrollbars=1');
+
+    var newWindow = window.open(url, title, features.join(','));
+
+    if (window.focus) {
+        newWindow.focus();
+    }
+
+    window._nslHasOpenedPopup = true;
+
+    return newWindow;
+};
+
+var isWebView = null;
+
+function checkWebView() {
+    if (isWebView === null) {
+        function _detectOS(ua) {
+            if (/Android/.test(ua)) {
+                return "Android";
+            } else if (/iPhone|iPad|iPod/.test(ua)) {
+                return "iOS";
+            } else if (/Windows/.test(ua)) {
+                return "Windows";
+            } else if (/Mac OS X/.test(ua)) {
+                return "Mac";
+            } else if (/CrOS/.test(ua)) {
+                return "Chrome OS";
+            } else if (/Firefox/.test(ua)) {
+                return "Firefox OS";
+            }
+            return "";
+        }
+
+        function _detectBrowser(ua) {
+            var android = /Android/.test(ua);
+
+            if (/Opera Mini/.test(ua) || / OPR/.test(ua) || / OPT/.test(ua)) {
+                return "Opera";
+            } else if (/CriOS/.test(ua)) {
+                return "Chrome for iOS";
+            } else if (/Edge/.test(ua)) {
+                return "Edge";
+            } else if (android && /Silk\//.test(ua)) {
+                return "Silk";
+            } else if (/Chrome/.test(ua)) {
+                return "Chrome";
+            } else if (/Firefox/.test(ua)) {
+                return "Firefox";
+            } else if (android) {
+                return "AOSP";
+            } else if (/MSIE|Trident/.test(ua)) {
+                return "IE";
+            } else if (/Safari\//.test(ua)) {
+                return "Safari";
+            } else if (/AppleWebKit/.test(ua)) {
+                return "WebKit";
+            }
+            return "";
+        }
+
+        function _detectBrowserVersion(ua, browser) {
+            if (browser === "Opera") {
+                return /Opera Mini/.test(ua) ? _getVersion(ua, "Opera Mini/") :
+                    / OPR/.test(ua) ? _getVersion(ua, " OPR/") :
+                        _getVersion(ua, " OPT/");
+            } else if (browser === "Chrome for iOS") {
+                return _getVersion(ua, "CriOS/");
+            } else if (browser === "Edge") {
+                return _getVersion(ua, "Edge/");
+            } else if (browser === "Chrome") {
+                return _getVersion(ua, "Chrome/");
+            } else if (browser === "Firefox") {
+                return _getVersion(ua, "Firefox/");
+            } else if (browser === "Silk") {
+                return _getVersion(ua, "Silk/");
+            } else if (browser === "AOSP") {
+                return _getVersion(ua, "Version/");
+            } else if (browser === "IE") {
+                return /IEMobile/.test(ua) ? _getVersion(ua, "IEMobile/") :
+                    /MSIE/.test(ua) ? _getVersion(ua, "MSIE ")
+                        :
+                        _getVersion(ua, "rv:");
+            } else if (browser === "Safari") {
+                return _getVersion(ua, "Version/");
+            } else if (browser === "WebKit") {
+                return _getVersion(ua, "WebKit/");
+            }
+            return "0.0.0";
+        }
+
+        function _getVersion(ua, token) {
+            try {
+                return _normalizeSemverString(ua.split(token)[1].trim().split(/[^\w\.]/)[0]);
+            } catch (o_O) {
+            }
+            return "0.0.0";
+        }
+
+        function _normalizeSemverString(version) {
+            var ary = version.split(/[\._]/);
+            return (parseInt(ary[0], 10) || 0) + "." +
+                (parseInt(ary[1], 10) || 0) + "." +
+                (parseInt(ary[2], 10) || 0);
+        }
+
+        function _isWebView(ua, os, browser, version, options) {
+            switch (os + browser) {
+                case "iOSSafari":
+                    return false;
+                case "iOSWebKit":
+                    return _isWebView_iOS(options);
+                case "AndroidAOSP":
+                    return false;
+                case "AndroidChrome":
+                    return parseFloat(version) >= 42 ? /; wv/.test(ua) : /\d{2}\.0\.0/.test(version) ? true : _isWebView_Android(options);
+            }
+            return false;
+        }
+
+        function _isWebView_iOS(options) {
+            var document = (window["document"] || {});
+
+            if ("WEB_VIEW" in options) {
+                return options["WEB_VIEW"];
+            }
+            return !("fullscreenEnabled" in document || "webkitFullscreenEnabled" in document || false);
+        }
+
+        function _isWebView_Android(options) {
+            if ("WEB_VIEW" in options) {
+                return options["WEB_VIEW"];
+            }
+            return !("requestFileSystem" in window || "webkitRequestFileSystem" in window || false);
+        }
+
+        var options = {};
+        var nav = window.navigator || {};
+        var ua = nav.userAgent || "";
+        var os = _detectOS(ua);
+        var browser = _detectBrowser(ua);
+        var browserVersion = _detectBrowserVersion(ua, browser);
+
+        isWebView = _isWebView(ua, os, browser, browserVersion, options);
+    }
+
+    return isWebView;
+}
+
+function isAllowedWebViewForUserAgent(provider) {
+    var facebookAllowedWebViews = [
+        'Instagram',
+        'FBAV',
+        'FBAN'
+    ], whitelist = [];
+
+    if (provider && provider === 'facebook') {
+        whitelist = facebookAllowedWebViews;
+    }
+
+    var nav = window.navigator || {};
+    var ua = nav.userAgent || "";
+
+    if (whitelist.length && ua.match(new RegExp(whitelist.join('|')))) {
+        return true;
+    }
+
+    return false;
+}
+
+window._nslDOMReady(function () {
+
+    window.nslRedirect = function (url) {
+        if (_redirectOverlay) {
+            var overlay = document.createElement('div');
+            overlay.id = "nsl-redirect-overlay";
+            var overlayHTML = '',
+                overlayContainer = "<div id='nsl-redirect-overlay-container'>",
+                overlayContainerClose = "</div>",
+                overlaySpinner = "<div id='nsl-redirect-overlay-spinner'></div>",
+                overlayTitle = "<p id='nsl-redirect-overlay-title'>" + _localizedStrings.redirect_overlay_title + "</p>",
+                overlayText = "<p id='nsl-redirect-overlay-text'>" + _localizedStrings.redirect_overlay_text + "</p>";
+
+            switch (_redirectOverlay) {
+                case "overlay-only":
+                    break;
+                case "overlay-with-spinner":
+                    overlayHTML = overlayContainer + overlaySpinner + overlayContainerClose;
+                    break;
+                default:
+                    overlayHTML = overlayContainer + overlaySpinner + overlayTitle + overlayText + overlayContainerClose;
+                    break;
+            }
+
+            overlay.insertAdjacentHTML("afterbegin", overlayHTML);
+            document.body.appendChild(overlay);
+        }
+
+        window.location = url;
+    };
+
+    var targetWindow = _targetWindow || 'prefer-popup',
+        lastPopup = false;
+
+
+    var buttonLinks = document.querySelectorAll(' a[data-plugin="nsl"][data-action="connect"], a[data-plugin="nsl"][data-action="link"]');
+    buttonLinks.forEach(function (buttonLink) {
+        buttonLink.addEventListener('click', function (e) {
+            if (lastPopup && !lastPopup.closed) {
+                e.preventDefault();
+                lastPopup.focus();
+            } else {
+
+                var href = this.href,
+                    success = false;
+                if (href.indexOf('?') !== -1) {
+                    href += '&';
+                } else {
+                    href += '?';
+                }
+
+                var redirectTo = this.dataset.redirect;
+                if (redirectTo === 'current') {
+                    href += 'redirect=' + encodeURIComponent(window.location.href) + '&';
+                } else if (redirectTo && redirectTo !== '') {
+                    href += 'redirect=' + encodeURIComponent(redirectTo) + '&';
+                }
+
+                if (targetWindow !== 'prefer-same-window' && checkWebView()) {
+                    targetWindow = 'prefer-same-window';
+                }
+
+                if (targetWindow === 'prefer-popup') {
+                    lastPopup = NSLPopup(href + 'display=popup', 'nsl-social-connect', this.dataset.popupwidth, this.dataset.popupheight);
+                    if (lastPopup) {
+                        success = true;
+                        e.preventDefault();
+                    }
+                } else if (targetWindow === 'prefer-new-tab') {
+                    var newTab = window.open(href + 'display=popup', '_blank');
+                    if (newTab) {
+                        if (window.focus) {
+                            newTab.focus();
+                        }
+                        success = true;
+                        window._nslHasOpenedPopup = true;
+                        e.preventDefault();
+                    }
+                }
+
+                if (!success) {
+                    window.location = href;
+                    e.preventDefault();
+                }
+            }
+        });
+    });
+
+    let hasWebViewLimitation = false;
+
+    var googleLoginButtons = document.querySelectorAll(' a[data-plugin="nsl"][data-provider="google"]');
+    if (googleLoginButtons.length && checkWebView()) {
+        googleLoginButtons.forEach(function (googleLoginButton) {
+            googleLoginButton.remove();
+            hasWebViewLimitation = true;
+        });
+    }
+
+    var facebookLoginButtons = document.querySelectorAll(' a[data-plugin="nsl"][data-provider="facebook"]');
+    if (facebookLoginButtons.length && checkWebView() && /Android/.test(window.navigator.userAgent) && !isAllowedWebViewForUserAgent('facebook')) {
+        facebookLoginButtons.forEach(function (facebookLoginButton) {
+            facebookLoginButton.remove();
+            hasWebViewLimitation = true;
+        });
+    }
+
+
+    const separators = document.querySelectorAll('div.nsl-separator');
+    if (hasWebViewLimitation && separators.length) {
+        separators.forEach(function (separator) {
+            let separatorParentNode = separator.parentNode;
+            if (separatorParentNode) {
+                const separatorButtonContainer = separatorParentNode.querySelector('div.nsl-container-buttons');
+                if (separatorButtonContainer && !separatorButtonContainer.hasChildNodes()) {
+                    separator.remove();
+                }
+            }
+        })
+    }
+});
+
+/**
+ * Cross-Origin-Opener-Policy blocked the access to the opener
+ */
+if (typeof BroadcastChannel === "function") {
+    const _nslLoginBroadCastChannel = new BroadcastChannel('nsl_login_broadcast_channel');
+    _nslLoginBroadCastChannel.onmessage = (event) => {
+        if (window?._nslHasOpenedPopup && event.data?.action === 'redirect') {
+            window._nslHasOpenedPopup = false;
+
+            const url = event.data?.href;
+            _nslLoginBroadCastChannel.close();
+            if (typeof window.nslRedirect === 'function') {
+                window.nslRedirect(url);
+            } else {
+                window.opener.location = url;
+            }
+        }
+    };
+}})();</script><script>window.lazyLoadOptions=[{elements_selector:"img[data-lazy-src],.rocket-lazyload,iframe[data-lazy-src]",data_src:"lazy-src",data_srcset:"lazy-srcset",data_sizes:"lazy-sizes",class_loading:"lazyloading",class_loaded:"lazyloaded",threshold:300,callback_loaded:function(element){if(element.tagName==="IFRAME"&&element.dataset.rocketLazyload=="fitvidscompatible"){if(element.classList.contains("lazyloaded")){if(typeof window.jQuery!="undefined"){if(jQuery.fn.fitVids){jQuery(element).parent().fitVids()}}}}}},{elements_selector:".rocket-lazyload",data_src:"lazy-src",data_srcset:"lazy-srcset",data_sizes:"lazy-sizes",class_loading:"lazyloading",class_loaded:"lazyloaded",threshold:300,}];window.addEventListener('LazyLoad::Initialized',function(e){var lazyLoadInstance=e.detail.instance;if(window.MutationObserver){var observer=new MutationObserver(function(mutations){var image_count=0;var iframe_count=0;var rocketlazy_count=0;mutations.forEach(function(mutation){for(var i=0;i<mutation.addedNodes.length;i++){if(typeof mutation.addedNodes[i].getElementsByTagName!=='function'){continue}
+if(typeof mutation.addedNodes[i].getElementsByClassName!=='function'){continue}
+images=mutation.addedNodes[i].getElementsByTagName('img');is_image=mutation.addedNodes[i].tagName=="IMG";iframes=mutation.addedNodes[i].getElementsByTagName('iframe');is_iframe=mutation.addedNodes[i].tagName=="IFRAME";rocket_lazy=mutation.addedNodes[i].getElementsByClassName('rocket-lazyload');image_count+=images.length;iframe_count+=iframes.length;rocketlazy_count+=rocket_lazy.length;if(is_image){image_count+=1}
+if(is_iframe){iframe_count+=1}}});if(image_count>0||iframe_count>0||rocketlazy_count>0){lazyLoadInstance.update()}});var b=document.getElementsByTagName("body")[0];var config={childList:!0,subtree:!0};observer.observe(b,config)}},!1)</script><script data-no-minify="1" async src="https://cdn.free-power-point-templates.com/wp-content/plugins/wp-rocket/assets/js/lazyload/17.8.3/lazyload.min.js"></script><script>function lazyLoadThumb(e,alt){var t='<img data-lazy-src="https://i.ytimg.com/vi/ID/hqdefault.jpg" alt="" width="480" height="360"><noscript><img src="https://i.ytimg.com/vi/ID/hqdefault.jpg" alt="" width="480" height="360"></noscript>',a='<button class="play" aria-label="play Youtube video"></button>';t=t.replace('alt=""','alt="'+alt+'"');return t.replace("ID",e)+a}function lazyLoadYoutubeIframe(){var e=document.createElement("iframe"),t="ID?autoplay=1";t+=0===this.parentNode.dataset.query.length?'':'&'+this.parentNode.dataset.query;e.setAttribute("src",t.replace("ID",this.parentNode.dataset.src)),e.setAttribute("frameborder","0"),e.setAttribute("allowfullscreen","1"),e.setAttribute("allow", "accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture"),this.parentNode.parentNode.replaceChild(e,this.parentNode)}document.addEventListener("DOMContentLoaded",function(){var e,t,p,a=document.getElementsByClassName("rll-youtube-player");for(t=0;t<a.length;t++)e=document.createElement("div"),e.setAttribute("data-id",a[t].dataset.id),e.setAttribute("data-query", a[t].dataset.query),e.setAttribute("data-src", a[t].dataset.src),e.innerHTML=lazyLoadThumb(a[t].dataset.id,a[t].dataset.alt),a[t].appendChild(e),p=e.querySelector('.play'),p.onclick=lazyLoadYoutubeIframe});</script>
+</body>
+</html>
+
+<!-- Cached for great performance - Debug: cached@1700549121 -->

@@ -1,0 +1,444 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+   <head>
+      <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+      <title>:: Dakshata Matrimony ::</title>
+      <link href="maincss.css" rel="stylesheet" type="text/css" />
+      <script src="js/jquery.min.js"></script>
+      <link rel="stylesheet" type="text/css" href="css/styles.css"/>
+      <link rel="stylesheet" href="css/anythingslider.css">
+      <script src="js/jquery.anythingslider.js"></script>
+      <!--banner End-->
+      
+      <script type="text/javascript">
+         $.ajax({
+         	type: "POST",
+         	url: "indexAjax.php",
+         	data: 'profile=page',
+         	cache: false,
+         	success: function(result)
+         	{
+         	    //$("#").html(result);
+         	}
+         });
+         
+    
+         $(document).ready(function() {
+         
+         		var page_val=$("#tot_value_db").val();
+         
+         		var select_page=parseInt(page_val)-1;
+         			
+         	$("#results").load("fetch_pages.php", {'page':select_page}, function() {$("#"+select_page+"-page");}).addClass('active');  //initial page number to load
+         	
+         	$(".paginate_click").click(function (e) {
+         		
+         		$("#results").prepend('<div class="loading-indication"><img src="ajax-loader.gif" /> Loading...</div>');
+         		
+         		var clicked_id = $(this).attr("id").split("-"); //ID of clicked element, split() to get page number.
+         		var page_num = parseInt(clicked_id[0]); //clicked_id[0] holds the page number we need 
+         		
+         		$('.paginate_click').removeClass('active'); //remove any active class
+         		
+                 //post page number and load returned data into result element
+                 //notice (page_num-1), subtract 1 to get actual starting point
+         		$("#results").load("fetch_pages.php", {'page':(page_num-1)}, function(){
+         
+         		});
+         
+         		$(this).addClass('active'); //add active class to currently clicked element (style purpose)
+         		
+         		return false; //prevent going to herf link
+         	});	
+         });
+      </script>
+   
+      <script type="text/javascript">
+         $(document).ready(function(){
+             function loading_show(){
+                 $('#loading').html("<img src='images/loading.gif'/>").fadeIn('fast');
+             }
+             function loading_hide(){
+                 $('#loading').fadeOut('fast');
+             }                
+         $("li").click(function(){
+         
+         showLoader();
+         
+         $("li").css({'background-color' : ''});
+         $(this).css({'background-color' : '#006699'});
+         
+         $("#results").load("load_data.php?page=" + this.id, hideLoader);
+         
+         return false;
+         });
+           //   loadData(1);  For first time page load default results
+             $('#container .pagination li.active').live('click',function(){
+                 var page = $(this).attr('p');
+                 loadData(page);
+                 
+             });           
+             $('#go_btn').live('click',function(){
+                 var page = parseInt($('.goto').val());
+                 var no_of_pages = parseInt($('.total').attr('a'));
+                 if(page != 0 && page <= no_of_pages){
+                     loadData(page);
+                 }else{
+                     alert('Enter a PAGE between 1 and '+no_of_pages);
+                     $('.goto').val("").focus();
+                     return false;
+                 }
+                 
+             });
+         
+         
+         
+         $('#light').show();
+         $('#fade').show();
+         
+         });
+		 
+		 
+      
+	 
+      </script>
+	  
+	  <style>
+			.popup-mobile {position: relative; top: 0; left: 0; margin: 30px 0 0; width: 100%;}	
+			.modal {
+			   display: none; position: absolute; top: 100px; left: 50%; 
+			   width: 800px; margin-left: 320px; padding: 50px 30px;
+								background: #fff; color: #333; 
+								font-size: 25px; line-height: 39px; border: 10px dotted red; 
+								z-index: 9999;
+			}
+
+			/* The Close Button */
+			.close {
+				color: #aaa;
+				float: right;
+				font-size: 28px;
+				font-weight: bold;
+			}
+
+			.close:hover,
+			.close:focus {
+				color: black;
+				text-decoration: none;
+				cursor: pointer;
+			}
+			.modal-content {
+    background-color: #fefefe;
+    margin: -8% auto; /* 15% from the top and centered */
+    padding: 20px;
+    border: 1px solid #888;
+    width: 80%; /* Could be more or less, depending on screen size */
+	
+}
+
+.button {
+  background-color: ForestGreen;  
+  border-radius: 5px;
+  color: white;
+  padding: 0.25em;
+  text-decoration: none;
+  animation: blinker 1s linear infinite;
+}
+@keyframes blinker {  
+  50% { opacity: 0; }
+}
+</style>
+	  
+      
+      <link href="css/style.css" rel="stylesheet" type="text/css">
+	  <link rel="stylesheet" href="css/bootstrap.min.css">
+	  <!-- css files -->
+
+<!-- //css files -->
+
+   </head>
+   <body style="color:white;">
+              
+         <div class="main-header">
+      <div class="header-banner">
+         <div class="header">
+            <img src="images/header.png"/>	
+         </div>
+         <div class="menubar">
+<ul id="menu">
+  <li><a href="profiles.php"><span>Home</span></a></li>	  <li><a href="aboutus.php"><span>About Us</span></a></li>   
+  <!--<li><a href="download_coc.php?filename=registration_form.pdf"><span>Downloads</span></a></li>-->
+
+	 
+  
+  <li><a href="register.php"><span>Register</span></a></li>
+  <li><a href="contactus.php"><span>Contact Us </span></a></li>
+  
+     <li> <a href="#"><span style="margin-left:30px;">GOOGLE PAY:-  87794 58190/90228 09907 </span></a></li>
+
+       
+	  
+  <li style="float:right;margin:0px -410px; ; ">
+  		 
+  </li> 
+  
+</ul>
+			
+				<div class='pm-button'><a href='https://www.payumoney.com/paybypayumoney/#/032ED0263D31CF5F50640AFB41F79F78' style="margin-left: 660px;">
+		<img src='https://www.payumoney.com/media/images/payby_payumoney/new_buttons/23.png' /></a>
+		
+		</div> 
+			
+		 			
+				
+</div> 
+         <!--<div class="banner">
+            <ul id="slider">
+		       <li><img src="images/banner.jpg" width="1000" height="266" alt=""></li>
+               <li><img src="images/banner2.jpg"  width="1000" height="266" alt=""></li>
+            </ul>
+         </div>  -->
+      </div>
+      
+      
+      
+     <div style="padding: 0;color:black; font-weight:bold;height:650px;" class="main-contener">   
+         <div class="contener">
+ 
+  
+  
+              
+            <div id="light" class="white_content" style="display: none;text-align:center;">
+               <!--     
+                  <a href="javascript:void(0)" 		   onclick="document.getElementById(&#39;light&#39;).style.display=&#39;none&#39;;document.getElementById(&#39;fade&#39;).style.display=&#39;none&#39;">Close</a>-->
+               <div >
+                  <div style="text-align:center;font-size:20px;color:white;background:#9a1500x;">
+<marquee> Please do not share contact number of profiles and your username and password if found shared profile will be removed.</marquee>
+				 
+                  Note: Please login if you are registered user. 
+				  <br>Register yourself <a href="register.php"><img src="images/register.gif" width="100" height="27"></a> if any query then whatsapp on 8779458190/9892599248.</div>
+                <table style=" background: url(images/FlowerFrame6.png);
+    background-size: 1000px 386px; background-repeat: no-repeat;background-color:white;"><tr><td>
+                  <form name="frmLogin" action="/index.php" style="text-align:left;" method="post" >
+                     login
+                     <hr  width="280">
+                     <table style="background-color:white;" width="200" align="center" >
+                        <tr>
+                           <td>Username</td>
+                           <td>:</td>
+                           <td><input type="text" name="username"> </td>
+                        </tr>
+                        <tr>
+                           <td>Password</td>
+                           <td>:</td>
+                           <td> <input type="password" name="password"></td>
+                        </tr>
+                        <tr>
+                           <td>
+                              <br>
+                              &nbsp;
+                           </td>
+                           <td>
+                              <input type="submit" name="log_sub" value="Login">
+                           </td>
+                        </tr>
+                     </table>
+                  </form>  
+                            </td><td ><b><font color="#0000ff">पत्ता:</font> <font color="#E4287C"> 
+
+  दक्षता वधू वर मंडळ, मालपा डोंगरी नंबर २, पंप हाउस रोड, आघाडी स्टोप, अंधेरी पूर्व) 
+ बस नंबर, 441, 339, 392, या सर्व बस पिंकी टोकीज कडून मिळतील )
+Mumbai 400093.</font><br><br> <font color="#0000ff"> EMAIL :  dakshata66@gmail.com</font>
+<br>
+<br>
+<font color="#0000ff"> भेटण्याचा वेळ :</font>
+<font color="#E4287C">:रोज  संध्याकाळी 5 ते  10. आणि रविवारी दुपारी 3 ते रात्री 10. 
+आणि फक्त एक दिवस बंद शुक्रवारी </font>
+</b><br><br><font color="#0000ff"> Way to come from Andheri Station:</font><br>
+<font color="#E4287C">There are buses from Pincky Talkies.
+Bus No. 339,441,392,308 
+Aghadi stop</font></td><td> 
+                <div id="dataAjax" style="width:413px;height:335px;margin-top:49px;">
+				सर्व जाती करिता, सब जातींयो के लिये. <BR>FOR ALL CAST <br> <br>
+  ONLINE फॉम भरायचा असेल<br> तर भरू शकता, फॉर्म भरून झाला कि <br>या 8779458190 मोबाईल वर फोन करा, <br>आणि काही विचारायचे असेल ते विचारू शकता
+				
+               </div>
+           </td></tr>   </table>
+               </div>
+               <br>
+               <div>
+				
+            <div  id="fade" class="black_overlay" style="display: none;"></div>
+         </div>
+      </div>
+  
+  <button id="myBtn"></button>
+
+<!-- The melava Modal  website view  
+<div id="myModal" class="modal" style="border: 10px dotted; color:red;overflow: auto; ">
+
+ <div id="borderimg1">
+ <div style="margin-top:-45px">
+ <img src="images/shehnail.png" width="70" height="70"> 
+ <span class="cls" style="color:black;text-align:center;margin-left:220px;">Close</span>
+ <img style="float:right;" src="images/shehnail.png" width="70" height="70"></div>
+  
+
+<div style="text-align:center;color:orange;">
+<img src="images/Kalash.png" width="70" height="70">
+|| जय जय रघुवीर समर्थ ||<img src="images/Kalash.png" width="70" height="70">
+</div>
+
+ <div style="text-align:center;margin-top:-0px;"></div>
+
+
+   <br>	
+	<div style="text-align:center;"><font size="90" color="red" align="center">भव्य वधू वर मेळावा   </font>
+	</div>
+	
+	<div style=" text-align: center; margin-top: 27px; margin-bottom: 0px;"> <a style=" width: 150px; background-color: #1CA953; text-align: center; font-weight: 800; padding: 11px 0px; color: white; font-size: 12px; display: inline-block; text-decoration: none; " 
+	href='https://pmny.in/AIDSuswG2Q7f' > Pay Now </a> </div>
+	<br>
+
+भव्य वधूवर मेळावा   <font size="6" color="#FF1493"> 26 जानेवारी 2022 </font> ला ठेवण्यात आला आहे.  सर्व जाती साठी. All cast सर्वानी अवश्य येणे. मेळावा ठेवण्या मागचा उद्देश्य असा आहे की फाइल्स मध्ये मुले किंवा मुलींचे फोटो मध्ये समजत नाहीं की ती व्यक्ति कशी आहे,  
+त्या मुळे आपल्याला निर्णय घेता येत नाही. आणि कधी कधी फोटो आणि प्रत्येक्ष वेगळे असतात. 
+म्हणून त्या साठी मेळावा ठेवला आहे. तर आपण सर्वांनी मेळाव्याला अवश्य येणे आणि मेळाव्याचा लाभ घेणे. जेणे करुन तुम्हाला तुमच्या मना सारखा जोड़ीदार मिळवा हाच आमचा उद्देश्य. 
+
+मेळाव्याचे  <div style="color :#FF1493; font-size:30px; font-weight:bold;">चार्जेस फार कमी ठेवले आहे. फक्त 150 रुपये.  </div>
+
+जर तुम्हाला कोणाला सोबत आणायचे असेल तर त्यांचे एका व्यक्ति चे फक्त 50 रुपये एक्सट्रा भरून एक व्यक्ति सोबत आणू शकता.
+मेळाव्याचे फॉर्म भरण्याचे तारीख 25 डिसेम्बर ते 25 जानेवारी पर्यंत भरावे.
+ऑनलाइन पण भरु शकता  किंवा ऑफिस मध्ये येवून पण भरु शकता.
+
+मेळाव्याला उपस्थित राहण्याची वेळ   <font size="6" color="#FF1493"> 5:00pm वाजता.   </font> 
+   <font size="6" color="#FF1493"> 6:00pm वाजता     </font>   मेळावा चालू होईल. त्या वेळी सर्वानी हजर रहावे.
+येताना एक पेन आणि पेपर जरूर घेवून येणे जेणेकरुन तुम्हाला स्टेज वर आलेल्या वधु किंवा वरांची फ़ाइल नंबर लिहून घेता येईल. नंतर तुम्हाला साईट वर शोधायला बर पडेल.
+ <div style="color :#FF1493; font-size:30px; font-weight:bold;">एक आग्रहाची विनंती कृपया लहान मुलांना आणू नये. </div>
+
+मेळाव्याचा हॉलचा पत्ता GB. गोविन्द वल्लभ पंत हॉल, मेघवाड़ी, पोलिस चौकी समोर, जोगेश्वरी  पूर्व
+अंधेरी पूर्व वरून बस नंबर 441, 308. स्टॉप इंकमटैक्स कॉलोनी. जोगेश्वरी पूर्व.
+<br>Website: www.dakshatamatrimony.com
+
+ <br> 
+  <div style="color :#FF1493; font-size:30px; font-weight:bold;">संपर्क : 98925 99248 / 877 945 8190</div>
+ 
+ </div>
+
+</div> -->
+
+<br><br>
+<br>
+
+
+
+	<div class="footer">&copy; Dakshata  Matrimony</div><div class="footer"></div>
+	<div>
+	
+	
+	  
+	
+		
+		<script>
+		
+		var scrollTop = '';
+		var newHeight = '5';
+
+		$(window).bind('scroll', function() {
+		   scrollTop = $( window ).scrollTop();
+		   newHeight = scrollTop + 100;
+		});
+	$("document").ready(function() {
+			setTimeout(function() {
+				$("#myBtn").trigger('click');
+			},10);
+		});	
+		// Get the modal
+var modal = document.getElementById('myModal');
+
+// Get the button that opens the modal
+var btn = document.getElementById("myBtn");
+
+// Get the <span> element that closes the modal
+var span = document.getElementsByClassName("cls")[0];
+
+// When the user clicks on the button, open the modal 
+btn.onclick = function() {
+    modal.style.display = "block";
+}
+
+// When the user clicks on <span> (x), close the modal
+span.onclick = function() {
+    modal.style.display = "none";
+}
+
+// When the user clicks anywhere outside of the modal, close it
+window.onclick = function(event) {
+    if (event.target == modal) {
+        modal.style.display = "none";
+    }
+}
+
+if(jQuery(window).width() < 767) {
+		   $(this).after( $( ".modal" ) );
+		   $('.modal').show().addClass('popup-mobile').css('top', 0);
+		   $('html, body').animate({
+				scrollTop: $('.popup').offset().top
+			}, 500);   
+		 } else {
+		   $('.modal').removeClass('popup-mobile').css('top', newHeight).toggle();
+		 };
+	
+		
+		
+		
+		
+		// Popup Window
+		var scrollTop = '';
+		var newHeight = '100';
+
+		$(window).bind('scroll', function() {
+		   scrollTop = $( window ).scrollTop();
+		   newHeight = scrollTop + 100;
+		});
+		
+		$('.popup-trigger').click(function(e) {
+  		 e.stopPropagation();
+		 if(jQuery(window).width() < 767) {
+		   $(this).after( $( ".popup" ) );
+		   $('.popup').show().addClass('popup-mobile').css('top', 0);
+		   $('html, body').animate({
+				scrollTop: $('.popup').offset().top
+			}, 500);   
+		 } else {
+		   $('.popup').removeClass('popup-mobile').css('top', newHeight).toggle();
+		 };
+		});
+		
+		$('html').click(function() {
+		 $('.popup').hide();
+		});
+
+		$('.popup-btn-close').click(function(e){
+		  $('.popup').hide();
+		});
+
+		$('.popup').click(function(e){
+		  e.stopPropagation();
+		});
+		
+		
+		
+		</script>
+	 
+   <script type="text/javascript" src="js/modernizr.custom.13303.js"></script>
+</html>
+<script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-52227520-1', 'dakshatamatrimony.com');
+  ga('send', 'pageview');
+
+</script>

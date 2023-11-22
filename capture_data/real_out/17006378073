@@ -1,0 +1,2229 @@
+
+<!DOCTYPE html>
+
+<!--[if lt IE 7]>       <html class="ie6 lt-ie8 lt-ie9" lang="en">  <![endif]-->
+<!--[if IE 7]>          <html class="ie7 lt-ie8 lt-ie9" lang="en">  <![endif]-->
+<!--[if IE 8]>          <html class="ie8 lt-ie9" lang="en">         <![endif]-->
+<!--[if gt IE 8]><!-->  <html lang="en">                        <!--<![endif]-->
+
+<!--[if lt IE 9]> <html class="no-js lt-ie10 lt-ie9" xmlns:fb="http://ogp.me/ns/fb#"> <![endif]-->
+<!--[if IE 9]> <html class="no-js lt-ie10" xmlns:fb="http://ogp.me/ns/fb#"> <![endif]-->
+<!--[if gt IE 9]><!--> <html class="no-js" xmlns:fb="http://ogp.me/ns/fb#"> <!--<![endif]-->
+<head>
+	
+
+<meta charset="utf-8" />
+<!--<script src="//cdn.optimizely.com/js/2366712393.js"></script>-->
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+<meta name="viewport" content="width=device-width, maximum-scale=1.0, minimum-scale=1.0, initial-scale=1.0, user-scalable=no">
+<meta name="MobileOptimized" content="320">
+<meta http-equiv="cleartype" content="on">
+
+<meta name="apple-mobile-web-app-title" content="DPD UK">
+
+<link rel="shortcut icon" href="/asset_files/icon/favicon.ico" type="image/x-icon" />
+<link rel="apple-touch-icon" sizes="76x76" href="/asset_files/icon/touch-icon-ipad.png">
+<link rel="apple-touch-icon" sizes="120x120" href="/asset_files/icon/touch-icon-iphone-retina.png">
+<link rel="apple-touch-icon" sizes="152x152" href="/asset_files/icon/touch-icon-ipad-retina.png">
+
+<link rel="manifest" href="manifest.json">
+
+<link rel="stylesheet" href="/css/app.css" />
+<link rel="stylesheet" href="/css/foundation-icons.css" />
+
+<!--[if lt IE 9]>
+	<link rel="stylesheet" href="/css/ie8.css">
+	<link rel="stylesheet" href="/css/ie8-grid-support.css">
+	<link rel="stylesheet" href="/js/ie8-head.js">
+    <script src="//cdnjs.cloudflare.com/ajax/libs/html5shiv/3.7.2/html5shiv.min.js"></script>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/nwmatcher/1.2.5/nwmatcher.min.js"></script>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/respond.js/1.1.0/respond.min.js"></script>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/es5-shim/4.1.1/es5-shim.min.js"></script>
+<![endif]-->
+
+<script src="/js/modernizr.js"></script>
+<script src="https://unpkg.com/analytics/dist/analytics.min.js"></script>
+<!--Analytics START-->
+<script defer>
+  const { Analytics } = _analytics;
+
+  const url =
+    'https://dpduk-p-dpdsite-l1.nw.r.appspot.com/v1/analytics/createEvent';
+
+  const logger = {
+    name: 'dpdLogger',
+    page: ({ payload }) => {
+      addEvent(payload);
+    },
+  };
+
+  const analytics = Analytics({
+    app: 'dpd-site',
+    plugins: [logger],
+  });
+
+  const addEvent = async (event) => {
+    const context = {
+      url: window.location.href,
+      userAgent: navigator.userAgent,
+      referrer: document.referrer,
+    };
+    event.properties.context = context;
+
+    const eventAction = { actionEvents: [JSON.stringify(event)] };
+
+    const blob = new Blob([JSON.stringify(eventAction, null, 2)], {
+      type: 'application/json',
+    });
+
+    navigator.sendBeacon(url, blob);
+  };
+
+  window.onload = function () {
+    analytics.page();
+  };
+</script>
+<!--Analytics END-->
+	<link href="https://fonts.googleapis.com/css?family=Pontano+Sans" rel="stylesheet">
+    <script defer src="https://use.fontawesome.com/releases/v5.0.9/js/all.js" integrity="sha384-8iPTk2s/jMVj81dnzb/iFR2sdA7u06vHJyyLlAd4snFpCl/SnyUjRrbdJsw1pGIl" crossorigin="anonymous"></script>
+    <script>
+        function submitQBForm() {
+            // get form data
+            var _from = document.getElementById("qqfrom").value || document.getElementById("qqfromMobile").value;
+            var _to = document.getElementById("qqto").value || document.getElementById("qqtoMobile").value;
+            var _weight = document.getElementById("qqweight").value || document.getElementById("qqweightMobile").value;
+
+            if (_from && _to && (_weight > 0)) {
+
+                var qqPostcodes = "";
+
+                var _colP = document.getElementById("qqCP").value || document.getElementById("qqCPMobile").value;
+                if (_colP) {
+                    qqPostcodes += "&cp=" + _colP;
+                }
+
+                var _delP = document.getElementById("qqDP").value || document.getElementById("qqDPMobile").value;
+                if (_delP) {
+                    qqPostcodes += "&dp=" + _delP;
+                }
+
+
+                var location = 'https://www.dpdlocal-online.co.uk/quotes?col=' + _from + '&dest=' + _to + qqPostcodes + '&p=1~' + _weight;
+
+                var _length = document.getElementById("qqlength").value || document.getElementById("qqlengthMobile").value;
+                var _width = document.getElementById("qqwidth").value || document.getElementById("qqwidthMobile").value;
+                var _height = document.getElementById("qqheight").value || document.getElementById("qqheightMobile").value;
+
+                if (_length && _width && _height) {
+                    location += "|" + _length + "|" + _width + "|" + _height;
+                }
+
+                var win = window.open(location, '_blank');
+                if (win) {
+                    //Browser has allowed it to be opened
+                    win.focus();
+                } else {
+                    //Browser has blocked it
+                    window.location = location;
+                }
+            }
+        }
+
+        function getQuote() {
+            document.getElementById("qqDimensions").classList.add("hidden");
+            document.getElementById("qqGetQuote").classList.add("selected");
+            document.getElementById("qqLongerOneMetre").classList.remove("selected");
+            document.getElementById("qqSubmitButtonGetQuote").classList.remove("hidden");
+            document.getElementById("weightContainerButton").classList.remove("small-12");
+            document.getElementById("weightContainerButton").classList.add("small-6");
+        }
+
+        function longerOneMetre() {
+               document.getElementById("qqDimensions").classList.remove("hidden");
+            document.getElementById("qqGetQuote").classList.remove("selected");
+            document.getElementById("qqLongerOneMetre").classList.add("selected");
+            document.getElementById("qqSubmitButtonGetQuote").classList.add("hidden");
+            document.getElementById("weightContainerButton").classList.add("small-12");
+            document.getElementById("weightContainerButton").classList.remove("small-6");
+        }
+
+        /*mobile view */
+        function getQuoteMobile() {
+            document.getElementById("qqDimensionsMobile").classList.add("hidden");
+            document.getElementById("qqGetQuoteMobile").classList.add("selected");
+            document.getElementById("qqLongerOneMetreMobile").classList.remove("selected");
+            document.getElementById("qqSubmitButtonGetQuoteMobile").classList.remove("hidden");
+            document.getElementById("weightContainerButtonMobile").classList.remove("small-12");
+            document.getElementById("weightContainerButtonMobile").classList.add("small-6");
+        }
+
+        function longerOneMetreMobile() {
+            document.getElementById("qqDimensionsMobile").classList.remove("hidden");
+            document.getElementById("qqGetQuoteMobile").classList.remove("selected");
+            document.getElementById("qqLongerOneMetreMobile").classList.add("selected");
+            document.getElementById("qqSubmitButtonGetQuoteMobile").classList.add("hidden");
+            document.getElementById("weightContainerButtonMobile").classList.add("small-12");
+            document.getElementById("weightContainerButtonMobile").classList.remove("small-6");
+        }
+        /*mobile view */
+    </script>
+	<style>
+
+	@media (min-width: 375px) {
+		#qqGetQuote {
+			width: 30%;
+		}
+
+		#qqLongerOneMetre {
+			width: 70%;
+		}
+
+     		#qqGetQuote, #qqLongerOneMetre {
+        		padding: 1rem 0.1rem;
+    			font-size: 0.8rem;
+    		}
+	}
+
+	@media (min-width: 411px) {
+   		#qqGetQuote, #qqLongerOneMetre {
+       			padding: 1rem 0.1rem;
+			font-size: 0.9rem;
+   		}
+	}
+
+	@media (min-width: 414px) {
+   		#qqGetQuote, #qqLongerOneMetre {
+       			padding: 1rem 0.3rem;
+			font-size: 0.9rem;
+   		}
+	}
+
+	@media only screen and (min-width: 40.063em) {
+		#qqGetQuote {
+			width: auto;
+			padding: 1rem;
+            font-size: 1rem;
+		}
+
+		#qqLongerOneMetre {
+			width: auto;
+			padding: 1rem;
+            font-size: 1rem;
+		}
+
+	}
+
+	.dpdgroup_site div.qqNoPaddingLeft {
+		padding-left: 0px;
+	}
+
+	.dpdgroup_site div.qqNoPaddingRight {
+		padding-right: 0px;
+	}
+
+	.dpdgroup_site button.qqNoMarginBottom, .dpdgroup_site .button.qqNoMarginBottom {
+		margin-bottom: 0px;
+	}
+
+	.dpdgroup_site .panel-dpd-red a.qqKgBox {
+    		color: #222;
+    		color: rgba(0, 0, 0, 0.75);
+    		background-color: #FFF;
+    		border: 0;
+    		border-left: 1px solid #CCCCCC;
+	}
+
+	.dpdgroup_site button.brand-bgd-grad:hover, .dpdgroup_site button.brand-bgd-grad:focus {
+	    background-color: #DC0032;
+	    outline: none;
+	}
+
+	#qqDP {
+        	margin-left: -1px;
+	}
+
+	.qqPushDown {
+		padding-top: 10px;
+	}
+
+    #qqGetQuote.selected, #qqGetQuoteMobile.selected {
+        border: 1px solid #DC0032;
+        background-color: #DC0032;
+    }
+    #qqGetQuote, #qqGetQuoteMobile {
+        border-right: 1px solid #FFF;
+        border-bottom: 1px solid #FFF;
+        background-color: #A90034;
+        width:42%;
+    }
+
+    #qqLongerOneMetre.selected ,#qqLongerOneMetreMobile.selected {
+        border: 1px solid #DC0032;
+        background-color: #DC0032;
+    }
+    #qqLongerOneMetre, #qqLongerOneMetreMobile {
+        border-left: 1px solid #FFF;
+        border-bottom: 1px solid #FFF;
+        background-color: #A90034;
+        width:42%;
+    }
+    #qqLongerOneMetre:focus ,#qqLongerOneMetreMobile:focus {
+       outline: none;
+    }
+
+
+    .login_section {
+      background-color: #a90034!important;
+      padding: 15px !important;
+    }
+
+    .trackYourParcelSection {
+      background-color: #414042;
+      padding: 15px !important;
+    }
+
+    .trackYourParcelSection h1, .login_section h1 {
+      margin-top: 5px;
+      color: #FFFFFF;
+      font-size: 1.25rem;
+      font-weight: 200;
+    }
+
+    .dpdgroup_site .fullview .qqKgBox {
+      font-size: 0.655rem!important;
+    }
+
+    .dpdgroup_site #quoteLarge {
+      width:385px!important;
+      background-color: transparent!important;
+      margin-left: 60%!important;
+      margin-top: 0px!important;
+      height:371px!important;
+    }
+
+    .dpdgroup_site .fullview select, .dpdgroup_site .fullview input {
+      margin: 0px 0px 0.4rem!important;
+    }
+
+    .dpdgroup_site #quoteLarge .qqform {
+      min-height:371px;
+    }
+
+    @media only screen and (min-width: 64.063em) {
+
+    .dpdgroup_site .large-6-1 {
+        width: 49%;
+        }
+
+      .dpdgroup_site .large-12-1 {
+        width: 99%!important;
+      }
+    }
+
+    @media only screen and (min-width: 40.063em) {
+      .fullview #qqGetQuote, .fullview #qqLongerOneMetre {
+        font-size: 0.8rem!important;
+        width: 50%!important;
+        padding: 0.6rem!important;
+      }
+
+    }
+
+    .tracking-btn {
+      line-height: 2.425rem!important;
+      background-color: #808285!important;
+    }
+
+    .orbit-caption{
+      display:none!important; /*grey box at the bottom of the banner*/
+    }
+
+    @media only screen and (min-width: 90.063em) {
+        .dpdgroup_site #mobile-quote-view {
+            display:none!important;
+        }
+    }
+
+
+	</style>
+
+<title>DPD (UK) - Your delivery experts.</title>
+	<meta http-equiv="description" content="The UK's leading parcel delivery brand. With our extensive UK network and unrivalled ground based service to Europe and Air Express service to the rest of the world, we are well placed to satisfy all your distribution and logistics needs." />
+    <meta name="keywords" content="predict, pickup, parcel shop, mydpd, dpd app">
+	<META NAME="robots" CONTENT="noindex,nofollow">
+		<style>
+	.intl-banner {
+    background: url(/images/homepage/homepage-international-chat.png) no-repeat;
+    background-size: cover;
+    color: white;
+    padding: 20px !important;
+    height: 376px !important;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+	.intl-body h2 {
+    color: white;
+    line-height: 100%;
+    margin-bottom: 20px;
+}
+	
+
+	.intl-input form {
+       display: flex;
+    flex-direction: row;
+    padding: 1px;
+    border: 1px solid #ccc;
+    background: white;
+}
+.intl-input form input {
+    flex-grow: 2;
+    margin: 0 !important;
+    padding: 0 8px !important;
+	border: 0 !important;
+    font-size: 14px !important;
+}
+	.intl-input form input:focus {
+		background: none !important;
+		outline: none !important;
+		box-shadow: none !important;
+		border-color: transparent !important;
+	}
+.intl-input form button {
+    background: url(/images/homepage/paper-plane-solid.png) transparent no-repeat;
+    background-size: contain;
+    display: inherit;
+    width: 30px;
+    height: 30px;
+    border: 0;
+    margin: 0 4px 0 0;
+    padding: 10px;
+    align-self: center;
+    border-radius: 40px;
+    transition: .3s ease;
+    cursor: pointer;
+	opacity: 0.7
+}
+	.intl-input form button:hover {   
+    opacity: 1;
+		  background-color: transparent;
+}
+	.intl-input form button:focus {
+    background-color: transparent;
+}
+	.intl-input form button[disabled] {
+    background-color: transparent;
+    border-color: transparent;    
+    cursor: default;
+    opacity: 0.4;
+    box-shadow: none;
+}
+		.intl-input form button[disabled]:hover {
+    background-color: transparent;
+}
+	.intl-input label {
+    color: #ccc;
+    text-align: right;
+    padding-top: 4px;
+    font-size: 12px;
+}
+	</style>
+</head>
+
+<body class="dpdgroup_site">
+
+<!-- Brand Header - START -->
+
+<div class="row header">
+
+  <div class="large-12 columns">
+    <div class="large-2 medium-3 hide-for-small right">
+      <form action="/search.jsp" method="get">
+        <div class="row collapse site-search">
+          <div class="small-10 columns">
+            <input type='text' id="q" name="q" placeholder="Website Search">
+          </div>
+          <div class="small-2 columns">
+            <input type="submit" value="" class="button postfix">
+          </div>
+        </div>
+      <input type="hidden" name="appmode" value="guest" />          
+      </form>
+    </div>
+  </div>     
+
+  <div class="large-6 medium-6 small-4 columns">
+    <a href="/index.jsp"><img src="/asset_files/logo/dpd.png" /></a>
+  </div>
+  
+  <div class="large-6 medium-6 small-7 columns">
+    <img src="/asset_files/logo/claim.png" class="right" />
+  </div>
+</div>
+<!-- Brand Header - END -->
+
+
+
+<div class="off-canvas-wrap" data-offcanvas>
+  <div class="inner-wrap">
+
+
+
+
+	<!-- Mobile Tab Bar & Nav Icon - START -->
+	<div class="row">
+	  <div class="large-12 columns">
+	    <nav class="tab-bar  show-for-small-only ">
+	      <section class="middle tab-bar-section">
+<h1>DPD UK</h1>	      </section>
+	      <section class="right-small">
+	        <a class="right-off-canvas-toggle menu-icon" href="#"><span></span></a>
+	      </section>
+	    </nav>
+	  </div>
+	</div>
+	<!-- Mobile Tab Bar & Nav Icon - END -->
+
+	<!-- Mobile Navigation Start -->
+    <aside class="right-off-canvas-menu  show-for-small-only" >
+      <form action="/search.jsp" method="get">
+        <div class="row collapse site-search">
+          <div class="small-10 columns">
+            <input type='text' id="q" name="q" placeholder="Website Search">
+          </div>
+          <div class="small-2 columns">
+            <input type="submit" value="" class="button postfix">
+          </div>
+        </div>
+      <input type="hidden" name="appmode" value="guest" />
+      </form>
+      
+
+
+
+
+
+
+
+
+
+<ul class="off-canvas-list">			
+
+		
+			
+
+			
+
+			
+				
+					
+					
+		<!-- Level 1 --><li>
+							<a href="/index.jsp" title="Home">Home</a>
+						
+					
+				
+			
+
+			<ul>				
+			
+			</ul>
+<!-- Level 1 --></li>
+		
+			
+
+			
+
+			
+				
+					
+					
+		<!-- Level 1 --><li>
+							<a href="/content/products_services/index.jsp" title="Products &amp; Services">Products &amp; Services</a>
+						
+					
+				
+			
+
+			<ul>				
+			
+			</ul>
+<!-- Level 1 --></li>
+		
+			
+
+			
+
+			
+				
+					
+					
+		<!-- Level 1 --><li>
+							<a href="/content/how-can-we-help/index.jsp" title="Help">Help</a>
+						
+					
+				
+			
+
+			<ul>				
+			
+			</ul>
+<!-- Level 1 --></li>
+		
+			
+
+			
+
+			
+				
+					
+					
+		<!-- Level 1 --><li>
+							<a href="/content/my_dpd/index.jsp" title="MyDPD">MyDPD</a>
+						
+					
+				
+			
+
+			<ul>				
+			
+			</ul>
+<!-- Level 1 --></li>
+		
+			
+
+			
+
+			
+
+			<ul>				
+			
+				
+					
+					
+					
+						
+							
+							
+								<li>
+									<a href="/content/about_dpd/awards.jsp" title="Awards">Awards</a>									
+								</li>
+							
+						
+					
+				
+					
+					
+					
+						
+							
+							
+								<li>
+									<a href="/content/about_dpd/purpose.jsp" title="Purpose">Purpose</a>									
+								</li>
+							
+						
+					
+				
+					
+					
+					
+				
+					
+					
+					
+						
+							
+							
+								<li>
+									<a href="/content/about_dpd/sustainability.jsp" title="Sustainability">Sustainability</a>									
+								</li>
+							
+						
+					
+				
+					
+					
+					
+				
+					
+					
+					
+						
+							
+							
+								<li>
+									<a href="/content/about_dpd/press_centre/news.jsp" title="Press Centre">Press Centre</a>									
+								</li>
+							
+						
+					
+				
+					
+					
+					
+				
+					
+					
+					
+						
+							
+							
+								<li>
+									<a href="/content/about_dpd/security.jsp" title="Security">Security</a>									
+								</li>
+							
+						
+					
+				
+					
+					
+					
+						
+							
+							
+								<li>
+									<a href="/content/about_dpd/delivery_schedule.jsp" title="Delivery Schedule">Delivery Schedule</a>									
+								</li>
+							
+						
+					
+				
+					
+					
+					
+						
+							
+							
+								<li>
+									<a href="/content/how-can-we-help/index.jsp" title="Customer Complaints">Customer Complaints</a>									
+								</li>
+							
+						
+					
+				
+					
+					
+					
+				
+					
+					
+					
+				
+			
+			</ul>
+<!-- Level 1 --></li>
+		
+			
+
+			
+
+			
+				
+					
+					
+		<!-- Level 1 --><li>
+							<a href="https://jobs.dpd.co.uk" title="Jobs">Jobs</a>
+						
+					
+				
+			
+
+			<ul>				
+			
+			</ul>
+<!-- Level 1 --></li>
+		
+			
+
+			
+
+			
+				
+					
+					
+		<!-- Level 1 --><li>
+							<a href="https://innovation.dpd.co.uk/fmp" title="Innovation">Innovation</a>
+						
+					
+				
+			
+
+			<ul>				
+			
+			</ul>
+<!-- Level 1 --></li>
+		
+			
+
+			
+
+			
+				
+					
+					
+		<!-- Level 1 --><li>
+							<a href="https://green.dpd.co.uk" title="Sustainability">Sustainability</a>
+						
+					
+				
+			
+
+			<ul>				
+			
+			</ul>
+<!-- Level 1 --></li>
+		
+			
+
+			
+
+			
+				
+					
+					
+		<!-- Level 1 --><li>
+							<a href="/content/about_dpd/purpose.jsp" title="Purpose">Purpose</a>
+						
+					
+				
+			
+
+			<ul>				
+			
+			</ul>
+<!-- Level 1 --></li>
+		
+			
+
+			
+
+			
+				
+					
+					
+		<!-- Level 1 --><li>
+							<a href="/content/my_dpd/sales-enquiry.jsp" title="Sales Enquiry">Sales Enquiry</a>
+						
+					
+				
+			
+
+			<ul>				
+			
+			</ul>
+<!-- Level 1 --></li>
+		
+			
+
+			
+
+			
+
+			<ul>				
+			
+			</ul>
+<!-- Level 1 --></li>
+		
+			
+
+			
+
+			
+
+			<ul>				
+			
+			</ul>
+<!-- Level 1 --></li>
+		
+			
+
+			
+
+			
+
+			<ul>				
+			
+			</ul>
+<!-- Level 1 --></li>
+		
+		</ul>
+    </aside>
+    <!-- Mobile Navigation End -->
+
+
+    <section class="main-section">
+<!-- content goes here -->
+
+
+
+    <!-- Main Navigation - START -->
+    <div class="row-full main-navigation hide-for-small">
+      <div class="row">
+        <div class="large-12 main-navigation columns">
+          <!--Main Navigation include Start-->
+          
+
+
+
+
+    
+        
+    
+    
+
+
+
+
+
+
+<ul>
+		
+				
+				
+				
+					
+						
+							<li>
+								<a href="/index.jsp" class="active" title="Home">Home</a>
+							</li>
+						
+						
+					
+				
+		
+				
+				
+				
+					
+						
+						
+							<li>
+								<a href="/content/products_services/index.jsp" title="Products &amp; Services">Products &amp; Services</a>
+							</li>
+						
+					
+				
+		
+				
+				
+				
+					
+						
+						
+							<li>
+								<a href="/content/how-can-we-help/index.jsp" title="Help">Help</a>
+							</li>
+						
+					
+				
+		
+				
+				
+				
+					
+						
+						
+							<li>
+								<a href="/content/my_dpd/index.jsp" title="MyDPD">MyDPD</a>
+							</li>
+						
+					
+				
+		
+				
+				
+				
+		
+				
+				
+				
+					
+						
+						
+							<li>
+								<a href="https://jobs.dpd.co.uk" title="Jobs">Jobs</a>
+							</li>
+						
+					
+				
+		
+				
+				
+				
+					
+						
+						
+							<li>
+								<a href="https://innovation.dpd.co.uk/fmp" title="Innovation">Innovation</a>
+							</li>
+						
+					
+				
+		
+				
+				
+				
+					
+						
+						
+							<li>
+								<a href="https://green.dpd.co.uk" title="Sustainability">Sustainability</a>
+							</li>
+						
+					
+				
+		
+				
+				
+				
+					
+						
+						
+							<li>
+								<a href="/content/about_dpd/purpose.jsp" title="Purpose">Purpose</a>
+							</li>
+						
+					
+				
+		
+				
+				
+				
+					
+						
+						
+							<li>
+								<a href="/content/my_dpd/sales-enquiry.jsp" title="Sales Enquiry">Sales Enquiry</a>
+							</li>
+						
+					
+				
+		
+				
+				
+				
+		
+				
+				
+				
+		
+				
+				
+				
+		
+		</ul>
+
+
+
+
+
+
+
+
+
+
+		  <!--Main Navigation include End-->
+        </div>
+      </div>
+    </div>
+    <!-- Main Navigation - END -->
+
+<!--Content Start DPD-->
+<!--  Orbit Image Slider -->
+<div id="quoteLarge" class="fullview orbit-over hide-for-small hide-for-medium">
+  <!-- Quote Form-->
+  <!-- <div class="row top-20">
+<div class="large-12 columns"> -->
+      <div class="qqformContainer">
+        <div class="qqToggles">
+            <button id="qqGetQuote" class="getQuote brand-bgd-grad button qqNoMarginBottom selected" onclick="getQuote(); return false;">
+                Get a Quote
+            </button><button id="qqLongerOneMetre" class="longerOneMetre dpd-dark-red button qqNoMarginBottom " onclick="longerOneMetre(); return false;">
+                Longer than 1m &nbsp;
+            </button>
+
+        </div>
+        <div class="qqform panel-dpd-red">
+            <div class="qqCollection medium-4 large-12 columns">
+                    Where is your parcel coming from:
+                <div class="large-6-1 column">
+                    <select class="filter-input" id="qqfrom">
+                        <option value="">Please Select...</option>
+                        <option selected value="219">United Kingdom</option>
+                    </select>
+                </div>
+                <div class="large-6-1 column">
+                    <input id="qqCP" placeholder="Optional Postcode" name="collectionPostcode" type="text">
+                </div>
+            </div>
+            <div class="qqDelivery medium-4 large-12 columns">
+                Where is your parcel going to:
+                <div class="large-6-1 column">
+                    <select class="filter-input" id="qqto">
+                        <option value="">Please Select...</option>
+                        <option selected value="219">United Kingdom</option>
+                        <option value="249">Northern Ireland</option>
+                        <option value="26">Ireland</option>
+                        <option value="1">Australia</option>
+                        <option value="2">China</option>
+                        <option value="22">France</option>
+                        <option value="23">Germany</option>
+                        <option value="3">Hong Kong</option>
+                        <option value="4">India</option>
+                        <option value="27">Italy</option>
+                        <option value="30">Netherlands</option>
+                        <option value="31">Poland</option>
+                        <option value="33">Spain</option>
+                        <option value="217">USA</option>
+                        <option value="">---------------------</option>
+                        <option value="230">Afghanistan</option>
+                        <option value="35">Albania</option>
+                        <option value="36">Algeria</option>
+                        <option value="38">American Samoa</option>
+                        <option value="37">Andorra</option>
+                        <option value="39">Angola</option>
+                        <option value="40">Anguilla</option>
+                        <option value="41">Antigua</option>
+                        <option value="42">Argentina</option>
+                        <option value="43">Armenia</option>
+                        <option value="44">Aruba</option>
+                        <option value="1">Australia</option>
+                        <option value="16">Austria</option>
+                        <option value="45">Azerbaijan</option>
+                        <option value="46">Bahamas</option>
+                        <option value="47">Bahrain</option>
+                        <option value="48">Bangladesh</option>
+                        <option value="49">Barbados</option>
+                        <option value="50">Belarus</option>
+                        <option value="17">Belgium</option>
+                        <option value="51">Belize</option>
+                        <option value="52">Benin</option>
+                        <option value="53">Bermuda</option>
+                        <option value="55">Bolivia</option>
+                        <option value="57">Bosnia Herzegovina</option>
+                        <option value="58">Botswana</option>
+                        <option value="59">Brazil</option>
+                        <option value="231">British Virgin Islands</option>
+                        <option value="60">Brunei</option>
+                        <option value="61">Bulgaria</option>
+                        <option value="62">Burkina Faso</option>
+                        <option value="63">Burundi</option>
+                        <option value="64">Cambodia</option>
+                        <option value="65">Cameroon</option>
+                        <option value="218">Canada</option>
+                        <option value="66">Canary Islands</option>
+                        <option value="67">Cape Verde Islands</option>
+                        <option value="68">Cayman Islands</option>
+                        <option value="69">Central African Republic</option>
+                        <option value="70">Chad</option>
+                        <option value="72">Chile</option>
+                        <option value="2">China</option>
+                        <option value="73">Colombia</option>
+                        <option value="74">Comoros Islands</option>
+                        <option value="75">Congo</option>
+                        <option value="234">Cook Islands</option>
+                        <option value="235">Costa Rica</option>
+                        <option value="76">Croatia</option>
+                        <option value="79">Cyprus</option>
+                        <option value="19">Czech Republic</option>
+                        <option value="214">Democratic Republic of Congo</option>
+                        <option value="20">Denmark</option>
+                        <option value="80">Djibouti</option>
+                        <option value="81">Dominica</option>
+                        <option value="82">Dominican Republic</option>
+                        <option value="83">Ecuador</option>
+                        <option value="84">Egypt</option>
+                        <option value="85">El Salvador</option>
+                        <option value="86">Equatorial Guinea</option>
+                        <option value="87">Eritrea</option>
+                        <option value="88">Estonia</option>
+                        <option value="89">Ethiopia</option>
+                        <option value="91">Faroe Islands</option>
+                        <option value="92">Fiji</option>
+                        <option value="21">Finland</option>
+                        <option value="22">France</option>
+                        <option value="93">French Guiana</option>
+                        <option value="94">Gabon</option>
+                        <option value="95">Gambia</option>
+                        <option value="96">Georgia</option>
+                        <option value="23">Germany</option>
+                        <option value="98">Gibraltar</option>
+                        <option value="99">Greece</option>
+                        <option value="100">Greenland</option>
+                        <option value="101">Grenada</option>
+                        <option value="102">Guadeloupe</option>
+                        <option value="103">Guam</option>
+                        <option value="104">Guatemala</option>
+                        <option value="24">Guernsey</option>
+                        <option value="106">Guinea</option>
+                        <option value="107">Guyana</option>
+                        <option value="108">Haiti</option>
+                        <option value="109">Honduras Republic</option>
+                        <option value="3">Hong Kong</option>
+                        <option value="25">Hungary</option>
+                        <option value="110">Iceland</option>
+                        <option value="4">India</option>
+                        <option value="5">Indonesia</option>
+                        <option value="239">Iraq Republic</option>
+                        <option value="26">Ireland</option>
+                        <option value="268">Isle of Man</option>
+                        <option value="271">Isle of Wight</option>
+                        <option value="112">Israel</option>
+                        <option value="27">Italy</option>
+                        <option value="114">Jamaica</option>
+                        <option value="6">Japan</option>
+                        <option value="28">Jersey</option>
+                        <option value="115">Jordan</option>
+                        <option value="116">Kazakhstan</option>
+                        <option value="117">Kenya</option>
+                        <option value="119">Kuwait</option>
+                        <option value="120">Kyrgyzstan</option>
+                        <option value="121">Laos</option>
+                        <option value="122">Latvia</option>
+                        <option value="123">Lebanon</option>
+                        <option value="124">Lesotho</option>
+                        <option value="125">Liberia</option>
+                        <option value="126">Libya</option>
+                        <option value="127">Liechtenstein</option>
+                        <option value="128">Lithuania</option>
+                        <option value="29">Luxembourg</option>
+                        <option value="129">Macau</option>
+                        <option value="130">Macedonia</option>
+                        <option value="131">Madagascar</option>
+                        <option value="132">Malawi</option>
+                        <option value="9">Malaysia</option>
+                        <option value="133">Maldives</option>
+                        <option value="134">Mali</option>
+                        <option value="135">Malta</option>
+                        <option value="137">Martinique</option>
+                        <option value="138">Mauritania</option>
+                        <option value="139">Mauritius</option>
+                        <option value="251">Mayotte</option>
+                        <option value="140">Mexico</option>
+                        <option value="221">Moldova</option>
+                        <option value="142">Monaco</option>
+                        <option value="143">Mongolia</option>
+                        <option value="253">Montenegro</option>
+                        <option value="144">Montserrat</option>
+                        <option value="145">Morocco</option>
+                        <option value="146">Mozambique</option>
+                        <option value="148">Namibia</option>
+                        <option value="150">Nepal</option>
+                        <option value="30">Netherlands</option>
+                        <option value="241">Netherlands Antilles</option>
+                        <option value="152">New Caledonia</option>
+                        <option value="10">New Zealand</option>
+                        <option value="153">Nicaragua</option>
+                        <option value="154">Niger</option>
+                        <option value="249">Northern Ireland</option>
+                        <option value="157">Norway</option>
+                        <option value="158">Oman</option>
+                        <option value="11">Pakistan</option>
+                        <option value="242">Palau</option>
+                        <option value="243">Palestine Authority</option>
+                        <option value="159">Panama</option>
+                        <option value="160">Papua New Guinea</option>
+                        <option value="161">Paraguay</option>
+                        <option value="162">Peru</option>
+                        <option value="12">Philippines</option>
+                        <option value="31">Poland</option>
+                        <option value="32">Portugal</option>
+                        <option value="163">Puerto Rico</option>
+                        <option value="164">Qatar</option>
+                        <option value="165">Reunion, Islands Of</option>
+                        <option value="166">Romania</option>
+                        <option value="167">Russia</option>
+                        <option value="168">Rwanda</option>
+                        <option value="252">San Marino</option>
+                        <option value="270">Scilly Isles</option>
+                        <option value="254">Scottish Highlands</option>
+                        <option value="269">Scottish Islands</option>
+                        <option value="172">Senegal</option>
+                        <option value="222">Serbia</option>
+                        <option value="173">Seychelles</option>
+                        <option value="13">Singapore</option>
+                        <option value="223">Slovak Republic</option>
+                        <option value="176">Slovenia</option>
+                        <option value="177">Solomon Islands</option>
+                        <option value="179">South Africa</option>
+                        <option value="245">South Korea</option>
+                        <option value="33">Spain</option>
+                        <option value="180">Sri Lanka</option>
+                        <option value="183">St. Kitts</option>
+                        <option value="184">St. Lucia</option>
+                        <option value="186">St. Vincent</option>
+                        <option value="188">Suriname</option>
+                        <option value="189">Swaziland</option>
+                        <option value="34">Sweden</option>
+                        <option value="190">Switzerland</option>
+                        <option value="14">Taiwan</option>
+                        <option value="194">Tanzania</option>
+                        <option value="15">Thailand</option>
+                        <option value="195">Togo</option>
+                        <option value="197">Trinidad & Tobago</option>
+                        <option value="246">Tunisia</option>
+                        <option value="198">Turkey</option>
+                        <option value="199">Turkmenistan</option>
+                        <option value="200">Turks & Caicos Islands</option>
+                        <option value="202">Uganda</option>
+                        <option value="203">Ukraine</option>
+                        <option value="219">United Kingdom</option>
+                        <option value="205">Uruguay</option>
+                        <option value="217">USA</option>
+                        <option value="206">Uzbekistan</option>
+                        <option value="207">Vanuatu</option>
+                        <option value="224">Vatican City</option>
+                        <option value="208">Venezuela</option>
+                        <option value="209">Vietnam</option>
+                        <option value="210">Virgin Islands</option>
+                        <option value="211">Western Samoa</option>
+                        <option value="212">Yemen</option>
+                        <option value="215">Zambia</option>
+                        <option value="216">Zimbabwe</option>
+                    </select>
+                </div>
+                <div class="large-6-1 column">
+                    <input id="qqDP" placeholder="Optional Postcode" name="DeliveryPostcode" type="text">
+                </div>
+            </div>
+            <div class="weightContainer  medium-4 large-12 columns">
+                <div>Weight :</div>
+                <div id="weightContainerButton" class="large-6 column qqNoPaddingLeft">
+                    <div class="large-9 column">
+                        <input id="qqweight" name="weight" min="0.5" step="0.5" max="31" type="number">
+                    </div>
+                    <div class="large-3 column">
+                        <a class="qqKgBox postfix">kg</a>
+                    </div>
+                </div>
+
+                <div class="large-12 large-8 column">
+                    <button style="margin-top: 67px;width:285px;" id="qqSubmitButtonGetQuote" class="dpd-dark-red button postfix" onclick="submitQBForm(); return false;">Quote &amp; Book</button>
+                </div>
+            </div>
+            <div class="row">
+                <div id="qqDimensions" class="hidden">
+                <div class="large-12 large-8 column">
+
+                        <div class="lengthContainer large-4 columns">
+                            <div>Length :</div>
+                            <div class="large-9 column">
+                                <input id="qqlength" name="length" min="1" step="1" max="175" type="number">
+                            </div>
+                            <div class="large-3 column">
+                                <a class="qqKgBox postfix">cm</a>
+                            </div>
+                        </div>
+
+                        <div class="widthContainer large-4 columns">
+                            <div>Width :</div>
+                            <div class="large-9 column">
+                                <input id="qqwidth" name="width" min="1" step="1" max="31" type="number">
+                            </div>
+                            <div class="large-3 column">
+                                <a class="qqKgBox postfix">cm</a>
+                            </div>
+                        </div>
+
+                        <div class="heightContainer large-4 columns">
+                            <div>Height :</div>
+                            <div class="large-9 column">
+                                <input id="qqheight" name="height" min="1" step="1" max="31" type="number">
+                            </div>
+                            <div class="large-3 column">
+                                <a class="qqKgBox postfix">cm</a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="large-12 large-4 columns">
+                        <!-- <h1>&nbsp;</h1> -->
+                        <button id="qqSubmitButton" class="dpd-dark-red button postfix" onclick="submitQBForm(); return false;">Quote &amp; Book</button>
+                    </div>
+                </div>
+            </div>
+
+            <div class="qqMultipleLink ">
+                <i class="far fa-clone"></i>&nbsp;<a href="https://www.dpdlocal-online.co.uk/quick-quote">Send Multiple Parcels</a>
+            </div>
+
+        </div>
+    </div>
+
+<!-- </div>
+</div> -->
+
+  <!-- Quote Form -->
+  </div>  
+
+
+
+<div class="row-full  hide-for-small">
+
+  <div class="large-12 column orbit-under">
+    
+    <ul class="example-orbit" data-orbit>
+		
+      <li class="active">
+		  
+		  <a href="https://green.dpd.co.uk/" target="_blank">	<img src="/artwork_files/_carousel/most-sustainable-delivery-company.png" alt="Find out more" /> </a>
+		 
+ <!--
+		<a href="https://green.dpd.co.uk/" target="_blank">	<img src="/artwork_files/_carousel/uks_most_sustainable.png" alt="Find out more" /> </a>
+          <!--
+        <div class="orbit-caption">
+          <a href="https://green.dpd.co.uk/?utm_source=DPD%20Website&utm_medium=banner&utm_campaign=homepage_carousel_green_banner&utm_content=green_focus_box">Find out more</a>
+        </div>
+      </li>-->
+		<!--IMAGE 1 END-->
+      <!--<li class="active">
+        <img src="/artwork_files/_carousel/dpd-local-quote-bg.png" alt="Find out more" />
+        <div class="orbit-caption">
+          <a href="https://www.dpdlocal-online.co.uk/">Find out more</a>
+        </div>
+      </li>-->
+      <!-- <li class="active">
+        <img src="/artwork_files/_carousel/dpdbrexitbanner.jpg" alt="DPD's guide to getting Brexit ready" />
+        <div class="orbit-caption">
+          <a href="/content/about_dpd/brexit-ready.jsp">DPD's guide to getting Brexit ready</a>
+        </div>
+      </li>
+      <li class="active">
+        <img src="/artwork_files/_carousel/DPD_Focus box promo_sceens.png" alt="Send a parcel now" />
+        <div class="orbit-caption">
+          <a href="https://www.dpd.co.uk/lp/yourdpd/index.html#school">Send a parcel now</a>
+        </div>
+      </li>
+      <li class="active">
+        <img src="/images/exportingisgreat.png" alt="Exporting is Great" />
+        <div class="orbit-caption">
+          <a href="/content/products_services/department_international_trade.jsp">Find out more</a>
+        </div>
+      </li>
+      <li class="active">
+        <img src="/artwork_files/_carousel/dpdapp-focusbox-1-v2.jpg" alt="Download here" />
+        <div class="orbit-caption">
+          <a href="https://www.dpd.co.uk/lp/yourdpd/index.html">Download here</a>
+        </div>
+      </li>
+    </ul> -->
+  </div>
+
+</div>
+<!-- Orbit Image Slider - END -->
+
+
+<!-- Polar Bear Message  - START -->
+<div class="row top-20 hidden" id="ticker_container">
+  <div class="large-12 medium-12 small-12 columns">        
+    <div class="panel-light-grey ticker-container site-message clearfix ">
+      <marquee id="ticker" behavior="scroll" scrollamount="1" direction="left" width="94%"></marquee><a class="close-message" title="Close Message"><i class="fi-x style4"></i></a>
+    </div>     
+  </div>
+</div>
+<!-- Polar Bear Message  - END -->
+
+
+<!-- <div class="row top-20 hidden" id="ticker_container" style="display: block;">
+<div class="large-12 medium-12 small-12 columns">        
+    <div class="panel-light-grey ticker-container site-message clearfix ">
+      <div style="display: inline-block; width: 94%; height: 24px; overflow: visible;"><div style="text-align:left;"><span style="color: red;">Operational Update</span> - <a href="/content/products_services/uk_issues.jsp">Read more</a></div></div>
+    </div>     
+  </div>
+</div> -->
+<!-- Important Notice Message  - START -->
+<!-- <div class="row top-20">
+  <div class="large-12 medium-12 small-12 columns">
+    <div class="panel-mid-grey ">
+      <a href=""><i class="fi-x style4"></i></a><h1><i class="fi-alert style3"></i> Title</h1>
+      <p>Message</p>
+    </div>
+  </div>
+</div> -->
+<!-- Important Notice Message  - END -->
+
+<div class="row top-20 large-12" data-equalizer>
+  <!-- TRACKING SECTION -->
+    <div class=" large-6 hide-for-small-only columns">
+      <div class="trackYourParcelSection">
+        <form id="receiver_track_parcel_homepage" action="/apps/tracking/#results" method="GET" onsubmit="submitFMP(event)">
+	<div id="receiver_error"  class="hidden error-alert flash-message-warning"></div>
+	<h1>Track Your Parcel</h1>
+	<div class="row collapse">
+	    <div class="small-12 columns">
+	      <input type="text" name="reference"  id="receiver_reference" placeholder="Reference Number">
+	    </div>
+	    <div class="small-5 columns">
+		  <input class="tracking-btn dpd-dark-red button postfix" type="submit" value="Track" />
+	    </div>
+  	</div>
+</form>
+
+      </div>
+    </div>
+  <!-- TRACKING SECTION -->
+
+  <!-- LOGIN SECTION -->
+  <div class=" large-6 hide-for-small hide-for-medium columns">
+    <div class="login_section">
+      <form class="show-for-large-up" id="login_form" action="https://www.dpd.co.uk/umslogon/public/doLogon.do" method="post">
+  <h1>Login To MyDPD</h1>
+  <div class="row collapse">
+      <div class="large-6-1 columns"><input type="text" id="username" name="userName" placeholder="User Name"> </div>
+      <div class="large-6-1 columns"><input type="password" id="password" name="password" placeholder="Password"> </div>
+  </div>
+
+  <div class="row collapse" >
+    <div class="small-5 columns" style="float: right;">
+      <input type="submit" value="Login" style="background-color:#dc0032;" class="dpd-dark-red button postfix">
+    </div>
+  </div>
+  <input type="hidden" name="returnUrl" value="">
+  <input type="hidden" name="homepage" value="1">
+  <input type="hidden" name="carrier" value="1">
+</form>
+
+    </div>
+
+  </div>
+  <!-- LOGIN SECTION -->
+</div>
+<div id="mobile-quote-view" class="row top-20 hide-for-large">
+<div class="small-12 columns">
+              <div class="qqformContainer">
+        <div class="qqToggles">
+            <button id="qqGetQuoteMobile" class="getQuote brand-bgd-grad button qqNoMarginBottom selected" onclick="getQuoteMobile(); return false;">Get a Quote &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</button><button id="qqLongerOneMetreMobile" class="longerOneMetre dpd-dark-red button qqNoMarginBottom " onclick="longerOneMetreMobile(); return false;">Longer than 1m &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</button>
+
+        </div>
+        <div class="qqform panel-dpd-red">
+            <div class="qqCollection large-4 medium-4 small-12 columns">
+                <h1>
+                    Where is your parcel coming from:
+                </h1>
+                <div class="small-6 column">
+                    <select class="filter-input" id="qqfromMobile">
+                        <option value="">Please Select...</option>
+                        <option selected value="219">United Kingdom</option>
+                    </select>
+                </div>
+                <div class="small-6 column">
+                    <input id="qqCPMobile" placeholder="Optional Postcode" name="collectionPostcode" type="text">
+                </div>
+            </div>
+            <div class="qqDelivery large-4 medium-4 small-12 columns">
+                <h1>Where is your parcel going to:</h1>
+                <div class="small-6 column">
+                    <select class="filter-input" id="qqtoMobile">
+                        <option value="">Please Select...</option>
+                        <option selected value="219">United Kingdom</option>
+                        <option value="249">Northern Ireland</option>
+                        <option value="26">Ireland</option>
+                        <option value="1">Australia</option>
+                        <option value="2">China</option>
+                        <option value="22">France</option>
+                        <option value="23">Germany</option>
+                        <option value="3">Hong Kong</option>
+                        <option value="4">India</option>
+                        <option value="27">Italy</option>
+                        <option value="30">Netherlands</option>
+                        <option value="31">Poland</option>
+                        <option value="33">Spain</option>
+                        <option value="217">USA</option>
+                        <option value="">---------------------</option>
+                        <option value="230">Afghanistan</option>
+                        <option value="35">Albania</option>
+                        <option value="36">Algeria</option>
+                        <option value="38">American Samoa</option>
+                        <option value="37">Andorra</option>
+                        <option value="39">Angola</option>
+                        <option value="40">Anguilla</option>
+                        <option value="41">Antigua</option>
+                        <option value="42">Argentina</option>
+                        <option value="43">Armenia</option>
+                        <option value="44">Aruba</option>
+                        <option value="1">Australia</option>
+                        <option value="16">Austria</option>
+                        <option value="45">Azerbaijan</option>
+                        <option value="46">Bahamas</option>
+                        <option value="47">Bahrain</option>
+                        <option value="48">Bangladesh</option>
+                        <option value="49">Barbados</option>
+                        <option value="50">Belarus</option>
+                        <option value="17">Belgium</option>
+                        <option value="51">Belize</option>
+                        <option value="52">Benin</option>
+                        <option value="53">Bermuda</option>
+                        <option value="55">Bolivia</option>
+                        <option value="57">Bosnia Herzegovina</option>
+                        <option value="58">Botswana</option>
+                        <option value="59">Brazil</option>
+                        <option value="231">British Virgin Islands</option>
+                        <option value="60">Brunei</option>
+                        <option value="61">Bulgaria</option>
+                        <option value="62">Burkina Faso</option>
+                        <option value="63">Burundi</option>
+                        <option value="64">Cambodia</option>
+                        <option value="65">Cameroon</option>
+                        <option value="218">Canada</option>
+                        <option value="66">Canary Islands</option>
+                        <option value="67">Cape Verde Islands</option>
+                        <option value="68">Cayman Islands</option>
+                        <option value="69">Central African Republic</option>
+                        <option value="70">Chad</option>
+                        <option value="72">Chile</option>
+                        <option value="2">China</option>
+                        <option value="73">Colombia</option>
+                        <option value="74">Comoros Islands</option>
+                        <option value="75">Congo</option>
+                        <option value="234">Cook Islands</option>
+                        <option value="235">Costa Rica</option>
+                        <option value="76">Croatia</option>
+                        <option value="79">Cyprus</option>
+                        <option value="19">Czech Republic</option>
+                        <option value="214">Democratic Republic of Congo</option>
+                        <option value="20">Denmark</option>
+                        <option value="80">Djibouti</option>
+                        <option value="81">Dominica</option>
+                        <option value="82">Dominican Republic</option>
+                        <option value="83">Ecuador</option>
+                        <option value="84">Egypt</option>
+                        <option value="85">El Salvador</option>
+                        <option value="86">Equatorial Guinea</option>
+                        <option value="87">Eritrea</option>
+                        <option value="88">Estonia</option>
+                        <option value="89">Ethiopia</option>
+                        <option value="91">Faroe Islands</option>
+                        <option value="92">Fiji</option>
+                        <option value="21">Finland</option>
+                        <option value="22">France</option>
+                        <option value="93">French Guiana</option>
+                        <option value="94">Gabon</option>
+                        <option value="95">Gambia</option>
+                        <option value="96">Georgia</option>
+                        <option value="23">Germany</option>
+                        <option value="98">Gibraltar</option>
+                        <option value="99">Greece</option>
+                        <option value="100">Greenland</option>
+                        <option value="101">Grenada</option>
+                        <option value="102">Guadeloupe</option>
+                        <option value="103">Guam</option>
+                        <option value="104">Guatemala</option>
+                        <option value="24">Guernsey</option>
+                        <option value="106">Guinea</option>
+                        <option value="107">Guyana</option>
+                        <option value="108">Haiti</option>
+                        <option value="109">Honduras Republic</option>
+                        <option value="3">Hong Kong</option>
+                        <option value="25">Hungary</option>
+                        <option value="110">Iceland</option>
+                        <option value="4">India</option>
+                        <option value="5">Indonesia</option>
+                        <option value="239">Iraq Republic</option>
+                        <option value="26">Ireland</option>
+                        <option value="268">Isle of Man</option>
+                        <option value="271">Isle of Wight</option>
+                        <option value="112">Israel</option>
+                        <option value="27">Italy</option>
+                        <option value="114">Jamaica</option>
+                        <option value="6">Japan</option>
+                        <option value="28">Jersey</option>
+                        <option value="115">Jordan</option>
+                        <option value="116">Kazakhstan</option>
+                        <option value="117">Kenya</option>
+                        <option value="119">Kuwait</option>
+                        <option value="120">Kyrgyzstan</option>
+                        <option value="121">Laos</option>
+                        <option value="122">Latvia</option>
+                        <option value="123">Lebanon</option>
+                        <option value="124">Lesotho</option>
+                        <option value="125">Liberia</option>
+                        <option value="126">Libya</option>
+                        <option value="127">Liechtenstein</option>
+                        <option value="128">Lithuania</option>
+                        <option value="29">Luxembourg</option>
+                        <option value="129">Macau</option>
+                        <option value="130">Macedonia</option>
+                        <option value="131">Madagascar</option>
+                        <option value="132">Malawi</option>
+                        <option value="9">Malaysia</option>
+                        <option value="133">Maldives</option>
+                        <option value="134">Mali</option>
+                        <option value="135">Malta</option>
+                        <option value="137">Martinique</option>
+                        <option value="138">Mauritania</option>
+                        <option value="139">Mauritius</option>
+                        <option value="251">Mayotte</option>
+                        <option value="140">Mexico</option>
+                        <option value="221">Moldova</option>
+                        <option value="142">Monaco</option>
+                        <option value="143">Mongolia</option>
+                        <option value="253">Montenegro</option>
+                        <option value="144">Montserrat</option>
+                        <option value="145">Morocco</option>
+                        <option value="146">Mozambique</option>
+                        <option value="148">Namibia</option>
+                        <option value="150">Nepal</option>
+                        <option value="30">Netherlands</option>
+                        <option value="241">Netherlands Antilles</option>
+                        <option value="152">New Caledonia</option>
+                        <option value="10">New Zealand</option>
+                        <option value="153">Nicaragua</option>
+                        <option value="154">Niger</option>
+                        <option value="249">Northern Ireland</option>
+                        <option value="157">Norway</option>
+                        <option value="158">Oman</option>
+                        <option value="11">Pakistan</option>
+                        <option value="242">Palau</option>
+                        <option value="243">Palestine Authority</option>
+                        <option value="159">Panama</option>
+                        <option value="160">Papua New Guinea</option>
+                        <option value="161">Paraguay</option>
+                        <option value="162">Peru</option>
+                        <option value="12">Philippines</option>
+                        <option value="31">Poland</option>
+                        <option value="32">Portugal</option>
+                        <option value="163">Puerto Rico</option>
+                        <option value="164">Qatar</option>
+                        <option value="165">Reunion, Islands Of</option>
+                        <option value="166">Romania</option>
+                        <option value="167">Russia</option>
+                        <option value="168">Rwanda</option>
+                        <option value="252">San Marino</option>
+                        <option value="270">Scilly Isles</option>
+                        <option value="254">Scottish Highlands</option>
+                        <option value="269">Scottish Islands</option>
+                        <option value="172">Senegal</option>
+                        <option value="222">Serbia</option>
+                        <option value="173">Seychelles</option>
+                        <option value="13">Singapore</option>
+                        <option value="223">Slovak Republic</option>
+                        <option value="176">Slovenia</option>
+                        <option value="177">Solomon Islands</option>
+                        <option value="179">South Africa</option>
+                        <option value="245">South Korea</option>
+                        <option value="33">Spain</option>
+                        <option value="180">Sri Lanka</option>
+                        <option value="183">St. Kitts</option>
+                        <option value="184">St. Lucia</option>
+                        <option value="186">St. Vincent</option>
+                        <option value="188">Suriname</option>
+                        <option value="189">Swaziland</option>
+                        <option value="34">Sweden</option>
+                        <option value="190">Switzerland</option>
+                        <option value="14">Taiwan</option>
+                        <option value="194">Tanzania</option>
+                        <option value="15">Thailand</option>
+                        <option value="195">Togo</option>
+                        <option value="197">Trinidad & Tobago</option>
+                        <option value="246">Tunisia</option>
+                        <option value="198">Turkey</option>
+                        <option value="199">Turkmenistan</option>
+                        <option value="200">Turks & Caicos Islands</option>
+                        <option value="202">Uganda</option>
+                        <option value="203">Ukraine</option>
+                        <option value="219">United Kingdom</option>
+                        <option value="205">Uruguay</option>
+                        <option value="217">USA</option>
+                        <option value="206">Uzbekistan</option>
+                        <option value="207">Vanuatu</option>
+                        <option value="224">Vatican City</option>
+                        <option value="208">Venezuela</option>
+                        <option value="209">Vietnam</option>
+                        <option value="210">Virgin Islands</option>
+                        <option value="211">Western Samoa</option>
+                        <option value="212">Yemen</option>
+                        <option value="215">Zambia</option>
+                        <option value="216">Zimbabwe</option>
+                    </select>
+                </div>
+                <div class="small-6 column">
+                    <input id="qqDPMobile" placeholder="Optional Postcode" name="DeliveryPostcode" type="text">
+                </div>
+            </div>
+            <div class="weightContainer large-4 medium-4 small-12 columns">
+                <h1>Weight :</h1>
+                <div id="weightContainerButtonMobile" class="small-6 column qqNoPaddingLeft">
+                    <div class="small-9 column">
+                        <input id="qqweightMobile" name="weight" min="0.5" step="0.5" max="31" type="number">
+                    </div>
+                    <div class="small-3 column">
+                        <a class="qqKgBox postfix">kg</a>
+                    </div>
+                </div>
+
+                <div class="small-6 columns qqNoPaddingRight">
+                    <button id="qqSubmitButtonGetQuoteMobile" class="dpd-dark-red button postfix" onclick="submitQBForm(); return false;">Quote &amp; Book</button>
+                </div>
+            </div>
+            <div class="row">
+                <div id="qqDimensionsMobile" class="hidden">
+                <div class="small-12 large-8 column">
+
+                        <div class="lengthContainer small-4 columns">
+                            <h1>Length :</h1>
+                            <div class="small-9 column">
+                                <input id="qqlengthMobile" name="length" min="1" step="1" max="175" type="number">
+                            </div>
+                            <div class="small-3 column">
+                                <a class="qqKgBox postfix">cm</a>
+                            </div>
+                        </div>
+
+                        <div class="widthContainer small-4 columns">
+                            <h1>Width :</h1>
+                            <div class="small-9 column">
+                                <input id="qqwidthMobile" name="width" min="1" step="1" max="31" type="number">
+                            </div>
+                            <div class="small-3 column">
+                                <a class="qqKgBox postfix">cm</a>
+                            </div>
+                        </div>
+
+                        <div class="heightContainer small-4 columns">
+                            <h1>Height :</h1>
+                            <div class="small-9 column">
+                                <input id="qqheightMobile" name="height" min="1" step="1" max="31" type="number">
+                            </div>
+                            <div class="small-3 column">
+                                <a class="qqKgBox postfix">cm</a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="small-12 large-4 columns">
+                        <h1>&nbsp;</h1>
+                        <button id="qqSubmitButton" class="dpd-dark-red button postfix" onclick="submitQBForm(); return false;">Quote &amp; Book</button>
+                    </div>
+                </div>
+            </div>
+
+            <div class="qqMultipleLink show-for-small-only">
+                <i class="far fa-clone"></i>&nbsp;<a href="https://www.dpdlocal-online.co.uk/quick-quote">Send Multiple Parcels</a>
+            </div>
+
+        </div>
+    </div></div>
+</div>
+
+<form id="receiver_track_parcel_home_mobile" action="/apps/tracking/#results" method="GET" onsubmit="submitFMP(event)">
+	<div class="row top-20 show-for-small-only">
+		<div class="small-12 columns">
+			<div id="receiver_error"  class="hidden error-alert flash-message-warning"></div>
+			<div class="panel-dpd-red">
+				<h1>Tracking</h1>
+				<div class="row collapse">
+					<div class="small-10 columns">
+						<input type="text" id="receiver_reference" name="reference" placeholder="Parcel label number">
+					</div>
+					<div class="small-2 columns">
+						<input class="dpd-black button postfix" type="submit" value="Track" />
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</form>
+
+<!-- Script START -->
+<script src="https://www.google.com/recaptcha/api.js?render=6LcGcL8UAAAAANDI_Lx-DYrWbMac-7ggSUxPQ3xX"></script>
+<script>
+    function submitFMP( event ) {
+        event.preventDefault ? event.preventDefault() : (event.returnValue = false);
+        formId = event.target.id;
+        var receiverError = $("#" + formId).find("#receiver_error");
+        receiverError.hide();
+
+        grecaptcha.ready(function() {
+            grecaptcha.execute('6LcGcL8UAAAAANDI_Lx-DYrWbMac-7ggSUxPQ3xX', {action: formId}).then(function(token) {
+
+                var receiverReference = $("#" + formId).find("#receiver_reference").val().split(' ').join('');
+                var receiverPostcode  = $("#receiver_postcode").length ? $("#receiver_postcode").val().split(' ').join('') : "";
+
+                if ( receiverReference ) {
+                    $("#receiver_reference").val( receiverReference );
+                    $("#receiver_postcode").val( receiverPostcode );
+
+                    $('<input>').attr({
+                        type: 'hidden',
+                        name: 'captchaResponse',
+                        value:   token
+                    }).appendTo('#' + formId);
+
+                    var qaEnvUrl = "";
+
+                    if (window.location.href.indexOf("qa5") > -1) {
+                      qaEnvUrl = "q2-";
+                    }
+
+                    var trackUrl = 'https://apis.' + qaEnvUrl + 'track.dpd.co.uk/v1/track?postcode=' + receiverPostcode + '&parcel=' + receiverReference;
+
+                    console.log("trackUrl ==== ", trackUrl);
+
+                    window.location.href = trackUrl;
+                    //document.getElementById(formId).submit();
+
+                } else {
+                    receiverError.html( "Please enter a reference" ).show();
+                    return false;
+                }
+        }) });
+    }
+</script>
+<!-- Script End -->
+
+<div class="row top-20" data-equalizer>
+    <div class="large-4 medium-4 small-6 columns">
+      <a href="https://www.dpdlocal-online.co.uk">
+        <div class="panel-dark-red hide-for-small-only ie-row-small" data-equalizer-watch>
+          <h1>Send a parcel from &pound;3.99</h1>
+          <p>Choose from a range of services <a href="https://www.dpdlocal-online.co.uk" class="cta-arrow"><img src="/asset_files/icon/ico-cta-arrow-white.png"></a></p>
+        </div>
+        <div class="panel-dpd-black show-for-small-only ie-row-small" data-equalizer-watch>
+          <h1>Send a parcel from &pound;3.99</h1>
+          <p>Choose from a range of services <a href="https://www.dpdlocal-online.co.uk" class="cta-arrow"><img src="/asset_files/icon/ico-cta-arrow-white.png"></a></p>
+        </div>
+      </a>
+    </div>
+
+
+
+     <div class="large-4 medium-4 small-6 columns">
+      <a href="https://citysprint.uk/samedayservice" target="_blank">
+        <div class="panel-dpd-red hide-for-small-only ie-row-small" data-equalizer-watch>
+          <h1>For Super Urgent Delivery</h1>
+          <p>Book a same day delivery with our sister company CitySprint<a href="https://citysprint.uk/samedayservice" target="_blank" class="cta-arrow"><img src="/asset_files/icon/ico-cta-arrow-white.png"></a></p>
+        </div>
+        <div class="panel-dark-red show-for-small-only ie-row-small" data-equalizer-watch>
+          <h1>For Super Urgent Delivery</h1>
+          <p>Book a same day delivery with our sister company CitySprint<a href="https://citysprint.uk/samedayservice" target="_blank" class="cta-arrow"><img src="/asset_files/icon/ico-cta-arrow-white.png"></a></p>
+        </div>
+      </a>
+    </div>
+
+
+
+
+
+   <div class="large-4 medium-4 small-6 columns">
+      <a href="https://www.shopandship.com/general-landing-pages/dpd---flex-offer">
+        <div class="panel-light-grey hide-for-small-only  ie-row-small" data-equalizer-watch>
+          <h1>Shop and Ship abroad</h1>
+          <p>Are you an online global shopper? Sign up and go global with your shopping here! <a href="https://www.shopandship.com/general-landing-pages/dpd---flex-offer" target="_blank" class="cta-arrow"><img src="/asset_files/icon/ico-cta-arrow-black.png"></a></p>
+        </div>     
+      </a>
+    </div> 
+
+
+
+</div>
+
+<div class="row top-20 show-for-small-only" data-equalizer>
+  <div class="large-4 medium-4 small-12 columns">
+      <a href="https://www.shopandship.com/general-landing-pages/dpd---flex-offer" target="_blank">     
+          <div class="panel-light-grey   ie-row-small" data-equalizer-watch>
+          <h1>Shop and Ship abroad</h1>
+          <p>Are you an online global shopper? Sign up and go global with your shopping here! <a href="https://www.shopandship.com/general-landing-pages/dpd---flex-offer" target="_blank" class="cta-arrow"><img src="/asset_files/icon/ico-cta-arrow-black.png"></a></p>
+        </div>
+      </a>
+    </div>     
+</div>
+
+
+
+<div class="row top-20" data-equalizer>
+
+  <div class="large-4 medium-4 columns  hide-for-small-only">
+    <div class="ie-row-large" data-equalizer-watch>
+      <a href="/sales-enquiry/index.jsp"><img src="/images/dpdsalesenquiry.png"  /></a>
+    </div>
+  </div>
+
+
+  <!--<div class="large-4 medium-4 columns  hide-for-small-only">
+    <div class="ie-row-large" data-equalizer-watch>
+      <a href="https://international.dpd.co.uk/?campaign=dpduk-homepage-cta" target="_blank"><img src="/images/international-web-banner.png" /></a>
+    </div>
+  </div>-->
+	
+  <div class="large-4 medium-4 columns  hide-for-small-only">
+    <div class="ie-row-large intl-banner" data-equalizer-watch>
+		<div class="intl-body">
+      <h2>Lets talk international</h2>
+		<p>DPD's international chat can answer any questions you might have regarding our international services.</p>
+			</div>
+		<div class="intl-input">
+			<form id="intl-form" action="javascript:void(0);">
+				<input type="text" name="intl-chat" class="intl-chat-value" id="intl-chat" placeholder="Ask me anything..." maxlength = "256">
+				<input type="text" id="botField" style="display: none;">
+				<button type="submit" id="intl-submit"></button>
+				
+				</form>
+			<label> Max 256 characters</label>
+			</div>
+    </div>
+  </div>
+
+
+  <div class="large-4 medium-4 columns  hide-for-small-only">
+    <div class="ie-row-large" data-equalizer-watch>
+      <a href="https://innovation.dpd.co.uk/app"><img src="/images/dpd-app-banner-home.png"  /></a>
+    </div>
+  </div>
+
+
+  <!--<div class="large-4 medium-4 small-6 show-for-small-only columns">
+
+      <div class="panel-warm-grey ie-row-large" data-equalizer-watch>
+        <h1>Got something to say? </h1>
+        <p>We want to hear from you! <a href="/content/how-can-we-help/shout.jsp" class="cta-arrow"><img src="/asset_files/icon/ico-cta-arrow-white.png"></a></p>
+      </div>
+
+  </div>-->
+
+</div>
+
+<!--<div class="row top-20 show-for-small-only">
+  <div class="small-12 columns"><a href="/lp/yourdpd/index.html"><img src="/artwork_files/_homepage/dpd-app-focus-mobile.jpg" alt="YourDPD" style="
+    width: 100%;" /></a></div>
+</div>-->
+
+
+
+
+
+
+
+
+<!--Content End-->
+
+
+
+
+    <!--Footer Navigation - START -->
+    
+
+<div class="row footer-sitemap hide-for-small" data-equalizer>
+  <hr>
+  <!--
+    Footer Navigation x3
+  --> 
+  
+
+
+
+
+
+
+
+<div class="large-3 medium-4 small-12 columns">
+			<div class="" data-equalizer-watch>
+				<h3>Products &amp; Services</h3>
+				<ul >
+					
+						
+						
+							<li><a href="/content/products_services/uk_services.jsp" title="UK">UK</a></li>
+						
+					
+						
+						
+							<li><a href="/content/products_services/international.jsp" title="Europe &amp; International">Europe &amp; International</a></li>
+						
+					
+						
+						
+							<li><a href="/content/products_services/dpd_pickup.jsp" title="DPD Pickup">DPD Pickup</a></li>
+						
+					
+						
+						
+							<li><a href="/content/products_services/service_updates.jsp" title="Service - Latest">Service - Latest</a></li>
+						
+					
+						
+						
+							<li><a href="/content/products_services/air-transport-surcharges.jsp" title="Air Transport Surcharge">Air Transport Surcharge</a></li>
+						
+					
+						
+						
+							<li><a href="/content/about_dpd/delivery_schedule.jsp" title="Delivery Schedule">Delivery Schedule</a></li>
+						
+					
+						
+						
+							<li><a href="/content/about_dpd/phishing.jsp" title="Cyber Security">Cyber Security</a></li>
+						
+					
+				</ul>
+			</div>
+		</div>
+	
+		<div class="large-3 medium-4 small-12 columns">
+			<div class="" data-equalizer-watch>
+				<h3>About DPD</h3>
+				<ul >
+					
+						
+						
+							<li><a href="/content/about_dpd/awards.jsp" title="Awards">Awards</a></li>
+						
+					
+						
+						
+							<li><a href="/content/about_dpd/purpose.jsp" title="Purpose">Purpose</a></li>
+						
+					
+						
+						
+					
+						
+						
+							<li><a href="/content/about_dpd/sustainability.jsp" title="Sustainability">Sustainability</a></li>
+						
+					
+						
+						
+							<li><a href="/content/about_dpd/press_centre/news.jsp" title="Press Centre">Press Centre</a></li>
+						
+					
+						
+						
+							<li><a href="/content/about_dpd/technology.jsp" title="Technology">Technology</a></li>
+						
+					
+						
+						
+							<li><a href="/content/about_dpd/security.jsp" title="Security">Security</a></li>
+						
+					
+				</ul>
+			</div>
+		</div>
+	
+		<div class="large-3 medium-4 small-12 columns">
+			<div class="" data-equalizer-watch>
+				<h3>Jobs</h3>
+				<ul >
+					
+						
+						
+							<li><a href="https://jobs.dpd.co.uk/jobs/?searchText=&amp;team=&amp;location=&amp;salary=&amp;type=" title="Our Jobs">Our Jobs</a></li>
+						
+					
+						
+						
+							<li><a href="https://drivers.dpd.co.uk/" title="Drivers">Drivers</a></li>
+						
+					
+						
+						
+							<li><a href="https://warehouse.dpd.co.uk/" title="Warehouse">Warehouse</a></li>
+						
+					
+						
+						
+							<li><a href="https://jobs.dpd.co.uk/you-and-dpd/" title="You &amp; DPD">You &amp; DPD</a></li>
+						
+					
+				</ul>
+			</div>
+		</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+  <!--
+    Customer Service
+  -->  
+  <div class="large-3 columns hide-for-small hide-for-medium">
+    <div class="" data-equalizer-watch>
+      <div class="customer-service ">
+        <h3>Service Update</h3>
+        <p>View the latest postcodes affected for UK deliveries
+			<a href="/content/products_services/uk_issues.jsp#issue3" target="_self" style="color:#C1181B; font-weight:bold;">here</a></p>
+      </div>
+    </div>
+  </div> 
+  
+</div>
+
+
+
+    <!--Footer Navigation - END -->
+
+
+
+<!-- content goes here -->
+    </section>
+
+  <a class="exit-off-canvas"></a>
+
+  </div>
+</div>
+
+    <!--Footer Legal - START -->
+    
+
+
+
+
+
+
+
+<div class="row footer">
+	  <hr>
+	  <div class="large-12 columns">
+	    <p class="copyright"><img src="/asset_files/logo/geopost-logo-45x34.png"  /> &copy; <script type="text/javascript">
+  document.write(new Date().getFullYear());
+</script> DPD </p>
+	  </div>
+	  <div class="large-12 columns">
+	    <ul >
+	    	
+	    	<li><a href="/ts-and-cs.jsp" title="Terms &amp; Conditions">Terms &amp; Conditions</a></li>
+	    	
+	    	<li><a href="/dpo-privacy-notice-1.jsp" title="Privacy Notice">Privacy Notice</a></li>
+	    	
+	    	<li><a href="/cookie-policy.jsp" title="Cookie Policy">Cookie Policy</a></li>
+	    	
+	    	<li><a href="/content/about_dpd/phishing.jsp" title="Phishing">Phishing</a></li>
+	    	
+	    	<li><a href="/pdf/dpd-policy-for-collection-delivery-pickup-of-parcels-for-disabled-consumers.pdf" title="Policy to support disabled consumers">Policy to support disabled consumers</a></li>
+	    	
+	    	<li><a href="/content/my_dpd/fuel_surcharge.jsp" title="Fuel and Energy Surcharge">Fuel and Energy Surcharge</a></li>
+	    	
+	    </ul>
+	  </div>
+      
+      
+      
+	</div>
+
+
+    <!--Footer Legal - END -->
+
+    <script src="/js/jquery-1.11.1.min.js"></script>
+<script src="/js/foundation.min.js"></script>
+<script src="/js/production.js"></script>
+
+<script src="/js/Redback.js"></script>
+<script src="/js/javascript_functions.js"></script>
+<script src="/js/home-chat.js"></script>
+
+  </body>
+</html>
+
+
+
+
+
+

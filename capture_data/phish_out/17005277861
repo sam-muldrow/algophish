@@ -1,0 +1,356 @@
+<!doctype html><html lang="tr" dir="ltr" prefix="og: http://ogp.me/ns#"><head><meta charset="utf-8"><meta http-equiv="content-type" content="text/html; charset=utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no"><title>Joy Pet</title><meta property="og:title" content="Joy Pet" /><meta property="og:type" content="website"/><meta property="og:url" content="https://joypet.com.tr/tr" /><meta property="og:locale" content="tr_TR" /><meta property="og:site_name" content="Joy Pet" /><link rel="canonical" href="https://joypet.com.tr/tr" /><link rel="alternate" hreflang="en_US" href="https://joypet.com.tr/tr" /><link href="https://fonts.googleapis.com/css?family=Poppins:400,700&display=swap&subset=latin-ext" rel="stylesheet"><link rel="icon" href="https://joypet.com.tr/assets/images/favicon.png" type="image/png"><link rel="manifest" href="https://joypet.com.tr/manifest.json"><link rel="stylesheet" href="https://joypet.com.tr/assets/plugins/bootstrap/css/bootstrap.min.css"><link rel="stylesheet" href="https://joypet.com.tr/assets/css/common.css"></head><body><div id="video-container" class="video-container"></div>
+<link type="text/css" rel="stylesheet" href="https://joypet.com.tr/assets/plugins/sweetalert2/sweetalert2.min.css" />
+<link type="text/css" rel="stylesheet" href="https://joypet.com.tr/assets/plugins/sweetalert2/themes/default.min.css" />
+<script src="https://joypet.com.tr/assets/plugins/bootstrap/js/jquery-3.4.1.min.js"></script>
+<script src="https://joypet.com.tr/assets/plugins/bootstrap/js/popper.min.js"></script>
+<script src="https://joypet.com.tr/assets/plugins/bootstrap/js/bootstrap.min.js"></script>
+<script src="https://joypet.com.tr/assets/plugins/sweetalert2/sweetalert2.min.js"></script>
+<script src="https://joypet.com.tr/assets/plugins/lazyload/lazyload.min.js"></script>
+<script src="https://joypet.com.tr/assets/js/common.js"></script>
+<script src='https://www.google.com/recaptcha/api.js'></script>
+<script defer src="https://pro.fontawesome.com/releases/v5.12.1/js/light.js" integrity="sha384-08D3jBd9Co2q3IJB/9qnaukQ4ZhFWVLATRpNirJUQ+yQ/oUORDPfJ7Z2OWySf7/A" crossorigin="anonymous"></script>
+<script defer src="https://pro.fontawesome.com/releases/v5.12.1/js/brands.js" integrity="sha384-yrJPiY+1PdmFAwIfz5kqOJt6qBz7DmhXnjLZWLQ9FopoqnhHIBdOQk6hafYoSquV" crossorigin="anonymous"></script>
+<script defer src="https://pro.fontawesome.com/releases/v5.12.1/js/fontawesome.js" integrity="sha384-P6BxA/EZmb6ypE1RKWOU6G8Ww/wI6w4R6uP6u9mkq3uaBehDQxHOLax3fLvDqkvt" crossorigin="anonymous"></script>
+<script>
+    $(document).ready(function() {
+        $(".lazyload").lazyload();
+    });
+
+    $(document).on('click','.btn-open-video',function(){
+        var type = $(this).data("type");
+        console.log(type);
+        var id = $(this).data("id");
+        var response = $("#video-container");
+        $.ajax({
+            type: "GET",
+            url: "https://joypet.com.tr/tr/video?type="+type+"&id="+id,
+            cache: false,
+            dataType: 'html',
+            success: function(view) {
+                response.addClass('video-container-active').html(view).fadeIn("fast");
+            }
+        });
+    });
+
+    $(document).on('click','.video-container',function(){
+        $("#video-container").fadeOut("fast").removeClass("video-container-active").html("");
+    });
+
+    function onSubscribe() {
+        var btn = $(this);
+        btn.prop('disabled', true).html('Lütfen bekleyiniz...');
+        $.ajax({
+            type: "POST",
+            url: "https://joypet.com.tr/tr/api/subscribe",
+            cache: false,
+            dataType: 'json',
+            data: $("#form-subscribe").serialize(),
+            success: function(view) {
+                var r = JSON.stringify(view);
+                var p = JSON.parse(r);
+
+                Swal.fire(p.title, p.message, p.status);
+
+                if(p.status === 'success') {
+                    //dataLayer.push({'event': 'formOkSubscribe', 'form': 'E-Bülten'});
+                }
+                btn.prop('disabled', false).html("<i class=\"fal fa-user-plus\"></i> Kaydet");
+                $('input[name=csrf_ccm]').val(p.token);
+
+            },
+            error: function(xhr, ajaxOptions, thrownError) {
+                console.log(xhr.responseText);
+            }
+        });
+
+        grecaptcha.reset();
+    }
+</script><div class="header">
+    <div class="container">
+        <div class="row">
+            <div class="col">
+                <nav class="navbar navbar-expand-xl navbar-custom">
+                    <a class="navbar-brand" href="https://joypet.com.tr/tr" title="Joy Pet" aria-label="Joy Pet">
+                        <img src="https://joypet.com.tr/assets/images/logo.png" class="img-fluid" alt="Joy Pet">
+                    </a>
+                    <button class="navbar-toggler navbar-toggler-custom" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="MENÜ">
+                        <i class="fal fa-bars"></i> <span class="d-none d-sm-inline-block">MENÜ</span>
+                    </button>
+
+                    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                        <ul class="navbar-nav navbar-nav-custom ml-auto">
+                            <li class="nav-item dropdown">    <a class="nav-link dropdown-toggle" href="https://joypet.com.tr/tr/urunler" title="ÜRÜNLER" aria-label="ÜRÜNLER"  id="navbarDropdown-62" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">ÜRÜNLER</a>    <div class="dropdown-menu dropdown-menu-ccm" aria-labelledby="navbarDropdown-62">    <a class="dropdown-item" href="https://joypet.com.tr/tr/pc-kafes-urunleri" title="Köpek Evi " aria-label="Köpek Evi " >Köpek Evi </a>    <a class="dropdown-item" href="https://joypet.com.tr/tr/pc-tasima-cantalari" title="Evcil Hayvan Taşıma Çantaları" aria-label="Evcil Hayvan Taşıma Çantaları" >Evcil Hayvan Taşıma Çantaları</a>    <a class="dropdown-item" href="https://joypet.com.tr/tr/pc-tuvaletler" title="Kedi Tuvaletleri" aria-label="Kedi Tuvaletleri" >Kedi Tuvaletleri</a>    <a class="dropdown-item" href="https://joypet.com.tr/tr/pc-mama-ve-su-kaplari" title="Mama ve Su Kapları" aria-label="Mama ve Su Kapları" >Mama ve Su Kapları</a>    <a class="dropdown-item" href="https://joypet.com.tr/tr/pc-kurekler" title="Kürekler" aria-label="Kürekler" >Kürekler</a>    <a class="dropdown-item" href="https://joypet.com.tr/tr/pc-plastik-paspas" title="Plastik Paspas" aria-label="Plastik Paspas" >Plastik Paspas</a>    </div></li><li class="nav-item">    <a class="nav-link" href="https://joypet.com.tr/tr/hakkimizda" title="Hakkımızda" aria-label="Hakkımızda" >HAKKIMIZDA</a></li><li class="nav-item">    <a class="nav-link" href="https://joypet.com.tr/tr/iletisim" title="İletişim" aria-label="İletişim" >İLETİŞİM</a></li>                            <li class"nav-item">    <a href="https://joypet.com.tr/en" aria-label="English" title="English" class="nav-link"><img src="https://joypet.com.tr/assets/images/flags/en.png" style="width:24px; margin-left:15px;">    </a></li>                        </ul>
+                    </div>
+                    <a href="https://joypet.com.tr/tr/catalog" class="btn-catalog" title="E-KATALOG">
+                        <i class="fal fa-file-pdf"></i> E-KATALOG                    </a>
+                </nav>
+            </div>
+        </div>
+                <div class="row">
+            <div class="col">
+                <div class="slider">
+                    <div id="home-slider" class="carousel slide home-slider" data-ride="carousel">
+                        <div class="carousel-inner">
+                                                        <div class="carousel-item active">
+                                <img src="https://joypet.com.tr/assets/upload/images/small/banners/2020/12/05/5fcbea815ee79-banner4.png" class="img-fluid float-right" alt="Taşıma Çantaları ve Tuvaletleri">
+                                <div class="carousel-caption home-slider-captions">
+                                    <div class="slider-title">
+                                        Taşıma Çantaları ve Tuvaletleri                                    </div>
+                                    <div class="slider-description">
+                                        Bu Ürünler Bi Harika Dostum                                    </div>
+                                                                    </div>
+                            </div>
+                                                        <div class="carousel-item ">
+                                <img src="https://joypet.com.tr/assets/upload/images/small/banners/2020/12/05/5fcbe7d133a9c-banner3.png" class="img-fluid float-right" alt="Tuvalet">
+                                <div class="carousel-caption home-slider-captions">
+                                    <div class="slider-title">
+                                        Tuvalet                                    </div>
+                                    <div class="slider-description">
+                                        Can Dostlarınız İçin Herşeyi Düşündük                                    </div>
+                                                                    </div>
+                            </div>
+                                                        <div class="carousel-item ">
+                                <img src="https://joypet.com.tr/assets/upload/images/small/banners/2020/12/05/5fcbd56423f64-banner2.png" class="img-fluid float-right" alt="Tuvalet">
+                                <div class="carousel-caption home-slider-captions">
+                                    <div class="slider-title">
+                                        Tuvalet                                    </div>
+                                    <div class="slider-description">
+                                        Kedinizin Yaşam Konforu İçin                                    </div>
+                                                                    </div>
+                            </div>
+                                                        <div class="carousel-item ">
+                                <img src="https://joypet.com.tr/assets/upload/images/small/banners/2020/03/18/5e71dd60dc085-slide-1.png" class="img-fluid float-right" alt="TAŞIMA ÇANTALARI">
+                                <div class="carousel-caption home-slider-captions">
+                                    <div class="slider-title">
+                                        TAŞIMA ÇANTALARI                                    </div>
+                                    <div class="slider-description">
+                                        Dostlarımız yeni çantalarında güvende...                                    </div>
+                                    <a href="/tasima-cantalari" title="Detaylı Bilgi" class="slider-btn">Detaylı Bilgi <i class="fal fa-external-link"></i></a>                                </div>
+                            </div>
+                                                    </div>
+                        <a class="carousel-control-prev btn-slide-prev" href="#home-slider" role="button" data-slide="prev">
+                            <i class="fal fa-chevron-left"></i>
+                        </a>
+                        <a class="carousel-control-next btn-slide-next" href="#home-slider" role="button" data-slide="next">
+                            <i class="fal fa-chevron-right"></i>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+            </div>
+</div>
+<div class="container">
+    <div class="row">
+        <div class="col-lg-8 col-md-8 col-sm-12 col-12">
+            <div class="content-title">
+                <h2>JOYPET - MİNİK DOSTLARIMIZ İÇİN HER ŞEY</h2>
+                <span></span>
+            </div>
+            <div class="content">
+                            </div>
+            <a href="" class="content-btn" aria-label="Devamı" title="Devamı">
+                Devamı                <i class="fal fa-chevron-right"></i>
+            </a>
+        </div>
+        <div class="col-lg-4 col-md-4 col-sm-12 col-12">
+            <img src="https://joypet.com.tr/assets/images/home-about-us.png" alt="JOYPET - MİNİK DOSTLARIMIZ İÇİN HER ŞEY" class="img-fluid home-about-image">
+        </div>
+    </div>
+</div>
+
+<div class="home-products-container">
+    <div class="container">
+        <div class="row">
+            <div class="col">
+                <div class="home-products">
+                    <div class="home-products-title">
+                        ÜRÜNLERİMİZ                        <span>There are many variations of passages of Lorem</span>
+                    </div>
+                    <div class="swiper-container swiper-container-home-products">
+                        <div class="swiper-wrapper">
+                                                        <div class="swiper-slide swiper-slide-product">
+                                <a href="https://joypet.com.tr/tr/p-yavru-acik-tuvalet---yesil" aria-label="YAVRU AÇIK TUVALET - YEŞİL" title="YAVRU AÇIK TUVALET - YEŞİL" class="home-products-item">
+                                <span class="product-sku">
+                                    134-Y                                </span>
+                                    <span class="product-title">
+                                    YAVRU AÇIK TUVALET - YEŞİL                                </span>
+                                    <img data-src="https://joypet.com.tr/assets/upload/images/small/products/2022/07/27/62e12ca500e54-img_0056jpg.JPG" class="swiper-lazy img-fluid" alt="YAVRU AÇIK TUVALET - YEŞİL">
+                                    <div class="swiper-lazy-preloader swiper-lazy-preloader-white"></div>
+                                    <span class="product-button">
+                                    HEMEN İNCELE                                </span>
+                                </a>
+                            </div>
+                                                        <div class="swiper-slide swiper-slide-product">
+                                <a href="https://joypet.com.tr/tr/p-yavru-acik-tuvalet---gri" aria-label="YAVRU AÇIK TUVALET - GRİ" title="YAVRU AÇIK TUVALET - GRİ" class="home-products-item">
+                                <span class="product-sku">
+                                    134-G                                </span>
+                                    <span class="product-title">
+                                    YAVRU AÇIK TUVALET - GRİ                                </span>
+                                    <img data-src="https://joypet.com.tr/assets/upload/images/small/products/2022/07/27/62e12ef694d18-img_0059jpg.JPG" class="swiper-lazy img-fluid" alt="YAVRU AÇIK TUVALET - GRİ">
+                                    <div class="swiper-lazy-preloader swiper-lazy-preloader-white"></div>
+                                    <span class="product-button">
+                                    HEMEN İNCELE                                </span>
+                                </a>
+                            </div>
+                                                        <div class="swiper-slide swiper-slide-product">
+                                <a href="https://joypet.com.tr/tr/p-buyuk-acik-tuvalet-mavi" aria-label="BÜYÜK AÇIK TUVALET - MAVİ" title="BÜYÜK AÇIK TUVALET - MAVİ" class="home-products-item">
+                                <span class="product-sku">
+                                    105-M                                </span>
+                                    <span class="product-title">
+                                    BÜYÜK AÇIK TUVALET - MAVİ                                </span>
+                                    <img data-src="https://joypet.com.tr/assets/upload/images/small/products/2020/05/25/5ecc307903d5e-105-mavi.png" class="swiper-lazy img-fluid" alt="BÜYÜK AÇIK TUVALET - MAVİ">
+                                    <div class="swiper-lazy-preloader swiper-lazy-preloader-white"></div>
+                                    <span class="product-button">
+                                    HEMEN İNCELE                                </span>
+                                </a>
+                            </div>
+                                                        <div class="swiper-slide swiper-slide-product">
+                                <a href="https://joypet.com.tr/tr/p-050-lt-mama-kabi-pembe" aria-label="0,50 LT MAMA KABI - PEMBE" title="0,50 LT MAMA KABI - PEMBE" class="home-products-item">
+                                <span class="product-sku">
+                                    111-P                                </span>
+                                    <span class="product-title">
+                                    0,50 LT MAMA KABI - PEMBE                                </span>
+                                    <img data-src="https://joypet.com.tr/assets/upload/images/small/products/2020/05/26/5ecd261509229-111-116-pembe.png" class="swiper-lazy img-fluid" alt="0,50 LT MAMA KABI - PEMBE">
+                                    <div class="swiper-lazy-preloader swiper-lazy-preloader-white"></div>
+                                    <span class="product-button">
+                                    HEMEN İNCELE                                </span>
+                                </a>
+                            </div>
+                                                    </div>
+                    </div>
+                </div>
+                <button type="button" aria-label="Önceki Slayt" class="btn-product-prev">
+                    <i class="fal fa-chevron-left"></i>
+                </button>
+                <button type="button" aria-label="Sonraki Slayt" class="btn-product-next">
+                    <i class="fal fa-chevron-right"></i>
+                </button>
+
+            </div>
+        </div>
+    </div>
+    <img src="/assets/images/pet2.png" alt="" class="home-products-pet">
+</div>
+<div class="container">
+    <div class="row">
+        <div class="col-lg-8 col-md-12 col-sm-12 col-12">
+            <div class="home-news">
+                <span class="home-news-title">HABERLER</span>
+
+                            </div>
+        </div>
+        <div class="col-lg-4 col-md-12 col-sm-12 col-12">
+            <ul class="home-buttons">
+                                <li>
+                    <a href="https://joypet.com.tr/tr/kalite-standartlarimiz" aria-label="Kalite Standartlarımız" title="Kalite Standartlarımız" style="background-image: url('/assets/images/kalite.png');">
+                        <span class="icon">
+                            <i class="fal fa-clipboard-list-check"></i>
+                        </span>
+                        <span class="title">Kalite Standartlarımız</span>
+                        <span class="arrow">
+                            <i class="fal fa-long-arrow-right"></i>
+                        </span>
+                    </a>
+                </li>
+                                                    <li>
+                        <a href="https://joypet.com.tr/tr/sertifikalar" aria-label="Sertifikalar" title="Sertifikalar" style="background-image: url('/assets/images/sertifika.png');">
+                        <span class="icon">
+                            <i class="fal fa-file-certificate"></i>
+                        </span>
+                            <span class="title">Sertifikalar</span>
+                            <span class="arrow">
+                            <i class="fal fa-long-arrow-right"></i>
+                        </span>
+                        </a>
+                    </li>
+                            </ul>
+        </div>
+    </div>
+</div><link rel="stylesheet" href="/assets/plugins/swipper/css/swiper.min.css">
+<link rel="stylesheet" href="/assets/css/index.css">
+<script src="/assets/plugins/swipper/js/swiper.min.js"></script>
+<script src="/assets/js/index.js"></script><div class="pre-footer">
+    <div class="container pre-footer-container">
+        <div class="row">
+            <div class="col-lg-4 col-md-4 col-sm-12 col-12">
+                <div class="subscriber-title">
+                    Bülten listemize kayıt olmak ister misiniz?                </div>
+            </div>
+            <div class="col-lg-6 col-md-6 col-sm-12 col-12">
+                <form action="https://joypet.com.tr/" id="form-subscribe" method="post" accept-charset="utf-8">
+<input type="hidden" name="csrf_ccm" value="13e5bbb2e9720977ad28f7d35e820b14" />                                                
+                <div class="form-group footer-subscriber-input-group">
+                    <div class="input-group">
+                        <div class="input-group-prepend">
+                            <span class="input-group-text">
+                                <i class="fal fa-envelope"></i>
+                            </span>
+                        </div>
+                        <input type="email" class="form-control" name="email" placeholder="E-posta adresiniz" aria-label="E-posta adresiniz">
+                        <div class="input-group-append">
+                            <button
+                                class="btn btn-outline-secondary g-recaptcha"
+                                data-sitekey="6LcHs-EUAAAAAOIQD6sud60Swz5y-_ChI3AJ8Ni7"
+                                data-callback="onSubscribe">
+                                Kaydet                            </button>
+                        </div>
+                    </div>
+                </div>
+                </form>            </div>
+        </div>
+        <img src="https://joypet.com.tr/assets/images/pet3.png" class="img-fluid pre-footer-pet" alt="">
+    </div>
+</div>
+<div class="pre-footer-end">
+    <div class="pre-footer-end-separator"></div>
+    <div class="container">
+        <div class="row">
+            <div class="col">
+                <img src="https://joypet.com.tr/assets/images/logo.png" class="img-fluid footer-logo">
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-lg-8 col-md-12 col-sm-12 col-12 footer-links-container">
+                <ul class="footer-links"><li><a href="https://joypet.com.tr/tr/iletisim" title="İletişim"  aria-label="İletişim">İletişim</a></li></ul>            </div>
+            <div class="col-lg-4 col-md-12 col-sm-12 col-12 footer-social-media-container">
+                <ul class="footer-social-media">
+                    <li class="instagram">    <a href="https://www.instagram.com/joypet.cinar" aria-label="Instagram sayfamızı takip edebilirsiniz" title="Instagram sayfamızı takip edebilirsiniz" target="_blank" class="tips" data-placement="bottom" rel="noreferrer">        <i class="fab fa-instagram"></i>    </a></li>                    <li class="title">Sosyal Medya</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="footer-contact">
+    <div class="container">
+        <div class="row">
+            <div class="col">
+                <ul>
+                    <li class="title">İLETİŞİM BİLGİLERİ</li>
+                    <li class="address">
+                        <span class="icon"><i class="fal fa-map-marker-alt"></i></span>
+                        <span class="text">Topçular Kışla Caddesi Apek Üretmen İş Merkezi A-Blok No:61 D:28-29-30-31-48 EYÜP / İSTANBUL</span>
+                    </li>
+                    <li class="phone">
+                        <span class="icon"><i class="fal fa-phone-volume"></i></span>
+                        <span class="text">0 212 613 11 39</span>
+                    </li>
+                    <li class="email">
+                        <span class="icon"><i class="fal fa-envelope"></i></span>
+                        <span class="text">info@joypet.com.tr</span>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="container">
+    <div class="row">
+        <div class="col">
+            <div class="copyright">
+                2023 @ Tüm Haklarımız Saklıdır.            </div>
+        </div>
+    </div>
+</div><div class="preloader"><img src="https://joypet.com.tr/assets/images/loader-2-dark.gif"></div>
+</body>
+</html>

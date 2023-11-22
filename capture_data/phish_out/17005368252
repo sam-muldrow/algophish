@@ -1,0 +1,162 @@
+
+
+<!DOCTYPE html>
+<html lang="en-us">
+<head>
+
+    <title></title>
+    
+    <link rel="icon" href="favicon.ico" type="image/x-icon">
+
+    <style>
+        * {
+            padding: 0; margin: 0; box-sizing: border-box;
+        }
+
+        .redirection-page-container {
+            width:100%; height: 100vh; background:#f8f7f8; display:flex; align-content:center; align-items:center; justify-content:center;  background-size: cover;
+        }
+        .redirection-page-container .redirection-msg-holder{
+            font-size: 20px;
+            position: relative;
+            width: 425px;
+            margin: auto;
+            padding: 40px;
+            background-color: rgba(255,255,255,0.95);
+            border-color: #aaa;
+            border-width: 2px;
+            border-radius: 12px;
+            opacity: 1;
+            -webkit-box-shadow: none;
+            box-shadow: none;
+        }
+       
+        .redirection-page-container .redirection-msg-holder p{
+            font-family: Roboto,"Open Sans",Arial,Helvetica,Sans-Serif;
+            color: #8a8a8a;
+            font-size: 16px;
+            line-height: 22px;
+            margin: 0;
+            padding: 0;
+            text-align: center;
+        }
+
+        .redirection-page-container .redirection-msg-holder .company-logo-holder {
+            padding-bottom: 30px;
+        }
+    </style>
+
+</head>
+<body>
+
+        <div class="redirection-page-container" style="background-image: url('https://cache.amp.vg/msp.amp.vg/v4u/img/login/1.jpg?b=221f3b991c7783c52b931668ab716653c991669a')">
+            <div class="redirection-msg-holder">
+                <div class="company-logo-holder">
+                    <img src="https://cache.amp.vg/msp.amp.vg/img/brand-logo-msp.png?b=221f3b991c7783c52b931668ab716653c991669a" style="display: block; margin-left: auto; margin-right: auto">
+                </div>
+                <p>Please stand by while we redirect you <br />to the login page.</p>
+            </div>
+        </div>
+</body>
+    
+    <script type="text/javascript">
+        (function () {
+            // Do not implement polyfill if browser already support Base64 algorithms
+            if (typeof btoa === 'function') {
+                return false;
+            }
+
+            // A helper that returns Base64 characters and their indices.
+            var chars = {
+                ascii: function () {
+                    return 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/=';
+                },
+                indices: function () {
+                    if (!this.cache) {
+                        this.cache = {};
+                        var ascii = chars.ascii();
+
+                        for (var c = 0; c < ascii.length; c++) {
+                            var chr = ascii[c];
+                            this.cache[chr] = c;
+                        }
+                    }
+                    return this.cache;
+                }
+            };
+
+            /**
+             * Binary to ASCII (encode data to Base64)
+             * @param {String} data
+             * @returns {String}
+             */
+            window.btoa = function (data) {
+                var ascii = chars.ascii(),
+                    len = data.length - 1,
+                    i = -1,
+                    b64 = '';
+
+                while (i < len) {
+                    var code = data.charCodeAt(++i) << 16 | data.charCodeAt(++i) << 8 | data.charCodeAt(++i);
+                    b64 += ascii[(code >>> 18) & 63] + ascii[(code >>> 12) & 63] + ascii[(code >>> 6) & 63] + ascii[code & 63];
+                }
+
+                var pads = data.length % 3;
+                if (pads > 0) {
+                    b64 = b64.slice(0, pads - 3);
+
+                    while (b64.length % 4 !== 0) {
+                        b64 += '=';
+                    }
+                }
+
+                return b64;
+            };
+
+            /**
+             * ASCII to binary (decode Base64 to original data)
+             * @param {String} b64
+             * @returns {String}
+             */
+            window.atob = function (b64) {
+                var indices = chars.indices(),
+                    pos = b64.indexOf('='),
+                    padded = pos > -1,
+                    len = padded ? pos : b64.length,
+                    i = -1,
+                    data = '';
+
+                while (i < len) {
+                    var code = indices[b64[++i]] << 18 | indices[b64[++i]] << 12 | indices[b64[++i]] << 6 | indices[b64[++i]];
+                    if (code !== 0) {
+                        data += String.fromCharCode((code >>> 16) & 255, (code >>> 8) & 255, code & 255);
+                    }
+                }
+
+                if (padded) {
+                    data = data.slice(0, pos - b64.length);
+                }
+
+                return data;
+            };
+        })();
+
+        (function () {
+            var pageData = {"authmode":"FORM","enumauthmode":"API","loginredirecturl":null,"showmessage":true};
+            var redirectUrl = "";
+            if (window.location.hash != "")
+                redirectUrl = escape(btoa(window.location.href));
+            if (pageData.authmode == pageData.enumauthmode) {
+                var urlStr = pageData.loginredirecturl.split('/').slice(0, 3).join('/');
+                returnUrl = urlStr + "/?redirecturl=" + redirectUrl;
+                window.location = returnUrl;
+            }
+            else {
+                if (redirectUrl.trim() == "")
+                    window.location = "https://msp.amp.vg/login";
+                else
+                    window.location = "https://msp.amp.vg/login?returnurl=" + redirectUrl;
+            }
+        })();
+    </script>
+</html>

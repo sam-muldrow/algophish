@@ -1,0 +1,1156 @@
+<!DOCTYPE html>
+<html lang="nl-NL">
+<head><meta charset="UTF-8"><script>if(navigator.userAgent.match(/MSIE|Internet Explorer/i)||navigator.userAgent.match(/Trident\/7\..*?rv:11/i)){var href=document.location.href;if(!href.match(/[?&]nowprocket/)){if(href.indexOf("?")==-1){if(href.indexOf("#")==-1){document.location.href=href+"?nowprocket=1"}else{document.location.href=href.replace("#","?nowprocket=1#")}}else{if(href.indexOf("#")==-1){document.location.href=href+"&nowprocket=1"}else{document.location.href=href.replace("#","&nowprocket=1#")}}}}</script><script>class RocketLazyLoadScripts{constructor(){this.v="1.2.3",this.triggerEvents=["keydown","mousedown","mousemove","touchmove","touchstart","touchend","wheel"],this.userEventHandler=this._triggerListener.bind(this),this.touchStartHandler=this._onTouchStart.bind(this),this.touchMoveHandler=this._onTouchMove.bind(this),this.touchEndHandler=this._onTouchEnd.bind(this),this.clickHandler=this._onClick.bind(this),this.interceptedClicks=[],window.addEventListener("pageshow",t=>{this.persisted=t.persisted}),window.addEventListener("DOMContentLoaded",()=>{this._preconnect3rdParties()}),this.delayedScripts={normal:[],async:[],defer:[]},this.trash=[],this.allJQueries=[]}_addUserInteractionListener(t){if(document.hidden){t._triggerListener();return}this.triggerEvents.forEach(e=>window.addEventListener(e,t.userEventHandler,{passive:!0})),window.addEventListener("touchstart",t.touchStartHandler,{passive:!0}),window.addEventListener("mousedown",t.touchStartHandler),document.addEventListener("visibilitychange",t.userEventHandler)}_removeUserInteractionListener(){this.triggerEvents.forEach(t=>window.removeEventListener(t,this.userEventHandler,{passive:!0})),document.removeEventListener("visibilitychange",this.userEventHandler)}_onTouchStart(t){"HTML"!==t.target.tagName&&(window.addEventListener("touchend",this.touchEndHandler),window.addEventListener("mouseup",this.touchEndHandler),window.addEventListener("touchmove",this.touchMoveHandler,{passive:!0}),window.addEventListener("mousemove",this.touchMoveHandler),t.target.addEventListener("click",this.clickHandler),this._renameDOMAttribute(t.target,"onclick","rocket-onclick"),this._pendingClickStarted())}_onTouchMove(t){window.removeEventListener("touchend",this.touchEndHandler),window.removeEventListener("mouseup",this.touchEndHandler),window.removeEventListener("touchmove",this.touchMoveHandler,{passive:!0}),window.removeEventListener("mousemove",this.touchMoveHandler),t.target.removeEventListener("click",this.clickHandler),this._renameDOMAttribute(t.target,"rocket-onclick","onclick"),this._pendingClickFinished()}_onTouchEnd(t){window.removeEventListener("touchend",this.touchEndHandler),window.removeEventListener("mouseup",this.touchEndHandler),window.removeEventListener("touchmove",this.touchMoveHandler,{passive:!0}),window.removeEventListener("mousemove",this.touchMoveHandler)}_onClick(t){t.target.removeEventListener("click",this.clickHandler),this._renameDOMAttribute(t.target,"rocket-onclick","onclick"),this.interceptedClicks.push(t),t.preventDefault(),t.stopPropagation(),t.stopImmediatePropagation(),this._pendingClickFinished()}_replayClicks(){window.removeEventListener("touchstart",this.touchStartHandler,{passive:!0}),window.removeEventListener("mousedown",this.touchStartHandler),this.interceptedClicks.forEach(t=>{t.target.dispatchEvent(new MouseEvent("click",{view:t.view,bubbles:!0,cancelable:!0}))})}_waitForPendingClicks(){return new Promise(t=>{this._isClickPending?this._pendingClickFinished=t:t()})}_pendingClickStarted(){this._isClickPending=!0}_pendingClickFinished(){this._isClickPending=!1}_renameDOMAttribute(t,e,r){t.hasAttribute&&t.hasAttribute(e)&&(event.target.setAttribute(r,event.target.getAttribute(e)),event.target.removeAttribute(e))}_triggerListener(){this._removeUserInteractionListener(this),"loading"===document.readyState?document.addEventListener("DOMContentLoaded",this._loadEverythingNow.bind(this)):this._loadEverythingNow()}_preconnect3rdParties(){let t=[];document.querySelectorAll("script[type=rocketlazyloadscript]").forEach(e=>{if(e.hasAttribute("src")){let r=new URL(e.src).origin;r!==location.origin&&t.push({src:r,crossOrigin:e.crossOrigin||"module"===e.getAttribute("data-rocket-type")})}}),t=[...new Map(t.map(t=>[JSON.stringify(t),t])).values()],this._batchInjectResourceHints(t,"preconnect")}async _loadEverythingNow(){this.lastBreath=Date.now(),this._delayEventListeners(this),this._delayJQueryReady(this),this._handleDocumentWrite(),this._registerAllDelayedScripts(),this._preloadAllScripts(),await this._loadScriptsFromList(this.delayedScripts.normal),await this._loadScriptsFromList(this.delayedScripts.defer),await this._loadScriptsFromList(this.delayedScripts.async);try{await this._triggerDOMContentLoaded(),await this._triggerWindowLoad()}catch(t){console.error(t)}window.dispatchEvent(new Event("rocket-allScriptsLoaded")),this._waitForPendingClicks().then(()=>{this._replayClicks()}),this._emptyTrash()}_registerAllDelayedScripts(){document.querySelectorAll("script[type=rocketlazyloadscript]").forEach(t=>{t.hasAttribute("data-rocket-src")?t.hasAttribute("async")&&!1!==t.async?this.delayedScripts.async.push(t):t.hasAttribute("defer")&&!1!==t.defer||"module"===t.getAttribute("data-rocket-type")?this.delayedScripts.defer.push(t):this.delayedScripts.normal.push(t):this.delayedScripts.normal.push(t)})}async _transformScript(t){return new Promise((await this._littleBreath(),navigator.userAgent.indexOf("Firefox/")>0||""===navigator.vendor)?e=>{let r=document.createElement("script");[...t.attributes].forEach(t=>{let e=t.nodeName;"type"!==e&&("data-rocket-type"===e&&(e="type"),"data-rocket-src"===e&&(e="src"),r.setAttribute(e,t.nodeValue))}),t.text&&(r.text=t.text),r.hasAttribute("src")?(r.addEventListener("load",e),r.addEventListener("error",e)):(r.text=t.text,e());try{t.parentNode.replaceChild(r,t)}catch(i){e()}}:async e=>{function r(){t.setAttribute("data-rocket-status","failed"),e()}try{let i=t.getAttribute("data-rocket-type"),n=t.getAttribute("data-rocket-src");t.text,i?(t.type=i,t.removeAttribute("data-rocket-type")):t.removeAttribute("type"),t.addEventListener("load",function r(){t.setAttribute("data-rocket-status","executed"),e()}),t.addEventListener("error",r),n?(t.removeAttribute("data-rocket-src"),t.src=n):t.src="data:text/javascript;base64,"+window.btoa(unescape(encodeURIComponent(t.text)))}catch(s){r()}})}async _loadScriptsFromList(t){let e=t.shift();return e&&e.isConnected?(await this._transformScript(e),this._loadScriptsFromList(t)):Promise.resolve()}_preloadAllScripts(){this._batchInjectResourceHints([...this.delayedScripts.normal,...this.delayedScripts.defer,...this.delayedScripts.async],"preload")}_batchInjectResourceHints(t,e){var r=document.createDocumentFragment();t.forEach(t=>{let i=t.getAttribute&&t.getAttribute("data-rocket-src")||t.src;if(i){let n=document.createElement("link");n.href=i,n.rel=e,"preconnect"!==e&&(n.as="script"),t.getAttribute&&"module"===t.getAttribute("data-rocket-type")&&(n.crossOrigin=!0),t.crossOrigin&&(n.crossOrigin=t.crossOrigin),t.integrity&&(n.integrity=t.integrity),r.appendChild(n),this.trash.push(n)}}),document.head.appendChild(r)}_delayEventListeners(t){let e={};function r(t,r){!function t(r){!e[r]&&(e[r]={originalFunctions:{add:r.addEventListener,remove:r.removeEventListener},eventsToRewrite:[]},r.addEventListener=function(){arguments[0]=i(arguments[0]),e[r].originalFunctions.add.apply(r,arguments)},r.removeEventListener=function(){arguments[0]=i(arguments[0]),e[r].originalFunctions.remove.apply(r,arguments)});function i(t){return e[r].eventsToRewrite.indexOf(t)>=0?"rocket-"+t:t}}(t),e[t].eventsToRewrite.push(r)}function i(t,e){let r=t[e];Object.defineProperty(t,e,{get:()=>r||function(){},set(i){t["rocket"+e]=r=i}})}r(document,"DOMContentLoaded"),r(window,"DOMContentLoaded"),r(window,"load"),r(window,"pageshow"),r(document,"readystatechange"),i(document,"onreadystatechange"),i(window,"onload"),i(window,"onpageshow")}_delayJQueryReady(t){let e;function r(r){if(r&&r.fn&&!t.allJQueries.includes(r)){r.fn.ready=r.fn.init.prototype.ready=function(e){return t.domReadyFired?e.bind(document)(r):document.addEventListener("rocket-DOMContentLoaded",()=>e.bind(document)(r)),r([])};let i=r.fn.on;r.fn.on=r.fn.init.prototype.on=function(){if(this[0]===window){function t(t){return t.split(" ").map(t=>"load"===t||0===t.indexOf("load.")?"rocket-jquery-load":t).join(" ")}"string"==typeof arguments[0]||arguments[0]instanceof String?arguments[0]=t(arguments[0]):"object"==typeof arguments[0]&&Object.keys(arguments[0]).forEach(e=>{let r=arguments[0][e];delete arguments[0][e],arguments[0][t(e)]=r})}return i.apply(this,arguments),this},t.allJQueries.push(r)}e=r}r(window.jQuery),Object.defineProperty(window,"jQuery",{get:()=>e,set(t){r(t)}})}async _triggerDOMContentLoaded(){this.domReadyFired=!0,await this._littleBreath(),document.dispatchEvent(new Event("rocket-DOMContentLoaded")),await this._littleBreath(),window.dispatchEvent(new Event("rocket-DOMContentLoaded")),await this._littleBreath(),document.dispatchEvent(new Event("rocket-readystatechange")),await this._littleBreath(),document.rocketonreadystatechange&&document.rocketonreadystatechange()}async _triggerWindowLoad(){await this._littleBreath(),window.dispatchEvent(new Event("rocket-load")),await this._littleBreath(),window.rocketonload&&window.rocketonload(),await this._littleBreath(),this.allJQueries.forEach(t=>t(window).trigger("rocket-jquery-load")),await this._littleBreath();let t=new Event("rocket-pageshow");t.persisted=this.persisted,window.dispatchEvent(t),await this._littleBreath(),window.rocketonpageshow&&window.rocketonpageshow({persisted:this.persisted})}_handleDocumentWrite(){let t=new Map;document.write=document.writeln=function(e){let r=document.currentScript;r||console.error("WPRocket unable to document.write this: "+e);let i=document.createRange(),n=r.parentElement,s=t.get(r);void 0===s&&(s=r.nextSibling,t.set(r,s));let a=document.createDocumentFragment();i.setStart(a,0),a.appendChild(i.createContextualFragment(e)),n.insertBefore(a,s)}}async _littleBreath(){Date.now()-this.lastBreath>45&&(await this._requestAnimFrame(),this.lastBreath=Date.now())}async _requestAnimFrame(){return document.hidden?new Promise(t=>setTimeout(t)):new Promise(t=>requestAnimationFrame(t))}_emptyTrash(){this.trash.forEach(t=>t.remove())}static run(){let t=new RocketLazyLoadScripts;t._addUserInteractionListener(t)}}RocketLazyLoadScripts.run();</script>
+	
+	<link rel="profile" href="https://gmpg.org/xfn/11">
+	<link rel="pingback" href="">
+
+	<meta name='robots' content='index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1' />
+
+	<!-- This site is optimized with the Yoast SEO plugin v21.5 - https://yoast.com/wordpress/plugins/seo/ -->
+	<title>Verlichting voor vlaggen, banieren en andere reclame-uitingen</title><link rel="preload" as="style" href="https://fonts.googleapis.com/css?family=Noto%20Sans%3A400%2C600%7CPoppins%3A400%2C600%2C500%7CLato%3A400%2C700&#038;display=swap" /><link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Noto%20Sans%3A400%2C600%7CPoppins%3A400%2C600%2C500%7CLato%3A400%2C700&#038;display=swap" media="print" onload="this.media='all'" /><noscript><link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Noto%20Sans%3A400%2C600%7CPoppins%3A400%2C600%2C500%7CLato%3A400%2C700&#038;display=swap" /></noscript>
+	<meta name="description" content="Welkom bij Limeta | Vlaggenmasten, vlaggen, verlichting en accessoires snel geleverd. Vergroot uw zichtbaarheid, herkenning en aantrekkingskracht." />
+	<link rel="canonical" href="https://www.limeta.nl/vlaggenmast-verlichting/" />
+	<meta property="og:locale" content="nl_NL" />
+	<meta property="og:type" content="article" />
+	<meta property="og:title" content="Verlichting voor vlaggen, banieren en andere reclame-uitingen" />
+	<meta property="og:description" content="Welkom bij Limeta | Vlaggenmasten, vlaggen, verlichting en accessoires snel geleverd. Vergroot uw zichtbaarheid, herkenning en aantrekkingskracht." />
+	<meta property="og:url" content="https://www.limeta.nl/vlaggenmast-verlichting/" />
+	<meta property="og:site_name" content="Limeta - buitengewoon zichtbaar" />
+	<meta property="article:modified_time" content="2023-08-09T08:26:25+00:00" />
+	<meta property="og:image" content="https://www.limeta.nl/wp-content/uploads/McDonalds-Nijkerk-verlichte-vlaggenmasten-3.jpg" />
+	<meta property="og:image:width" content="1024" />
+	<meta property="og:image:height" content="680" />
+	<meta property="og:image:type" content="image/jpeg" />
+	<meta name="twitter:card" content="summary_large_image" />
+	<meta name="twitter:label1" content="Geschatte leestijd" />
+	<meta name="twitter:data1" content="2 minuten" />
+	<script type="application/ld+json" class="yoast-schema-graph">{"@context":"https://schema.org","@graph":[{"@type":"WebPage","@id":"https://www.limeta.nl/vlaggenmast-verlichting/","url":"https://www.limeta.nl/vlaggenmast-verlichting/","name":"Verlichting voor vlaggen, banieren en andere reclame-uitingen","isPartOf":{"@id":"https://www.limeta.nl/#website"},"primaryImageOfPage":{"@id":"https://www.limeta.nl/vlaggenmast-verlichting/#primaryimage"},"image":{"@id":"https://www.limeta.nl/vlaggenmast-verlichting/#primaryimage"},"thumbnailUrl":"https://www.limeta.nl/wp-content/uploads/McDonalds-Nijkerk-verlichte-vlaggenmasten-3.jpg","datePublished":"2015-07-03T09:16:18+00:00","dateModified":"2023-08-09T08:26:25+00:00","description":"Welkom bij Limeta | Vlaggenmasten, vlaggen, verlichting en accessoires snel geleverd. Vergroot uw zichtbaarheid, herkenning en aantrekkingskracht.","breadcrumb":{"@id":"https://www.limeta.nl/vlaggenmast-verlichting/#breadcrumb"},"inLanguage":"nl-NL","potentialAction":[{"@type":"ReadAction","target":["https://www.limeta.nl/vlaggenmast-verlichting/"]}]},{"@type":"ImageObject","inLanguage":"nl-NL","@id":"https://www.limeta.nl/vlaggenmast-verlichting/#primaryimage","url":"https://www.limeta.nl/wp-content/uploads/McDonalds-Nijkerk-verlichte-vlaggenmasten-3.jpg","contentUrl":"https://www.limeta.nl/wp-content/uploads/McDonalds-Nijkerk-verlichte-vlaggenmasten-3.jpg","width":1024,"height":680,"caption":"Verlichte vlaggenmast"},{"@type":"BreadcrumbList","@id":"https://www.limeta.nl/vlaggenmast-verlichting/#breadcrumb","itemListElement":[{"@type":"ListItem","position":1,"name":"Home","item":"https://www.limeta.nl/"},{"@type":"ListItem","position":2,"name":"Vlaggenmast verlichting"}]},{"@type":"WebSite","@id":"https://www.limeta.nl/#website","url":"https://www.limeta.nl/","name":"Limeta - buitengewoon zichtbaar","description":"Uw persoonlijke expert in vlaggen en vlaggenmasten","publisher":{"@id":"https://www.limeta.nl/#organization"},"potentialAction":[{"@type":"SearchAction","target":{"@type":"EntryPoint","urlTemplate":"https://www.limeta.nl/?s={search_term_string}"},"query-input":"required name=search_term_string"}],"inLanguage":"nl-NL"},{"@type":"Organization","@id":"https://www.limeta.nl/#organization","name":"Limeta B.V.","url":"https://www.limeta.nl/","logo":{"@type":"ImageObject","inLanguage":"nl-NL","@id":"https://www.limeta.nl/#/schema/logo/image/","url":"https://www.limeta.nl/wp-content/uploads/2015/07/logo-limeta.png","contentUrl":"https://www.limeta.nl/wp-content/uploads/2015/07/logo-limeta.png","width":200,"height":200,"caption":"Limeta B.V."},"image":{"@id":"https://www.limeta.nl/#/schema/logo/image/"}}]}</script>
+	<!-- / Yoast SEO plugin. -->
+
+
+<link rel='dns-prefetch' href='//stats.wp.com' />
+<link rel='dns-prefetch' href='//fonts.googleapis.com' />
+<link rel='dns-prefetch' href='//fonts.gstatic.com' />
+<link rel='dns-prefetch' href='//www.google-analytics.com' />
+<link rel='dns-prefetch' href='//connect.facebook.net' />
+<link rel='dns-prefetch' href='//platform.twitter.com' />
+<link rel='dns-prefetch' href='//platform.linkedin.com' />
+<link rel='dns-prefetch' href='//stackpath.bootstrapcdn.com' />
+<link rel='dns-prefetch' href='//apis.google.com' />
+<link rel='dns-prefetch' href='//www.googletagmanager.com' />
+<link href='https://fonts.gstatic.com' crossorigin rel='preconnect' />
+<link rel="alternate" type="application/rss+xml" title="Limeta - buitengewoon zichtbaar &raquo; feed" href="https://www.limeta.nl/feed/" />
+<link rel="alternate" type="application/rss+xml" title="Limeta - buitengewoon zichtbaar &raquo; reactiesfeed" href="https://www.limeta.nl/comments/feed/" />
+<link rel='stylesheet' id='wp-block-library-css' href='https://www.limeta.nl/wp-includes/css/dist/block-library/style.min.css?ver=6.3.2' type='text/css' media='all' />
+<style id='classic-theme-styles-inline-css' type='text/css'>
+/*! This file is auto-generated */
+.wp-block-button__link{color:#fff;background-color:#32373c;border-radius:9999px;box-shadow:none;text-decoration:none;padding:calc(.667em + 2px) calc(1.333em + 2px);font-size:1.125em}.wp-block-file__button{background:#32373c;color:#fff;text-decoration:none}
+</style>
+<style id='global-styles-inline-css' type='text/css'>
+body{--wp--preset--color--black: #000000;--wp--preset--color--cyan-bluish-gray: #abb8c3;--wp--preset--color--white: #ffffff;--wp--preset--color--pale-pink: #f78da7;--wp--preset--color--vivid-red: #cf2e2e;--wp--preset--color--luminous-vivid-orange: #ff6900;--wp--preset--color--luminous-vivid-amber: #fcb900;--wp--preset--color--light-green-cyan: #7bdcb5;--wp--preset--color--vivid-green-cyan: #00d084;--wp--preset--color--pale-cyan-blue: #8ed1fc;--wp--preset--color--vivid-cyan-blue: #0693e3;--wp--preset--color--vivid-purple: #9b51e0;--wp--preset--gradient--vivid-cyan-blue-to-vivid-purple: linear-gradient(135deg,rgba(6,147,227,1) 0%,rgb(155,81,224) 100%);--wp--preset--gradient--light-green-cyan-to-vivid-green-cyan: linear-gradient(135deg,rgb(122,220,180) 0%,rgb(0,208,130) 100%);--wp--preset--gradient--luminous-vivid-amber-to-luminous-vivid-orange: linear-gradient(135deg,rgba(252,185,0,1) 0%,rgba(255,105,0,1) 100%);--wp--preset--gradient--luminous-vivid-orange-to-vivid-red: linear-gradient(135deg,rgba(255,105,0,1) 0%,rgb(207,46,46) 100%);--wp--preset--gradient--very-light-gray-to-cyan-bluish-gray: linear-gradient(135deg,rgb(238,238,238) 0%,rgb(169,184,195) 100%);--wp--preset--gradient--cool-to-warm-spectrum: linear-gradient(135deg,rgb(74,234,220) 0%,rgb(151,120,209) 20%,rgb(207,42,186) 40%,rgb(238,44,130) 60%,rgb(251,105,98) 80%,rgb(254,248,76) 100%);--wp--preset--gradient--blush-light-purple: linear-gradient(135deg,rgb(255,206,236) 0%,rgb(152,150,240) 100%);--wp--preset--gradient--blush-bordeaux: linear-gradient(135deg,rgb(254,205,165) 0%,rgb(254,45,45) 50%,rgb(107,0,62) 100%);--wp--preset--gradient--luminous-dusk: linear-gradient(135deg,rgb(255,203,112) 0%,rgb(199,81,192) 50%,rgb(65,88,208) 100%);--wp--preset--gradient--pale-ocean: linear-gradient(135deg,rgb(255,245,203) 0%,rgb(182,227,212) 50%,rgb(51,167,181) 100%);--wp--preset--gradient--electric-grass: linear-gradient(135deg,rgb(202,248,128) 0%,rgb(113,206,126) 100%);--wp--preset--gradient--midnight: linear-gradient(135deg,rgb(2,3,129) 0%,rgb(40,116,252) 100%);--wp--preset--font-size--small: 13px;--wp--preset--font-size--medium: 20px;--wp--preset--font-size--large: 36px;--wp--preset--font-size--x-large: 42px;--wp--preset--spacing--20: 0.44rem;--wp--preset--spacing--30: 0.67rem;--wp--preset--spacing--40: 1rem;--wp--preset--spacing--50: 1.5rem;--wp--preset--spacing--60: 2.25rem;--wp--preset--spacing--70: 3.38rem;--wp--preset--spacing--80: 5.06rem;--wp--preset--shadow--natural: 6px 6px 9px rgba(0, 0, 0, 0.2);--wp--preset--shadow--deep: 12px 12px 50px rgba(0, 0, 0, 0.4);--wp--preset--shadow--sharp: 6px 6px 0px rgba(0, 0, 0, 0.2);--wp--preset--shadow--outlined: 6px 6px 0px -3px rgba(255, 255, 255, 1), 6px 6px rgba(0, 0, 0, 1);--wp--preset--shadow--crisp: 6px 6px 0px rgba(0, 0, 0, 1);}:where(.is-layout-flex){gap: 0.5em;}:where(.is-layout-grid){gap: 0.5em;}body .is-layout-flow > .alignleft{float: left;margin-inline-start: 0;margin-inline-end: 2em;}body .is-layout-flow > .alignright{float: right;margin-inline-start: 2em;margin-inline-end: 0;}body .is-layout-flow > .aligncenter{margin-left: auto !important;margin-right: auto !important;}body .is-layout-constrained > .alignleft{float: left;margin-inline-start: 0;margin-inline-end: 2em;}body .is-layout-constrained > .alignright{float: right;margin-inline-start: 2em;margin-inline-end: 0;}body .is-layout-constrained > .aligncenter{margin-left: auto !important;margin-right: auto !important;}body .is-layout-constrained > :where(:not(.alignleft):not(.alignright):not(.alignfull)){max-width: var(--wp--style--global--content-size);margin-left: auto !important;margin-right: auto !important;}body .is-layout-constrained > .alignwide{max-width: var(--wp--style--global--wide-size);}body .is-layout-flex{display: flex;}body .is-layout-flex{flex-wrap: wrap;align-items: center;}body .is-layout-flex > *{margin: 0;}body .is-layout-grid{display: grid;}body .is-layout-grid > *{margin: 0;}:where(.wp-block-columns.is-layout-flex){gap: 2em;}:where(.wp-block-columns.is-layout-grid){gap: 2em;}:where(.wp-block-post-template.is-layout-flex){gap: 1.25em;}:where(.wp-block-post-template.is-layout-grid){gap: 1.25em;}.has-black-color{color: var(--wp--preset--color--black) !important;}.has-cyan-bluish-gray-color{color: var(--wp--preset--color--cyan-bluish-gray) !important;}.has-white-color{color: var(--wp--preset--color--white) !important;}.has-pale-pink-color{color: var(--wp--preset--color--pale-pink) !important;}.has-vivid-red-color{color: var(--wp--preset--color--vivid-red) !important;}.has-luminous-vivid-orange-color{color: var(--wp--preset--color--luminous-vivid-orange) !important;}.has-luminous-vivid-amber-color{color: var(--wp--preset--color--luminous-vivid-amber) !important;}.has-light-green-cyan-color{color: var(--wp--preset--color--light-green-cyan) !important;}.has-vivid-green-cyan-color{color: var(--wp--preset--color--vivid-green-cyan) !important;}.has-pale-cyan-blue-color{color: var(--wp--preset--color--pale-cyan-blue) !important;}.has-vivid-cyan-blue-color{color: var(--wp--preset--color--vivid-cyan-blue) !important;}.has-vivid-purple-color{color: var(--wp--preset--color--vivid-purple) !important;}.has-black-background-color{background-color: var(--wp--preset--color--black) !important;}.has-cyan-bluish-gray-background-color{background-color: var(--wp--preset--color--cyan-bluish-gray) !important;}.has-white-background-color{background-color: var(--wp--preset--color--white) !important;}.has-pale-pink-background-color{background-color: var(--wp--preset--color--pale-pink) !important;}.has-vivid-red-background-color{background-color: var(--wp--preset--color--vivid-red) !important;}.has-luminous-vivid-orange-background-color{background-color: var(--wp--preset--color--luminous-vivid-orange) !important;}.has-luminous-vivid-amber-background-color{background-color: var(--wp--preset--color--luminous-vivid-amber) !important;}.has-light-green-cyan-background-color{background-color: var(--wp--preset--color--light-green-cyan) !important;}.has-vivid-green-cyan-background-color{background-color: var(--wp--preset--color--vivid-green-cyan) !important;}.has-pale-cyan-blue-background-color{background-color: var(--wp--preset--color--pale-cyan-blue) !important;}.has-vivid-cyan-blue-background-color{background-color: var(--wp--preset--color--vivid-cyan-blue) !important;}.has-vivid-purple-background-color{background-color: var(--wp--preset--color--vivid-purple) !important;}.has-black-border-color{border-color: var(--wp--preset--color--black) !important;}.has-cyan-bluish-gray-border-color{border-color: var(--wp--preset--color--cyan-bluish-gray) !important;}.has-white-border-color{border-color: var(--wp--preset--color--white) !important;}.has-pale-pink-border-color{border-color: var(--wp--preset--color--pale-pink) !important;}.has-vivid-red-border-color{border-color: var(--wp--preset--color--vivid-red) !important;}.has-luminous-vivid-orange-border-color{border-color: var(--wp--preset--color--luminous-vivid-orange) !important;}.has-luminous-vivid-amber-border-color{border-color: var(--wp--preset--color--luminous-vivid-amber) !important;}.has-light-green-cyan-border-color{border-color: var(--wp--preset--color--light-green-cyan) !important;}.has-vivid-green-cyan-border-color{border-color: var(--wp--preset--color--vivid-green-cyan) !important;}.has-pale-cyan-blue-border-color{border-color: var(--wp--preset--color--pale-cyan-blue) !important;}.has-vivid-cyan-blue-border-color{border-color: var(--wp--preset--color--vivid-cyan-blue) !important;}.has-vivid-purple-border-color{border-color: var(--wp--preset--color--vivid-purple) !important;}.has-vivid-cyan-blue-to-vivid-purple-gradient-background{background: var(--wp--preset--gradient--vivid-cyan-blue-to-vivid-purple) !important;}.has-light-green-cyan-to-vivid-green-cyan-gradient-background{background: var(--wp--preset--gradient--light-green-cyan-to-vivid-green-cyan) !important;}.has-luminous-vivid-amber-to-luminous-vivid-orange-gradient-background{background: var(--wp--preset--gradient--luminous-vivid-amber-to-luminous-vivid-orange) !important;}.has-luminous-vivid-orange-to-vivid-red-gradient-background{background: var(--wp--preset--gradient--luminous-vivid-orange-to-vivid-red) !important;}.has-very-light-gray-to-cyan-bluish-gray-gradient-background{background: var(--wp--preset--gradient--very-light-gray-to-cyan-bluish-gray) !important;}.has-cool-to-warm-spectrum-gradient-background{background: var(--wp--preset--gradient--cool-to-warm-spectrum) !important;}.has-blush-light-purple-gradient-background{background: var(--wp--preset--gradient--blush-light-purple) !important;}.has-blush-bordeaux-gradient-background{background: var(--wp--preset--gradient--blush-bordeaux) !important;}.has-luminous-dusk-gradient-background{background: var(--wp--preset--gradient--luminous-dusk) !important;}.has-pale-ocean-gradient-background{background: var(--wp--preset--gradient--pale-ocean) !important;}.has-electric-grass-gradient-background{background: var(--wp--preset--gradient--electric-grass) !important;}.has-midnight-gradient-background{background: var(--wp--preset--gradient--midnight) !important;}.has-small-font-size{font-size: var(--wp--preset--font-size--small) !important;}.has-medium-font-size{font-size: var(--wp--preset--font-size--medium) !important;}.has-large-font-size{font-size: var(--wp--preset--font-size--large) !important;}.has-x-large-font-size{font-size: var(--wp--preset--font-size--x-large) !important;}
+.wp-block-navigation a:where(:not(.wp-element-button)){color: inherit;}
+:where(.wp-block-post-template.is-layout-flex){gap: 1.25em;}:where(.wp-block-post-template.is-layout-grid){gap: 1.25em;}
+:where(.wp-block-columns.is-layout-flex){gap: 2em;}:where(.wp-block-columns.is-layout-grid){gap: 2em;}
+.wp-block-pullquote{font-size: 1.5em;line-height: 1.6;}
+</style>
+<link data-minify="1" rel='stylesheet' id='ditty-displays-css' href='https://www.limeta.nl/wp-content/cache/min/1/wp-content/plugins/ditty-news-ticker/build/dittyDisplays.css?ver=1699008708' type='text/css' media='all' />
+<link data-minify="1" rel='stylesheet' id='ditty-fontawesome-css' href='https://www.limeta.nl/wp-content/cache/min/1/wp-content/plugins/ditty-news-ticker/includes/libs/fontawesome-6.4.0/css/all.css?ver=1699008709' type='text/css' media='' />
+<link data-minify="1" rel='stylesheet' id='fonta-css' href='https://www.limeta.nl/wp-content/cache/min/1/wp-content/plugins/ivendo-fontawesome-support/css/all.css?ver=1699008709' type='text/css' media='all' />
+<style id='woocommerce-inline-inline-css' type='text/css'>
+.woocommerce form .form-row .required { visibility: visible; }
+</style>
+<link rel='stylesheet' id='wpcf7-redirect-script-frontend-css' href='https://www.limeta.nl/wp-content/plugins/wpcf7-redirect/build/css/wpcf7-redirect-frontend.min.css?ver=1.1' type='text/css' media='all' />
+<link data-minify="1" rel='stylesheet' id='js_composer_front-css' href='https://www.limeta.nl/wp-content/cache/min/1/wp-content/plugins/js_composer/assets/css/js_composer.min.css?ver=1699008709' type='text/css' media='all' />
+<link rel='stylesheet' id='bootstrap-css' href='https://www.limeta.nl/wp-content/themes/woodmart/css/bootstrap-light.min.css?ver=7.3.0' type='text/css' media='all' />
+<link rel='stylesheet' id='woodmart-style-css' href='https://www.limeta.nl/wp-content/themes/woodmart/css/parts/base.min.css?ver=7.3.0' type='text/css' media='all' />
+<link rel='stylesheet' id='wd-wp-gutenberg-css' href='https://www.limeta.nl/wp-content/themes/woodmart/css/parts/wp-gutenberg.min.css?ver=7.3.0' type='text/css' media='all' />
+<link rel='stylesheet' id='wd-wpcf7-css' href='https://www.limeta.nl/wp-content/themes/woodmart/css/parts/int-wpcf7.min.css?ver=7.3.0' type='text/css' media='all' />
+<link rel='stylesheet' id='wd-wpbakery-base-css' href='https://www.limeta.nl/wp-content/themes/woodmart/css/parts/int-wpb-base.min.css?ver=7.3.0' type='text/css' media='all' />
+<link rel='stylesheet' id='wd-wpbakery-base-deprecated-css' href='https://www.limeta.nl/wp-content/themes/woodmart/css/parts/int-wpb-base-deprecated.min.css?ver=7.3.0' type='text/css' media='all' />
+<link rel='stylesheet' id='wd-notices-fixed-css' href='https://www.limeta.nl/wp-content/themes/woodmart/css/parts/woo-opt-sticky-notices.min.css?ver=7.3.0' type='text/css' media='all' />
+<link rel='stylesheet' id='wd-woocommerce-base-css' href='https://www.limeta.nl/wp-content/themes/woodmart/css/parts/woocommerce-base.min.css?ver=7.3.0' type='text/css' media='all' />
+<link rel='stylesheet' id='wd-mod-star-rating-css' href='https://www.limeta.nl/wp-content/themes/woodmart/css/parts/mod-star-rating.min.css?ver=7.3.0' type='text/css' media='all' />
+<link rel='stylesheet' id='wd-woo-el-track-order-css' href='https://www.limeta.nl/wp-content/themes/woodmart/css/parts/woo-el-track-order.min.css?ver=7.3.0' type='text/css' media='all' />
+<link rel='stylesheet' id='wd-woo-gutenberg-css' href='https://www.limeta.nl/wp-content/themes/woodmart/css/parts/woo-gutenberg.min.css?ver=7.3.0' type='text/css' media='all' />
+<link rel='stylesheet' id='child-style-css' href='https://www.limeta.nl/wp-content/themes/imgshop/style.css?ver=7.3.0' type='text/css' media='all' />
+<link rel='stylesheet' id='wd-header-base-css' href='https://www.limeta.nl/wp-content/themes/woodmart/css/parts/header-base.min.css?ver=7.3.0' type='text/css' media='all' />
+<link rel='stylesheet' id='wd-mod-tools-css' href='https://www.limeta.nl/wp-content/themes/woodmart/css/parts/mod-tools.min.css?ver=7.3.0' type='text/css' media='all' />
+<link rel='stylesheet' id='wd-header-elements-base-css' href='https://www.limeta.nl/wp-content/themes/woodmart/css/parts/header-el-base.min.css?ver=7.3.0' type='text/css' media='all' />
+<link rel='stylesheet' id='wd-header-search-css' href='https://www.limeta.nl/wp-content/themes/woodmart/css/parts/header-el-search.min.css?ver=7.3.0' type='text/css' media='all' />
+<link rel='stylesheet' id='wd-header-search-form-css' href='https://www.limeta.nl/wp-content/themes/woodmart/css/parts/header-el-search-form.min.css?ver=7.3.0' type='text/css' media='all' />
+<link rel='stylesheet' id='wd-wd-search-results-css' href='https://www.limeta.nl/wp-content/themes/woodmart/css/parts/wd-search-results.min.css?ver=7.3.0' type='text/css' media='all' />
+<link rel='stylesheet' id='wd-wd-search-form-css' href='https://www.limeta.nl/wp-content/themes/woodmart/css/parts/wd-search-form.min.css?ver=7.3.0' type='text/css' media='all' />
+<link rel='stylesheet' id='wd-page-title-css' href='https://www.limeta.nl/wp-content/themes/woodmart/css/parts/page-title.min.css?ver=7.3.0' type='text/css' media='all' />
+<link rel='stylesheet' id='wd-footer-base-css' href='https://www.limeta.nl/wp-content/themes/woodmart/css/parts/footer-base.min.css?ver=7.3.0' type='text/css' media='all' />
+<link rel='stylesheet' id='wd-scroll-top-css' href='https://www.limeta.nl/wp-content/themes/woodmart/css/parts/opt-scrolltotop.min.css?ver=7.3.0' type='text/css' media='all' />
+
+<script type="rocketlazyloadscript" data-rocket-type='text/javascript' data-rocket-src='https://www.limeta.nl/wp-includes/js/dist/vendor/wp-polyfill-inert.min.js?ver=3.1.2' id='wp-polyfill-inert-js' defer></script>
+<script type="rocketlazyloadscript" data-rocket-type='text/javascript' data-rocket-src='https://www.limeta.nl/wp-includes/js/dist/vendor/regenerator-runtime.min.js?ver=0.13.11' id='regenerator-runtime-js' defer></script>
+<script type="rocketlazyloadscript" data-rocket-type='text/javascript' data-rocket-src='https://www.limeta.nl/wp-includes/js/dist/vendor/wp-polyfill.min.js?ver=3.15.0' id='wp-polyfill-js'></script>
+<script type="rocketlazyloadscript" data-rocket-type='text/javascript' data-rocket-src='https://www.limeta.nl/wp-includes/js/dist/hooks.min.js?ver=c6aec9a8d4e5a5d543a1' id='wp-hooks-js'></script>
+<script type='text/javascript' src='https://stats.wp.com/w.js?ver=202346' id='woo-tracks-js' defer></script>
+<script type='text/javascript' src='https://www.limeta.nl/wp-includes/js/jquery/jquery.min.js?ver=3.7.0' id='jquery-core-js'></script>
+<script type='text/javascript' src='https://www.limeta.nl/wp-includes/js/jquery/jquery-migrate.min.js?ver=3.4.1' id='jquery-migrate-js' defer></script>
+<script type='text/javascript' src='https://www.limeta.nl/wp-content/plugins/woocommerce/assets/js/jquery-blockui/jquery.blockUI.min.js?ver=2.7.0-wc.8.3.0' id='jquery-blockui-js' data-wp-strategy='defer' defer></script>
+<script type='text/javascript' id='wc-add-to-cart-js-extra'>
+/* <![CDATA[ */
+var wc_add_to_cart_params = {"ajax_url":"\/wp-admin\/admin-ajax.php","wc_ajax_url":"\/?wc-ajax=%%endpoint%%","i18n_view_cart":"Bekijk winkelwagen","cart_url":"https:\/\/www.limeta.nl\/?page_id=12910","is_cart":"","cart_redirect_after_add":"no"};
+/* ]]> */
+</script>
+<script type="rocketlazyloadscript" data-rocket-type='text/javascript' data-rocket-src='https://www.limeta.nl/wp-content/plugins/woocommerce/assets/js/frontend/add-to-cart.min.js?ver=8.3.0' id='wc-add-to-cart-js' data-wp-strategy='defer' defer></script>
+<script type="rocketlazyloadscript" data-rocket-type='text/javascript' data-rocket-src='https://www.limeta.nl/wp-content/plugins/woocommerce/assets/js/js-cookie/js.cookie.min.js?ver=2.1.4-wc.8.3.0' id='js-cookie-js' defer data-wp-strategy='defer'></script>
+<script type='text/javascript' id='woocommerce-js-extra'>
+/* <![CDATA[ */
+var woocommerce_params = {"ajax_url":"\/wp-admin\/admin-ajax.php","wc_ajax_url":"\/?wc-ajax=%%endpoint%%"};
+/* ]]> */
+</script>
+<script type="rocketlazyloadscript" data-rocket-type='text/javascript' data-rocket-src='https://www.limeta.nl/wp-content/plugins/woocommerce/assets/js/frontend/woocommerce.min.js?ver=8.3.0' id='woocommerce-js' defer data-wp-strategy='defer'></script>
+<script type="rocketlazyloadscript" data-minify="1" data-rocket-type='text/javascript' data-rocket-src='https://www.limeta.nl/wp-content/cache/min/1/wp-content/plugins/js_composer/assets/js/vendors/woocommerce-add-to-cart.js?ver=1699008709' id='vc_woocommerce-add-to-cart-js-js' defer></script>
+<script type="rocketlazyloadscript" data-rocket-type='text/javascript' data-rocket-src='https://www.limeta.nl/wp-content/themes/woodmart/js/libs/device.min.js?ver=7.3.0' id='wd-device-library-js' defer></script>
+<script type="rocketlazyloadscript" data-rocket-type='text/javascript' data-rocket-src='https://www.limeta.nl/wp-content/themes/woodmart/js/scripts/global/scrollBar.min.js?ver=7.3.0' id='wd-scrollbar-js' defer></script>
+<script type="rocketlazyloadscript"></script><link rel="https://api.w.org/" href="https://www.limeta.nl/wp-json/" /><link rel="alternate" type="application/json" href="https://www.limeta.nl/wp-json/wp/v2/pages/94" /><link rel="EditURI" type="application/rsd+xml" title="RSD" href="https://www.limeta.nl/xmlrpc.php?rsd" />
+<meta name="generator" content="WordPress 6.3.2" />
+<meta name="generator" content="WooCommerce 8.3.0" />
+<link rel='shortlink' href='https://www.limeta.nl/?p=94' />
+<link rel="alternate" type="application/json+oembed" href="https://www.limeta.nl/wp-json/oembed/1.0/embed?url=https%3A%2F%2Fwww.limeta.nl%2Fvlaggenmast-verlichting%2F" />
+<link rel="alternate" type="text/xml+oembed" href="https://www.limeta.nl/wp-json/oembed/1.0/embed?url=https%3A%2F%2Fwww.limeta.nl%2Fvlaggenmast-verlichting%2F&#038;format=xml" />
+
+<link data-minify="1" rel='stylesheet' id='12679-css' href='https://www.limeta.nl/wp-content/cache/min/1/wp-content/uploads/custom-css-js/12679.css?ver=1699008709' type="text/css" media='all' />
+					<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+										<noscript><style>.woocommerce-product-gallery{ opacity: 1 !important; }</style></noscript>
+	<meta name="generator" content="Powered by WPBakery Page Builder - drag and drop page builder for WordPress."/>
+<link rel="icon" href="https://www.limeta.nl/wp-content/uploads/logo-limeta-150x150.png" sizes="32x32" />
+<link rel="icon" href="https://www.limeta.nl/wp-content/uploads/logo-limeta.png" sizes="192x192" />
+<link rel="apple-touch-icon" href="https://www.limeta.nl/wp-content/uploads/logo-limeta.png" />
+<meta name="msapplication-TileImage" content="https://www.limeta.nl/wp-content/uploads/logo-limeta.png" />
+<style>
+		
+		</style><style data-type="woodmart_shortcodes-custom-css">#wd-64d34a2a5f8b8 a{background-color:rgba(255,255,255,0.5);border-color:rgba(255,255,255,0.5) !important;}#wd-64d34da1a4019 a{background-color:rgba(255,255,255,0.5);border-color:rgba(255,255,255,0.5) !important;}#wd-64d34dab1c954 a{background-color:rgba(255,255,255,0.5);border-color:rgba(255,255,255,0.5) !important;}</style><style type="text/css" data-type="vc_shortcodes-custom-css">.vc_custom_1682492155639{margin-right: 0px !important;margin-left: 0px !important;}.vc_custom_1691569072740{margin-top: 40px !important;padding-right: 5px !important;padding-left: 5px !important;}.vc_custom_1682491370784{background-color: #004f9f !important;}.vc_custom_1682491390805{background-color: #d6044e !important;}.vc_custom_1682491378068{background-color: #004f9f !important;}.vc_custom_1691569537930{padding-top: 0px !important;padding-right: 20px !important;padding-bottom: 0px !important;padding-left: 20px !important;}.vc_custom_1691568694599{margin-right: 20px !important;margin-bottom: 40px !important;margin-left: 20px !important;}.vc_custom_1691569559731{padding-top: 0px !important;padding-right: 20px !important;padding-bottom: 0px !important;padding-left: 20px !important;}.vc_custom_1691569577702{margin-right: 20px !important;margin-bottom: 40px !important;margin-left: 20px !important;}.vc_custom_1691569568397{padding-top: 0px !important;padding-right: 20px !important;padding-bottom: 0px !important;padding-left: 20px !important;}.vc_custom_1691569584454{margin-right: 20px !important;margin-bottom: 40px !important;margin-left: 20px !important;}</style><noscript><style> .wpb_animate_when_almost_visible { opacity: 1; }</style></noscript>			<style id="wd-style-header_691249-css" data-type="wd-style-header_691249">
+				:root{
+	--wd-top-bar-h: 42px;
+	--wd-top-bar-sm-h: 40px;
+	--wd-top-bar-sticky-h: 0.001px;
+
+	--wd-header-general-h: 104px;
+	--wd-header-general-sm-h: 60px;
+	--wd-header-general-sticky-h: 0.001px;
+
+	--wd-header-bottom-h: 58px;
+	--wd-header-bottom-sm-h: 0.001px;
+	--wd-header-bottom-sticky-h: 0.001px;
+
+	--wd-header-clone-h: 0.001px;
+}
+
+.whb-top-bar .wd-dropdown {
+	margin-top: 1px;
+}
+
+.whb-top-bar .wd-dropdown:after {
+	height: 11px;
+}
+
+
+.whb-header-bottom .wd-dropdown {
+	margin-top: 9px;
+}
+
+.whb-header-bottom .wd-dropdown:after {
+	height: 19px;
+}
+
+
+.whb-header .whb-header-bottom .wd-header-cats {
+	margin-top: -1px;
+	margin-bottom: -0px;
+	height: calc(100% + 1px);
+}
+
+
+@media (min-width: 1025px) {
+		.whb-top-bar-inner {
+		height: 42px;
+		max-height: 42px;
+	}
+
+		.whb-sticked .whb-top-bar-inner {
+		height: 40px;
+		max-height: 40px;
+	}
+		
+		.whb-general-header-inner {
+		height: 104px;
+		max-height: 104px;
+	}
+
+		.whb-sticked .whb-general-header-inner {
+		height: 60px;
+		max-height: 60px;
+	}
+		
+		.whb-header-bottom-inner {
+		height: 58px;
+		max-height: 58px;
+	}
+
+		.whb-sticked .whb-header-bottom-inner {
+		height: 50px;
+		max-height: 50px;
+	}
+		
+	
+	}
+
+@media (max-width: 1024px) {
+		.whb-top-bar-inner {
+		height: 40px;
+		max-height: 40px;
+	}
+	
+		.whb-general-header-inner {
+		height: 60px;
+		max-height: 60px;
+	}
+	
+	
+	
+	}
+		
+.whb-top-bar {
+	background-color: rgba(214, 59, 150, 1);
+}
+
+.whb-general-header {
+	border-color: rgba(129, 129, 129, 0.2);border-bottom-width: 1px;border-bottom-style: solid;
+}
+			</style>
+						<style id="wd-style-theme_settings_default-css" data-type="wd-style-theme_settings_default">
+				@font-face {
+	font-weight: normal;
+	font-style: normal;
+	font-family: "woodmart-font";
+	src: url("//www.limeta.nl/wp-content/themes/woodmart/fonts/woodmart-font-1-400.woff2?v=7.3.0") format("woff2");
+}
+
+.wd-popup.wd-promo-popup{
+	background-color:rgb(255,212,40);
+	background-image: none;
+	background-size:contain;
+	background-position:left center;
+}
+
+.header-banner{
+	background-color:#1d1d1b;
+	background-image: none;
+}
+
+.page-title-default{
+	background-color:#ffffff;
+	background-image: none;
+	background-size:cover;
+	background-position:center center;
+}
+
+.footer-container{
+	background-image: none;
+	background-repeat:no-repeat;
+	background-size:contain;
+	background-attachment:inherit;
+	background-position:center bottom;
+}
+
+:root{
+--wd-text-font:"Noto Sans", Arial, Helvetica, sans-serif;
+--wd-text-font-weight:400;
+--wd-text-color:rgb(0,0,0);
+--wd-text-font-size:15px;
+}
+:root{
+--wd-title-font:"Poppins", Arial, Helvetica, sans-serif;
+--wd-title-font-weight:600;
+--wd-title-color:#242424;
+}
+:root{
+--wd-entities-title-font:"Poppins", Arial, Helvetica, sans-serif;
+--wd-entities-title-font-weight:500;
+--wd-entities-title-color:#333333;
+--wd-entities-title-color-hover:rgb(51 51 51 / 65%);
+}
+:root{
+--wd-alternative-font:"Lato", Arial, Helvetica, sans-serif;
+}
+:root{
+--wd-widget-title-font:"Poppins", Arial, Helvetica, sans-serif;
+--wd-widget-title-font-weight:600;
+--wd-widget-title-transform:uppercase;
+--wd-widget-title-color:#333;
+--wd-widget-title-font-size:16px;
+}
+:root{
+--wd-header-el-font:"Lato", Arial, Helvetica, sans-serif;
+--wd-header-el-font-weight:700;
+--wd-header-el-transform:uppercase;
+--wd-header-el-font-size:13px;
+}
+:root{
+--wd-primary-color:rgb(14,65,148);
+}
+:root{
+--wd-alternative-color:rgb(218,33,40);
+}
+:root{
+--wd-link-color:#333333;
+--wd-link-color-hover:#242424;
+}
+:root{
+--btn-default-bgcolor:#f7f7f7;
+}
+:root{
+--btn-default-bgcolor-hover:#efefef;
+}
+:root{
+--btn-accented-bgcolor:rgb(7,10,51);
+}
+:root{
+--btn-accented-bgcolor-hover:rgb(14,65,148);
+}
+:root{
+--notices-success-bg:rgb(141,197,64);
+}
+:root{
+--notices-success-color:#fff;
+}
+:root{
+--notices-warning-bg:rgb(239,43,47);
+}
+:root{
+--notices-warning-color:#fff;
+}
+.product-labels .product-label.onsale{
+	background-color:rgb(141,197,64);
+}
+
+.product-labels .product-label.onsale{
+	color:rgb(255,255,255);
+}
+
+
+	:root{
+									--wd-form-brd-radius: 35px;
+			
+			
+					
+					--wd-form-brd-width: 1px;
+		
+					--btn-default-color: #333;
+		
+					--btn-default-color-hover: #333;
+		
+					--btn-accented-color: #fff;
+		
+					--btn-accented-color-hover: #fff;
+		
+					
+			
+							--btn-default-brd-radius: 35px;
+				--btn-default-box-shadow: none;
+				--btn-default-box-shadow-hover: none;
+			
+					
+					
+			
+							--btn-accented-brd-radius: 35px;
+				--btn-accented-box-shadow: none;
+				--btn-accented-box-shadow-hover: none;
+			
+					
+									--wd-sticky-btn-height: 95px;
+					
+					--wd-brd-radius: 0px;
+		
+			}
+
+			@media (max-width: 1024px) {
+			:root {
+				--wd-sticky-btn-height: 95px;
+			}
+		}
+	
+			@media (max-width: 768px) {
+			:root {
+				--wd-sticky-btn-height: 42px;
+			}
+		}
+	
+			:root{
+			--wd-container-w: 1222px;
+		}
+	
+			@media (min-width: 1222px) {
+			[data-vc-full-width]:not([data-vc-stretch-content]),
+			:is(.vc_section, .vc_row).wd-section-stretch {
+				padding-left: calc((100vw - 1222px - var(--wd-sticky-nav-w) - var(--wd-scroll-w)) / 2);
+				padding-right: calc((100vw - 1222px - var(--wd-sticky-nav-w) - var(--wd-scroll-w)) / 2);
+			}
+		}
+	
+	
+	
+	
+	
+			.woodmart-woocommerce-layered-nav .wd-scroll-content {
+			max-height: 280px;
+		}
+	
+	
+@media (min-width: 768px) and (max-width: 1024px) {
+	.container.imgtopusp.mobiel {
+	display: none !important;
+}
+.container.imgtopusp.desktop {
+	display: none !important;
+}
+.container.imgtopusp.mobiel {
+	display: block !important;
+	margin-top: -30px !important;
+}
+.mtphr-dnt-grid-item.mtphr-dnt-grid-item-1.mtphr-dnt-grid-item-default {
+	color: black !important;
+	text-align: center !important;
+}
+.container.imgtopusp.mobiel .fal {
+	margin-right: 8px !important;
+}
+.whb-general-header .woodmart-logo img {
+	max-width: 100% !important;
+}
+
+}
+
+			</style>
+			<noscript><style id="rocket-lazyload-nojs-css">.rll-youtube-player, [data-lazy-src]{display:none !important;}</style></noscript></head>
+
+<body class="page-template-default page page-id-94 page-parent theme-woodmart woocommerce-no-js wrapper-full-width  categories-accordion-on woodmart-ajax-shop-on offcanvas-sidebar-mobile offcanvas-sidebar-tablet notifications-sticky wpb-js-composer js-comp-ver-7.0 vc_responsive">
+			<script type="rocketlazyloadscript" data-rocket-type="text/javascript" id="wd-flicker-fix">// Flicker fix.</script>	
+	
+	<div class="website-wrapper">
+									<header class="whb-header whb-header_691249 whb-sticky-shadow whb-scroll-stick whb-sticky-real">
+					<div class="whb-main-header">
+	
+<div class="whb-row whb-top-bar whb-not-sticky-row whb-with-bg whb-without-border whb-color-dark whb-flex-flex-middle">
+	<div class="container">
+		<div class="whb-flex-row whb-top-bar-inner">
+			<div class="whb-column whb-col-left whb-visible-lg">
+	
+<div class="wd-header-text set-cont-mb-s reset-last-child ">Totaalleverancier op het gebied van vlaggenmasten, mastverlichting, vlaggen en banieren</div>
+</div>
+<div class="whb-column whb-col-center whb-visible-lg whb-empty-column">
+	</div>
+<div class="whb-column whb-col-right whb-visible-lg">
+	
+<div class="wd-header-nav wd-header-secondary-nav text-right" role="navigation" aria-label="Secondary navigation">
+	<ul id="menu-klantenservice" class="menu wd-nav wd-nav-secondary wd-style-default wd-gap-s"><li id="menu-item-12691" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-has-children menu-item-12691 item-level-0 menu-simple-dropdown wd-event-hover" ><a href="#" class="woodmart-nav-link"><span class="nav-link-text">Klantenservice</span></a><div class="color-scheme-dark wd-design-default wd-dropdown-menu wd-dropdown"><div class="container">
+<ul class="wd-sub-menu color-scheme-dark">
+	<li id="menu-item-14455" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-14455 item-level-1 wd-event-hover" ><a href="https://www.limeta.nl/contact/" class="woodmart-nav-link">Contact</a></li>
+	<li id="menu-item-12689" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-12689 item-level-1 wd-event-hover" ><a href="/klantenservice/" class="woodmart-nav-link">Bestellen</a></li>
+	<li id="menu-item-12690" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-12690 item-level-1 wd-event-hover" ><a href="/klantenservice/" class="woodmart-nav-link">Betaalmogelijkheden</a></li>
+	<li id="menu-item-14456" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-14456 item-level-1 wd-event-hover" ><a href="/klantenservice/" class="woodmart-nav-link">Verzending en levertijd</a></li>
+	<li id="menu-item-14457" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-14457 item-level-1 wd-event-hover" ><a href="/klantenservice/" class="woodmart-nav-link">Retourneren en annuleren</a></li>
+	<li id="menu-item-14458" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-14458 item-level-1 wd-event-hover" ><a href="/klantenservice/" class="woodmart-nav-link">Garantie en klachten</a></li>
+	<li id="menu-item-14497" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-14497 item-level-1 wd-event-hover" ><a href="https://www.limeta.nl/veelgestelde-vragen-faq/" class="woodmart-nav-link">Veelgestelde vragen</a></li>
+	<li id="menu-item-14459" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-14459 item-level-1 wd-event-hover" ><a href="#" class="woodmart-nav-link">Algemene voorwaarden (PDF)</a></li>
+</ul>
+</div>
+</div>
+</li>
+</ul></div><!--END MAIN-NAV-->
+
+<div class="wd-header-text set-cont-mb-s reset-last-child tel-img-top wd-inline">Vragen of hulp nodig? Bel <a href="tel:0594587650">0594 - 587650</a></div>
+</div>
+<div class="whb-column whb-col-mobile whb-hidden-lg">
+	
+<div class="wd-header-text set-cont-mb-s reset-last-child  wd-inline">Totaalleverancier op het gebied van vlaggenmasten, vlaggen en  doekbedrukking</div>
+</div>
+		</div>
+	</div>
+</div>
+
+<div class="whb-row whb-general-header whb-not-sticky-row whb-without-bg whb-border-fullwidth whb-color-dark whb-flex-equal-sides">
+	<div class="container">
+		<div class="whb-flex-row whb-general-header-inner">
+			<div class="whb-column whb-col-left whb-visible-lg">
+	<div class="site-logo">
+	<a href="https://www.limeta.nl/" class="wd-logo wd-main-logo" rel="home">
+		<img src="data:image/svg+xml,%3Csvg%20xmlns='http://www.w3.org/2000/svg'%20viewBox='0%200%200%200'%3E%3C/svg%3E" alt="Limeta - buitengewoon zichtbaar" style="max-width: 250px;" data-lazy-src="https://www.limeta.nl/wp-content/uploads/logo-limeta.png" /><noscript><img src="https://www.limeta.nl/wp-content/uploads/logo-limeta.png" alt="Limeta - buitengewoon zichtbaar" style="max-width: 250px;" /></noscript>	</a>
+	</div>
+</div>
+<div class="whb-column whb-col-center whb-visible-lg whb-empty-column">
+	</div>
+<div class="whb-column whb-col-right whb-visible-lg">
+				<div class="wd-search-form wd-header-search-form wd-display-form whb-duljtjrl87kj7pmuut6b">
+				
+				
+				<form role="search" method="get" class="searchform  wd-style-default wd-cat-style-bordered woodmart-ajax-search" action="https://www.limeta.nl/"  data-thumbnail="1" data-price="1" data-post_type="page" data-count="10" data-sku="1" data-symbols_count="3">
+					<input type="text" class="s" placeholder="Vul je zoekterm(en) in..." value="" name="s" aria-label="Vul je zoekterm in.." title="Vul je zoekterm(en) in..." required/>
+					<input type="hidden" name="post_type" value="page">
+										<button type="submit" class="searchsubmit">
+						<span>
+							Search						</span>
+											</button>
+				</form>
+
+				
+				
+									<div class="search-results-wrapper">
+						<div class="wd-dropdown-results wd-scroll wd-dropdown">
+							<div class="wd-scroll-content"></div>
+						</div>
+					</div>
+				
+				
+							</div>
+		<div id="wd-6559f0f7cd763" class="  whb-dn74amikvckua13ywmbp wd-button-wrapper text-center"><a href="/offerte-aanvragen/" title="" class="btn btn-color-alt btn-style-default btn-style-round btn-size-default">Offerteaanvraag</a></div></div>
+<div class="whb-column whb-mobile-left whb-hidden-lg">
+	<div class="wd-tools-element wd-header-mobile-nav wd-style-text wd-design-1 whb-wn5z894j1g5n0yp3eeuz">
+	<a href="#" rel="nofollow" aria-label="Open mobile menu">
+		
+		<span class="wd-tools-icon">
+					</span>
+
+		<span class="wd-tools-text">Menu</span>
+
+			</a>
+</div><!--END wd-header-mobile-nav--></div>
+<div class="whb-column whb-mobile-center whb-hidden-lg">
+	<div class="site-logo">
+	<a href="https://www.limeta.nl/" class="wd-logo wd-main-logo" rel="home">
+		<img src="data:image/svg+xml,%3Csvg%20xmlns='http://www.w3.org/2000/svg'%20viewBox='0%200%200%200'%3E%3C/svg%3E" alt="Limeta - buitengewoon zichtbaar" style="max-width: 140px;" data-lazy-src="https://www.limeta.nl/wp-content/uploads/logo-limeta.png" /><noscript><img src="https://www.limeta.nl/wp-content/uploads/logo-limeta.png" alt="Limeta - buitengewoon zichtbaar" style="max-width: 140px;" /></noscript>	</a>
+	</div>
+</div>
+<div class="whb-column whb-mobile-right whb-hidden-lg whb-empty-column">
+	</div>
+		</div>
+	</div>
+</div>
+
+<div class="whb-row whb-header-bottom whb-not-sticky-row whb-without-bg whb-without-border whb-color-dark whb-hidden-mobile whb-flex-flex-middle">
+	<div class="container">
+		<div class="whb-flex-row whb-header-bottom-inner">
+			<div class="whb-column whb-col-left whb-visible-lg">
+	<div class="wd-header-nav wd-header-main-nav text-left wd-design-1" role="navigation" aria-label="Main navigation">
+	<ul id="menu-hoofdmenu" class="menu wd-nav wd-nav-main wd-style-default wd-gap-s"><li id="menu-item-85" class="masten-menu menu-item menu-item-type-post_type menu-item-object-page menu-item-has-children menu-item-85 item-level-0 menu-simple-dropdown wd-event-hover" ><a href="https://www.limeta.nl/vlaggenmasten/" class="woodmart-nav-link"><span class="nav-link-text">Vlaggenmasten</span></a><div class="color-scheme-dark wd-design-default wd-dropdown-menu wd-dropdown"><div class="container">
+<ul class="wd-sub-menu color-scheme-dark">
+	<li id="menu-item-14624" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-14624 item-level-1 wd-event-hover" ><a href="https://www.limeta.nl/vlaggenmasten/vlaggenmast-voor-banieren/windswinger-pro/" class="woodmart-nav-link">WindSwinger Pro</a></li>
+	<li id="menu-item-3363" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-has-children menu-item-3363 item-level-1 wd-event-hover" ><a href="https://www.limeta.nl/vlaggenmasten/vlaggenmast-voor-banieren/" class="woodmart-nav-link">Vlaggenmast voor banieren</a>
+	<ul class="sub-sub-menu wd-dropdown">
+		<li id="menu-item-14609" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-14609 item-level-2 wd-event-hover" ><a href="https://www.limeta.nl/vlaggenmasten/vlaggenmast-voor-banieren/windswinger/" class="woodmart-nav-link">Windswinger</a></li>
+		<li id="menu-item-14611" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-14611 item-level-2 wd-event-hover" ><a href="https://www.limeta.nl/vlaggenmasten/vlaggenmast-voor-banieren/windswinger-vision/" class="woodmart-nav-link">WindSwinger Vision</a></li>
+		<li id="menu-item-14610" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-14610 item-level-2 wd-event-hover" ><a href="https://www.limeta.nl/vlaggenmasten/vlaggenmast-voor-banieren/windswinger-pro/" class="woodmart-nav-link">WindSwinger Pro</a></li>
+	</ul>
+</li>
+	<li id="menu-item-3364" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-has-children menu-item-3364 item-level-1 wd-event-hover" ><a href="https://www.limeta.nl/vlaggenmasten/vlaggenmast-voor-vlaggen/" class="woodmart-nav-link">Vlaggenmast voor vlaggen</a>
+	<ul class="sub-sub-menu wd-dropdown">
+		<li id="menu-item-14606" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-14606 item-level-2 wd-event-hover" ><a href="https://www.limeta.nl/vlaggenmasten/vlaggenmast-voor-vlaggen/aluminium-conische-vlaggenmasten/" class="woodmart-nav-link">Aluminium conische vlaggenmasten</a></li>
+		<li id="menu-item-14607" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-14607 item-level-2 wd-event-hover" ><a href="https://www.limeta.nl/vlaggenmasten/vlaggenmast-voor-vlaggen/aluminium-verlichte-vlaggenmast-2/" class="woodmart-nav-link">Aluminium verlichte vlaggenmast</a></li>
+		<li id="menu-item-14608" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-14608 item-level-2 wd-event-hover" ><a href="https://www.limeta.nl/vlaggenmasten/vlaggenmast-voor-vlaggen/antidiefstal-vlaggenmast-2/" class="woodmart-nav-link">Antidiefstal vlaggenmast</a></li>
+	</ul>
+</li>
+	<li id="menu-item-3365" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-has-children menu-item-3365 item-level-1 wd-event-hover" ><a href="https://www.limeta.nl/vlaggenmasten/mastverlichting/" class="woodmart-nav-link">Vlaggenmast verlichting</a>
+	<ul class="sub-sub-menu wd-dropdown">
+		<li id="menu-item-14612" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-14612 item-level-2 wd-event-hover" ><a href="https://www.limeta.nl/vlaggenmast-verlichting/bannervision/" class="woodmart-nav-link">BannerVision</a></li>
+		<li id="menu-item-14613" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-14613 item-level-2 wd-event-hover" ><a href="https://www.limeta.nl/vlaggenmast-verlichting/poleled/" class="woodmart-nav-link">PoleLed</a></li>
+		<li id="menu-item-14614" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-14614 item-level-2 wd-event-hover" ><a href="https://www.limeta.nl/vlaggenmast-verlichting/poleled-extended/" class="woodmart-nav-link">PoleLed Extended</a></li>
+	</ul>
+</li>
+	<li id="menu-item-3366" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-3366 item-level-1 wd-event-hover" ><a href="https://www.limeta.nl/vlaggenmasten/compleet-assortiment/" class="woodmart-nav-link">Compleet assortiment</a></li>
+</ul>
+</div>
+</div>
+</li>
+<li id="menu-item-86" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-has-children menu-item-86 item-level-0 menu-simple-dropdown wd-event-hover" ><a href="https://www.limeta.nl/vlaggen-en-banieren/" class="woodmart-nav-link"><span class="nav-link-text">Vlaggen en banieren</span></a><div class="color-scheme-dark wd-design-default wd-dropdown-menu wd-dropdown"><div class="container">
+<ul class="wd-sub-menu color-scheme-dark">
+	<li id="menu-item-3368" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-3368 item-level-1 wd-event-hover" ><a href="/vlaggen-en-banieren/banieren/" class="woodmart-nav-link">Banieren</a></li>
+	<li id="menu-item-3370" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-3370 item-level-1 wd-event-hover" ><a href="/vlaggen-en-banieren/vlaggen/" class="woodmart-nav-link">Vlaggen</a></li>
+	<li id="menu-item-3369" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-3369 item-level-1 wd-event-hover" ><a href="/vlaggen-en-banieren/beachflags/" class="woodmart-nav-link">Beachflags</a></li>
+</ul>
+</div>
+</div>
+</li>
+<li id="menu-item-1477" class="menu-item menu-item-type-post_type menu-item-object-page current-menu-item page_item page-item-94 current_page_item menu-item-has-children menu-item-1477 item-level-0 menu-simple-dropdown wd-event-hover" ><a href="https://www.limeta.nl/vlaggenmast-verlichting/" class="woodmart-nav-link"><span class="nav-link-text">Verlichting</span></a><div class="color-scheme-dark wd-design-default wd-dropdown-menu wd-dropdown"><div class="container">
+<ul class="wd-sub-menu color-scheme-dark">
+	<li id="menu-item-3372" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-3372 item-level-1 wd-event-hover" ><a href="/vlaggenmasten/mastverlichting/" class="woodmart-nav-link">Mastverlichting</a></li>
+	<li id="menu-item-12796" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-12796 item-level-1 wd-event-hover" ><a href="https://www.limeta.nl/vlaggenmast-verlichting/bannervision/" class="woodmart-nav-link">BannerVision</a></li>
+	<li id="menu-item-12813" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-12813 item-level-1 wd-event-hover" ><a href="https://www.limeta.nl/vlaggenmast-verlichting/poleled/" class="woodmart-nav-link">PoleLed</a></li>
+	<li id="menu-item-12809" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-12809 item-level-1 wd-event-hover" ><a href="https://www.limeta.nl/vlaggenmast-verlichting/poleled-extended/" class="woodmart-nav-link">PoleLed Extended</a></li>
+</ul>
+</div>
+</div>
+</li>
+<li id="menu-item-2601" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-has-children menu-item-2601 item-level-0 menu-simple-dropdown wd-event-hover" ><a href="https://www.limeta.nl/onze-klanten/" class="woodmart-nav-link"><span class="nav-link-text">Onze klanten</span></a><div class="color-scheme-dark wd-design-default wd-dropdown-menu wd-dropdown"><div class="container">
+<ul class="wd-sub-menu color-scheme-dark">
+	<li id="menu-item-3382" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-3382 item-level-1 wd-event-hover" ><a href="https://www.limeta.nl/onze-klanten/automotive/" class="woodmart-nav-link">Automotive</a></li>
+	<li id="menu-item-3384" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-3384 item-level-1 wd-event-hover" ><a href="https://www.limeta.nl/onze-klanten/hospitality-beachclubs/" class="woodmart-nav-link">Hospitality-Beachclubs</a></li>
+	<li id="menu-item-3386" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-3386 item-level-1 wd-event-hover" ><a href="https://www.limeta.nl/onze-klanten/bouw/" class="woodmart-nav-link">Aannemer / Bouw</a></li>
+	<li id="menu-item-3381" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-3381 item-level-1 wd-event-hover" ><a href="https://www.limeta.nl/onze-klanten/retail/" class="woodmart-nav-link">Retail</a></li>
+	<li id="menu-item-3379" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-3379 item-level-1 wd-event-hover" ><a href="https://www.limeta.nl/onze-klanten/ondernemers/" class="woodmart-nav-link">Ondernemers</a></li>
+	<li id="menu-item-3385" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-3385 item-level-1 wd-event-hover" ><a href="https://www.limeta.nl/onze-klanten/gemeente-landschapsarchitect/" class="woodmart-nav-link">Gemeente &#038; Landschaparchitecten</a></li>
+	<li id="menu-item-3380" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-3380 item-level-1 wd-event-hover" ><a href="https://www.limeta.nl/onze-klanten/signing/" class="woodmart-nav-link">Signing</a></li>
+	<li id="menu-item-3383" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-3383 item-level-1 wd-event-hover" ><a href="https://www.limeta.nl/onze-klanten/reclamebureaus/" class="woodmart-nav-link">Reclamebureaus</a></li>
+</ul>
+</div>
+</div>
+</li>
+<li id="menu-item-87" class="menu-diensten menu-item menu-item-type-post_type menu-item-object-page menu-item-has-children menu-item-87 item-level-0 menu-simple-dropdown wd-event-hover" ><a href="https://www.limeta.nl/diensten/" class="woodmart-nav-link"><span class="nav-link-text">Diensten</span></a><div class="color-scheme-dark wd-design-default wd-dropdown-menu wd-dropdown"><div class="container">
+<ul class="wd-sub-menu color-scheme-dark">
+	<li id="menu-item-12865" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-12865 item-level-1 wd-event-hover" ><a href="/diensten/#huren" class="woodmart-nav-link">Vlaggenmast huren</a></li>
+	<li id="menu-item-12866" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-12866 item-level-1 wd-event-hover" ><a href="/diensten/#plaatsen" class="woodmart-nav-link">Vlaggenmast laten plaatsen</a></li>
+	<li id="menu-item-12867" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-12867 item-level-1 wd-event-hover" ><a href="/diensten/#onderhoud" class="woodmart-nav-link">Onderhoudsplan</a></li>
+	<li id="menu-item-12273" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-12273 item-level-1 wd-event-hover" ><a href="/diensten/storing-reparatie-en-onderhoud" class="woodmart-nav-link">Storing / Reparatie / Onderhoud melden</a></li>
+</ul>
+</div>
+</div>
+</li>
+<li id="menu-item-14617" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-14617 item-level-0 menu-simple-dropdown wd-event-hover" ><a href="https://www.limeta.nl/onderhoud/" class="woodmart-nav-link"><span class="nav-link-text">Onderhoud</span></a></li>
+<li id="menu-item-14358" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-has-children menu-item-14358 item-level-0 menu-simple-dropdown wd-event-hover" ><a href="#" class="woodmart-nav-link"><span class="nav-link-text">Webshop</span></a><div class="color-scheme-dark wd-design-default wd-dropdown-menu wd-dropdown"><div class="container">
+<ul class="wd-sub-menu color-scheme-dark">
+	<li id="menu-item-14364" class="menu-item menu-item-type-taxonomy menu-item-object-product_cat menu-item-14364 item-level-1 wd-event-hover" ><a href="https://www.limeta.nl/producten/vlaggen/" class="woodmart-nav-link">Vlaggen</a></li>
+	<li id="menu-item-14365" class="menu-item menu-item-type-taxonomy menu-item-object-product_cat menu-item-14365 item-level-1 wd-event-hover" ><a href="https://www.limeta.nl/producten/wimpels-en-combi-wimpels/" class="woodmart-nav-link">Wimpels en combi wimpels</a></li>
+	<li id="menu-item-14361" class="menu-item menu-item-type-taxonomy menu-item-object-product_cat menu-item-14361 item-level-1 wd-event-hover" ><a href="https://www.limeta.nl/producten/accessoires-vlaggenstokken/" class="woodmart-nav-link">Accessoires vlaggenstokken</a></li>
+	<li id="menu-item-14360" class="menu-item menu-item-type-taxonomy menu-item-object-product_cat menu-item-14360 item-level-1 wd-event-hover" ><a href="https://www.limeta.nl/producten/accessoires-vlaggenmasten/" class="woodmart-nav-link">Accessoires vlaggenmasten</a></li>
+	<li id="menu-item-14363" class="menu-item menu-item-type-taxonomy menu-item-object-product_cat menu-item-14363 item-level-1 wd-event-hover" ><a href="https://www.limeta.nl/producten/gevelstokken/" class="woodmart-nav-link">Gevelstokken</a></li>
+	<li id="menu-item-14362" class="menu-item menu-item-type-taxonomy menu-item-object-product_cat menu-item-14362 item-level-1 wd-event-hover" ><a href="https://www.limeta.nl/producten/fairybell/" class="woodmart-nav-link">Fairybell</a></li>
+</ul>
+</div>
+</div>
+</li>
+<li id="menu-item-14357" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-has-children menu-item-14357 item-level-0 menu-simple-dropdown wd-event-hover" ><a href="#" class="woodmart-nav-link"><span class="nav-link-text">Informatie</span></a><div class="color-scheme-dark wd-design-default wd-dropdown-menu wd-dropdown"><div class="container">
+<ul class="wd-sub-menu color-scheme-dark">
+	<li id="menu-item-84" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-84 item-level-1 wd-event-hover" ><a href="https://www.limeta.nl/contact/" class="woodmart-nav-link">Contact</a></li>
+	<li id="menu-item-88" class="menu-limeta menu-item menu-item-type-post_type menu-item-object-page menu-item-88 item-level-1 wd-event-hover" ><a href="https://www.limeta.nl/informatie-limeta-vlaggenmasten/" class="woodmart-nav-link">Over Limeta</a></li>
+	<li id="menu-item-14431" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-14431 item-level-1 wd-event-hover" ><a href="https://www.limeta.nl/downloads-leaflets/" class="woodmart-nav-link">Downloads/leaflets</a></li>
+	<li id="menu-item-14498" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-14498 item-level-1 wd-event-hover" ><a href="https://www.limeta.nl/veelgestelde-vragen-faq/" class="woodmart-nav-link">Veelgestelde vragen</a></li>
+	<li id="menu-item-3959" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-3959 item-level-1 wd-event-hover" ><a href="/nieuws/" class="woodmart-nav-link">Nieuws</a></li>
+</ul>
+</div>
+</div>
+</li>
+</ul></div><!--END MAIN-NAV-->
+</div>
+<div class="whb-column whb-col-center whb-visible-lg whb-empty-column">
+	</div>
+<div class="whb-column whb-col-right whb-visible-lg whb-empty-column">
+	</div>
+<div class="whb-column whb-col-mobile whb-hidden-lg whb-empty-column">
+	</div>
+		</div>
+	</div>
+</div>
+</div>
+				</header>
+				<!-- toevoeging ivendo -->
+			<div class="container imgtopusp desktop">
+			<style data-type="vc_shortcodes-custom-css">.vc_custom_1682500670815{background-color: #d6044e !important;}</style><p><div data-vc-full-width="true" data-vc-full-width-init="false" class="vc_row wpb_row vc_row-fluid vc_custom_1682500670815 vc_row-has-fill vc_row-o-equal-height vc_row-flex wd-rs-6448ec3a17a15"><div class="wpb_column vc_column_container vc_col-sm-12"><div class="vc_column-inner"><div class="wpb_wrapper">
+	<div class="wpb_raw_code wpb_content_element wpb_raw_html top-ups-bar" >
+		<div class="wpb_wrapper">
+			<div class="top-usp-bar-img">
+
+<span><i class="fa-solid fa-check"></i> Alleen topkwaliteit</span>
+
+<span><i class="fa-solid fa-check"></i> Persoonlijk advies op locatie</span>
+
+<span><i class="fa-solid fa-check"></i> Eigen plaatsingsservice</span>
+
+<span><i class="fa-solid fa-check"></i> Meer dan 50 jaar ervaring</span>
+
+<span><i class="fa-solid fa-check"></i> Actief door Benelux en Duitsland</span>
+
+</div>
+		</div>
+	</div>
+</div></div></div></div><div class="vc_row-full-width vc_clearfix"></div></p>
+			</div>
+			<!-- einde -->
+			
+			 <!-- toevoeging ivendo -->
+			<div class="container imgtopusp mobiel">
+				<div class="ditty ditty--pre" data-id="14677" data-uniqid="ditty-6559f0f7d201e"></div>			</div>
+			<!-- einde -->
+			
+								<div class="main-page-wrapper">
+		
+						<div class="page-title  page-title-default title-size-small title-design-default color-scheme-dark" style="">
+					<div class="container">
+																					<h1 class="entry-title title">
+									Vlaggenmast verlichting								</h1>
+
+															
+															<div class="breadcrumbs"><a href="https://www.limeta.nl/" rel="v:url" property="v:title">Home</a> &raquo; <span class="current">Vlaggenmast verlichting</span></div><!-- .breadcrumbs -->																		</div>
+				</div>
+			
+		<!-- MAIN CONTENT AREA -->
+				<div class="container">
+			<div class="row content-layout-wrapper align-items-start">
+				
+<div class="site-content col-lg-12 col-12 col-md-12" role="main">
+
+								<article id="post-94" class="post-94 page type-page status-publish has-post-thumbnail hentry">
+
+					<div class="entry-content">
+						<section class="wpb-content-wrapper"><div class="vc_row wpb_row vc_row-fluid"><div class="wpb_column vc_column_container vc_col-sm-12"><div class="vc_column-inner"><div class="wpb_wrapper">
+	<div class="wpb_text_column wpb_content_element" >
+		<div class="wpb_wrapper">
+			<h2>24/7 zichtbaarheid met vlaggenmast verlichting</h2>
+<p>Verlichting en vlaggenmast verlichting verhoogt uw zichtbaarheid en uw uitstraling. Klanten onthouden u beter en weten u beter te vinden.! Limeta biedt hoogwaardige verlichtingsoplossingen voor alle typen vlaggenmasten. Onze duurzame en vandalismebestendige armaturen met energiezuinige LED-verlichting garanderen 24/7 zichtbaarheid van uw vlag of banier. Vraag naar de mogelijkheden.</p>
+<h3><strong>Wees buitengewoon zichtbaar</strong></h3>
+
+		</div>
+	</div>
+</div></div></div></div><div class="vc_row wpb_row vc_row-fluid kleurrij vc_custom_1682492155639 vc_column-gap-10 vc_row-o-equal-height vc_row-flex wd-rs-6448caf7a61a1"><div class="wpb_column vc_column_container vc_col-sm-4 vc_col-has-fill wd-rs-6448c7e380be0"><div class="vc_column-inner vc_custom_1682491370784"><div class="wpb_wrapper">
+	<div class="wpb_text_column wpb_content_element vc_custom_1691569537930" >
+		<div class="wpb_wrapper">
+			<p><img decoding="async" fetchpriority="high" class="alignnone size-full wp-image-14519" src="data:image/svg+xml,%3Csvg%20xmlns='http://www.w3.org/2000/svg'%20viewBox='0%200%201024%20683'%3E%3C/svg%3E" alt="BannerVision Vlaggenmast verlichting" width="1024" height="683" data-lazy-srcset="https://www.limeta.nl/wp-content/uploads/BannerVision-vlaggenmast-verlichting-1.jpg 1024w, https://www.limeta.nl/wp-content/uploads/BannerVision-vlaggenmast-verlichting-1-300x200.jpg 300w, https://www.limeta.nl/wp-content/uploads/BannerVision-vlaggenmast-verlichting-1-768x512.jpg 768w, https://www.limeta.nl/wp-content/uploads/BannerVision-vlaggenmast-verlichting-1-600x400.jpg 600w, https://www.limeta.nl/wp-content/uploads/BannerVision-vlaggenmast-verlichting-1-150x100.jpg 150w" data-lazy-sizes="(max-width: 1024px) 100vw, 1024px" data-lazy-src="https://www.limeta.nl/wp-content/uploads/BannerVision-vlaggenmast-verlichting-1.jpg" /><noscript><img decoding="async" fetchpriority="high" class="alignnone size-full wp-image-14519" src="https://www.limeta.nl/wp-content/uploads/BannerVision-vlaggenmast-verlichting-1.jpg" alt="BannerVision Vlaggenmast verlichting" width="1024" height="683" srcset="https://www.limeta.nl/wp-content/uploads/BannerVision-vlaggenmast-verlichting-1.jpg 1024w, https://www.limeta.nl/wp-content/uploads/BannerVision-vlaggenmast-verlichting-1-300x200.jpg 300w, https://www.limeta.nl/wp-content/uploads/BannerVision-vlaggenmast-verlichting-1-768x512.jpg 768w, https://www.limeta.nl/wp-content/uploads/BannerVision-vlaggenmast-verlichting-1-600x400.jpg 600w, https://www.limeta.nl/wp-content/uploads/BannerVision-vlaggenmast-verlichting-1-150x100.jpg 150w" sizes="(max-width: 1024px) 100vw, 1024px" /></noscript></p>
+<h2>BannerVision</h2>
+
+		</div>
+	</div>
+<div id="wd-64d34a2a5f8b8" class=" wd-rs-64d34a2a5f8b8 vc_custom_1691568694599 wd-button-wrapper text-center"><a href="/vlaggenmast-verlichting/bannervision/" title="" class="btn btn-scheme-light btn-scheme-hover-light btn-style-default btn-style-rectangle btn-size-extra-large btn-full-width btn-icon-pos-right">BEKIJK AANBOD<span class="wd-btn-icon"><span class="wd-icon fas fa-long-arrow-alt-right"></span></span></a></div></div></div></div><div class="wpb_column vc_column_container vc_col-sm-4 vc_col-has-fill wd-rs-6448c7f9a2cc4"><div class="vc_column-inner vc_custom_1682491390805"><div class="wpb_wrapper">
+	<div class="wpb_text_column wpb_content_element vc_custom_1691569559731" >
+		<div class="wpb_wrapper">
+			<p><img decoding="async" class="alignnone size-full wp-image-14520" src="data:image/svg+xml,%3Csvg%20xmlns='http://www.w3.org/2000/svg'%20viewBox='0%200%201600%20864'%3E%3C/svg%3E" alt="PoleLED Vlaggenmast verlichting" width="1600" height="864" data-lazy-srcset="https://www.limeta.nl/wp-content/uploads/poleled-Verlichting-voor-vlaggenmasten02-2.jpg 1600w, https://www.limeta.nl/wp-content/uploads/poleled-Verlichting-voor-vlaggenmasten02-2-300x162.jpg 300w, https://www.limeta.nl/wp-content/uploads/poleled-Verlichting-voor-vlaggenmasten02-2-1024x553.jpg 1024w, https://www.limeta.nl/wp-content/uploads/poleled-Verlichting-voor-vlaggenmasten02-2-768x415.jpg 768w, https://www.limeta.nl/wp-content/uploads/poleled-Verlichting-voor-vlaggenmasten02-2-1536x829.jpg 1536w, https://www.limeta.nl/wp-content/uploads/poleled-Verlichting-voor-vlaggenmasten02-2-600x324.jpg 600w, https://www.limeta.nl/wp-content/uploads/poleled-Verlichting-voor-vlaggenmasten02-2-150x81.jpg 150w" data-lazy-sizes="(max-width: 1600px) 100vw, 1600px" data-lazy-src="https://www.limeta.nl/wp-content/uploads/poleled-Verlichting-voor-vlaggenmasten02-2.jpg" /><noscript><img decoding="async" class="alignnone size-full wp-image-14520" src="https://www.limeta.nl/wp-content/uploads/poleled-Verlichting-voor-vlaggenmasten02-2.jpg" alt="PoleLED Vlaggenmast verlichting" width="1600" height="864" srcset="https://www.limeta.nl/wp-content/uploads/poleled-Verlichting-voor-vlaggenmasten02-2.jpg 1600w, https://www.limeta.nl/wp-content/uploads/poleled-Verlichting-voor-vlaggenmasten02-2-300x162.jpg 300w, https://www.limeta.nl/wp-content/uploads/poleled-Verlichting-voor-vlaggenmasten02-2-1024x553.jpg 1024w, https://www.limeta.nl/wp-content/uploads/poleled-Verlichting-voor-vlaggenmasten02-2-768x415.jpg 768w, https://www.limeta.nl/wp-content/uploads/poleled-Verlichting-voor-vlaggenmasten02-2-1536x829.jpg 1536w, https://www.limeta.nl/wp-content/uploads/poleled-Verlichting-voor-vlaggenmasten02-2-600x324.jpg 600w, https://www.limeta.nl/wp-content/uploads/poleled-Verlichting-voor-vlaggenmasten02-2-150x81.jpg 150w" sizes="(max-width: 1600px) 100vw, 1600px" /></noscript></p>
+<h2>PoleLED Extended</h2>
+
+		</div>
+	</div>
+<div id="wd-64d34da1a4019" class=" wd-rs-64d34da1a4019 vc_custom_1691569577702 wd-button-wrapper text-center"><a href="/vlaggenmast-verlichting/poleled-extended/" title="" class="btn btn-scheme-light btn-scheme-hover-light btn-style-default btn-style-rectangle btn-size-extra-large btn-full-width btn-icon-pos-right">BEKIJK AANBOD<span class="wd-btn-icon"><span class="wd-icon fas fa-long-arrow-alt-right"></span></span></a></div></div></div></div><div class="wpb_column vc_column_container vc_col-sm-4 vc_col-has-fill wd-rs-6448c7ed2041c"><div class="vc_column-inner vc_custom_1682491378068"><div class="wpb_wrapper">
+	<div class="wpb_text_column wpb_content_element vc_custom_1691569568397" >
+		<div class="wpb_wrapper">
+			<p><img decoding="async" class="alignnone size-full wp-image-14521" src="data:image/svg+xml,%3Csvg%20xmlns='http://www.w3.org/2000/svg'%20viewBox='0%200%201600%20980'%3E%3C/svg%3E" alt="PoleLED Vlaggenmast verlichting poleled-Verlichting-voor-vlaggenmasten" width="1600" height="980" data-lazy-srcset="https://www.limeta.nl/wp-content/uploads/poleled-Verlichting-voor-vlaggenmasten-1.jpg 1600w, https://www.limeta.nl/wp-content/uploads/poleled-Verlichting-voor-vlaggenmasten-1-300x184.jpg 300w, https://www.limeta.nl/wp-content/uploads/poleled-Verlichting-voor-vlaggenmasten-1-1024x627.jpg 1024w, https://www.limeta.nl/wp-content/uploads/poleled-Verlichting-voor-vlaggenmasten-1-768x470.jpg 768w, https://www.limeta.nl/wp-content/uploads/poleled-Verlichting-voor-vlaggenmasten-1-1536x941.jpg 1536w, https://www.limeta.nl/wp-content/uploads/poleled-Verlichting-voor-vlaggenmasten-1-600x368.jpg 600w, https://www.limeta.nl/wp-content/uploads/poleled-Verlichting-voor-vlaggenmasten-1-150x92.jpg 150w" data-lazy-sizes="(max-width: 1600px) 100vw, 1600px" data-lazy-src="https://www.limeta.nl/wp-content/uploads/poleled-Verlichting-voor-vlaggenmasten-1.jpg" /><noscript><img decoding="async" class="alignnone size-full wp-image-14521" src="https://www.limeta.nl/wp-content/uploads/poleled-Verlichting-voor-vlaggenmasten-1.jpg" alt="PoleLED Vlaggenmast verlichting poleled-Verlichting-voor-vlaggenmasten" width="1600" height="980" srcset="https://www.limeta.nl/wp-content/uploads/poleled-Verlichting-voor-vlaggenmasten-1.jpg 1600w, https://www.limeta.nl/wp-content/uploads/poleled-Verlichting-voor-vlaggenmasten-1-300x184.jpg 300w, https://www.limeta.nl/wp-content/uploads/poleled-Verlichting-voor-vlaggenmasten-1-1024x627.jpg 1024w, https://www.limeta.nl/wp-content/uploads/poleled-Verlichting-voor-vlaggenmasten-1-768x470.jpg 768w, https://www.limeta.nl/wp-content/uploads/poleled-Verlichting-voor-vlaggenmasten-1-1536x941.jpg 1536w, https://www.limeta.nl/wp-content/uploads/poleled-Verlichting-voor-vlaggenmasten-1-600x368.jpg 600w, https://www.limeta.nl/wp-content/uploads/poleled-Verlichting-voor-vlaggenmasten-1-150x92.jpg 150w" sizes="(max-width: 1600px) 100vw, 1600px" /></noscript></p>
+<h2>PoleLED</h2>
+
+		</div>
+	</div>
+<div id="wd-64d34dab1c954" class=" wd-rs-64d34dab1c954 vc_custom_1691569584454 wd-button-wrapper text-center"><a href="/vlaggenmast-verlichting/poleled/" title="" class="btn btn-scheme-light btn-scheme-hover-light btn-style-default btn-style-rectangle btn-size-extra-large btn-full-width btn-icon-pos-right">BEKIJK AANBOD<span class="wd-btn-icon"><span class="wd-icon fas fa-long-arrow-alt-right"></span></span></a></div></div></div></div></div><div class="vc_row wpb_row vc_row-fluid vc_custom_1691569072740 wd-rs-64d34ba486a70"><div class="wpb_column vc_column_container vc_col-sm-12"><div class="vc_column-inner"><div class="wpb_wrapper">
+	<div class="wpb_video_widget wpb_content_element vc_clearfix vc_video-aspect-ratio-169 vc_video-el-width-100 vc_video-align-left wd-rs-64d34b779506d" >
+		<div class="wpb_wrapper">
+			
+			<div class="wpb_video_wrapper"><iframe title="Vlaggenmasten met verlichting" width="500" height="281" src="https://www.youtube.com/embed/tcOdc2vHQ48?feature=oembed" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe></div>
+		</div>
+	</div>
+</div></div></div></div>
+</section>											</div>
+
+					
+				</article><!-- #post -->
+
+				
+		
+</div><!-- .site-content -->
+
+
+
+			</div><!-- .main-page-wrapper --> 
+			</div> <!-- end row -->
+	</div> <!-- end container -->
+
+	
+			<footer class="footer-container color-scheme-light">
+																	<div class="container main-footer">
+		<aside class="footer-sidebar widget-area row">
+									<div class="footer-column footer-column-1 col-12 col-sm-6 col-lg-3">
+							<div id="text-2" class="wd-widget widget footer-widget  widget_text">			<div class="textwidget"><p><img decoding="async" src="data:image/svg+xml,%3Csvg%20xmlns='http://www.w3.org/2000/svg'%20viewBox='0%200%200%200'%3E%3C/svg%3E" alt="" class="alignnone size-full wp-image-12678" data-lazy-src="https://www.limeta.nl/wp-content/uploads/logo-limeta.svg" /><noscript><img decoding="async" src="https://www.limeta.nl/wp-content/uploads/logo-limeta.svg" alt="" class="alignnone size-full wp-image-12678" /></noscript></p>
+</div>
+		</div>						</div>
+																	<div class="footer-column footer-column-2 col-12 col-sm-6 col-lg-3">
+							<div id="text-3" class="wd-widget widget footer-widget  widget_text">			<div class="textwidget"><p><strong>Limeta B.V.</strong><br />
+Vossenkamp 5, 9351 VR Leek</p>
+<p><strong>Telefoon:</strong> <a href="tel:0594587650">0594 &#8211; 587650</a><br />
+<strong>E-mailadres:</strong> <a href="&#x6d;&#x61;&#x69;&#x6c;&#x74;&#x6f;&#x3a;&#x69;&#110;&#102;&#111;&#64;&#108;&#105;&#109;eta&#46;&#x6e;&#x6c;">i&#110;&#102;&#x6f;&#x40;&#x6c;im&#101;&#116;&#x61;&#x2e;&#x6e;l</a></p>
+<p><strong>Openingstijden:<br />
+</strong>Ma t/m vrij van 08.00 tot 17.00 uur</p>
+</div>
+		</div>						</div>
+																	<div class="footer-column footer-column-3 col-12 col-sm-6 col-lg-3">
+							<div id="text-4" class="wd-widget widget footer-widget  widget_text"><h5 class="widget-title">Klantenservice</h5>			<div class="textwidget"><p><a href="/klantenservice/">Bestellen</a><br />
+<a href="/klantenservice/">Betaalmogelijkheden</a><br />
+<a href="/klantenservice/">Verzending en levertijd</a><br />
+<a href="/klantenservice/">Retourneren en annuleren</a><br />
+<a href="/klantenservice/">Garantie en klachten</a></p>
+</div>
+		</div>						</div>
+																	<div class="footer-column footer-column-4 col-12 col-sm-6 col-lg-3">
+							<div id="text-5" class="wd-widget widget footer-widget  widget_text"><h5 class="widget-title">Snel naar</h5>			<div class="textwidget"><p><a href="/contact/">Contact</a><br />
+<a href="/privacy-verklaring/">Privacy verklaring</a><br />
+<a href="/wp-content/uploads/VIG-Algemene-voorwaarden.pdf" target="_blank" rel="noopener">Algemene voorwaarden (PDF)</a><br />
+<a href="http://www.limeta.nl/wp-content/uploads/Limeta-leveringsvoorwaarden-1.pdf" target="_blank" rel="noopener">Leveringsvoorwaarden (PDF)</a></p>
+</div>
+		</div>						</div>
+													</aside><!-- .footer-sidebar -->
+	</div>
+	
+																		<div class="copyrights-wrapper copyrights-two-columns">
+					<div class="container">
+						<div class="min-footer">
+							<div class="col-left set-cont-mb-s reset-last-child">
+																	<small><strong><i class="fa fa-copyright"></i> Limeta B.V. - gepatenteerde draaibare aluminium vlaggenmasten met verlichting<br />Realisatie <a target="_blank" href="https://www.ivendo.nl"><strong>iVendo Marketing Groningen</strong></a></small>															</div>
+															<div class="col-right set-cont-mb-s reset-last-child">
+									<small><strong>BETAAL VEILIG MET</strong></small><img src="data:image/svg+xml,%3Csvg%20xmlns='http://www.w3.org/2000/svg'%20viewBox='0%200%200%200'%3E%3C/svg%3E" alt="iDEAL" data-lazy-src="https://www.vig.nl/wp-content/uploads/betaalimg/ideal.svg" /><noscript><img src="https://www.vig.nl/wp-content/uploads/betaalimg/ideal.svg" alt="iDEAL" /></noscript> <img src="data:image/svg+xml,%3Csvg%20xmlns='http://www.w3.org/2000/svg'%20viewBox='0%200%200%200'%3E%3C/svg%3E" alt="KBC/CBC Betaalknop" data-lazy-src="https://www.vig.nl/wp-content/uploads/betaalimg/kbc.svg" /><noscript><img src="https://www.vig.nl/wp-content/uploads/betaalimg/kbc.svg" alt="KBC/CBC Betaalknop" /></noscript> <img src="data:image/svg+xml,%3Csvg%20xmlns='http://www.w3.org/2000/svg'%20viewBox='0%200%200%200'%3E%3C/svg%3E" alt="Bancontact" data-lazy-src="https://www.vig.nl/wp-content/uploads/betaalimg/bancontact.svg" /><noscript><img src="https://www.vig.nl/wp-content/uploads/betaalimg/bancontact.svg" alt="Bancontact" /></noscript> <img src="data:image/svg+xml,%3Csvg%20xmlns='http://www.w3.org/2000/svg'%20viewBox='0%200%200%200'%3E%3C/svg%3E" alt="SOFORT Banking" data-lazy-src="https://www.vig.nl/wp-content/uploads/betaalimg/sofort.svg" /><noscript><img src="https://www.vig.nl/wp-content/uploads/betaalimg/sofort.svg" alt="SOFORT Banking" /></noscript> <img src="data:image/svg+xml,%3Csvg%20xmlns='http://www.w3.org/2000/svg'%20viewBox='0%200%200%200'%3E%3C/svg%3E" alt="Creditcard" data-lazy-src="https://www.vig.nl/wp-content/uploads/betaalimg/creditcards.svg" /><noscript><img src="https://www.vig.nl/wp-content/uploads/betaalimg/creditcards.svg" alt="Creditcard" /></noscript> <img src="data:image/svg+xml,%3Csvg%20xmlns='http://www.w3.org/2000/svg'%20viewBox='0%200%200%200'%3E%3C/svg%3E" data-lazy-src="https://www.vig.nl/wp-content/uploads/betaalimg/paypal.svg" /><noscript><img src="https://www.vig.nl/wp-content/uploads/betaalimg/paypal.svg" /></noscript> <img src="data:image/svg+xml,%3Csvg%20xmlns='http://www.w3.org/2000/svg'%20viewBox='0%200%200%200'%3E%3C/svg%3E" alt="Klarna Achteraf betalen (+ € 1,95)" data-lazy-src="https://www.vig.nl/wp-content/uploads/betaalimg/klarnapaylater.svg" /><noscript><img src="https://www.vig.nl/wp-content/uploads/betaalimg/klarnapaylater.svg" alt="Klarna Achteraf betalen (+ € 1,95)" /></noscript>								</div>
+													</div>
+					</div>
+				</div>
+					</footer>
+	</div> <!-- end wrapper -->
+<div class="wd-close-side wd-fill"></div>
+		<a href="#" class="scrollToTop" aria-label="Scroll to top button"></a>
+		<div class="mobile-nav wd-side-hidden wd-left">			<div class="wd-search-form">
+				
+				
+				<form role="search" method="get" class="searchform  wd-cat-style-bordered woodmart-ajax-search" action="https://www.limeta.nl/"  data-thumbnail="1" data-price="1" data-post_type="product" data-count="20" data-sku="1" data-symbols_count="3">
+					<input type="text" class="s" placeholder="Vul je zoekterm(en) in..." value="" name="s" aria-label="Vul je zoekterm in.." title="Vul je zoekterm(en) in..." required/>
+					<input type="hidden" name="post_type" value="product">
+										<button type="submit" class="searchsubmit">
+						<span>
+							Search						</span>
+											</button>
+				</form>
+
+				
+				
+									<div class="search-results-wrapper">
+						<div class="wd-dropdown-results wd-scroll wd-dropdown">
+							<div class="wd-scroll-content"></div>
+						</div>
+					</div>
+				
+				
+							</div>
+		<ul id="menu-hoofdmenu-1" class="mobile-pages-menu wd-nav wd-nav-mobile wd-active"><li class="masten-menu menu-item menu-item-type-post_type menu-item-object-page menu-item-has-children menu-item-85 item-level-0" ><a href="https://www.limeta.nl/vlaggenmasten/" class="woodmart-nav-link"><span class="nav-link-text">Vlaggenmasten</span></a>
+<ul class="wd-sub-menu">
+	<li class="menu-item menu-item-type-post_type menu-item-object-page menu-item-14624 item-level-1" ><a href="https://www.limeta.nl/vlaggenmasten/vlaggenmast-voor-banieren/windswinger-pro/" class="woodmart-nav-link">WindSwinger Pro</a></li>
+	<li class="menu-item menu-item-type-post_type menu-item-object-page menu-item-has-children menu-item-3363 item-level-1" ><a href="https://www.limeta.nl/vlaggenmasten/vlaggenmast-voor-banieren/" class="woodmart-nav-link">Vlaggenmast voor banieren</a>
+	<ul class="sub-sub-menu">
+		<li class="menu-item menu-item-type-post_type menu-item-object-page menu-item-14609 item-level-2" ><a href="https://www.limeta.nl/vlaggenmasten/vlaggenmast-voor-banieren/windswinger/" class="woodmart-nav-link">Windswinger</a></li>
+		<li class="menu-item menu-item-type-post_type menu-item-object-page menu-item-14611 item-level-2" ><a href="https://www.limeta.nl/vlaggenmasten/vlaggenmast-voor-banieren/windswinger-vision/" class="woodmart-nav-link">WindSwinger Vision</a></li>
+		<li class="menu-item menu-item-type-post_type menu-item-object-page menu-item-14610 item-level-2" ><a href="https://www.limeta.nl/vlaggenmasten/vlaggenmast-voor-banieren/windswinger-pro/" class="woodmart-nav-link">WindSwinger Pro</a></li>
+	</ul>
+</li>
+	<li class="menu-item menu-item-type-post_type menu-item-object-page menu-item-has-children menu-item-3364 item-level-1" ><a href="https://www.limeta.nl/vlaggenmasten/vlaggenmast-voor-vlaggen/" class="woodmart-nav-link">Vlaggenmast voor vlaggen</a>
+	<ul class="sub-sub-menu">
+		<li class="menu-item menu-item-type-post_type menu-item-object-page menu-item-14606 item-level-2" ><a href="https://www.limeta.nl/vlaggenmasten/vlaggenmast-voor-vlaggen/aluminium-conische-vlaggenmasten/" class="woodmart-nav-link">Aluminium conische vlaggenmasten</a></li>
+		<li class="menu-item menu-item-type-post_type menu-item-object-page menu-item-14607 item-level-2" ><a href="https://www.limeta.nl/vlaggenmasten/vlaggenmast-voor-vlaggen/aluminium-verlichte-vlaggenmast-2/" class="woodmart-nav-link">Aluminium verlichte vlaggenmast</a></li>
+		<li class="menu-item menu-item-type-post_type menu-item-object-page menu-item-14608 item-level-2" ><a href="https://www.limeta.nl/vlaggenmasten/vlaggenmast-voor-vlaggen/antidiefstal-vlaggenmast-2/" class="woodmart-nav-link">Antidiefstal vlaggenmast</a></li>
+	</ul>
+</li>
+	<li class="menu-item menu-item-type-post_type menu-item-object-page menu-item-has-children menu-item-3365 item-level-1" ><a href="https://www.limeta.nl/vlaggenmasten/mastverlichting/" class="woodmart-nav-link">Vlaggenmast verlichting</a>
+	<ul class="sub-sub-menu">
+		<li class="menu-item menu-item-type-post_type menu-item-object-page menu-item-14612 item-level-2" ><a href="https://www.limeta.nl/vlaggenmast-verlichting/bannervision/" class="woodmart-nav-link">BannerVision</a></li>
+		<li class="menu-item menu-item-type-post_type menu-item-object-page menu-item-14613 item-level-2" ><a href="https://www.limeta.nl/vlaggenmast-verlichting/poleled/" class="woodmart-nav-link">PoleLed</a></li>
+		<li class="menu-item menu-item-type-post_type menu-item-object-page menu-item-14614 item-level-2" ><a href="https://www.limeta.nl/vlaggenmast-verlichting/poleled-extended/" class="woodmart-nav-link">PoleLed Extended</a></li>
+	</ul>
+</li>
+	<li class="menu-item menu-item-type-post_type menu-item-object-page menu-item-3366 item-level-1" ><a href="https://www.limeta.nl/vlaggenmasten/compleet-assortiment/" class="woodmart-nav-link">Compleet assortiment</a></li>
+</ul>
+</li>
+<li class="menu-item menu-item-type-post_type menu-item-object-page menu-item-has-children menu-item-86 item-level-0" ><a href="https://www.limeta.nl/vlaggen-en-banieren/" class="woodmart-nav-link"><span class="nav-link-text">Vlaggen en banieren</span></a>
+<ul class="wd-sub-menu">
+	<li class="menu-item menu-item-type-custom menu-item-object-custom menu-item-3368 item-level-1" ><a href="/vlaggen-en-banieren/banieren/" class="woodmart-nav-link">Banieren</a></li>
+	<li class="menu-item menu-item-type-custom menu-item-object-custom menu-item-3370 item-level-1" ><a href="/vlaggen-en-banieren/vlaggen/" class="woodmart-nav-link">Vlaggen</a></li>
+	<li class="menu-item menu-item-type-custom menu-item-object-custom menu-item-3369 item-level-1" ><a href="/vlaggen-en-banieren/beachflags/" class="woodmart-nav-link">Beachflags</a></li>
+</ul>
+</li>
+<li class="menu-item menu-item-type-post_type menu-item-object-page current-menu-item page_item page-item-94 current_page_item menu-item-has-children menu-item-1477 item-level-0" ><a href="https://www.limeta.nl/vlaggenmast-verlichting/" class="woodmart-nav-link"><span class="nav-link-text">Verlichting</span></a>
+<ul class="wd-sub-menu">
+	<li class="menu-item menu-item-type-custom menu-item-object-custom menu-item-3372 item-level-1" ><a href="/vlaggenmasten/mastverlichting/" class="woodmart-nav-link">Mastverlichting</a></li>
+	<li class="menu-item menu-item-type-post_type menu-item-object-page menu-item-12796 item-level-1" ><a href="https://www.limeta.nl/vlaggenmast-verlichting/bannervision/" class="woodmart-nav-link">BannerVision</a></li>
+	<li class="menu-item menu-item-type-post_type menu-item-object-page menu-item-12813 item-level-1" ><a href="https://www.limeta.nl/vlaggenmast-verlichting/poleled/" class="woodmart-nav-link">PoleLed</a></li>
+	<li class="menu-item menu-item-type-post_type menu-item-object-page menu-item-12809 item-level-1" ><a href="https://www.limeta.nl/vlaggenmast-verlichting/poleled-extended/" class="woodmart-nav-link">PoleLed Extended</a></li>
+</ul>
+</li>
+<li class="menu-item menu-item-type-post_type menu-item-object-page menu-item-has-children menu-item-2601 item-level-0" ><a href="https://www.limeta.nl/onze-klanten/" class="woodmart-nav-link"><span class="nav-link-text">Onze klanten</span></a>
+<ul class="wd-sub-menu">
+	<li class="menu-item menu-item-type-post_type menu-item-object-page menu-item-3382 item-level-1" ><a href="https://www.limeta.nl/onze-klanten/automotive/" class="woodmart-nav-link">Automotive</a></li>
+	<li class="menu-item menu-item-type-post_type menu-item-object-page menu-item-3384 item-level-1" ><a href="https://www.limeta.nl/onze-klanten/hospitality-beachclubs/" class="woodmart-nav-link">Hospitality-Beachclubs</a></li>
+	<li class="menu-item menu-item-type-post_type menu-item-object-page menu-item-3386 item-level-1" ><a href="https://www.limeta.nl/onze-klanten/bouw/" class="woodmart-nav-link">Aannemer / Bouw</a></li>
+	<li class="menu-item menu-item-type-post_type menu-item-object-page menu-item-3381 item-level-1" ><a href="https://www.limeta.nl/onze-klanten/retail/" class="woodmart-nav-link">Retail</a></li>
+	<li class="menu-item menu-item-type-post_type menu-item-object-page menu-item-3379 item-level-1" ><a href="https://www.limeta.nl/onze-klanten/ondernemers/" class="woodmart-nav-link">Ondernemers</a></li>
+	<li class="menu-item menu-item-type-post_type menu-item-object-page menu-item-3385 item-level-1" ><a href="https://www.limeta.nl/onze-klanten/gemeente-landschapsarchitect/" class="woodmart-nav-link">Gemeente &#038; Landschaparchitecten</a></li>
+	<li class="menu-item menu-item-type-post_type menu-item-object-page menu-item-3380 item-level-1" ><a href="https://www.limeta.nl/onze-klanten/signing/" class="woodmart-nav-link">Signing</a></li>
+	<li class="menu-item menu-item-type-post_type menu-item-object-page menu-item-3383 item-level-1" ><a href="https://www.limeta.nl/onze-klanten/reclamebureaus/" class="woodmart-nav-link">Reclamebureaus</a></li>
+</ul>
+</li>
+<li class="menu-diensten menu-item menu-item-type-post_type menu-item-object-page menu-item-has-children menu-item-87 item-level-0" ><a href="https://www.limeta.nl/diensten/" class="woodmart-nav-link"><span class="nav-link-text">Diensten</span></a>
+<ul class="wd-sub-menu">
+	<li class="menu-item menu-item-type-custom menu-item-object-custom menu-item-12865 item-level-1" ><a href="/diensten/#huren" class="woodmart-nav-link">Vlaggenmast huren</a></li>
+	<li class="menu-item menu-item-type-custom menu-item-object-custom menu-item-12866 item-level-1" ><a href="/diensten/#plaatsen" class="woodmart-nav-link">Vlaggenmast laten plaatsen</a></li>
+	<li class="menu-item menu-item-type-custom menu-item-object-custom menu-item-12867 item-level-1" ><a href="/diensten/#onderhoud" class="woodmart-nav-link">Onderhoudsplan</a></li>
+	<li class="menu-item menu-item-type-custom menu-item-object-custom menu-item-12273 item-level-1" ><a href="/diensten/storing-reparatie-en-onderhoud" class="woodmart-nav-link">Storing / Reparatie / Onderhoud melden</a></li>
+</ul>
+</li>
+<li class="menu-item menu-item-type-post_type menu-item-object-page menu-item-14617 item-level-0" ><a href="https://www.limeta.nl/onderhoud/" class="woodmart-nav-link"><span class="nav-link-text">Onderhoud</span></a></li>
+<li class="menu-item menu-item-type-custom menu-item-object-custom menu-item-has-children menu-item-14358 item-level-0" ><a href="#" class="woodmart-nav-link"><span class="nav-link-text">Webshop</span></a>
+<ul class="wd-sub-menu">
+	<li class="menu-item menu-item-type-taxonomy menu-item-object-product_cat menu-item-14364 item-level-1" ><a href="https://www.limeta.nl/producten/vlaggen/" class="woodmart-nav-link">Vlaggen</a></li>
+	<li class="menu-item menu-item-type-taxonomy menu-item-object-product_cat menu-item-14365 item-level-1" ><a href="https://www.limeta.nl/producten/wimpels-en-combi-wimpels/" class="woodmart-nav-link">Wimpels en combi wimpels</a></li>
+	<li class="menu-item menu-item-type-taxonomy menu-item-object-product_cat menu-item-14361 item-level-1" ><a href="https://www.limeta.nl/producten/accessoires-vlaggenstokken/" class="woodmart-nav-link">Accessoires vlaggenstokken</a></li>
+	<li class="menu-item menu-item-type-taxonomy menu-item-object-product_cat menu-item-14360 item-level-1" ><a href="https://www.limeta.nl/producten/accessoires-vlaggenmasten/" class="woodmart-nav-link">Accessoires vlaggenmasten</a></li>
+	<li class="menu-item menu-item-type-taxonomy menu-item-object-product_cat menu-item-14363 item-level-1" ><a href="https://www.limeta.nl/producten/gevelstokken/" class="woodmart-nav-link">Gevelstokken</a></li>
+	<li class="menu-item menu-item-type-taxonomy menu-item-object-product_cat menu-item-14362 item-level-1" ><a href="https://www.limeta.nl/producten/fairybell/" class="woodmart-nav-link">Fairybell</a></li>
+</ul>
+</li>
+<li class="menu-item menu-item-type-custom menu-item-object-custom menu-item-has-children menu-item-14357 item-level-0" ><a href="#" class="woodmart-nav-link"><span class="nav-link-text">Informatie</span></a>
+<ul class="wd-sub-menu">
+	<li class="menu-item menu-item-type-post_type menu-item-object-page menu-item-84 item-level-1" ><a href="https://www.limeta.nl/contact/" class="woodmart-nav-link">Contact</a></li>
+	<li class="menu-limeta menu-item menu-item-type-post_type menu-item-object-page menu-item-88 item-level-1" ><a href="https://www.limeta.nl/informatie-limeta-vlaggenmasten/" class="woodmart-nav-link">Over Limeta</a></li>
+	<li class="menu-item menu-item-type-post_type menu-item-object-page menu-item-14431 item-level-1" ><a href="https://www.limeta.nl/downloads-leaflets/" class="woodmart-nav-link">Downloads/leaflets</a></li>
+	<li class="menu-item menu-item-type-post_type menu-item-object-page menu-item-14498 item-level-1" ><a href="https://www.limeta.nl/veelgestelde-vragen-faq/" class="woodmart-nav-link">Veelgestelde vragen</a></li>
+	<li class="menu-item menu-item-type-custom menu-item-object-custom menu-item-3959 item-level-1" ><a href="/nieuws/" class="woodmart-nav-link">Nieuws</a></li>
+</ul>
+</li>
+</ul>
+		</div><!--END MOBILE-NAV--><style id="multiple-file-upload">/* Delete Status */
+.dnd-icon-remove.deleting { font-size:12px; color:#000; font-weight: 500; position: relative; top:-3px; }
+.dnd-icon-remove.deleting:after { display:none!important; }
+
+.wpcf7-drag-n-drop-file.d-none {
+	display:none;
+	opacity:0;
+	visibility:hidden;
+	position:absolute;
+	top:0;
+}
+
+/* Upload Status */
+.dnd-upload-status {
+	display:flex;
+	padding:4px 0;
+	align-items:center;
+	position:relative;
+}
+
+/* Progress bar - Image */
+.dnd-upload-status .dnd-upload-image {
+	width:40px;
+	height:40px;
+	border:1px solid #a5a5a5;
+	text-align:center;
+	border-radius:100%;
+	position:relative;
+}
+.dnd-upload-status .dnd-upload-image span.file {
+    background-image: url("data:image/svg+xml,%0A%3Csvg width='18' height='23' viewBox='0 0 18 23' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M12.569 0.659576H0.5V23H18V6.09053L12.569 0.659576ZM12.7872 1.93075L16.7288 5.87234H12.7872V1.93075ZM1.24468 22.2553V1.40426H12.0426V6.61702H17.2553V22.2553H1.24468Z' fill='%235C5B5B'/%3E%3C/svg%3E%0A");
+    background-repeat: no-repeat;
+    background-size: 100%;
+    height: 21px;
+    width: 16px;
+    display: block;
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    -moz-transform : translate(-50%, -50%);
+    -webkit-transform: translate(-50%, -50%);
+}
+
+/* Progress bar - Image Details ( Name and Size ) */
+.dnd-upload-status .dnd-upload-details {
+	padding-left:10px;
+	width: calc(100% - 40px);
+}
+.dnd-upload-status .dnd-upload-details .name {color:#016d98; padding:4px 0; padding-right:60px; display:flex; }
+.dnd-upload-status .dnd-upload-details .name span { text-overflow: ellipsis; white-space: nowrap; overflow: hidden; position: relative; padding-right:10px; }
+.dnd-upload-status .dnd-upload-details .name em {color:#444242;	font-weight:700; }
+
+/* Remove Upload File */
+.dnd-upload-status .dnd-upload-details .remove-file {
+	position:absolute;
+	right:0;
+	top:10px;
+	text-decoration:none;
+	box-shadow:none;
+	outline:none;
+    opacity:1;
+}
+.dnd-upload-status .dnd-upload-details .remove-file span:after {
+    content: '';
+    width:15px;
+    height:15px;
+    display: block;
+    background-repeat:no-repeat;
+    background-size:100%;
+    background-image: url("data:image/svg+xml,%3Csvg width='35' height='35' viewBox='0 0 35 35' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M17.5 0C7.83499 0 0 7.83499 0 17.5C0 27.165 7.83499 35 17.5 35C27.165 35 35 27.165 35 17.5C34.9888 7.83965 27.1604 0.0112198 17.5 0ZM17.5 33.871C8.45857 33.871 1.12903 26.5414 1.12903 17.5C1.12903 8.45857 8.45857 1.12903 17.5 1.12903C26.5414 1.12903 33.871 8.45857 33.871 17.5C33.861 26.5373 26.5373 33.861 17.5 33.871Z' fill='black'/%3E%3Cpath d='M25.4834 9.51661C25.2629 9.29624 24.9056 9.29624 24.6852 9.51661L17.5 16.7018L10.3148 9.51661C10.0983 9.29236 9.74087 9.28615 9.51661 9.50271C9.29236 9.71927 9.28615 10.0767 9.50271 10.3009C9.50723 10.3057 9.51188 10.3103 9.51661 10.3148L16.7018 17.5L9.51661 24.6852C9.29236 24.9018 9.28615 25.2591 9.50278 25.4834C9.71941 25.7076 10.0768 25.7139 10.301 25.4972C10.3057 25.4927 10.3103 25.488 10.3148 25.4834L17.5 18.2982L24.6852 25.4834C24.9094 25.7 25.2668 25.6938 25.4834 25.4696C25.6947 25.2508 25.6947 24.9039 25.4834 24.6852L18.2982 17.5L25.4834 10.3148C25.7038 10.0944 25.7038 9.73705 25.4834 9.51661Z' fill='black'/%3E%3C/svg%3E%0A");
+}
+.dnd-upload-status.in-progress .remove-file { opacity:0.2;}
+
+.dnd-upload-status .dnd-upload-details span.has-error { color:#f50505; }
+
+/* Progress Loading */
+.dnd-upload-status .dnd-upload-details .dnd-progress-bar {
+	display: block;
+    border-radius: 5px;
+    overflow: hidden;
+    background: #565555;
+    height: 14px;
+}
+.dnd-upload-status .dnd-upload-details .dnd-progress-bar span {
+    background: #4CAF50;
+    display: block;
+    font-size: 11px;
+    text-align: right;
+    color: #fff;
+    height: 100%;
+	width:0;
+	line-height:14px;
+}
+.dnd-upload-status .dnd-upload-details .dnd-progress-bar span.complete { width:100%!important; padding-right:5px; }
+.dnd-upload-counter { position:absolute; right:5px; bottom:3px; font-size:12px; }
+
+/* CodeDropz Upload Plugin */
+.codedropz-upload-handler {
+	border:2px dashed #c5c5c5;
+	border-radius:5px;
+	margin-bottom:10px;
+	position:relative;
+}
+.codedropz-upload-container {
+	padding:15px 20px;
+}
+
+.codedropz-upload-inner {
+	overflow:hidden;
+	width:100%;
+	/*white-space: nowrap;*/
+	text-align:center;
+	text-overflow: ellipsis;
+	font-weight:inherit;
+}
+.codedropz-upload-inner .codedropz-btn-wrap a.cd-upload-btn {
+	text-decoration:none;
+	box-shadow:none;
+}
+.codedropz-upload-inner h3 {
+	margin:5px 0;
+	font-size:30px;
+	line-height:32px;
+    word-break:break-word;
+}
+
+/* Add border on dragenter, drag etc */
+.codedropz-dragover {
+	border-color:#6b6a6a;
+}
+
+.codedropz-upload-wrapper span.has-error-msg {
+	display:inline-block;
+	color:#ff0000;
+	padding:5px 0;
+	font-style:italic;
+}
+
+/* Jquery Validation For Contact Form 7 */
+.wpcf7-form label.error-new {
+    color: #900;
+    font-size: 11px;
+    float: none;
+    padding-left: 5px;
+}
+.wpcf7-form .codedropz-upload-wrapper.invalid .codedropz-upload-handler{
+	border-bottom-color: #900;
+    border-bottom-style: solid;
+}
+/* END : Jquery Validation CF7 */
+
+@media screen and (max-width: 767px) {
+	.dnd-upload-status .dnd-upload-details .name em { font-weight:normal; }
+	.dnd-upload-status .dnd-upload-details .name { padding-right:60px; }
+	.codedropz-upload-inner h3 { font-size:22px; }
+}</style>	<script type="rocketlazyloadscript" data-rocket-type="text/javascript">
+		(function () {
+			var c = document.body.className;
+			c = c.replace(/woocommerce-no-js/, 'woocommerce-js');
+			document.body.className = c;
+		})();
+	</script>
+	<link rel='stylesheet' id='vc_font_awesome_5_shims-css' href='https://www.limeta.nl/wp-content/plugins/js_composer/assets/lib/bower/font-awesome/css/v4-shims.min.css?ver=7.0' type='text/css' media='all' />
+<link data-minify="1" rel='stylesheet' id='vc_font_awesome_5-css' href='https://www.limeta.nl/wp-content/cache/min/1/wp-content/plugins/js_composer/assets/lib/bower/font-awesome/css/all.min.css?ver=1699008929' type='text/css' media='all' />
+<script type='text/javascript' id='wd-update-cart-fragments-fix-js-extra'>
+/* <![CDATA[ */
+var wd_cart_fragments_params = {"ajax_url":"\/wp-admin\/admin-ajax.php","wc_ajax_url":"\/?wc-ajax=%%endpoint%%","cart_hash_key":"wc_cart_hash_61ecaeba376c756e1de08d0b46191de6","fragment_name":"wc_fragments_61ecaeba376c756e1de08d0b46191de6","request_timeout":"5000"};
+/* ]]> */
+</script>
+<script type="rocketlazyloadscript" data-minify="1" data-rocket-type='text/javascript' data-rocket-src='https://www.limeta.nl/wp-content/cache/min/1/wp-content/themes/woodmart/js/scripts/wc/updateCartFragmentsFix.js?ver=1699008709' id='wd-update-cart-fragments-fix-js' defer></script>
+<script type="rocketlazyloadscript" data-minify="1" data-rocket-type='text/javascript' data-rocket-src='https://www.limeta.nl/wp-content/cache/min/1/wp-content/plugins/contact-form-7/includes/swv/js/index.js?ver=1699008709' id='swv-js' defer></script>
+<script type='text/javascript' id='contact-form-7-js-extra'>
+/* <![CDATA[ */
+var wpcf7 = {"api":{"root":"https:\/\/www.limeta.nl\/wp-json\/","namespace":"contact-form-7\/v1"},"cached":"1"};
+/* ]]> */
+</script>
+<script type="rocketlazyloadscript" data-minify="1" data-rocket-type='text/javascript' data-rocket-src='https://www.limeta.nl/wp-content/cache/min/1/wp-content/plugins/contact-form-7/includes/js/index.js?ver=1699008709' id='contact-form-7-js' defer></script>
+<script type='text/javascript' id='codedropz-uploader-js-extra'>
+/* <![CDATA[ */
+var dnd_cf7_uploader = {"ajax_url":"https:\/\/www.limeta.nl\/wp-admin\/admin-ajax.php","ajax_nonce":"db03463355","drag_n_drop_upload":{"tag":"h3","text":"Versleep bestanden hiernaar toe","or_separator":"of","browse":"Blader door bestanden","server_max_error":"The uploaded file exceeds the maximum upload size of your server.","large_file":"Uploaded file is too large","inavalid_type":"Uploaded file is not allowed for file type","max_file_limit":"Note : Some of the files are not uploaded ( Only %count% files allowed )","required":"This field is required.","delete":{"text":"deleting","title":"Verwijderen"}},"dnd_text_counter":"van","disable_btn":""};
+/* ]]> */
+</script>
+<script type="rocketlazyloadscript" data-rocket-type='text/javascript' data-rocket-src='https://www.limeta.nl/wp-content/plugins/drag-and-drop-multiple-file-upload-contact-form-7/assets/js/codedropz-uploader-min.js?ver=1.3.7.4' id='codedropz-uploader-js' defer></script>
+<script type="rocketlazyloadscript" data-minify="1" data-rocket-type='text/javascript' data-rocket-src='https://www.limeta.nl/wp-content/cache/min/1/wp-content/plugins/woocommerce-members-only/assets/js/wcmo-script.js?ver=1699008709' id='wcmo-script-js' defer></script>
+<script type='text/javascript' id='wpcf7-redirect-script-js-extra'>
+/* <![CDATA[ */
+var wpcf7r = {"ajax_url":"https:\/\/www.limeta.nl\/wp-admin\/admin-ajax.php"};
+/* ]]> */
+</script>
+<script type="rocketlazyloadscript" data-minify="1" data-rocket-type='text/javascript' data-rocket-src='https://www.limeta.nl/wp-content/cache/min/1/wp-content/plugins/wpcf7-redirect/build/js/wpcf7r-fe.js?ver=1699008709' id='wpcf7-redirect-script-js' defer></script>
+<script type="rocketlazyloadscript" id="rocket-browser-checker-js-after" data-rocket-type="text/javascript">
+"use strict";var _createClass=function(){function defineProperties(target,props){for(var i=0;i<props.length;i++){var descriptor=props[i];descriptor.enumerable=descriptor.enumerable||!1,descriptor.configurable=!0,"value"in descriptor&&(descriptor.writable=!0),Object.defineProperty(target,descriptor.key,descriptor)}}return function(Constructor,protoProps,staticProps){return protoProps&&defineProperties(Constructor.prototype,protoProps),staticProps&&defineProperties(Constructor,staticProps),Constructor}}();function _classCallCheck(instance,Constructor){if(!(instance instanceof Constructor))throw new TypeError("Cannot call a class as a function")}var RocketBrowserCompatibilityChecker=function(){function RocketBrowserCompatibilityChecker(options){_classCallCheck(this,RocketBrowserCompatibilityChecker),this.passiveSupported=!1,this._checkPassiveOption(this),this.options=!!this.passiveSupported&&options}return _createClass(RocketBrowserCompatibilityChecker,[{key:"_checkPassiveOption",value:function(self){try{var options={get passive(){return!(self.passiveSupported=!0)}};window.addEventListener("test",null,options),window.removeEventListener("test",null,options)}catch(err){self.passiveSupported=!1}}},{key:"initRequestIdleCallback",value:function(){!1 in window&&(window.requestIdleCallback=function(cb){var start=Date.now();return setTimeout(function(){cb({didTimeout:!1,timeRemaining:function(){return Math.max(0,50-(Date.now()-start))}})},1)}),!1 in window&&(window.cancelIdleCallback=function(id){return clearTimeout(id)})}},{key:"isDataSaverModeOn",value:function(){return"connection"in navigator&&!0===navigator.connection.saveData}},{key:"supportsLinkPrefetch",value:function(){var elem=document.createElement("link");return elem.relList&&elem.relList.supports&&elem.relList.supports("prefetch")&&window.IntersectionObserver&&"isIntersecting"in IntersectionObserverEntry.prototype}},{key:"isSlowConnection",value:function(){return"connection"in navigator&&"effectiveType"in navigator.connection&&("2g"===navigator.connection.effectiveType||"slow-2g"===navigator.connection.effectiveType)}}]),RocketBrowserCompatibilityChecker}();
+</script>
+<script type='text/javascript' id='rocket-preload-links-js-extra'>
+/* <![CDATA[ */
+var RocketPreloadLinksConfig = {"excludeUris":"\/(?:.+\/)?feed(?:\/(?:.+\/?)?)?$|\/(?:.+\/)?embed\/|\/wc-api\/v(.*)|\/(index.php\/)?(.*)wp-json(\/.*|$)|\/refer\/|\/go\/|\/recommend\/|\/recommends\/","usesTrailingSlash":"1","imageExt":"jpg|jpeg|gif|png|tiff|bmp|webp|avif|pdf|doc|docx|xls|xlsx|php","fileExt":"jpg|jpeg|gif|png|tiff|bmp|webp|avif|pdf|doc|docx|xls|xlsx|php|html|htm","siteUrl":"https:\/\/www.limeta.nl","onHoverDelay":"100","rateThrottle":"3"};
+/* ]]> */
+</script>
+<script type="rocketlazyloadscript" id="rocket-preload-links-js-after" data-rocket-type="text/javascript">
+(function() {
+"use strict";var r="function"==typeof Symbol&&"symbol"==typeof Symbol.iterator?function(e){return typeof e}:function(e){return e&&"function"==typeof Symbol&&e.constructor===Symbol&&e!==Symbol.prototype?"symbol":typeof e},e=function(){function i(e,t){for(var n=0;n<t.length;n++){var i=t[n];i.enumerable=i.enumerable||!1,i.configurable=!0,"value"in i&&(i.writable=!0),Object.defineProperty(e,i.key,i)}}return function(e,t,n){return t&&i(e.prototype,t),n&&i(e,n),e}}();function i(e,t){if(!(e instanceof t))throw new TypeError("Cannot call a class as a function")}var t=function(){function n(e,t){i(this,n),this.browser=e,this.config=t,this.options=this.browser.options,this.prefetched=new Set,this.eventTime=null,this.threshold=1111,this.numOnHover=0}return e(n,[{key:"init",value:function(){!this.browser.supportsLinkPrefetch()||this.browser.isDataSaverModeOn()||this.browser.isSlowConnection()||(this.regex={excludeUris:RegExp(this.config.excludeUris,"i"),images:RegExp(".("+this.config.imageExt+")$","i"),fileExt:RegExp(".("+this.config.fileExt+")$","i")},this._initListeners(this))}},{key:"_initListeners",value:function(e){-1<this.config.onHoverDelay&&document.addEventListener("mouseover",e.listener.bind(e),e.listenerOptions),document.addEventListener("mousedown",e.listener.bind(e),e.listenerOptions),document.addEventListener("touchstart",e.listener.bind(e),e.listenerOptions)}},{key:"listener",value:function(e){var t=e.target.closest("a"),n=this._prepareUrl(t);if(null!==n)switch(e.type){case"mousedown":case"touchstart":this._addPrefetchLink(n);break;case"mouseover":this._earlyPrefetch(t,n,"mouseout")}}},{key:"_earlyPrefetch",value:function(t,e,n){var i=this,r=setTimeout(function(){if(r=null,0===i.numOnHover)setTimeout(function(){return i.numOnHover=0},1e3);else if(i.numOnHover>i.config.rateThrottle)return;i.numOnHover++,i._addPrefetchLink(e)},this.config.onHoverDelay);t.addEventListener(n,function e(){t.removeEventListener(n,e,{passive:!0}),null!==r&&(clearTimeout(r),r=null)},{passive:!0})}},{key:"_addPrefetchLink",value:function(i){return this.prefetched.add(i.href),new Promise(function(e,t){var n=document.createElement("link");n.rel="prefetch",n.href=i.href,n.onload=e,n.onerror=t,document.head.appendChild(n)}).catch(function(){})}},{key:"_prepareUrl",value:function(e){if(null===e||"object"!==(void 0===e?"undefined":r(e))||!1 in e||-1===["http:","https:"].indexOf(e.protocol))return null;var t=e.href.substring(0,this.config.siteUrl.length),n=this._getPathname(e.href,t),i={original:e.href,protocol:e.protocol,origin:t,pathname:n,href:t+n};return this._isLinkOk(i)?i:null}},{key:"_getPathname",value:function(e,t){var n=t?e.substring(this.config.siteUrl.length):e;return n.startsWith("/")||(n="/"+n),this._shouldAddTrailingSlash(n)?n+"/":n}},{key:"_shouldAddTrailingSlash",value:function(e){return this.config.usesTrailingSlash&&!e.endsWith("/")&&!this.regex.fileExt.test(e)}},{key:"_isLinkOk",value:function(e){return null!==e&&"object"===(void 0===e?"undefined":r(e))&&(!this.prefetched.has(e.href)&&e.origin===this.config.siteUrl&&-1===e.href.indexOf("?")&&-1===e.href.indexOf("#")&&!this.regex.excludeUris.test(e.href)&&!this.regex.images.test(e.href))}}],[{key:"run",value:function(){"undefined"!=typeof RocketPreloadLinksConfig&&new n(new RocketBrowserCompatibilityChecker({capture:!0,passive:!0}),RocketPreloadLinksConfig).init()}}]),n}();t.run();
+}());
+</script>
+<script type="rocketlazyloadscript" data-rocket-type='text/javascript' data-rocket-src='https://www.google.com/recaptcha/api.js?render=6LcG4ogUAAAAABqSW9iZNIz-is2XMeLQThopi3AN&#038;ver=3.0' id='google-recaptcha-js'></script>
+<script type='text/javascript' id='wpcf7-recaptcha-js-extra'>
+/* <![CDATA[ */
+var wpcf7_recaptcha = {"sitekey":"6LcG4ogUAAAAABqSW9iZNIz-is2XMeLQThopi3AN","actions":{"homepage":"homepage","contactform":"contactform"}};
+/* ]]> */
+</script>
+<script type="rocketlazyloadscript" data-minify="1" data-rocket-type='text/javascript' data-rocket-src='https://www.limeta.nl/wp-content/cache/min/1/wp-content/plugins/contact-form-7/modules/recaptcha/index.js?ver=1699008709' id='wpcf7-recaptcha-js' defer></script>
+<script type='text/javascript' src='https://www.limeta.nl/wp-content/plugins/js_composer/assets/js/dist/js_composer_front.min.js?ver=7.0' id='wpb_composer_front_js-js' defer></script>
+<script type='text/javascript' id='woodmart-theme-js-extra'>
+/* <![CDATA[ */
+var woodmart_settings = {"menu_storage_key":"woodmart_4062a0a0d4533f12f3a3f7848d03cad5","ajax_dropdowns_save":"1","photoswipe_close_on_scroll":"1","woocommerce_ajax_add_to_cart":"yes","variation_gallery_storage_method":"old","elementor_no_gap":"enabled","adding_to_cart":"Processing","added_to_cart":"Het product is toegevoegd aan uw winkelwagen.","continue_shopping":"Verder winkelen","view_cart":"Bekijk winkelwagen","go_to_checkout":"Afrekenen","loading":"Meer laden...","countdown_days":"days","countdown_hours":"hr","countdown_mins":"min","countdown_sec":"sc","cart_url":"https:\/\/www.limeta.nl\/?page_id=12910","ajaxurl":"https:\/\/www.limeta.nl\/wp-admin\/admin-ajax.php","add_to_cart_action":"popup","added_popup":"no","categories_toggle":"yes","enable_popup":"no","popup_delay":"2000","popup_event":"time","popup_scroll":"1000","popup_pages":"0","promo_popup_hide_mobile":"no","product_images_captions":"yes","ajax_add_to_cart":"0","all_results":"Toon alle resultaten","zoom_enable":"yes","ajax_scroll":"yes","ajax_scroll_class":".main-page-wrapper","ajax_scroll_offset":"100","infinit_scroll_offset":"300","product_slider_auto_height":"yes","product_slider_dots":"no","price_filter_action":"click","product_slider_autoplay":"","close":"Close (Esc)","share_fb":"Share on Facebook","pin_it":"Pin it","tweet":"Tweet","download_image":"Download image","off_canvas_column_close_btn_text":"Sluiten","cookies_version":"1","header_banner_version":"1","promo_version":"2","header_banner_close_btn":"no","header_banner_enabled":"no","whb_header_clone":"\n    <div class=\"whb-sticky-header whb-clone whb-main-header <%wrapperClasses%>\">\n        <div class=\"<%cloneClass%>\">\n            <div class=\"container\">\n                <div class=\"whb-flex-row whb-general-header-inner\">\n                    <div class=\"whb-column whb-col-left whb-visible-lg\">\n                        <%.site-logo%>\n                    <\/div>\n                    <div class=\"whb-column whb-col-center whb-visible-lg\">\n                        <%.wd-header-main-nav%>\n                    <\/div>\n                    <div class=\"whb-column whb-col-right whb-visible-lg\">\n                        <%.wd-header-my-account%>\n                        <%.wd-header-search:not(.wd-header-search-mobile)%>\n\t\t\t\t\t\t<%.wd-header-wishlist%>\n                        <%.wd-header-compare%>\n                        <%.wd-header-cart%>\n                        <%.wd-header-fs-nav%>\n                    <\/div>\n                    <%.whb-mobile-left%>\n                    <%.whb-mobile-center%>\n                    <%.whb-mobile-right%>\n                <\/div>\n            <\/div>\n        <\/div>\n    <\/div>\n","pjax_timeout":"5000","split_nav_fix":"","shop_filters_close":"no","woo_installed":"1","base_hover_mobile_click":"no","centered_gallery_start":"1","quickview_in_popup_fix":"","one_page_menu_offset":"150","hover_width_small":"1","is_multisite":"","current_blog_id":"1","swatches_scroll_top_desktop":"no","swatches_scroll_top_mobile":"no","lazy_loading_offset":"0","add_to_cart_action_timeout":"no","add_to_cart_action_timeout_number":"3","single_product_variations_price":"no","google_map_style_text":"Custom style","quick_shop":"no","sticky_product_details_offset":"150","preloader_delay":"300","comment_images_upload_size_text":"Some files are too large. Allowed file size is 3 MB.","comment_images_count_text":"You can upload up to 2 images to your review.","single_product_comment_images_required":"no","comment_required_images_error_text":"Image is required.","comment_images_upload_mimes_text":"You are allowed to upload images only in png, jpeg formats.","comment_images_added_count_text":"Added %s image(s)","comment_images_upload_size":"3145728","comment_images_count":"2","search_input_padding":"no","comment_images_upload_mimes":{"jpg|jpeg|jpe":"image\/jpeg","png":"image\/png"},"home_url":"https:\/\/www.limeta.nl\/","shop_url":"https:\/\/www.limeta.nl\/?page_id=12909","age_verify":"no","banner_version_cookie_expires":"60","promo_version_cookie_expires":"7","age_verify_expires":"30","cart_redirect_after_add":"no","swatches_labels_name":"no","product_categories_placeholder":"Een categorie selecteren","product_categories_no_results":"No matches found","cart_hash_key":"wc_cart_hash_61ecaeba376c756e1de08d0b46191de6","fragment_name":"wc_fragments_61ecaeba376c756e1de08d0b46191de6","photoswipe_template":"<div class=\"pswp\" aria-hidden=\"true\" role=\"dialog\" tabindex=\"-1\"><div class=\"pswp__bg\"><\/div><div class=\"pswp__scroll-wrap\"><div class=\"pswp__container\"><div class=\"pswp__item\"><\/div><div class=\"pswp__item\"><\/div><div class=\"pswp__item\"><\/div><\/div><div class=\"pswp__ui pswp__ui--hidden\"><div class=\"pswp__top-bar\"><div class=\"pswp__counter\"><\/div><button class=\"pswp__button pswp__button--close\" title=\"Sluiten (Esc)\"><\/button> <button class=\"pswp__button pswp__button--share\" title=\"Deel\"><\/button> <button class=\"pswp__button pswp__button--fs\" title=\"Schakel volledig scherm\"><\/button> <button class=\"pswp__button pswp__button--zoom\" title=\"Zoom in\/uit\"><\/button><div class=\"pswp__preloader\"><div class=\"pswp__preloader__icn\"><div class=\"pswp__preloader__cut\"><div class=\"pswp__preloader__donut\"><\/div><\/div><\/div><\/div><\/div><div class=\"pswp__share-modal pswp__share-modal--hidden pswp__single-tap\"><div class=\"pswp__share-tooltip\"><\/div><\/div><button class=\"pswp__button pswp__button--arrow--left\" title=\"Vorige (pijltje links)\"><\/button> <button class=\"pswp__button pswp__button--arrow--right\" title=\"Volgende (pijltje rechts)>\"><\/button><div class=\"pswp__caption\"><div class=\"pswp__caption__center\"><\/div><\/div><\/div><\/div><\/div>","load_more_button_page_url":"yes","load_more_button_page_url_opt":"yes","menu_item_hover_to_click_on_responsive":"no","clear_menu_offsets_on_resize":"yes","three_sixty_framerate":"60","three_sixty_prev_next_frames":"5","ajax_search_delay":"300","animated_counter_speed":"3000","site_width":"1222","cookie_secure_param":"1","cookie_path":"\/","slider_distortion_effect":"sliderWithNoise","current_page_builder":"wpb","collapse_footer_widgets":"no","ajax_fullscreen_content":"yes","grid_gallery_control":"hover","grid_gallery_enable_arrows":"none","add_to_cart_text":"Add to cart","ajax_links":".wd-nav-product-cat a, .website-wrapper .widget_product_categories a, .widget_layered_nav_filters a, .woocommerce-widget-layered-nav a, .filters-area:not(.custom-content) a, body.post-type-archive-product:not(.woocommerce-account) .woocommerce-pagination a, body.tax-product_cat:not(.woocommerce-account) .woocommerce-pagination a, .wd-shop-tools a:not(.breadcrumb-link), .woodmart-woocommerce-layered-nav a, .woodmart-price-filter a, .wd-clear-filters a, .woodmart-woocommerce-sort-by a, .woocommerce-widget-layered-nav-list a, .wd-widget-stock-status a, .widget_nav_mega_menu a, .wd-products-shop-view a, .wd-products-per-page a, .category-grid-item a, .wd-cat a, body[class*=\"tax-pa_\"] .woocommerce-pagination a","frequently_bought":"773d7ed524","is_criteria_enabled":"","summary_criteria_ids":"","myaccount_page":"https:\/\/www.limeta.nl\/?page_id=12912","vimeo_library_url":"https:\/\/www.limeta.nl\/wp-content\/themes\/woodmart\/js\/libs\/vimeo-player.min.js","reviews_criteria_rating_required":"no","is_rating_summary_filter_enabled":""};
+var woodmart_page_css = {"wd-wp-gutenberg-css":"https:\/\/www.limeta.nl\/wp-content\/themes\/woodmart\/css\/parts\/wp-gutenberg.min.css","wd-wpcf7-css":"https:\/\/www.limeta.nl\/wp-content\/themes\/woodmart\/css\/parts\/int-wpcf7.min.css","wd-wpbakery-base-css":"https:\/\/www.limeta.nl\/wp-content\/themes\/woodmart\/css\/parts\/int-wpb-base.min.css","wd-wpbakery-base-deprecated-css":"https:\/\/www.limeta.nl\/wp-content\/themes\/woodmart\/css\/parts\/int-wpb-base-deprecated.min.css","wd-notices-fixed-css":"https:\/\/www.limeta.nl\/wp-content\/themes\/woodmart\/css\/parts\/woo-opt-sticky-notices.min.css","wd-woocommerce-base-css":"https:\/\/www.limeta.nl\/wp-content\/themes\/woodmart\/css\/parts\/woocommerce-base.min.css","wd-mod-star-rating-css":"https:\/\/www.limeta.nl\/wp-content\/themes\/woodmart\/css\/parts\/mod-star-rating.min.css","wd-woo-el-track-order-css":"https:\/\/www.limeta.nl\/wp-content\/themes\/woodmart\/css\/parts\/woo-el-track-order.min.css","wd-woo-gutenberg-css":"https:\/\/www.limeta.nl\/wp-content\/themes\/woodmart\/css\/parts\/woo-gutenberg.min.css","wd-header-base-css":"https:\/\/www.limeta.nl\/wp-content\/themes\/woodmart\/css\/parts\/header-base.min.css","wd-mod-tools-css":"https:\/\/www.limeta.nl\/wp-content\/themes\/woodmart\/css\/parts\/mod-tools.min.css","wd-header-elements-base-css":"https:\/\/www.limeta.nl\/wp-content\/themes\/woodmart\/css\/parts\/header-el-base.min.css","wd-header-search-css":"https:\/\/www.limeta.nl\/wp-content\/themes\/woodmart\/css\/parts\/header-el-search.min.css","wd-header-search-form-css":"https:\/\/www.limeta.nl\/wp-content\/themes\/woodmart\/css\/parts\/header-el-search-form.min.css","wd-wd-search-results-css":"https:\/\/www.limeta.nl\/wp-content\/themes\/woodmart\/css\/parts\/wd-search-results.min.css","wd-wd-search-form-css":"https:\/\/www.limeta.nl\/wp-content\/themes\/woodmart\/css\/parts\/wd-search-form.min.css","wd-page-title-css":"https:\/\/www.limeta.nl\/wp-content\/themes\/woodmart\/css\/parts\/page-title.min.css","wd-footer-base-css":"https:\/\/www.limeta.nl\/wp-content\/themes\/woodmart\/css\/parts\/footer-base.min.css","wd-scroll-top-css":"https:\/\/www.limeta.nl\/wp-content\/themes\/woodmart\/css\/parts\/opt-scrolltotop.min.css"};
+var woodmart_variation_gallery_data = [];
+/* ]]> */
+</script>
+<script type="rocketlazyloadscript" data-rocket-type='text/javascript' data-rocket-src='https://www.limeta.nl/wp-content/themes/woodmart/js/scripts/global/helpers.min.js?ver=7.3.0' id='woodmart-theme-js' defer></script>
+<script type="rocketlazyloadscript" data-rocket-type='text/javascript' data-rocket-src='https://www.limeta.nl/wp-content/themes/woodmart/js/scripts/wc/woocommerceNotices.min.js?ver=7.3.0' id='wd-woocommerce-notices-js' defer></script>
+<script type="rocketlazyloadscript" data-rocket-type='text/javascript' data-rocket-src='https://www.limeta.nl/wp-content/themes/woodmart/js/scripts/header/headerBuilder.min.js?ver=7.3.0' id='wd-header-builder-js' defer></script>
+<script type="rocketlazyloadscript" data-rocket-type='text/javascript' data-rocket-src='https://www.limeta.nl/wp-content/themes/woodmart/js/scripts/menu/menuOffsets.min.js?ver=7.3.0' id='wd-menu-offsets-js' defer></script>
+<script type="rocketlazyloadscript" data-rocket-type='text/javascript' data-rocket-src='https://www.limeta.nl/wp-content/themes/woodmart/js/scripts/menu/menuSetUp.min.js?ver=7.3.0' id='wd-menu-setup-js' defer></script>
+<script type="rocketlazyloadscript" data-rocket-type='text/javascript' data-rocket-src='https://www.limeta.nl/wp-content/themes/woodmart/js/libs/autocomplete.min.js?ver=7.3.0' id='wd-autocomplete-library-js' defer></script>
+<script type="rocketlazyloadscript" data-rocket-type='text/javascript' data-rocket-src='https://www.limeta.nl/wp-content/themes/woodmart/js/scripts/global/ajaxSearch.min.js?ver=7.3.0' id='wd-ajax-search-js' defer></script>
+<script type="rocketlazyloadscript" data-rocket-type='text/javascript' data-rocket-src='https://www.limeta.nl/wp-content/themes/woodmart/js/scripts/global/scrollTop.min.js?ver=7.3.0' id='wd-scroll-top-js' defer></script>
+<script type="rocketlazyloadscript" data-rocket-type='text/javascript' data-rocket-src='https://www.limeta.nl/wp-content/themes/woodmart/js/scripts/menu/mobileNavigation.min.js?ver=7.3.0' id='wd-mobile-navigation-js' defer></script>
+<script type="rocketlazyloadscript"></script><script type="rocketlazyloadscript" data-rocket-type='text/javascript' data-rocket-src='https://www.limeta.nl/wp-includes/js/jquery/ui/effect.min.js?ver=1.13.2' id='jquery-effects-core-js' defer></script>
+<script type="rocketlazyloadscript" id="ditty-js-before" data-rocket-type="text/javascript">
+const dittyVars = {"ajaxurl":"https:\/\/www.limeta.nl\/wp-admin\/admin-ajax.php","security":"faab3a0b3d","mode":"production","strings":{"add_title":"Add title","confirm_delete_item":"Are you sure you want to delete this Item? This action cannot be undone.","confirm_delete_display":"Are you sure you want to delete this Display?","confirm_delete_layout":"Are you sure you want to delete this Layout?","layout_css_error":"There is an error in your css.<br\/>Click to close this message."},"adminStrings":false,"globals":[],"updateIcon":"fas fa-sync-alt fa-spin","updateInterval":600,"dittyDevelopment":false}
+</script>
+<script type="rocketlazyloadscript" data-minify="1" data-rocket-type='text/javascript' data-rocket-src='https://www.limeta.nl/wp-content/cache/min/1/wp-content/plugins/ditty-news-ticker/build/ditty.js?ver=1699008709' id='ditty-js' defer></script>
+<script type="rocketlazyloadscript" data-minify="1" data-rocket-type='text/javascript' data-rocket-src='https://www.limeta.nl/wp-content/cache/min/1/wp-content/plugins/ditty-news-ticker/includes/js/partials/helpers.js?ver=1699008709' id='ditty-helpers-js' defer></script>
+<script type="rocketlazyloadscript" data-rocket-type='text/javascript' data-rocket-src='https://www.limeta.nl/wp-content/plugins/ditty-news-ticker/includes/js/class-ditty-display-ticker.min.js?ver=3.1.29' id='ditty-display-ticker-js' defer></script>
+			<script type="rocketlazyloadscript" id="ditty-singles">
+				jQuery( function( $ ) {
+						$( 'div[data-uniqid="ditty-6559f0f7d201e"]' ).ditty_ticker({"direction":"left","minHeight":"300px","spacing":"25","speed":"10","heightEase":"easeInOutQuint","heightSpeed":"1","scrollInit":"empty","scrollDelay":"3","cloneItems":"yes","wrapItems":"yes","hoverPause":"","titleDisplay":"none","titleContentsSize":"stretch","titleContentsPosition":"start","titleElement":"h3","titleElementPosition":"start","titleElementVerticalPosition":"start","itemElementsWrap":"wrap","paging":"1","perPage":"10","autoplay":"0","transition":"fade","transitionEase":"easeInOutQuint","transitionSpeed":"1","initTransition":"fade","initTransitionEase":"easeInOutQuint","initTransitionSpeed":"1","initHeightEase":"easeInOutQuint","initHeightSpeed":"1","arrows":"none","arrowsPosition":"center","arrowsIconColor":"#777","arrowsStatic":"1","arrowsPadding":{"paddingTop":"","paddingBottom":"","paddingLeft":"","paddingRight":""},"bullets":"style1","bulletsPosition":"bottomCenter","bulletsColor":"#777","bulletsColorActive":"#000","bulletsSpacing":"5px","bulletsPadding":{"paddingTop":"","paddingBottom":"","paddingLeft":"","paddingRight":""},"borderStyle":"none","contentsBorderStyle":"none","pageBorderStyle":"none","itemBorderStyle":"none","orderby":"list","order":"desc","itemMaxWidth":"300px","shuffle":"1","id":"14677","uniqid":"ditty-6559f0f7d201e","title":"limeta","status":"publish","display":"14677","items":[{"id":"1","uniq_id":"1","parent_id":"0","timestamp":"1689248772","timestamp_iso":"2023-07-13T11:46:12+00:00","html":"<div class=\"ditty-item ditty-item--1 ditty-item-type--default ditty-layout--1_default\" data-item_id=\"1\" data-item_uniq_id=\"1\" data-parent_id=\"0\" data-item_type=\"default\" data-layout_id=\"1_default\"><div class=\"ditty-item__elements\"><div class=\"ditty-item__content\"><i class=\"fa-light fa-check\"><\/i> Actief door heel Nederland<\/div><\/div><\/div>","css":"","layout_id":"1_default","meta":[]},{"id":"2","uniq_id":"2","parent_id":"0","timestamp":"1689248772","timestamp_iso":"2023-07-13T11:46:12+00:00","html":"<div class=\"ditty-item ditty-item--2 ditty-item-type--default ditty-layout--2_default\" data-item_id=\"2\" data-item_uniq_id=\"2\" data-parent_id=\"0\" data-item_type=\"default\" data-layout_id=\"2_default\"><div class=\"ditty-item__elements\"><div class=\"ditty-item__content\"><i class=\"fa-light fa-check\"><\/i> Meer dan 50 jaar ervaring<\/div><\/div><\/div>","css":"","layout_id":"2_default","meta":[]},{"id":"3","uniq_id":"3","parent_id":"0","timestamp":"1689248772","timestamp_iso":"2023-07-13T11:46:12+00:00","html":"<div class=\"ditty-item ditty-item--3 ditty-item-type--default ditty-layout--3_default\" data-item_id=\"3\" data-item_uniq_id=\"3\" data-parent_id=\"0\" data-item_type=\"default\" data-layout_id=\"3_default\"><div class=\"ditty-item__elements\"><div class=\"ditty-item__content\"><i class=\"fa-light fa-check\"><\/i>  Alleen topkwaliteit<\/div><\/div><\/div>","css":"","layout_id":"3_default","meta":[]},{"id":"4","uniq_id":"4","parent_id":"0","timestamp":"1689248772","timestamp_iso":"2023-07-13T11:46:12+00:00","html":"<div class=\"ditty-item ditty-item--4 ditty-item-type--default ditty-layout--4_default\" data-item_id=\"4\" data-item_uniq_id=\"4\" data-parent_id=\"0\" data-item_type=\"default\" data-layout_id=\"4_default\"><div class=\"ditty-item__elements\"><div class=\"ditty-item__content\"><i class=\"fa-light fa-check\"><\/i> Persoonlijk advies op locatie<\/div><\/div><\/div>","css":"","layout_id":"4_default","meta":[]},{"id":"5","uniq_id":"5","parent_id":"0","timestamp":"1689248772","timestamp_iso":"2023-07-13T11:46:12+00:00","html":"<div class=\"ditty-item ditty-item--5 ditty-item-type--default ditty-layout--5_default\" data-item_id=\"5\" data-item_uniq_id=\"5\" data-parent_id=\"0\" data-item_type=\"default\" data-layout_id=\"5_default\"><div class=\"ditty-item__elements\"><div class=\"ditty-item__content\"><i class=\"fa-light fa-check\"><\/i> Eigen plaatsingsservice<\/div><\/div><\/div>","css":"","layout_id":"5_default","meta":[]}]});
+						} );
+			</script>
+			<script>window.lazyLoadOptions=[{elements_selector:"img[data-lazy-src],.rocket-lazyload",data_src:"lazy-src",data_srcset:"lazy-srcset",data_sizes:"lazy-sizes",class_loading:"lazyloading",class_loaded:"lazyloaded",threshold:300,callback_loaded:function(element){if(element.tagName==="IFRAME"&&element.dataset.rocketLazyload=="fitvidscompatible"){if(element.classList.contains("lazyloaded")){if(typeof window.jQuery!="undefined"){if(jQuery.fn.fitVids){jQuery(element).parent().fitVids()}}}}}},{elements_selector:".rocket-lazyload",data_src:"lazy-src",data_srcset:"lazy-srcset",data_sizes:"lazy-sizes",class_loading:"lazyloading",class_loaded:"lazyloaded",threshold:300,}];window.addEventListener('LazyLoad::Initialized',function(e){var lazyLoadInstance=e.detail.instance;if(window.MutationObserver){var observer=new MutationObserver(function(mutations){var image_count=0;var iframe_count=0;var rocketlazy_count=0;mutations.forEach(function(mutation){for(var i=0;i<mutation.addedNodes.length;i++){if(typeof mutation.addedNodes[i].getElementsByTagName!=='function'){continue}
+if(typeof mutation.addedNodes[i].getElementsByClassName!=='function'){continue}
+images=mutation.addedNodes[i].getElementsByTagName('img');is_image=mutation.addedNodes[i].tagName=="IMG";iframes=mutation.addedNodes[i].getElementsByTagName('iframe');is_iframe=mutation.addedNodes[i].tagName=="IFRAME";rocket_lazy=mutation.addedNodes[i].getElementsByClassName('rocket-lazyload');image_count+=images.length;iframe_count+=iframes.length;rocketlazy_count+=rocket_lazy.length;if(is_image){image_count+=1}
+if(is_iframe){iframe_count+=1}}});if(image_count>0||iframe_count>0||rocketlazy_count>0){lazyLoadInstance.update()}});var b=document.getElementsByTagName("body")[0];var config={childList:!0,subtree:!0};observer.observe(b,config)}},!1)</script><script data-no-minify="1" async src="https://www.limeta.nl/wp-content/plugins/wp-rocket/assets/js/lazyload/17.8.3/lazyload.min.js"></script></body>
+</html>
+
+<!-- This website is like a Rocket, isn't it? Performance optimized by WP Rocket. Learn more: https://wp-rocket.me - Debug: cached@1700393207 -->

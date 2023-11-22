@@ -1,0 +1,1608 @@
+<!doctype html>
+    <html lang="fr-FR">
+<head><meta charset="UTF-8"><script>if(navigator.userAgent.match(/MSIE|Internet Explorer/i)||navigator.userAgent.match(/Trident\/7\..*?rv:11/i)){var href=document.location.href;if(!href.match(/[?&]nowprocket/)){if(href.indexOf("?")==-1){if(href.indexOf("#")==-1){document.location.href=href+"?nowprocket=1"}else{document.location.href=href.replace("#","?nowprocket=1#")}}else{if(href.indexOf("#")==-1){document.location.href=href+"&nowprocket=1"}else{document.location.href=href.replace("#","&nowprocket=1#")}}}}</script><script>class RocketLazyLoadScripts{constructor(){this.v="1.2.4",this.triggerEvents=["keydown","mousedown","mousemove","touchmove","touchstart","touchend","wheel"],this.userEventHandler=this._triggerListener.bind(this),this.touchStartHandler=this._onTouchStart.bind(this),this.touchMoveHandler=this._onTouchMove.bind(this),this.touchEndHandler=this._onTouchEnd.bind(this),this.clickHandler=this._onClick.bind(this),this.interceptedClicks=[],window.addEventListener("pageshow",t=>{this.persisted=t.persisted}),window.addEventListener("DOMContentLoaded",()=>{this._preconnect3rdParties()}),this.delayedScripts={normal:[],async:[],defer:[]},this.trash=[],this.allJQueries=[]}_addUserInteractionListener(t){if(document.hidden){t._triggerListener();return}this.triggerEvents.forEach(e=>window.addEventListener(e,t.userEventHandler,{passive:!0})),window.addEventListener("touchstart",t.touchStartHandler,{passive:!0}),window.addEventListener("mousedown",t.touchStartHandler),document.addEventListener("visibilitychange",t.userEventHandler)}_removeUserInteractionListener(){this.triggerEvents.forEach(t=>window.removeEventListener(t,this.userEventHandler,{passive:!0})),document.removeEventListener("visibilitychange",this.userEventHandler)}_onTouchStart(t){"HTML"!==t.target.tagName&&(window.addEventListener("touchend",this.touchEndHandler),window.addEventListener("mouseup",this.touchEndHandler),window.addEventListener("touchmove",this.touchMoveHandler,{passive:!0}),window.addEventListener("mousemove",this.touchMoveHandler),t.target.addEventListener("click",this.clickHandler),this._renameDOMAttribute(t.target,"onclick","rocket-onclick"),this._pendingClickStarted())}_onTouchMove(t){window.removeEventListener("touchend",this.touchEndHandler),window.removeEventListener("mouseup",this.touchEndHandler),window.removeEventListener("touchmove",this.touchMoveHandler,{passive:!0}),window.removeEventListener("mousemove",this.touchMoveHandler),t.target.removeEventListener("click",this.clickHandler),this._renameDOMAttribute(t.target,"rocket-onclick","onclick"),this._pendingClickFinished()}_onTouchEnd(){window.removeEventListener("touchend",this.touchEndHandler),window.removeEventListener("mouseup",this.touchEndHandler),window.removeEventListener("touchmove",this.touchMoveHandler,{passive:!0}),window.removeEventListener("mousemove",this.touchMoveHandler)}_onClick(t){t.target.removeEventListener("click",this.clickHandler),this._renameDOMAttribute(t.target,"rocket-onclick","onclick"),this.interceptedClicks.push(t),t.preventDefault(),t.stopPropagation(),t.stopImmediatePropagation(),this._pendingClickFinished()}_replayClicks(){window.removeEventListener("touchstart",this.touchStartHandler,{passive:!0}),window.removeEventListener("mousedown",this.touchStartHandler),this.interceptedClicks.forEach(t=>{t.target.dispatchEvent(new MouseEvent("click",{view:t.view,bubbles:!0,cancelable:!0}))})}_waitForPendingClicks(){return new Promise(t=>{this._isClickPending?this._pendingClickFinished=t:t()})}_pendingClickStarted(){this._isClickPending=!0}_pendingClickFinished(){this._isClickPending=!1}_renameDOMAttribute(t,e,r){t.hasAttribute&&t.hasAttribute(e)&&(event.target.setAttribute(r,event.target.getAttribute(e)),event.target.removeAttribute(e))}_triggerListener(){this._removeUserInteractionListener(this),"loading"===document.readyState?document.addEventListener("DOMContentLoaded",this._loadEverythingNow.bind(this)):this._loadEverythingNow()}_preconnect3rdParties(){let t=[];document.querySelectorAll("script[type=rocketlazyloadscript][data-rocket-src]").forEach(e=>{let r=e.getAttribute("data-rocket-src");if(r&&0!==r.indexOf("data:")){0===r.indexOf("//")&&(r=location.protocol+r);try{let i=new URL(r).origin;i!==location.origin&&t.push({src:i,crossOrigin:e.crossOrigin||"module"===e.getAttribute("data-rocket-type")})}catch(n){}}}),t=[...new Map(t.map(t=>[JSON.stringify(t),t])).values()],this._batchInjectResourceHints(t,"preconnect")}async _loadEverythingNow(){this.lastBreath=Date.now(),this._delayEventListeners(),this._delayJQueryReady(this),this._handleDocumentWrite(),this._registerAllDelayedScripts(),this._preloadAllScripts(),await this._loadScriptsFromList(this.delayedScripts.normal),await this._loadScriptsFromList(this.delayedScripts.defer),await this._loadScriptsFromList(this.delayedScripts.async);try{await this._triggerDOMContentLoaded(),await this._pendingWebpackRequests(this),await this._triggerWindowLoad()}catch(t){console.error(t)}window.dispatchEvent(new Event("rocket-allScriptsLoaded")),this._waitForPendingClicks().then(()=>{this._replayClicks()}),this._emptyTrash()}_registerAllDelayedScripts(){document.querySelectorAll("script[type=rocketlazyloadscript]").forEach(t=>{t.hasAttribute("data-rocket-src")?t.hasAttribute("async")&&!1!==t.async?this.delayedScripts.async.push(t):t.hasAttribute("defer")&&!1!==t.defer||"module"===t.getAttribute("data-rocket-type")?this.delayedScripts.defer.push(t):this.delayedScripts.normal.push(t):this.delayedScripts.normal.push(t)})}async _transformScript(t){if(await this._littleBreath(),!0===t.noModule&&"noModule"in HTMLScriptElement.prototype){t.setAttribute("data-rocket-status","skipped");return}return new Promise(navigator.userAgent.indexOf("Firefox/")>0||""===navigator.vendor?e=>{let r=document.createElement("script");[...t.attributes].forEach(t=>{let e=t.nodeName;"type"!==e&&("data-rocket-type"===e&&(e="type"),"data-rocket-src"===e&&(e="src"),r.setAttribute(e,t.nodeValue))}),t.text&&(r.text=t.text),r.hasAttribute("src")?(r.addEventListener("load",e),r.addEventListener("error",e)):(r.text=t.text,e());try{t.parentNode.replaceChild(r,t)}catch(i){e()}}:e=>{function r(){t.setAttribute("data-rocket-status","failed"),e()}try{let i=t.getAttribute("data-rocket-type"),n=t.getAttribute("data-rocket-src");i?(t.type=i,t.removeAttribute("data-rocket-type")):t.removeAttribute("type"),t.addEventListener("load",function r(){t.setAttribute("data-rocket-status","executed"),e()}),t.addEventListener("error",r),n?(t.removeAttribute("data-rocket-src"),t.src=n):t.src="data:text/javascript;base64,"+window.btoa(unescape(encodeURIComponent(t.text)))}catch(s){r()}})}async _loadScriptsFromList(t){let e=t.shift();return e&&e.isConnected?(await this._transformScript(e),this._loadScriptsFromList(t)):Promise.resolve()}_preloadAllScripts(){this._batchInjectResourceHints([...this.delayedScripts.normal,...this.delayedScripts.defer,...this.delayedScripts.async],"preload")}_batchInjectResourceHints(t,e){var r=document.createDocumentFragment();t.forEach(t=>{let i=t.getAttribute&&t.getAttribute("data-rocket-src")||t.src;if(i){let n=document.createElement("link");n.href=i,n.rel=e,"preconnect"!==e&&(n.as="script"),t.getAttribute&&"module"===t.getAttribute("data-rocket-type")&&(n.crossOrigin=!0),t.crossOrigin&&(n.crossOrigin=t.crossOrigin),t.integrity&&(n.integrity=t.integrity),r.appendChild(n),this.trash.push(n)}}),document.head.appendChild(r)}_delayEventListeners(){let t={};function e(e,r){!function e(r){!t[r]&&(t[r]={originalFunctions:{add:r.addEventListener,remove:r.removeEventListener},eventsToRewrite:[]},r.addEventListener=function(){arguments[0]=i(arguments[0]),t[r].originalFunctions.add.apply(r,arguments)},r.removeEventListener=function(){arguments[0]=i(arguments[0]),t[r].originalFunctions.remove.apply(r,arguments)});function i(e){return t[r].eventsToRewrite.indexOf(e)>=0?"rocket-"+e:e}}(e),t[e].eventsToRewrite.push(r)}function r(t,e){let r=t[e];Object.defineProperty(t,e,{get:()=>r||function(){},set(i){t["rocket"+e]=r=i}})}e(document,"DOMContentLoaded"),e(window,"DOMContentLoaded"),e(window,"load"),e(window,"pageshow"),e(document,"readystatechange"),r(document,"onreadystatechange"),r(window,"onload"),r(window,"onpageshow")}_delayJQueryReady(t){let e;function r(t){return t.split(" ").map(t=>"load"===t||0===t.indexOf("load.")?"rocket-jquery-load":t).join(" ")}function i(i){if(i&&i.fn&&!t.allJQueries.includes(i)){i.fn.ready=i.fn.init.prototype.ready=function(e){return t.domReadyFired?e.bind(document)(i):document.addEventListener("rocket-DOMContentLoaded",()=>e.bind(document)(i)),i([])};let n=i.fn.on;i.fn.on=i.fn.init.prototype.on=function(){return this[0]===window&&("string"==typeof arguments[0]||arguments[0]instanceof String?arguments[0]=r(arguments[0]):"object"==typeof arguments[0]&&Object.keys(arguments[0]).forEach(t=>{let e=arguments[0][t];delete arguments[0][t],arguments[0][r(t)]=e})),n.apply(this,arguments),this},t.allJQueries.push(i)}e=i}i(window.jQuery),Object.defineProperty(window,"jQuery",{get:()=>e,set(t){i(t)}})}async _pendingWebpackRequests(t){let e=document.querySelector("script[data-webpack]");async function r(){return new Promise(t=>{e.addEventListener("load",t),e.addEventListener("error",t)})}e&&(await r(),await t._requestAnimFrame(),await t._pendingWebpackRequests(t))}async _triggerDOMContentLoaded(){this.domReadyFired=!0,await this._littleBreath(),document.dispatchEvent(new Event("rocket-DOMContentLoaded")),await this._littleBreath(),window.dispatchEvent(new Event("rocket-DOMContentLoaded")),await this._littleBreath(),document.dispatchEvent(new Event("rocket-readystatechange")),await this._littleBreath(),document.rocketonreadystatechange&&document.rocketonreadystatechange()}async _triggerWindowLoad(){await this._littleBreath(),window.dispatchEvent(new Event("rocket-load")),await this._littleBreath(),window.rocketonload&&window.rocketonload(),await this._littleBreath(),this.allJQueries.forEach(t=>t(window).trigger("rocket-jquery-load")),await this._littleBreath();let t=new Event("rocket-pageshow");t.persisted=this.persisted,window.dispatchEvent(t),await this._littleBreath(),window.rocketonpageshow&&window.rocketonpageshow({persisted:this.persisted})}_handleDocumentWrite(){let t=new Map;document.write=document.writeln=function(e){let r=document.currentScript;r||console.error("WPRocket unable to document.write this: "+e);let i=document.createRange(),n=r.parentElement,s=t.get(r);void 0===s&&(s=r.nextSibling,t.set(r,s));let a=document.createDocumentFragment();i.setStart(a,0),a.appendChild(i.createContextualFragment(e)),n.insertBefore(a,s)}}async _littleBreath(){Date.now()-this.lastBreath>45&&(await this._requestAnimFrame(),this.lastBreath=Date.now())}async _requestAnimFrame(){return document.hidden?new Promise(t=>setTimeout(t)):new Promise(t=>requestAnimationFrame(t))}_emptyTrash(){this.trash.forEach(t=>t.remove())}static run(){let t=new RocketLazyLoadScripts;t._addUserInteractionListener(t)}}RocketLazyLoadScripts.run();</script>
+<script class="no-lazy">
+	window.gm_cmp_deactivated = true;
+
+	// forcing debug for a time :
+	// localStorage.setItem("getConsole",JSON.stringify(['GTM','consent','ASL','API-CCM']));
+	window.dataLayer = window.dataLayer || [
+		{
+			"appConfig": {
+				"subContainers": [
+					"GTM-P5DPNFB"
+				],
+				"ua": "UA-51661344-1",
+				"flags": {"zen": false}
+			},
+			"country": "FR",
+			"site": "www.phonandroid.com",
+			"pageCategory": "home",
+			"theme": "",
+			"flag": "",
+			"level1": "divers",
+			"idVideo": "",
+			"idArticle": "",
+			"author": "",
+			"environnement": "production",
+			"sitepage": "phonandroid_divers_home",
+			"ads.insertor":{"nodeSelector":"#jArticleInside","exclusionNodeFilter":[".gmma-products", ".gm_app", ".fx-toc", "img", "figure", "h2 + p", "ul", ".image_social_box"]}
+		}
+	];
+
+    !function(e){"use strict";var t,n,o,r=function(){},s=Object.getOwnPropertyNames(window.console).reduce((function(e,t){return"function"==typeof console[t]&&(e[t]=r),e}),{}),i=function(){return s},a=e.console;if("object"==typeof e.JSON&&"function"==typeof e.JSON.parse&&"object"==typeof e.console&&"function"==typeof Object.keys){var c=!/Edge|Trident/.test(navigator.userAgent),u={available:["others.catch","others.show"],broadcasted:[]},f=(t=/^\s+(.*)\s+$/g,n=function(e){return Math.pow(9,e)},o=function(e){return parseInt((e.charCodeAt()<<9)%242)},{get:function(e){e=e.replace(t,"$1");for(var r=[0,0,0],s=0,i=0;s<e.length;s++)i=parseInt(s/r.length),r[s%3]+=parseInt(o(e[s])/n(i));for(s=0;s<r.length;s++)r[s]>255&&(r[s]=255);return r},toRGB:function(e){return"rgb("+e.join(",")+")"},visible:function(e){return e[0]>220||e[1]>220||e[2]>220?[0,0,0]:[255,255,255]}}),d=function(e,t,n,o){return a[t]?function(){var r=Array.prototype.slice.call(arguments);c&&r.unshift("background-color:"+o+";color:"+n+";border-radius:2px;"),r.unshift((c?"%c":"")+[" ",e," "].join("")),a[t].apply(console,r)}:function(){}};e.getConsole=function(e){if("string"!=typeof e)throw"getConsole need a tag name (string)";if(-1===u.available.indexOf(e)&&function(e){u.available.push(e);var t=document.createEvent("CustomEvent");t.initCustomEvent("getConsole.tag.available",0,0,e),document.dispatchEvent(t)}(e),-1!==u.broadcasted.indexOf(e)){var t=f.get(e),n=f.toRGB(f.visible(t)),o=f.toRGB(t),r={log:d(e,"log",n,o),warn:d(e,"warn",n,o),error:d(e,"error",n,o),info:d(e,"info",n,o)};return Object.keys(a).forEach((function(e){void 0===r[e]&&(r[e]=a[e])})),r}return i()},e.getConsole.tags=u,u.broadcasted=function(){try{var e=localStorage.getItem("getConsole");e=null===e?[]:JSON.parse(e)}catch(t){e=[]}return e}(),-1!==u.broadcasted.indexOf("others.catch")&&(e.console=e.getConsole("others.show"))}else e.getConsole=i}(window),logger={_buffer:[],log:function(){"use strict";this._buffer.push(arguments)}},_logmatic=[],logmatic={log:function(){"use strict";_logmatic.push(Array.prototype.slice.call(arguments))}},function(e){"use strict";var t={domains:["hpphmfubhnbobhfs","bnb{po.betztufn","beoyt","epvcmfdmjdl","hpphmftzoejdbujpo","wjefptufq","s77ofu","ufbet","vosvmznfejb","tnbsubetfswfs","tljnsftpvsdft","{fcftupg","uumce","hpphmfbqjt","wjefpqmb{b","hpphmfbetfswjdft","fggfdujwfnfbtvsf","pvucsbjo","ubcppmb"],classes:"ufyuBe!BeCpy!qvc`411y361!qvc`411y361n!qvc`839y:1!ufyu.be!ufyuBe!Mjhbuvt!ufyu`be!ufyu`bet!ufyu.bet!ufyu.be.mjolt",event:{category:"pbt`mpbefe",action:"gbjm"}},n=e.getConsole("inObs"),o=0,r={},s=function(e,t){return t=t||1,e.split("").map((function(e){return String.fromCharCode(e.charCodeAt()+t)})).join("")},i=[];e.integrityObserver={state:{net:null,dom:null,perf:null},corrupted:0,listen:function(e){this.corrupted?e(this.state):i.push(e)},sendToListeners:function(){i.forEach(function(e){e(this.state)}.bind(this))},reportCorruption:function(){var e=function(){"undefined"!=typeof ga?ga("send",{hitType:"event",eventCategory:s(t.event.category,-1),eventAction:s(t.event.action,-1),nonInteraction:1}):setTimeout(e,100)};e()},reportListCorruption:function(){var e,t=[];for(e in this.state)this.state[e]&&t.push(e);t.length>0&&((new Image).src="https://lists.ccmbg.com/st?t="+encodeURIComponent(t.join(","))+"&d="+window.location.host.split(/\./).slice(0,-1).join("."))},reportChange:function(){this.sendToListeners(),this.reportCorruption()},init:function(){var e=function(e){return function(t){this.state[e]=t,t&&(!this.corrupted&&this.reportChange(),this.corrupted=1)}.bind(this)};!function(e){if("undefined"!=typeof MutationObserver){var n=document.createElement("div"),o=document.getElementsByTagName("html")[0],r={},i={childList:1,attributes:1,characterData:1,subtree:1},a=0,c=new MutationObserver((function(t){t.forEach((function(t){"style"===t.attributeName&&(c.disconnect(),"none"===t.target.style.display&&!e.called&&(e.called=1)&&e.call(r,1))}))})),u=new MutationObserver((function(t){t.forEach((function(t){try{if("childList"===t.type&&"HTML"===t.target.nodeName&&t.addedNodes.length&&"BODY"===t.addedNodes[0].nodeName&&!a){a=1,t.addedNodes[0].appendChild(n);var o=getComputedStyle(n);if(r=t.addedNodes[0],u.disconnect(),/Trident/.test(navigator.userAgent))return void setTimeout((function(){!e.called&&(e.called=1)&&e.call(r,0)}),50);setTimeout((function(){t.addedNodes[0].removeChild(n)}),60),c.disconnect(),e.call(t.addedNodes[0],"none"===o.getPropertyValue("display")||/url\("about:abp/.test(o.getPropertyValue("-moz-binding")))}}catch(e){}}))}));n.className=s(t.classes,-1),n.style.display="block",u.observe(o,i),c.observe(n,i)}else e.call(0,0)}(e.call(this,"dom")),function(e,i){if("undefined"!=typeof MutationObserver&&void 0!==URL.prototype){var a=document.getElementsByTagName("html")[0],c=0,u=new MutationObserver((function(a){a.forEach((function(a){try{var f,d,l,p="",g=new Date,h=function(){};if("childList"===a.type&&a.addedNodes.length&&void 0!==(f=a.addedNodes[0]).src&&("SCRIPT"===(p=f.nodeName)||"IFRAME"===p)){try{d=new URL(f.src),l=d&&d.host?d.host.split(/\./).slice(-2).shift():null}catch(e){}h=a.addedNodes[0].onerror,a.addedNodes[0].onerror=function(){try{n.warn("Missing script",f.src),!c&&l&&-1!==t.domains.indexOf(s(l))&&(new Date).getTime()-g.getTime()<1500&&(n.warn("Integrity violation on ",f.src," not observing anymore !"),u.disconnect(),c=1,e(1)),"function"==typeof h&&h.apply(this,Array.prototype.slice.call(arguments))}catch(e){}},"function"==typeof performance.getEntriesByType&&o<2&&"SCRIPT"===p&&-1!==t.domains.indexOf(s(l))&&(void 0===r[l]||"hpphmfubhnbobhfs"===s(l))&&(r[l]=1,a.addedNodes[0].addEventListener("load",(function(){-1===performance.getEntriesByType("resource").map((function(e){return e.name})).indexOf(f.src)&&2==++o&&(u.disconnect(),i(1))})))}}catch(e){}}))}));u.observe(a,{childList:1,attributes:1,characterData:1,subtree:1})}else e.call(0,0)}(e.call(this,"net"),e.call(this,"perf")),window.addEventListener("load",function(){this.reportListCorruption()}.bind(this))}},"function"==typeof Object.bind&&e.integrityObserver.init()}(window),function(e,t,n,o,r){"use strict";void 0===e._gtm&&(e._gtm={events:{on:[],ready:[],readyAll:[],trigger:function(e){this._trigger.push(e)},_trigger:[]},versions:{},onReady:[]}),void 0===e._gtm.versions&&(e._gtm.versions={}),e._gtm.versions.staticheader=1,e._gtm.state="loading";var s=dataLayer[0].appConfig,i=["GTM-N4SNZN"],a=s.subContainers||[],c=e.getConsole("GTM").log,u=function(e){if(void 0!==t.dispatchEvent){var n=null;"function"==typeof Event?n=new Event(e):(n=t.createEvent("Event")).initEvent(e,0,0),t.dispatchEvent(n)}},f=function(){f.state++,f.state===i.length&&(e._gtm.state="loaded",u("gtm.loaded"))},d=function(){e._gtm.state="error",u("gtm.error"),l.clearWorkspacesInfo(this)};f.state=0,i=i.concat(a),c("Loading sub containers:",a);var l={infoKey:"ccm_gtm_workspaces",workspacesInfo:{},fetchWorkspacesInfo:function(){try{this.workspacesInfo=this.getInfoFromQuerystring()||this.getInfoFromCookie()||{}}catch(e){console.error("Cannot get workspaces info.",e)}},parseWorkspacesInfo:function(e){for(var t={},n=e.split("|"),o=0;o<n.length;o++){var r=n[o].split("::");3===r.length&&(t[r[0]]={container:r[0],workspace:r[1],auth:r[2]})}return t},removeInfoFromQuerystring:function(){if(""===e.location.search)return"";for(var t=e.location.search.substring(1).split("&"),n=[],o=0;o<t.length;o++)t[o].split("=")[0]!==this.infoKey&&n.push(t[o]);return"?"+n.join("&")},generatePreviewQuery:function(e){try{var t=this.workspacesInfo[e];return t?(c("["+t.container+'] loading custom workspace "'+t.workspace+'"'),dataLayer[0].appConfig.previewWorkspaces=dataLayer[0].appConfig.previewWorkspaces||[],dataLayer[0].appConfig.previewWorkspaces.push(t),"&gtm_auth="+t.auth+"&gtm_preview="+t.workspace+"&gtm_cookies_win=x"):""}catch(t){return console.error('Cannot generate preview query for container "'+e+'"',t),""}},getInfoFromQuerystring:function(){for(var t=(e.location.search||"").substring(1).split("&"),n=0;n<t.length;n++){var o=t[n].split("=");if(decodeURIComponent(o[0])===this.infoKey)return this.parseWorkspacesInfo(decodeURIComponent(o[1]))}return null},getInfoFromCookie:function(){try{var t=e.document.cookie.match("(^|;) ?"+this.infoKey+"=([^;]*)(;|$)");if(t)return this.parseWorkspacesInfo(decodeURIComponent(t[2]))}catch(e){}return null},clearWorkspacesInfo:function(t){try{var n=t.getAttribute("data-id");if(this.workspacesInfo[n]){c('Cannot load container "'+n+'". Clearing cookie and querystring param...');var o=e.location.hostname.split("."),r=o.length;o=r>2&&"br"===o[r-1]&&"com"===o[r-2]?o.slice(-3).join("."):o.slice(-2).join("."),document.cookie=this.infoKey+"=; domain= "+o+"; path=/; expires=Thu, 01 Jan 1970 00:00:01 GMT;";var s=this.removeInfoFromQuerystring();e.location.search=s}}catch(e){console.error("Cannot clear workspaces info.",e)}}};l.fetchWorkspacesInfo();for(var p=0,g=i.length;p<g;++p){e[o]=e[o]||[],e[o].push({"gtm.start":(new Date).getTime(),event:"gtm.js"});var h=l.generatePreviewQuery(i[p]),m=t.getElementsByTagName(n)[0],v=t.createElement(n);v.async=1,v.onload=f,v.onerror=d,v.setAttribute("data-id",i[p]),v.src="https://www.googletagmanager.com/gtm.js?id="+i[p]+h,m.parentNode.insertBefore(v,m)}}(window,document,"script","dataLayer"),OAS_AD_BUFFER=[],OAS_AD=function(){OAS_AD_BUFFER.push(Array.prototype.slice.call(arguments))},function(e){"use strict";function t(t){t instanceof ErrorEvent&&e._gtm.errors.push({message:t.message,stack:t.error?t.error.stack:void 0,name:t.error?t.error.name:void 0,filename:t.filename,line:t.lineno,column:t.colno})}function n(t){t.reason instanceof Error?e._gtm.errors.push({message:t.reason.message,stack:t.reason.stack,name:t.reason.name,promise:1,filename:t.reason.filename,line:t.reason.lineno,column:t.reason.colno}):e._gtm.errors.push({message:t.reason,promise:1})}e._gtm=e._gtm||{},e._gtm.errors=[],e._gtm.errors.types=[],e._gtm.errors.types.push({type:"error",callback:t}),e.addEventListener("error",t),e._gtm.errors.types.push({type:"unhandledrejection",callback:n}),e.addEventListener("unhandledrejection",n)}(window);
+    (function(console){
+		console.log('static headers APIs ok', getConsole);
+		console.log('datalayer', dataLayer);
+		console.log('IAB stub off ?', typeof __tcfapi === 'undefined' ? 'OK' : 'KO' );
+		console.log('injection IAB stub');
+		"use strict";!function(){var e=function(){var e,t="__tcfapiLocator",a=[],n=window;for(;n;){try{if(n.frames[t]){e=n;break}}catch(e){}if(n===window.top)break;n=n.parent}e||(!function e(){var a=n.document,r=!!n.frames[t];if(!r)if(a.body){var i=a.createElement("iframe");i.style.cssText="display:none",i.name=t,a.body.appendChild(i)}else setTimeout(e,5);return!r}(),n.__tcfapi=function(){for(var e,t=arguments.length,n=new Array(t),r=0;r<t;r++)n[r]=arguments[r];if(!n.length)return a;if("setGdprApplies"===n[0])n.length>3&&2===parseInt(n[1],10)&&"boolean"==typeof n[3]&&(e=n[3],"function"==typeof n[2]&&n[2]("set",!0));else if("ping"===n[0]){var i={gdprApplies:e,cmpLoaded:!1,cmpStatus:"stub"};"function"==typeof n[2]&&n[2](i)}else a.push(n)},n.addEventListener("message",(function(e){var t="string"==typeof e.data,a={};try{a=t?JSON.parse(e.data):e.data}catch(e){}var n=a.__tcfapiCall;n&&window.__tcfapi(n.command,n.version,(function(a,r){var i={__tcfapiReturn:{returnValue:a,success:r,callId:n.callId}};t&&(i=JSON.stringify(i)),e.source.postMessage(i,"*")}),n.parameter)}),!1))};"undefined"!=typeof module?module.exports=e:e()}();
+		console.log('IAB stub',__tcfapi ? 'OK' : 'KO');
+	}(getConsole('API-CCM')));
+
+	window.dataLayer.push({
+		"event":"app.config",
+		"appConfig":{
+			"asl":{
+				"screens":{
+					"mobile":{
+						"max":480,
+						"invcode":"mobile",
+						"client":"dfpfr"
+					},
+					"tablet":{
+						"min":480,
+						"max":1024,
+						"invcode":"tablet",
+						"client":"dfpfr"
+					},
+					"desktop":{
+						"min":1024,
+						"invcode":"desktop",
+						"client":"dfpfr"
+					}
+				},
+				"sitepage":"phonandroid_divers_home",
+				"keywords":[]
+			}
+		}
+	});
+</script>
+
+
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta property="fb:pages" content="101102083280258" />
+	<meta name="theme-color" content="#84BB1E">
+	<link rel="publisher" href="https://plus.google.com/+phonandroid"/>
+	<meta name="google" content="nositelinkssearchbox"> <link rel="profile" href="https://gmpg.org/xfn/11">
+	
+	<link rel="shortcut icon" href="https://www.phonandroid.com/wp-content/themes/phonadroid-v3/assets/images/favicons/favicon.ico">
+	<link rel="icon" type="image/png" href="https://www.phonandroid.com/wp-content/themes/phonadroid-v3/assets/images/favicons/apple-touch-icon.png">
+	
+	<link rel='dns-prefetch' href='//phonandroid.disqus.com' />
+<script type="rocketlazyloadscript">
+	var current_menu_version = '1700489984';
+	var ajaxurl = 'https://www.phonandroid.com/wp-admin/admin-ajax.php';
+	var light_ajaxurl = 'https://www.phonandroid.com/wp-content/themes/phonadroid-v3/ajax.php';
+</script>
+<meta name='robots' content='index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1' />
+
+	<!-- This site is optimized with the Yoast SEO plugin v21.5 - https://yoast.com/wordpress/plugins/seo/ -->
+	<title>PhonAndroid &#8211; toute l&#039;actualité high-tech et nouvelles technologies</title><link rel="preload" as="style" href="https://fonts.googleapis.com/css?family=Play%3A400%2C700%7CElectrolize%7COpen%20Sans%3A400%2C700&#038;display=swap" /><link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Play%3A400%2C700%7CElectrolize%7COpen%20Sans%3A400%2C700&#038;display=swap" media="print" onload="this.media='all'" /><noscript><link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Play%3A400%2C700%7CElectrolize%7COpen%20Sans%3A400%2C700&#038;display=swap" /></noscript>
+	<meta name="description" content="La meilleure communauté francophone dédiée à l&#039;actualité android et High tech ! découvrez les nouveaux tests smartphones, apps, jeux vidéo ,tutoriels et astuces en avant-première !" />
+	<link rel="canonical" href="https://www.phonandroid.com" />
+	<link rel="next" href="https://www.phonandroid.com/page/2" />
+	<meta property="og:locale" content="fr_FR" />
+	<meta property="og:type" content="website" />
+	<meta property="og:title" content="PhonAndroid" />
+	<meta property="og:description" content="La meilleure communauté francophone dédiée à l&#039;actualité android et High tech ! découvrez les nouveaux tests smartphones, apps, jeux vidéo ,tutoriels et astuces en avant-première !" />
+	<meta property="og:url" content="https://www.phonandroid.com/" />
+	<meta property="og:site_name" content="PhonAndroid" />
+	<meta name="twitter:card" content="summary_large_image" />
+	<meta name="twitter:site" content="@phonandroid" />
+	<script type="application/ld+json" class="yoast-schema-graph">{"@context":"https://schema.org","@graph":[{"@type":"CollectionPage","@id":"https://www.phonandroid.com/","url":"https://www.phonandroid.com/","name":"PhonAndroid &#8211; toute l'actualité high-tech et nouvelles technologies","isPartOf":{"@id":"https://www.phonandroid.com/#website"},"about":{"@id":"https://www.phonandroid.com/#organization"},"description":"La meilleure communauté francophone dédiée à l'actualité android et High tech ! découvrez les nouveaux tests smartphones, apps, jeux vidéo ,tutoriels et astuces en avant-première !","breadcrumb":{"@id":"https://www.phonandroid.com/#breadcrumb"},"inLanguage":"fr-FR"},{"@type":"BreadcrumbList","@id":"https://www.phonandroid.com/#breadcrumb","itemListElement":[{"@type":"ListItem","position":1,"name":"Accueil"}]},{"@type":"WebSite","@id":"https://www.phonandroid.com/#website","url":"https://www.phonandroid.com/","name":"PhonAndroid","description":"PhonAndroid","publisher":{"@id":"https://www.phonandroid.com/#organization"},"potentialAction":[{"@type":"SearchAction","target":{"@type":"EntryPoint","urlTemplate":"https://www.phonandroid.com/?s={search_term_string}"},"query-input":"required name=search_term_string"}],"inLanguage":"fr-FR"},{"@type":"Organization","@id":"https://www.phonandroid.com/#organization","name":"PhonAndroid","url":"https://www.phonandroid.com/","logo":{"@type":"ImageObject","inLanguage":"fr-FR","@id":"https://www.phonandroid.com/#/schema/logo/image/","url":"https://www.phonandroid.com/wp-content/themes/phonadroid-v3/assets/images/lg-phonandroid-amp-3.png","contentUrl":"https://img.phonandroid.com/2023/06/dark.png","width":280,"height":60,"caption":"PhonAndroid"},"image":{"@id":"https://www.phonandroid.com/#/schema/logo/image/"},"sameAs":["https://www.facebook.com/phonandroid","https://twitter.com/phonandroid","https://www.youtube.com/user/Phonandroidtv"]}]}</script>
+	<!-- / Yoast SEO plugin. -->
+
+
+<link rel='dns-prefetch' href='//cdnjs.cloudflare.com' />
+<link rel='dns-prefetch' href='//fonts.googleapis.com' />
+<link rel='dns-prefetch' href='//wp-pa.phonandroid.com' />
+<link rel='dns-prefetch' href='//ajax.googleapis.com' />
+<link rel='dns-prefetch' href='//fonts.gstatic.com' />
+<link rel='dns-prefetch' href='//cdn.taboola.com' />
+<link rel='dns-prefetch' href='//cdn.galaxiemedia.fr' />
+<link rel='dns-prefetch' href='//cdn.priice.net' />
+<link rel='dns-prefetch' href='//c.disquscdn.com' />
+<link rel='dns-prefetch' href='//disqus.com' />
+<link rel='dns-prefetch' href='//c.amazon-adsystem.com' />
+<link rel='dns-prefetch' href='//cdn.blaick.com' />
+<link rel='dns-prefetch' href='//connect.facebook.net' />
+<link rel='dns-prefetch' href='//sdk.privacy-center.org' />
+<link rel='dns-prefetch' href='//z.moatads.com' />
+<link rel='dns-prefetch' href='//tag.agrvt.com' />
+<link rel='dns-prefetch' href='//kvm.galaxiemedia.fr' />
+<link rel='dns-prefetch' href='//boot.pbstck.com' />
+<link rel='dns-prefetch' href='//api.dmcdn.net' />
+<link rel='dns-prefetch' href='//cdn.permutive.com' />
+<link rel='dns-prefetch' href='//cdn.jsdelivr.net' />
+<link rel='dns-prefetch' href='//puffypaste.com' />
+<link rel='dns-prefetch' href='//px.moatads.com' />
+<link rel='dns-prefetch' href='//mb.moatads.com' />
+<link rel='dns-prefetch' href='//ib.adnxs.com' />
+<link rel='dns-prefetch' href='//trc.taboola.com' />
+<link rel='dns-prefetch' href='//api.dailymotion.com' />
+<link rel='dns-prefetch' href='//www.facebook.com' />
+<link rel='dns-prefetch' href='//ad.doubleclick.net' />
+<link rel='dns-prefetch' href='//tpc.googlesyndication.com' />
+<link rel='dns-prefetch' href='//api.permutive.com' />
+<link rel='dns-prefetch' href='//cdn.beta.pbstck.com' />
+<link rel='dns-prefetch' href='//images.taboola.com' />
+<link rel='dns-prefetch' href='//secure.adnxs.com' />
+<link href='https://fonts.gstatic.com' crossorigin rel='preconnect' />
+<style id='classic-theme-styles-inline-css' type='text/css'>
+/*! This file is auto-generated */
+.wp-block-button__link{color:#fff;background-color:#32373c;border-radius:9999px;box-shadow:none;text-decoration:none;padding:calc(.667em + 2px) calc(1.333em + 2px);font-size:1.125em}.wp-block-file__button{background:#32373c;color:#fff;text-decoration:none}
+</style>
+<style id='global-styles-inline-css' type='text/css'>
+body{--wp--preset--color--black: #000000;--wp--preset--color--cyan-bluish-gray: #abb8c3;--wp--preset--color--white: #ffffff;--wp--preset--color--pale-pink: #f78da7;--wp--preset--color--vivid-red: #cf2e2e;--wp--preset--color--luminous-vivid-orange: #ff6900;--wp--preset--color--luminous-vivid-amber: #fcb900;--wp--preset--color--light-green-cyan: #7bdcb5;--wp--preset--color--vivid-green-cyan: #00d084;--wp--preset--color--pale-cyan-blue: #8ed1fc;--wp--preset--color--vivid-cyan-blue: #0693e3;--wp--preset--color--vivid-purple: #9b51e0;--wp--preset--gradient--vivid-cyan-blue-to-vivid-purple: linear-gradient(135deg,rgba(6,147,227,1) 0%,rgb(155,81,224) 100%);--wp--preset--gradient--light-green-cyan-to-vivid-green-cyan: linear-gradient(135deg,rgb(122,220,180) 0%,rgb(0,208,130) 100%);--wp--preset--gradient--luminous-vivid-amber-to-luminous-vivid-orange: linear-gradient(135deg,rgba(252,185,0,1) 0%,rgba(255,105,0,1) 100%);--wp--preset--gradient--luminous-vivid-orange-to-vivid-red: linear-gradient(135deg,rgba(255,105,0,1) 0%,rgb(207,46,46) 100%);--wp--preset--gradient--very-light-gray-to-cyan-bluish-gray: linear-gradient(135deg,rgb(238,238,238) 0%,rgb(169,184,195) 100%);--wp--preset--gradient--cool-to-warm-spectrum: linear-gradient(135deg,rgb(74,234,220) 0%,rgb(151,120,209) 20%,rgb(207,42,186) 40%,rgb(238,44,130) 60%,rgb(251,105,98) 80%,rgb(254,248,76) 100%);--wp--preset--gradient--blush-light-purple: linear-gradient(135deg,rgb(255,206,236) 0%,rgb(152,150,240) 100%);--wp--preset--gradient--blush-bordeaux: linear-gradient(135deg,rgb(254,205,165) 0%,rgb(254,45,45) 50%,rgb(107,0,62) 100%);--wp--preset--gradient--luminous-dusk: linear-gradient(135deg,rgb(255,203,112) 0%,rgb(199,81,192) 50%,rgb(65,88,208) 100%);--wp--preset--gradient--pale-ocean: linear-gradient(135deg,rgb(255,245,203) 0%,rgb(182,227,212) 50%,rgb(51,167,181) 100%);--wp--preset--gradient--electric-grass: linear-gradient(135deg,rgb(202,248,128) 0%,rgb(113,206,126) 100%);--wp--preset--gradient--midnight: linear-gradient(135deg,rgb(2,3,129) 0%,rgb(40,116,252) 100%);--wp--preset--font-size--small: 13px;--wp--preset--font-size--medium: 20px;--wp--preset--font-size--large: 36px;--wp--preset--font-size--x-large: 42px;--wp--preset--spacing--20: 0.44rem;--wp--preset--spacing--30: 0.67rem;--wp--preset--spacing--40: 1rem;--wp--preset--spacing--50: 1.5rem;--wp--preset--spacing--60: 2.25rem;--wp--preset--spacing--70: 3.38rem;--wp--preset--spacing--80: 5.06rem;--wp--preset--shadow--natural: 6px 6px 9px rgba(0, 0, 0, 0.2);--wp--preset--shadow--deep: 12px 12px 50px rgba(0, 0, 0, 0.4);--wp--preset--shadow--sharp: 6px 6px 0px rgba(0, 0, 0, 0.2);--wp--preset--shadow--outlined: 6px 6px 0px -3px rgba(255, 255, 255, 1), 6px 6px rgba(0, 0, 0, 1);--wp--preset--shadow--crisp: 6px 6px 0px rgba(0, 0, 0, 1);}:where(.is-layout-flex){gap: 0.5em;}:where(.is-layout-grid){gap: 0.5em;}body .is-layout-flow > .alignleft{float: left;margin-inline-start: 0;margin-inline-end: 2em;}body .is-layout-flow > .alignright{float: right;margin-inline-start: 2em;margin-inline-end: 0;}body .is-layout-flow > .aligncenter{margin-left: auto !important;margin-right: auto !important;}body .is-layout-constrained > .alignleft{float: left;margin-inline-start: 0;margin-inline-end: 2em;}body .is-layout-constrained > .alignright{float: right;margin-inline-start: 2em;margin-inline-end: 0;}body .is-layout-constrained > .aligncenter{margin-left: auto !important;margin-right: auto !important;}body .is-layout-constrained > :where(:not(.alignleft):not(.alignright):not(.alignfull)){max-width: var(--wp--style--global--content-size);margin-left: auto !important;margin-right: auto !important;}body .is-layout-constrained > .alignwide{max-width: var(--wp--style--global--wide-size);}body .is-layout-flex{display: flex;}body .is-layout-flex{flex-wrap: wrap;align-items: center;}body .is-layout-flex > *{margin: 0;}body .is-layout-grid{display: grid;}body .is-layout-grid > *{margin: 0;}:where(.wp-block-columns.is-layout-flex){gap: 2em;}:where(.wp-block-columns.is-layout-grid){gap: 2em;}:where(.wp-block-post-template.is-layout-flex){gap: 1.25em;}:where(.wp-block-post-template.is-layout-grid){gap: 1.25em;}.has-black-color{color: var(--wp--preset--color--black) !important;}.has-cyan-bluish-gray-color{color: var(--wp--preset--color--cyan-bluish-gray) !important;}.has-white-color{color: var(--wp--preset--color--white) !important;}.has-pale-pink-color{color: var(--wp--preset--color--pale-pink) !important;}.has-vivid-red-color{color: var(--wp--preset--color--vivid-red) !important;}.has-luminous-vivid-orange-color{color: var(--wp--preset--color--luminous-vivid-orange) !important;}.has-luminous-vivid-amber-color{color: var(--wp--preset--color--luminous-vivid-amber) !important;}.has-light-green-cyan-color{color: var(--wp--preset--color--light-green-cyan) !important;}.has-vivid-green-cyan-color{color: var(--wp--preset--color--vivid-green-cyan) !important;}.has-pale-cyan-blue-color{color: var(--wp--preset--color--pale-cyan-blue) !important;}.has-vivid-cyan-blue-color{color: var(--wp--preset--color--vivid-cyan-blue) !important;}.has-vivid-purple-color{color: var(--wp--preset--color--vivid-purple) !important;}.has-black-background-color{background-color: var(--wp--preset--color--black) !important;}.has-cyan-bluish-gray-background-color{background-color: var(--wp--preset--color--cyan-bluish-gray) !important;}.has-white-background-color{background-color: var(--wp--preset--color--white) !important;}.has-pale-pink-background-color{background-color: var(--wp--preset--color--pale-pink) !important;}.has-vivid-red-background-color{background-color: var(--wp--preset--color--vivid-red) !important;}.has-luminous-vivid-orange-background-color{background-color: var(--wp--preset--color--luminous-vivid-orange) !important;}.has-luminous-vivid-amber-background-color{background-color: var(--wp--preset--color--luminous-vivid-amber) !important;}.has-light-green-cyan-background-color{background-color: var(--wp--preset--color--light-green-cyan) !important;}.has-vivid-green-cyan-background-color{background-color: var(--wp--preset--color--vivid-green-cyan) !important;}.has-pale-cyan-blue-background-color{background-color: var(--wp--preset--color--pale-cyan-blue) !important;}.has-vivid-cyan-blue-background-color{background-color: var(--wp--preset--color--vivid-cyan-blue) !important;}.has-vivid-purple-background-color{background-color: var(--wp--preset--color--vivid-purple) !important;}.has-black-border-color{border-color: var(--wp--preset--color--black) !important;}.has-cyan-bluish-gray-border-color{border-color: var(--wp--preset--color--cyan-bluish-gray) !important;}.has-white-border-color{border-color: var(--wp--preset--color--white) !important;}.has-pale-pink-border-color{border-color: var(--wp--preset--color--pale-pink) !important;}.has-vivid-red-border-color{border-color: var(--wp--preset--color--vivid-red) !important;}.has-luminous-vivid-orange-border-color{border-color: var(--wp--preset--color--luminous-vivid-orange) !important;}.has-luminous-vivid-amber-border-color{border-color: var(--wp--preset--color--luminous-vivid-amber) !important;}.has-light-green-cyan-border-color{border-color: var(--wp--preset--color--light-green-cyan) !important;}.has-vivid-green-cyan-border-color{border-color: var(--wp--preset--color--vivid-green-cyan) !important;}.has-pale-cyan-blue-border-color{border-color: var(--wp--preset--color--pale-cyan-blue) !important;}.has-vivid-cyan-blue-border-color{border-color: var(--wp--preset--color--vivid-cyan-blue) !important;}.has-vivid-purple-border-color{border-color: var(--wp--preset--color--vivid-purple) !important;}.has-vivid-cyan-blue-to-vivid-purple-gradient-background{background: var(--wp--preset--gradient--vivid-cyan-blue-to-vivid-purple) !important;}.has-light-green-cyan-to-vivid-green-cyan-gradient-background{background: var(--wp--preset--gradient--light-green-cyan-to-vivid-green-cyan) !important;}.has-luminous-vivid-amber-to-luminous-vivid-orange-gradient-background{background: var(--wp--preset--gradient--luminous-vivid-amber-to-luminous-vivid-orange) !important;}.has-luminous-vivid-orange-to-vivid-red-gradient-background{background: var(--wp--preset--gradient--luminous-vivid-orange-to-vivid-red) !important;}.has-very-light-gray-to-cyan-bluish-gray-gradient-background{background: var(--wp--preset--gradient--very-light-gray-to-cyan-bluish-gray) !important;}.has-cool-to-warm-spectrum-gradient-background{background: var(--wp--preset--gradient--cool-to-warm-spectrum) !important;}.has-blush-light-purple-gradient-background{background: var(--wp--preset--gradient--blush-light-purple) !important;}.has-blush-bordeaux-gradient-background{background: var(--wp--preset--gradient--blush-bordeaux) !important;}.has-luminous-dusk-gradient-background{background: var(--wp--preset--gradient--luminous-dusk) !important;}.has-pale-ocean-gradient-background{background: var(--wp--preset--gradient--pale-ocean) !important;}.has-electric-grass-gradient-background{background: var(--wp--preset--gradient--electric-grass) !important;}.has-midnight-gradient-background{background: var(--wp--preset--gradient--midnight) !important;}.has-small-font-size{font-size: var(--wp--preset--font-size--small) !important;}.has-medium-font-size{font-size: var(--wp--preset--font-size--medium) !important;}.has-large-font-size{font-size: var(--wp--preset--font-size--large) !important;}.has-x-large-font-size{font-size: var(--wp--preset--font-size--x-large) !important;}
+.wp-block-navigation a:where(:not(.wp-element-button)){color: inherit;}
+:where(.wp-block-post-template.is-layout-flex){gap: 1.25em;}:where(.wp-block-post-template.is-layout-grid){gap: 1.25em;}
+:where(.wp-block-columns.is-layout-flex){gap: 2em;}:where(.wp-block-columns.is-layout-grid){gap: 2em;}
+.wp-block-pullquote{font-size: 1.5em;line-height: 1.6;}
+</style>
+<link data-minify="1" rel='stylesheet' id='font-awesome-css' href='https://www.phonandroid.com/wp-content/cache/min/1/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css?ver=1700131724' type='text/css' media='all' />
+<link data-minify="1" rel='stylesheet' id='phonadroid-style-css' href='https://www.phonandroid.com/wp-content/cache/min/1/wp-content/themes/phonadroid-v3/assets/css/style.css?ver=1700131724' type='text/css' media='all' />
+<link data-minify="1" rel='stylesheet' id='phonadroid-adstyle-css' href='https://www.phonandroid.com/wp-content/cache/min/1/wp-content/themes/phonadroid-v3/assets/css/adstyle.css?ver=1700131724' type='text/css' media='all' />
+
+<link data-minify="1" rel='stylesheet' id='tablepress-default-css' href='https://www.phonandroid.com/wp-content/cache/min/1/wp-content/plugins/tablepress/css/build/default.css?ver=1700131724' type='text/css' media='all' />
+<script type="rocketlazyloadscript" data-rocket-type='text/javascript' data-rocket-src='https://www.phonandroid.com/wp-content/themes/phonadroid-v3/assets/js/jquery.min.js' id='jquery-core-js'></script>
+<link rel="https://api.w.org/" href="https://www.phonandroid.com/wp-json/" /><link rel="EditURI" type="application/rsd+xml" title="RSD" href="https://www.phonandroid.com/xmlrpc.php?rsd" />
+<style>.widget_gm_vpn_widget .heading-text{padding:8px 10px;margin-bottom:20px;align-items:center;font-weight:400;display:flex;height:40px;text-decoration:none;border-radius:5px;justify-content:center;font-size:16px;color:#fff;background:#6a6a6a}.widget_gm_vpn_widget .gm-vpn-item{position:absolute;color:#fff;display:flex;align-items:center;left:-1px;font-size:17px;top:0;padding-left:5px;z-index:1;justify-content:center;height:18px;width:20px;background:#4dbe3b}.widget_gm_vpn_widget .gm-vpn-item:after{content:" ";position:absolute;left:20px;width:0;top:0;height:0;z-index:1;border-bottom:17px solid transparent;border-left:9px solid #4dbe3b}.gm-vpn-widget{display:flex;cursor:pointer;position:relative;padding:5px 20px;border-left:5px solid #4dbe3b;margin-bottom:15px;background:#fbfbfb}.dark-theme .gm-vpn-widget{background:#232323!important}.gm-vpn-widget img{max-height:80px}.ribbon-gm-vpn-widget{--f:10px;--r:10px;--t:10px;position:absolute;inset:var(--t) calc(-1*var(--f)) auto auto;height:35px;color:#fff;padding:0 10px var(--f) calc(10px + var(--r));clip-path:polygon(0 0,100% 0,100% calc(100% - var(--f)),calc(100% - var(--f)) 100%,calc(100% - var(--f)) calc(100% - var(--f)),0 calc(100% - var(--f)),var(--r) calc(50% - var(--f)/ 2));background:#f80;box-shadow:0 calc(-1*var(--f)) 0 inset #0005;display:flex;align-items:center;font-size:11px}.widget_gm_vpn_widget .gm-vpn-detail{display:flex;flex-direction:column;align-items:center;align-self:center;color:#4dbe3b;font-family:sans-serif;font-size:20px;flex:50%}.widget_gm_vpn_widget .gm-vpn-detail a{color:#4dbe3b;font-size:14px;font-family:sans-serif;margin-top:15px}.widget_gm_vpn_widget .gm-vpn-detail a:hover{text-decoration:underline}</style><style type="text/css">.broken_link, a.broken_link {
+	text-decoration: line-through;
+}</style><!-- There is no amphtml version available for this URL. --><link rel="icon" href="https://wp-pa.phonandroid.com/uploads/2023/06/icon_pa_150x150-110x110.jpg" sizes="32x32" />
+<link rel="icon" href="https://wp-pa.phonandroid.com/uploads/2023/06/icon_pa_150x150.jpg" sizes="192x192" />
+<link rel="apple-touch-icon" href="https://wp-pa.phonandroid.com/uploads/2023/06/icon_pa_150x150.jpg" />
+<meta name="msapplication-TileImage" content="https://wp-pa.phonandroid.com/uploads/2023/06/icon_pa_150x150.jpg" />
+		<style type="text/css" id="wp-custom-css">
+			#purch-gdpr-banner{background:#2c333b!important;border-top:none!important}#purch-gdpr-banner p{text-align:center;padding:10px 0!important;margin-bottom:0}#purch-gdpr-banner #purch-gdpr-banner__close{top:50%!important;-webkit-transform:translateY(-50%);-ms-transform:translateY(-50%);transform:translateY(-50%)}
+[class*="app_gdpr--"] .button,[class*="app_gdpr--"] button,[class*="app_gdpr--"] input[type=submit]{box-shadow:inherit}
+.jConsentChoice {cursor:pointer;}
+.app_layout_header {margin-bottom:20px}		</style>
+		<noscript><style id="rocket-lazyload-nojs-css">.rll-youtube-player, [data-lazy-src]{display:none !important;}</style></noscript>
+<script type="rocketlazyloadscript">
+
+function collapseComments() {
+    if ($('#disqus_thread iframe[id^="dsq-"]').height() <= 400) {
+        $('#expand-comments').prop('checked', true);
+    }
+}
+
+disqus_config = function() {
+    this.callbacks.onReady.push(function() { collapseComments(); });
+}
+
+</script>
+
+
+</head>
+<body class="home blog">
+<div id="fb-root"></div>
+<div id="ctn_x02"><div id="ba_x02" class="ba x02"><script>OAS_AD('X02');</script></div></div><!-- main container of all the page elements -->
+<div id="wrapper">
+	<!-- header of the page -->
+<header id="header">
+	<!-- header-holder -->
+	<div class="header-holder">
+		<!-- logo of the page -->
+			<h1 class="logo">
+				<a href="https://www.phonandroid.com">
+					<span class="hidden">PhonAndroid</span>
+					<img width="1214" height="203" src="https://www.phonandroid.com/wp-content/themes/phonadroid-v3/assets/images/phonandroid-logo.svg" alt="Phonandroid : actu Android et High-tech" data-skip-lazy>
+				</a>
+			</h1>
+		<!-- nav -->
+
+		<!-- menu-area -->
+		<div class="menu-area">
+			<!-- nav-opener -->
+			<div class="toggle-relative mobile-only">
+				<input type="checkbox" id="nav-opener" class="toggle-opener hidden-xxx">
+				<label for="nav-opener" class="nav-opener"><span></span></label>
+				<!-- drop-slide -->
+				<div class="toggle-container mobile-only toggle-absolute">
+					<!-- inner -->
+					<div class="inner">
+						<div class="main-menus">
+							<ul class="accordion">
+								<li>
+									<input type="checkbox" id="toggle-cat-actu" class="toggle-opener hidden-xxx">
+									<div class="toggle-outer-container">
+										<label class="opener" for="toggle-cat-actu" data-cat="posts"><span>Actu</span></label>
+                                                                                    <div class="toggle-container handeld-only loaded">
+                                                <ul class="sub-menu"><li id='menu-item-2264645'  class="menu-item menu-item-type-taxonomy menu-item-object-category menu-item-has-children"><input type="checkbox" id="toggle-cat-2264645" class="toggle-opener hidden-xxx"><div class="toggle-outer-container"><label class="opener pseudo-a v-mobile-only" for="toggle-cat-2264645">Actu Généraliste</label><label class="opener v-desktop-only" for="toggle-cat-2264645"><a  href="https://www.phonandroid.com/cat/actu-generaliste" class="parent-category">Actu Généraliste</a> </label>
+<div class="toggle-container toggle-overlay handeld-only v-mobile-only"><label class="back pseudo-a" for="toggle-cat-2264645"></label><a class="parent-category" href="https://www.phonandroid.com/cat/actu-generaliste">Actu Généraliste</a><ul class="sub-terms" data-test="ddeee">
+<li id='menu-item-2264648'  class="menu-item menu-item-type-taxonomy menu-item-object-category sub-1"><a  href="https://www.phonandroid.com/cat/actu-generaliste/internet">Internet</a> </li>
+<li id='menu-item-2264649'  class="menu-item menu-item-type-taxonomy menu-item-object-category sub-1"><a  href="https://www.phonandroid.com/cat/actu-generaliste/windows">Windows</a> </li>
+<li id='menu-item-2264651'  class="menu-item menu-item-type-taxonomy menu-item-object-category sub-1"><a  href="https://www.phonandroid.com/cat/actu-generaliste/logiciels">Logiciels</a> </li>
+<li id='menu-item-2264652'  class="menu-item menu-item-type-taxonomy menu-item-object-category sub-1"><a  href="https://www.phonandroid.com/cat/actu-generaliste/securite">Sécurité</a> </li>
+<li id='menu-item-2264647'  class="menu-item menu-item-type-taxonomy menu-item-object-category sub-1"><a  href="https://www.phonandroid.com/cat/actu-generaliste/insolite">Insolite</a> </li>
+<li id='menu-item-2264650'  class="menu-item menu-item-type-taxonomy menu-item-object-category sub-1"><a  href="https://www.phonandroid.com/cat/actu-generaliste/tv">TV</a> </li>
+</ul></div>
+</div></li>
+<li id='menu-item-2264654'  class="menu-item menu-item-type-taxonomy menu-item-object-category menu-item-has-children"><input type="checkbox" id="toggle-cat-2264654" class="toggle-opener hidden-xxx"><div class="toggle-outer-container"><label class="opener pseudo-a v-mobile-only" for="toggle-cat-2264654">Android</label><label class="opener v-desktop-only" for="toggle-cat-2264654"><a  href="https://www.phonandroid.com/cat/actualite-android" class="parent-category">Android</a> </label>
+<div class="toggle-container toggle-overlay handeld-only v-mobile-only"><label class="back pseudo-a" for="toggle-cat-2264654"></label><a class="parent-category" href="https://www.phonandroid.com/cat/actualite-android">Android</a><ul class="sub-terms" data-test="ddeee">
+<li id='menu-item-2264659'  class="menu-item menu-item-type-taxonomy menu-item-object-category sub-1"><a  href="https://www.phonandroid.com/cat/actualite-android/android-tv">Android TV</a> </li>
+<li id='menu-item-2264677'  class="menu-item menu-item-type-taxonomy menu-item-object-category sub-1"><a  href="https://www.phonandroid.com/cat/actualite-android/jeux-android">Jeux Android</a> </li>
+<li id='menu-item-2264655'  class="menu-item menu-item-type-taxonomy menu-item-object-category sub-1"><a  href="https://www.phonandroid.com/cat/actualite-android/mises-a-jour-android">Mises à jour Android</a> </li>
+<li id='menu-item-2264656'  class="menu-item menu-item-type-taxonomy menu-item-object-category sub-1"><a  href="https://www.phonandroid.com/cat/actualite-android/personnalisation">Personnalisation</a> </li>
+<li id='menu-item-2264658'  class="menu-item menu-item-type-taxonomy menu-item-object-category sub-1"><a  href="https://www.phonandroid.com/cat/actualite-android/securite-android">Sécurité Android</a> </li>
+</ul></div>
+</div></li>
+<li id='menu-item-2264660'  class="menu-item menu-item-type-taxonomy menu-item-object-category menu-item-has-children"><input type="checkbox" id="toggle-cat-2264660" class="toggle-opener hidden-xxx"><div class="toggle-outer-container"><label class="opener pseudo-a v-mobile-only" for="toggle-cat-2264660">Apple</label><label class="opener v-desktop-only" for="toggle-cat-2264660"><a  href="https://www.phonandroid.com/cat/concurrence" class="parent-category">Apple</a> </label>
+<div class="toggle-container toggle-overlay handeld-only v-mobile-only"><label class="back pseudo-a" for="toggle-cat-2264660"></label><a class="parent-category" href="https://www.phonandroid.com/cat/concurrence">Apple</a><ul class="sub-terms" data-test="ddeee">
+<li id='menu-item-2264661'  class="menu-item menu-item-type-taxonomy menu-item-object-category sub-1"><a  href="https://www.phonandroid.com/cat/concurrence/iphone">iPhone</a> </li>
+<li id='menu-item-2264662'  class="menu-item menu-item-type-taxonomy menu-item-object-category sub-1"><a  href="https://www.phonandroid.com/cat/concurrence/ios">iOS</a> </li>
+<li id='menu-item-2264663'  class="menu-item menu-item-type-taxonomy menu-item-object-category sub-1"><a  href="https://www.phonandroid.com/cat/concurrence/ipad">iPad</a> </li>
+</ul></div>
+</div></li>
+<li id='menu-item-2264664'  class="menu-item menu-item-type-taxonomy menu-item-object-category"><a  href="https://www.phonandroid.com/cat/comparatifs">Comparatifs</a> </li>
+<li id='menu-item-2264669'  class="menu-item menu-item-type-taxonomy menu-item-object-category menu-item-has-children"><input type="checkbox" id="toggle-cat-2264669" class="toggle-opener hidden-xxx"><div class="toggle-outer-container"><label class="opener pseudo-a v-mobile-only" for="toggle-cat-2264669">Console et jeux vidéo</label><label class="opener v-desktop-only" for="toggle-cat-2264669"><a  href="https://www.phonandroid.com/cat/consoles-jeux-video" class="parent-category">Console et jeux vidéo</a> </label>
+<div class="toggle-container toggle-overlay handeld-only v-mobile-only"><label class="back pseudo-a" for="toggle-cat-2264669"></label><a class="parent-category" href="https://www.phonandroid.com/cat/consoles-jeux-video">Console et jeux vidéo</a><ul class="sub-terms" data-test="ddeee">
+<li id='menu-item-2264670'  class="menu-item menu-item-type-taxonomy menu-item-object-category sub-1"><a  href="https://www.phonandroid.com/cat/consoles-jeux-video/nintendo">Nintendo</a> </li>
+<li id='menu-item-2264671'  class="menu-item menu-item-type-taxonomy menu-item-object-category sub-1"><a  href="https://www.phonandroid.com/cat/consoles-jeux-video/playstation">Playstation</a> </li>
+<li id='menu-item-2264672'  class="menu-item menu-item-type-taxonomy menu-item-object-category sub-1"><a  href="https://www.phonandroid.com/cat/consoles-jeux-video/xbox">Xbox</a> </li>
+</ul></div>
+</div></li>
+<li id='menu-item-2264674'  class="menu-item menu-item-type-taxonomy menu-item-object-category menu-item-has-children"><input type="checkbox" id="toggle-cat-2264674" class="toggle-opener hidden-xxx"><div class="toggle-outer-container"><label class="opener pseudo-a v-mobile-only" for="toggle-cat-2264674">Economie</label><label class="opener v-desktop-only" for="toggle-cat-2264674"><a  href="https://www.phonandroid.com/cat/economie" class="parent-category">Economie</a> </label>
+<div class="toggle-container toggle-overlay handeld-only v-mobile-only"><label class="back pseudo-a" for="toggle-cat-2264674"></label><a class="parent-category" href="https://www.phonandroid.com/cat/economie">Economie</a><ul class="sub-terms" data-test="ddeee">
+<li id='menu-item-2264675'  class="menu-item menu-item-type-taxonomy menu-item-object-category sub-1"><a  href="https://www.phonandroid.com/cat/economie/crypto-monnaie">Crypto monnaie</a> </li>
+<li id='menu-item-2264676'  class="menu-item menu-item-type-taxonomy menu-item-object-category sub-1"><a  href="https://www.phonandroid.com/cat/economie/banque">Banque</a> </li>
+</ul></div>
+</div></li>
+<li id='menu-item-2321598'  class="menu-item menu-item-type-taxonomy menu-item-object-category menu-item-has-children"><input type="checkbox" id="toggle-cat-2321598" class="toggle-opener hidden-xxx"><div class="toggle-outer-container"><label class="opener pseudo-a v-mobile-only" for="toggle-cat-2321598">Hardware</label><label class="opener v-desktop-only" for="toggle-cat-2321598"><a  href="https://www.phonandroid.com/cat/informatique-pc" class="parent-category">Hardware</a> </label>
+<div class="toggle-container toggle-overlay handeld-only v-mobile-only"><label class="back pseudo-a" for="toggle-cat-2321598"></label><a class="parent-category" href="https://www.phonandroid.com/cat/informatique-pc">Hardware</a><ul class="sub-terms" data-test="ddeee">
+<li id='menu-item-2369152'  class="menu-item menu-item-type-taxonomy menu-item-object-category sub-1"><a  href="https://www.phonandroid.com/cat/informatique-pc/batteries">Batteries</a> </li>
+<li id='menu-item-2369153'  class="menu-item menu-item-type-taxonomy menu-item-object-category sub-1"><a  href="https://www.phonandroid.com/cat/informatique-pc/carte-graphique">Carte graphique</a> </li>
+<li id='menu-item-2369154'  class="menu-item menu-item-type-taxonomy menu-item-object-category sub-1"><a  href="https://www.phonandroid.com/cat/informatique-pc/ecrans">Ecrans</a> </li>
+<li id='menu-item-2369155'  class="menu-item menu-item-type-taxonomy menu-item-object-category sub-1"><a  href="https://www.phonandroid.com/cat/informatique-pc/processeurs">Processeurs</a> </li>
+</ul></div>
+</div></li>
+<li id='menu-item-2305884'  class="menu-item menu-item-type-taxonomy menu-item-object-category"><a  href="https://www.phonandroid.com/cat/mobilite-urbaine">Mobilité urbaine</a> </li>
+<li id='menu-item-2264679'  class="menu-item menu-item-type-taxonomy menu-item-object-category menu-item-has-children"><input type="checkbox" id="toggle-cat-2264679" class="toggle-opener hidden-xxx"><div class="toggle-outer-container"><label class="opener pseudo-a v-mobile-only" for="toggle-cat-2264679">Objets connectés</label><label class="opener v-desktop-only" for="toggle-cat-2264679"><a  href="https://www.phonandroid.com/cat/objets-connectes" class="parent-category">Objets connectés</a> </label>
+<div class="toggle-container toggle-overlay handeld-only v-mobile-only"><label class="back pseudo-a" for="toggle-cat-2264679"></label><a class="parent-category" href="https://www.phonandroid.com/cat/objets-connectes">Objets connectés</a><ul class="sub-terms" data-test="ddeee">
+<li id='menu-item-2264681'  class="menu-item menu-item-type-taxonomy menu-item-object-category sub-1"><a  href="https://www.phonandroid.com/cat/objets-connectes/montres-connectees">Montres connectées</a> </li>
+<li id='menu-item-2264682'  class="menu-item menu-item-type-taxonomy menu-item-object-category sub-1"><a  href="https://www.phonandroid.com/cat/objets-connectes/lunettes-connectees">Lunettes connectées</a> </li>
+<li id='menu-item-2264683'  class="menu-item menu-item-type-taxonomy menu-item-object-category sub-1"><a  href="https://www.phonandroid.com/cat/objets-connectes/casques-realite-virtuelle">Casques réalité virtuelle</a> </li>
+<li id='menu-item-2264684'  class="menu-item menu-item-type-taxonomy menu-item-object-category sub-1"><a  href="https://www.phonandroid.com/cat/objets-connectes/domotique">Domotique</a> </li>
+<li id='menu-item-2264685'  class="menu-item menu-item-type-taxonomy menu-item-object-category sub-1"><a  href="https://www.phonandroid.com/cat/objets-connectes/enceintes-connectees">Enceintes connectées</a> </li>
+</ul></div>
+</div></li>
+<li id='menu-item-2264686'  class="menu-item menu-item-type-taxonomy menu-item-object-category menu-item-has-children"><input type="checkbox" id="toggle-cat-2264686" class="toggle-opener hidden-xxx"><div class="toggle-outer-container"><label class="opener pseudo-a v-mobile-only" for="toggle-cat-2264686">Télécom</label><label class="opener v-desktop-only" for="toggle-cat-2264686"><a  href="https://www.phonandroid.com/cat/operateurs-mobiles" class="parent-category">Télécom</a> </label>
+<div class="toggle-container toggle-overlay handeld-only v-mobile-only"><label class="back pseudo-a" for="toggle-cat-2264686"></label><a class="parent-category" href="https://www.phonandroid.com/cat/operateurs-mobiles">Télécom</a><ul class="sub-terms" data-test="ddeee">
+<li id='menu-item-2264687'  class="menu-item menu-item-type-taxonomy menu-item-object-category sub-1"><a  href="https://www.phonandroid.com/cat/operateurs-mobiles/orange">Orange</a> </li>
+<li id='menu-item-2264689'  class="menu-item menu-item-type-taxonomy menu-item-object-category sub-1"><a  href="https://www.phonandroid.com/cat/operateurs-mobiles/bouygues-telecom">Bouygues Telecom</a> </li>
+<li id='menu-item-2264690'  class="menu-item menu-item-type-taxonomy menu-item-object-category sub-1"><a  href="https://www.phonandroid.com/cat/operateurs-mobiles/sfr">SFR-Altice</a> </li>
+<li id='menu-item-2264691'  class="menu-item menu-item-type-taxonomy menu-item-object-category sub-1"><a  href="https://www.phonandroid.com/cat/operateurs-mobiles/free">Free</a> </li>
+</ul></div>
+</div></li>
+<li id='menu-item-2264692'  class="menu-item menu-item-type-taxonomy menu-item-object-category menu-item-has-children"><input type="checkbox" id="toggle-cat-2264692" class="toggle-opener hidden-xxx"><div class="toggle-outer-container"><label class="opener pseudo-a v-mobile-only" for="toggle-cat-2264692">Réseaux Sociaux</label><label class="opener v-desktop-only" for="toggle-cat-2264692"><a  href="https://www.phonandroid.com/cat/reseaux-sociaux" class="parent-category">Réseaux Sociaux</a> </label>
+<div class="toggle-container toggle-overlay handeld-only v-mobile-only"><label class="back pseudo-a" for="toggle-cat-2264692"></label><a class="parent-category" href="https://www.phonandroid.com/cat/reseaux-sociaux">Réseaux Sociaux</a><ul class="sub-terms" data-test="ddeee">
+<li id='menu-item-2264693'  class="menu-item menu-item-type-taxonomy menu-item-object-category sub-1"><a  href="https://www.phonandroid.com/cat/reseaux-sociaux/facebook">Facebook</a> </li>
+<li id='menu-item-2264694'  class="menu-item menu-item-type-taxonomy menu-item-object-category sub-1"><a  href="https://www.phonandroid.com/cat/reseaux-sociaux/twitter">Twitter</a> </li>
+</ul></div>
+</div></li>
+<li id='menu-item-2264695'  class="menu-item menu-item-type-taxonomy menu-item-object-category menu-item-has-children"><input type="checkbox" id="toggle-cat-2264695" class="toggle-opener hidden-xxx"><div class="toggle-outer-container"><label class="opener pseudo-a v-mobile-only" for="toggle-cat-2264695">Smartphones Android</label><label class="opener v-desktop-only" for="toggle-cat-2264695"><a  href="https://www.phonandroid.com/cat/smartphoneandroid" class="parent-category">Smartphones Android</a> </label>
+<div class="toggle-container toggle-overlay handeld-only v-mobile-only"><label class="back pseudo-a" for="toggle-cat-2264695"></label><a class="parent-category" href="https://www.phonandroid.com/cat/smartphoneandroid">Smartphones Android</a><ul class="sub-terms" data-test="ddeee">
+<li id='menu-item-2264985'  class="menu-item menu-item-type-taxonomy menu-item-object-category sub-1"><a  href="https://www.phonandroid.com/cat/smartphoneandroid/asus">Asus</a> </li>
+<li id='menu-item-2264993'  class="menu-item menu-item-type-taxonomy menu-item-object-category sub-1"><a  href="https://www.phonandroid.com/cat/smartphoneandroid/google-nexus">Google Pixel</a> </li>
+<li id='menu-item-2264992'  class="menu-item menu-item-type-taxonomy menu-item-object-category sub-1"><a  href="https://www.phonandroid.com/cat/smartphoneandroid/honor">Honor</a> </li>
+<li id='menu-item-2264698'  class="menu-item menu-item-type-taxonomy menu-item-object-category sub-1"><a  href="https://www.phonandroid.com/cat/smartphoneandroid/huawei">Huawei</a> </li>
+<li id='menu-item-2264988'  class="menu-item menu-item-type-taxonomy menu-item-object-category sub-1"><a  href="https://www.phonandroid.com/cat/smartphoneandroid/motorola-lenovo">Motorola-Lenovo</a> </li>
+<li id='menu-item-2264984'  class="menu-item menu-item-type-taxonomy menu-item-object-category sub-1"><a  href="https://www.phonandroid.com/cat/smartphoneandroid/oneplus">OnePlus</a> </li>
+<li id='menu-item-2264995'  class="menu-item menu-item-type-taxonomy menu-item-object-category sub-1"><a  href="https://www.phonandroid.com/cat/smartphoneandroid/oppo">Oppo</a> </li>
+<li id='menu-item-2310326'  class="menu-item menu-item-type-taxonomy menu-item-object-category sub-1"><a  href="https://www.phonandroid.com/cat/smartphoneandroid/pocophone">Poco</a> </li>
+<li id='menu-item-2310327'  class="menu-item menu-item-type-taxonomy menu-item-object-category sub-1"><a  href="https://www.phonandroid.com/cat/smartphoneandroid/realme">Realme</a> </li>
+<li id='menu-item-2264990'  class="menu-item menu-item-type-taxonomy menu-item-object-category menu-item-has-children sub-1"><label class="opener pseudo-a v-mobile-only" for="toggle-cat-2264990">Samsung</label><label class="opener v-desktop-only" for="toggle-cat-2264990"><a  href="https://www.phonandroid.com/cat/smartphoneandroid/samsung">Samsung</a> </label>
+	<ul class="sub-terms" data-test="ddeee">
+<li id='menu-item-2313464'  class="menu-item menu-item-type-taxonomy menu-item-object-category"><a  href="https://www.phonandroid.com/cat/smartphoneandroid/samsung/galaxy-s">Samsung Galaxy S</a> </li>
+<li id='menu-item-2313465'  class="menu-item menu-item-type-taxonomy menu-item-object-category"><a  href="https://www.phonandroid.com/cat/smartphoneandroid/samsung/galaxy-note">Samsung Galaxy Note</a> </li>
+<li id='menu-item-2315137'  class="menu-item menu-item-type-taxonomy menu-item-object-category"><a  href="https://www.phonandroid.com/cat/smartphoneandroid/samsung/galaxy-a">Samsung Galaxy A</a> </li>
+	</ul>
+</li>
+<li id='menu-item-2264991'  class="menu-item menu-item-type-taxonomy menu-item-object-category sub-1"><a  href="https://www.phonandroid.com/cat/smartphoneandroid/sony">Sony</a> </li>
+<li id='menu-item-2264983'  class="menu-item menu-item-type-taxonomy menu-item-object-category sub-1"><a  href="https://www.phonandroid.com/cat/smartphoneandroid/xiaomi">Xiaomi</a> </li>
+</ul></div>
+</div></li>
+<li id='menu-item-2264996'  class="menu-item menu-item-type-taxonomy menu-item-object-category menu-item-has-children"><input type="checkbox" id="toggle-cat-2264996" class="toggle-opener hidden-xxx"><div class="toggle-outer-container"><label class="opener pseudo-a v-mobile-only" for="toggle-cat-2264996">Streaming</label><label class="opener v-desktop-only" for="toggle-cat-2264996"><a  href="https://www.phonandroid.com/cat/streaming" class="parent-category">Streaming</a> </label>
+<div class="toggle-container toggle-overlay handeld-only v-mobile-only"><label class="back pseudo-a" for="toggle-cat-2264996"></label><a class="parent-category" href="https://www.phonandroid.com/cat/streaming">Streaming</a><ul class="sub-terms" data-test="ddeee">
+<li id='menu-item-2369115'  class="menu-item menu-item-type-taxonomy menu-item-object-category sub-1"><a  href="https://www.phonandroid.com/cat/streaming/disney-plus">Disney+</a> </li>
+<li id='menu-item-2264997'  class="menu-item menu-item-type-taxonomy menu-item-object-category sub-1"><a  href="https://www.phonandroid.com/cat/streaming/netflix">Netflix</a> </li>
+<li id='menu-item-2264998'  class="menu-item menu-item-type-taxonomy menu-item-object-category sub-1"><a  href="https://www.phonandroid.com/cat/streaming/youtube">YouTube</a> </li>
+</ul></div>
+</div></li>
+<li id='menu-item-2264999'  class="menu-item menu-item-type-taxonomy menu-item-object-category menu-item-has-children"><input type="checkbox" id="toggle-cat-2264999" class="toggle-opener hidden-xxx"><div class="toggle-outer-container"><label class="opener pseudo-a v-mobile-only" for="toggle-cat-2264999">Tablettes Android</label><label class="opener v-desktop-only" for="toggle-cat-2264999"><a  href="https://www.phonandroid.com/cat/tablettesandroid" class="parent-category">Tablettes Android</a> </label>
+<div class="toggle-container toggle-overlay handeld-only v-mobile-only"><label class="back pseudo-a" for="toggle-cat-2264999"></label><a class="parent-category" href="https://www.phonandroid.com/cat/tablettesandroid">Tablettes Android</a><ul class="sub-terms" data-test="ddeee">
+<li id='menu-item-2265002'  class="menu-item menu-item-type-taxonomy menu-item-object-category sub-1"><a  href="https://www.phonandroid.com/cat/smartphoneandroid/samsung">Samsung</a> </li>
+</ul></div>
+</div></li>
+<li id='menu-item-2556738'  class="menu-item menu-item-type-custom menu-item-object-custom"><a  href="/forum/">Forum</a> </li>
+</ul>                                            </div>
+                                        									</div>
+								</li>
+                                <li>
+                                                                            <a class="opener" href="https://www.phonandroid.com/cat/voiture">Auto</a>
+                                                                    </li>
+								<li>
+                                                                            <input type="checkbox" id="toggle-cat-apps" class="toggle-opener hidden-xxx">
+                                        <div class="toggle-outer-container">
+                                            <label class="opener" for="toggle-cat-apps" data-cat="apps"><a class="opener" href="https://www.phonandroid.com/cat/application-android">Apps</a></label>
+                                                                                                                                                <div class="toggle-container handeld-only loaded">
+                                                        <ul class="sub-menu"><li id='menu-item-2289599'  class="menu-item menu-item-type-taxonomy menu-item-object-category"><a  href="https://www.phonandroid.com/cat/application-android/google-apps">Google Apps</a> </li>
+<li id='menu-item-2289601'  class="menu-item menu-item-type-taxonomy menu-item-object-category"><a  href="https://www.phonandroid.com/cat/application-android/top-applications">Top Applications</a> </li>
+<li id='menu-item-2369661'  class="menu-item menu-item-type-custom menu-item-object-custom"><a  href="https://www.phonandroid.com/hub/applications-a-telecharger">Meilleures applications à télécharger</a> </li>
+</ul>                                                    </div>
+                                                                                                                                    </div>
+                                                                    </li>
+                                <li>
+                                                                            <a class="opener" href="https://www.phonandroid.com/cat/tutoriaux">Tutos</a>
+                                                                    </li>
+								<li>
+									<input type="checkbox" id="toggle-cat-bonsplans" class="toggle-opener hidden-xxx">
+									<div class="toggle-outer-container">
+										<label class="opener" for="toggle-cat-bonsplans" data-cat="gooddeals"><a class="opener" href="https://www.phonandroid.com/cat/bon-plan">Bons plans</a></label>
+                                                                                                                                    <div class="toggle-container handeld-only loaded">
+                                                    <ul class="sub-menu"><li id='menu-item-2486636'  class="menu-item menu-item-type-custom menu-item-object-custom"><a  href="https://www.phonandroid.com/hub/black-friday">Black Friday 2023</a> </li>
+<li id='menu-item-2320408'  class="menu-item menu-item-type-custom menu-item-object-custom"><a  href="https://www.phonandroid.com/comparatif-forfaits-mobiles-comment-bien-choisir-forfait-telephone-selon-besoins.html">Meilleur forfait mobile</a> </li>
+<li id='menu-item-2324263'  class="menu-item menu-item-type-custom menu-item-object-custom"><a  href="https://www.phonandroid.com/ps5-en-stock-ou-acheter-la-console.html">PS5 en stock</a> </li>
+<li id='menu-item-2324264'  class="menu-item menu-item-type-custom menu-item-object-custom"><a  href="https://www.phonandroid.com/xbox-series-x-series-s-comparatif-meilleur-prix.html">Xbox Series X en stock</a> </li>
+<li id='menu-item-2265007'  class="menu-item menu-item-type-taxonomy menu-item-object-category menu-item-has-children"><input type="checkbox" id="toggle-cat-2265007" class="toggle-opener hidden-xxx"><div class="toggle-outer-container"><label class="opener pseudo-a v-mobile-only" for="toggle-cat-2265007">Forfait mobile</label><label class="opener v-desktop-only" for="toggle-cat-2265007"><a  href="https://www.phonandroid.com/cat/bon-plan/forfait-mobile" class="parent-category">Forfait mobile</a> </label>
+<div class="toggle-container toggle-overlay handeld-only v-mobile-only"><label class="back pseudo-a" for="toggle-cat-2265007"></label><a class="parent-category" href="https://www.phonandroid.com/cat/bon-plan/forfait-mobile">Forfait mobile</a><ul class="sub-terms" data-test="ddeee">
+<li id='menu-item-2315245'  class="menu-item menu-item-type-taxonomy menu-item-object-category sub-1"><a  href="https://www.phonandroid.com/cat/bon-plan/forfait-mobile/byou">B&amp;You</a> </li>
+<li id='menu-item-2315247'  class="menu-item menu-item-type-taxonomy menu-item-object-category sub-1"><a  href="https://www.phonandroid.com/cat/bon-plan/forfait-mobile/free-mobile">Free Mobile</a> </li>
+<li id='menu-item-2315248'  class="menu-item menu-item-type-taxonomy menu-item-object-category sub-1"><a  href="https://www.phonandroid.com/cat/bon-plan/forfait-mobile/red-sfr">RED by SFR</a> </li>
+<li id='menu-item-2315249'  class="menu-item menu-item-type-taxonomy menu-item-object-category sub-1"><a  href="https://www.phonandroid.com/cat/bon-plan/forfait-mobile/sosh">Sosh</a> </li>
+</ul></div>
+</div></li>
+<li id='menu-item-2265009'  class="menu-item menu-item-type-taxonomy menu-item-object-category"><a  href="https://www.phonandroid.com/cat/bon-plan/informatique">Informatique</a> </li>
+<li id='menu-item-2265008'  class="menu-item menu-item-type-taxonomy menu-item-object-category menu-item-has-children"><input type="checkbox" id="toggle-cat-2265008" class="toggle-opener hidden-xxx"><div class="toggle-outer-container"><label class="opener pseudo-a v-mobile-only" for="toggle-cat-2265008">Jeux vidéo</label><label class="opener v-desktop-only" for="toggle-cat-2265008"><a  href="https://www.phonandroid.com/cat/bon-plan/jeux-video" class="parent-category">Jeux vidéo</a> </label>
+<div class="toggle-container toggle-overlay handeld-only v-mobile-only"><label class="back pseudo-a" for="toggle-cat-2265008"></label><a class="parent-category" href="https://www.phonandroid.com/cat/bon-plan/jeux-video">Jeux vidéo</a><ul class="sub-terms" data-test="ddeee">
+<li id='menu-item-2315251'  class="menu-item menu-item-type-taxonomy menu-item-object-category sub-1"><a  href="https://www.phonandroid.com/cat/bon-plan/jeux-video/nintendo-switch">Nintendo Switch</a> </li>
+<li id='menu-item-2315252'  class="menu-item menu-item-type-taxonomy menu-item-object-category sub-1"><a  href="https://www.phonandroid.com/cat/bon-plan/jeux-video/ps4">PS4</a> </li>
+<li id='menu-item-2315253'  class="menu-item menu-item-type-taxonomy menu-item-object-category sub-1"><a  href="https://www.phonandroid.com/cat/bon-plan/jeux-video/xbox-one">Xbox Series X / S</a> </li>
+</ul></div>
+</div></li>
+<li id='menu-item-2265011'  class="menu-item menu-item-type-taxonomy menu-item-object-category"><a  href="https://www.phonandroid.com/cat/bon-plan/produits-connectes">Objets connectés</a> </li>
+<li id='menu-item-2265012'  class="menu-item menu-item-type-taxonomy menu-item-object-category"><a  href="https://www.phonandroid.com/cat/bon-plan/telephone-mobile-android">Smartphone</a> </li>
+<li id='menu-item-2265014'  class="menu-item menu-item-type-taxonomy menu-item-object-category"><a  href="https://www.phonandroid.com/cat/bon-plan/television">Télévision</a> </li>
+<li id='menu-item-2265006'  class="menu-item menu-item-type-taxonomy menu-item-object-category"><a  href="https://www.phonandroid.com/cat/bon-plan/fnac">Fnac</a> </li>
+<li id='menu-item-2265005'  class="menu-item menu-item-type-taxonomy menu-item-object-category"><a  href="https://www.phonandroid.com/cat/bon-plan/darty">Darty</a> </li>
+</ul>                                                </div>
+                                                                                    									</div>
+								</li>
+								<li>
+									<input type="checkbox" id="toggle-cat-tests" class="toggle-opener hidden-xxx">
+									<div class="toggle-outer-container">
+										<label class="opener" for="toggle-cat-tests" data-cat="tests"><a class="opener" href="https://www.phonandroid.com/cat/test-android">Tests</a></label>
+                                                                                                                                    <div class="toggle-container handeld-only loaded">
+                                                    <ul class="sub-menu"><li id='menu-item-2265034'  class="menu-item menu-item-type-taxonomy menu-item-object-category"><a  href="https://www.phonandroid.com/cat/test-android/test-smartphone">Smartphones</a> </li>
+<li id='menu-item-2265033'  class="menu-item menu-item-type-taxonomy menu-item-object-category"><a  href="https://www.phonandroid.com/cat/test-android/test-pc">PC</a> </li>
+</ul>                                                </div>
+                                                                                    									</div>
+								</li>
+								<li>
+                                    <input type="checkbox" id="toggle-cat-guides-achat" class="toggle-opener hidden-xxx">
+                                    <div class="toggle-outer-container">
+                                        <label class="opener" for="toggle-cat-guides-achat" data-cat="achat"> <a href="https://www.phonandroid.com/cat/guides-achat">Guide d'Achat</a></label>
+                                                                                                                                    <div class="toggle-container handeld-only loaded">
+                                                    <ul class="sub-menu"><li id='menu-item-2433727'  class="menu-item menu-item-type-post_type menu-item-object-post"><a  href="https://www.phonandroid.com/meilleurs-vpn-payants.html">Meilleurs VPN 2023</a> </li>
+<li id='menu-item-2288898'  class="menu-item menu-item-type-custom menu-item-object-custom"><a  href="https://www.phonandroid.com/cat/guides-achat/guides-achat-audio">Guides d&#8217;achat audio</a> </li>
+<li id='menu-item-2288899'  class="menu-item menu-item-type-custom menu-item-object-custom"><a  href="https://www.phonandroid.com/cat/guides-achat/guides-achat-informatique">Guides d&#8217;achat informatique</a> </li>
+<li id='menu-item-2288900'  class="menu-item menu-item-type-custom menu-item-object-custom"><a  href="https://www.phonandroid.com/cat/guides-achat/guides-achat-jeux-video">Guides d&#8217;achat jeux vidéo</a> </li>
+<li id='menu-item-2265036'  class="menu-item menu-item-type-taxonomy menu-item-object-category"><a  href="https://www.phonandroid.com/cat/guides-achat/guide-achat-smartphones">Guide d&#8217;achat smartphones</a> </li>
+<li id='menu-item-2265110'  class="menu-item menu-item-type-custom menu-item-object-custom"><a  href="https://www.phonandroid.com/guide-dachat-des-smartphones-android.html">Meilleurs smartphones</a> </li>
+<li id='menu-item-2265111'  class="menu-item menu-item-type-custom menu-item-object-custom"><a  href="https://www.phonandroid.com/precommande-nintendo-switch-moins-chere.html">Meilleur prix Nintendo Switch</a> </li>
+</ul>                                                </div>
+                                                                                                                        </div>
+                                </li>
+                                <li>
+                                    <a class="opener" href="/vpn">VPN</a>
+                                </li>
+                                <!--
+								<li>
+									<a class="opener" href="/forum/">Forum</a>
+								</li>
+								-->
+                                <li>
+                                    <a class="opener" href="/tag/bitdefender">cybersécurité</a>
+                                </li>
+                                <li>
+                                    <a class="opener" href="/tag/darty">Maison connectée</a>
+                                </li>
+							</ul>
+
+
+                            <ul class="social-networks">
+								<li class="facebook"><button data-href="https://www.facebook.com/phonandroid" data-target="_blank"><i class="icon-facebook"></i> <span class="label">Facebook</span> <span class="text">257K <span class="subscribers">fans</span></span></button></li>
+								<li class="twitter"><button data-href="https://twitter.com/phonandroid" data-target="_blank"><i class="icon-twitter"></i> <span class="label">Twitter</span> <span class="text">80K <span class="subscribers">followers</span></span></button></li>
+								<!--<li class="google-plus"><a href="https://plus.google.com/+phonandroid" target="_blank" rel="nofollow"><i class="icon-google-plus"></i><span class="label">Google+</span> <span class="text">188K <span class="subscribers">abonnés</span></span> </a></li>-->
+								<li class="youtube"><button data-href="https://www.youtube.com/user/PhonandroidTV" data-target="_blank"><i class="icon-youtube"></i><span class="label">Youtube</span> <span class="text">113K <span class="subscribers">abonnés</span></span></button></li>
+								<li class="instagram"><button data-href="https://www.instagram.com/phonandroid/" data-target="_blank"><i class="icon-instagram"></i> <span class="label">Instagram</span> <span class="text">20K <span class="subscribers">inscrits</span></span></button></li>
+							</ul>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="search-bar-area toggle-relative">
+            <div class="dark-theme-icon">
+                <span class="btn-toggle"><i class="fa fa-adjust"></i></span>
+            </div>
+            <input type="checkbox" id="search-form" class="toggle-opener hidden-xxx">
+			<label for="search-form"><i class="icon-search"></i></label>
+			<div class="toggle-container search-bar toggle-absolute">
+                <form role="search" method="get" class="search-form" action="https://www.phonandroid.com">
+				<label>
+					<span class="screen-reader-text">Rechercher :</span>
+					<input type="search" class="search-field" placeholder="Rechercher…" value="" name="s" />
+				</label>
+				<button type="submit" class="search-submit"><i class="icon-search"></i></button>
+			</form>			</div>
+		</div>
+	</div>
+
+</header>
+
+			<div class="tjz_hello_adblock_jv" style="background-color: #2b2b2b">
+			
+					<a href="https://www.phonandroid.com/hub/black-friday">
+				<img alt="" src="data:image/svg+xml,%3Csvg%20xmlns='http://www.w3.org/2000/svg'%20viewBox='0%200%200%200'%3E%3C/svg%3E" data-lazy-src="https://wp-pa.phonandroid.com/uploads/2023/11/Banniere-Black-Friday-1160x100-1.jpg" /><noscript><img alt="" src="https://wp-pa.phonandroid.com/uploads/2023/11/Banniere-Black-Friday-1160x100-1.jpg" /></noscript>
+					</a>
+			</div>
+
+	<!-- contain main informative part of the site -->
+	<div id="ctBoc">
+                            <main id="main" class="layout--flexbox">
+            						
+		<div class="featured-grid">
+			<ul class="grid">
+			<li class="first">
+										<!-- slide -->
+						<div class="item large-item clickredirect">
+								<div class="image-link">
+																			<img alt="ROG Ally" class="alignnone wp-image-9 size-large"
+												src="https://wp-pa.phonandroid.com/uploads/2023/05/ROG-Ally-42-665x575.jpg"
+												srcset="https://wp-pa.phonandroid.com/uploads/2023/05/ROG-Ally-42-275x230.jpg 300w,
+												https://wp-pa.phonandroid.com/uploads/2023/05/ROG-Ally-42-275x230.jpg 768w,
+												https://wp-pa.phonandroid.com/uploads/2023/05/ROG-Ally-42-665x575.jpg 1024w,
+												https://wp-pa.phonandroid.com/uploads/2023/05/ROG-Ally-42-665x575.jpg 1200w"
+												sizes="(max-width: 709px) 100vw, (max-width: 909px) 100vw,
+			(max-width: 1362px) 100vw, 100vw" data-skip-lazy/>
+
+																		</div>
+								<div class="caption caption-large">
+									<span class="cat-title cat-13">
+																					<span class="a-style catlink cat_5370" data-cat-id="5370">PC</span>
+																																										</span>
+                                    <a href="https://www.phonandroid.com/test-asus-rog-ally.html" class="url">
+									<h3>Test Asus ROG Ally : une bonne console qui oublie de faire rêver</h3>                                    </a>
+								</div>
+						</div>
+						<!-- /slide -->
+														</li>
+							<li class="second">
+																			<!-- slide -->
+						<div class="item medium-item clickredirect">
+								<div class="image-link">
+																			<img alt="ia vr casque femme" class="alignnone wp-image-9 size-large"
+												src="https://wp-pa.phonandroid.com/uploads/2023/11/86233570_m_normal_none-562x327.jpg"
+												srcset="https://wp-pa.phonandroid.com/uploads/2023/11/86233570_m_normal_none-275x230.jpg 300w,
+												https://wp-pa.phonandroid.com/uploads/2023/11/86233570_m_normal_none-275x230.jpg 768w,
+												https://wp-pa.phonandroid.com/uploads/2023/11/86233570_m_normal_none-562x327.jpg 1024w,
+												https://wp-pa.phonandroid.com/uploads/2023/11/86233570_m_normal_none-562x327.jpg 1200w"
+												sizes="(max-width: 709px) 100vw, (max-width: 909px) 100vw,
+			(max-width: 1362px) 100vw, 100vw" data-skip-lazy/>
+
+																		</div>
+								<div class="caption caption-small">
+									<span class="cat-title cat-13">
+																					<span class="a-style catlink cat_5178" data-cat-id="5178">Internet</span>
+																																										</span>
+                                    <a href="https://www.phonandroid.com/microsoft-ladmet-sa-consommation-deau-a-augmente-de-facon-inquietante-a-cause-de-lia-et-du-cloud.html" class="url">
+									<h3>Microsoft l&#8217;admet, sa consommation d&#8217;eau a augmenté de façon inquiétante à cause de l&#8217;IA et du Cloud</h3>                                    </a>
+								</div>
+						</div>
+						<!-- /slide -->
+																			<!-- slide -->
+						<div class="item small-item clickredirect">
+								<div class="image-link">
+																			<img alt="thumbs up pouce en l&#039;air" class="alignnone wp-image-9 size-large"
+												src="https://wp-pa.phonandroid.com/uploads/2023/11/205699322_m_normal_none-275x230.jpg"
+												srcset="https://wp-pa.phonandroid.com/uploads/2023/11/205699322_m_normal_none-275x230.jpg 300w,
+												https://wp-pa.phonandroid.com/uploads/2023/11/205699322_m_normal_none-275x230.jpg 768w,
+												https://wp-pa.phonandroid.com/uploads/2023/11/205699322_m_normal_none-275x230.jpg 1024w,
+												https://wp-pa.phonandroid.com/uploads/2023/11/205699322_m_normal_none-275x230.jpg 1200w"
+												sizes="(max-width: 709px) 100vw, (max-width: 909px) 100vw,
+			(max-width: 1362px) 100vw, 100vw" data-skip-lazy/>
+
+																		</div>
+								<div class="caption caption-small">
+									<span class="cat-title cat-13">
+																					<span class="a-style catlink cat_5178" data-cat-id="5178">Internet</span>
+																																										</span>
+                                    <a href="https://www.phonandroid.com/streaming-illegal-hollywood-accorde-un-bon-point-a-la-france-pour-ses-mesures-contre-le-piratage.html" class="url">
+									<h3>Streaming illégal : Hollywood accorde un bon point à la France pour ses mesures contre le piratage</h3>                                    </a>
+								</div>
+						</div>
+						<!-- /slide -->
+																			<!-- slide -->
+						<div class="item small-item clickredirect">
+								<div class="image-link">
+																			<img alt="test Honor Magic5 Pro" class="alignnone wp-image-9 size-large"
+												src="https://wp-pa.phonandroid.com/uploads/2023/04/test-honor-magic5-pro-5-275x230.jpg"
+												srcset="https://wp-pa.phonandroid.com/uploads/2023/04/test-honor-magic5-pro-5-275x230.jpg 300w,
+												https://wp-pa.phonandroid.com/uploads/2023/04/test-honor-magic5-pro-5-275x230.jpg 768w,
+												https://wp-pa.phonandroid.com/uploads/2023/04/test-honor-magic5-pro-5-275x230.jpg 1024w,
+												https://wp-pa.phonandroid.com/uploads/2023/04/test-honor-magic5-pro-5-275x230.jpg 1200w"
+												sizes="(max-width: 709px) 100vw, (max-width: 909px) 100vw,
+			(max-width: 1362px) 100vw, 100vw" data-skip-lazy/>
+
+																		</div>
+								<div class="caption caption-small">
+									<span class="cat-title cat-13">
+																					<span class="a-style catlink cat_5089" data-cat-id="5089">Honor</span>
+																																										</span>
+                                    <a href="https://www.phonandroid.com/le-honor-magic-6-pro-resoudrait-un-gros-probleme-avec-son-nouveau-capteur-photo.html" class="url">
+									<h3>Le Honor Magic 6 Pro résoudrait un gros problème avec son nouveau capteur photo</h3>                                    </a>
+								</div>
+						</div>
+						<!-- /slide -->
+																		</li>
+				</ul>
+		</div>
+				<div class="app_layout_header"><div class="ccmcss_oas_top"><div id="ctn_top"><div id="ba_top" class="ba top"><script>OAS_AD('Top');</script></div></div></div></div><div class="container">
+	<div class="row">
+		<div class="nw-left-content">
+			<!-- contain the main content of the page -->
+			<section id="content">
+				<!-- head -->
+				<div class="head">
+												<div class="home-top-nav">
+							<div class="title-tabs" data-active="Récents">
+																	<ul>
+																			<li>
+										<div class="title-tab latest-items tabs-1 is-active"><span class="title-tab-inner">Dernières actus</span></div>										</li>
+																			</ul>
+																</div><!-- .title-tabs -->
+							<!-- breadcrumb -->
+					</div>
+									</div>
+			<!-- ajax post-holder -->
+			  <div class="post-section">
+		<!-- post loop -->
+														<li class="clickredirect post post-2559217 type-post status-publish format-standard has-post-thumbnail sticky hentry category-produits-connectes hubs-black-friday category-bon-plan">
+	<!-- img-box -->
+	<div class="img-box">
+								<img alt="Sonos Move Holiday Period" class="alignnone wp-image-9 size-large"
+							src="https://wp-pa.phonandroid.com/uploads/2023/11/Sonos-Move-Holiday-Period-240x170.jpg"
+							srcset="https://wp-pa.phonandroid.com/uploads/2023/11/Sonos-Move-Holiday-Period-110x110.jpg 300w,
+							https://wp-pa.phonandroid.com/uploads/2023/11/Sonos-Move-Holiday-Period-110x110.jpg 768w,
+							https://wp-pa.phonandroid.com/uploads/2023/11/Sonos-Move-Holiday-Period-240x170.jpg 1024w,
+							https://wp-pa.phonandroid.com/uploads/2023/11/Sonos-Move-Holiday-Period-240x170.jpg 1200w"
+							sizes="(max-width: 709px) 100vw, (max-width: 909px) 100vw,
+	(max-width: 1362px) 100vw, 100vw" data-skip-lazy/>
+				</div>
+	<!-- text-area -->
+	<div class="text-box">
+		<h2 class="h2"><a href="https://www.phonandroid.com/black-friday-boulanger-jusqua-25-sur-les-enceintes-et-home-cinema-sonos.html" class="url">Black Friday Boulanger : jusqu’à -25% sur les enceintes et Home Cinema Sonos</a></h2>		<p>Boulanger célèbre le Black Friday en grandes pompes et casse le prix des enceintes et Home Cinema Sonos avec des réductions exceptionnelles allant jusqu’à -25%. On vous en dit plus sur les offres ci-dessous. Voir les offres Black Friday Sonos&#8230;</p>
+		<div class="post-metas">
+			<span class="cat-title">
+	 				 					<span class="a-style catlink cat_5358" data-cat-id="5358">Objets connectés</span>
+	 					 					 				
+	 		</span>
+
+			<time datetime="2023-11-20T12:00:57+01:00" class="date">20/11/2023</time>
+	</div>
+
+	</div>
+</li>
+												<li class="clickredirect post post-2518602 type-post status-publish format-standard has-post-thumbnail hentry category-google-nexus hubs-google-pixel-8 category-smartphoneandroid">
+	<!-- img-box -->
+	<div class="img-box">
+								<img alt="Google Pixel 8 cover" class="alignnone wp-image-9 size-large"
+							src="https://wp-pa.phonandroid.com/uploads/2023/09/Google-Pixel-8-cover-240x170.jpg"
+							srcset="https://wp-pa.phonandroid.com/uploads/2023/09/Google-Pixel-8-cover-110x110.jpg 300w,
+							https://wp-pa.phonandroid.com/uploads/2023/09/Google-Pixel-8-cover-110x110.jpg 768w,
+							https://wp-pa.phonandroid.com/uploads/2023/09/Google-Pixel-8-cover-240x170.jpg 1024w,
+							https://wp-pa.phonandroid.com/uploads/2023/09/Google-Pixel-8-cover-240x170.jpg 1200w"
+							sizes="(max-width: 709px) 100vw, (max-width: 909px) 100vw,
+	(max-width: 1362px) 100vw, 100vw" data-skip-lazy/>
+				</div>
+	<!-- text-area -->
+	<div class="text-box">
+		<h2 class="h2"><a href="https://www.phonandroid.com/google-pixel-8-et-8-pro-nouveautes-prix-date-de-sortie-fiche-technique.html" class="url">Pixel 8 et 8 Pro : nouveautés, prix, date de sortie, tout savoir sur les smartphones de Google</a></h2>		<p>Premiers smartphones à sortir sous Android 14, les Pixel 8 et Pixel 8 Pro sont les prochains smartphones haut de gamme de Google. Fiche technique, design, améliorations en photo, prix et disponibilité : voici tout ce que l&#8217;on sait à&#8230;</p>
+		<div class="post-metas">
+			<span class="cat-title">
+	 				 					<span class="a-style catlink cat_5189" data-cat-id="5189">Google Pixel</span>
+	 					 					 				
+	 		</span>
+
+			<time datetime="2023-11-21T21:52:58+01:00" class="date">21/11/2023</time>
+	</div>
+
+	</div>
+</li>
+												<li class="clickredirect post post-2560175 type-post status-publish format-standard has-post-thumbnail hentry category-samsung category-smartphoneandroid">
+	<!-- img-box -->
+	<div class="img-box">
+								<img alt="samsung oneui fonctionnalite" class="alignnone wp-image-9 size-large"
+							src="https://wp-pa.phonandroid.com/uploads/2023/11/samsung-oneui-fonctionnalite-240x170.jpg"
+							srcset="https://wp-pa.phonandroid.com/uploads/2023/11/samsung-oneui-fonctionnalite-110x110.jpg 300w,
+							https://wp-pa.phonandroid.com/uploads/2023/11/samsung-oneui-fonctionnalite-110x110.jpg 768w,
+							https://wp-pa.phonandroid.com/uploads/2023/11/samsung-oneui-fonctionnalite-240x170.jpg 1024w,
+							https://wp-pa.phonandroid.com/uploads/2023/11/samsung-oneui-fonctionnalite-240x170.jpg 1200w"
+							sizes="(max-width: 709px) 100vw, (max-width: 909px) 100vw,
+	(max-width: 1362px) 100vw, 100vw" data-skip-lazy/>
+				</div>
+	<!-- text-area -->
+	<div class="text-box">
+		<h2 class="h2"><a href="https://www.phonandroid.com/galaxy-s23-fermer-une-appli-par-accident-narrivera-plus-sur-one-ui-6-0.html" class="url">Galaxy S23 : fermer une appli par accident n&#8217;arrivera plus sur One UI 6.0</a></h2>		<p>Sur One UI 6.0, la dernière version de la surcouche Samsung basée sur Android 14, le constructeur a ajouté une fonctionnalité plutôt pratique. En effet, elle permet de maintenir une application ouverte en arrière-plan en permanence. Explications. Si vous êtes&#8230;</p>
+		<div class="post-metas">
+			<span class="cat-title">
+	 				 					<span class="a-style catlink cat_5065" data-cat-id="5065">Samsung</span>
+	 					 					 				
+	 		</span>
+
+			<time datetime="2023-11-21T20:15:04+01:00" class="date">21/11/2023</time>
+	</div>
+
+	</div>
+</li>
+												<li class="clickredirect post post-2560178 type-post status-publish format-standard has-post-thumbnail hentry category-informatique category-bon-plan">
+	<!-- img-box -->
+	<div class="img-box">
+								<img alt="V3_17_11_20238" class="alignnone wp-image-9 size-large"
+							src="https://wp-pa.phonandroid.com/uploads/2023/11/V3_17_11_20238-240x170.jpg"
+							srcset="https://wp-pa.phonandroid.com/uploads/2023/11/V3_17_11_20238-110x110.jpg 300w,
+							https://wp-pa.phonandroid.com/uploads/2023/11/V3_17_11_20238-110x110.jpg 768w,
+							https://wp-pa.phonandroid.com/uploads/2023/11/V3_17_11_20238-240x170.jpg 1024w,
+							https://wp-pa.phonandroid.com/uploads/2023/11/V3_17_11_20238-240x170.jpg 1200w"
+							sizes="(max-width: 709px) 100vw, (max-width: 909px) 100vw,
+	(max-width: 1362px) 100vw, 100vw" data-skip-lazy/>
+				</div>
+	<!-- text-area -->
+	<div class="text-box">
+		<h2 class="h2"><a href="https://www.phonandroid.com/quels-sont-les-meilleurs-pc-portable-msi-pour-le-black-friday.html" class="url">Quels sont les meilleurs PC portable MSI pour le Black Friday ?</a></h2>		<p>MSI célèbre le Black Friday en grandes pompes et propose une multitude de PC à prix réduit. Parmi eux, on a sélectionné les 3 modèles qui nous paraissent les plus intéressants. Découvrez-les dans cet article ! Le Black Friday est&#8230;</p>
+		<div class="post-metas">
+			<span class="cat-title">
+	 				 					<span class="a-style catlink cat_5359" data-cat-id="5359">Informatique</span>
+	 					 					 				
+	 		</span>
+
+			<time datetime="2023-11-21T19:55:48+01:00" class="date">21/11/2023</time>
+	</div>
+
+	</div>
+</li>
+												<li class="clickredirect post post-2560145 type-post status-publish format-standard has-post-thumbnail hentry category-securite category-actu-generaliste">
+	<!-- img-box -->
+	<div class="img-box">
+								<img alt="faux pass sanitaire arnaque" class="alignnone wp-image-9 size-large"
+							src="https://wp-pa.phonandroid.com/uploads/2023/11/faux-pass-sanitaire-arnaque-240x170.jpg"
+							srcset="https://wp-pa.phonandroid.com/uploads/2023/11/faux-pass-sanitaire-arnaque-110x110.jpg 300w,
+							https://wp-pa.phonandroid.com/uploads/2023/11/faux-pass-sanitaire-arnaque-110x110.jpg 768w,
+							https://wp-pa.phonandroid.com/uploads/2023/11/faux-pass-sanitaire-arnaque-240x170.jpg 1024w,
+							https://wp-pa.phonandroid.com/uploads/2023/11/faux-pass-sanitaire-arnaque-240x170.jpg 1200w"
+							sizes="(max-width: 709px) 100vw, (max-width: 909px) 100vw,
+	(max-width: 1362px) 100vw, 100vw" data-skip-lazy/>
+				</div>
+	<!-- text-area -->
+	<div class="text-box">
+		<h2 class="h2"><a href="https://www.phonandroid.com/covid-19-ces-deux-escrocs-ont-genere-plus-de-117-000-faux-pass-sanitaires.html" class="url">Covid-19 : ces deux escrocs ont généré plus de 117 000 faux pass sanitaires</a></h2>		<p>Deux hommes sont actuellement jugés par le tribunal judiciaire de Paris. Ils étaient à la tête de l&#8217;un des plus importantes fraudes de pass sanitaires en France. Au total, ils ont généré plus de 117 000 faux documents et empoché&#8230;</p>
+		<div class="post-metas">
+			<span class="cat-title">
+	 				 					<span class="a-style catlink cat_5188" data-cat-id="5188">Sécurité</span>
+	 					 					 				
+	 		</span>
+
+			<time datetime="2023-11-21T19:29:31+01:00" class="date">21/11/2023</time>
+	</div>
+
+	</div>
+</li>
+												<li class="clickredirect post post-2560161 type-post status-publish format-standard has-post-thumbnail hentry category-bon-plan hubs-black-friday">
+	<!-- img-box -->
+	<div class="img-box">
+								<img alt="iPad 9e generation 2021" class="alignnone wp-image-9 size-large"
+							src="https://wp-pa.phonandroid.com/uploads/2023/05/iPad-9e-generation-2021-240x170.jpg"
+							srcset="https://wp-pa.phonandroid.com/uploads/2023/05/iPad-9e-generation-2021-110x110.jpg 300w,
+							https://wp-pa.phonandroid.com/uploads/2023/05/iPad-9e-generation-2021-110x110.jpg 768w,
+							https://wp-pa.phonandroid.com/uploads/2023/05/iPad-9e-generation-2021-240x170.jpg 1024w,
+							https://wp-pa.phonandroid.com/uploads/2023/05/iPad-9e-generation-2021-240x170.jpg 1200w"
+							sizes="(max-width: 709px) 100vw, (max-width: 909px) 100vw,
+	(max-width: 1362px) 100vw, 100vw" data-skip-lazy/>
+				</div>
+	<!-- text-area -->
+	<div class="text-box">
+		<h2 class="h2"><a href="https://www.phonandroid.com/lipad-9-est-a-prix-canon-pour-le-black-friday-vite.html" class="url">L’iPad 9 est à prix canon pour le Black Friday, vite !</a></h2>		<p>Plus que quelques jours avant le Black Friday. Et bonne nouvelle, nul besoin d’attendre vendredi pour profiter des promotions car elles sont déjà disponibles ! Le prix de l’iPad 9 chute ainsi à seulement 339,99 € au lieu de 439 € sur&#8230;</p>
+		<div class="post-metas">
+			<span class="cat-title">
+	 				 					<span class="a-style catlink cat_3906" data-cat-id="3906">Bons plans</span>
+	 					 					 				
+	 		</span>
+
+			<time datetime="2023-11-21T19:09:12+01:00" class="date">21/11/2023</time>
+	</div>
+
+	</div>
+</li>
+												<li class="clickredirect post post-2560150 type-post status-publish format-standard has-post-thumbnail hentry category-informatique hubs-black-friday category-bon-plan">
+	<!-- img-box -->
+	<div class="img-box">
+								<img alt="Apple Magic Keyboard" class="alignnone wp-image-9 size-large"
+							src="https://wp-pa.phonandroid.com/uploads/2023/07/Apple-Magic-Keyboard-240x170.jpg"
+							srcset="https://wp-pa.phonandroid.com/uploads/2023/07/Apple-Magic-Keyboard-110x110.jpg 300w,
+							https://wp-pa.phonandroid.com/uploads/2023/07/Apple-Magic-Keyboard-110x110.jpg 768w,
+							https://wp-pa.phonandroid.com/uploads/2023/07/Apple-Magic-Keyboard-240x170.jpg 1024w,
+							https://wp-pa.phonandroid.com/uploads/2023/07/Apple-Magic-Keyboard-240x170.jpg 1200w"
+							sizes="(max-width: 709px) 100vw, (max-width: 909px) 100vw,
+	(max-width: 1362px) 100vw, 100vw" data-skip-lazy/>
+				</div>
+	<!-- text-area -->
+	<div class="text-box">
+		<h2 class="h2"><a href="https://www.phonandroid.com/apple-magic-keyboard-le-prix-du-clavier-bluetooth-chute-pour-le-black-friday.html" class="url">Apple Magic Keyboard : le prix du clavier Bluetooth chute pour le Black Friday</a></h2>		<p>Durant le Black Friday, de nombreux produits Apple sont en promotion. Le clavier sans fil Apple Magic Keyboard passe ainsi de 109€ à 79€. Si vous avez un Mac ou iPad et vous voulez un clavier Bluetooth, c’est le moment&#8230;</p>
+		<div class="post-metas">
+			<span class="cat-title">
+	 				 					<span class="a-style catlink cat_5359" data-cat-id="5359">Informatique</span>
+	 					 					 				
+	 		</span>
+
+			<time datetime="2023-11-21T18:04:25+01:00" class="date">21/11/2023</time>
+	</div>
+
+	</div>
+</li>
+												<li class="clickredirect post post-2560108 type-post status-publish format-standard has-post-thumbnail hentry category-bon-plan hubs-black-friday hubs-samsung-galaxy-s21-fe">
+	<!-- img-box -->
+	<div class="img-box">
+								<img alt="pack Galaxy S21 FE JBL Go 3" class="alignnone wp-image-9 size-large"
+							src="https://wp-pa.phonandroid.com/uploads/2023/11/pack-Galaxy-S21-FE-JBL-Go-3-240x170.jpg"
+							srcset="https://wp-pa.phonandroid.com/uploads/2023/11/pack-Galaxy-S21-FE-JBL-Go-3-110x110.jpg 300w,
+							https://wp-pa.phonandroid.com/uploads/2023/11/pack-Galaxy-S21-FE-JBL-Go-3-110x110.jpg 768w,
+							https://wp-pa.phonandroid.com/uploads/2023/11/pack-Galaxy-S21-FE-JBL-Go-3-240x170.jpg 1024w,
+							https://wp-pa.phonandroid.com/uploads/2023/11/pack-Galaxy-S21-FE-JBL-Go-3-240x170.jpg 1200w"
+							sizes="(max-width: 709px) 100vw, (max-width: 909px) 100vw,
+	(max-width: 1362px) 100vw, 100vw" data-skip-lazy/>
+				</div>
+	<!-- text-area -->
+	<div class="text-box">
+		<h2 class="h2"><a href="https://www.phonandroid.com/tres-bon-prix-pack-galaxy-s21-fe-jbl-go-3.html" class="url">Très bon prix pour le pack Galaxy S21 FE + JBL GO 3 chez Fnac/Darty</a></h2>		<p>Le groupe Fnac/Darty vous permet de faire une bonne affaire sur un pack comprenant surtout le Galaxy S21 FE. À l&#8217;occasion du Black Friday, l&#8217;ensemble incluant le smartphone Samsung et une enceinte JBL GO 3 est à moins de 400&#8230;</p>
+		<div class="post-metas">
+			<span class="cat-title">
+	 				 					<span class="a-style catlink cat_3906" data-cat-id="3906">Bons plans</span>
+	 					 					 				
+	 		</span>
+
+			<time datetime="2023-11-21T17:46:58+01:00" class="date">21/11/2023</time>
+	</div>
+
+	</div>
+</li>
+												<li class="clickredirect post post-2560124 type-post status-publish format-standard has-post-thumbnail hentry category-nintendo tag-nintendo-switch category-consoles-jeux-video">
+	<!-- img-box -->
+	<div class="img-box">
+								<img alt="nintendo switch drift" class="alignnone wp-image-9 size-large"
+							src="https://wp-pa.phonandroid.com/uploads/2023/11/nintendo-switch-drift-240x170.jpg"
+							srcset="https://wp-pa.phonandroid.com/uploads/2023/11/nintendo-switch-drift-110x110.jpg 300w,
+							https://wp-pa.phonandroid.com/uploads/2023/11/nintendo-switch-drift-110x110.jpg 768w,
+							https://wp-pa.phonandroid.com/uploads/2023/11/nintendo-switch-drift-240x170.jpg 1024w,
+							https://wp-pa.phonandroid.com/uploads/2023/11/nintendo-switch-drift-240x170.jpg 1200w"
+							sizes="(max-width: 709px) 100vw, (max-width: 909px) 100vw,
+	(max-width: 1362px) 100vw, 100vw" data-skip-lazy/>
+				</div>
+	<!-- text-area -->
+	<div class="text-box">
+		<h2 class="h2"><a href="https://www.phonandroid.com/nintendo-switch-ifixit-lance-son-kit-pour-en-finir-avec-le-joy-con-rift.html" class="url">Nintendo Switch : iFixit lance son kit pour en finir avec le Joy-Con Rift</a></h2>		<p>Même si Nintendo s&#8217;est engagé à remplacer les manettes Switch touchées par le Joy-Con Drift, il ne s&#8217;agit que d&#8217;une solution de fortune. iFixit, société spécialisée dans la vente de pièces détachées, vient de lancer un nouveau kit pour réparer&#8230;</p>
+		<div class="post-metas">
+			<span class="cat-title">
+	 				 					<span class="a-style catlink cat_5458" data-cat-id="5458">Nintendo</span>
+	 					 					 				
+	 		</span>
+
+			<time datetime="2023-11-21T17:41:18+01:00" class="date">21/11/2023</time>
+	</div>
+
+	</div>
+</li>
+												<li class="clickredirect post post-2524735 type-post status-publish format-standard has-post-thumbnail hentry category-test-pc category-test-android">
+	<!-- img-box -->
+	<div class="img-box">
+								<img alt="ROG Ally (42)" class="alignnone wp-image-9 size-large"
+							src="https://wp-pa.phonandroid.com/uploads/2023/05/ROG-Ally-42-240x170.jpg"
+							srcset="https://wp-pa.phonandroid.com/uploads/2023/05/ROG-Ally-42-110x110.jpg 300w,
+							https://wp-pa.phonandroid.com/uploads/2023/05/ROG-Ally-42-110x110.jpg 768w,
+							https://wp-pa.phonandroid.com/uploads/2023/05/ROG-Ally-42-240x170.jpg 1024w,
+							https://wp-pa.phonandroid.com/uploads/2023/05/ROG-Ally-42-240x170.jpg 1200w"
+							sizes="(max-width: 709px) 100vw, (max-width: 909px) 100vw,
+	(max-width: 1362px) 100vw, 100vw" data-skip-lazy/>
+				</div>
+	<!-- text-area -->
+	<div class="text-box">
+		<h2 class="h2"><a href="https://www.phonandroid.com/test-asus-rog-ally.html" class="url">Test Asus ROG Ally : une bonne console qui oublie de faire rêver</a></h2>		<p>La ROG Ally est la console portable d&#8217;Asus. Celle-ci reprend le format du PC/console nomade lancé par le Steam Deck et mise sur une fiche technique solide ainsi que sur sa polyvalence. Sur le papier, nous avons le terminal gaming&#8230;</p>
+		<div class="post-metas">
+			<span class="cat-title">
+	 				 					<span class="a-style catlink cat_5370" data-cat-id="5370">PC</span>
+	 					 					 				
+	 		</span>
+
+			<time datetime="2023-11-21T17:06:06+01:00" class="date">21/11/2023</time>
+	</div>
+
+	</div>
+</li>
+												<li class="clickredirect post post-2559711 type-post status-publish format-standard has-post-thumbnail hentry category-bon-plan hubs-black-friday">
+	<!-- img-box -->
+	<div class="img-box">
+								<img alt="black friday rakuten 3" class="alignnone wp-image-9 size-large"
+							src="https://wp-pa.phonandroid.com/uploads/2023/11/black-friday-rakuten-3-240x170.jpg"
+							srcset="https://wp-pa.phonandroid.com/uploads/2023/11/black-friday-rakuten-3-110x110.jpg 300w,
+							https://wp-pa.phonandroid.com/uploads/2023/11/black-friday-rakuten-3-110x110.jpg 768w,
+							https://wp-pa.phonandroid.com/uploads/2023/11/black-friday-rakuten-3-240x170.jpg 1024w,
+							https://wp-pa.phonandroid.com/uploads/2023/11/black-friday-rakuten-3-240x170.jpg 1200w"
+							sizes="(max-width: 709px) 100vw, (max-width: 909px) 100vw,
+	(max-width: 1362px) 100vw, 100vw" data-skip-lazy/>
+				</div>
+	<!-- text-area -->
+	<div class="text-box">
+		<h2 class="h2"><a href="https://www.phonandroid.com/black-friday-sur-rakuten-les-prix-sont-en-chute-libre.html" class="url">Black Friday : sur Rakuten, les prix sont en chute libre</a></h2>		<p>Rakuten fait aussi son Black Friday. De nombreux produits sont proposés à des prix très intéressants sur le site. On a fait le tour et vous faisons découvrir les meilleures offres sur les produits high-tech. La Black Friday Week se&#8230;</p>
+		<div class="post-metas">
+			<span class="cat-title">
+	 				 					<span class="a-style catlink cat_3906" data-cat-id="3906">Bons plans</span>
+	 					 					 				
+	 		</span>
+
+			<time datetime="2023-11-21T17:05:01+01:00" class="date">21/11/2023</time>
+	</div>
+
+	</div>
+</li>
+												<li class="clickredirect post post-2560111 type-post status-publish format-standard has-post-thumbnail hentry category-securite category-actu-generaliste">
+	<!-- img-box -->
+	<div class="img-box">
+								<img alt="Recherche_de_termes_illegaux_sur_Facebook" class="alignnone wp-image-9 size-large"
+							src="https://wp-pa.phonandroid.com/uploads/2023/10/Recherche_de_termes_illegaux_sur_Facebook-240x170.jpg"
+							srcset="https://wp-pa.phonandroid.com/uploads/2023/10/Recherche_de_termes_illegaux_sur_Facebook-110x110.jpg 300w,
+							https://wp-pa.phonandroid.com/uploads/2023/10/Recherche_de_termes_illegaux_sur_Facebook-110x110.jpg 768w,
+							https://wp-pa.phonandroid.com/uploads/2023/10/Recherche_de_termes_illegaux_sur_Facebook-240x170.jpg 1024w,
+							https://wp-pa.phonandroid.com/uploads/2023/10/Recherche_de_termes_illegaux_sur_Facebook-240x170.jpg 1200w"
+							sizes="(max-width: 709px) 100vw, (max-width: 909px) 100vw,
+	(max-width: 1362px) 100vw, 100vw" data-skip-lazy/>
+				</div>
+	<!-- text-area -->
+	<div class="text-box">
+		<h2 class="h2"><a href="https://www.phonandroid.com/facebook-les-pirates-nhesitent-plus-a-sombrer-dans-le-sordide-pour-leurs-arnaques.html" class="url">Facebook : les pirates n&#8217;hésitent plus à sombrer dans le sordide pour leurs arnaques</a></h2>		<p>Une arnaque d’un nouveau genre circule actuellement en masse sur Facebook, une combine on ne peut plus sordide. En effet, les pirates font croire qu’un de vos proches a été victime d’un grave accident de voiture, afin de vous inciter&#8230;</p>
+		<div class="post-metas">
+			<span class="cat-title">
+	 				 					<span class="a-style catlink cat_5188" data-cat-id="5188">Sécurité</span>
+	 					 					 				
+	 		</span>
+
+			<time datetime="2023-11-21T16:49:12+01:00" class="date">21/11/2023</time>
+	</div>
+
+	</div>
+</li>
+												<li class="clickredirect post post-2527714 type-post status-publish format-standard has-post-thumbnail hentry category-playstation category-consoles-jeux-video">
+	<!-- img-box -->
+	<div class="img-box">
+								<img alt="ps5 playstationQ" class="alignnone wp-image-9 size-large"
+							src="https://wp-pa.phonandroid.com/uploads/2023/05/ps5-playstationQ-240x170.jpg"
+							srcset="https://wp-pa.phonandroid.com/uploads/2023/05/ps5-playstationQ-110x110.jpg 300w,
+							https://wp-pa.phonandroid.com/uploads/2023/05/ps5-playstationQ-110x110.jpg 768w,
+							https://wp-pa.phonandroid.com/uploads/2023/05/ps5-playstationQ-240x170.jpg 1024w,
+							https://wp-pa.phonandroid.com/uploads/2023/05/ps5-playstationQ-240x170.jpg 1200w"
+							sizes="(max-width: 709px) 100vw, (max-width: 909px) 100vw,
+	(max-width: 1362px) 100vw, 100vw" data-skip-lazy/>
+				</div>
+	<!-- text-area -->
+	<div class="text-box">
+		<h2 class="h2"><a href="https://www.phonandroid.com/playstation-console-project-portable-ps5-tout-savoir.html" class="url">PlayStation Portal : prix, fiche technique, date de sortie, tout savoir sur l&#8217;accessoire de la PS5</a></h2>		<p>Sony a lancé ce 15 novembre 2023 le PlayStation Portal. Connu auparavant sous le nom de PlayStation Project Q, ce nouvel accessoire peut se résumer à un écran secondaire pour la PS5. En effet, via le Wi-Fi, les joueurs peuvent&#8230;</p>
+		<div class="post-metas">
+			<span class="cat-title">
+	 				 					<span class="a-style catlink cat_5462" data-cat-id="5462">Playstation</span>
+	 					 					 				
+	 		</span>
+
+			<time datetime="2023-11-21T16:40:43+01:00" class="date">21/11/2023</time>
+	</div>
+
+	</div>
+</li>
+												<li class="clickredirect post post-2560052 type-post status-publish format-standard has-post-thumbnail hentry category-voiture">
+	<!-- img-box -->
+	<div class="img-box">
+								<img alt="toyota prius recyclage" class="alignnone wp-image-9 size-large"
+							src="https://wp-pa.phonandroid.com/uploads/2023/11/toyota-prius-recyclage-240x170.jpg"
+							srcset="https://wp-pa.phonandroid.com/uploads/2023/11/toyota-prius-recyclage-110x110.jpg 300w,
+							https://wp-pa.phonandroid.com/uploads/2023/11/toyota-prius-recyclage-110x110.jpg 768w,
+							https://wp-pa.phonandroid.com/uploads/2023/11/toyota-prius-recyclage-240x170.jpg 1024w,
+							https://wp-pa.phonandroid.com/uploads/2023/11/toyota-prius-recyclage-240x170.jpg 1200w"
+							sizes="(max-width: 709px) 100vw, (max-width: 909px) 100vw,
+	(max-width: 1362px) 100vw, 100vw" data-skip-lazy/>
+				</div>
+	<!-- text-area -->
+	<div class="text-box">
+		<h2 class="h2"><a href="https://www.phonandroid.com/toyota-fait-le-pari-du-recyclage-pour-fabriquer-ses-nouvelles-batteries-electriques.html" class="url">Toyota fait le pari du recyclage pour fabriquer ses nouvelles batteries électriques</a></h2>		<p>Toyota vient d&#8217;annoncer un nouveau partenariat d&#8217;envergure avec Redwood Materials, société américaine dirigée par le co-fondateur de Tesla. Grâce à cet accord, le constructeur japonais veut s&#8217;engager à recycler les matériaux de ses modèles électriques et hybrides en fin de&#8230;</p>
+		<div class="post-metas">
+			<span class="cat-title">
+	 				 					<span class="a-style catlink cat_5342" data-cat-id="5342">Voiture</span>
+	 					 					 				
+	 		</span>
+
+			<time datetime="2023-11-21T16:32:25+01:00" class="date">21/11/2023</time>
+	</div>
+
+	</div>
+</li>
+												<li class="clickredirect post post-2559593 type-post status-publish format-standard has-post-thumbnail hentry category-bon-plan">
+	<!-- img-box -->
+	<div class="img-box">
+								<img alt="NordVPN Quillbot" class="alignnone wp-image-9 size-large"
+							src="https://wp-pa.phonandroid.com/uploads/2023/11/NordVPN-Quillbot-240x170.jpg"
+							srcset="https://wp-pa.phonandroid.com/uploads/2023/11/NordVPN-Quillbot-110x110.jpg 300w,
+							https://wp-pa.phonandroid.com/uploads/2023/11/NordVPN-Quillbot-110x110.jpg 768w,
+							https://wp-pa.phonandroid.com/uploads/2023/11/NordVPN-Quillbot-240x170.jpg 1024w,
+							https://wp-pa.phonandroid.com/uploads/2023/11/NordVPN-Quillbot-240x170.jpg 1200w"
+							sizes="(max-width: 709px) 100vw, (max-width: 909px) 100vw,
+	(max-width: 1362px) 100vw, 100vw" data-skip-lazy/>
+				</div>
+	<!-- text-area -->
+	<div class="text-box">
+		<h2 class="h2"><a href="https://www.phonandroid.com/nordvpn-vous-propose-de-debloquer-quillbot-en-souscrivant-a-lune-de-ses-offres-a-prix-casse.html" class="url">Comment débloquer Quillbot, l&#8217;IA préféré des étudiants ? NordVPN a la solution et propose des offres à prix cassé</a></h2>		<p>Vous utilisez régulièrement Quillbot et vous voulez débloquer certaines fonctionnalités de l’outil en ligne basé sur l’intelligence artificielle ? Optez pour une solution VPN pas trop chère en fonction de vos besoins. En ce moment, NordVPN propose des abonnements avec&#8230;</p>
+		<div class="post-metas">
+			<span class="cat-title">
+	 				 					<span class="a-style catlink cat_3906" data-cat-id="3906">Bons plans</span>
+	 					 					 				
+	 		</span>
+
+			<time datetime="2023-11-21T15:49:56+01:00" class="date">21/11/2023</time>
+	</div>
+
+	</div>
+</li>
+												<li class="clickredirect post post-2560051 type-post status-publish format-standard has-post-thumbnail hentry category-internet category-actu-generaliste">
+	<!-- img-box -->
+	<div class="img-box">
+								<img alt="ia travail employé robot" class="alignnone wp-image-9 size-large"
+							src="https://wp-pa.phonandroid.com/uploads/2023/11/217525165_m_normal_none-240x170.jpg"
+							srcset="https://wp-pa.phonandroid.com/uploads/2023/11/217525165_m_normal_none-110x110.jpg 300w,
+							https://wp-pa.phonandroid.com/uploads/2023/11/217525165_m_normal_none-110x110.jpg 768w,
+							https://wp-pa.phonandroid.com/uploads/2023/11/217525165_m_normal_none-240x170.jpg 1024w,
+							https://wp-pa.phonandroid.com/uploads/2023/11/217525165_m_normal_none-240x170.jpg 1200w"
+							sizes="(max-width: 709px) 100vw, (max-width: 909px) 100vw,
+	(max-width: 1362px) 100vw, 100vw" data-skip-lazy/>
+				</div>
+	<!-- text-area -->
+	<div class="text-box">
+		<h2 class="h2"><a href="https://www.phonandroid.com/lia-seduit-toujours-plus-demployes-et-cela-pose-de-gros-problemes-de-securite-aux-entreprises.html" class="url">L&#8217;IA séduit toujours plus d&#8217;employés, et c&#8217;est un vrai casse-tête pour les entreprises</a></h2>		<p>SalesForce a mené une étude auprès de 14 000 internautes, répartis dans 14 pays, dont la France, concernant leur utilisation de l’IA dans le cadre du travail. Dans le cadre de sa série d’études sur l’IA générative, intitulée « Les promesses&#8230;</p>
+		<div class="post-metas">
+			<span class="cat-title">
+	 				 					<span class="a-style catlink cat_5178" data-cat-id="5178">Internet</span>
+	 					 					 				
+	 		</span>
+
+			<time datetime="2023-11-21T15:26:37+01:00" class="date">21/11/2023</time>
+	</div>
+
+	</div>
+</li>
+												<li class="clickredirect post post-2560000 type-post status-publish format-standard has-post-thumbnail hentry category-bon-plan hubs-black-friday">
+	<!-- img-box -->
+	<div class="img-box">
+								<img alt="black friday apple" class="alignnone wp-image-9 size-large"
+							src="https://wp-pa.phonandroid.com/uploads/2023/11/black-friday-apple-240x170.jpg"
+							srcset="https://wp-pa.phonandroid.com/uploads/2023/11/black-friday-apple-110x110.jpg 300w,
+							https://wp-pa.phonandroid.com/uploads/2023/11/black-friday-apple-110x110.jpg 768w,
+							https://wp-pa.phonandroid.com/uploads/2023/11/black-friday-apple-240x170.jpg 1024w,
+							https://wp-pa.phonandroid.com/uploads/2023/11/black-friday-apple-240x170.jpg 1200w"
+							sizes="(max-width: 709px) 100vw, (max-width: 909px) 100vw,
+	(max-width: 1362px) 100vw, 100vw" data-skip-lazy/>
+				</div>
+	<!-- text-area -->
+	<div class="text-box">
+		<h2 class="h2"><a href="https://www.phonandroid.com/black-friday-apple-selection-des-meilleures-offres-a-ne-pas-manquer.html" class="url">Black Friday Apple : les meilleures offres sur les iPhone, AirPods et MacBook</a></h2>		<p>Les offres du Black Friday sont là ! Profitez des promotions pour faire vos achats à prix réduit. Les produits Apple sont ainsi moins chers. Si vous voulez un iPhone, des AirPods, une Apple Watch, un MacBook ou un iPad,&#8230;</p>
+		<div class="post-metas">
+			<span class="cat-title">
+	 				 					<span class="a-style catlink cat_3906" data-cat-id="3906">Bons plans</span>
+	 					 					 				
+	 		</span>
+
+			<time datetime="2023-11-21T15:22:39+01:00" class="date">21/11/2023</time>
+	</div>
+
+	</div>
+</li>
+												<li class="clickredirect post post-2506210 type-post status-publish format-standard has-post-thumbnail hentry category-mises-a-jour-android hubs-android-14 category-actualite-android">
+	<!-- img-box -->
+	<div class="img-box">
+								<img alt="Google Pixel 6" class="alignnone wp-image-9 size-large"
+							src="https://wp-pa.phonandroid.com/uploads/2022/12/Google-Pixel-6-240x170.jpg"
+							srcset="https://wp-pa.phonandroid.com/uploads/2022/12/Google-Pixel-6-110x110.jpg 300w,
+							https://wp-pa.phonandroid.com/uploads/2022/12/Google-Pixel-6-110x110.jpg 768w,
+							https://wp-pa.phonandroid.com/uploads/2022/12/Google-Pixel-6-240x170.jpg 1024w,
+							https://wp-pa.phonandroid.com/uploads/2022/12/Google-Pixel-6-240x170.jpg 1200w"
+							sizes="(max-width: 709px) 100vw, (max-width: 909px) 100vw,
+	(max-width: 1362px) 100vw, 100vw" data-skip-lazy/>
+				</div>
+	<!-- text-area -->
+	<div class="text-box">
+		<h2 class="h2"><a href="https://www.phonandroid.com/android-14-nouveautes-smartphones-compatibles-date-de-sortie-tout-savoir-sur-la-mise-a-jour.html" class="url">Android 14 : nouveautés, smartphones compatibles, date de sortie, tout savoir sur la mise à jour</a></h2>		<p>Android 14 est la nouvelle version majeure d&#8217;Android. Si le système d&#8217;exploitation mobile de Google a atteint une certaine maturité, nous sommes toujours excités à l&#8217;idée de découvrir les nouvelles fonctionnalités et les changements d&#8217;interface apportés par une mise à&#8230;</p>
+		<div class="post-metas">
+			<span class="cat-title">
+	 				 					<span class="a-style catlink cat_5202" data-cat-id="5202">Mises à jour Android</span>
+	 					 					 				
+	 		</span>
+
+			<time datetime="2023-11-21T15:10:57+01:00" class="date">21/11/2023</time>
+	</div>
+
+	</div>
+</li>
+												<li class="clickredirect post post-2559997 type-post status-publish format-standard has-post-thumbnail hentry category-bon-plan hubs-black-friday">
+	<!-- img-box -->
+	<div class="img-box">
+								<img alt="galaxy s23 series 1" class="alignnone wp-image-9 size-large"
+							src="https://wp-pa.phonandroid.com/uploads/2023/11/galaxy-s23-series-1-240x170.jpg"
+							srcset="https://wp-pa.phonandroid.com/uploads/2023/11/galaxy-s23-series-1-110x110.jpg 300w,
+							https://wp-pa.phonandroid.com/uploads/2023/11/galaxy-s23-series-1-110x110.jpg 768w,
+							https://wp-pa.phonandroid.com/uploads/2023/11/galaxy-s23-series-1-240x170.jpg 1024w,
+							https://wp-pa.phonandroid.com/uploads/2023/11/galaxy-s23-series-1-240x170.jpg 1200w"
+							sizes="(max-width: 709px) 100vw, (max-width: 909px) 100vw,
+	(max-width: 1362px) 100vw, 100vw" data-skip-lazy/>
+				</div>
+	<!-- text-area -->
+	<div class="text-box">
+		<h2 class="h2"><a href="https://www.phonandroid.com/black-friday-samsung-galaxy-s23.html" class="url">Black Friday Samsung : jusqu&#8217;à 460 € de remise sur les Galaxy S23</a></h2>		<p>Samsung fait aussi son Black Friday et les Galaxy S23 n&#8217;échappent pas aux réductions de cette grande foire aux promos. Du Galaxy S23 au S3 Ultra en passant par la version Plus, les réductions proposées vont jusqu&#8217;à 460 € avec&#8230;</p>
+		<div class="post-metas">
+			<span class="cat-title">
+	 				 					<span class="a-style catlink cat_3906" data-cat-id="3906">Bons plans</span>
+	 					 					 				
+	 		</span>
+
+			<time datetime="2023-11-21T14:36:12+01:00" class="date">21/11/2023</time>
+	</div>
+
+	</div>
+</li>
+												<li class="clickredirect post post-2559305 type-post status-publish format-standard has-post-thumbnail hentry category-bon-plan hubs-black-friday">
+	<!-- img-box -->
+	<div class="img-box">
+								<img alt="black friday smartphones" class="alignnone wp-image-9 size-large"
+							src="https://wp-pa.phonandroid.com/uploads/2023/11/black-friday-smartphones-240x170.jpg"
+							srcset="https://wp-pa.phonandroid.com/uploads/2023/11/black-friday-smartphones-110x110.jpg 300w,
+							https://wp-pa.phonandroid.com/uploads/2023/11/black-friday-smartphones-110x110.jpg 768w,
+							https://wp-pa.phonandroid.com/uploads/2023/11/black-friday-smartphones-240x170.jpg 1024w,
+							https://wp-pa.phonandroid.com/uploads/2023/11/black-friday-smartphones-240x170.jpg 1200w"
+							sizes="(max-width: 709px) 100vw, (max-width: 909px) 100vw,
+	(max-width: 1362px) 100vw, 100vw" data-skip-lazy/>
+				</div>
+	<!-- text-area -->
+	<div class="text-box">
+		<h2 class="h2"><a href="https://www.phonandroid.com/black-friday-smartphone-tablette-bons-plans-xiaomi-samsung-galaxy-pixel.html" class="url">Black Friday smartphone et tablette : le top des bons plans Xiaomi, Samsung, Pixel…</a></h2>		<p> Si vous recherchez un nouveau smartphone pour Noël, le Black Friday offre de nombreuses opportunités pour faire des économies. Vous trouverez dans cet article notre récapitulatif des meilleures offres. Xiaomi, Samsung, Pixel, iPhone… toutes vos marques préférées sont représentées. Le&#8230;</p>
+		<div class="post-metas">
+			<span class="cat-title">
+	 				 					<span class="a-style catlink cat_3906" data-cat-id="3906">Bons plans</span>
+	 					 					 				
+	 		</span>
+
+			<time datetime="2023-11-21T14:08:55+01:00" class="date">21/11/2023</time>
+	</div>
+
+	</div>
+</li>
+												<li class="clickredirect post post-2560031 type-post status-publish format-standard has-post-thumbnail hentry category-internet category-actu-generaliste">
+	<!-- img-box -->
+	<div class="img-box">
+								<img alt="ia vr casque femme" class="alignnone wp-image-9 size-large"
+							src="https://wp-pa.phonandroid.com/uploads/2023/11/86233570_m_normal_none-240x170.jpg"
+							srcset="https://wp-pa.phonandroid.com/uploads/2023/11/86233570_m_normal_none-110x110.jpg 300w,
+							https://wp-pa.phonandroid.com/uploads/2023/11/86233570_m_normal_none-110x110.jpg 768w,
+							https://wp-pa.phonandroid.com/uploads/2023/11/86233570_m_normal_none-240x170.jpg 1024w,
+							https://wp-pa.phonandroid.com/uploads/2023/11/86233570_m_normal_none-240x170.jpg 1200w"
+							sizes="(max-width: 709px) 100vw, (max-width: 909px) 100vw,
+	(max-width: 1362px) 100vw, 100vw" data-skip-lazy/>
+				</div>
+	<!-- text-area -->
+	<div class="text-box">
+		<h2 class="h2"><a href="https://www.phonandroid.com/microsoft-ladmet-sa-consommation-deau-a-augmente-de-facon-inquietante-a-cause-de-lia-et-du-cloud.html" class="url">Microsoft l&#8217;admet, sa consommation d&#8217;eau a augmenté de façon inquiétante à cause de l&#8217;IA et du Cloud</a></h2>		<p>Dans un rapport sur « l’Environnement et le développement durable » pour l’année 2022, Microsoft dévoile quelques chiffres alarmants concernant les consommations en ressource des nouvelles technologies basées sur l’IA ou le Cloud. Microsoft revient en force sur le devant&#8230;</p>
+		<div class="post-metas">
+			<span class="cat-title">
+	 				 					<span class="a-style catlink cat_5178" data-cat-id="5178">Internet</span>
+	 					 					 				
+	 		</span>
+
+			<time datetime="2023-11-21T14:07:09+01:00" class="date">21/11/2023</time>
+	</div>
+
+	</div>
+</li>
+<a href="https://www.phonandroid.com/page/2" class="button seemore">Voir plus d'articles</a>		<!-- /post loop -->
+</div>
+			<!-- /ajax post-holder -->
+			</section>
+		</div>
+
+		<div class="nw-right-sidebar">
+			<!-- contain sidebar of the page -->
+			<aside id="sidebar" class="nwscrollsidebar">
+	        <div class="widget-box widget_mailpoet_form" id="mailpoet_form-4">
+            <div id="mailpoet_form_4" class="mailpoet_form mailpoet_form_widget mailpoet_form_position_ mailpoet_form_animation_ mailpoet_form_tight_container">
+                <form method="POST" action="//mailing.ccmbg.com/subscribe?ajx=1" class="mailpoet_form mailpoet_form_form mailpoet_form_widget mailpoet_form_tight_container jNLForm">
+                    <input type="hidden" name="lists[]" value="24001">
+                    <input type="hidden" name="originesiteccm" value="phonandroid">
+                    <input type="hidden" name="gaeventlabel" value="widget">
+                    <div class="mailpoet_paragraph heading-text sidebar-heading-text">
+                        <span>Newsletter</span><i class="fa fa-envelope"></i>
+                    </div>
+                    <div class="mailpoet_paragraph widget-text sidebar-widget-text">Inscrivez-vous à la newsletter de PhonAndroid, des news sans pub rien que pour vous !</div>
+                    <div class="jNlInputButton">
+                        <div class="mailpoet_paragraph">
+                            <input type="email" required="required" autocomplete="email" class="mailpoet_text jFormEmailNl" name="email" title="Votre email ici..." value="" style="padding:5px;margin: 0 auto 0 0;" placeholder="Votre email ici... *">
+                        </div>
+                        <div class="mailpoet_paragraph sidebar_button last">
+                            <input type="submit" class="mailpoet_submit jNlBoxSubmit" value="S'inscrire" style="padding:5px;margin: 0 auto 0 0;border-color:transparent;">
+                        </div>
+                    </div>
+                    <div class="jMailingRecaptcha"></div>
+                    <div class="rgpdNewsletter" style="display:none;">
+                        <p>Les informations recueillies sont destinées à CCM Benchmark Group pour vous assurer l'envoi de votre newsletter.</p>
+                        <p>Elles seront également utilisées sous réserve des options souscrites, par CCM Benchmark Group à des fins de ciblage publicitaire et prospection commerciale au sein du Groupe Le Figaro, ainsi qu’avec nos partenaires commerciaux.</p>
+                        <p>Le traitement de votre email à des fins de publicité et de contenus personnalisés est réalisé lors de votre inscription sur ce formulaire. Toutefois, vous pouvez vous y opposer <a target="_blank" href="https://optout.liveramp.com/opt_out">à tout moment</a></p>
+                        <p>Plus généralement, vous bénéficiez d'un droit d'accès et de rectification de vos données personnelles, ainsi que celui d'en demander l'effacement dans les limites prévues par la loi. </p>
+                        <p>Vous pouvez également à tout moment revoir vos options en matière de prospection commerciale et ciblage. En savoir plus sur notre <a target="_blank" href="https://www.phonandroid.com/informations-utilisation-cookies">politique de confidentialité et notre politique Cookies</a>.</p>
+                    </div>
+                </form>
+            </div>
+        </div>
+
+        <div class="widget-box ads-widget" id="behaba_widget_ads-2"><div class="add-box"><div id="ctn_right"><div id="ba_right" class="ba"><script>OAS_AD('Right');</script></div></div></div></div>				<!-- sub-nav -->
+		<div class="widget-box widget-trend-categories" role="navigation">
+				<div class="heading-text">C'est <span>tendance !</span></div>
+				<nav class="cont">
+					<ul>
+												<li><a href="https://www.phonandroid.com/comparatif-forfaits-mobiles-comment-bien-choisir-forfait-telephone-selon-besoins.html">Meilleur forfait mobile pas cher 2023</a></li>
+												<li><a href="https://www.phonandroid.com/forfait-mobile-5g-quelles-sont-les-meilleures-offres-du-moment.html">Meilleur forfait mobile 5G pas cher 2023</a></li>
+												<li><a href="https://www.phonandroid.com/guide-dachat-des-smartphones-android.html">Meilleur smartphone 2023</a></li>
+												<li><a href="https://www.phonandroid.com/meilleurs-vpn-payants.html">Meilleurs VPN 2023</a></li>
+												<li><a href="https://www.phonandroid.com/precommande-nintendo-switch-moins-chere.html">Nintendo Switch meilleur prix</a></li>
+												<li><a href="https://www.phonandroid.com/playstation-5-prix-caracteristiques.html">PS5</a></li>
+												<li><a href="https://www.phonandroid.com/xbox-scarlett-prix-caracteristiques-date-de-sortie.html">Xbox Series X</a></li>
+												<li><a href="https://www.phonandroid.com/iphone-15-prix-date-de-sortie-design-fiche-technique.html">iPhone 15</a></li>
+												<li><a href="https://www.phonandroid.com/google-pixel-8-et-8-pro-nouveautes-prix-date-de-sortie-fiche-technique.html">Pixel 8</a></li>
+												<li><a href="https://www.phonandroid.com/catalogue-netflix-series-films-mois.html">Nouveautés Netflix octobre 2023</a></li>
+												<li><a href="https://www.phonandroid.com/disney-catalogue-series-films-mois.html">Nouveautés Disney+ octobre 2023</a></li>
+												<li><a href="https://www.phonandroid.com/microsoft-windows-11-nouveautes-date-de-sortie-tout-savoir.html">Windows 11</a></li>
+											</ul>
+				</nav>
+		 </div>
+	 	 <div class="widget-box ads-widget" id="behaba_widget_ads-11"><div class="add-box"><div id="ctn_position2"><div id="ba_position2" class="ba position2"><script>OAS_AD('Position2');</script></div></div></div></div></aside><!-- #secondary -->
+		</div>
+	</div>
+</div>
+<div class="container tests-container">
+	<div class="row one-col">
+		<!-- heading -->
+		<span class="h1">Tests</span>
+		<!-- four-col -->
+		<div class="grid-posts">
+							<!-- column -->
+				<div class="column clickredirect">
+						<!-- img-box -->
+						<div class="img-box">
+							<img width="240" height="170" src="data:image/svg+xml,%3Csvg%20xmlns='http://www.w3.org/2000/svg'%20viewBox='0%200%20240%20170'%3E%3C/svg%3E" class="attachment-listing size-listing wp-post-image" alt="PlayStation Portal" decoding="async" data-lazy-src="https://wp-pa.phonandroid.com/uploads/2023/11/PlayStation-Portal-9-240x170.jpg" /><noscript><img width="240" height="170" src="https://wp-pa.phonandroid.com/uploads/2023/11/PlayStation-Portal-9-240x170.jpg" class="attachment-listing size-listing wp-post-image" alt="PlayStation Portal" decoding="async" /></noscript>																				</div>
+						<!-- text-box -->
+						<div class="text-box">
+							<time datetime="2023-11-20T18:00:46+01:00" class="date">20 novembre 2023</time>
+                            <a href="https://www.phonandroid.com/playstation-portal-test.html" class="url">
+							<span class="title">PlayStation Portal : on l&#8217;a testé, voici pourquoi ça ne sert à rien</span>                            </a>
+						</div>
+				</div>
+
+							<!-- column -->
+				<div class="column clickredirect">
+						<!-- img-box -->
+						<div class="img-box">
+							<img width="240" height="170" src="data:image/svg+xml,%3Csvg%20xmlns='http://www.w3.org/2000/svg'%20viewBox='0%200%20240%20170'%3E%3C/svg%3E" class="attachment-listing size-listing wp-post-image" alt="Medion Akoya" decoding="async" data-lazy-src="https://wp-pa.phonandroid.com/uploads/2023/11/Medion-Akoya-38-240x170.jpg" /><noscript><img width="240" height="170" src="https://wp-pa.phonandroid.com/uploads/2023/11/Medion-Akoya-38-240x170.jpg" class="attachment-listing size-listing wp-post-image" alt="Medion Akoya" decoding="async" /></noscript>																						<span class="test-rating">
+																		<span class="rate" data-rating="2.5" style="width: 50%"></span>
+								</span>
+													</div>
+						<!-- text-box -->
+						<div class="text-box">
+							<time datetime="2023-11-16T18:00:02+01:00" class="date">16 novembre 2023</time>
+                            <a href="https://www.phonandroid.com/test-medion-akoya-e15423.html" class="url">
+							<span class="title">Test Medion Akoya E15423 : que vaut ce PC sous Windows 11 à moins de 400 euros ?</span>                            </a>
+						</div>
+				</div>
+
+							<!-- column -->
+				<div class="column clickredirect">
+						<!-- img-box -->
+						<div class="img-box">
+							<img width="240" height="170" src="data:image/svg+xml,%3Csvg%20xmlns='http://www.w3.org/2000/svg'%20viewBox='0%200%20240%20170'%3E%3C/svg%3E" class="attachment-listing size-listing wp-post-image" alt="test dragon quest infinity strash L&#039;aventure de Daï" decoding="async" data-lazy-src="https://wp-pa.phonandroid.com/uploads/2023/11/test-dragon-quest-infinity-strash-04-240x170.jpg" /><noscript><img width="240" height="170" src="https://wp-pa.phonandroid.com/uploads/2023/11/test-dragon-quest-infinity-strash-04-240x170.jpg" class="attachment-listing size-listing wp-post-image" alt="test dragon quest infinity strash L&#039;aventure de Daï" decoding="async" /></noscript>																						<span class="test-rating">
+																		<span class="rate" data-rating="3" style="width: 60%"></span>
+								</span>
+													</div>
+						<!-- text-box -->
+						<div class="text-box">
+							<time datetime="2023-11-14T18:00:46+01:00" class="date">14 novembre 2023</time>
+                            <a href="https://www.phonandroid.com/test-infinity-strash-dragon-quest-the-adventure-of-dai.html" class="url">
+							<span class="title">Test Infinity Strash Dragon Quest : davantage un manga interactif qu’un jeu</span>                            </a>
+						</div>
+				</div>
+
+							<!-- column -->
+				<div class="column clickredirect">
+						<!-- img-box -->
+						<div class="img-box">
+							<img width="240" height="170" src="data:image/svg+xml,%3Csvg%20xmlns='http://www.w3.org/2000/svg'%20viewBox='0%200%20240%20170'%3E%3C/svg%3E" class="attachment-listing size-listing wp-post-image" alt="COD MW3 test" decoding="async" data-lazy-src="https://wp-pa.phonandroid.com/uploads/2023/11/COD-MW3-miniature-240x170.jpg" /><noscript><img width="240" height="170" src="https://wp-pa.phonandroid.com/uploads/2023/11/COD-MW3-miniature-240x170.jpg" class="attachment-listing size-listing wp-post-image" alt="COD MW3 test" decoding="async" /></noscript>																						<span class="test-rating">
+																		<span class="rate" data-rating="2" style="width: 40%"></span>
+								</span>
+													</div>
+						<!-- text-box -->
+						<div class="text-box">
+							<time datetime="2023-11-13T19:22:53+01:00" class="date">13 novembre 2023</time>
+                            <a href="https://www.phonandroid.com/test-call-of-duty-modern-warfare-3.html" class="url">
+							<span class="title">Test Call of Duty Modern Warfare 3 : une campagne d&#8217;un ennui mortel</span>                            </a>
+						</div>
+				</div>
+
+							<!-- column -->
+				<div class="column clickredirect">
+						<!-- img-box -->
+						<div class="img-box">
+							<img width="240" height="170" src="data:image/svg+xml,%3Csvg%20xmlns='http://www.w3.org/2000/svg'%20viewBox='0%200%20240%20170'%3E%3C/svg%3E" class="attachment-listing size-listing wp-post-image" alt="Razer Blade 16" decoding="async" data-lazy-src="https://wp-pa.phonandroid.com/uploads/2023/11/Razer-Blade-16-37-240x170.jpg" /><noscript><img width="240" height="170" src="https://wp-pa.phonandroid.com/uploads/2023/11/Razer-Blade-16-37-240x170.jpg" class="attachment-listing size-listing wp-post-image" alt="Razer Blade 16" decoding="async" /></noscript>																						<span class="test-rating">
+																		<span class="rate" data-rating="4" style="width: 80%"></span>
+								</span>
+													</div>
+						<!-- text-box -->
+						<div class="text-box">
+							<time datetime="2023-11-08T18:00:40+01:00" class="date">8 novembre 2023</time>
+                            <a href="https://www.phonandroid.com/test-razer-blade-16-le-meilleur-pc-gaming-16-pouces-du-marche.html" class="url">
+							<span class="title">Test Razer Blade 16 : le meilleur PC gaming 16 pouces du marché</span>                            </a>
+						</div>
+				</div>
+
+							<!-- column -->
+				<div class="column clickredirect">
+						<!-- img-box -->
+						<div class="img-box">
+							<img width="240" height="170" src="data:image/svg+xml,%3Csvg%20xmlns='http://www.w3.org/2000/svg'%20viewBox='0%200%20240%20170'%3E%3C/svg%3E" class="attachment-listing size-listing wp-post-image" alt="Asus" decoding="async" data-lazy-src="https://wp-pa.phonandroid.com/uploads/2023/11/asus_tuf_a15_01-240x170.jpg" /><noscript><img width="240" height="170" src="https://wp-pa.phonandroid.com/uploads/2023/11/asus_tuf_a15_01-240x170.jpg" class="attachment-listing size-listing wp-post-image" alt="Asus" decoding="async" /></noscript>																						<span class="test-rating">
+																		<span class="rate" data-rating="4" style="width: 80%"></span>
+								</span>
+													</div>
+						<!-- text-box -->
+						<div class="text-box">
+							<time datetime="2023-11-07T18:00:34+01:00" class="date">7 novembre 2023</time>
+                            <a href="https://www.phonandroid.com/test-asus-tuf-a15-2023.html" class="url">
+							<span class="title">Test Asus TUF A15 2023 : Un TUF qui fait vraiment le taf</span>                            </a>
+						</div>
+				</div>
+
+							<!-- column -->
+				<div class="column clickredirect">
+						<!-- img-box -->
+						<div class="img-box">
+							<img width="240" height="170" src="data:image/svg+xml,%3Csvg%20xmlns='http://www.w3.org/2000/svg'%20viewBox='0%200%20240%20170'%3E%3C/svg%3E" class="attachment-listing size-listing wp-post-image" alt="Huawei Freebuds Pro 3" decoding="async" data-lazy-src="https://wp-pa.phonandroid.com/uploads/2023/10/Huawei-Freebuds-Pro-3-1-240x170.jpg" /><noscript><img width="240" height="170" src="https://wp-pa.phonandroid.com/uploads/2023/10/Huawei-Freebuds-Pro-3-1-240x170.jpg" class="attachment-listing size-listing wp-post-image" alt="Huawei Freebuds Pro 3" decoding="async" /></noscript>																						<span class="test-rating">
+																		<span class="rate" data-rating="4.5" style="width: 90%"></span>
+								</span>
+													</div>
+						<!-- text-box -->
+						<div class="text-box">
+							<time datetime="2023-10-28T08:30:23+02:00" class="date">28 octobre 2023</time>
+                            <a href="https://www.phonandroid.com/test-huawei-freebuds-pro-3.html" class="url">
+							<span class="title">Test Huawei Freebuds Pro 3 : encore un excellent millésime, même sans Devialet</span>                            </a>
+						</div>
+				</div>
+
+							<!-- column -->
+				<div class="column clickredirect">
+						<!-- img-box -->
+						<div class="img-box">
+							<img width="240" height="170" src="data:image/svg+xml,%3Csvg%20xmlns='http://www.w3.org/2000/svg'%20viewBox='0%200%20240%20170'%3E%3C/svg%3E" class="attachment-listing size-listing wp-post-image" alt="Alan Wake 2" decoding="async" data-lazy-src="https://wp-pa.phonandroid.com/uploads/2023/08/Alan-Wake-234-240x170.jpg" /><noscript><img width="240" height="170" src="https://wp-pa.phonandroid.com/uploads/2023/08/Alan-Wake-234-240x170.jpg" class="attachment-listing size-listing wp-post-image" alt="Alan Wake 2" decoding="async" /></noscript>																						<span class="test-rating">
+																		<span class="rate" data-rating="4.5" style="width: 90%"></span>
+								</span>
+													</div>
+						<!-- text-box -->
+						<div class="text-box">
+							<time datetime="2023-10-27T18:17:38+02:00" class="date">27 octobre 2023</time>
+                            <a href="https://www.phonandroid.com/test-alan-wake-2.html" class="url">
+							<span class="title">Test Alan Wake 2 : réveil en sursaut pour une licence en sommeil</span>                            </a>
+						</div>
+				</div>
+
+					</div>
+		<span class="button-loadmore"><a class="button button-inverted" href="https://www.phonandroid.com/cat/test-android">Voir tout</a></span>
+	</div>
+</div>
+<div class="container folder-container">
+	<div class="row one-col">
+		<!-- heading -->
+		<span class="h1">Guides d'achat</span>
+		<!-- four-col -->
+		<div class="grid-posts highlight-first">
+							<!-- column -->
+				<div class="column clickredirect">
+						<!-- img-box -->
+						<div class="img-box">
+							<img width="665" height="575" src="data:image/svg+xml,%3Csvg%20xmlns='http://www.w3.org/2000/svg'%20viewBox='0%200%20665%20575'%3E%3C/svg%3E" class="attachment-cat_large size-cat_large wp-post-image" alt="" decoding="async" fetchpriority="high" data-lazy-src="https://wp-pa.phonandroid.com/uploads/2021/07/Precommandes-Nintendo-Switch-OLED-665x575.jpg" /><noscript><img width="665" height="575" src="https://wp-pa.phonandroid.com/uploads/2021/07/Precommandes-Nintendo-Switch-OLED-665x575.jpg" class="attachment-cat_large size-cat_large wp-post-image" alt="" decoding="async" fetchpriority="high" /></noscript>						</div>
+						<!-- text-box -->
+						<div class="text-box">
+							<time datetime="2023-11-17T07:10:22+01:00" class="date"><meta content="2023-11-17T07:10:22+01:00"/> 17 novembre 2023</time>
+                            <a href="https://www.phonandroid.com/stock-nintendo-switch-oled-ou-la-precommander-en-france.html" class="url">
+							<span class="title">Nintendo Switch OLED pas cher : où acheter la console au meilleur prix ?</span>                            </a>
+						</div>
+				</div>
+
+							<!-- column -->
+				<div class="column clickredirect">
+						<!-- img-box -->
+						<div class="img-box">
+							<img width="280" height="164" src="data:image/svg+xml,%3Csvg%20xmlns='http://www.w3.org/2000/svg'%20viewBox='0%200%20280%20164'%3E%3C/svg%3E" class="attachment-cat_medium size-cat_medium wp-post-image" alt="meilleur smartphone Honor" decoding="async" data-lazy-srcset="https://wp-pa.phonandroid.com/uploads/2023/01/meilleur-smartphone-Honor-280x164.jpg 280w, https://wp-pa.phonandroid.com/uploads/2023/01/meilleur-smartphone-Honor-562x327.jpg 562w" data-lazy-sizes="(max-width: 280px) 100vw, 280px" data-lazy-src="https://wp-pa.phonandroid.com/uploads/2023/01/meilleur-smartphone-Honor-280x164.jpg" /><noscript><img width="280" height="164" src="https://wp-pa.phonandroid.com/uploads/2023/01/meilleur-smartphone-Honor-280x164.jpg" class="attachment-cat_medium size-cat_medium wp-post-image" alt="meilleur smartphone Honor" decoding="async" srcset="https://wp-pa.phonandroid.com/uploads/2023/01/meilleur-smartphone-Honor-280x164.jpg 280w, https://wp-pa.phonandroid.com/uploads/2023/01/meilleur-smartphone-Honor-562x327.jpg 562w" sizes="(max-width: 280px) 100vw, 280px" /></noscript>						</div>
+						<!-- text-box -->
+						<div class="text-box">
+							<time datetime="2023-11-09T08:00:25+01:00" class="date"><meta content="2023-11-09T08:00:25+01:00"/> 9 novembre 2023</time>
+                            <a href="https://www.phonandroid.com/quel-smartphone-honor-acheter-en-2018.html" class="url">
+							<span class="title">Meilleurs smartphones Honor : lequel acheter en 2023 ?</span>                            </a>
+						</div>
+				</div>
+
+							<!-- column -->
+				<div class="column clickredirect">
+						<!-- img-box -->
+						<div class="img-box">
+							<img width="280" height="164" src="data:image/svg+xml,%3Csvg%20xmlns='http://www.w3.org/2000/svg'%20viewBox='0%200%20280%20164'%3E%3C/svg%3E" class="attachment-cat_medium size-cat_medium wp-post-image" alt="smartphones photo" decoding="async" data-lazy-srcset="https://wp-pa.phonandroid.com/uploads/2018/09/smartphones-photo-280x164.jpg 280w, https://wp-pa.phonandroid.com/uploads/2018/09/smartphones-photo-562x327.jpg 562w" data-lazy-sizes="(max-width: 280px) 100vw, 280px" data-lazy-src="https://wp-pa.phonandroid.com/uploads/2018/09/smartphones-photo-280x164.jpg" /><noscript><img width="280" height="164" src="https://wp-pa.phonandroid.com/uploads/2018/09/smartphones-photo-280x164.jpg" class="attachment-cat_medium size-cat_medium wp-post-image" alt="smartphones photo" decoding="async" srcset="https://wp-pa.phonandroid.com/uploads/2018/09/smartphones-photo-280x164.jpg 280w, https://wp-pa.phonandroid.com/uploads/2018/09/smartphones-photo-562x327.jpg 562w" sizes="(max-width: 280px) 100vw, 280px" /></noscript>						</div>
+						<!-- text-box -->
+						<div class="text-box">
+							<time datetime="2023-11-09T07:06:51+01:00" class="date"><meta content="2023-11-09T07:06:51+01:00"/> 9 novembre 2023</time>
+                            <a href="https://www.phonandroid.com/selection-meilleurs-photophones-android.html" class="url">
+							<span class="title">Meilleurs smartphones pour la photo : quel modèle acheter en 2023 ?</span>                            </a>
+						</div>
+				</div>
+
+							<!-- column -->
+				<div class="column clickredirect">
+						<!-- img-box -->
+						<div class="img-box">
+							<img width="280" height="164" src="data:image/svg+xml,%3Csvg%20xmlns='http://www.w3.org/2000/svg'%20viewBox='0%200%20280%20164'%3E%3C/svg%3E" class="attachment-cat_medium size-cat_medium wp-post-image" alt="" decoding="async" data-lazy-srcset="https://wp-pa.phonandroid.com/uploads/2020/04/meilleure-liseuse-280x164.jpg 280w, https://wp-pa.phonandroid.com/uploads/2020/04/meilleure-liseuse-562x327.jpg 562w" data-lazy-sizes="(max-width: 280px) 100vw, 280px" data-lazy-src="https://wp-pa.phonandroid.com/uploads/2020/04/meilleure-liseuse-280x164.jpg" /><noscript><img width="280" height="164" src="https://wp-pa.phonandroid.com/uploads/2020/04/meilleure-liseuse-280x164.jpg" class="attachment-cat_medium size-cat_medium wp-post-image" alt="" decoding="async" srcset="https://wp-pa.phonandroid.com/uploads/2020/04/meilleure-liseuse-280x164.jpg 280w, https://wp-pa.phonandroid.com/uploads/2020/04/meilleure-liseuse-562x327.jpg 562w" sizes="(max-width: 280px) 100vw, 280px" /></noscript>						</div>
+						<!-- text-box -->
+						<div class="text-box">
+							<time datetime="2023-11-09T07:05:02+01:00" class="date"><meta content="2023-11-09T07:05:02+01:00"/> 9 novembre 2023</time>
+                            <a href="https://www.phonandroid.com/meilleures-liseuses-quel-modele-acheter.html" class="url">
+							<span class="title">Meilleure liseuse Kindle, Kobo : laquelle acheter en 2023 ?</span>                            </a>
+						</div>
+				</div>
+
+							<!-- column -->
+				<div class="column clickredirect">
+						<!-- img-box -->
+						<div class="img-box">
+							<img width="280" height="164" src="data:image/svg+xml,%3Csvg%20xmlns='http://www.w3.org/2000/svg'%20viewBox='0%200%20280%20164'%3E%3C/svg%3E" class="attachment-cat_medium size-cat_medium wp-post-image" alt="guide achat tablettes android 2019" decoding="async" data-lazy-srcset="https://wp-pa.phonandroid.com/uploads/2017/11/guide-achat-tablettes-android-2019-280x164.jpg 280w, https://wp-pa.phonandroid.com/uploads/2017/11/guide-achat-tablettes-android-2019-562x327.jpg 562w" data-lazy-sizes="(max-width: 280px) 100vw, 280px" data-lazy-src="https://wp-pa.phonandroid.com/uploads/2017/11/guide-achat-tablettes-android-2019-280x164.jpg" /><noscript><img width="280" height="164" src="https://wp-pa.phonandroid.com/uploads/2017/11/guide-achat-tablettes-android-2019-280x164.jpg" class="attachment-cat_medium size-cat_medium wp-post-image" alt="guide achat tablettes android 2019" decoding="async" srcset="https://wp-pa.phonandroid.com/uploads/2017/11/guide-achat-tablettes-android-2019-280x164.jpg 280w, https://wp-pa.phonandroid.com/uploads/2017/11/guide-achat-tablettes-android-2019-562x327.jpg 562w" sizes="(max-width: 280px) 100vw, 280px" /></noscript>						</div>
+						<!-- text-box -->
+						<div class="text-box">
+							<time datetime="2023-11-09T07:00:56+01:00" class="date"><meta content="2023-11-09T07:00:56+01:00"/> 9 novembre 2023</time>
+                            <a href="https://www.phonandroid.com/guide-achat-tablettes-android.html" class="url">
+							<span class="title">Meilleures tablettes tactiles : quel modèle acheter en 2023 ?</span>                            </a>
+						</div>
+				</div>
+
+					</div>
+		<span class="button-loadmore"><a class="button button-inverted" href="https://www.phonandroid.com/cat/guides-achat">Voir tout</a></span>
+	</div>
+</div>
+<div class="container bonsplans-container">
+	<div class="row one-col">
+		<!-- heading -->
+		<span class="h1">Bons plans</span>
+		<!-- four-col -->
+		<div class="grid-posts">
+							<!-- column -->
+				<div class="column clickredirect post-2559963 post type-post status-publish format-standard has-post-thumbnail hentry category-television hubs-black-friday hubs-bons-plans-amazon category-bon-plan">
+						<!-- img-box -->
+						<div class="img-box">
+							<img width="240" height="170" src="data:image/svg+xml,%3Csvg%20xmlns='http://www.w3.org/2000/svg'%20viewBox='0%200%20240%20170'%3E%3C/svg%3E" class="attachment-listing size-listing wp-post-image" alt="Xiaomi TV F2 avec Fire TV" decoding="async" data-lazy-src="https://wp-pa.phonandroid.com/uploads/2022/05/Xiaomi-TV-F2-Fire-TV-240x170.jpg" /><noscript><img width="240" height="170" src="https://wp-pa.phonandroid.com/uploads/2022/05/Xiaomi-TV-F2-Fire-TV-240x170.jpg" class="attachment-listing size-listing wp-post-image" alt="Xiaomi TV F2 avec Fire TV" decoding="async" /></noscript>						</div>
+						<!-- text-box -->
+						<div class="text-box">
+							<time datetime="2023-11-21T11:39:03+01:00" class="date">21 novembre 2023</time>
+                            <a href="https://www.phonandroid.com/xiaomi-tv-f2-avec-fire-tv-prix-plus-bas.html" class="url">
+							<span class="title">Le Xiaomi TV F2 43&#8243; avec Fire TV est à son prix le plus bas pour le Black Friday</span>                            </a>
+						</div>
+				</div>
+
+							<!-- column -->
+				<div class="column clickredirect post-2559934 post type-post status-publish format-standard has-post-thumbnail hentry category-jeux-video tag-cdiscount hubs-black-friday hubs-xbox-series-x category-bon-plan">
+						<!-- img-box -->
+						<div class="img-box">
+							<img width="240" height="170" src="data:image/svg+xml,%3Csvg%20xmlns='http://www.w3.org/2000/svg'%20viewBox='0%200%20240%20170'%3E%3C/svg%3E" class="attachment-listing size-listing wp-post-image" alt="pack Xbox Series X + 2e manette" decoding="async" data-lazy-src="https://wp-pa.phonandroid.com/uploads/2023/11/pack-Xbox-Series-X-manette-240x170.jpg" /><noscript><img width="240" height="170" src="https://wp-pa.phonandroid.com/uploads/2023/11/pack-Xbox-Series-X-manette-240x170.jpg" class="attachment-listing size-listing wp-post-image" alt="pack Xbox Series X + 2e manette" decoding="async" /></noscript>						</div>
+						<!-- text-box -->
+						<div class="text-box">
+							<time datetime="2023-11-21T11:13:23+01:00" class="date">21 novembre 2023</time>
+                            <a href="https://www.phonandroid.com/pack-xbox-series-x-manette-moins-cher.html" class="url">
+							<span class="title">Xbox Series X : la console avec une 2ème manette est à 429,99 €</span>                            </a>
+						</div>
+				</div>
+
+							<!-- column -->
+				<div class="column clickredirect post-2559111 post type-post status-publish format-standard has-post-thumbnail hentry category-fnac hubs-black-friday category-bon-plan">
+						<!-- img-box -->
+						<div class="img-box">
+							<img width="240" height="170" src="data:image/svg+xml,%3Csvg%20xmlns='http://www.w3.org/2000/svg'%20viewBox='0%200%20240%20170'%3E%3C/svg%3E" class="attachment-listing size-listing wp-post-image" alt="Black Friday Fnac Darty" decoding="async" data-lazy-src="https://wp-pa.phonandroid.com/uploads/2023/11/black-friday-fnac-darty-240x170.jpg" /><noscript><img width="240" height="170" src="https://wp-pa.phonandroid.com/uploads/2023/11/black-friday-fnac-darty-240x170.jpg" class="attachment-listing size-listing wp-post-image" alt="Black Friday Fnac Darty" decoding="async" /></noscript>						</div>
+						<!-- text-box -->
+						<div class="text-box">
+							<time datetime="2023-11-21T10:42:22+01:00" class="date">21 novembre 2023</time>
+                            <a href="https://www.phonandroid.com/la-fnac-et-darty-lancent-leur-black-friday-les-meilleures-offres-sont-ici.html" class="url">
+							<span class="title">Black Friday Fnac Darty : les meilleures offres sont ici</span>                            </a>
+						</div>
+				</div>
+
+							<!-- column -->
+				<div class="column clickredirect post-2559905 post type-post status-publish format-standard has-post-thumbnail hentry category-bon-plan hubs-black-friday">
+						<!-- img-box -->
+						<div class="img-box">
+							<img width="240" height="170" src="data:image/svg+xml,%3Csvg%20xmlns='http://www.w3.org/2000/svg'%20viewBox='0%200%20240%20170'%3E%3C/svg%3E" class="attachment-listing size-listing wp-post-image" alt="Dyson V15 Detect Absolute" decoding="async" data-lazy-src="https://wp-pa.phonandroid.com/uploads/2023/11/Dyson-V15-Detect-Absolute-240x170.jpg" /><noscript><img width="240" height="170" src="https://wp-pa.phonandroid.com/uploads/2023/11/Dyson-V15-Detect-Absolute-240x170.jpg" class="attachment-listing size-listing wp-post-image" alt="Dyson V15 Detect Absolute" decoding="async" /></noscript>						</div>
+						<!-- text-box -->
+						<div class="text-box">
+							<time datetime="2023-11-21T10:25:02+01:00" class="date">21 novembre 2023</time>
+                            <a href="https://www.phonandroid.com/black-friday-dyson-v15-detect-absolute.html" class="url">
+							<span class="title">Black Friday Dyson V15 Detect Absolute : offrez-vous l&#8217;aspirateur balai à prix cassé</span>                            </a>
+						</div>
+				</div>
+
+							<!-- column -->
+				<div class="column clickredirect post-2559711 post type-post status-publish format-standard has-post-thumbnail hentry category-bon-plan hubs-black-friday">
+						<!-- img-box -->
+						<div class="img-box">
+							<img width="240" height="170" src="data:image/svg+xml,%3Csvg%20xmlns='http://www.w3.org/2000/svg'%20viewBox='0%200%20240%20170'%3E%3C/svg%3E" class="attachment-listing size-listing wp-post-image" alt="Black Friday Rakuten" decoding="async" data-lazy-src="https://wp-pa.phonandroid.com/uploads/2023/11/black-friday-rakuten-1-240x170.jpg" /><noscript><img width="240" height="170" src="https://wp-pa.phonandroid.com/uploads/2023/11/black-friday-rakuten-1-240x170.jpg" class="attachment-listing size-listing wp-post-image" alt="Black Friday Rakuten" decoding="async" /></noscript>						</div>
+						<!-- text-box -->
+						<div class="text-box">
+							<time datetime="2023-11-20T19:13:01+01:00" class="date">20 novembre 2023</time>
+                            <a href="https://www.phonandroid.com/black-friday-sur-rakuten-les-prix-sont-en-chute-libre.html" class="url">
+							<span class="title">Black Friday : sur Rakuten, les prix sont en chute libre</span>                            </a>
+						</div>
+				</div>
+
+							<!-- column -->
+				<div class="column clickredirect post-2559792 post type-post status-publish format-standard has-post-thumbnail hentry category-telephone-mobile-android hubs-black-friday hubs-bons-plans-amazon category-bon-plan">
+						<!-- img-box -->
+						<div class="img-box">
+							<img width="240" height="170" src="data:image/svg+xml,%3Csvg%20xmlns='http://www.w3.org/2000/svg'%20viewBox='0%200%20240%20170'%3E%3C/svg%3E" class="attachment-listing size-listing wp-post-image" alt="Realme 11 Pro" decoding="async" data-lazy-src="https://wp-pa.phonandroid.com/uploads/2023/06/Realme-11-Pro-240x170.jpg" /><noscript><img width="240" height="170" src="https://wp-pa.phonandroid.com/uploads/2023/06/Realme-11-Pro-240x170.jpg" class="attachment-listing size-listing wp-post-image" alt="Realme 11 Pro" decoding="async" /></noscript>						</div>
+						<!-- text-box -->
+						<div class="text-box">
+							<time datetime="2023-11-20T18:32:32+01:00" class="date">20 novembre 2023</time>
+                            <a href="https://www.phonandroid.com/smartphone-realme-11-pro-abordable-black-friday.html" class="url">
+							<span class="title">Le smartphone Realme 11 Pro devient très abordable lors du Black Friday</span>                            </a>
+						</div>
+				</div>
+
+					</div>
+		<span class="button-loadmore"><a class="button button-inverted" href="https://www.phonandroid.com/cat/bon-plan ">Voir tout</a></span>
+	</div>
+</div>
+
+	</main>
+</div><!-- ctBoc-->
+<!-- footer of the page -->
+<footer id="footer" class="container">
+		<ul id="footer-social" class="socialnetworks">
+		<li><span data-href="https://www.facebook.com/phonandroid" data-target="_blank"><i class="icon-facebook"></i></span></li>
+		<li><span data-href="https://www.youtube.com/user/PhonandroidTV" data-target="_blank"><i class="icon-youtube"></i></span></li>
+		<li><span data-href="https://twitter.com/phonandroid" data-target="_blank"><i class="icon-twitter"></i></span></li>
+		<!--<li><span data-href="https://plus.google.com/+phonandroid" data-target="_blank"><i class="icon-google-plus"></i></a></li>-->
+		<li><span data-href="https://www.instagram.com/phonandroid/" data-target="_blank" rel="nofollow"><i class="icon-instagram"></i></span></li>
+		<li><span data-href="https://www.phonandroid.com/feed" data-target="_blank"><i class="icon-feed"></i></span></li>
+	</ul>
+	
+	<div class="row">
+		<!-- head -->
+		<div class="footer-logo">
+			<img width="62" height="90" src="data:image/svg+xml,%3Csvg%20xmlns='http://www.w3.org/2000/svg'%20viewBox='0%200%2062%2090'%3E%3C/svg%3E" alt="phonandroid" data-lazy-src="https://www.phonandroid.com/wp-content/themes/phonadroid-v3/assets/images/phonandroid-2.svg"><noscript><img width="62" height="90" src="https://www.phonandroid.com/wp-content/themes/phonadroid-v3/assets/images/phonandroid-2.svg" alt="phonandroid"></noscript>
+		</div>
+        <ul id="footer-company-logo" class="company-logo">
+        </ul>
+						<!-- monthly-readers -->
+			<div id="footer-social-text" class="footer-social-text footer-text">
+					<p>Retrouvez sur Phonandroid toute l&#8217;actualité autour de l&#8217;OS mobile de Google. Le site est une véritable mine d&#8217;or autour des produits Android et bien plus ! Vous cherchez un téléphone ou souhaitez maîtriser parfaitement le votre ? Nos articles, dossiers et tutoriels sont là pour vous informer et vous guider. Votre smartphone n&#8217;aura plus aucun secret pour vous. Nous vous ferons découvrir les meilleures applications android sur le Google Play. Si les tablettes vous intéressent, vous pourrez suivre l&#8217;actualité des différentes marques. Elles sont nombreuses et s&#8217;y retrouver est compliqué. Phonandroid et son forum sont là pour vous informer et vous guider.</p>
+			</div>
+				</div>
+</footer>
+</div> <!-- / main container of all the page elements -->
+<script type='text/javascript' id='disqus_count-js-extra'>
+/* <![CDATA[ */
+var countVars = {"disqusShortname":"phonandroid"};
+/* ]]> */
+</script>
+<script type="rocketlazyloadscript" data-minify="1" data-rocket-type='text/javascript' data-rocket-src='https://www.phonandroid.com/wp-content/cache/min/1/wp-content/plugins/disqus-comment-system/public/js/comment_count.js?ver=1700131724' id='disqus_count-js' defer></script>
+<script type="rocketlazyloadscript" id="rocket-browser-checker-js-after" data-rocket-type="text/javascript">
+"use strict";var _createClass=function(){function defineProperties(target,props){for(var i=0;i<props.length;i++){var descriptor=props[i];descriptor.enumerable=descriptor.enumerable||!1,descriptor.configurable=!0,"value"in descriptor&&(descriptor.writable=!0),Object.defineProperty(target,descriptor.key,descriptor)}}return function(Constructor,protoProps,staticProps){return protoProps&&defineProperties(Constructor.prototype,protoProps),staticProps&&defineProperties(Constructor,staticProps),Constructor}}();function _classCallCheck(instance,Constructor){if(!(instance instanceof Constructor))throw new TypeError("Cannot call a class as a function")}var RocketBrowserCompatibilityChecker=function(){function RocketBrowserCompatibilityChecker(options){_classCallCheck(this,RocketBrowserCompatibilityChecker),this.passiveSupported=!1,this._checkPassiveOption(this),this.options=!!this.passiveSupported&&options}return _createClass(RocketBrowserCompatibilityChecker,[{key:"_checkPassiveOption",value:function(self){try{var options={get passive(){return!(self.passiveSupported=!0)}};window.addEventListener("test",null,options),window.removeEventListener("test",null,options)}catch(err){self.passiveSupported=!1}}},{key:"initRequestIdleCallback",value:function(){!1 in window&&(window.requestIdleCallback=function(cb){var start=Date.now();return setTimeout(function(){cb({didTimeout:!1,timeRemaining:function(){return Math.max(0,50-(Date.now()-start))}})},1)}),!1 in window&&(window.cancelIdleCallback=function(id){return clearTimeout(id)})}},{key:"isDataSaverModeOn",value:function(){return"connection"in navigator&&!0===navigator.connection.saveData}},{key:"supportsLinkPrefetch",value:function(){var elem=document.createElement("link");return elem.relList&&elem.relList.supports&&elem.relList.supports("prefetch")&&window.IntersectionObserver&&"isIntersecting"in IntersectionObserverEntry.prototype}},{key:"isSlowConnection",value:function(){return"connection"in navigator&&"effectiveType"in navigator.connection&&("2g"===navigator.connection.effectiveType||"slow-2g"===navigator.connection.effectiveType)}}]),RocketBrowserCompatibilityChecker}();
+</script>
+<script type='text/javascript' id='rocket-preload-links-js-extra'>
+/* <![CDATA[ */
+var RocketPreloadLinksConfig = {"excludeUris":"\/ads.txt|\/robots.txt|\/news-sitemap.xml|\/go\/|\/(?:.+\/)?feed(?:\/(?:.+\/?)?)?$|\/(?:.+\/)?embed|\/(index.php\/)?(.*)wp-json(\/.*|$)|\/refer\/|\/go\/|\/recommend\/|\/recommends\/","usesTrailingSlash":"","imageExt":"jpg|jpeg|gif|png|tiff|bmp|webp|avif|pdf|doc|docx|xls|xlsx|php","fileExt":"jpg|jpeg|gif|png|tiff|bmp|webp|avif|pdf|doc|docx|xls|xlsx|php|html|htm","siteUrl":"https:\/\/www.phonandroid.com","onHoverDelay":"100","rateThrottle":"3"};
+/* ]]> */
+</script>
+<script type="rocketlazyloadscript" id="rocket-preload-links-js-after" data-rocket-type="text/javascript">
+(function() {
+"use strict";var r="function"==typeof Symbol&&"symbol"==typeof Symbol.iterator?function(e){return typeof e}:function(e){return e&&"function"==typeof Symbol&&e.constructor===Symbol&&e!==Symbol.prototype?"symbol":typeof e},e=function(){function i(e,t){for(var n=0;n<t.length;n++){var i=t[n];i.enumerable=i.enumerable||!1,i.configurable=!0,"value"in i&&(i.writable=!0),Object.defineProperty(e,i.key,i)}}return function(e,t,n){return t&&i(e.prototype,t),n&&i(e,n),e}}();function i(e,t){if(!(e instanceof t))throw new TypeError("Cannot call a class as a function")}var t=function(){function n(e,t){i(this,n),this.browser=e,this.config=t,this.options=this.browser.options,this.prefetched=new Set,this.eventTime=null,this.threshold=1111,this.numOnHover=0}return e(n,[{key:"init",value:function(){!this.browser.supportsLinkPrefetch()||this.browser.isDataSaverModeOn()||this.browser.isSlowConnection()||(this.regex={excludeUris:RegExp(this.config.excludeUris,"i"),images:RegExp(".("+this.config.imageExt+")$","i"),fileExt:RegExp(".("+this.config.fileExt+")$","i")},this._initListeners(this))}},{key:"_initListeners",value:function(e){-1<this.config.onHoverDelay&&document.addEventListener("mouseover",e.listener.bind(e),e.listenerOptions),document.addEventListener("mousedown",e.listener.bind(e),e.listenerOptions),document.addEventListener("touchstart",e.listener.bind(e),e.listenerOptions)}},{key:"listener",value:function(e){var t=e.target.closest("a"),n=this._prepareUrl(t);if(null!==n)switch(e.type){case"mousedown":case"touchstart":this._addPrefetchLink(n);break;case"mouseover":this._earlyPrefetch(t,n,"mouseout")}}},{key:"_earlyPrefetch",value:function(t,e,n){var i=this,r=setTimeout(function(){if(r=null,0===i.numOnHover)setTimeout(function(){return i.numOnHover=0},1e3);else if(i.numOnHover>i.config.rateThrottle)return;i.numOnHover++,i._addPrefetchLink(e)},this.config.onHoverDelay);t.addEventListener(n,function e(){t.removeEventListener(n,e,{passive:!0}),null!==r&&(clearTimeout(r),r=null)},{passive:!0})}},{key:"_addPrefetchLink",value:function(i){return this.prefetched.add(i.href),new Promise(function(e,t){var n=document.createElement("link");n.rel="prefetch",n.href=i.href,n.onload=e,n.onerror=t,document.head.appendChild(n)}).catch(function(){})}},{key:"_prepareUrl",value:function(e){if(null===e||"object"!==(void 0===e?"undefined":r(e))||!1 in e||-1===["http:","https:"].indexOf(e.protocol))return null;var t=e.href.substring(0,this.config.siteUrl.length),n=this._getPathname(e.href,t),i={original:e.href,protocol:e.protocol,origin:t,pathname:n,href:t+n};return this._isLinkOk(i)?i:null}},{key:"_getPathname",value:function(e,t){var n=t?e.substring(this.config.siteUrl.length):e;return n.startsWith("/")||(n="/"+n),this._shouldAddTrailingSlash(n)?n+"/":n}},{key:"_shouldAddTrailingSlash",value:function(e){return this.config.usesTrailingSlash&&!e.endsWith("/")&&!this.regex.fileExt.test(e)}},{key:"_isLinkOk",value:function(e){return null!==e&&"object"===(void 0===e?"undefined":r(e))&&(!this.prefetched.has(e.href)&&e.origin===this.config.siteUrl&&-1===e.href.indexOf("?")&&-1===e.href.indexOf("#")&&!this.regex.excludeUris.test(e.href)&&!this.regex.images.test(e.href))}}],[{key:"run",value:function(){"undefined"!=typeof RocketPreloadLinksConfig&&new n(new RocketBrowserCompatibilityChecker({capture:!0,passive:!0}),RocketPreloadLinksConfig).init()}}]),n}();t.run();
+}());
+</script>
+<script type="rocketlazyloadscript" data-rocket-type='text/javascript' data-rocket-src='https://www.phonandroid.com/wp-content/themes/phonadroid-v3/assets/js/jquery.magnific-popup.min.js' id='magnific-popup-js' defer></script>
+<script type="rocketlazyloadscript" data-rocket-type='text/javascript' data-rocket-src='https://www.phonandroid.com/wp-content/themes/phonadroid-v3/assets/js/jquery.stickybits.min.js' id='sticky-js' defer></script>
+<script type='text/javascript' src='https://www.phonandroid.com/wp-content/themes/phonadroid-v3/assets/js/dark.min.js?v=1.0.4' id='theme-dark-js' defer></script>
+<script type="rocketlazyloadscript" data-rocket-type='text/javascript' data-rocket-src='https://www.phonandroid.com/wp-content/themes/phonadroid-v3/assets/js/slick.min.js' id='slick-js' defer></script>
+<script type='text/javascript' id='theme-main-js-extra'>
+/* <![CDATA[ */
+var theme10n = {"ajaxurl":"https:\/\/www.phonandroid.com\/wp-admin\/admin-ajax.php","imgurl":"https:\/\/www.phonandroid.com\/wp-content\/themes\/phonadroid-v3\/assets\/images"};
+/* ]]> */
+</script>
+<script type="rocketlazyloadscript" data-rocket-type='text/javascript' data-rocket-src='https://www.phonandroid.com/wp-content/themes/phonadroid-v3/assets/js/jquery.main.min.js?v=6.3.9' id='theme-main-js' defer></script>
+<script type='text/javascript' src='https://www.phonandroid.com/wp-content/themes/phonadroid-v3/assets/js/critical.min.js?v=1.0.1' id='critical-js-js' defer></script>
+<script type="rocketlazyloadscript" data-minify="1" data-rocket-type='text/javascript' data-rocket-src='https://www.phonandroid.com/wp-content/cache/min/1/wp-content/themes/phonadroid-v3/node_modules/@ccmbenchmark/mailing-recaptcha/src/js/recaptcha.js?ver=1700131724' id='phonandroid-recaptcha-nl-box-script-js' defer></script>
+<script type="rocketlazyloadscript" data-minify="1" data-rocket-type='text/javascript' data-rocket-src='https://www.phonandroid.com/wp-content/cache/min/1/wp-content/themes/phonadroid-v3/assets/js/nl.js?ver=1700131724' id='phonandroid-nl-box-script-js' defer></script>
+<script>window.lazyLoadOptions=[{elements_selector:"img[data-lazy-src],.rocket-lazyload,iframe[data-lazy-src]",data_src:"lazy-src",data_srcset:"lazy-srcset",data_sizes:"lazy-sizes",class_loading:"lazyloading",class_loaded:"lazyloaded",threshold:300,callback_loaded:function(element){if(element.tagName==="IFRAME"&&element.dataset.rocketLazyload=="fitvidscompatible"){if(element.classList.contains("lazyloaded")){if(typeof window.jQuery!="undefined"){if(jQuery.fn.fitVids){jQuery(element).parent().fitVids()}}}}}},{elements_selector:".rocket-lazyload",data_src:"lazy-src",data_srcset:"lazy-srcset",data_sizes:"lazy-sizes",class_loading:"lazyloading",class_loaded:"lazyloaded",threshold:300,}];window.addEventListener('LazyLoad::Initialized',function(e){var lazyLoadInstance=e.detail.instance;if(window.MutationObserver){var observer=new MutationObserver(function(mutations){var image_count=0;var iframe_count=0;var rocketlazy_count=0;mutations.forEach(function(mutation){for(var i=0;i<mutation.addedNodes.length;i++){if(typeof mutation.addedNodes[i].getElementsByTagName!=='function'){continue}
+if(typeof mutation.addedNodes[i].getElementsByClassName!=='function'){continue}
+images=mutation.addedNodes[i].getElementsByTagName('img');is_image=mutation.addedNodes[i].tagName=="IMG";iframes=mutation.addedNodes[i].getElementsByTagName('iframe');is_iframe=mutation.addedNodes[i].tagName=="IFRAME";rocket_lazy=mutation.addedNodes[i].getElementsByClassName('rocket-lazyload');image_count+=images.length;iframe_count+=iframes.length;rocketlazy_count+=rocket_lazy.length;if(is_image){image_count+=1}
+if(is_iframe){iframe_count+=1}}});if(image_count>0||iframe_count>0||rocketlazy_count>0){lazyLoadInstance.update()}});var b=document.getElementsByTagName("body")[0];var config={childList:!0,subtree:!0};observer.observe(b,config)}},!1)</script><script data-no-minify="1" async src="https://www.phonandroid.com/wp-content/plugins/wp-rocket/assets/js/lazyload/17.8.3/lazyload.min.js"></script><script type="rocketlazyloadscript" data-rocket-type="text/javascript">
+jQuery(function($){
+        var catlink = {"4356":"https:\/\/www.phonandroid.com\/cat\/actu-generaliste","5":"https:\/\/www.phonandroid.com\/cat\/actualite-android","5209":"https:\/\/www.phonandroid.com\/cat\/actualite-android\/android-tv","4357":"https:\/\/www.phonandroid.com\/cat\/concurrence","40":"https:\/\/www.phonandroid.com\/cat\/application-android","5061":"https:\/\/www.phonandroid.com\/cat\/smartphoneandroid\/asus","6570":"https:\/\/www.phonandroid.com\/cat\/bon-plan\/forfait-mobile\/auchan-telecom","5545":"https:\/\/www.phonandroid.com\/cat\/bon-plan\/forfait-mobile\/byou","5554":"https:\/\/www.phonandroid.com\/cat\/economie\/banque","5284":"https:\/\/www.phonandroid.com\/cat\/informatique-pc\/batteries","3906":"https:\/\/www.phonandroid.com\/cat\/bon-plan","5181":"https:\/\/www.phonandroid.com\/cat\/operateurs-mobiles\/bouygues-telecom","6474":"https:\/\/www.phonandroid.com\/cat\/informatique-pc\/carte-graphique","4976":"https:\/\/www.phonandroid.com\/cat\/objets-connectes\/casques-realite-virtuelle","6571":"https:\/\/www.phonandroid.com\/cat\/bon-plan\/forfait-mobile\/cdiscount-mobile","35":"https:\/\/www.phonandroid.com\/cat\/tutoriaux","5216":"https:\/\/www.phonandroid.com\/cat\/comparatifs","5272":"https:\/\/www.phonandroid.com\/cat\/consoles-jeux-video","5552":"https:\/\/www.phonandroid.com\/cat\/economie\/crypto-monnaie","5528":"https:\/\/www.phonandroid.com\/cat\/bon-plan\/darty","6488":"https:\/\/www.phonandroid.com\/cat\/streaming\/disney-plus","4977":"https:\/\/www.phonandroid.com\/cat\/objets-connectes\/domotique","4982":"https:\/\/www.phonandroid.com\/cat\/economie","5285":"https:\/\/www.phonandroid.com\/cat\/informatique-pc\/ecrans","5384":"https:\/\/www.phonandroid.com\/cat\/objets-connectes\/enceintes-connectees","5453":"https:\/\/www.phonandroid.com\/cat\/reseaux-sociaux\/facebook","5529":"https:\/\/www.phonandroid.com\/cat\/bon-plan\/fnac","5199":"https:\/\/www.phonandroid.com\/cat\/bon-plan\/forfait-mobile","5183":"https:\/\/www.phonandroid.com\/cat\/operateurs-mobiles\/free","5546":"https:\/\/www.phonandroid.com\/cat\/bon-plan\/forfait-mobile\/free-mobile","5220":"https:\/\/www.phonandroid.com\/cat\/application-android\/google-apps","5189":"https:\/\/www.phonandroid.com\/cat\/smartphoneandroid\/google-nexus","5360":"https:\/\/www.phonandroid.com\/cat\/guides-achat\/guide-achat-smartphones","5211":"https:\/\/www.phonandroid.com\/cat\/guides-achat","5659":"https:\/\/www.phonandroid.com\/cat\/guides-achat\/guides-achat-audio","5653":"https:\/\/www.phonandroid.com\/cat\/guides-achat\/guides-achat-informatique","5654":"https:\/\/www.phonandroid.com\/cat\/guides-achat\/guides-achat-jeux-video","5549":"https:\/\/www.phonandroid.com\/cat\/informatique-pc","5089":"https:\/\/www.phonandroid.com\/cat\/smartphoneandroid\/honor","5062":"https:\/\/www.phonandroid.com\/cat\/smartphoneandroid\/htc","1428":"https:\/\/www.phonandroid.com\/cat\/smartphoneandroid\/huawei","5359":"https:\/\/www.phonandroid.com\/cat\/bon-plan\/informatique","5195":"https:\/\/www.phonandroid.com\/cat\/actu-generaliste\/insolite","5178":"https:\/\/www.phonandroid.com\/cat\/actu-generaliste\/internet","5475":"https:\/\/www.phonandroid.com\/cat\/concurrence\/ios","5480":"https:\/\/www.phonandroid.com\/cat\/concurrence\/ipad","5431":"https:\/\/www.phonandroid.com\/cat\/concurrence\/iphone","4979":"https:\/\/www.phonandroid.com\/cat\/actualite-android\/jeux-android","5340":"https:\/\/www.phonandroid.com\/cat\/bon-plan\/jeux-video","5063":"https:\/\/www.phonandroid.com\/cat\/smartphoneandroid\/lg","5187":"https:\/\/www.phonandroid.com\/cat\/actu-generaliste\/logiciels","4973":"https:\/\/www.phonandroid.com\/cat\/objets-connectes\/lunettes-connectees","5202":"https:\/\/www.phonandroid.com\/cat\/actualite-android\/mises-a-jour-android","5700":"https:\/\/www.phonandroid.com\/cat\/mobilite-urbaine","4965":"https:\/\/www.phonandroid.com\/cat\/objets-connectes\/montres-connectees","5064":"https:\/\/www.phonandroid.com\/cat\/smartphoneandroid\/motorola-lenovo","5418":"https:\/\/www.phonandroid.com\/cat\/streaming\/netflix","5458":"https:\/\/www.phonandroid.com\/cat\/consoles-jeux-video\/nintendo","5543":"https:\/\/www.phonandroid.com\/cat\/bon-plan\/jeux-video\/nintendo-switch","5277":"https:\/\/www.phonandroid.com\/cat\/smartphoneandroid\/nokia","6572":"https:\/\/www.phonandroid.com\/cat\/bon-plan\/forfait-mobile\/nrj-mobile","5279":"https:\/\/www.phonandroid.com\/cat\/objets-connectes","5358":"https:\/\/www.phonandroid.com\/cat\/bon-plan\/produits-connectes","4486":"https:\/\/www.phonandroid.com\/cat\/smartphoneandroid\/oneplus","5192":"https:\/\/www.phonandroid.com\/cat\/smartphoneandroid\/oppo","5180":"https:\/\/www.phonandroid.com\/cat\/operateurs-mobiles\/orange","5370":"https:\/\/www.phonandroid.com\/cat\/test-android\/test-pc","5203":"https:\/\/www.phonandroid.com\/cat\/actualite-android\/personnalisation","5462":"https:\/\/www.phonandroid.com\/cat\/consoles-jeux-video\/playstation","5438":"https:\/\/www.phonandroid.com\/cat\/smartphoneandroid\/pocophone","5282":"https:\/\/www.phonandroid.com\/cat\/informatique-pc\/processeurs","5540":"https:\/\/www.phonandroid.com\/cat\/bon-plan\/jeux-video\/ps4","5645":"https:\/\/www.phonandroid.com\/cat\/smartphoneandroid\/realme","5544":"https:\/\/www.phonandroid.com\/cat\/bon-plan\/forfait-mobile\/red-sfr","5273":"https:\/\/www.phonandroid.com\/cat\/reseaux-sociaux","5224":"https:\/\/www.phonandroid.com\/cat\/tablettesandroid\/samsung-tablettesandroid","5065":"https:\/\/www.phonandroid.com\/cat\/smartphoneandroid\/samsung","5473":"https:\/\/www.phonandroid.com\/cat\/smartphoneandroid\/samsung\/galaxy-a","5459":"https:\/\/www.phonandroid.com\/cat\/smartphoneandroid\/samsung\/galaxy-note","5474":"https:\/\/www.phonandroid.com\/cat\/smartphoneandroid\/samsung\/galaxy-s","5188":"https:\/\/www.phonandroid.com\/cat\/actu-generaliste\/securite","5205":"https:\/\/www.phonandroid.com\/cat\/actualite-android\/securite-android","5182":"https:\/\/www.phonandroid.com\/cat\/operateurs-mobiles\/sfr","5200":"https:\/\/www.phonandroid.com\/cat\/bon-plan\/telephone-mobile-android","5367":"https:\/\/www.phonandroid.com\/cat\/test-android\/test-smartphone","23":"https:\/\/www.phonandroid.com\/cat\/smartphoneandroid","5066":"https:\/\/www.phonandroid.com\/cat\/smartphoneandroid\/sony","5548":"https:\/\/www.phonandroid.com\/cat\/bon-plan\/forfait-mobile\/sosh","5095":"https:\/\/www.phonandroid.com\/cat\/streaming","24":"https:\/\/www.phonandroid.com\/cat\/tablettesandroid","39":"https:\/\/www.phonandroid.com\/cat\/operateurs-mobiles","5539":"https:\/\/www.phonandroid.com\/cat\/bon-plan\/television","204":"https:\/\/www.phonandroid.com\/cat\/test-android","5219":"https:\/\/www.phonandroid.com\/cat\/application-android\/top-applications","5390":"https:\/\/www.phonandroid.com\/cat\/actu-generaliste\/tv","5472":"https:\/\/www.phonandroid.com\/cat\/reseaux-sociaux\/twitter","5342":"https:\/\/www.phonandroid.com\/cat\/voiture","5186":"https:\/\/www.phonandroid.com\/cat\/actu-generaliste\/windows","5463":"https:\/\/www.phonandroid.com\/cat\/consoles-jeux-video\/xbox","5541":"https:\/\/www.phonandroid.com\/cat\/bon-plan\/jeux-video\/xbox-one","2205":"https:\/\/www.phonandroid.com\/cat\/smartphoneandroid\/xiaomi","5423":"https:\/\/www.phonandroid.com\/cat\/streaming\/youtube"};
+
+        $('.catlink').click(function (e) {
+        var $this = e.target,
+            evtobj = window.event ? event : e,
+            go_to_url = catlink[$this.getAttribute('data-cat-id')]
+        ;
+
+        if (evtobj.ctrlKey || evtobj.metaKey || evtobj.which == 2) {
+            window.open(go_to_url);
+            return false;
+        } else {
+            document.location.href = go_to_url;
+            return false;
+        }
+    });
+    //Trcik pour #nav
+
+    $('.nwjs_link-home').click(function (e) {
+        var evtobj = window.event ? event : e;
+        var go_to_url = "https://www.phonandroid.com";
+        if (evtobj.ctrlKey || evtobj.metaKey || evtobj.which == 2) {
+            window.open(go_to_url);
+            return false;
+        } else {
+            document.location.href = go_to_url;
+            return false;
+        }
+    });
+
+    $('.nwjs_link-forum').click(function (e) {
+        var evtobj = window.event ? event : e;
+        var go_to_url = "https://www.phonandroid.com/forum/";
+        if (evtobj.ctrlKey || evtobj.metaKey || evtobj.which == 2) {
+            window.open(go_to_url);
+            return false;
+        } else {
+            document.location.href = go_to_url;
+            return false;
+        }
+    });
+
+        });
+</script>
+  
+<div id="secondary-nav" style="display: none"><div class="wrapper"></div></div>
+</body>
+</html>
+<!--
+Performance optimized by Redis Object Cache. Learn more: https://wprediscache.com
+
+Retrieved 14189 objects (2 Mo) from Redis using PhpRedis (v6.0.1).
+-->
+
+<!-- This website is like a Rocket, isn't it? Performance optimized by WP Rocket. Learn more: https://wp-rocket.me - Debug: cached@1700607881 -->

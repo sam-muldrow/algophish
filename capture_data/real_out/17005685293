@@ -1,0 +1,1029 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="robots" content="index, follow, all" />
+        <meta name="Author" content="Symfony" />
+        <meta name="color-scheme" content="light dark">
+                    <meta name="description" content="Symfony is a set of reusable PHP components and a PHP framework to build web applications, APIs, microservices and web services.">
+                <meta name="Keywords" content="symfony3, symfony2, symfony, project, framework, php, php5, php7, php8, open-source, components, symphony, symfony framework, symfony tutorial" />
+        
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="preconnect" href="https://connect.symfony.com">
+
+                <title>Symfony, High Performance PHP Framework for Web Development</title><script>window.BFCFG = window.BFCFG || {}; window.BFCFG.browser_key = window.BFCFG.browser_key || "708cc1e7d4caf1babcf4add8f85ee4bab46c2fc9583f44e11b2bd8fb8a6d87ab"; window.BFCFG.parent_trace_id = window.BFCFG.parent_trace_id || "93f1ffc0d358680a7e75faed453ef59c"; window.BFCFG.transaction_name = window.BFCFG.transaction_name || "App\\Controller\\ContentController::homepageAction"; !function(e,t,c,o,r){o=t.createElement(c),r=t.getElementsByTagName(c)[0],o.async=1,o.src=(e.BFCFG&&e.BFCFG.collector?e.BFCFG.collector:"https://apm.blackfire.io")+"/probe.js",r.parentNode.insertBefore(o,r)}(window,document,"script");</script>
+
+        
+        <link rel="search" type="application/opensearchdescription+xml" href="https://symfony.com/opensearch/documentation.xml" title="Symfony documentation" />
+
+                        <link rel="stylesheet" href="/build/app.7793bd32.css">
+            <link rel="stylesheet" href="/build/search.608e1217.css">
+            <link rel="stylesheet" href="/build/print.de2ec216.css" media="print">
+        
+    <link rel="stylesheet" href="/build/home.18cb1265.css">
+
+                        <script src="/build/runtime.77fc9adf.js" defer></script><script src="/build/198.13fc75c6.js" defer></script><script src="/build/945.7ac68315.js" defer></script><script src="/build/995.480e273c.js" defer></script><script src="/build/741.84ff19af.js" defer></script><script src="/build/165.d264d672.js" defer></script><script src="/build/96.95869f2d.js" defer></script><script src="/build/805.5e0dea47.js" defer></script><script src="/build/app.a4147619.js" defer></script>
+            <script src="/build/search.1825c76b.js" defer></script>
+        
+    <script src="/build/home.80fd6850.js" defer></script>
+    <script src="/build/394.f6dada0b.js" defer></script><script src="/build/asciinema-player.8e59c2b7.js" defer></script>
+
+        <script type="text/javascript">
+            window.addEventListener('DOMContentLoaded', function () {
+                let js, fjs = document.getElementsByTagName('script')[0], load = function(url, id) {
+                    if (document.getElementById(id)) { return; }
+                    js = document.createElement('script'); js.src = url; js.id = id; js.defer = true;
+                    fjs.parentNode.insertBefore(js, fjs);
+                };
+                load('https://connect.symfony.com/sln.js?customize_url=https://symfony.com/account/sln_customiser.js', 'sln_bar');
+
+                let s = document.createElement('link');
+                s.rel = 'stylesheet';
+                s.href = 'https://connect.symfony.com/css/sln.css';
+                let x = document.getElementsByTagName('title')[0];
+                x.parentNode.insertBefore(s, x);
+            });
+        </script>
+
+        <link rel="shortcut icon" type="image/svg+xml" href="/favicons/favicon.svg">
+        <link rel="alternate icon" type="image/png" sizes="16x16" href="/favicons/favicon-16x16.png">
+        <link rel="mask-icon" href="/favicons/safari-pinned-tab.svg" color="#5bbad5">
+        <link rel="apple-touch-icon" sizes="180x180" href="/favicons/apple-touch-icon.png">
+        <link rel="manifest" href="/static/webmanifest.json">
+        <meta name="msapplication-config" content="/static/browserconfig.xml" />
+        <meta name="theme-color" content="#ffffff">
+        <meta name="apple-mobile-web-app-title" content="Symfony">
+
+        <meta property="fb:pages" content="211720082183067">
+        <meta name="twitter:site" content="@symfony">
+                    <meta name="twitter:card" content="summary_large_image" />
+        
+                    <meta property="og:type" content="website">
+            <meta property="og:title" content="Symfony, High Performance PHP Framework for Web Development">
+            <meta property="og:image" content="https://symfony.com/images/opengraph/symfony.png">
+
+                            <meta property="og:description" content="Symfony is a set of reusable PHP components and a PHP framework to build web applications, APIs, microservices and web services.">
+                    
+        <meta name="msapplication-TileColor" content="#262626">
+        <meta name="application-name" content="Symfony">
+        <meta name="msapplication-tooltip" content="Official Symfony website">
+
+        <meta name="theme-color" content="#262626">
+
+            </head>
+
+    <body class="" >
+        <a href="#start-of-content" class="show-on-focus skip-to-content">Skip to content</a>
+
+        <script>
+            function setSymfonyWebsiteColorScheme () {
+                const selectedColorScheme = localStorage.getItem('colorScheme') || 'sync';
+                const resolvedColorScheme = 'sync' === selectedColorScheme
+                    ? matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light'
+                    : selectedColorScheme;
+
+                document.body.classList.remove('light-theme', 'dark-theme');
+                document.body.classList.add('light' === resolvedColorScheme ? 'light-theme' : 'dark-theme');
+                localStorage.setItem('colorScheme', selectedColorScheme);
+                document.body.style.colorScheme = resolvedColorScheme;
+            }
+
+            setSymfonyWebsiteColorScheme();
+            window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', function (e) {
+                setSymfonyWebsiteColorScheme();
+            });
+
+            document.body.classList.add(
+                (navigator.appVersion.indexOf('Win') !== -1) ? 'windows' : (navigator.appVersion.indexOf('Mac') !== -1) ? 'macos' : 'linux'
+            );
+        </script>
+
+        <script type="application/ld+json">{"@context":"https:\/\/schema.org","@type":"WebSite","name":"Symfony","url":"https:\/\/symfony.com","potentialAction":{"@type":"SearchAction","target":"https:\/\/symfony.com\/search?q={query}","query-input":"required name=query"}}</script>
+        <script type="application/ld+json">{"@context":"https:\/\/schema.org","@type":"Organization","url":"https:\/\/symfony.com","name":"Symfony","logo":"\/images\/logos\/sf-positive.svg","sameAs":["https:\/\/github.com\/symfony","https:\/\/stackoverflow.com\/questions\/tagged\/symfony","https:\/\/twitter.com\/symfony","https:\/\/www.facebook.com\/SymfonyFramework","https:\/\/www.youtube.com\/user\/SensioLabs"]}</script>
+
+        <div id="sln"></div>
+
+                    <header>
+    <div class="page-container">
+        <nav class="navbar navbar-expand-lg">
+            <div class="container-fluid">
+                <a class="navbar-brand" href="/" aria-label="Symfony">
+                    <h1>                        <span aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" width="260" height="66" viewBox="0 0 260 66"><circle fill="#1A171B" cx="32.455" cy="32.665" r="32.455"/><path fill="#FFF" d="M46.644 12.219c-3.297.115-6.175 1.932-8.317 4.446-2.372 2.756-3.95 6.025-5.087 9.362-2.034-1.667-3.603-3.825-6.866-4.766-2.522-.724-5.171-.425-7.607 1.39-1.154.862-1.949 2.165-2.327 3.39-.979 3.183 1.029 6.016 1.941 7.033l1.994 2.137c.411.419 1.401 1.512.917 3.079-.523 1.704-2.577 2.807-4.684 2.157-.941-.287-2.293-.988-1.99-1.975.125-.404.414-.706.569-1.055.142-.3.21-.525.253-.657.385-1.257-.141-2.892-1.487-3.307-1.256-.385-2.541-.08-3.039 1.537-.565 1.837.314 5.171 5.023 6.623 5.517 1.695 10.184-1.309 10.846-5.227.417-2.454-.691-4.277-2.721-6.622l-1.654-1.829c-1.002-1.001-1.346-2.707-.309-4.018.875-1.106 2.121-1.578 4.162-1.023 2.979.809 4.307 2.876 6.523 4.543-.915 3.001-1.513 6.013-2.054 8.714l-.33 2.014c-1.584 8.308-2.793 12.87-5.935 15.489-.633.45-1.538 1.124-2.902 1.171-.715.022-.946-.47-.956-.684-.017-.502.406-.732.687-.958.42-.229 1.055-.609 1.012-1.826-.046-1.438-1.237-2.685-2.959-2.628-1.29.044-3.256 1.258-3.182 3.48.077 2.295 2.216 4.015 5.441 3.906 1.724-.059 5.574-.761 9.368-5.271 4.416-5.17 5.651-11.097 6.58-15.435l1.037-5.727c.576.069 1.192.115 1.862.131 5.5.116 8.251-2.733 8.292-4.805.027-1.254-.823-2.488-2.013-2.46-.852.024-1.922.591-2.179 1.769-.251 1.156 1.75 2.199.186 3.212-1.111.719-3.103 1.226-5.908.814l.51-2.819c1.041-5.346 2.325-11.922 7.196-12.082.355-.018 1.654.016 1.684.875.009.287-.062.36-.398 1.017-.342.512-.471.948-.455 1.449.047 1.365 1.085 2.262 2.586 2.208 2.01-.065 2.588-2.022 2.555-3.027-.081-2.361-2.57-3.853-5.865-3.745z"/><path fill="#1A171B" d="M196.782 23.534c7.48 0 12.499 5.407 12.499 12.887 0 7.048-5.116 12.886-12.499 12.886-7.435 0-12.55-5.838-12.55-12.886 0-7.48 5.018-12.887 12.55-12.887zm0 22.109c5.306 0 7.671-4.827 7.671-9.222 0-4.68-2.847-9.217-7.671-9.217-4.877 0-7.724 4.537-7.724 9.217.001 4.394 2.365 9.222 7.724 9.222zM183.61 25.825v-1.713h-6.518v-2.341c0-3.33.483-5.842 4.391-5.842.072 0 .149.005.224.008.008 0 .007-.012.016-.012 1.085.08 1.987-.804 2.048-1.887l.08-1.486c-.915-.146-1.884-.29-3.039-.29-6.709 0-8.255 3.91-8.255 9.896v1.955h-5.795v1.913c.149.99.996 1.752 2.031 1.752.006 0 .009.005.016.005h3.748V48.73h2.5l.006-.001c1.04 0 1.892-.779 2.03-1.779V27.783h4.538a2.052 2.052 0 0 0 1.979-1.958zm-60.435-1.713c-.008 0-.013.006-.024.006-.956 0-1.882.657-2.286 1.545l-6.244 18.82h-.096l-6.106-18.81c-.399-.893-1.329-1.555-2.291-1.555-.011 0-.015-.006-.024-.006h-3.164l8.351 22.977c.291.821.871 2.077.871 2.606 0 .483-1.353 6.08-5.409 6.08-.1 0-.201-.009-.3-.017-1.034-.057-1.815.665-1.989 1.779l-.124 1.57c.82.145 1.645.338 3.092.338 5.984 0 7.769-5.455 9.46-10.185l9.073-25.149h-2.79zm-28.843 5c-3.747-1.917-7.847-3.218-7.918-7.076.012-4.097 3.776-5.172 6.677-5.169.012-.002.024-.002.031-.002 1.26 0 2.268.125 3.251.34.013 0 .011-.016.027-.016 1.039.076 1.911-.737 2.034-1.762l.083-1.488c-1.902-.473-3.889-.712-5.619-.712-6.309.039-10.992 3.213-11.007 9.268.009 5.296 3.578 7.349 7.416 9.207 3.764 1.81 7.888 3.305 7.924 7.674-.023 4.56-4.423 6.241-7.455 6.247-1.773-.006-3.698-.449-5.32-.96-1.017-.168-1.851.729-1.982 1.917l-.138 1.327c2.23.72 4.517 1.348 6.815 1.348h.027c7.065-.051 12.557-2.869 12.578-10.185-.011-5.645-3.604-8.016-7.424-9.958zm68.623 19.617l.006-.001c.98 0 1.796-.687 2.004-1.604V32.947c0-5.358-2.267-9.413-8.546-9.413-2.219 0-5.934 1.257-7.623 4.779-1.306-3.331-4.15-4.779-7-4.779-3.619 0-6.082 1.303-7.816 4.152h-.099v-1.532a2.058 2.058 0 0 0-2.055-2.036c-.008 0-.014-.006-.022-.006h-2.169v24.617h2.456l.006-.001a2.06 2.06 0 0 0 2.059-2.059c0-.03.011-.042.016-.063v-10.28c0-4.585 1.834-9.122 6.467-9.122 3.669 0 4.396 3.811 4.396 6.853V48.73h2.49l.007-.001a2.05 2.05 0 0 0 2.037-1.873v-10.53c0-4.585 1.835-9.122 6.468-9.122 3.667 0 4.393 3.811 4.393 6.853V48.73h2.525zm70.113 0l.008-.001a2.054 2.054 0 0 0 2.049-1.964v-12.66c0-6.611-2.85-10.571-9.222-10.571-3.426 0-6.705 1.691-8.059 4.491h-.097v-1.839c0-.001-.004-.001-.004-.006a2.057 2.057 0 0 0-2.058-2.061c-.011 0-.015-.006-.022-.006h-2.311v24.617h2.493l.007-.001a2.05 2.05 0 0 0 2.038-1.895v-9.495c0-5.984 2.319-10.135 7.482-10.135 3.96.24 5.211 3.038 5.211 8.783v12.742h2.485zm24.428-24.617c-.011 0-.014.006-.026.006-.954 0-1.883.657-2.283 1.545l-6.242 18.82h-.102l-6.104-18.81c-.401-.893-1.331-1.555-2.293-1.555-.007 0-.015-.006-.021-.006h-3.164l8.351 22.977c.291.821.873 2.077.873 2.606 0 .483-1.355 6.08-5.41 6.08-.102 0-.201-.009-.301-.017-1.033-.057-1.815.665-1.99 1.779l-.122 1.57c.82.145 1.645.338 3.091.338 5.984 0 7.772-5.455 9.462-10.185l9.074-25.149h-2.793z"/></svg></span>
+                    </h1>                </a>
+
+                <button class="navbar-toggler" type="button" data-bs-toggle="offcanvas" data-bs-target="#header-nav-menu" aria-controls="header-nav-menu" aria-expanded="false" aria-label="Toggle navigation">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-menu-2" width="40" height="40" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+    <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
+    <path d="M4 6l16 0"></path>
+    <path d="M4 12l16 0"></path>
+    <path d="M4 18l16 0"></path>
+</svg>
+
+                </button>
+
+                <div class="offcanvas offcanvas-end" tabindex="-1" id="header-nav-menu" aria-label="Menu">
+                    <div class="offcanvas-header justify-content-end">
+                        <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close">Close</button>
+                    </div>
+
+                    <div class="offcanvas-body align-items-center">
+                        <ul class="navbar-nav flex-grow-1" role="menubar" aria-label="Menu">
+                            <li role="none" class="nav-item">
+                                <span tabindex="0" class="nav-header" role="menuitem" aria-haspopup="true" aria-expanded="false">About</span>
+
+                                <div class="submenu">
+                                    <ul role="menu" aria-label="About">
+                                        <li role="none" class="nav-link-with-icon">
+                                            <span class="nav-link-icon">
+                                                <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-brand-symfony" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+  <path d="M6 13c.458 .667 1.125 1 2 1c1.313 0 2 -.875 2 -1.5c0 -1.5 -2 -1 -2 -2c0 -.625 .516 -1.5 1.5 -1.5c2.5 0 1.563 2 5.5 2c.667 0 1 -.333 1 -1" />
+  <path d="M9 17c-.095 .667 .238 1 1 1c1.714 0 2.714 -2 3 -6c.286 -4 1.571 -6 3 -6c.571 0 .905 .333 1 1" />
+  <path d="M22 12c0 5.523 -4.477 10 -10 10s-10 -4.477 -10 -10s4.477 -10 10 -10a10 10 0 0 1 10 10z" />
+</svg>
+
+
+
+                                            </span>
+                                            <a role="menuitem" class="nav-link" href="/what-is-symfony">What is Symfony?</a>
+                                        </li>
+                                        <li role="none" class="nav-link-with-icon">
+                                            <span class="nav-link-icon">
+                                                <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-users" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+  <path d="M9 7m-4 0a4 4 0 1 0 8 0a4 4 0 1 0 -8 0" />
+  <path d="M3 21v-2a4 4 0 0 1 4 -4h4a4 4 0 0 1 4 4v2" />
+  <path d="M16 3.13a4 4 0 0 1 0 7.75" />
+  <path d="M21 21v-2a4 4 0 0 0 -3 -3.85" />
+</svg>
+
+
+
+                                            </span>
+                                            <a role="menuitem" class="nav-link" href="/community">Community</a>
+                                        </li>
+                                        <li role="none" class="nav-link-with-icon">
+                                            <span class="nav-link-icon">
+                                                <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-news" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+  <path d="M16 6h3a1 1 0 0 1 1 1v11a2 2 0 0 1 -4 0v-13a1 1 0 0 0 -1 -1h-10a1 1 0 0 0 -1 1v12a3 3 0 0 0 3 3h11" />
+  <path d="M8 8l4 0" />
+  <path d="M8 12l4 0" />
+  <path d="M8 16l4 0" />
+</svg>
+
+
+
+                                            </span>
+                                            <a role="menuitem" class="nav-link" href="/blog/">News</a>
+                                        </li>
+                                        <li role="none" class="nav-link-with-icon">
+                                            <span class="nav-link-icon">
+                                                <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-keyboard" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+  <path d="M2 6m0 2a2 2 0 0 1 2 -2h16a2 2 0 0 1 2 2v8a2 2 0 0 1 -2 2h-16a2 2 0 0 1 -2 -2z" />
+  <path d="M6 10l0 0" />
+  <path d="M10 10l0 0" />
+  <path d="M14 10l0 0" />
+  <path d="M18 10l0 0" />
+  <path d="M6 14l0 .01" />
+  <path d="M18 14l0 .01" />
+  <path d="M10 14l4 0" />
+</svg>
+
+
+
+                                            </span>
+                                            <a role="menuitem" class="nav-link" href="/doc/current/contributing/index.html">Contributing</a>
+                                        </li>
+                                        <li role="none" class="nav-link-with-icon">
+                                            <span class="nav-link-icon">
+                                                <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-help" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+  <path d="M12 12m-9 0a9 9 0 1 0 18 0a9 9 0 1 0 -18 0" />
+  <path d="M12 17l0 .01" />
+  <path d="M12 13.5a1.5 1.5 0 0 1 1 -1.5a2.6 2.6 0 1 0 -3 -4" />
+</svg>
+
+
+
+                                            </span>
+                                            <a role="menuitem" class="nav-link" href="/support">Support</a>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </li>
+
+                            <li role="none" class="nav-item">
+                                <span tabindex="0" class="nav-header" role="menuitem" aria-haspopup="true" aria-expanded="false">Documentation</span>
+
+                                <div class="submenu">
+                                    <ul role="menu" aria-label="Documentation">
+                                        <li role="none" class="nav-link-with-icon">
+                                            <span class="nav-link-icon">
+                                                <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-books" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+  <rect x="5" y="4" width="4" height="16" rx="1" />
+  <rect x="9" y="4" width="4" height="16" rx="1" />
+  <path d="M5 8h4" />
+  <path d="M9 16h4" />
+  <path d="M13.803 4.56l2.184 -.53c.562 -.135 1.133 .19 1.282 .732l3.695 13.418a1.02 1.02 0 0 1 -.634 1.219l-.133 .041l-2.184 .53c-.562 .135 -1.133 -.19 -1.282 -.732l-3.695 -13.418a1.02 1.02 0 0 1 .634 -1.219l.133 -.041z" />
+  <path d="M14 9l4 -1" />
+  <path d="M16 16l3.923 -.98" />
+</svg>
+
+
+
+                                            </span>
+                                            <a role="menuitem" class="nav-link" href="/doc/current/index.html">Symfony Docs</a>
+                                        </li>
+                                        <li role="none" class="nav-link-with-icon">
+                                            <span class="nav-link-icon">
+                                                <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-book-2" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+  <path d="M19 4v16h-12a2 2 0 0 1 -2 -2v-12a2 2 0 0 1 2 -2h12z" />
+  <path d="M19 16h-12a2 2 0 0 0 -2 2" />
+  <path d="M9 8h6" />
+</svg>
+
+
+
+                                            </span>
+                                            <a role="menuitem" class="nav-link" href="/book">Symfony Book</a>
+                                        </li>
+                                        <li role="none" class="nav-link-with-icon">
+                                            <span class="nav-link-icon">
+                                                <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-video" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+  <path d="M15 10l4.553 -2.276a1 1 0 0 1 1.447 .894v6.764a1 1 0 0 1 -1.447 .894l-4.553 -2.276v-4z" />
+  <rect x="3" y="6" width="12" height="12" rx="2" />
+</svg>
+
+
+
+                                            </span>
+                                            <a role="menuitem" class="nav-link" href="https://symfonycasts.com">Screencasts</a>
+                                        </li>
+                                        <li role="none" class="nav-link-with-icon">
+                                            <span class="nav-link-icon">
+                                                <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-box" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+  <polyline points="12 3 20 7.5 20 16.5 12 21 4 16.5 4 7.5 12 3" />
+  <line x1="12" y1="12" x2="20" y2="7.5" />
+  <line x1="12" y1="12" x2="12" y2="21" />
+  <line x1="12" y1="12" x2="4" y2="7.5" />
+</svg>
+
+
+
+                                            </span>
+                                            <a role="menuitem" class="nav-link" href="/bundles">Symfony Bundles</a>
+                                        </li>
+                                        <li role="none" class="nav-link-with-icon">
+                                            <span class="nav-link-icon">
+                                                <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-cloud" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+  <path d="M6.657 18c-2.572 0 -4.657 -2.007 -4.657 -4.483c0 -2.475 2.085 -4.482 4.657 -4.482c.393 -1.762 1.794 -3.2 3.675 -3.773c1.88 -.572 3.956 -.193 5.444 .996c1.488 1.19 2.162 3.007 1.77 4.769h.99c1.913 0 3.464 1.56 3.464 3.486c0 1.927 -1.551 3.487 -3.465 3.487h-11.878" />
+</svg>
+
+
+
+                                            </span>
+                                            <a role="menuitem" class="nav-link" href="/doc/cloud/">Symfony Cloud</a>
+                                        </li>
+                                        <li role="none" class="nav-link-with-icon">
+                                            <span class="nav-link-icon">
+                                                <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-school" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+  <path d="M22 9l-10 -4l-10 4l10 4l10 -4v6" />
+  <path d="M6 10.6v5.4a6 3 0 0 0 12 0v-5.4" />
+</svg>
+
+
+
+                                            </span>
+                                            <a role="menuitem" class="nav-link" href="https://training.sensiolabs.com/en/courses">Training</a>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </li>
+
+                            <li role="none" class="nav-item menu-services">
+                                <span tabindex="0" class="nav-header" role="menuitem" aria-haspopup="true" aria-expanded="false">Services</span>
+
+                                <div class="submenu">
+                                    <ul role="menu" aria-label="Services">
+                                        <li role="none" class="nav-link-with-icon">
+                                            <span class="nav-link-icon">
+                                                <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-cloud" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+  <path d="M6.657 18c-2.572 0 -4.657 -2.007 -4.657 -4.483c0 -2.475 2.085 -4.482 4.657 -4.482c.393 -1.762 1.794 -3.2 3.675 -3.773c1.88 -.572 3.956 -.193 5.444 .996c1.488 1.19 2.162 3.007 1.77 4.769h.99c1.913 0 3.464 1.56 3.464 3.486c0 1.927 -1.551 3.487 -3.465 3.487h-11.878" />
+</svg>
+
+
+
+                                            </span>
+                                            <span>
+                                                <a role="menuitem" class="nav-link" href="/cloud/">Platform.sh for Symfony</a>
+                                                <span class="nav-link-description">Best platform to deploy Symfony apps</span>
+                                            </span>
+                                        </li>
+                                        <li role="none" class="nav-link-with-icon">
+                                            <span class="nav-link-icon">
+                                                <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-report-search" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+  <path d="M8 5h-2a2 2 0 0 0 -2 2v12a2 2 0 0 0 2 2h5.697" />
+  <path d="M18 12v-5a2 2 0 0 0 -2 -2h-2" />
+  <path d="M8 3m0 2a2 2 0 0 1 2 -2h2a2 2 0 0 1 2 2v0a2 2 0 0 1 -2 2h-2a2 2 0 0 1 -2 -2z" />
+  <path d="M8 11h4" />
+  <path d="M8 15h3" />
+  <path d="M16.5 17.5m-2.5 0a2.5 2.5 0 1 0 5 0a2.5 2.5 0 1 0 -5 0" />
+  <path d="M18.5 19.5l2.5 2.5" />
+</svg>
+
+
+
+                                            </span>
+                                            <span>
+                                                <a role="menuitem" class="nav-link" href="https://insight.symfony.com">SymfonyInsight</a>
+                                                <span class="nav-link-description">Automatic quality checks for your apps</span>
+                                            </span>
+                                        </li>
+                                        <li role="none" class="nav-link-with-icon">
+                                            <span class="nav-link-icon">
+                                                <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-certificate" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+  <path d="M15 15m-3 0a3 3 0 1 0 6 0a3 3 0 1 0 -6 0" />
+  <path d="M13 17.5v4.5l2 -1.5l2 1.5v-4.5" />
+  <path d="M10 19h-5a2 2 0 0 1 -2 -2v-10c0 -1.1 .9 -2 2 -2h14a2 2 0 0 1 2 2v10a2 2 0 0 1 -1 1.73" />
+  <path d="M6 9l12 0" />
+  <path d="M6 12l3 0" />
+  <path d="M6 15l2 0" />
+</svg>
+
+
+
+                                            </span>
+                                            <span>
+                                                <a role="menuitem" class="nav-link" href="https://certification.symfony.com">Symfony Certification</a>
+                                                <span class="nav-link-description">Prove your knowledge and boost your career</span>
+                                            </span>
+                                        </li>
+                                        <li role="none" class="nav-link-with-icon">
+                                            <span class="nav-link-icon">
+                                                <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-briefcase" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+  <path d="M3 7m0 2a2 2 0 0 1 2 -2h14a2 2 0 0 1 2 2v9a2 2 0 0 1 -2 2h-14a2 2 0 0 1 -2 -2z" />
+  <path d="M8 7v-2a2 2 0 0 1 2 -2h4a2 2 0 0 1 2 2v2" />
+  <path d="M12 12l0 .01" />
+  <path d="M3 13a20 20 0 0 0 18 0" />
+</svg>
+
+
+
+                                            </span>
+                                            <span>
+                                                <a role="menuitem" class="nav-link" href="https://sensiolabs.com">SensioLabs</a>
+                                                <span class="nav-link-description">Professional services to help you with Symfony</span>
+                                            </span>
+                                        </li>
+                                        <li role="none" class="nav-link-with-icon">
+                                            <span class="nav-link-icon">
+                                                <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-flame" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+  <path d="M12 12c2 -2.96 0 -7 -1 -8c0 3.038 -1.773 4.741 -3 6c-1.226 1.26 -2 3.24 -2 5a6 6 0 1 0 12 0c0 -1.532 -1.056 -3.94 -2 -5c-1.786 3 -2.791 3 -4 2z" />
+</svg>
+
+
+
+                                            </span>
+                                            <span>
+                                                <a role="menuitem" class="nav-link" href="https://www.blackfire.io/?utm_source=symfony&amp;utm_medium=symfonycom_footer&amp;utm_campaign=profiler">Blackfire</a>
+                                                <span class="nav-link-description">Profile and monitor performance of your apps</span>
+                                            </span>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </li>
+
+                            <li role="none" class="d-lg-none">
+                                <span class="nav-header">Other</span>
+                            </li>
+
+                            <li role="none" class="nav-item nav-item-standalone">
+                                <a role="menuitem" class="nav-link" href="/blog/">Blog</a>
+                            </li>
+
+                            <li role="none" class="nav-item nav-item-standalone">
+                                <a role="menuitem" class="nav-link" href="/download">Download</a>
+                            </li>
+                        </ul>
+
+                        <div class="sensiolabs d-none d-lg-block">
+                            <span class="byline">sponsored by</span>
+                            <a target="_blank" class="stretched-link" rel="external noopener" href="https://sensiolabs.com" title="SensioLabs, PHP services and software solutions for enterprise and community.">
+                                <svg height="13.22" viewBox="0 0 439 71.666664" width="81" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"><defs><style>.sl-logo-header-sensio { fill: #000; } .sl-logo-header-labs { fill: #82e83f; } .dark-theme { .sl-logo-header-sensio { fill: #EEE; } }</style></defs><clipPath id="a"><path d="m0 53.75h329.25v-53.75h-329.25z"/></clipPath><g clip-path="url(#a)" transform="matrix(1.3333333 0 0 -1.3333333 0 71.666667)"><path class="sl-logo-header-sensio" d="m0 0c0-6.486 5.091-9.012 10.872-9.012 3.784 0 9.563 1.094 9.563 6.074 0 5.259-7.362 6.147-14.586 8.058-7.294 1.911-14.656 4.71-14.656 13.861 0 9.967 9.495 14.747 18.37 14.747 10.253 0 19.679-4.44 19.679-15.703h-10.459c-.344 5.871-4.54 7.373-9.7 7.373-3.44 0-7.431-1.433-7.431-5.531 0-3.755 2.338-4.232 14.655-7.374 3.577-.887 14.586-3.14 14.586-14.2 0-8.944-7.087-15.635-20.435-15.635-10.871 0-21.053 5.323-20.916 17.342z" transform="translate(11.7729 18.4595)"/><path class="sl-logo-header-sensio" d="m0 0c-.895 4.953-3.027 7.568-7.775 7.568-6.192 0-7.981-4.816-8.119-7.568zm-15.894-6.193c.275-6.193 3.303-9.013 8.738-9.013 3.922 0 7.088 2.408 7.707 4.611h8.599c-2.753-8.394-8.599-11.972-16.65-11.972-11.214 0-18.165 7.706-18.165 18.713 0 10.666 7.364 18.784 18.165 18.784 12.109 0 17.957-10.183 17.271-21.123z" transform="translate(68.6602 23.8921)"/><path class="sl-logo-header-sensio" d="m0 0h9.287v-4.956h.207c2.477 3.991 6.742 5.918 10.871 5.918 10.389 0 13.004-5.847 13.004-14.653v-21.88h-9.77v20.09c0 5.848-1.72 8.738-6.263 8.738-5.297 0-7.567-2.958-7.567-10.182v-18.646h-9.769z" transform="translate(79.3398 37.8599)"/><path class="sl-logo-header-sensio" d="m0 0c.069-4.267 3.647-5.986 7.5-5.986 2.817 0 6.396 1.1 6.396 4.54 0 2.96-4.058 3.991-11.075 5.505-5.641 1.238-11.282 3.233-11.282 9.496 0 9.08 7.842 11.42 15.48 11.42 7.773 0 14.929-2.614 15.684-11.352h-9.289c-.272 3.783-3.164 4.815-6.672 4.815-2.199 0-5.433-.413-5.433-3.301 0-3.509 5.503-3.991 11.074-5.3 5.711-1.306 11.284-3.37 11.284-9.974 0-9.359-8.118-12.385-16.235-12.385-8.256 0-16.307 3.095-16.721 12.522z" transform="translate(122.7832 13.8472)"/><path class="sl-logo-header-sensio" d="m147.272 37.86h9.769v-35.571h-9.769zm9.769 5.504h-9.769v8.05h9.769z"/><path class="sl-logo-header-sensio" d="m0 0c6.674 0 8.669 5.711 8.669 11.353 0 5.711-1.995 11.421-8.669 11.421-6.604 0-8.601-5.71-8.601-11.421 0-5.642 1.997-11.353 8.601-11.353m0 30.136c11.214 0 18.438-7.43 18.438-18.783 0-11.284-7.224-18.714-18.438-18.714-11.146 0-18.37 7.43-18.37 18.714 0 11.353 7.224 18.783 18.37 18.783" transform="translate(176.3633 8.686)"/><g class="sl-logo-header-labs"><path d="m0 0v48.222h9.817v-40.031h19.41v-8.191z" transform="translate(196.6621 2.6079)"/><path d="m0 0c-1.193-.397-3.084-.873-5.671-1.426s-4.278-1.095-5.074-1.625c-1.216-.862-1.823-1.957-1.823-3.283 0-1.306.485-2.433 1.459-3.383.972-.951 2.211-1.427 3.714-1.427 1.68 0 3.284.553 4.809 1.659 1.127.84 1.867 1.868 2.222 3.085.243.796.364 2.309.364 4.543zm-12.47 7.562-8.457 1.526c.95 3.404 2.587 5.925 4.909 7.561 2.321 1.636 5.77 2.455 10.347 2.455 4.157 0 7.252-.493 9.286-1.476 2.034-.984 3.467-2.233 4.295-3.748.83-1.515 1.244-4.295 1.244-8.341l-.099-10.879c0-3.096.149-5.378.447-6.848.299-1.47.857-3.046 1.676-4.726h-9.221c-.243.619-.541 1.536-.894 2.753-.157.552-.266.917-.333 1.095-1.591-1.549-3.294-2.709-5.107-3.483s-3.748-1.161-5.805-1.161c-3.626 0-6.483.983-8.572 2.951-2.09 1.968-3.135 4.455-3.135 7.463 0 1.989.476 3.764 1.426 5.323.951 1.559 2.283 2.752 3.997 3.581 1.713.83 4.185 1.554 7.412 2.173 4.357.818 7.374 1.58 9.054 2.288v.929c0 1.791-.441 3.068-1.326 3.831s-2.554 1.144-5.008 1.144c-1.658 0-2.951-.327-3.881-.979-.928-.652-1.68-1.796-2.255-3.432" transform="translate(248.5254 19.522)"/><path d="m0 0c0-3.648.575-6.347 1.725-8.093 1.614-2.476 3.758-3.715 6.434-3.715 2.056 0 3.808.879 5.257 2.637 1.447 1.758 2.172 4.527 2.172 8.309 0 4.023-.73 6.925-2.189 8.705-1.46 1.78-3.328 2.67-5.604 2.67-2.234 0-4.092-.868-5.572-2.604-1.482-1.735-2.223-4.372-2.223-7.909m-9.252-18.374v48.62h9.318v-17.511c2.875 3.272 6.28 4.909 10.215 4.909 4.289 0 7.838-1.554 10.647-4.661 2.807-3.106 4.212-7.567 4.212-13.381 0-6.015-1.432-10.647-4.295-13.897-2.864-3.25-6.341-4.875-10.431-4.875-2.012 0-3.996.503-5.953 1.509s-3.643 2.493-5.058 4.461v-5.174z" transform="translate(270.6582 20.9819)"/><path d="m0 0 9.353 1.427c.398-1.814 1.205-3.191 2.421-4.13 1.215-.94 2.918-1.409 5.108-1.409 2.409 0 4.222.442 5.438 1.327.818.618 1.228 1.447 1.228 2.487 0 .707-.222 1.293-.664 1.758-.464.441-1.504.851-3.117 1.227-7.518 1.658-12.284 3.172-14.294 4.543-2.786 1.902-4.179 4.544-4.179 7.927 0 3.051 1.205 5.615 3.615 7.695 2.409 2.077 6.147 3.117 11.209 3.117 4.82 0 8.403-.785 10.746-2.355 2.344-1.57 3.957-3.891 4.842-6.965l-8.789-1.625c-.376 1.371-1.089 2.421-2.139 3.151-1.05.729-2.549 1.095-4.494 1.095-2.454 0-4.212-.344-5.273-1.029-.707-.486-1.061-1.117-1.061-1.89 0-.663.309-1.227.928-1.692.84-.619 3.742-1.492 8.707-2.62 4.963-1.127 8.429-2.51 10.396-4.145 1.946-1.659 2.918-3.969 2.918-6.932 0-3.229-1.347-6.003-4.045-8.324-2.698-2.322-6.689-3.483-11.972-3.483-4.799 0-8.596.973-11.393 2.919-2.797 1.946-4.627 4.587-5.489 7.926" transform="translate(295.2803 12.6567)"/></g></g></svg>
+
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </nav>
+    </div>
+</header>
+
+        
+                    <div class="highlight-top-horizontal">
+                                    <style>
+    .top-horizontal-highlights {
+        background: #18181B;
+        font-family: Inter, system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans", "Liberation Sans", sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
+        font-size: 16px;
+        position: relative;
+        width: 100%;
+    }
+    .top-horizontal-highlights:hover { background: #3F3F46; }
+    .top-horizontal-highlights a::after { content: ''; position: absolute; top: 0; left: 0; height: 100%; width: 100%; }
+    .top-horizontal-highlight { align-items: center; display: flex; flex-wrap: nowrap; padding: 12px 0; }
+    a.top-horizontal-highlight-title, a.top-horizontal-highlight-title:hover { color: #FB923C; font-weight: 600; }
+    .top-horizontal-highlight-data { color: #FFEDD5; display: none; font-size: 14px; margin-left: 30px; }
+
+    @media (min-width: 768px) {
+        .top-horizontal-highlight-data { display: block; margin-left: 20px; }
+    }
+
+    .dark-theme .top-horizontal-highlights { background: #F97316; }
+    .dark-theme .top-horizontal-highlights:hover { background: #FB923C; }
+    .dark-theme a.top-horizontal-highlight-title, dark-theme a.top-horizontal-highlight-title:hover { color: #18181B; }
+    .dark-theme .top-horizontal-highlight-data { color: #18181B; }
+</style>
+
+    
+<div class="top-horizontal-highlights">
+    <div class="page-container">
+        <div class="top-horizontal-highlight">
+            <a class="top-horizontal-highlight-title" href="https://symfony.com/blog/black-friday-2023-offers-from-the-symfony-ecosystem">
+                Black Friday 2023 Offers
+            </a>
+
+            <span class="top-horizontal-highlight-data">
+                30% discount on Symfony, Twig and Sylius certifications
+                                                        <strong>(offer ends in 6 days)</strong>
+                            </span>
+        </div>
+    </div>
+</div>
+
+                            </div>
+        
+                    <main id="start-of-content">
+                <div class="page-container">
+                    <div class="main-content">
+                            <div class="container">
+        <section class="symfony-intro">
+            <div class="row">
+                <div class="col-sm-6 col-lg-4">
+                    <h2>Symfony is a set of reusable PHP <em>components</em>...</h2>
+
+                    <p>
+                        The standard foundation on which the best PHP applications
+                        are built. Choose any of the 50 stand-alone components
+                        available for your own applications.
+                    </p>
+
+                    <p><a class="read-more" href="/components">Browse components</a></p>
+                </div>
+
+                <div class="col-sm-6 col-lg-4">
+                    <h2>... and a PHP <em>framework</em> for web projects</h2>
+
+                    <p>
+                        Speed up the creation and maintenance of your PHP web
+                        applications. End repetitive coding tasks and enjoy the
+                        power of controlling your code.
+                    </p>
+
+                    <p><a class="read-more" href="/what-is-symfony">What is Symfony</a></p>
+                </div>
+
+                <div class="col-lg-4">
+                    <div class="mb-0 mt-0 box box--small getting-started-doc">
+                        <div class="d-flex align-items-center">
+                            <div class="hidden-xs icon"><svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-book" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+    <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
+    <path d="M3 19a9 9 0 0 1 9 0a9 9 0 0 1 9 0m-18 -13a9 9 0 0 1 9 0a9 9 0 0 1 9 0m-18 0l0 13m9 -13l0 13m9 -13l0 13"></path>
+</svg>
+</div>
+                            <h3>Getting Started with Symfony</h3>
+                        </div>
+
+                        <ul>
+                            <li>Read <a class="read-more" href="/doc/current/setup.html">the docs</a></li>
+                            <li>Read <a class="read-more" href="/book">the official book</a> (translated into many languages)</li>
+                            <li>Watch <a class="read-more" href="https://symfonycasts.com/tracks/symfony">the video course</a></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="symfony-cloud">
+            <div class="box box--large box--cloud">
+                <div class="symfony-cloud-text">
+                    <div class="logo">
+                        <a href="/cloud/" aria-label="Platform.sh">
+                            <span aria-hidden="true"><svg viewBox="0 0 172.62 34.06" xmlns="http://www.w3.org/2000/svg"><g fill="currentColor"><path d="m144.07 0h28.55v11.35h-28.55z"/><path d="m144.07 24.69h28.55v3.86h-28.55z"/><path d="m144.07 15.02h28.55v5.82h-28.55z"/><path d="m0 13.85h3.61v2.15a5.45 5.45 0 0 1 1.9-1.79 5.25 5.25 0 0 1 2.66-.69 5.59 5.59 0 0 1 4.33 2 8.06 8.06 0 0 1 1.78 5.56 8.38 8.38 0 0 1 -1.79 5.71 5.6 5.6 0 0 1 -4.34 2 4.94 4.94 0 0 1 -2.15-.45 7.46 7.46 0 0 1 -2.08-1.66v7.38h-3.92zm3.83 7.07a5.66 5.66 0 0 0 1 3.65 3 3 0 0 0 2.37 1.17 2.78 2.78 0 0 0 2.24-1.08 5.55 5.55 0 0 0 .9-3.55 5.29 5.29 0 0 0 -.93-3.42 2.84 2.84 0 0 0 -2.28-1.11 3 3 0 0 0 -2.36 1.09 4.88 4.88 0 0 0 -.94 3.25z"/><path d="m16.07 28.49v-20.21h3.87v20.21z"/><path d="m25.5 18.32-3.5-.64a5.48 5.48 0 0 1 2-3.14 7.48 7.48 0 0 1 4.3-1 9.4 9.4 0 0 1 3.86.61 3.8 3.8 0 0 1 1.84 1.54 7.89 7.89 0 0 1 .52 3.47v4.52a15 15 0 0 0 .19 2.84 8 8 0 0 0 .69 2h-3.91c-.1-.26-.23-.64-.37-1.15-.07-.23-.11-.38-.14-.45a7 7 0 0 1 -2.12 1.45 6.15 6.15 0 0 1 -2.42.48 5 5 0 0 1 -3.56-1.23 4.05 4.05 0 0 1 -1.3-3.1 4.2 4.2 0 0 1 .59-2.21 3.87 3.87 0 0 1 1.66-1.49 13.49 13.49 0 0 1 3.08-.9 21.67 21.67 0 0 0 3.77-.95v-.39a2 2 0 0 0 -.56-1.58 3.26 3.26 0 0 0 -2.12-.52 2.8 2.8 0 0 0 -1.61.41 2.81 2.81 0 0 0 -.89 1.43zm5.18 3.14c-.5.16-1.29.36-2.36.59a7.55 7.55 0 0 0 -2.11.67 1.65 1.65 0 0 0 -.75 1.37 1.93 1.93 0 0 0 .6 1.41 2.13 2.13 0 0 0 1.54.59 3.34 3.34 0 0 0 2-.69 2.47 2.47 0 0 0 .93-1.28 7.73 7.73 0 0 0 .15-1.89z"/><path d="m43.81 13.85v3.09h-2.64v5.89a15.15 15.15 0 0 0 .07 2.09.82.82 0 0 0 .35.49 1 1 0 0 0 .65.2 5 5 0 0 0 1.56-.38l.33 3a7.63 7.63 0 0 1 -3.06.58 4.93 4.93 0 0 1 -1.89-.35 2.79 2.79 0 0 1 -1.18-.9 3.67 3.67 0 0 1 -.55-1.51 19.41 19.41 0 0 1 -.12-2.73v-6.38h-1.83v-3.09h1.78v-2.91l3.89-2.26v5.17z"/><path d="m44.94 13.85h2.15v-1.1a7.41 7.41 0 0 1 .39-2.75 3.18 3.18 0 0 1 1.45-1.48 5.56 5.56 0 0 1 2.67-.57 10.83 10.83 0 0 1 3.24.49l-.53 2.71a7.42 7.42 0 0 0 -1.77-.23 1.6 1.6 0 0 0 -1.21.4 2.28 2.28 0 0 0 -.33 1.5v1h2.9v3h-2.9v11.67h-3.91v-11.59h-2.15z"/><path d="m54.58 21a8 8 0 0 1 1-3.73 6.59 6.59 0 0 1 2.7-2.76 8 8 0 0 1 3.89-1 7.29 7.29 0 0 1 5.44 2.16 7.43 7.43 0 0 1 2.13 5.45 7.52 7.52 0 0 1 -2.14 5.5 7.24 7.24 0 0 1 -5.4 2.19 8.47 8.47 0 0 1 -3.84-.91 6.3 6.3 0 0 1 -2.78-2.67 8.91 8.91 0 0 1 -1-4.23zm4 .21a4.83 4.83 0 0 0 1 3.33 3.23 3.23 0 0 0 2.54 1.16 3.26 3.26 0 0 0 2.55-1.16 4.93 4.93 0 0 0 1-3.36 4.86 4.86 0 0 0 -1-3.31 3.29 3.29 0 0 0 -2.55-1.15 3.25 3.25 0 0 0 -2.54 1.15 4.86 4.86 0 0 0 -1.03 3.3z"/><path d="m75 28.49h-3.87v-14.64h3.6v2.08a6.06 6.06 0 0 1 1.66-1.93 3.07 3.07 0 0 1 1.67-.47 4.9 4.9 0 0 1 2.55.73l-1.2 3.38a3.32 3.32 0 0 0 -1.82-.64 2.11 2.11 0 0 0 -1.37.45 3 3 0 0 0 -.89 1.62 22.62 22.62 0 0 0 -.33 4.93z"/><path d="m81.77 13.85h3.57v2a5.75 5.75 0 0 1 4.56-2.33 4.87 4.87 0 0 1 2.44.58 4.39 4.39 0 0 1 1.66 1.75 6.73 6.73 0 0 1 2.09-1.75 5 5 0 0 1 2.38-.58 5.36 5.36 0 0 1 2.73.65 4.06 4.06 0 0 1 1.67 1.93 8.44 8.44 0 0 1 .4 3v9.36h-3.85v-8.34a6.16 6.16 0 0 0 -.4-2.81 1.83 1.83 0 0 0 -1.65-.83 2.66 2.66 0 0 0 -1.53.5 2.71 2.71 0 0 0 -1 1.45 10.52 10.52 0 0 0 -.32 3v7h-3.91v-8a11.17 11.17 0 0 0 -.2-2.76 1.76 1.76 0 0 0 -.64-.92 2 2 0 0 0 -1.18-.31 2.82 2.82 0 0 0 -1.59.56 2.7 2.7 0 0 0 -1 1.4 10.2 10.2 0 0 0 -.31 3v7.11h-3.92z"/><path d="m105.23 28.49v-3.88h3.87v3.88z"/><path d="m110.55 24.31 3.89-.59a2.84 2.84 0 0 0 1 1.72 3.4 3.4 0 0 0 2.12.58 3.86 3.86 0 0 0 2.27-.55 1.25 1.25 0 0 0 .5-1 1.05 1.05 0 0 0 -.27-.74 3.09 3.09 0 0 0 -1.3-.5q-4.68-1-5.94-1.89a3.79 3.79 0 0 1 -1.73-3.3 4.09 4.09 0 0 1 1.5-3.2 7 7 0 0 1 4.66-1.29 8 8 0 0 1 4.46 1 5 5 0 0 1 2 2.89l-3.66.68a2.21 2.21 0 0 0 -.89-1.31 3.18 3.18 0 0 0 -1.86-.45 4.33 4.33 0 0 0 -2.2.42.93.93 0 0 0 -.44.79.85.85 0 0 0 .39.7 14.37 14.37 0 0 0 3.62 1.09 10.82 10.82 0 0 1 4.33 1.64 3.58 3.58 0 0 1 1.21 2.88 4.4 4.4 0 0 1 -1.68 3.46 7.42 7.42 0 0 1 -5 1.45 8.07 8.07 0 0 1 -4.73-1.22 5.56 5.56 0 0 1 -2.25-3.26z"/><path d="m129.66 8.28v7.43a5.79 5.79 0 0 1 6.89-1.71 3.92 3.92 0 0 1 1.62 1.26 4.66 4.66 0 0 1 .74 1.71 15.64 15.64 0 0 1 .2 2.91v8.59h-3.87v-7.72a11.35 11.35 0 0 0 -.22-2.92 1.93 1.93 0 0 0 -.78-1 2.53 2.53 0 0 0 -1.4-.37 3.22 3.22 0 0 0 -1.72.47 2.64 2.64 0 0 0 -1.12 1.43 8.63 8.63 0 0 0 -.35 2.8v7.33h-3.87v-20.21z"/></g></svg>
+</span>
+                        </a>
+                        <p>The Official Symfony Cloud Platform</p>
+                    </div>
+
+                    <p class="subhead">The best way to host your Symfony projects</p>
+                    <a class="btn btn--cloud" href="/cloud/">GET STARTED</a>
+                    <br>
+                    <a class="btn btn--cloud-secondary" href="/cloud/get-started">Read the docs</a>
+                </div>
+
+                <div class="hidden-xs symfony-cloud-player symfony-cloud-player-blue-shadow">
+                    <asciinema-player
+                        id="prompt"
+                        src="/recordings/home.txt" cols="80" rows="22"
+                        autoplay="true"
+                        loop="true"
+                        speed="2"
+                        font-size="small"
+                        theme="symfony"
+                    ></asciinema-player>
+                </div>
+            </div>
+        </section>
+
+        <section class="symfony-resources">
+            <div class="row">
+                <div class="col-sm-4">
+                    <div class="symfony-resources-block">
+                        <h3 class="m-b-0">Training</h3>
+
+                        <div class="illustration sensiolabs-logo">
+                            <a href="https://training.sensiolabs.com/en/" aria-label="SensioLabs University">
+                                <span aria-hidden="true"><svg width="204" height="58" viewBox="0 0 204 58" xmlns="http://www.w3.org/2000/svg"><g fill="none" fill-rule="evenodd"><path d="M160.375 30.279h-5.616c-.148-.376-.33-.933-.545-1.67a10.364 10.364 0 0 0-.202-.665c-.97.94-2.007 1.644-3.111 2.113a8.935 8.935 0 0 1-3.535.705c-2.209 0-3.95-.597-5.222-1.791-1.273-1.194-1.91-2.704-1.91-4.529 0-1.207.29-2.283.87-3.23.579-.945 1.39-1.67 2.434-2.173 1.043-.503 2.548-.942 4.514-1.318 2.653-.496 4.492-.959 5.516-1.388v-.564c0-1.087-.27-1.862-.809-2.325-.539-.463-1.555-.694-3.05-.694-1.01 0-1.798.198-2.363.594-.566.396-1.024 1.09-1.374 2.083l-5.151-.926c.579-2.066 1.576-3.595 2.99-4.588 1.414-.993 3.515-1.49 6.302-1.49 2.532 0 4.417.3 5.656.896 1.24.597 2.11 1.355 2.616 2.274.504.92.757 2.606.757 5.061l-.06 6.602c0 1.878.091 3.263.272 4.155.183.892.523 1.848 1.02 2.868zm7.325 0h-5.273V.776h5.676v10.626c1.75-1.985 3.825-2.978 6.223-2.978 2.61 0 4.773.942 6.483 2.827s2.566 4.592 2.566 8.12c0 3.65-.872 6.46-2.616 8.432-1.745 1.973-3.863 2.959-6.354 2.959-1.225 0-2.433-.306-3.626-.916-1.19-.61-2.218-1.513-3.08-2.707v3.14zm16.172-6.098l5.697-.866c.242 1.1.733 1.936 1.473 2.506.741.57 1.778.855 3.11.855 1.47 0 2.575-.268 3.314-.805.498-.375.748-.878.748-1.51 0-.428-.134-.784-.404-1.066-.283-.268-.916-.516-1.898-.744-4.58-1.006-7.481-1.925-8.706-2.757-1.699-1.154-2.546-2.758-2.546-4.81 0-1.851.733-3.407 2.2-4.67 1.47-1.26 3.745-1.89 6.83-1.89 2.935 0 5.117.476 6.544 1.428 1.426.953 2.41 2.361 2.95 4.226l-5.354.986c-.23-.831-.663-1.469-1.303-1.911-.64-.443-1.552-.664-2.736-.664-1.496 0-2.566.208-3.213.623-.432.295-.646.678-.646 1.148 0 .402.188.744.565 1.026.512.376 2.28.905 5.302 1.59 3.024.684 5.136 1.523 6.334 2.515 1.185 1.006 1.778 2.408 1.778 4.206 0 1.96-.823 3.643-2.465 5.051-1.643 1.409-4.073 2.113-7.293 2.113-2.922 0-5.234-.59-6.938-1.77-1.705-1.181-2.817-2.784-3.343-4.81zm-59.163 1.127h14.867v4.97H118.73V1.019h5.979v24.29zm28.859-5.293c-.728.241-1.88.53-3.455.865-1.576.336-2.606.665-3.09.986-.741.524-1.112 1.188-1.112 1.993 0 .792.296 1.476.89 2.052.592.578 1.345.866 2.262.866 1.023 0 2-.335 2.929-1.006.686-.51 1.138-1.134 1.353-1.872.148-.483.223-1.401.223-2.757v-1.127zm14.496-.886c0 2.214.35 3.852 1.05 4.911.982 1.503 2.288 2.254 3.918 2.254 1.253 0 2.319-.533 3.2-1.6.884-1.066 1.324-2.747 1.324-5.041 0-2.442-.443-4.203-1.332-5.283s-2.026-1.62-3.414-1.62c-1.361 0-2.491.527-3.393 1.58-.904 1.053-1.353 2.653-1.353 4.8z" fill="#72D630"/><path d="M24.18 9.528h-6.37c-.209-3.562-2.764-4.474-5.907-4.474-2.095 0-4.526.87-4.526 3.356 0 2.279 1.423 2.568 8.926 4.475 2.178.538 8.884 1.906 8.884 8.616 0 5.428-4.317 9.487-12.447 9.487-6.62 0-12.823-3.23-12.74-10.522h6.37c0 3.935 3.101 5.468 6.623 5.468 2.304 0 5.824-.664 5.824-3.685 0-3.192-4.484-3.73-8.884-4.89-4.443-1.16-8.927-2.858-8.927-8.411C1.006 2.9 6.79 0 12.195 0c6.245 0 11.986 2.694 11.986 9.528zm63.633 5.47h-5.658c-.166-2.296-1.927-2.921-4.063-2.921-1.341 0-3.31.25-3.31 2.003 0 2.129 3.351 2.42 6.745 3.215 3.478.793 6.873 2.045 6.873 6.052 0 5.68-4.945 7.516-9.889 7.516-5.029 0-9.931-1.879-10.184-7.599h5.658c.042 2.59 2.221 3.633 4.567 3.633 1.717 0 3.897-.668 3.897-2.755 0-1.796-2.473-2.422-6.746-3.34-3.436-.752-6.872-1.962-6.872-5.762 0-5.51 4.777-6.93 9.429-6.93 4.734 0 9.093 1.586 9.553 6.888zm-56.474 5.93c.168 3.757 2.011 5.468 5.322 5.468 2.388 0 4.317-1.461 4.694-2.798h5.238c-1.677 5.094-5.238 7.265-10.141 7.265-6.831 0-11.065-4.676-11.065-11.355 0-6.472 4.485-11.398 11.065-11.398 7.375 0 10.937 6.179 10.518 12.817H31.34zm75.28-12.818c6.83 0 11.23 4.508 11.23 11.398 0 6.846-4.4 11.355-11.23 11.355-6.788 0-11.189-4.509-11.189-11.355 0-6.89 4.4-11.398 11.19-11.398zM94.85 30.278H88.9V8.694h5.95v21.584zm-41.376 0h-5.95V8.694h5.657V11.7h.125c1.51-2.422 4.107-3.591 6.622-3.591 6.327 0 7.92 3.548 7.92 8.891v13.277h-5.95v-12.19c0-3.55-1.048-5.303-3.814-5.303-3.226 0-4.61 1.795-4.61 6.179v11.314zm53.145-3.882c4.065 0 5.28-3.465 5.28-6.888 0-3.466-1.215-6.931-5.28-6.931-4.022 0-5.238 3.465-5.238 6.93 0 3.424 1.216 6.89 5.238 6.89zm-65.6-9.227c-.545-3.005-1.844-4.592-4.736-4.592-3.771 0-4.86 2.922-4.944 4.592h9.68zM94.85 5.354H88.9V.469h5.95v4.885zM139.61 39.31c2.634.007 3.195 1.322 3.526 1.423 0-.026.026-.077.026-.102 0-.204-.231-.357-.231-.586 0-.255.28-.408.715-.408.23 0 .564.076.845.075.205 0 .41-.026.563-.026.46 0 .768.357.768.688 0 .382-.153.764-.153.994 0 .535.18.892.18 1.554.001.383-.152.561-.152.841 0 .179.026.357.026.536 0 .458-.23.586-.639.587-.332 0-.768-.076-1.075-.076a.678.678 0 0 1-.306.077c-.819 0-.82-1.248-1-1.605-.23-.663-1.663-1.17-2.636-1.17-.792.001-2.404.588-2.403 1.48 0 .383.282.713.283 1.122 0 .127-.026.28-.026.407.001.765 2.023 1.477 3.174 2.087 1.562.84 3.583 1.22 4.813 3.768.257.535.487 1.146.488 1.834 0 .586-.23 1.147-.357 1.759-.28.918-.843 1.275-1.507 1.887 0 .051.025.102.026.153 0 .688-2.072 1.047-2.123 1.073a3.227 3.227 0 0 1-1.253.255c-.384.001-.946-.024-1.356-.075-.332-.05-.537-.254-.895-.254-1.126.001-1.561-.686-1.818-.915-.179-.179-.41-.255-.588-.408-.026.051-.026.128-.026.204 0 .09.01.193.021.299l.01.09c.011.106.021.21.021.3 0 .254-.076.433-.409.433a.683.683 0 0 1-.307-.076c-.281.05-.665.128-1.023.128-.512 0-1.049-.152-1.05-.738 0-.23.128-.51.128-.765 0-.178-.052-.356-.052-.56 0-.383.076-.79.076-1.122 0-.459-.282-.458-.283-1.019 0-1.02.05-1.452 1.022-1.454.333 0 .665.076.998.076.18 0 .332-.051.46-.051.282.05.564.33.564.61a.407.407 0 0 1-.077.23c.13 1.223 1.434 1.375 2.049 1.986.383.102.793.152 1.176.152 1.638-.002 3.274-.997 3.273-1.89 0-.28 0-.534-.026-.763 0-.102.025-.23.025-.306-.307-.866-1.894-1.375-2.918-2.011-.537-.331-.82-.458-2.38-1.221-.486-.229-1.075-.356-1.433-.713-1.23-1.17-.794-.33-1.768-2.495-.154-.331-.333-.866-.334-1.147 0-.994.561-2.217.715-2.524.816-1.657 3.042-2.296 3.042-2.322.025 0 .357-.025.537-.051.307-.077.511-.256 1.023-.256h.03zM17.354 43.702c0 .662-.05 1.35-.126 1.962 0 .459.206 1.07.206 1.529 0 .331-.05.663-.05.994 0 .128.051.255.051.408 0 .357-.153.28-.152.688 0 .79.078 1.657.079 2.421 0 .561-.205.714-.357 1.071-.103.28-.102.586-.204.892-.256.714-.997 1.683-1.456 2.244-1.227 1.276-3.529 1.736-4.015 1.788-.588.077-1.151.23-1.688.23-2.482.003-3.608-.786-4.325-1.218-1.075-.637-1.792-1.4-2.51-3.54-.154-.46-.308-.765-.283-1.25 0-.203.051-.407.051-.611 0-.306-.129-.816-.13-1.35 0-.256.077-.485.077-.714 0-.51-.104-1.02-.104-1.555 0-.688.024-1.402.024-2.09-.001-.994-.028-1.962-.208-2.854-.28-.05-.716.026-.92-.127a.912.912 0 0 1-.256.051c-.358.001-.666-.304-.666-.636 0-.28.076-.612.076-.815 0-.204-.052-.383-.052-.587 0-.407.102-.815.409-.816.18 0 .41.051.614.051.383 0 .767-.077 1.228-.078.511 0 1.125.152 1.765.152.665 0 1.33-.129 1.995-.13.665 0 1.075.152 1.075.892.001.33-.153.433-.152.662 0 .204.128.382.128.765 0 .433-.204.535-.613.535-.256 0-.563-.024-.819-.024-.179 0-.333 0-.46.051 0 .637.103 1.3.104 2.039 0 .459-.102.815-.101 1.325v.815c.002 1.122-.15 2.346-.15 3.467 0 .764.257 1.146.411 1.707.334 1.274.667 2.395 2.612 2.827.358.076.742.305 1.177.304.665 0 2.276-.308 2.788-.665.256-.153.997-.842 1.124-1.122.128-.255.179-.663.332-1.02.204-.459.332-.943.357-1.555 0-.331-.129-.688-.13-1.07 0-1.427.203-2.753.201-4.231 0-.663-.18-1.249-.18-2.013 0-.28.076-.892-.206-.892-.358 0-.69.153-.998.154-.204 0-.716-.153-.716-.586 0-.102.025-.204.025-.357-.026-.382-.154-.917-.155-1.325 0-.407.153-.764.537-.765.102 0 .205.026.332.05.358-.127.921-.076 1.33-.102.18 0 .384.076.589.076.154 0 .332-.052.512-.052.614 0 1.253.127 1.867.126.256 0 .487-.026.717-.026.64.025 1.407.05 1.407.712 0 .28-.127.561-.127.994 0 .28.103.535.103.79 0 .28-.306.332-.614.332-.23 0-.511-.025-.716-.025-.383.026-.537.026-.716.23.026.306.052.586.052.867zm53.336-1.018c0 .357.333.586.462.866.36 1.325.744 2.701 1.461 3.924.103.178.282.33.385.535.128.229.154.51.282.713.307.739.615 1.121.872 2.09.18.483.665.814.717 1.349 1.277-2.04 1.94-4.309 3.012-6.603.256-.536.128-.816.306-1.173.128-.306.537-.816.767-1.071 0-.357.178-.561.332-.765-.23.026-.46.052-.665.052-.589 0-1.075-.178-1.076-.84 0-.128.026-.23.026-.357 0-.23-.129-.459-.129-.765 0-.484.153-.968.664-.969.154 0 .308.077.487.076.255 0 .51-.051.792-.051.486 0 .998.075 1.484.075.64-.001 1.254-.154 1.842-.155.41 0 .819.127 1.1.127.205 0 .358-.077.512-.078.332.026.64.383.64.612 0 .23-.128.611-.127.968 0 .28.103.357.103.765 0 .433-.076.612-.537.612-.358 0-.844-.101-1.202-.101-1.049 0-.844.816-1.253.944 0 .485-.485.994-.663 1.734-.153.586-.28 1.555-.74 1.555-.307.841-.562 1.555-.894 2.32-.204.51-.562.969-.792 1.479-.204.433-.23.918-.408 1.377-.153.357-.434.637-.562.969-.178.458-.23.866-.408 1.274-.28.689-.766 1.173-1.174 2.32-.23.663-.357 1.3-1.202 1.302-1.304 0-1.945-1.528-2.612-3.286-.308-.79-.846-1.656-1.102-2.471-.257-.841-.258-1.504-1.026-2.599-.077-.152-.23-.28-.307-.433-.154-.331-.205-.79-.385-1.197-.385-.79-.794-1.554-1.076-2.318-.103-.204-.155-.46-.257-.637-.077-.179-.308-.306-.384-.459-.41-.942-.207-1.783-.897-1.783-.435 0-.896.077-1.305.078-.972 0-1.05-.407-1.051-2.37 0-.509.076-.636.972-.637.307 0 .46.076.793.075.307 0 .69-.026 1.074-.026.333 0 .717.025 1.024.024.46 0 .92-.128 1.38-.128.154.025.308.076.436.076.28 0 .46-.153.716-.154.256 0 .972.33.973.79 0 .178-.051.33-.051.51 0 .356.282.509.282.815 0 .535-.178.892-.715.892-.154 0-.333-.025-.537-.025-.103 0-.23 0-.333.026-.026.05-.026.102-.026.127zm30.161-.078c-.255 0-.537.026-.793.026-.358 0-.614-.101-.946-.101h-.307c-.154-.025-.333-.101-.512-.127-.538 0-1.023.128-1.663.13h-.562c-.87 0-.664 1.25-.663 2.166 0 .995.052 1.988.155 2.804.282 0 .563.178.922.177.307 0 .665-.026 1.023-.026.281 0 .562.025.844.025.307 0 .537-.103.742-.103.589 0 .972.585.973 1.095.002 1.657-.382 1.733-1.457 1.734-.46 0-.844-.1-1.15-.1-.18 0-.333.076-.512.077-.205 0-.435-.026-.64-.026-.256 0-.486.027-.665.129 0 .56-.076 1.045-.075 1.605 0 .255.077.535.077.79 0 .459-.255.612-.254 1.122 0 .306.051.637.052.943.332 0 .639-.205.971-.256.358-.051.768-.052 1.177-.052.895 0 1.689.151 2.558.15 1.893-.001.767-1.275 1.303-1.963.153-.204 1.151-.282 1.407-.282.537 0 1.228.356 1.229.84 0 .178-.077.357-.102.561 0 .204.102.433.103.611-.026.179-.153.332-.179.46 0 .127.154.356.154.585 0 .332-.153.663-.153.944.026.152.077.305.078.458 0 .434-.256.536-.588.536-.512 0-1.382-.1-1.893-.1-.538 0-1.024.103-1.56.103-.87 0-1.638-.075-2.533-.074l-.87.001c-.384 0-.768-.025-1.126-.024-.665 0-1.355.255-1.97.256-.153 0-.28-.025-.434-.025-.359.026-.768.077-1.152.077-.818.001-1.56-.177-1.56-.89-.001-.332.101-.688.1-1.07-.025-.255-.102-.536-.103-.74 0-.203.128-.382.333-.382.128 0 .256.05.383.05.18 0 .359-.102.589-.128.18 0 .332.026.486.025.077 0 .153 0 .23-.025.05-2.166.073-4.588.07-6.805v-1.045c0-.56.101-1.147.1-1.53 0-.203-.025-.432-.025-.61v-.51c-.001-.434-.155-.79-.156-1.3 0-.051.026-.128.026-.204-.154-.025-.282-.025-.435-.025-.18 0-.384.026-.563.026-.486 0-.972-.101-.973-.738 0-.255.076-.51.076-.79 0-.23-.205-.484-.205-.892-.001-.51.818-.536 1.278-.537.717 0 1.382.178 2.073.177.87-.001 2.097-.206 3.07-.207.664 0 1.33.178 2.02.177.973 0 2.354-.13 3.505-.13.41-.001.69.1.972.1h.256c.256 0 .563.254.64.534 0 .179-.153.434-.153.892 0 .587.155 1.045.155 1.708 0 .178-.025.357-.025.561 0 .23.052.459.052.662 0 .561-.741.46-1.688.46-.563.001-1.126-.1-1.126-.66 0-.128.051-.205.102-.332-.026-.102-.026-.179-.026-.306 0-.204.025-.433.025-.637a3.437 3.437 0 0 0-.512-.025zm17.035-2.921c4.367.007 6.655 1.452 7.396 2.898.41.841.82 2.42.822 3.695 0 1.427-.484 2.778-1.404 3.722-.562.587-1.047 1.275-1.968 1.506.102.101.154.305.256.407.128.178.358.23.512.408.282.28.794.942.897 1.298.128.128.256.179.384.306.435.433.41.535 1.305.814h.358c.486 0 1.05.254 1.05.763 0 .128-.051.255-.077.383v.28c.002 1.478-.254 1.58-2.3 1.582-2.124.002-3.353-2.06-3.481-2.24l-.436-.789c-.308-.484-.743-.713-.973-1.298-.154-.382-.052-.434-.59-.79-.307-.204-.256-.306-.614-.305-.358 0-.742.051-1.049.051-.23 0-.41-.025-.563-.127-.255.128-.562.154-.92.154-.103.204-.128.485-.128.816 0 .255.027.51.027.764 0 .281-.025.536-.102.714.307.077.64.127.998.127.41 0 .64-.179.92-.18.308.026.64.28.64.612.001.153-.076.408-.075.713 0 .484.129 1.045.129 1.3 0 .255-.204.332-.435.332-.614 0-1.151-.127-1.637-.126-.793 0-1.433.077-2.302.078-.281 0-.563-.05-.819-.05-.358 0-.64.154-.998.154-.716 0-1.432-.228-1.433-1.018 0-.28.025-.56.025-.74 0-.178-.026-.356-.026-.535 0-.458.101-.662.639-.663.307 0 .64.05.87.05.153 0 .255-.05.409-.076a81.793 81.793 0 0 1-.054-2.6c0-.994.177-1.835.177-2.727 0-.484-.155-.968-.155-1.401 0-.154.025-.307.076-.46-.025-.229-.051-.458-.051-.688-.001-.764.075-1.656.074-2.472 0-.484-.154-.891-.155-1.375 0-.102 0-.205.025-.332-.69-.152-1.816.104-1.893-.66 0-.205.101-.485.101-.842-.025-.28-.154-.612-.154-.866 0-.408.281-.51.64-.51.122 0 .25.009.379.02l.11.009c.129.01.257.02.38.02.588 0 1.151-.102 1.79-.103.384 0 .717.101 1.075.1.742 0 1.484-.102 2.277-.103h.051zm-75.183-.084c.555 0 1.13.051 1.483.177a.796.796 0 0 1 .256-.026c.792 0 .973.968.974 1.962 0 .662-.102.943-.511.943-.256 0-.563-.101-.793-.101-.282 0-.512.051-.717.102v.179c.001.535-.101 1.096-.126 1.656v.587c0 .305-.024.611-.024.943 0 .484.23.611.231 1.044 0 .179-.025.383-.05.56v.613c0 .484-.153.815-.152 1.325 0 .816.053 1.682.053 2.523 0 .332-.101.612-.101.943 0 .28.154.586.154 1.02 0 .484-.05.993-.05 1.478 0 .433.18.56.18 1.223.001.56-.126.918-.433.918-.128 0-.256-.051-.358-.051-.333 0-.563.128-.87.128-.972 0-.998-.432-1.46-1.069-.384-.382-.844-.687-1.049-.916-.333-.357-.538-.84-.871-1.248-.23-.306-.537-.535-.743-.892-.076-.102-.076-.28-.18-.382-.127-.204-.613-.407-.844-.687-.333-.382-.64-.917-.922-1.222-.307-.306-1.152-.917-1.178-1.426-.384-.332-.64-.433-.87-1.02-.231-.33-.64-.661-.923-1.018-.538-.687-.691-.993-1.587-1.885-.077.281-.102.587-.102.893 0 .586.103 1.197.104 1.784 0 .255-.025.51-.076.739.077.23.103.56.103.866 0 .433-.153.612-.152 1.122 0 .586.077 1.223.078 1.911 0 .23 0 .459-.025.663.051.178.077.356.077.586v.23c.154.05.333.1.513.1.23 0 .409-.127.588-.127.435 0 .87.254.87.61 0 .179-.076.46-.076.689 0 .203.103.33.103.586 0 .586-.153.968-.664.969-.486 0-.947-.152-1.433-.152-.282 0-.588.205-1.125.205-.487 0-1.075-.126-1.587-.126-.132 0-.252.029-.372.058l-.048.012c-.12.03-.24.058-.373.058-.946.001-1.535-.177-1.536-.992 0-.331.077-.663.102-.892a1.099 1.099 0 0 1-.128-.535c0-.332.127-.51.46-.51.23 0 .511.05.767.05.41 0 .588-.103.793-.256 0-.662.024-1.325.024-1.988 0-.407-.027-.79-.027-1.197 0-.714.101-1.275.1-1.963 0-.688-.026-1.402-.027-2.09 0-.688.024-1.376.024-2.064-.001-.74-.104-1.453-.105-2.166 0-.153 0-.28.026-.433-.282 0-.742.026-.922-.127a.542.542 0 0 1-.332.128c-.435 0-.794-.458-.794-.917 0-.153.051-.306.102-.459a1.835 1.835 0 0 1-.128-.688c-.001-.56.127-.765.792-.765.614 0 1.33.05 1.867.049.23 0 .537-.077.819-.077.665 0 .922.84 1.408 1.247.205.332.743.713 1.178 1.299.205.28.077.357.589.636.41.306.359.484.538.688.589.968 1.357 1.477 1.51 1.656.615.763 1.076 1.426 1.845 2.215.256.28.307.407.588.585 2.075 2.598 2.332 3.184 3.023 3.54.127-.357.152-.815.151-1.325 0-.433-.026-.892-.026-1.325 0-.536.05-1.096.05-1.631-.002-1.428-.182-2.804-.184-4.307v-.382c-.154-.102-.332-.128-.512-.128-.204 0-.409.026-.614.026-.588 0-.921-.406-.922-1.018 0-.204.051-.434.128-.638a1.292 1.292 0 0 1-.129-.56c0-.23.153-.688.665-.689.204 0 .384.076.563.102.972-.001 2.737-.156 3.325-.156h.027zm14.584 4.039c0 .433.103.968.103 1.452.001.586-.203 1.045-.203 1.479 0 .33.206.534.206.942 0 .689-.127 1.275-.126 1.86 0 .995.18 1.938.181 2.906.001.841-.075 1.682-.1 2.472.103.051.23.05.358.05.282 0 .589-.076.87-.076.333 0 .793.203.794.738 0 .357-.204.74-.203 1.198 0 .204.077.382.077.586 0 .586-4.067.463-4.093.463-.358 0-.64-.153-.895-.153-.18 0-.333.077-.46.077-.64 0-1.357.027-1.51-.533-.103-.357-.053-.765-.104-1.25-.026-.152-.154-.381-.154-.61 0-.434.332-.536.818-.537.307 0 .588.102.844.102.205 0 .307-.103.486-.103h.051c0-.79.05-1.58.05-2.345-.001-.586-.155-1.07-.156-1.58 0-.178.026-.356.025-.535v-.637c0-.484.127-.918.126-1.427 0-.535-.205-1.02-.206-1.656 0-.689.255-1.02.255-1.708-.001-.535-.155-1.07-.155-1.555 0-.23.025-.408.101-.612-.23 0-.486.026-.716.027-.742 0-1.356-.127-1.357-1.146 0-.204.025-.459.025-.688 0-.179-.026-.383-.026-.587 0-.458.383-.637.793-.637.28 0 .588.076.895.075.486 0 .998-.077 1.51-.077.792-.001 1.636.125 2.43.125.179 0 .435-.052.665-.052.332 0 .742.229.742.611v.306c0 .127.052.23.052.382 0 .23-.076.433-.076.714v.433c0 .459-.23.536-.613.536-.128 0-.282-.025-.41-.025-.46 0-.486.204-.716.204-.025 0-.076-.025-.102-.025 0 .28-.076.56-.076.816zm101.021-.093c0 .433.103.968.103 1.453.002.586-.203 1.045-.203 1.478 0 .331.207.535.207.943 0 .688-.127 1.274-.127 1.86.002.994.181 1.937.183 2.906 0 .84-.077 1.682-.102 2.472.103.05.231.05.36.05.28 0 .588-.077.869-.077.332 0 .793.203.794.738 0 .357-.204.74-.204 1.199 0 .203.078.382.078.586 0 .586-4.068.462-4.093.462-.359 0-.64-.152-.896-.152-.179 0-.332.077-.46.077-.64 0-1.356.027-1.51-.534-.103-.357-.052-.764-.104-1.248-.026-.153-.153-.383-.154-.612 0-.433.332-.536.819-.536.306 0 .588.101.843.101.205 0 .308-.102.487-.102h.05c0-.79.05-1.58.05-2.345 0-.586-.155-1.07-.155-1.58 0-.179.025-.357.025-.535v-.637c0-.485.127-.918.126-1.428 0-.535-.206-1.019-.206-1.656 0-.688.255-1.02.254-1.708 0-.535-.154-1.07-.155-1.555 0-.229.025-.407.102-.611-.23 0-.486.026-.716.026-.742 0-1.356-.126-1.357-1.146 0-.203.025-.459.025-.688 0-.178-.026-.382-.026-.586 0-.459.383-.637.792-.638.281 0 .588.076.895.076.486 0 .998-.077 1.51-.078.793 0 1.637.126 2.43.125.18 0 .434-.051.665-.051.333 0 .743.228.743.61v.306c0 .128.052.23.052.383 0 .229-.077.433-.077.714v.433c.002.458-.23.535-.613.535-.128 0-.281-.025-.41-.025-.46 0-.485.204-.716.205-.025 0-.076-.026-.101-.026 0 .28-.077.561-.077.816zm17.422.163c0 .866.027 1.732.002 2.625 0 .433-.102.84-.075 1.248.025.128.103.23.128.357.078.459.078.892.051 1.274-.025.357-.126.689-.177 1.122-.025.356.104.84.156 1.248.025.46-.025.943-.077 1.428-.076.459.027.943.027 1.401.359.076.512.23.87.23.18.024.358-.078.562-.052.256.05.512.28.59.509.077.331-.051.739-.024 1.172 0 .408.179.943-.05 1.122-.155.127-.36.076-.64.077-.128 0-.281.025-.46.025-.308 0-.59-.1-.794-.1-.359.025-.64.127-.946.153a4.688 4.688 0 0 1-1.048.052c-.155-.026-.333-.128-.512-.127-.103-.025-.205.026-.308 0-.256 0-.46-.05-.691-.05-.281.026-.843.128-1.126.052-.23-.051-.46-.306-.512-.458-.025-.128.025-.306.025-.485.027-.229.025-.51 0-.713-.026-.332-.18-.56-.128-.79.153-.586 1.202-.383 1.919-.384-.002-.918.048-1.784.124-2.676.025-.459.102-.892.102-1.326-.002-.458-.078-.891-.053-1.35.025-.23.076-.306.076-.485 0-.178-.076-.356-.103-.56-.051-.484-.001-1.096.025-1.606.025-.178.05-.306.05-.459 0-.28-.078-.535-.103-.84a4.05 4.05 0 0 1 0-.79c-.001-.128.05-.23.05-.332.025-.357-.076-.688-.078-.994-.025-.255.025-.586-.103-.688-.178-.127-.844 0-1.15-.024-.36-.026-.589-.127-.921-.102-.333 0-.64.154-1.049.103.025.357-.153.638-.153.97-.025.305.231.636.027.891-.128.153-.41.128-.742.128-.716.026-1.689.155-1.92-.457-.103-.255-.076-.892-.051-1.325.025-.23.101-.434.101-.688 0-.434-.051-.867-.078-1.198-.026-.484-.051-1.07.23-1.198.204-.102.69-.026.997.024.36.051.741.025.972 0l1.05-.052c.842-.103 1.662.049 2.558.048.485 0 .997.05 1.509.024 1.074-.051 2.123-.154 3.171-.053.537.05 1.076.05 1.586.049.564 0 1.076-.128 1.586-.154.768-.052 1.408.1 1.587.686.103.408.002 1.02-.023 1.53-.027.51-.076.993-.128 1.427.002.305.078.739-.023.968-.155.357-.717.332-1.28.333-.333 0-.639.026-.845-.05-.256-.077-.512-.357-.537-.586 0-.179.077-.306.077-.459.025-.255-.002-.433-.103-.713-.41-.153-.921-.152-1.458-.152l-1.612.001c-.18.357-.128.79-.127 1.199zm21.448 10.939c.178 0 .332-.077.485-.077.46 0 .92.407.922.84 0 .255-.076.51-.076.688 0 .204.027.433.027.663 0 .458-.052.713-.64.714-.178 0-.383-.025-.537-.025-.845 0-1.816.078-2.711.079-.64 0-1.357-.177-1.714-.177-.283 0-.487.153-.768.154-.614 0-.845-.611-.846-1.3 0-.254.026-.51.025-.738 0-.18-.052-.332-.052-.51 0-.612 2.047-.435 2.047-.435 0-.714.101-1.606.1-2.421 0-1.02-.232-1.631-.642-2.345-.128-.229-.359-.356-.487-.585-.357-.459-.539-1.146-.922-1.707-.153-.255-.46-.382-.615-.637-.256-.382-.589-.815-.896-1.451-.153-.255-.384-.485-.512-.764-.128-.23-.18-.459-.308-.638-.18-.28-.46-.33-.691-.942-.155-.382-.052-.662-.717-.636h-.462c-.153 0-.92-.101-.92-.713 0-.203.051-.458.05-.611-.026-.28-.104-.663-.104-.969 0-.356.102-.535.486-.535.359 0 .716.075 1.024.075.588 0 1.177-.077 1.738-.078.308 0 .743.127.973.127.359 0 .947-.103 1.51-.104.74 0 1.228.127 1.228.84.001.459-.178.586-.178 1.096 0 .204.051.434.053.586 0 .28-.283.332-.615.332-.281 0-.589-.025-.843-.024.051.56.691.967.896 1.273.41.688.718 1.529 1.127 2.19.103.154.256.255.359.409.307.508.384.89.999 1.426.512-.23.869-1.174 1.175-1.735.409-.765.791-1.275 1.124-1.938.256-.51.766-.892.818-1.555-.128-.076-.256-.076-.384-.076h-.256c-.308 0-.768-.178-.768-.662 0-.204.126-.357.126-.459 0-.127-.128-.28-.128-.458 0-.612.075-1.453.537-1.453.382 0 .46.254.946.254.28 0 .613-.026.92-.027.282 0 .564.025.845.025.692 0 1.355-.129 1.943-.13.333 0 .59.128.768.128.18 0 .256-.103.41-.103.307.025.64.331.64.586 0 .153-.102.331-.102.56 0 .434.103.867.104 1.224-.051.255-.128.612-.384.612-.153 0-.28-.076-.46-.102-.101 0-.307.026-.485.026h-.333c-.487.001-1.022 1.403-1.202 1.607l-.357.536c-.537.688-.69 1.631-1.303 2.244-.077.102-.23.153-.331.255-.589.587-.895 1.454-1.405 2.218-.409.587-1.024.995-1.02 3.263 0 .638.05 1.326.077 1.912.308 0 .46.178.692.178zm-58.095 1.965c.128.1.358.126.589.126.102 0 .179 0 .281-.026-.23-.076-.767-.1-.87-.1zm-111.587.05c-.128 0-.23-.076-.332-.126v.178c.128 0 .282 0 .332-.052zm85.11.024l-.23-.076v.102c.077 0 .18 0 .23-.026zm13.635.014c.026 0 .052-.051.052-.102v-.026c-.052.026-.052.077-.077.128h.025zm-72.754-.061c-.077-.026-.204 0-.256-.025 0 .025 0 .05.026.076.077-.026.18-.026.23-.051zm-22.614-.107c.46 0 .844.076 1.28.126v-.229c-.129.077-.282.102-.461.102-.23 0-.486-.05-.716-.05a.921.921 0 0 0-.282.051h.179zm85.34.024a6.656 6.656 0 0 0-.69-.05c-.205 0-.384.025-.538.102l1.228-.052zm38.296-.01c-.077-.025-.205 0-.256-.025 0 .026 0 .051.026.076.077-.025.179-.025.23-.051zm-55.563.051c.05 0 .076 0 .102-.025-.077 0-.154-.026-.205-.026-.025 0-.025 0-.051.026.026.025.102.025.154.025zm18.214-.042c-.128 0-.282-.025-.435-.025-.103 0-.23 0-.307.051h.46c.077 0 .282-.026.282-.026zm80.199-.023c.05 0 .101-.025.101-.102-.128 0-.204.026-.23.102h.129zm-99.565-.01c.103 0 .205 0 .282-.026-.128 0-.23-.025-.333-.025-.076 0-.153 0-.23.05h.281zm4.196-.08c-.23.025-.589-.026-.768.076.23-.05.589.025.768-.077zm69.915-.014c-.078 0-.103-.025-.155-.05v.102c.077.025.128 0 .155-.052zm-165.283.05c-.154-.127-.282-.331-.461-.407-.205-.077-.41-.077-.563-.178-.23-.153-.359-.382-.615-.433.41.458 1.101.738 1.639 1.018zm1.15-.333h.103c-.18-.076-.46-.229-.614-.228.076.152.307.229.512.228zm84.317-.357c-.154 0-.435 0-.537.051.153-.025.358 0 .537-.05zm-49.783-.974c-.025.255-.076.484-.075.688 0 .102.025.204.05.28 0-.305.026-.662.025-.968zm57.815.865h-.358c.052.025.103.05.154.05.051 0 .077 0 .128-.025.05 0 .077 0 .076-.025zm72.243-.118c.076.051.128.153.256.153-.025-.102-.153-.178-.256-.153zm-73.112.067c-.128-.025-.307-.076-.435-.076-.052 0-.077.026-.128.026.128.05.41.05.563.05zm-42.338-.165c0 .153.051.153.18.153l.025-.025c-.077-.026-.128-.077-.205-.128zm135.71.08c.129 0 .333-.026.435-.077h-.333c-.101 0-.204 0-.256.051.027.026.078.026.155.026zm-34.689-.173c0 .153.052.153.18.153l.025-.025c-.077-.026-.128-.077-.205-.128zm-81.964-.918c-.153.178-.306.459-.306.714.076-.255.204-.536.306-.714zm-61.397.49c-.052.001-.151.051-.151.101l.025.026a.177.177 0 0 1 .055-.057l.019-.014a.177.177 0 0 0 .054-.057h-.002zm107.521-.482s-.026 0-.025.026c.127.128.179.331.281.484 0-.204-.282-.51-.256-.51zm-82.5.153c.051.076.102.178.153.229 0-.127-.076-.178-.153-.23zm2.711-.028c0-.077-.025-.128-.025-.204 0 .076 0 .127.025.204zm153.106-.166c-.026.05-.051.05-.051.076h.051v-.076zm-51.317-.004c0-.026-.026-.051-.026-.051a.19.19 0 0 0-.05.102c.025 0 .076 0 .076-.051zm-29.803-.788c0-.357-.078-.714-.104-1.096l.001.841c0 .255 0 .51.052.713.026-.152.05-.305.05-.458zm-71.987-.062c0-.127 0-.229-.05-.305 0 .178-.052.33-.052.484 0 .127.026.204.103.28v-.459zm60.5.047c.026-.051.052-.051.052-.128-.077 0-.128.051-.205.052 0 .05.103.05.154.076zM5.417 53.55c-.332-.433-.46-1.07-.64-1.656.025.23.025.459.077.688.077.331.385.84.563.968zm129.596-.603c-.077 0-.128.179-.127.306 0 .077.025.127.05.153 0-.204.052-.306.077-.459zm-105.115-.464c0 .127-.025.331-.025.484 0 .153.026.255.128.28-.051-.23-.051-.611-.103-.764zm143.82.021c0-.204.025-.408-.027-.56 0 .33-.101.79-.023 1.095.101-.102.05-.331.05-.535zm-51.035.225c.077.076.153.23.23.23-.077-.077-.128-.23-.23-.23zm-106.753-.667v-.05c-.05.229-.255.356-.255.56.076-.153.255-.306.255-.51zm40.445-.138c0-.128 0-.23-.026-.332 0 .178-.05.408-.05.611 0 .103.025.23.076.307v-.586zm15.962-.296c.026.331.128.586.23.867a3.943 3.943 0 0 0-.23-.867zm85.06.203c0-.128 0-.23-.027-.332 0 .179-.05.408-.05.612 0 .102.026.23.076.306v-.586zm-80.711-.487c-.128.23-.281.459-.332.587.178-.18.255-.383.332-.587zm68.43.141c0 .153.052.23.129.28a.938.938 0 0 0-.128-.28zm-129.084.067c0-.076.026-.178.026-.255 0-.025-.026-.076-.026-.101-.026.05-.026.178-.026.28 0 .076 0 .127.026.153v-.077zm78.534-1.422c-.05.204-.102.408-.101.612 0 .178.025.356.077.51.025-.358.024-.816.024-1.122zm24.329.564c.23 0 .486-.027.665-.103-.153.025-.333.026-.486.026h-.92c.204.052.46.077.74.077zm75.62-.12c0-.307-.514-.892-.54-.892.232.28.411.586.54.942v-.05zm1.098-.511c0 .076 0 .127.027.178.05-.484.254-.943.484-1.198a1.087 1.087 0 0 1-.281.23c-.077.254-.23.51-.23.79zm-79.712.124s.026 0 .026-.026c-.103-.076-.154-.204-.23-.305.025.152.127.33.204.33zm-60.629-.837c0-.076-.025-.178-.026-.254v.05c0 .204-.05.408-.05.638 0 .05 0 .127.026.178a3.9 3.9 0 0 0 .05-.612zm-26.016.151c0-.178 0-.382-.052-.535v.637c0 .128.001.23.027.332.025-.127.025-.28.025-.434zm127.038-.243c0-.077-.026-.179-.026-.255v.05c0 .205-.05.408-.05.638 0 .051 0 .127.025.178.026-.153.051-.382.051-.611zm-35.763.007c.435-.128.92-.026 1.84-1.454.307-.46.46-1.02.459-1.861-.002-1.81-1.435-2.955-2.356-3.21-.742-.203-1.791-.253-2.687-.252-.486 0-.972.027-1.33.103v.077c0 .204-.076.459-.076.663 0 .305.026.611.027.942 0 .383-.077.74-.076 1.122 0 .331.052.739.052 1.147 0 .535-.101 1.096-.1 1.988 0 1.376 1.305 1.171 2.15 1.17.332 0 .64-.026.946-.077.435-.052.793-.256 1.15-.358zm-47.89.12c0 .051 0 .102.052.102 0-.05-.026-.076-.051-.102zm69.94-.522c.18.076.282.254.512.254a1.082 1.082 0 0 0-.511-.254zm-101.2-.01c0-.102 0-.153-.026-.178.026.102 0 .357.026.408v-.23zm97.798-.293c.102.025.23.127.307.127-.102-.05-.256-.127-.307-.127zm-102.71.094c-.384-.331-.666-.764-1.024-1.095.103.229.282.433.46.611.206.178.385.357.564.484zm87.258-.59a.783.783 0 0 0-.23.51v.051c.103-.153.23-.382.23-.56zm73.24-.271s0-.025-.026-.025c-.076.23-.332.357-.332.612v.05c.103-.229.256-.407.359-.637zm-3.172-.073c-.077-.051-.128-.128-.205-.204.025.127.153.204.205.204zm-138.627-.51c0 .178.051.28.103.433 0-.179-.026-.332-.103-.433zm38.474-.036a2.07 2.07 0 0 0-.051-.459c0 .357-.05.638-.127.918.128-.05.179-.255.178-.459zm62.548-.057c0 .179.051.28.103.433 0-.179-.027-.331-.103-.433zm-41.801-.344a.838.838 0 0 0-.103-.433v.153c0 .255-.05.51-.05.739 0 .076 0 .153.026.23.05-.18.127-.434.127-.69zm22.998.438c.026.102.128.203.18.203-.026-.101-.103-.152-.18-.203zm-13.404.037a.913.913 0 0 0-.052-.254v.28c0 .05 0 .102.026.127.026-.05.026-.102.026-.153zm15.067-.167c.05.077.179.205.332.204.026 0 .052-.025.077-.026-.128-.05-.256-.127-.41-.178zM79.443 46.5c-.128.23-.256.408-.255.74.076-.256.204-.536.255-.74zm113.531-.028c0 .256.128.383.283.485-.078-.179-.13-.383-.283-.485zM3.568 46.01c0-.128 0-.28-.052-.382v.688c.001.153.001.28.027.382 0-.204.025-.458.025-.688zm37.733.45a6 6 0 0 0 .076-.994c0-.357-.026-.688-.129-.994.026.178.026.382.026.611l.001.79c0 .205 0 .408.026.587zm52.313-.966c0-.127-.025-.255-.051-.382v.153c0 .23-.025.433-.025.637 0 .076 0 .178.026.255 0-.23.05-.433.05-.663zm-37.578.57c-.052-.382-.001-.816-.13-1.096l.078.866c.026.077.026.23.052.23zm101.02-.093c-.05-.382 0-.815-.127-1.096l.078.867c.025.076.025.23.05.23zm34.459-.006c-.357-.585-.615-1.325-1.075-1.757.154.305.359.585.563.891.18.28.283.663.512.866zm-159.193-.032c-.18-.204-.308-.56-.538-.662.025.025.05.076.05.152.206.102.283.459.488.51zm37.22-.697c.051.23.153.433.282.612a1.712 1.712 0 0 0-.282-.612zm-35.763.491h.026c0-.152-.589-.738-.768-.865-.051.025-.077.05-.077.076 0 .102.18.204.256.28.18.179.384.408.563.51zm36.914-.467c0 .153.051.255.128.255-.077-.05-.077-.178-.128-.255zm52.877-.507c0-.05.025-.127.025-.178a.875.875 0 0 0-.486-.815c.204.305.384.636.46.993zm13.148-.776c.026.28.052.586.18.738 0-.305-.103-.51-.18-.738zm-80.735.303c0-.026-.026-.026-.026-.051 0 .05-.05.127-.05.153 0 .025 0 .05.025.05 0-.05.05-.101.05-.152zm59.374-.335v-.178a.51.51 0 0 0-.076.28c0 .128.025.255.051.332.026-.128.025-.281.025-.434zm41.647.242c0-.025-.025-.025-.025-.05 0 .05-.05.127-.05.152 0 .026 0 .051.025.051 0-.05.051-.102.05-.153zm-100.767-1.15c-.007.02-.05.02-.05.02 0 .356-.128.713-.153.993.178-.203.153-.707.203-1.014v-.005.005zm101.02-.093c-.005.02-.049.02-.049.02 0 .357-.128.714-.153.994.178-.203.153-.708.203-1.014l.001-.006-.001.006zm-115.038-.13c.026.102.051.204.051.306 0 .178-.05.382-.05.536 0 .05 0 .101.025.127 0-.255.05-.637.102-.943-.051 0-.026-.077-.077-.077-.051 0-.077.026-.077.051h.026zm131.412.695l.052.179c.026-.077 0-.128-.052-.179zm-5.447.082l-.052-.255-.078.128c.052.025.052.127.13.127zm11.895-.138c0 .05 0 .127.076.101 0-.05-.026-.076-.076-.101zm-65.899-.042c0-.076.026-.127.026-.178 0-.026 0-.052-.026-.077 0 .051-.026.128-.025.179 0 .05 0 .05.025.076zm-84.086-.204v-.025c-.026 0-.026.026-.052.026 0 0 0-.025-.025-.025v.076c0 .025 0 .025.025.025 0-.025.052-.026.052-.077zm-13.815-.241c0-.128-.026-.23-.103-.28a.364.364 0 0 0-.05.178c0 .153.076.331.153.407v-.305zm128.496-.5c0-.179-.026-.357-.052-.485 0 .408-.05.816-.05 1.224.051-.179.102-.485.102-.74zm-20.465.273c-.308-.509-.769-.993-1.331-1.197.102.128.28.179.409.255.384.254.59.662.922.942zm66.204-.978a1.717 1.717 0 0 0-.051.408c0 .178.026.356.154.382-.154-.153-.078-.612-.103-.79zm-97.107.599c0-.026.025-.051.025-.077h-.153c.051.077.102.153.18.23-.026-.051-.052-.102-.052-.153zm21.975.107c0-.204.05-.459.05-.637v-.077a.403.403 0 0 0-.128.306c0 .128.052.28.078.408zm-60.117-.098c.076-.051.179-.077.179-.179v-.05c-.103.025-.179.05-.307.051.025.102.102.101.128.178zm101.022-.093c.077-.05.178-.076.178-.178v-.051c-.103.026-.178.051-.306.052.025.101.102.101.128.177zm-115.195-.2h-.255c.102.026.128.128.205.153 0-.076.025-.102.05-.153zm-38.116.086c-.051 0-.077-.025-.103-.025-.025 0-.025.025-.025.025a.194.194 0 0 0 .102.051c.026 0 .026 0 .051-.05h-.025zm66.716-.137l.077-.23c-.103.026-.256-.025-.307.052.102.025.153.127.23.178zm118.673-.39c.205.103.384.306.537.357-.178-.077-.332-.331-.537-.356zm-108.312.253c0 .05.026.076.076.102 0-.077.026-.102-.076-.102zm94.908-.138h-.077c.025.025-.026.102.025.102 0-.051.052-.026.052-.102zM1.569 41.78c.025 0 .05.026.076.026v-.026c-.022 0-.03-.014-.036-.03l-.005-.015c-.005-.017-.013-.031-.035-.031v.076zm56.552-.177c-.179.048-.428.026-.529.151.128 0 .256.026.384.025.022 0 .05-.004.077-.01l.024-.005a.426.426 0 0 1 .078-.01c0-.026 0-.128-.026-.153l-.008.002zm140.273.073c0 .026.024.026.101.026h.051a.273.273 0 0 0-.128-.026h-.024zM44.29 41.69c.051 0 .077-.102.076-.153 0-.025 0-.05-.025-.076-.026.076-.154.102-.153.204.05 0 .076.025.102.025zm114.707-.003c.051 0 .128-.026.18-.026 0-.025 0-.127-.026-.153-.18.052-.435.026-.537.154.128 0 .256.025.383.025zM29.81 41.194c.154.152.23.458.436.483-.128-.152-.257-.433-.436-.483zm65.847.296H95.3c-.333 0-.64.026-.844.154.077.025.154.025.23.025.282 0 .665-.128.972-.179zm41.264.09c.127 0 .255-.077.255-.153-.103.05-.281.025-.332.127.025 0 .05.026.077.026zm60.986-.082h-.025c0 .026.025.051.076.051 0 0 .025 0 .025-.026-.05 0-.025-.025-.076-.025zm-5.986-.045c-.077.025-.18.026-.231.077.103 0 .23.05.23-.077zm-54.233-.435c-.103.077-.282.204-.308.281l.308-.28zM18.22 40.975h-.153c-.026 0-.051 0-.051.026.077.025.128.101.205.127v-.153zm65.31-.162c-.026 0-.051.026-.077.026.128.025.205.101.307.152 0-.178-.102-.178-.23-.178zm-65.778.1a.08.08 0 0 0 .033.011s.026 0 .026-.025c-.026 0-.077-.026-.102-.026-.026 0-.026 0-.026.026h.026a.08.08 0 0 1 .033.01l.01.005zm9.985-.176h-.282c-.102 0-.204 0-.255.026.179 0 .28.076.434.127l.103-.153zm12.1.014l-.435-.05c.026.025.026.102.026.178.153-.026.307-.051.409-.128zm31.158.1c0-.103-.026-.128-.128-.128-.077 0-.128 0-.128.051.102 0 .154.077.256.076zm-41.544-.014h.025c-.05-.025-.05-.076-.076-.102a.33.33 0 0 0-.154.026c.077 0 .154.076.205.076zm-15.58-.113c-.23 0-.716-.05-.716.103.23-.051.614.05.716-.103zm69.582.064H83.3s.051.025.076.025c.026 0 .051 0 .077-.025zm57.763-.334c0 .051.563.306.742.357-.128-.128-.41-.357-.742-.357zm-135.045.354c.077 0 .128 0 .18-.052-.18 0-.333.026-.461.052h.281zm72.626-.092c.102.025.256.025.384.025.23 0 .486-.026.665-.077h-.716c-.103 0-.308-.025-.333.052zm35.175-.058c-.23.026-.486 0-.665.077.23 0 .486.025.665-.077zm-1.688.001c0 .051.102.051.179.051h.102c-.102-.025-.18-.05-.281-.05zm-20.9.045c0-.025.025-.051.05-.076-.05 0-.076 0-.102.025.052 0 .026.051.052.051zm-37.964-.118h-.128c-.025 0 0 .025-.025.05.076.026.18.052.307.052a.643.643 0 0 0 .332-.077c-.179 0-.332-.025-.486-.025zm118.545-.007c.384.05.844.203 1.178 0-.384.025-.82-.051-1.178 0zm-69.556-.013h-.307c-.051 0-.103 0-.153.026.076 0 .102.051.128.077.102-.026.23-.052.332-.103zm.332 0c-.05 0-.102.026-.127.026.076 0 .153.05.23.05h.026c0-.05-.077-.076-.129-.076zm77.999.056v-.153c-.205 0-.46-.025-.614.077.256-.026.46 0 .614.076zm21.31-.147c.204.025.28.127.485.127 0-.153-.102-.153-.281-.153-.076 0-.18.026-.204.026zm-47.608.018h-.128c-.025 0 0 .026-.026.051a.95.95 0 0 0 .308.051.643.643 0 0 0 .332-.077c-.18 0-.333-.025-.486-.025zm46.763-.017h-.128c.052.026.102.025.18.025.153 0 .306-.025.46-.05-.18 0-.332.025-.512.025zm-60.629-.225c-.025 0-.051.026-.077.026.077 0 .18.05.231.05.026 0 .051 0 .077-.025-.077 0-.154-.05-.23-.05z" fill="#000"/></g></svg>
+</span>
+                            </a>
+                        </div>
+
+                        <ul class="sensiolabs-training">
+    <li><a href="https://training.sensiolabs.com/en/courses/SF5PRECERTIF-preparation-symfony-5-certification-online-sensiolabs-university">Symfony Certification Coaching</a></li>
+    <li><a href="https://training.sensiolabs.com/en/">Symfony 5</a></li>
+    <li><a href="https://university.sensiolabs.com/e-learning-platform">SensioLabs University eLearning platform</a></li>
+</ul>
+
+
+                        <a class="read-more" href="https://training.sensiolabs.com/en/" title="SensioLabs training sessions">
+                            View all sessions
+                        </a>
+                    </div>
+                </div>
+
+                <div class="col-sm-4">
+                    <div class="symfony-resources-block">
+                        <hr class="xs-separator" />
+
+                        <h3 class="m-b-0">Popular Screencasts</h3>
+
+                        <div class="illustration symfonycasts-logo">
+                            <a href="https://symfonycasts.com/" aria-label="SymfonyCasts">
+                                <span aria-hidden="true"><svg width="232" height="40" viewBox="0 0 232 40" xmlns="http://www.w3.org/2000/svg"><g fill="none" fill-rule="evenodd"><path d="M40.806 33.565l-4.258-2.589a.54.54 0 0 0-.58 0 .55.55 0 0 0-.29.508v5.032c0 .226.096.396.29.508a.54.54 0 0 0 .58 0l4.258-2.443a.551.551 0 0 0 .29-.508.552.552 0 0 0-.29-.508zM44 34c0-1.08-.27-2.08-.81-3A6.056 6.056 0 0 0 41 28.81c-.92-.54-1.92-.81-3-.81s-2.08.27-3 .81c-.92.54-1.65 1.27-2.19 2.19-.54.92-.81 1.92-.81 3s.27 2.08.81 3c.54.92 1.27 1.65 2.19 2.19.92.54 1.92.81 3 .81s2.08-.27 3-.81c.92-.54 1.65-1.27 2.19-2.19.54-.92.81-1.92.81-3zm-10.839 0c0-.87.218-1.677.653-2.42a4.876 4.876 0 0 1 1.767-1.765A4.696 4.696 0 0 1 38 29.16c.87 0 1.677.218 2.42.654a4.877 4.877 0 0 1 1.765 1.766c.436.742.654 1.548.654 2.419s-.218 1.678-.654 2.42a4.877 4.877 0 0 1-1.766 1.766 4.697 4.697 0 0 1-2.42.653 4.696 4.696 0 0 1-2.418-.653 4.876 4.876 0 0 1-1.767-1.766 4.696 4.696 0 0 1-.653-2.42zM43.471 26H.53c-.064-.004-.081-.002-.143-.02A.544.544 0 0 1 0 25.504a.544.544 0 0 1 .254-.49.534.534 0 0 1 .202-.073c.024-.003.049-.003.073-.005h4.03c-1.435-1.408-1.67-3.111-1.331-4.218.451-1.47 1.615-1.748 2.753-1.398 1.219.379 1.696 1.866 1.347 3.008-.039.122-.1.326-.229.6-.141.314-.403.59-.515.959-.125.406.059.76.377 1.05h4.906c.354-.339.62-.754.76-1.218.44-1.424-.457-2.419-.829-2.8l-1.808-1.944c-.826-.924-2.645-3.502-1.757-6.397.342-1.116 1.062-2.3 2.107-3.084 2.207-1.651 4.606-1.922 6.89-1.263 2.958.854 4.378 2.817 6.22 4.334 1.03-3.036 2.46-6.01 4.609-8.518C30 1.763 32.607.107 35.594.005c2.983-.099 5.239 1.26 5.313 3.41.03.914-.492 2.693-2.312 2.754-1.362.048-2.302-.769-2.344-2.01-.015-.455.102-.853.412-1.318.304-.597.368-.665.361-.924-.027-.783-1.203-.811-1.525-.796-4.413.146-5.577 6.127-6.52 10.99l-.462 2.565c2.542.373 4.346-.087 5.353-.74 1.417-.924-.397-1.874-.168-2.924.231-1.07 1.201-1.587 1.972-1.61 1.079-.026 1.849 1.098 1.824 2.239-.04 1.885-2.53 4.476-7.512 4.37a17.384 17.384 0 0 1-1.687-.12l-.94 5.211c-.249 1.17-.523 2.466-.889 3.834h17.001l.072.005c.024.005.048.008.071.015a.541.541 0 0 1 .376.404.547.547 0 0 1-.308.596.528.528 0 0 1-.139.04l-.072.004zm-22.848-1.064c.085-.43.17-.872.256-1.327l.3-1.833c.49-2.457 1.033-5.197 1.86-7.927-2.007-1.517-3.208-3.398-5.907-4.133-1.85-.504-2.978-.076-3.771.931-.939 1.192-.627 2.744.28 3.654l1.498 1.665c1.838 2.132 2.843 3.792 2.465 6.023-.184 1.094-.71 2.11-1.495 2.947h4.514zM13.222 29.75a.73.73 0 0 0-.438.14l-2.673 1.595v-1.36c0-.312-.122-.578-.365-.797A1.296 1.296 0 0 0 8.847 29H1.264c-.357 0-.656.11-.9.328a1.033 1.033 0 0 0-.364.797v6.75c0 .313.121.578.364.797.244.219.543.328.9.328h7.583c.357 0 .656-.11.9-.328.242-.219.364-.484.364-.797v-1.36l2.673 1.595a.73.73 0 0 0 .438.14c.21 0 .393-.07.547-.21A.697.697 0 0 0 14 36.5v-6.023a.671.671 0 0 0-.231-.516.783.783 0 0 0-.547-.211zm-4.278 2.437v4.665a.224.224 0 0 1-.097.023H1.264c-.049 0-.081-.008-.097-.023v-6.703a.222.222 0 0 1 .097-.024h7.583c.049 0 .08.008.097.024v2.038zm3.89 3.634L10.11 34.18v-1.36l2.722-1.64v4.64zM19.223 31.75l3.277-1.406v7.265a6.608 6.608 0 0 1-2.223-2.343c-.611-1.032-.963-2.204-1.054-3.516zM28 31c0 1.61-.29 3.086-.87 4.43a9.862 9.862 0 0 1-2.018 2.953c-.702.703-1.436 1.21-2.2 1.523a.954.954 0 0 1-.825 0c-.87-.36-1.673-.937-2.406-1.734a9.422 9.422 0 0 1-1.902-3.023c-.52-1.297-.779-2.68-.779-4.15 0-.233.061-.444.183-.632a.99.99 0 0 1 .504-.398l4.4-1.875a.954.954 0 0 1 .825 0l4.4 1.875c.214.078.382.21.505.398.122.188.183.399.183.633zm-1.1 0l-4.4-1.875L18.1 31c0 1.266.214 2.461.642 3.586a8.633 8.633 0 0 0 1.627 2.695c.656.735 1.367 1.266 2.131 1.594.749-.312 1.443-.828 2.085-1.547a8.468 8.468 0 0 0 1.65-2.672c.443-1.14.665-2.36.665-3.656z" fill="#1FB4FE"/><path d="M79.943 15.786l-5.959 16.523C72.874 35.416 71.701 39 67.773 39c-.952 0-1.492-.127-2.03-.222l.08-1.032c.115-.731.627-1.206 1.306-1.17.065.006.132.012.198.012 2.663 0 3.55-3.677 3.55-3.994 0-.348-.38-1.173-.57-1.713l-5.483-15.095H66.9c.005 0 .009.004.016.004.63 0 1.24.435 1.503 1.022l4.01 12.357h.064l4.1-12.364c.265-.584.873-1.015 1.501-1.015.007 0 .008-.004.016-.004h1.832zm88.2 0l-5.959 16.523C161.074 35.416 159.9 39 155.971 39c-.95 0-1.49-.127-2.03-.222l.081-1.032c.115-.731.628-1.206 1.305-1.17.067.006.133.012.198.012 2.663 0 3.552-3.677 3.552-3.994 0-.348-.382-1.173-.573-1.713l-5.482-15.095h2.077c.005 0 .009.004.015.004.63 0 1.242.435 1.504 1.022l4.01 12.357h.065l4.099-12.364c.263-.584.873-1.015 1.501-1.015.007 0 .01-.004.015-.004h1.835zm-41.7-.38c4.912 0 8.206 3.553 8.206 8.467 0 4.63-3.357 8.466-8.207 8.466-4.88 0-8.24-3.836-8.24-8.466 0-4.914 3.294-8.467 8.24-8.467zm59.448-5.026c-1.134-.599-3.75-.82-5.04-.82-6.805 0-11.09 4.697-11.09 11.38 0 6.809 4.16 11.379 11.09 11.379 1.385 0 3.843-.22 5.04-.946a1.418 1.418 0 0 0-1.742-1.285c-1.108.26-2.362.34-3.298.34-5.796 0-8.917-3.94-8.917-9.488 0-5.453 3.215-9.488 8.917-9.488.964 0 2.102.086 3.159.328a1.534 1.534 0 0 0 1.881-1.4zm11.88 18.976c-.883 1.923-3.118 2.963-5.104 2.963-4.568 0-5.292-3.09-5.292-4.54 0-5.39 5.734-5.641 9.893-5.641h.377v-.82c0-2.742-.977-4.13-3.655-4.13-1.076 0-2.115.159-3.115.525a1.196 1.196 0 0 1-1.61-1.123c1.229-.599 3.307-1.103 4.725-1.103 3.97 0 5.64 1.796 5.64 5.989l.036 8.827a1.635 1.635 0 0 1-1.656 1.64l-.176-.002v-2.585h-.063zm24.116 2.206c1.418.568 2.962.757 4.505.757 2.426 0 5.608-1.166 5.608-4.57 0-5.265-7.908-4.886-7.908-7.88 0-2.05 1.417-2.68 3.466-2.68.61 0 1.317.087 2.002.244a1.412 1.412 0 0 0 1.733-1.223l.013.002c-1.416-.536-3.119-.725-3.968-.725-2.647 0-5.23 1.198-5.23 4.381 0 4.665 7.717 4.066 7.717 7.88 0 1.829-1.67 2.869-3.559 2.869-.866 0-1.702-.13-2.48-.348a1.493 1.493 0 0 0-1.897 1.293h-.002zm-20.18 0c1.417.568 2.96.757 4.504.757 2.427 0 5.608-1.166 5.608-4.57 0-5.265-7.908-4.886-7.908-7.88 0-2.05 1.417-2.68 3.466-2.68.61 0 1.317.087 2.003.244a1.412 1.412 0 0 0 1.732-1.223l.013.002c-1.418-.536-3.118-.725-3.968-.725-2.647 0-5.23 1.198-5.23 4.381 0 4.665 7.718 4.066 7.718 7.88 0 1.829-1.67 2.869-3.56 2.869-.866 0-1.702-.13-2.48-.348a1.493 1.493 0 0 0-1.897 1.293h-.002zm15.202-13.995v10.402c0 1.45.535 2.648 2.141 2.648.152 0 .293-.006.427-.027a1.399 1.399 0 0 1 1.527 1.288c-.473.189-1.449.44-2.426.44-3.528 0-3.655-2.426-3.655-5.358v-9.393h-.83a1.634 1.634 0 0 1-1.633-1.634v-.068h2.463v-4.19l.37-.007a1.583 1.583 0 0 1 1.616 1.586v2.61h3.653v.07a1.635 1.635 0 0 1-1.633 1.634l-2.02-.001zM55.786 32.306h-.02c-1.507 0-3.009-.414-4.473-.887l.09-.872c.086-.78.633-1.369 1.302-1.26 1.064.337 2.328.628 3.494.632 1.99-.004 4.88-1.11 4.894-4.104-.023-2.872-2.732-3.853-5.204-5.042-2.52-1.22-4.862-2.57-4.869-6.048.01-3.979 3.085-6.064 7.228-6.09 1.136 0 2.441.158 3.69.468l-.055.978c-.081.673-.652 1.207-1.335 1.157-.01 0-.01.01-.018.01a9.6 9.6 0 0 0-2.135-.223l-.02.001c-1.906-.003-4.375.705-4.385 3.397.048 2.533 2.739 3.389 5.2 4.648 2.51 1.276 4.867 2.833 4.875 6.543-.014 4.806-3.62 6.658-8.26 6.692zm56.39-.347h-1.64V18.198h-2.462c-.003 0-.007-.004-.01-.004-.68 0-1.236-.5-1.333-1.151v-1.257h3.805v-1.284c0-3.933 1.015-6.502 5.419-6.502.758 0 1.395.095 1.996.19l-.051.977c-.041.712-.633 1.293-1.346 1.24-.007 0-.005.009-.01.009-.05-.003-.1-.006-.147-.006-2.566 0-2.882 1.65-2.882 3.838v1.538h4.278v1.125a1.349 1.349 0 0 1-1.299 1.287h-2.98V30.79a1.352 1.352 0 0 1-1.333 1.168l-.005.001zm-28.212 0H82.35V15.786h1.425c.005 0 .009.004.015.004.742 0 1.34.597 1.35 1.337v1.007h.064c1.139-1.872 2.756-2.728 5.132-2.728 1.871 0 3.74.952 4.598 3.14 1.108-2.314 3.549-3.14 5.005-3.14 4.123 0 5.61 2.664 5.61 6.185v9.313a1.35 1.35 0 0 1-1.315 1.054l-.004.001h-1.658v-9.64c0-1.998-.478-4.502-2.886-4.502-3.04 0-4.247 2.981-4.247 5.994v6.917a1.347 1.347 0 0 1-1.337 1.23l-.005.001h-1.635v-9.64c0-1.998-.478-4.502-2.886-4.502-3.042 0-4.247 2.981-4.247 5.994v6.754c-.004.013-.01.021-.01.041 0 .746-.605 1.352-1.351 1.352l-.004.001zm54.997 0h-1.637V15.786h1.517c.005 0 .007.004.014.004.747 0 1.351.605 1.351 1.354 0 .002.003.002.003.004v1.21h.062c.89-1.84 3.043-2.952 5.294-2.952 4.183 0 6.054 2.601 6.054 6.945v8.318a1.348 1.348 0 0 1-1.344 1.29H148.638v-8.371c0-3.775-.82-5.613-3.422-5.771-3.39 0-4.913 2.727-4.913 6.659v6.237a1.346 1.346 0 0 1-1.338 1.245l-.004.001zm58.684-7.142c0 1.733-.096 5.8-4.758 5.8-1.827 0-3.339-.788-3.339-2.9 0-3.53 4.096-3.877 7.53-3.877h.567v.977zm-71.203 5.115c3.484 0 5.037-3.172 5.037-6.06 0-3.074-1.869-6.055-5.037-6.055-3.2 0-5.071 2.981-5.071 6.056 0 2.887 1.552 6.059 5.07 6.059z" fill="#80796E"/></g></svg>
+</span>
+                            </a>
+                        </div>
+
+                        <ul class="list--unstyled list--border">
+            <li>
+            <a href="https://symfonycasts.com/screencast/phpunit-integration">PHPUnit: Integration Testing with Live Services</a>
+        </li>
+            <li>
+            <a href="https://symfonycasts.com/screencast/symfony">Harmonious Development with Symfony 6</a>
+        </li>
+            <li>
+            <a href="https://symfonycasts.com/screencast/api-platform">API Platform 3 Part 1: Mythically Good RESTful APIs</a>
+        </li>
+    </ul>
+
+
+                        <a class="read-more" href="https://symfonycasts.com/signup/" title="Subscribe to SymfonyCasts">Subscribe</a>
+                    </div>
+                </div>
+
+                <div class="col-sm-4">
+                    <div class="symfony-resources-block">
+                        <hr class="xs-separator" />
+
+                        <h3 class="m-b-0">Certifications</h3>
+
+                        <div class="illustration">
+                            <a href="https://certification.symfony.com/" aria-label="Symfony Certifications">
+                                <span aria-hidden="true"><img loading="lazy" height="90" width="156" src="/images/home/logo-certification.svg" alt="Symfony certifications logo" /></span>
+                            </a>
+                        </div>
+
+                        <ul class="list--unstyled list--border">
+                            <li>
+                                <a href="https://certification.symfony.com/exams/symfony.html">Symfony Certification</a>
+                                <p>Exams available for Symfony 3, 4, 5 and 6!</p>
+                            </li>
+                            <li>
+                                <a href="https://certification.symfony.com/exams/twig.html">Twig Certification</a>
+                                <p>Created for designers with Twig experience.</p>
+                            </li>
+                        </ul>
+
+                        <a class="read-more" href="https://certification.symfony.com/purchase.html" title="Register for the Symfony and Twig certifications">Register</a>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </div>
+                    </div>
+                </div>
+            </main>
+        
+                    <footer>
+    <h2 class="visually-hidden">Symfony footer</h2>
+
+    <div class="footer-content">
+                                    <section class="footer-top-wrapper">
+                    <div class="page-container">
+                        <div class="footer-top">
+                            <div class="symfony-contributor">
+                                                                                                    <div class="symfony-contributor-details">
+                                        <img loading="lazy" class="avatar" width="40" height="40"
+                                             alt="Avatar of Karoly Negyesi, a Symfony contributor"
+                                             src="https://connect.symfony.com/api/images/8a7bf5e3-e427-42a6-9018-4a5c5b80b8ef.png?format=80x80">
+
+                                        <div>
+                                            <p class="thanks">
+                                                Thanks
+                                                <strong>
+                                                                                                            <a class="link" href="https://connect.symfony.com/profile/chx">Karoly Negyesi</a>
+                                                                                                    </strong>
+
+                                                                                                    (<strong>@chx</strong>)
+                                                
+                                                for being a Symfony contributor
+                                            </p>
+
+                                            <p>
+                                                <strong title="4 commits">4</strong>
+                                                     commits
+                                                &bull;
+
+                                                <strong title="26 lines of code/doc changed">26</strong> lines changed
+                                            </p>
+                                        </div>
+                                    </div>
+
+                                    <a class="link" href="/contributors">View all contributors</a> that help us make Symfony
+                                                            </div>
+
+                            <div class="contribute-to-symfony">
+                                <h3>Become a Symfony contributor</h3>
+                                <p>
+                                    Be an active part of the community and contribute ideas, code and bug fixes.
+                                    Both experts and newcomers are welcome.
+                                </p>
+
+                                <a class="link" href="/doc/current/contributing/index.html">Learn how to contribute</a>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+            
+                            <section class="footer-bottom-wrapper">
+                    <div class="page-container">
+                        <div class="footer-bottom">
+                            <p>
+                                <b>Symfony</b>&trade; is a trademark of Symfony SAS. <a href="/trademark">All rights reserved</a>.
+                            </p>
+
+                            <ul class="sitemap ">
+    <li>
+        <h3><a href="/what-is-symfony">What is Symfony?</a></h3>
+        <ul class="list_menu_footer list-unstyled">
+                    <li id="menu-at-a-glance" >
+        <a href="/at-a-glance">
+                        Symfony at a Glance
+        </a>
+    </li>
+            <li id="menu-components" >
+        <a href="/components">
+                        Symfony Components
+        </a>
+    </li>
+            <li id="menu-case-studies" >
+        <a href="/blog/category/case-studies">
+                        Case Studies
+        </a>
+    </li>
+            <li id="menu-symfony-releases" >
+        <a href="/releases">
+                        Symfony Releases
+        </a>
+    </li>
+            <li id="menu-security-policy" >
+        <a href="/doc/current/contributing/code/security.html">
+                        Security Policy
+        </a>
+    </li>
+            <li id="menu-logo" >
+        <a href="/logo">
+                        Logo &amp; Screenshots
+        </a>
+    </li>
+            <li id="menu-license" >
+        <a href="/license">
+                        Trademark &amp; Licenses
+        </a>
+    </li>
+            <li id="menu-symfony-legacy" >
+        <a href="/legacy">
+                        symfony1 Legacy
+        </a>
+    </li>
+    
+        </ul>
+    </li>
+
+    <li>
+        <h3><a href="/doc/current/index.html">Learn Symfony</a></h3>
+        <ul class="list_menu_footer list-unstyled">
+            
+                            <li>
+                    <a href="/doc/current/index.html">Symfony Docs</a>
+                </li>
+                            <li>
+                    <a href="/book">Symfony Book</a>
+                </li>
+                            <li>
+                    <a href="/doc/current/reference/index.html">Reference</a>
+                </li>
+                            <li>
+                    <a href="/bundles">Bundles</a>
+                </li>
+                            <li>
+                    <a href="/doc/current/best_practices.html">Best Practices</a>
+                </li>
+                            <li>
+                    <a href="https://training.sensiolabs.com/en/">Training</a>
+                </li>
+                            <li>
+                    <a href="https://university.sensiolabs.com/e-learning-platform">eLearning Platform</a>
+                </li>
+                            <li>
+                    <a href="https://certification.symfony.com/">Certification</a>
+                </li>
+                    </ul>
+    </li>
+
+    <li>
+        <h3><a href="https://symfonycasts.com">Screencasts</a></h3>
+        <ul class="list_menu_footer list-unstyled">
+            <li><a href="https://symfonycasts.com/tracks/symfony">Learn Symfony</a></li>
+            <li><a href="https://symfonycasts.com/tracks/php">Learn PHP</a></li>
+            <li><a href="https://symfonycasts.com/tracks/javascript">Learn JavaScript</a></li>
+            <li><a href="https://symfonycasts.com/tracks/drupal">Learn Drupal</a></li>
+            <li><a href="https://symfonycasts.com/tracks/rest">Learn RESTful APIs</a></li>
+        </ul>
+    </li>
+
+    <li>
+        <h3><a href="/community">Community</a></h3>
+        <ul class="list_menu_footer list-unstyled">
+                    <li id="menu-symfony-connect" >
+        <a href="https://connect.symfony.com/">
+                        SymfonyConnect
+        </a>
+    </li>
+            <li id="menu-support" >
+        <a href="/support">
+                        Support
+        </a>
+    </li>
+            <li id="menu-how-to-be-involved" >
+        <a href="/doc/current/contributing/index.html">
+                        How to be Involved
+        </a>
+    </li>
+            <li id="menu-code-of-conduct" >
+        <a href="/doc/current/contributing/code_of_conduct/code_of_conduct.html">
+                        Code of Conduct
+        </a>
+    </li>
+            <li id="menu-events" >
+        <a href="/events/">
+                        Events &amp; Meetups
+        </a>
+    </li>
+            <li id="menu-projects" >
+        <a href="/projects">
+                        Projects using Symfony
+        </a>
+    </li>
+            <li id="menu-downloads_stats" >
+        <a href="/stats/downloads">
+                        Downloads Stats
+        </a>
+    </li>
+            <li id="menu-contributors" >
+        <a href="/contributors">
+                        Contributors
+        </a>
+    </li>
+            <li id="menu-backers" >
+        <a href="/backers">
+                        Backers
+        </a>
+    </li>
+    
+        </ul>
+    </li>
+
+    <li>
+        <h3><a href="/blog/">Blog</a></h3>
+        <ul class="list_menu_footer list-unstyled">
+            <li>
+    <a href="/events">Events &amp; Meetups</a>
+</li>
+
+
+    <li class="">
+        <a href="/blog/category/a-week-of-symfony">A week of symfony</a>
+    </li>
+    <li class="">
+        <a href="/blog/category/case-studies">Case studies</a>
+    </li>
+    <li class="">
+        <a href="/blog/category/cloud">Cloud</a>
+    </li>
+    <li class="">
+        <a href="/blog/category/community">Community</a>
+    </li>
+    <li class="">
+        <a href="/blog/category/conferences">Conferences</a>
+    </li>
+    <li class="">
+        <a href="/blog/category/diversity">Diversity</a>
+    </li>
+    <li class="">
+        <a href="/blog/category/documentation">Documentation</a>
+    </li>
+    <li class="">
+        <a href="/blog/category/living-on-the-edge">Living on the edge</a>
+    </li>
+    <li class="">
+        <a href="/blog/category/releases">Releases</a>
+    </li>
+    <li class="">
+        <a href="/blog/category/security-advisories">Security Advisories</a>
+    </li>
+    <li class="">
+        <a href="/blog/category/symfony-insight">SymfonyInsight</a>
+    </li>
+    <li class="">
+        <a href="/blog/category/twig">Twig</a>
+    </li>
+
+<li style="margin-bottom: 20px">
+    <a href="https://blog.sensiolabs.com/">SensioLabs</a>
+</li>
+
+        </ul>
+    </li>
+
+    <li>
+        <h3><a href="https://sensiolabs.com">Services</a></h3>
+        <ul class="list_menu_footer list-unstyled">
+            <li><a href="https://sensiolabs.com">SensioLabs services</a></li>
+            <li><a href="https://training.sensiolabs.com/en">Train developers</a></li>
+            <li><a href="https://insight.symfony.com/">Manage your project quality</a></li>
+            <li><a href="https://www.blackfire.io/?utm_source=symfony&utm_medium=symfonycom_footer&utm_campaign=profiler">Improve your project performance</a></li>
+            <li><a href="/cloud/">Host Symfony projects</a></li>
+        </ul>
+
+                    <div class="m-t-30">
+                <h3><span>Deployed on</span></h3>
+                <a href="/cloud/" class="block m-t-10 deploy-logo" title="Platform.sh, a Platform-as-a-Service optimized for Symfony developers" aria-label="Platform.sh">
+                    <span aria-hidden="true"><svg viewBox="0 0 172.62 34.06" xmlns="http://www.w3.org/2000/svg"><g fill="currentColor"><path d="m144.07 0h28.55v11.35h-28.55z"/><path d="m144.07 24.69h28.55v3.86h-28.55z"/><path d="m144.07 15.02h28.55v5.82h-28.55z"/><path d="m0 13.85h3.61v2.15a5.45 5.45 0 0 1 1.9-1.79 5.25 5.25 0 0 1 2.66-.69 5.59 5.59 0 0 1 4.33 2 8.06 8.06 0 0 1 1.78 5.56 8.38 8.38 0 0 1 -1.79 5.71 5.6 5.6 0 0 1 -4.34 2 4.94 4.94 0 0 1 -2.15-.45 7.46 7.46 0 0 1 -2.08-1.66v7.38h-3.92zm3.83 7.07a5.66 5.66 0 0 0 1 3.65 3 3 0 0 0 2.37 1.17 2.78 2.78 0 0 0 2.24-1.08 5.55 5.55 0 0 0 .9-3.55 5.29 5.29 0 0 0 -.93-3.42 2.84 2.84 0 0 0 -2.28-1.11 3 3 0 0 0 -2.36 1.09 4.88 4.88 0 0 0 -.94 3.25z"/><path d="m16.07 28.49v-20.21h3.87v20.21z"/><path d="m25.5 18.32-3.5-.64a5.48 5.48 0 0 1 2-3.14 7.48 7.48 0 0 1 4.3-1 9.4 9.4 0 0 1 3.86.61 3.8 3.8 0 0 1 1.84 1.54 7.89 7.89 0 0 1 .52 3.47v4.52a15 15 0 0 0 .19 2.84 8 8 0 0 0 .69 2h-3.91c-.1-.26-.23-.64-.37-1.15-.07-.23-.11-.38-.14-.45a7 7 0 0 1 -2.12 1.45 6.15 6.15 0 0 1 -2.42.48 5 5 0 0 1 -3.56-1.23 4.05 4.05 0 0 1 -1.3-3.1 4.2 4.2 0 0 1 .59-2.21 3.87 3.87 0 0 1 1.66-1.49 13.49 13.49 0 0 1 3.08-.9 21.67 21.67 0 0 0 3.77-.95v-.39a2 2 0 0 0 -.56-1.58 3.26 3.26 0 0 0 -2.12-.52 2.8 2.8 0 0 0 -1.61.41 2.81 2.81 0 0 0 -.89 1.43zm5.18 3.14c-.5.16-1.29.36-2.36.59a7.55 7.55 0 0 0 -2.11.67 1.65 1.65 0 0 0 -.75 1.37 1.93 1.93 0 0 0 .6 1.41 2.13 2.13 0 0 0 1.54.59 3.34 3.34 0 0 0 2-.69 2.47 2.47 0 0 0 .93-1.28 7.73 7.73 0 0 0 .15-1.89z"/><path d="m43.81 13.85v3.09h-2.64v5.89a15.15 15.15 0 0 0 .07 2.09.82.82 0 0 0 .35.49 1 1 0 0 0 .65.2 5 5 0 0 0 1.56-.38l.33 3a7.63 7.63 0 0 1 -3.06.58 4.93 4.93 0 0 1 -1.89-.35 2.79 2.79 0 0 1 -1.18-.9 3.67 3.67 0 0 1 -.55-1.51 19.41 19.41 0 0 1 -.12-2.73v-6.38h-1.83v-3.09h1.78v-2.91l3.89-2.26v5.17z"/><path d="m44.94 13.85h2.15v-1.1a7.41 7.41 0 0 1 .39-2.75 3.18 3.18 0 0 1 1.45-1.48 5.56 5.56 0 0 1 2.67-.57 10.83 10.83 0 0 1 3.24.49l-.53 2.71a7.42 7.42 0 0 0 -1.77-.23 1.6 1.6 0 0 0 -1.21.4 2.28 2.28 0 0 0 -.33 1.5v1h2.9v3h-2.9v11.67h-3.91v-11.59h-2.15z"/><path d="m54.58 21a8 8 0 0 1 1-3.73 6.59 6.59 0 0 1 2.7-2.76 8 8 0 0 1 3.89-1 7.29 7.29 0 0 1 5.44 2.16 7.43 7.43 0 0 1 2.13 5.45 7.52 7.52 0 0 1 -2.14 5.5 7.24 7.24 0 0 1 -5.4 2.19 8.47 8.47 0 0 1 -3.84-.91 6.3 6.3 0 0 1 -2.78-2.67 8.91 8.91 0 0 1 -1-4.23zm4 .21a4.83 4.83 0 0 0 1 3.33 3.23 3.23 0 0 0 2.54 1.16 3.26 3.26 0 0 0 2.55-1.16 4.93 4.93 0 0 0 1-3.36 4.86 4.86 0 0 0 -1-3.31 3.29 3.29 0 0 0 -2.55-1.15 3.25 3.25 0 0 0 -2.54 1.15 4.86 4.86 0 0 0 -1.03 3.3z"/><path d="m75 28.49h-3.87v-14.64h3.6v2.08a6.06 6.06 0 0 1 1.66-1.93 3.07 3.07 0 0 1 1.67-.47 4.9 4.9 0 0 1 2.55.73l-1.2 3.38a3.32 3.32 0 0 0 -1.82-.64 2.11 2.11 0 0 0 -1.37.45 3 3 0 0 0 -.89 1.62 22.62 22.62 0 0 0 -.33 4.93z"/><path d="m81.77 13.85h3.57v2a5.75 5.75 0 0 1 4.56-2.33 4.87 4.87 0 0 1 2.44.58 4.39 4.39 0 0 1 1.66 1.75 6.73 6.73 0 0 1 2.09-1.75 5 5 0 0 1 2.38-.58 5.36 5.36 0 0 1 2.73.65 4.06 4.06 0 0 1 1.67 1.93 8.44 8.44 0 0 1 .4 3v9.36h-3.85v-8.34a6.16 6.16 0 0 0 -.4-2.81 1.83 1.83 0 0 0 -1.65-.83 2.66 2.66 0 0 0 -1.53.5 2.71 2.71 0 0 0 -1 1.45 10.52 10.52 0 0 0 -.32 3v7h-3.91v-8a11.17 11.17 0 0 0 -.2-2.76 1.76 1.76 0 0 0 -.64-.92 2 2 0 0 0 -1.18-.31 2.82 2.82 0 0 0 -1.59.56 2.7 2.7 0 0 0 -1 1.4 10.2 10.2 0 0 0 -.31 3v7.11h-3.92z"/><path d="m105.23 28.49v-3.88h3.87v3.88z"/><path d="m110.55 24.31 3.89-.59a2.84 2.84 0 0 0 1 1.72 3.4 3.4 0 0 0 2.12.58 3.86 3.86 0 0 0 2.27-.55 1.25 1.25 0 0 0 .5-1 1.05 1.05 0 0 0 -.27-.74 3.09 3.09 0 0 0 -1.3-.5q-4.68-1-5.94-1.89a3.79 3.79 0 0 1 -1.73-3.3 4.09 4.09 0 0 1 1.5-3.2 7 7 0 0 1 4.66-1.29 8 8 0 0 1 4.46 1 5 5 0 0 1 2 2.89l-3.66.68a2.21 2.21 0 0 0 -.89-1.31 3.18 3.18 0 0 0 -1.86-.45 4.33 4.33 0 0 0 -2.2.42.93.93 0 0 0 -.44.79.85.85 0 0 0 .39.7 14.37 14.37 0 0 0 3.62 1.09 10.82 10.82 0 0 1 4.33 1.64 3.58 3.58 0 0 1 1.21 2.88 4.4 4.4 0 0 1 -1.68 3.46 7.42 7.42 0 0 1 -5 1.45 8.07 8.07 0 0 1 -4.73-1.22 5.56 5.56 0 0 1 -2.25-3.26z"/><path d="m129.66 8.28v7.43a5.79 5.79 0 0 1 6.89-1.71 3.92 3.92 0 0 1 1.62 1.26 4.66 4.66 0 0 1 .74 1.71 15.64 15.64 0 0 1 .2 2.91v8.59h-3.87v-7.72a11.35 11.35 0 0 0 -.22-2.92 1.93 1.93 0 0 0 -.78-1 2.53 2.53 0 0 0 -1.4-.37 3.22 3.22 0 0 0 -1.72.47 2.64 2.64 0 0 0 -1.12 1.43 8.63 8.63 0 0 0 -.35 2.8v7.33h-3.87v-20.21z"/></g></svg>
+</span>
+                </a>
+            </div>
+            </li>
+</ul>
+
+
+                            <div class="icons">
+                                <h3><span>Follow Symfony</span></h3>
+                                <a href="https://github.com/symfony" target="_blank" rel="me external noopener noreferrer" title="Symfony on GitHub">
+                                    <i class="icon"><svg width="16" height="16" viewBox="0 0 16 16" xmlns="http://www.w3.org/2000/svg" fill-rule="evenodd" clip-rule="evenodd" stroke-linejoin="round" stroke-miterlimit="1.414"><path fill="currentColor" d="M8 0a8 8 0 0 0-8 8 8 8 0 0 0 5.47 7.59c.4.075.547-.172.547-.385 0-.19-.007-.693-.01-1.36-2.226.483-2.695-1.073-2.695-1.073-.364-.924-.89-1.17-.89-1.17-.725-.496.056-.486.056-.486.803.056 1.225.824 1.225.824.714 1.223 1.873.87 2.33.665.072-.517.278-.87.507-1.07-1.777-.2-3.644-.888-3.644-3.953 0-.873.31-1.587.823-2.147-.09-.202-.36-1.015.07-2.117 0 0 .67-.215 2.2.82a7.67 7.67 0 0 1 2-.27 7.67 7.67 0 0 1 2 .27c1.52-1.035 2.19-.82 2.19-.82.43 1.102.16 1.915.08 2.117a3.1 3.1 0 0 1 .82 2.147c0 3.073-1.87 3.75-3.65 3.947.28.24.54.73.54 1.48 0 1.07-.01 1.93-.01 2.19 0 .21.14.46.55.38A7.972 7.972 0 0 0 16 8a8 8 0 0 0-8-8"/></svg>
+</i>
+                                </a>
+                                <a href="/slack" target="_blank" rel="external noopener noreferrer" title="Symfony on Slack">
+                                    <i class="icon"><svg width="16" height="16" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path fill="currentColor" d="M5.042 15.165a2.528 2.528 0 0 1-2.52 2.523A2.528 2.528 0 0 1 0 15.165a2.527 2.527 0 0 1 2.522-2.52h2.52v2.52zM6.313 15.165a2.527 2.527 0 0 1 2.521-2.52 2.527 2.527 0 0 1 2.521 2.52v6.313A2.528 2.528 0 0 1 8.834 24a2.528 2.528 0 0 1-2.521-2.522v-6.313zM8.834 5.042a2.528 2.528 0 0 1-2.521-2.52A2.528 2.528 0 0 1 8.834 0a2.528 2.528 0 0 1 2.521 2.522v2.52H8.834zM8.834 6.313a2.528 2.528 0 0 1 2.521 2.521 2.528 2.528 0 0 1-2.521 2.521H2.522A2.528 2.528 0 0 1 0 8.834a2.528 2.528 0 0 1 2.522-2.521h6.312z"/><path fill="currentColor" d="M18.956 8.834a2.528 2.528 0 0 1 2.522-2.521A2.528 2.528 0 0 1 24 8.834a2.528 2.528 0 0 1-2.522 2.521h-2.522V8.834zM17.688 8.834a2.528 2.528 0 0 1-2.523 2.521 2.527 2.527 0 0 1-2.52-2.521V2.522A2.527 2.527 0 0 1 15.165 0a2.528 2.528 0 0 1 2.523 2.522v6.312z"/><path fill="currentColor" d="M15.165 18.956a2.528 2.528 0 0 1 2.523 2.522A2.528 2.528 0 0 1 15.165 24a2.527 2.527 0 0 1-2.52-2.522v-2.522h2.52zM15.165 17.688a2.527 2.527 0 0 1-2.52-2.523 2.526 2.526 0 0 1 2.52-2.52h6.313A2.527 2.527 0 0 1 24 15.165a2.528 2.528 0 0 1-2.522 2.523h-6.313z"/></svg>
+</i>
+                                </a>
+                                <a href="https://twitter.com/symfony" target="_blank" rel="me external noopener noreferrer" title="Symfony on Twitter">
+                                    <i class="icon"><svg width="16" height="16" viewBox="0 0 16 16" xmlns="http://www.w3.org/2000/svg" fill-rule="evenodd" clip-rule="evenodd" stroke-linejoin="round" stroke-miterlimit="1.414"><path fill="currentColor" d="M16 3.038a6.62 6.62 0 0 1-1.885.517 3.299 3.299 0 0 0 1.443-1.816c-.634.37-1.337.64-2.085.79a3.282 3.282 0 0 0-5.593 2.99 9.307 9.307 0 0 1-6.766-3.42A3.222 3.222 0 0 0 .67 3.75c0 1.14.58 2.143 1.46 2.732a3.278 3.278 0 0 1-1.487-.41v.04c0 1.59 1.13 2.918 2.633 3.22a3.336 3.336 0 0 1-1.475.056 3.29 3.29 0 0 0 3.07 2.28 6.578 6.578 0 0 1-4.85 1.359 9.332 9.332 0 0 0 5.04 1.474c6.04 0 9.34-5 9.34-9.33 0-.14 0-.28-.01-.42a6.63 6.63 0 0 0 1.64-1.7z" fill-rule="nonzero"/></svg>
+</i>
+                                </a>
+                                <a href="https://mastodon.social/@symfony" target="_blank" rel="me external noopener noreferrer" title="Symfony on Mastodon">
+                                    <i class="icon"><svg xmlns="http://www.w3.org/2000/svg" height="24" viewBox="0 0 448 512"><path fill="currentColor" d="M433 179.11c0-97.2-63.71-125.7-63.71-125.7-62.52-28.7-228.56-28.4-290.48 0 0 0-63.72 28.5-63.72 125.7 0 115.7-6.6 259.4 105.63 289.1 40.51 10.7 75.32 13 103.33 11.4 50.81-2.8 79.32-18.1 79.32-18.1l-1.7-36.9s-36.31 11.4-77.12 10.1c-40.41-1.4-83-4.4-89.63-54a102.54 102.54 0 0 1-.9-13.9c85.63 20.9 158.65 9.1 178.75 6.7 56.12-6.7 105-41.3 111.23-72.9 9.8-49.8 9-121.5 9-121.5zm-75.12 125.2h-46.63v-114.2c0-49.7-64-51.6-64 6.9v62.5h-46.33V197c0-58.5-64-56.6-64-6.9v114.2H90.19c0-122.1-5.2-147.9 18.41-175 25.9-28.9 79.82-30.8 103.83 6.1l11.6 19.5 11.6-19.5c24.11-37.1 78.12-34.8 103.83-6.1 23.71 27.3 18.4 53 18.4 175z"/></svg>
+</i>
+                                </a>
+                                <a href="https://www.linkedin.com/company/symfony-sas/" target="_blank" rel="me external noopener noreferrer" title="Symfony on LinkedIn">
+                                    <i class="icon"><svg viewBox="0 0 16 16" xmlns="http://www.w3.org/2000/svg" fill-rule="evenodd" clip-rule="evenodd" stroke-linejoin="round" stroke-miterlimit="1.414"><path fill="currentColor" d="M13.632 13.635h-2.37V9.922c0-.886-.018-2.025-1.234-2.025-1.235 0-1.424.964-1.424 1.96v3.778h-2.37V6H8.51v1.04h.03c.318-.6 1.092-1.233 2.247-1.233 2.4 0 2.845 1.58 2.845 3.637v4.188zM3.558 4.955a1.376 1.376 0 1 1-.001-2.751 1.376 1.376 0 0 1 .001 2.751zm1.188 8.68H2.37V6h2.376v7.635zM14.816 0H1.18C.528 0 0 .516 0 1.153v13.694C0 15.484.528 16 1.18 16h13.635c.652 0 1.185-.516 1.185-1.153V1.153C16 .516 15.467 0 14.815 0z" fill-rule="nonzero"/></svg>
+</i>
+                                </a>
+                                <a href="https://www.facebook.com/SymfonyFramework" target="_blank" rel="me external noopener noreferrer" title="Symfony on Facebook">
+                                    <i class="icon"><svg width="16" height="16" viewBox="0 0 16 16" xmlns="http://www.w3.org/2000/svg" fill-rule="evenodd" clip-rule="evenodd" stroke-linejoin="round" stroke-miterlimit="1.414"><path fill="currentColor" d="M15.117 0H.883A.883.883 0 0 0 0 .883v14.234c0 .488.395.883.883.883h7.663V9.804H6.46V7.39h2.086V5.607c0-2.066 1.262-3.19 3.106-3.19.883 0 1.642.064 1.863.094v2.16h-1.28c-1 0-1.195.48-1.195 1.18v1.54h2.39l-.31 2.42h-2.08V16h4.077a.883.883 0 0 0 .883-.883V.883A.883.883 0 0 0 15.117 0" fill-rule="nonzero"/></svg>
+</i>
+                                </a>
+                                <a href="https://www.youtube.com/symfonytv" target="_blank" rel="me external noopener noreferrer" title="Symfony on YouTube">
+                                    <i class="icon"><svg width="16" height="16" viewBox="0 0 16 16" xmlns="http://www.w3.org/2000/svg" fill-rule="evenodd" clip-rule="evenodd" stroke-linejoin="round" stroke-miterlimit="1.414"><path d="M0 7.345c0-1.294.16-2.59.16-2.59s.156-1.1.636-1.587c.608-.637 1.408-.617 1.764-.684C3.84 2.36 8 2.324 8 2.324s3.362.004 5.6.166c.314.038.996.04 1.604.678.48.486.636 1.588.636 1.588S16 6.05 16 7.346v1.258c0 1.296-.16 2.59-.16 2.59s-.156 1.102-.636 1.588c-.608.638-1.29.64-1.604.678-2.238.162-5.6.166-5.6.166s-4.16-.037-5.44-.16c-.356-.067-1.156-.047-1.764-.684-.48-.487-.636-1.587-.636-1.587S0 9.9 0 8.605v-1.26zm6.348 2.73V5.58l4.323 2.255-4.32 2.24z"/></svg>
+</i>
+                                </a>
+                                <a href="https://symfonycasts.com/" target="_blank" rel="me external noopener noreferrer" title="Symfony Screencasts">
+                                    <i class="icon"><svg viewBox="0 0 300 300" xmlns="http://www.w3.org/2000/svg" xml:space="preserve" style="fill-rule:evenodd;clip-rule:evenodd;stroke-linejoin:round;stroke-miterlimit:1.41421" width="16" height="16"><g><path d="M300 30c0-16.557-13.443-30-30-30H30C13.443 0 0 13.443 0 30v240c0 16.557 13.443 30 30 30h240c16.557 0 30-13.443 30-30V30z" style="fill: currentColor"></path><path d="M94.679 204.481c-4.374-1.925-9.01-2.625-13.734-2.625-18.632 0-32.278 12.51-32.278 31.317 0 19.42 12.859 31.841 32.191 31.841 3.587 0 9.272-.262 13.909-2.187l-.257-4.156a3.1 3.1 0 0 0-3.988-2.776c-2.99.903-6.622 1.421-9.577 1.421-12.684 0-23.006-9.534-23.006-23.881 0-13.733 9.36-23.881 23.444-23.881 3.038 0 5.994.528 8.787 1.582a3.098 3.098 0 0 0 4.178-2.646l.331-4.009zm13.522 19.85a3.1 3.1 0 0 0 4.404 2.615c2.741-1.268 5.876-1.996 8.866-1.996 8.223 0 11.022 3.937 11.022 11.635-3.237-.175-5.511-.175-8.748-.175-8.485 0-20.732 3.499-20.732 14.696 0 9.709 6.736 13.908 16.358 13.908 7.523 0 11.897-4.111 13.822-6.823h.175v5.774h4.352a3.098 3.098 0 0 0 3.093-3.296 125.34 125.34 0 0 1-.097-5.452v-18.458c0-12.159-5.161-18.457-17.933-18.457-5.686 0-10.585 1.75-14.696 4.199l.114 1.83zm44.173 38.234c3.761 2.012 8.048 2.449 12.247 2.449 7.96 0 15.57-4.373 15.57-13.908 0-14.259-19.332-11.635-19.332-20.732 0-3.674 3.674-5.424 7.873-5.424 1.107 0 3.2.377 5.127.913a3.097 3.097 0 0 0 3.926-2.68l.307-3.131c-3.237-.963-6.386-1.75-10.235-1.75-8.835 0-15.746 4.461-15.746 13.734 0 12.509 19.333 11.809 19.333 19.944 0 4.812-4.637 6.386-8.398 6.386-1.512 0-3.954-.43-6.366-1.29a3.097 3.097 0 0 0-4.141 2.732l-.165 2.757zm71.142 0c3.761 2.012 8.048 2.449 12.247 2.449 7.96 0 15.57-4.373 15.57-13.908 0-14.259-19.332-11.635-19.332-20.732 0-3.674 3.674-5.424 7.873-5.424 1.107 0 3.2.377 5.127.913a3.097 3.097 0 0 0 3.926-2.68l.307-3.131c-3.237-.963-6.386-1.75-10.235-1.75-8.835 0-15.746 4.461-15.746 13.734 0 12.509 19.333 11.809 19.333 19.944 0 4.812-4.637 6.386-8.398 6.386-1.512 0-3.954-.43-6.366-1.29a3.097 3.097 0 0 0-4.141 2.732l-.165 2.757zm-29.36-43.213v-12.947h5.123a3.1 3.1 0 0 1 3.099 3.1v9.847h11.81v3.548a3.1 3.1 0 0 1-3.1 3.1h-8.71v24.406c0 5.161 3.15 7.96 6.911 7.96.702 0 1.351-.06 1.947-.167a3.101 3.101 0 0 1 3.652 3.05v2.541c-1.837.525-4.374 1.224-6.999 1.224-8.485 0-13.733-4.024-13.733-12.946V226h-5.052a3.1 3.1 0 0 1-3.099-3.1v-3.548h8.151zm-61.663 27.292c0 6.649-4.286 11.722-12.422 11.722-3.761 0-8.31-2.537-8.31-7.26 0-7.873 11.022-8.573 15.483-8.573 1.75 0 3.499.175 5.249.175v3.936zm136.934-67.652H30.577c-.355-.024-.449-.012-.794-.109-1.164-.326-2.062-1.423-2.145-2.636a3.007 3.007 0 0 1 1.409-2.719c.344-.209.73-.346 1.129-.401.133-.019.268-.019.401-.028H53c-7.987-7.798-9.293-17.234-7.409-23.363 2.511-8.144 8.984-9.683 15.314-7.741 6.779 2.096 9.432 10.333 7.493 16.657-.216.677-.562 1.805-1.274 3.324-.787 1.738-2.245 3.272-2.869 5.31-.693 2.253.33 4.211 2.099 5.813h27.289c1.97-1.871 3.447-4.169 4.233-6.74 2.444-7.89-2.548-13.398-4.615-15.512l-10.054-10.762c-4.598-5.12-14.713-19.398-9.779-35.432 1.904-6.184 5.91-12.742 11.724-17.083 12.275-9.147 25.621-10.648 38.327-6.995 16.448 4.729 24.347 15.602 34.59 24.005 5.735-16.818 13.683-33.283 25.635-47.176 10.794-12.652 25.297-21.822 41.908-22.39 16.596-.548 29.142 6.974 29.556 18.882.167 5.068-2.74 14.92-12.864 15.261-7.572.262-12.8-4.263-13.036-11.135-.085-2.519.566-4.724 2.292-7.301 1.688-3.304 2.049-3.683 2.006-5.12-.152-4.333-6.692-4.493-8.482-4.409-24.548.811-31.018 33.939-36.263 60.875l-2.569 14.205c14.136 2.067 24.172-.481 29.77-4.102 7.881-5.117-2.205-10.374-.933-16.191 1.288-5.931 6.683-8.794 10.969-8.914 6-.148 10.283 6.077 10.144 12.395-.216 10.444-14.069 24.793-41.783 24.207a96.847 96.847 0 0 1-9.38-.665l-5.228 28.86c-1.387 6.478-2.91 13.66-4.945 21.237h94.561l.401.028c.132.027.265.045.394.082a3.005 3.005 0 0 1 2.09 2.237c.272 1.308-.46 2.759-1.711 3.302-.246.107-.506.18-.773.217-.132.018-.267.018-.401.027zm-127.085-5.893c.469-2.383.942-4.832 1.422-7.35l1.674-10.152c2.723-13.608 5.741-28.784 10.342-43.905-11.162-8.404-17.847-18.821-32.86-22.892-10.29-2.793-16.562-.423-20.973 5.155-5.222 6.604-3.488 15.2 1.557 20.241l8.336 9.223c10.222 11.808 15.809 20.999 13.707 33.359-1.024 6.057-3.949 11.682-8.315 16.321h25.11z" style="fill: var(--footer-bottom-background)"></path></g></svg>
+</i>
+                                </a>
+                                <a href="https://feeds.feedburner.com/symfony/blog" target="_blank" rel="external noopener noreferrer" title="Symfony Blog RSS">
+                                    <i class="icon"><svg width="16" height="16" viewBox="0 0 1792 1792" xmlns="http://www.w3.org/2000/svg"><path fill="currentColor" d="M576 1344q0 80-56 136t-136 56-136-56-56-136 56-136 136-56 136 56 56 136zm512 123q2 28-17 48-18 21-47 21H889q-25 0-43-16.5t-20-41.5q-22-229-184.5-391.5T250 902q-25-2-41.5-20T192 839V704q0-29 21-47 17-17 43-17h5q160 13 306 80.5T826 902q114 113 181.5 259t80.5 306zm512 2q2 27-18 47-18 20-46 20h-143q-26 0-44.5-17.5T1329 1476q-12-215-101-408.5t-231.5-336-336-231.5T252 398q-25-1-42.5-19.5T192 335V192q0-28 20-46 18-18 44-18h3q262 13 501.5 120T1186 542q187 186 294 425.5t120 501.5z"/></svg>
+</i>
+                                </a>
+                            </div>
+
+                            <div class="theme">
+                                <form>
+                                    <label for="color-scheme-switcher">
+                                        <i class="icon"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 512 512"><path d="M8 256c0 136.966 111.033 248 248 248s248-111.034 248-248S392.966 8 256 8 8 119.033 8 256zm248 184V72c101.705 0 184 82.311 184 184 0 101.705-82.311 184-184 184z"/></svg>
+</i>
+                                        <span class="visually-hidden">Site appearance:</span>
+                                    </label>
+                                    <select id="color-scheme-switcher">
+                                        <option value="light">Light mode</option>
+                                        <option value="dark">Dark mode</option>
+                                        <option value="sync" selected>Sync with system</option>
+                                    </select>
+                                </form>
+                            </div>
+                            <script async>
+                                const colorSchemeSwitcher = document.getElementById('color-scheme-switcher');
+                                const currentScheme = localStorage.getItem('colorScheme');
+
+                                colorSchemeSwitcher.value = currentScheme;
+                                colorSchemeSwitcher.addEventListener('change', function () {
+                                    const selectedColorScheme = colorSchemeSwitcher.value;
+                                    let resolvedColorScheme = selectedColorScheme;
+                                    if ('sync' === resolvedColorScheme) {
+                                        resolvedColorScheme = matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
+                                    }
+
+                                    document.body.classList.remove('light-theme', 'dark-theme');
+                                    document.body.classList.add('light' === resolvedColorScheme ? 'light-theme' : 'dark-theme');
+                                    localStorage.setItem('colorScheme', selectedColorScheme);
+                                    document.body.style.colorScheme = resolvedColorScheme;
+                                });
+                            </script>
+                        </div>
+                    </div>
+                </section>
+                        </div>
+</footer>
+
+        
+        <div id="search-modal-backdrop" class="search-container" style="display: none">
+            <div role="dialog" aria-modal="true" id="search-modal-content" tabindex="-1">
+                <button aria-label="Close modal" id="search-modal-close-button">CLOSE</button>
+                <div class="search-container"  data-controller="live" data-live-name-value="search" data-live-url-value="&#x2F;_components&#x2F;search" data-live-id="live-2308103015-0" data-live-props-value="&#x7B;&quot;query&quot;&#x3A;null,&quot;&#x40;attributes&quot;&#x3A;&#x7B;&quot;data-live-id&quot;&#x3A;&quot;live-2308103015-0&quot;&#x7D;,&quot;&#x40;checksum&quot;&#x3A;&quot;X3IS1W7r&#x2B;EH6mQpxQM3UHSOIs&#x5C;&#x2F;vQ9UH4Kksa3VJg6HM&#x3D;&quot;&#x7D;" data-live-csrf-value="86433fd1f72c08dd2697c519.d6qDIUDl3KCTS6hayEa-w9o6xpSVBV-MgRcKf0j2SG0.HZvRRAnIvuTmJvgdjCfUheoCkt_XUB3a1mI9DAWwPQI66bsWBNCq7KU97Q">
+    <form id="form-search" data-model="*">
+        <div class="form-group">
+            <label for="form-search-input" class="sr-only visually-hidden">Search Symfony Docs</label>
+                        <input type="search" name="query" value=""
+                   class="mousetrap form-control form-search-input"
+                   placeholder="Search Symfony Docs" aria-label="Search in Symfony documentation"
+                   autocapitalize="off" autocomplete="off" autocorrect="off" spellcheck="false">
+        </div>
+        <button type="submit" class="sr-only visually-hidden">Search</button>
+    </form>
+
+
+    </div>
+
+
+            </div>
+        </div>
+    <script defer src="https://static.cloudflareinsights.com/beacon.min.js/v84a3a4012de94ce1a686ba8c167c359c1696973893317" integrity="sha512-euoFGowhlaLqXsPWQ48qSkBSCFs3DPRyiwVu3FjR96cMPx+Fr+gpWRhIafcHwqwCqWS42RZhIudOvEI+Ckf6MA==" data-cf-beacon='{"rayId":"8298d1fcf9eb4346","b":1,"version":"2023.10.0","token":"340bb4ab9b624fd09c56d01e77483a49"}' crossorigin="anonymous"></script>
+</body>
+</html>
