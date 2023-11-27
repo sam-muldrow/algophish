@@ -37,7 +37,6 @@ def addCleanTextToListWithLabel(label, cleaned_text):
 def readFilesFromDirAndReturnText(directory_path):
     textList = []
     # Iterate through all files in the directory
-    
     count = 0
     for filename in os.listdir(directory_path):
         print(f"doing file {count}/{len(os.listdir(directory_path))}")
@@ -47,9 +46,10 @@ def readFilesFromDirAndReturnText(directory_path):
                 html_content = file.read()
                 soup = BeautifulSoup(html_content, 'html.parser')
                 cleaned_text = ' '.join(soup.stripped_strings)
+                print(cleaned_text)
                 textList.append(cleaned_text)
         count +=1
-    return cleaned_text
+    return textList
 
 #process phish dir
 phishLabels = createListOfLabeledDataFromDir('../capture_data/phish_out/', 1)
