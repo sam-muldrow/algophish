@@ -2,23 +2,22 @@ from bs4 import BeautifulSoup
 import csv
 import os
 import random
+import re
 
 phish_directory_path = '../capture_data/phish_out'
 real_directory_path = '../capture_data/real_out'
 
 def createCsvFileFromLabeledDataLists(labeledDataList):
     print(f"Creating csv with label {labeledDataList}")
-    data = [
-        ["is_phish", "text"]
-    ]
-    for labeledData in labeledDataList:
-        data.append(labeledData)
     csv_file_path = 'output.csv'
-    with open(csv_file_path, 'w', newline='') as csv_file:
+    with open(csv_file_path, 'w', newline='\n') as csv_file:
         csv_writer = csv.writer(csv_file)
-        csv_writer.writerows(data)
+        csv_writer.writerow(["is_phish", "text"])
+        for labeledData in labeledDataList:
+            csv_writer.writerow(labeledData)      
 
-
+def convert_to_ascii(string):
+  return re.sub(r'[^\x00-\x7F]', '', string)
 
 def createListOfLabeledDataFromDir(directory_path, label):
     print(f"createListOfLabeledDataFromDir {directory_path}, {label}")
@@ -26,7 +25,7 @@ def createListOfLabeledDataFromDir(directory_path, label):
     labeledData = []
     print(f"wowie {directory_path}, {label}")
     for clean_text in cleaned_text_list:
-        labeledData.append(addCleanTextToListWithLabel(label, clean_text))
+        labeledData.append(addCleanTextToListWithLabel(label, convert_to_ascii(clean_text)))
     return labeledData
 
 def addCleanTextToListWithLabel(label, cleaned_text):
@@ -52,11 +51,10 @@ def readFilesFromDirAndReturnText(directory_path):
     return textList
 
 #process phish dir
-phishLabels = createListOfLabeledDataFromDir('../capture_data/phish_out/', 1)
-realLabels = createListOfLabeledDataFromDir('../capture_data/real_out/', 0)
+phishLabels = createListOfLabeledDataFromDir('../capture_data/test_out/', 1)
+realLabels = createListOfLabeledDataFromDir('../capture_data/test_out/', 0)
 
-labeledDataList = list(zip(phishLabels, realLabels))
+labeledDataList = phishLabels + realLabels
 
-random.shuffle(labeledDataList)
 
 createCsvFileFromLabeledDataLists(labeledDataList)
