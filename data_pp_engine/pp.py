@@ -11,7 +11,7 @@ def createCsvFileFromLabeledDataLists(labeledDataList):
     print(f"Creating csv with label {labeledDataList}")
     csv_file_path = 'output.csv'
     with open(csv_file_path, 'w', newline='\n') as csv_file:
-        csv_writer = csv.writer(csv_file)
+        csv_writer = csv.writer(csv_file, escapechar='\\')
         csv_writer.writerow(["is_phish", "text"])
         for labeledData in labeledDataList:
             csv_writer.writerow(labeledData)      
@@ -51,8 +51,8 @@ def readFilesFromDirAndReturnText(directory_path):
     return textList
 
 #process phish dir
-phishLabels = createListOfLabeledDataFromDir('../capture_data/test_out/', 1)
-realLabels = createListOfLabeledDataFromDir('../capture_data/test_out/', 0)
+phishLabels = createListOfLabeledDataFromDir('../capture_data/phish_out/', 1)
+realLabels = createListOfLabeledDataFromDir('../capture_data/real_out/', 0)
 
 labeledDataList = phishLabels + realLabels
 
